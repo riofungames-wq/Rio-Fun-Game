@@ -1,97 +1,118 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Rio Fun Game</title>
-
-  <link href="style/main.css" rel="stylesheet" type="text/css">
-  <link rel="shortcut icon" href="favicon.ico">
-  <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
-  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone 5+ -->
-  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x920.png"  media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone, retina -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-
-  <meta name="HandheldFriendly" content="True">
-  <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
-</head>
-<body>
-  <div class="container">
-    <div class="heading">
-      <h1 class="title">Rio Fun Game</h1>
-      <div class="scores-container">
-        <div class="score-container">0</div>
-        <div class="best-container">0</div>
-      </div>
-    </div>
-
-    <div class="above-game">
-      <p class="game-intro">Merge the numbers and beat your highest score!</p>
-      <a class="restart-button">Restart Game</a>
-    </div>
-
-    <div class="game-container">
-      <div class="game-message">
-        <p></p>
-        <div class="lower">
-	        <a class="keep-playing-button">Continue</a>
-          <a class="retry-button">Play Again</a>
-        </div>
-      </div>
-
-      <div class="grid-container">
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-      </div>
-
-      <div class="tile-container">
-
-      </div>
-    </div>
-
-    <p class="game-explanation">
-  <strong class="important">About:</strong> Play 2048 online on Rio Fun Game. Enjoy and try to beat your highest score!
-</p>
-
-<hr>
-
-<p>
-  <strong>Credits:</strong> Original 2048 game created by Gabriele Cirulli. Customized and published by Rio Fun Game.
-</p>
-  </div>
-
-  <script src="js/bind_polyfill.js"></script>
-  <script src="js/classlist_polyfill.js"></script>
-  <script src="js/animframe_polyfill.js"></script>
-  <script src="js/keyboard_input_manager.js"></script>
-  <script src="js/html_actuator.js"></script>
-  <script src="js/grid.js"></script>
-  <script src="js/tile.js"></script>
-  <script src="js/local_storage_manager.js"></script>
-  <script src="js/game_manager.js"></script>
-  <script src="js/application.js"></script>
-</body>
-</html>
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>Rio Fun Game</title>    <style>  
+    /* Global Styles */  
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }  
+    body { background: #0b1020; color: #fff; }  
+      
+    /* Layout */  
+    header { background: #111827; padding: 18px 40px; display: flex; justify-content: space-between; align-items: center; }  
+    .logo { font-size: 30px; font-weight: bold; color: #00e5ff; }  
+    nav a { color: #fff; text-decoration: none; margin-left: 20px; }  
+      
+    section { padding: 60px 20px; }  
+    h2 { text-align: center; color: #00e5ff; margin-bottom: 30px; }  
+  
+    /* Buttons */  
+    .play-btn { display: inline-block; padding: 15px 40px; background: #00e5ff; color: #000; text-decoration: none; border-radius: 40px; font-weight: bold; }  
+  
+    /* Hero */  
+    .hero { text-align: center; padding: 100px 20px; background: linear-gradient(135deg, #0b1020, #182848); }  
+    .hero h1 { font-size: 55px; margin-bottom: 20px; }  
+    .hero p { font-size: 20px; margin-bottom: 30px; }  
+  
+    /* Game Grid */  
+    .game-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 1200px; margin: auto; }  
+    .game-card { background: #111827; border-radius: 15px; padding: 25px; text-align: center; }  
+    .game-card h3 { margin-bottom: 20px; }  
+  
+    /* Categories */  
+    .category-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1000px; margin: auto; }  
+    .category { background: #1f2937; padding: 15px 30px; border-radius: 30px; color: #fff; font-weight: bold; transition: .3s; cursor: pointer; }  
+    .category:hover { background: #00e5ff; color: #000; }  
+  
+    /* Inputs & Ads */  
+    .search-section { text-align: center; }  
+    .search-section input, .newsletter input { width: 80%; max-width: 500px; padding: 15px; border: none; border-radius: 30px; font-size: 18px; }  
+    .ad-box { max-width: 728px; margin: 20px auto; height: 90px; border: 2px dashed #00e5ff; display: flex; align-items: center; justify-content: center; border-radius: 10px; color: #00e5ff; }  
+      
+    /* Footer */  
+    .newsletter { text-align: center; }  
+    footer { background: #000; color: #aaa; text-align: center; padding: 30px 20px; margin-top: 60px; }  
+  </style>  </head>  
+<body>    <header>  
+    <div class="logo">🎮 Rio Fun Game</div>  
+    <nav>  
+      <a href="#">Home</a>  
+      <a href="#">Games</a>  
+      <a href="#">Categories</a>  
+      <a href="#">Trending</a>  
+    </nav>  
+  </header>    <section class="hero">  
+    <h1>Welcome To Rio Fun Game</h1>  
+    <p>Play Free Online Games Anytime Anywhere.</p>  
+    <a href="#" class="play-btn">Play Now</a>  
+  </section>    <section class="featured">  
+    <h2>🔥 Featured Games</h2>  
+    <div class="game-grid">  
+      <div class="game-card">
+  <h3>2048</h3>
+  <a href="2048/" class="play-btn">Play Now</a>
+</div>
+      <div class="game-card"><h3>Coming Soon</h3></div>  
+      <div class="game-card"><h3>Coming Soon</h3></div>  
+      <div class="game-card"><h3>Coming Soon</h3></div>  
+    </div>  
+  </section>    <section class="categories">  
+    <h2>🎯 Game Categories</h2>  
+    <div class="category-grid">  
+      <div class="category">🧩 Puzzle</div>  
+      <div class="category">🏎 Racing</div>  
+      <div class="category">🔫 Action</div>  
+      <div class="category">🧠 Brain</div>  
+      <div class="category">⚽ Sports</div>  
+      <div class="category">👾 Arcade</div>  
+    </div>  
+  </section>    <section class="trending">  
+    <h2>🔥 Trending Games</h2>  
+    <div class="game-grid">  
+      <div class="game-card"><h3>Subway Surfers</h3></div>  
+      <div class="game-card"><h3>Temple Run</h3></div>  
+      <div class="game-card"><h3>Hill Climb Racing</h3></div>  
+      <div class="game-card"><h3>Stickman Fight</h3></div>  
+    </div>  
+  </section>    <section class="search-section">  
+    <h2>🔍 Search Games</h2>  
+    <input type="text" placeholder="Search your favorite game...">  
+  </section>    <section class="latest-games">  
+    <h2>🆕 Latest Games</h2>  
+    <div class="game-grid">  
+      <div class="game-card"><h3>Coming Soon</h3></div>  
+      <div class="game-card"><h3>Coming Soon</h3></div>  
+      <div class="game-card"><h3>Coming Soon</h3></div>  
+      <div class="game-card"><h3>Coming Soon</h3></div>  
+    </div>  
+  </section>    <section class="banner-ad">  
+    <h2>Advertisement</h2>  
+    <div class="ad-box">728 × 90 Banner Ad</div>  
+  </section>    <section class="why-us">  
+    <h2>⭐ Why Choose Rio Fun Game?</h2>  
+    <div class="category-grid">  
+      <div class="category">🎮 100% Free Games</div>  
+      <div class="category">⚡ Fast Loading</div>  
+      <div class="category">📱 Mobile Friendly</div>  
+      <div class="category">🆕 New Games Every Week</div>  
+      <div class="category">🚫 No Download Required</div>  
+      <div class="category">❤️ Made For Gamers</div>  
+    </div>  
+  </section>    <section class="newsletter">  
+    <h2>📩 Stay Updated</h2>  
+    <p>Subscribe to know when new games are added.</p><br>  
+    <input type="email" placeholder="Enter your email"><br><br>  
+    <a href="#" class="play-btn">Subscribe</a>  
+  </section>    <footer>  
+    <p>© 2026 Rio Fun Game | All Rights Reserved</p>  
+  </footer>  </body>  
+</html>  
