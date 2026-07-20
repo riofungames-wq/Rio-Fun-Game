@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>Hextris</title>
 
 <meta name="apple-itunes-app" content="app-id=903769553"/>
 
 <link rel="icon" type="image/png" href="favicon.ico">
+
 <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+
 <link rel="stylesheet" href="style/fa/css/font-awesome.min.css">
 <link rel="stylesheet" href="style/style.css">
 <link rel="stylesheet" href="style/rrssb.css">
@@ -40,7 +45,31 @@
 </head>
 
 <body>
-	<div id="highScoreInGameText">
+
+<canvas id="canvas"></canvas>
+
+<div id="overlay" class="faded overlay"></div>
+
+<div id="startBtn"></div>
+
+<div id="helpScreen" class="unselectable">
+    <div id="inst_main_body"></div>
+</div>
+
+<img id="openSideBar"
+class="helpText"
+src="./images/btn_help.svg">
+
+<div class="faded overlay"></div>
+
+<img id="pauseBtn" src="./images/btn_pause.svg">
+
+<img id="restartBtn" src="./images/btn_restart.svg">
+
+<div id="HIGHSCORE">
+HIGH SCORE
+</div>
+<div id="highScoreInGameText">
     <div id="highScoreInGameTextHeader">HIGH SCORE</div>
     <div id="currentHighScore">0</div>
 </div>
@@ -83,10 +112,8 @@
              height="57">
 
         <div id="buttonCont">
-
             <ul class="rrssb-buttons">
             </ul>
-
         </div>
 
     </div>
@@ -95,7 +122,7 @@
 
 <script src="vendor/rrssb.min.js"></script>
 <!-- =========================
-     Game Credits
+     Game Credit
 ========================= -->
 
 <hr style="margin:30px 0;border:1px solid #333;">
