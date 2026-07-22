@@ -1,1 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Offline | Rio Maggi Point</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#263525">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Rio Maggi Point">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #050505;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    background: #f5d99b;
+    border: 3px solid #d19b4a;
+    border-radius: 18px;
+    padding: 35px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.45);
+    text-align: center;
+}
+
+h1 {
+    font-size: 70px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 28px;
+    color: #222;
+    margin-bottom: 15px;
+}
+
+p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.bannerAd {
+    height: 90px;
+    border: 2px dashed #999;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    margin: 20px 0;
+    font-weight: bold;
+    color: #777;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background: #263525;
+    color: #ffd54f;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .25s;
+}
+
+button:hover {
+    background: #1c271b;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📡</h1>
+
+    <h2>No Internet Connection</h2>
+
+    <p>
+        You're currently offline.<br>
+        Please check your internet connection and try again.
+    </p>
+
+    <div class="bannerAd">
+        Google AdSense Banner (Responsive)
+    </div>
+
+    <button id="retryBtn">
+        🔄 Try Again
+    </button>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    document.getElementById("retryBtn").addEventListener("click", () => {
+        if (navigator.onLine) {
+            window.location.href = "index.html";
+        } else {
+            alert("📡 Internet connection is still unavailable.");
+        }
+    });
+
+    // Auto Redirect when Internet Returns
+    window.addEventListener("online", () => {
+        window.location.href = "index.html";
+    });
+
+});
+</script>
+
+</body>
+</html>
