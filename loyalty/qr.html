@@ -1,1 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Rio Maggi Point - My QR Code</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #050505;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 450px;
+    background: #f5d99b;
+    border: 3px solid #d19b4a;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.45);
+}
+
+h1 {
+    text-align: center;
+    color: #222;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #555;
+    margin-bottom: 25px;
+    font-size: 15px;
+}
+
+.qr-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #d19b4a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: #fff7df;
+    border: 2px solid #d19b4a;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+.value {
+    font-size: 18px;
+    font-weight: bold;
+    color: #222;
+    word-break: break-word;
+}
+
+.status {
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: bold;
+    background: #fff7df;
+    border: 2px solid #d19b4a;
+    color: #222;
+    font-size: 16px;
+}
+
+.bannerAd {
+    height: 90px;
+    margin: 20px 0;
+    border: 2px dashed #999;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    color: #777;
+    font-weight: bold;
+}
+
+button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    background: #263525;
+    color: #ffd54f;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .25s;
+}
+
+button:hover {
+    background: #1c271b;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📱 My QR Code</h1>
+
+    <p class="subtitle">
+        Show this QR Code to the Staff
+    </p>
+
+    <div class="qr-box">
+        <div id="qrcode"></div>
+    </div>
+
+    <div class="card">
+        <div class="label">Customer Name</div>
+        <div class="value" id="customerName">Loading...</div>
+    </div>
+
+    <div class="card">
+        <div class="label">Mobile Number</div>
+        <div class="value" id="customerMobile">Loading...</div>
+    </div>
+
+    <div class="status" id="stampStatus">
+        Loading...
+    </div>
+
+    <div class="bannerAd">
+        Google AdSense Banner
+    </div>
+
+    <button id="profileBtn">
+        ⬅ Back to Profile
+    </button>
+
+</div>
+
+<!-- QR Code Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const customer = JSON.parse(
+        localStorage.getItem("currentCustomer")
+    );
+
+    // Login Check
+    if (!customer) {
+        alert("Please Login First!");
+        window.location.href = "login.html";
+        return;
+    }
+
+    // Customer Details
+    document.getElementById("customerName").textContent = customer.name;
+    document.getElementById("customerMobile").textContent = customer.mobile;
+    document.getElementById("stampStatus").textContent = "Loyalty Stamps: " + customer.stamps + " / 6";
+
+    // Generate QR Code
+    new QRCode(document.getElementById("qrcode"), {
+        text: customer.mobile,
+        width: 200,
+        height: 200
+    });
+
+    // Back Button
+    document.getElementById("profileBtn").addEventListener("click", () => {
+        window.location.href = "profile.html";
+    });
+
+});
+</script>
+
+</body>
+</html>
