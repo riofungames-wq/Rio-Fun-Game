@@ -1,0 +1,6831 @@
+notes: /* empty */
+libs:
+  random: {}
+  fittoscreen:
+    manageViewport: true
+    mode: scaleFill
+  place: {}
+  keyboard.polyfill: {}
+  keyboard: {}
+  vkeys: {}
+  touch: {}
+  mouse: {}
+  tween: {}
+  transition: {}
+  gamepad: {}
+  sound.howler:
+    defaultMaxDistance: 2500
+    useDepth: false
+    manageListenerPosition: true
+types:
+  - name: Box
+    depth: 0
+    oncreate: |-
+      this.canMove = (direction) => {
+          return !ct.place.tile(this, this.x + direction, this.y, -10) &&
+              ct.place.free(this, this.x + direction, this.y, 'Solid') && 
+              (ct.place.tile(this, this.x, this.y + 10, -10) ||
+              !ct.place.free(this, this.x, this.y + 10, 'Solid'));
+      }
+    onstep: |-
+      /*
+      if (ct.place.meet(this, this.x + 5, this.y, 'Player') &&
+          !ct.place.tile(this, this.x - 10, this.y, -10) &&
+          ct.place.free(this, this.x - 10, this.y, 'Solid')) {
+          this.x -= 10;
+      }
+      if (ct.place.meet(this, this.x - 5, this.y, 'Player') &&
+          !ct.place.tile(this, this.x + 10, this.y, -10) &&
+          ct.place.free(this, this.x + 10, this.y, 'Solid')) {
+          this.x += 10;
+      }
+      */
+      if (!ct.place.tile(this, this.x, this.y + 10, -10) &&
+          ct.place.free(this, this.x, this.y + 10, 'Solid')
+      ) {
+          this.y += 10;
+      }
+    ondraw: ''
+    ondestroy: ''
+    uid: b7a528f8-655c-4920-900f-f191533f411d
+    lastmod: 1621300756681
+    extends:
+      ctype: Solid
+    texture: d8dd2bfd-0f9d-495a-bbfd-0e65b80153b9
+  - name: Logs
+    depth: 0
+    oncreate: ''
+    onstep: ''
+    ondraw: ''
+    ondestroy: ''
+    uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+    lastmod: 1621129694858
+    extends:
+      ctype: Solid
+    texture: f3de5077-0e66-43de-93f2-d3a75184aa2e
+  - name: Grass
+    depth: 0
+    oncreate: ''
+    onstep: ''
+    ondraw: ''
+    ondestroy: ''
+    uid: 5ff42cc3-0b4a-47e9-b6f1-06d3b3b91bb0
+    lastmod: 1621258068701
+    extends:
+      ctype: Solid
+    texture: 9968de05-f39d-4455-aaed-175c03728bb1
+  - name: Spikes
+    depth: 0
+    oncreate: ''
+    onstep: ''
+    ondraw: ''
+    ondestroy: ''
+    uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+    lastmod: 1621084782188
+    extends:
+      ctype: Enemy
+    texture: eed6bb2f-301f-460a-8d91-93396d103b4e
+  - name: Player
+    depth: 0
+    oncreate: |
+      this.animationSpeed = 15 / 60;
+
+      // Traditional speed/dir movement system works badly with platformers.
+      // We will set up our own variables and write own movement code.
+
+      this.maxspeed = 5; // this will be our max horizontal speed
+      this.acceleration = 1; // this is walking acceleration
+      this.jumpPower = 12; // this is our jumping velocity
+      this.gravity = 0.5;
+
+
+      // Camera should follow the character
+
+      ct.camera.follow = this;
+      ct.camera.borderX = 400;
+      ct.camera.borderY = 200;
+      ct.camera.drift = 0.95;
+    onstep: "if (this.suspension > 1) {\n    this.suspension--;\n    return;\n}\nelse if (this.suspension === 1) {\n    ct.sound.spawn('BodyFall');\n    ct.rooms.switch('DeadScreen');\n}\n\nif (this.goodSuspension > 1) {\n    this.goodSuspension--;\n    return;\n}\nelse if (this.goodSuspension === 1) {\n    ct.rooms.switch('RichScreen');\n}\n\n\n// here and below we check for both collisions with tiles and copies.\n// -10 is the depth of the colliding tile layer. We ignore the decorative\n// layer at -20.\nvar onGround = ct.place.occupied(this, this.x, this.y + 1, 'Solid') ||\n               ct.place.tile(this, this.x, this.y + 1, -10);\n\n// Move right or left\nif (ct.actions.Move.value > 0.5) {\n    if (this.hspeed < this.maxspeed) {\n        this.hspeed += this.acceleration;\n    }\n    if ((this.currentFrame > 10 || !this.playing) && onGround) {\n        this.gotoAndPlay(0);\n    }\n} else if (ct.actions.Move.value < -0.5) {\n    if (this.hspeed > -this.maxspeed) {\n        this.hspeed -= this.acceleration;\n    }\n    if ((this.currentFrame > 10 || !this.playing) && onGround) {\n        this.gotoAndPlay(0);\n    }\n} else { // Slow down if we are on the ground and we don't move.\n    if (onGround) {\n        this.speed = Math.max(0, this.speed - this.maxspeed);\n        this.gotoAndStop(9);\n    } else if (!ct.actions.Move.pressed) {\n        // Don't move if we are not pressing the move button\n        this.hspeed = 0;\n    }\n}\n\n\n// If we are not on the ground, add gravity\nif (!onGround) {\n    this.vspeed += this.gravity * ct.delta;\n    if (this.currentFrame > 9 && this.currentFrame !== 12) {\n\t\tthis.gotoAndStop(11);\n\t}\n}\n\n// Jumping\nif (ct.actions.Jump.down) {\n    // Jump only if we stay on the ground\n    if (onGround) {\n        this.vspeed = -this.jumpPower;\n        this.gotoAndStop(12);\n    }\n}\n\n// Jumping and forward\nif (ct.actions.JumpAndForward.down) {\n    // Jump only if we stay on the ground\n    if (onGround) {\n        this.vspeed = -this.jumpPower;\n        if (this.hspeed === 0) {\n            this.inAirForward = 1 * this.scale.x;\n            this.hspeed = 1 * this.scale.x;\n        }\n        this.gotoAndStop(12);\n    }\n}\n\nif (this.inAirForward) {\n    if (!ct.actions.JumpAndForward.down) {\n        this.inAirForward = 0;\n    }\n    else {\n        this.hspeed = this.inAirForward;\n    }\n}\n\n// Move pixel by pixel until we meet a colliding object next to us\n//\n// Premultiply the target speed with ct.delta to ensure the same movement\n// over different FPS.\n//\n// Math.sign returns -1 if a number is negative, 1 if positive and 0 if it is 0.\n// Math.abs turns everything into a positive number.\n// Combined, Math.abs and Math.sign allow to loop in any direction.\nvar boxException\nfor (var i = 0; i < Math.abs(this.hspeed * ct.delta); i++) {\n    if (ct.place.free(this, this.x + Math.sign(this.hspeed), this.y, 'Solid') &&\n        !ct.place.tile(this, this.x + Math.sign(this.hspeed), this.y, -10)\n    ) {\n        this.x += Math.sign(this.hspeed);\n    } else if (!ct.place.tile(this, this.x + Math.sign(this.hspeed), this.y, -10)) {\n        var isItJustABox = ct.place.occupied(this, this.x + Math.sign(this.hspeed), this.y, 'Solid', true);\n        if (isItJustABox.length === 1 && isItJustABox[0].type === 'Box' && isItJustABox[0].canMove(Math.sign(this.hspeed))) {\n            this.x += Math.sign(this.hspeed);\n            isItJustABox[0].x += Math.sign(this.hspeed);\n        }\n        else {\n            this.hspeed = 0;\n            break;\n        }\n    } else {\n        this.hspeed = 0;\n        break;\n    } \n}\n\n\n// Do the same for vertical speed\nfor (var i = 0; i < Math.abs(this.vspeed * ct.delta); i++) {\n    if (ct.place.free(this, this.x, this.y + Math.sign(this.vspeed), 'Solid') &&\n        !ct.place.tile(this, this.x, this.y + Math.sign(this.vspeed), -10)\n    ) {\n        this.y += Math.sign(this.vspeed);\n    } else {\n        var isItJustABox = ct.place.occupied(this, this.x, this.y + Math.sign(this.vspeed), 'Solid', true);\n        var isItSameBox = ct.place.occupied(this, this.x + Math.sign(this.hspeed), this.y, 'Solid');\n        if (!ct.place.tile(this, this.x, this.y + Math.sign(this.vspeed), -10) /* there is no tile */\n            && isItJustABox.length === 1 && isItJustABox[0].type === 'Box' /* the occupied space is a box */\n            && isItJustABox[0] === isItSameBox /* no skiing - i.e. riding a box on its side */) {\n            this.y += Math.sign(this.vspeed);\n        }\n        else {\n            this.vspeed = 0;\n            break;\n        }\n    }\n}\n\n// Check if we collide with spikes\nif (ct.place.occupied(this, this.x, this.y, 'Enemy')) {\n    this.suspension = 5;\n}\n"
+    ondraw: |-
+      if (this.hspeed < 0) {
+          this.scale.x = -1;
+      } else if (this.hspeed > 0) {
+          this.scale.x = 1;
+      }
+
+      ct.camera.shiftX = this.scale.x * 150;
+    ondestroy: ''
+    uid: 00664f77-21c6-4b06-b310-88640b1beaf9
+    lastmod: 1623632174747
+    extends:
+      ctype: Player
+    texture: ad390b6e-4c2c-412f-8143-1c70b9c16fc0
+  - name: Coin
+    depth: 0
+    oncreate: ''
+    onstep: |-
+      if (ct.place.meet(this, this.x, this.y, 'Player') && !this.kill) {
+          this.kill = true;
+          ct.sound.spawn(ct.random.dice('Coin_01', 'Coin_02', 'Coin_03'));
+          ct.room.coins ++;
+      }
+    ondraw: ''
+    ondestroy: ''
+    uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+    lastmod: 1621129701458
+    extends: {}
+    texture: 62be2903-9782-49fc-b551-ef2e641091c9
+  - name: Greed
+    depth: 0
+    oncreate: ''
+    onstep: ''
+    ondraw: ''
+    ondestroy: ''
+    uid: 2d29a0d5-d88d-493d-bece-8d52ed476273
+    lastmod: 1621255591955
+    extends: {}
+    texture: e90eb23b-547a-4d96-a203-ffe63c00cf9b
+  - name: Slime
+    depth: 0
+    oncreate: |-
+      this.speed = 1;
+      this.direction = -180;
+
+      this.animationSpeed = 4 / 60;
+      this.play();
+    onstep: >-
+      var freeBelow = !ct.place.tile(this, this.x + ct.u.ldx(70,
+      this.direction), this.y + 35, -10) &&
+                      ct.place.free(this, this.x + ct.u.ldx(70, this.direction), this.y + 35, 'Solid');
+
+      var occupiedInFront = ct.place.tile(this, this.x + ct.u.ldx(10,
+      this.direction), this.y, -10) ||
+                            ct.place.occupied(this, this.x + ct.u.ldx(10, this.direction), this.y, 'Solid');
+
+      var isOnTop = ct.place.occupied(this, 'Solid');
+
+
+      if (isOnTop) {
+          this.kill = true;
+          ct.sound.spawn('Splat');
+      }
+
+
+      if (freeBelow || occupiedInFront) {
+          if (this.direction === 180) {
+              this.direction = 0;
+              this.scale.x = -1;
+          } else {
+              this.direction = 180;
+              this.scale.x = 1;
+          }
+      }
+
+
+      this.move();
+    ondraw: ''
+    ondestroy: ''
+    uid: 1f91fd7d-2d6c-4542-aead-78b8010b835b
+    lastmod: 1621127643791
+    extends:
+      ctype: Enemy
+    texture: 703fb5d5-cf20-4450-b760-0b1cd037a5ad
+  - name: Rich
+    depth: 0
+    oncreate: ''
+    onstep: ''
+    ondraw: ''
+    ondestroy: ''
+    uid: b658efa2-360e-4a62-8640-3e3281156f4e
+    lastmod: 1599534002727
+    extends: {}
+    texture: 1da28af4-53f1-4958-82b2-a696778f910f
+  - name: ToggleFullscreen
+    depth: 100
+    oncreate: ''
+    onstep: |-
+      if (ct.mouse.pressed && ct.mouse.hoversUi(this)) {
+          ct.fittoscreen.toggleFullscreen();
+      }
+
+      if (ct.touch.enabled && ct.touch.hoversUi(this)) {
+          ct.fittoscreen.toggleFullscreen();
+      }
+    ondraw: 'this.gotoAndStop(ct.fittoscreen.getIsFullscreen()? 1 : 0);'
+    ondestroy: ''
+    uid: 8a4b8de4-7729-4936-bc7b-bc277a512975
+    lastmod: 1621085590286
+    extends: {}
+    texture: d161a39a-203e-4099-99e2-41385d94f975
+  - name: CoinWidget
+    depth: 0
+    oncreate: |-
+      this.coinsCounter = new PIXI.Text(this.coins, ct.styles.get('CoinText'));
+      this.coinsCounter.x = 40;
+      this.coinsCounter.anchor.y = 0.5;
+      this.addChild(this.coinsCounter);
+    onstep: ''
+    ondraw: >
+      if (window.totalCoins && this.coinsCounter.text != ct.room.coins + ' / ' +
+      window.totalCoins) {
+          this.coinsCounter.text = ct.room.coins + ' / ' + window.totalCoins;
+      }
+
+      this.coinsCounter.scale.x = window.wasResized ? 2.0 : 1.0;
+
+      this.coinsCounter.scale.y = window.wasResized ? 2.0 : 1.0;
+    ondestroy: ''
+    uid: 1f73eb4f-8795-4234-af61-2c44c3fba073
+    texture: 62be2903-9782-49fc-b551-ef2e641091c9
+    extends: {}
+    lastmod: 1621301852101
+  - name: ButtonLeft
+    depth: 0
+    oncreate: |-
+      this.button = ct.vkeys.button({
+          key: "Vk2",
+          texNormal: "buttonLeft",
+          texActive: "buttonLeft",
+          texHover: "buttonLeft",
+          x: () => this.x,
+          y: () => this.y,
+          depth: 1000
+      });
+      this.alpha = 0.5;
+      this.button.visible = false;
+    onstep: ''
+    ondraw: |
+      this.button.x = this.x;
+      this.button.y = this.y;
+      this.button.scale.x = window.wasResized ? 2.0 : 1.0;
+      this.button.scale.y = window.wasResized ? 2.0 : 1.0;
+      this.scale.x = window.wasResized ? 2.0 : 1.0;
+      this.scale.y = window.wasResized ? 2.0 : 1.0;
+    ondestroy: ''
+    uid: 45a6ee81-34af-494e-914e-51ec9d414314
+    texture: e706498a-bfef-4366-9481-687b01ff7bf1
+    extends: {}
+    lastmod: 1621086376529
+  - name: ButtonRight
+    depth: 0
+    oncreate: |-
+      this.button = ct.vkeys.button({
+          key: "Vk1",
+          texNormal: "buttonRight",
+          texActive: "buttonRight",
+          texHover: "buttonRight",
+          x: () => this.x,
+          y: () => this.y,
+          depth: 1000
+      });
+      this.alpha = 0.5;
+      this.button.visible = false;
+    onstep: |+
+
+    ondraw: |
+      this.button.x = this.x;
+      this.button.y = this.y;
+      this.button.scale.x = window.wasResized ? 2.0 : 1.0;
+      this.button.scale.y = window.wasResized ? 2.0 : 1.0;
+      this.scale.x = window.wasResized ? 2.0 : 1.0;
+      this.scale.y = window.wasResized ? 2.0 : 1.0;
+    ondestroy: ''
+    uid: 03773b4b-e444-4a2d-9891-3ddf9575cc87
+    texture: 8f3b23d8-3aed-429a-a66e-9572cad7919a
+    extends: {}
+    lastmod: 1621086015041
+  - name: ButtonJump
+    depth: 0
+    oncreate: |
+      this.button = ct.vkeys.button({
+          key: "Vk4",
+          texNormal: "buttonJump",
+          texActive: "buttonJump",
+          texHover: "buttonJump",
+          x: () => this.x,
+          y: () => this.y,
+          depth: 1000
+      });
+      this.alpha = 0.5;
+      this.button.visible = false;
+    onstep: ''
+    ondraw: >
+      this.button.x = this.x;
+
+      this.button.y = this.y;
+
+      this.button.scale.x = window.wasResized ? 2.0 : 1.0;
+
+      this.button.scale.y = window.wasResized ? 2.0 : 1.0;
+
+      this.scale.x = (window.wasResized ? 2.0 : 1.0) *
+      ct.types.list['Player'][0].scale.x;
+
+      this.scale.y = window.wasResized ? 2.0 : 1.0;
+    ondestroy: ''
+    uid: 86f037f0-9a1c-4306-9d67-00be01bbd793
+    texture: b5121b5f-8109-45c0-9fa4-44f9f10ce88c
+    extends: {}
+    lastmod: 1621257227691
+  - name: TryAgain
+    depth: 0
+    oncreate: ''
+    onstep: >
+
+
+      if (ct.mouse.hovers(this) && this.currentFrame !== 2 + (this.nextWorld ? 0
+      : 1)) {
+          this.gotoAndStop(2 + (this.nextWorld ? 0 : 1));
+      }
+
+      else if (!ct.mouse.hovers(this) && this.currentFrame !== 0 +
+      (this.nextWorld ? 0 : 1)) {
+          this.gotoAndStop(0 + (this.nextWorld ? 0 : 1));
+      }
+
+
+      if (ct.touch.collide(this) || (this.isMain && ct.actions.Enter.pressed) ||
+      (this.nextWorld && ct.actions.Restart.pressed) || (ct.mouse.hovers(this)
+      && ct.mouse.pressed) || (this.isMain && ct.gamepad.getButton('Button1'))
+      || (this.isAlternative && ct.gamepad.getButton('Button2'))) {
+
+          window.touchPause = Date.now();
+          if (this.isMain && this.nextWorld) {
+              switch (window.activeRoom) {
+                  case 1:
+                      ct.rooms.switch('InGame2');
+                  break;
+                  case 2:
+                      ct.rooms.switch('InGame3');
+                  break;
+                  default:
+                      ct.rooms.switch('Title');
+                  break;
+              }
+          }
+          else if (this.nextWorld) {
+              ct.rooms.switch('Title');
+          }
+          else {
+              switch (window.activeRoom) {
+                  case 3:
+                      ct.rooms.switch('InGame3');
+                  break;
+                  case 2:
+                      ct.rooms.switch('InGame2');
+                  break;
+                  default:
+                      ct.rooms.switch('InGame');
+                  break;
+              }
+          }
+
+      }
+    ondraw: ''
+    ondestroy: ''
+    uid: 64fac189-737e-4e56-a8fc-15eccae6bf2a
+    texture: 0298d848-efe7-48e5-8d68-9128ba8b4e02
+    extends: {}
+    lastmod: 1622120856641
+  - name: Reload
+    depth: 100
+    oncreate: |
+      this.button = ct.vkeys.button({
+          key: "Vk5",
+          texNormal: "reload",
+          texActive: "reload",
+          texHover: "reload",
+          x: () => this.x,
+          y: () => this.y,
+          depth: 1000
+      });
+      this.button.visible = false;
+    onstep: |-
+      if (ct.actions.Restart.pressed) {
+          ct.rooms.switch('DeadScreen');
+      }
+    ondraw: |
+      this.button.x = this.x;
+      this.button.y = this.y;
+    ondestroy: ''
+    texture: 5bb12d21-9254-4d3a-9052-b972154978ed
+    extends: {}
+    uid: 6aa04184-e1f0-42d3-8ea6-c3daac2e44bd
+    lastmod: 1621087921723
+  - name: Title
+    depth: 0
+    oncreate: ''
+    onstep: this.move();
+    ondraw: ''
+    ondestroy: ''
+    texture: a8c34fdd-072d-4eac-8e28-1f39e63b6af0
+    extends: {}
+    uid: 94996d69-f6f1-4f71-a0ab-79059c869a6c
+    lastmod: 1621226476476
+  - name: Button
+    depth: 0
+    oncreate: |-
+      this.doneOffset = 0;
+      try {
+          this.doneOffset = localStorage.getItem("greedii_level" + this.world + "_done") ? 2 : 0;
+      }
+      catch (e) {
+          console.warn("Local storage has failed - maybe the user is in Private Browsing")
+      }
+      this.gotoAndStop(0 + this.doneOffset);
+    onstep: >-
+      if (ct.mouse.hovers(this) && this.currentFrame !== 1 + this.doneOffset &&
+      !window.gamepadSelect) {
+          this.gotoAndStop(1 + this.doneOffset);
+      }
+
+      else if (!ct.mouse.hovers(this) && this.currentFrame !== 0 +
+      this.doneOffset && !window.gamepadSelect) {
+          this.gotoAndStop(0 + this.doneOffset);
+      }
+
+      else if (ct.gamepad.getAxis('LStickY') > 0.7) {
+          window.gamepadSelect = 2;
+          if (this.world === 2 && this.currentFrame !== 1 + this.doneOffset) {
+              this.gotoAndStop(1 + this.doneOffset);
+          }
+          else if (this.world != 2 && this.currentFrame !== 0 + this.doneOffset) {
+              this.gotoAndStop(0 + this.doneOffset);
+          }
+      }
+
+      else if (ct.gamepad.getAxis('LStickX') > 0.7) {
+          window.gamepadSelect = 3;
+          if (this.world === 3 && this.currentFrame !== 1 + this.doneOffset) {
+              this.gotoAndStop(1 + this.doneOffset);
+          }
+          else if (this.world != 3 && this.currentFrame !== 0 + this.doneOffset) {
+              this.gotoAndStop(0 + this.doneOffset);
+          }
+      }
+
+      else if (ct.gamepad.getAxis('LStickX') < -0.7) {
+          window.gamepadSelect = 1;
+          if (this.world === 1 && this.currentFrame !== 1 + this.doneOffset) {
+              this.gotoAndStop(1 + this.doneOffset);
+          }
+          else if (this.world != 1 && this.currentFrame !== 0 + this.doneOffset) {
+              this.gotoAndStop(0 + this.doneOffset);
+          }
+      }
+
+
+      if (ct.actions.Enter.pressed || ct.keyboard.lastKey === '1') {
+          ct.keyboard.clear();
+          ct.rooms.switch('InGame');
+      }
+
+      else if (ct.keyboard.lastKey === '2') {
+          ct.keyboard.clear();
+          ct.rooms.switch('InGame2');
+      }
+
+      else if (ct.keyboard.lastKey === '3') {
+          ct.keyboard.clear();
+          ct.rooms.switch('InGame3');
+      }
+
+
+      if ((ct.touch.collide(this) && Date.now() > (window.touchPause || 0) +
+      1000) || (ct.mouse.pressed && ct.mouse.hovers(this)) ||
+      (ct.gamepad.getButton('Button1') && window.gamepadSelect === this.world))
+      {
+          window.gamepadSelect = undefined;
+          switch (this.world) {
+              case 1:
+                  ct.rooms.switch('InGame');
+              break;
+              case 2:
+                  ct.rooms.switch('InGame2');
+              break;
+              default:
+                  ct.rooms.switch('InGame3');
+              break;
+          }
+      }
+    ondraw: ''
+    ondestroy: ''
+    texture: 95379108-a9a4-48a2-8dc2-bcdf749107aa
+    extends: {}
+    uid: e3851f67-0e32-4882-b0a0-4fc5a0d63905
+    lastmod: 1623630567304
+  - name: Room1
+    depth: 0
+    oncreate: ''
+    onstep: this.move();
+    ondraw: ''
+    ondestroy: ''
+    texture: f2e6a514-1fb9-426a-a1d0-75ab60d9a381
+    extends: {}
+    uid: 39143fec-c4ae-406d-a0a3-599587210d3c
+    lastmod: 1621256694316
+  - name: Room2
+    depth: 0
+    oncreate: ''
+    onstep: this.move();
+    ondraw: ''
+    ondestroy: ''
+    texture: 3db19a65-87a0-4d7b-bf48-f9edf7ed4e83
+    extends: {}
+    uid: 07ef77a1-1083-4800-b970-cdfeffeaaa1b
+    lastmod: 1621328067778
+  - name: room3
+    depth: 0
+    oncreate: ''
+    onstep: this.move();
+    ondraw: ''
+    ondestroy: ''
+    texture: 911ffbab-a3f3-41e9-92f0-f4b3579b47de
+    extends: {}
+    uid: 8def785e-6733-466e-9f37-b344164d2ad9
+    lastmod: 1621815877125
+sounds:
+  - name: BodyFall
+    uid: 64f57367-eae3-40e1-8769-e11bd3c90f62
+    origname: s0.wav
+    lastmod: 1522761534690
+  - name: Failure
+    uid: 0f16063e-c954-4e7e-8b09-32b844511c9e
+    origname: s1.wav
+    lastmod: 1522761553815
+  - name: Victory
+    uid: 1d5b2c13-0324-41be-bbd5-e69abfd5bd49
+    origname: s2.wav
+    lastmod: 1522761569514
+  - name: Coin_01
+    uid: 7ed9f9ad-d9fc-436d-b97f-59aa81348543
+    origname: s3.wav
+    lastmod: 1522761582110
+  - name: Coin_02
+    uid: d5d0b307-685d-4ecc-8ffe-e24a063d9f15
+    origname: s4.wav
+    lastmod: 1522761594384
+  - name: Coin_03
+    uid: b614ec30-9837-466e-94a5-dda36bdf9daf
+    origname: s5.wav
+    lastmod: 1522761606687
+  - name: Splat
+    uid: 16b1b11a-8923-4cbb-8491-9464b4eb96b3
+    origname: s16b1b11a-8923-4cbb-8491-9464b4eb96b3.wav
+    lastmod: 1621127353059
+styles:
+  - name: CoinText
+    shadow: false
+    uid: 7879b9dc-6868-4c97-b71e-129d03c77ee1
+    origname: s1
+    font:
+      family: sans-serif
+      size: 24
+      weight: '900'
+      italic: false
+      valign: middle
+      halign: left
+      lineHeight: 24
+    fill:
+      type: '0'
+      color: '#FFCC40'
+    lastmod: 1621127514333
+  - name: OhNo
+    uid: 0db56e97-cb4d-43bf-a067-7a7ab9f32099
+    origname: s2
+    font:
+      family: sans-serif
+      size: 48
+      weight: '800'
+      italic: false
+      valign: middle
+      halign: center
+    fill:
+      type: '0'
+      color: '#257073'
+    lastmod: 1621145694061
+  - name: OhNo_Small
+    uid: ad511489-1f25-4d45-bbe8-7f33d08257e4
+    origname: s4
+    font:
+      family: sans-serif
+      size: 24
+      weight: '800'
+      italic: false
+      valign: middle
+      halign: center
+    fill:
+      type: '0'
+      color: '#257073'
+    lastmod: 1621145696901
+rooms:
+  - name: InGame
+    oncreate: |
+      ct.transition.fadeIn(400, 0xc7f2f5);
+
+      this.coins = 0;
+      window.totalCoins = 33;
+
+      ct.rooms.append('UI_Layer', {isUi: true});
+
+      window.activeRoom = 1;
+      window.wasResized = false;
+    onstep: |+
+      if (window.totalCoins && this.coins >= window.totalCoins) {
+          if (!ct.types.list['Player'][0].goodSuspension) ct.types.list['Player'][0].goodSuspension = 24;
+      }
+
+    ondraw: |
+      if (window.innerHeight > window.innerWidth && !window.wasResized) {
+          ct.camera.scale.y = 0.7;
+          ct.camera.scale.x = 0.7;
+          ct.camera.borderY = null;
+          window.wasResized = true;
+      }
+      else if (window.innerHeight < window.innerWidth && window.wasResized) {
+          ct.camera.scale.y = 1.0;
+          ct.camera.scale.x = 1.0;
+          ct.camera.borderY = 200;
+          window.wasResized = false;
+      }
+    onleave: ''
+    width: 1024
+    height: 700
+    backgrounds:
+      - depth: '-50'
+        extends: {}
+        texture: fd9d7012-6826-4368-8fe5-0385b72bc902
+    uid: b0f0ff4d-a155-4d68-a86e-5bb7ed8973ab
+    grid: 35
+    lastmod: 1623632471623
+    thumbnail: 1
+    tiles:
+      - depth: -10
+        tiles:
+          - x: -70
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 0
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 70
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 140
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 210
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 280
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1680
+            'y': 280
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1680
+            'y': 210
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1680
+            'y': 140
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1680
+            'y': 70
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1680
+            'y': 0
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 350
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 420
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 490
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 560
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 770
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 840
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 910
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 980
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1050
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1120
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1190
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1260
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1330
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1400
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1470
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1540
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1610
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1680
+            'y': -70
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 0
+            'y': 490
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 70
+            'y': 490
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 140
+            'y': 490
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 210
+            'y': 490
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 280
+            'y': 490
+            grid:
+              - 2
+              - 0
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 560
+            'y': 490
+            grid:
+              - 0
+              - 0
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 840
+            'y': 490
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 630
+            'y': 490
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 700
+            'y': 490
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 770
+            'y': 490
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 840
+            'y': 560
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 910
+            'y': 560
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 980
+            'y': 560
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1050
+            'y': 560
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1120
+            'y': 560
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1190
+            'y': 560
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 0
+            'y': 560
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 0
+            'y': 630
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 0
+            'y': 700
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 0
+            'y': 770
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 0
+            'y': 840
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 70
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 140
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 210
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 280
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 350
+            'y': 840
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 350
+            'y': 910
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 420
+            'y': 910
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 490
+            'y': 910
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 560
+            'y': 910
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 560
+            'y': 840
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 630
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 700
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 770
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 840
+            'y': 840
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 840
+            'y': 910
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1050
+            'y': 910
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 910
+            'y': 910
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 980
+            'y': 910
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1190
+            'y': 350
+            grid:
+              - 3
+              - 0
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1190
+            'y': 420
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1190
+            'y': 490
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1330
+            'y': 350
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1330
+            'y': 420
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1330
+            'y': 490
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1330
+            'y': 560
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1400
+            'y': 560
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1400
+            'y': 630
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1400
+            'y': 700
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1400
+            'y': 770
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1400
+            'y': 840
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1400
+            'y': 350
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1470
+            'y': 350
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1540
+            'y': 350
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1610
+            'y': 350
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1680
+            'y': 350
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1120
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1190
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1260
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1330
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1050
+            'y': 840
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 105
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 0
+              - 1
+              - 1
+          - x: 175
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 245
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 315
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 385
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 455
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 0
+              - 1
+              - 1
+          - x: 630
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 700
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -210
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 315
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 245
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 175
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 175
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 245
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -140
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -210
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+          - x: -210
+            'y': -0.0
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -140
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -70
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+        extends:
+          ctype: Solid
+      - depth: -20
+        tiles:
+          - x: 70
+            'y': 420
+            grid:
+              - 3
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 140
+            'y': 420
+            grid:
+              - 3
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 210
+            'y': 420
+            grid:
+              - 3
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 945
+            'y': 490
+            grid:
+              - 1
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 770
+            'y': 420
+            grid:
+              - 2
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 735
+            'y': 420
+            grid:
+              - 0
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1575
+            'y': 280
+            grid:
+              - 0
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1435
+            'y': 280
+            grid:
+              - 1
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1190
+            'y': 280
+            grid:
+              - 3
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 280
+            'y': 770
+            grid:
+              - 1
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 245
+            'y': 770
+            grid:
+              - 2
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 245
+            'y': 140
+            grid:
+              - 1
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: -70
+            'y': 420
+            grid:
+              - 0
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1120
+            'y': 490
+            grid:
+              - 0
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1400
+            'y': 490
+            grid:
+              - 3
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 770
+            'y': 770
+            grid:
+              - 0
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+        extends: {}
+    gridX: 35
+    gridY: 35
+    copies:
+      - x: 420
+        'y': 840
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+        exts: {}
+      - x: 490
+        'y': 840
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+        exts: {}
+      - x: 910
+        'y': 840
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+        exts: {}
+      - x: 980
+        'y': 840
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+        exts: {}
+      - x: 700
+        'y': 840
+        uid: 1f91fd7d-2d6c-4542-aead-78b8010b835b
+        exts: {}
+      - x: 1225
+        'y': 770
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+        exts: {}
+      - x: 1295
+        'y': 770
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+        exts: {}
+      - x: 840
+        'y': 770
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 385
+        'y': 770
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 175
+        'y': 770
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 245
+        'y': 770
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+        exts: {}
+      - x: 1050
+        'y': 770
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+      - x: 1190
+        'y': 770
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 560
+        'y': 770
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+      - x: 140
+        'y': 735
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 210
+        'y': 735
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 175
+        'y': 735
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 1295
+        'y': 700
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 980
+        'y': 700
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 490
+        'y': 700
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 175
+        'y': 700
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 280
+        'y': 700
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1295
+        'y': 595
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 385
+        'y': 560
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 455
+        'y': 560
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 525
+        'y': 560
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 1120
+        'y': 560
+        uid: 1f91fd7d-2d6c-4542-aead-78b8010b835b
+        exts: {}
+      - x: 350
+        'y': 490
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+        exts: {}
+      - x: 420
+        'y': 490
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+        exts: {}
+      - x: 490
+        'y': 490
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+        exts: {}
+      - x: 1295
+        'y': 490
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 1050
+        'y': 490
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1015
+        'y': 490
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1050
+        'y': 455
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1015
+        'y': 455
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 490
+        'y': 420
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 420
+        'y': 420
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1295
+        'y': 385
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 70
+        'y': 350
+        uid: 00664f77-21c6-4b06-b310-88640b1beaf9
+        exts: {}
+      - x: 840
+        'y': 350
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+        exts: {}
+      - x: 910
+        'y': 350
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+        exts: {}
+      - x: 980
+        'y': 350
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+        exts: {}
+      - x: 1050
+        'y': 350
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+        exts: {}
+      - x: 770
+        'y': 350
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 1050
+        'y': 280
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+        exts: {}
+      - x: 1470
+        'y': 280
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+        exts: {}
+      - x: -70
+        'y': 280
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+        exts: {}
+      - x: 840
+        'y': 280
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+      - x: -140
+        'y': 280
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 1645
+        'y': 245
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 385
+        'y': 210
+        uid: 1f91fd7d-2d6c-4542-aead-78b8010b835b
+      - x: 1645
+        'y': 175
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 385
+        'y': 140
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 315
+        'y': 140
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 245
+        'y': 140
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 1645
+        'y': 105
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 280
+        'y': 105
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 350
+        'y': 105
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1645
+        'y': 35
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+    extends: {}
+  - name: DeadScreen
+    oncreate: >-
+      ct.sound.spawn('Failure');
+
+
+      this.ohNoLabel = new PIXI.Text('Oh no!', ct.styles.get('OhNo'));
+
+      this.ohNoLabel.x = 1024 / 2;
+
+      this.ohNoLabel.y = 520;
+
+      this.ohNoLabel.anchor.x = this.ohNoLabel.anchor.y = 0.5;
+
+      this.addChild(this.ohNoLabel);
+
+
+      this.greedyLabel = new PIXI.Text('You were too greeedy for that game!',
+      ct.styles.get('OhNo_Small'));
+
+      this.greedyLabel.x = 1024 / 2;
+
+      this.greedyLabel.y = 560;
+
+      this.greedyLabel.anchor.x = this.greedyLabel.anchor.y = 0.5;
+
+      this.addChild(this.greedyLabel);
+    onstep: ''
+    ondraw: ''
+    onleave: ''
+    width: 1024
+    height: 700
+    backgrounds:
+      - depth: '-10'
+        extends: {}
+        texture: fd9d7012-6826-4368-8fe5-0385b72bc902
+    uid: 1ee751d0-24cc-43af-b91d-1a91a9aa48f5
+    grid: 64
+    lastmod: 1621849751073
+    thumbnail: 2
+    gridX: 64
+    gridY: 64
+    tiles:
+      - depth: -10
+        tiles: []
+        extends: {}
+    copies:
+      - x: 512
+        'y': 256
+        uid: 2d29a0d5-d88d-493d-bece-8d52ed476273
+        exts: {}
+      - x: 724
+        'y': 640
+        uid: 64fac189-737e-4e56-a8fc-15eccae6bf2a
+        exts:
+          nextWorld: true
+          isAlternative: true
+      - x: 320
+        'y': 640
+        uid: 64fac189-737e-4e56-a8fc-15eccae6bf2a
+        exts:
+          isMain: true
+    extends: {}
+  - name: RichScreen
+    oncreate: >-
+      ct.sound.spawn('Victory');
+
+
+      try {
+          localStorage.setItem("greedii_level" + window.activeRoom + "_done", "1");
+      }
+
+      catch (e) {
+          console.warn("Local storage has failed - maybe the user is in Private Browsing")
+      }
+
+
+      ct.keyboard.clear();
+
+
+      this.ohNoLabel = new PIXI.Text('You got them all!',
+      ct.styles.get('OhNo'));
+
+      this.ohNoLabel.x = 1024 / 2;
+
+      this.ohNoLabel.y = 490;
+
+      this.ohNoLabel.anchor.x = this.ohNoLabel.anchor.y = 0.5;
+
+      this.addChild(this.ohNoLabel);
+
+
+      this.subLabel = new PIXI.Text('You\'ve found all the coins.
+      Congrats!\nThank you for playing!', ct.styles.get('OhNo_Small'));
+
+      this.subLabel.x = 1024 / 2;
+
+      this.subLabel.y = 550;
+
+      this.subLabel.anchor.x = this.subLabel.anchor.y = 0.5;
+
+      this.addChild(this.subLabel);
+    onstep: ''
+    ondraw: ''
+    onleave: ''
+    width: 1024
+    height: 700
+    backgrounds:
+      - depth: '-10'
+        extends: {}
+        texture: fd9d7012-6826-4368-8fe5-0385b72bc902
+    uid: 1a5a64c6-5a4b-4f57-aa99-371ae3c158a3
+    grid: 64
+    lastmod: 1622176254436
+    thumbnail: 2
+    gridX: 64
+    gridY: 64
+    tiles:
+      - depth: -10
+        tiles: []
+        extends: {}
+    copies:
+      - x: 512
+        'y': 226
+        uid: b658efa2-360e-4a62-8640-3e3281156f4e
+        exts: {}
+        tx: 0.95
+        ty: 0.95
+      - x: 518
+        'y': 640
+        uid: 64fac189-737e-4e56-a8fc-15eccae6bf2a
+        exts:
+          nextWorld: true
+          isMain: true
+    extends: {}
+  - name: UI_Layer
+    oncreate: ''
+    onstep: ''
+    ondraw: ct.camera.realign(this);
+    onleave: ''
+    width: 1024
+    height: 720
+    backgrounds: []
+    copies:
+      - x: 44
+        'y': 46
+        uid: 1f73eb4f-8795-4234-af61-2c44c3fba073
+        exts: {}
+      - x: 96
+        'y': 640
+        uid: 45a6ee81-34af-494e-914e-51ec9d414314
+        exts: {}
+      - x: 300
+        'y': 640
+        uid: 03773b4b-e444-4a2d-9891-3ddf9575cc87
+        exts: {}
+      - x: 832
+        'y': 640
+        uid: 86f037f0-9a1c-4306-9d67-00be01bbd793
+        exts: {}
+      - x: 992
+        'y': 50
+        uid: 6aa04184-e1f0-42d3-8ea6-c3daac2e44bd
+    tiles:
+      - depth: -10
+        tiles: []
+        extends: {}
+    uid: cc861d50-35d6-4687-b789-5768eedfd438
+    thumbnail: 5768eedfd438
+    gridX: 64
+    gridY: 64
+    lastmod: 1621301756003
+    extends: {}
+  - name: Title
+    oncreate: ''
+    onstep: ''
+    ondraw: ''
+    onleave: ''
+    width: 1024
+    height: 700
+    backgrounds: []
+    copies:
+      - x: 320
+        'y': 64
+        uid: 94996d69-f6f1-4f71-a0ab-79059c869a6c
+      - x: 0
+        'y': 256
+        uid: e3851f67-0e32-4882-b0a0-4fc5a0d63905
+        exts:
+          world: 1
+      - x: 354
+        'y': 384
+        uid: e3851f67-0e32-4882-b0a0-4fc5a0d63905
+        exts:
+          world: 2
+      - x: 704
+        'y': 256
+        uid: e3851f67-0e32-4882-b0a0-4fc5a0d63905
+        exts:
+          world: 3
+        tx: 1
+        ty: 1
+      - x: 12
+        'y': 312
+        uid: 39143fec-c4ae-406d-a0a3-599587210d3c
+        tx: 0.4
+        ty: 0.4
+        exts: {}
+      - x: 380
+        'y': 430
+        uid: 07ef77a1-1083-4800-b970-cdfeffeaaa1b
+        tx: 0.4
+        ty: 0.4
+      - x: 754
+        'y': 290
+        uid: 8def785e-6733-466e-9f37-b344164d2ad9
+        tx: 0.7
+        ty: 0.7
+    tiles:
+      - depth: -10
+        tiles: []
+        extends: {}
+    uid: 722faf0e-6b82-4588-a870-6a9c9220830c
+    thumbnail: 6a9c9220830c
+    extends:
+      isUi: false
+    gridX: 64
+    gridY: 64
+    lastmod: 1622176266461
+    backgroundColor: '#C7F2F5'
+  - name: InGame2
+    oncreate: |
+      ct.transition.fadeIn(400, 0xc7f2f5);
+
+      this.coins = 0;
+      window.totalCoins = 26;
+
+      ct.rooms.append('UI_Layer', {isUi: true});
+
+      window.activeRoom = 2;
+      window.wasResized = false;
+    onstep: |
+      if (this.coins >= window.totalCoins) {
+          if (!ct.types.list['Player'][0].goodSuspension) ct.types.list['Player'][0].goodSuspension = 24;
+      }
+    ondraw: |
+      if (window.innerHeight > window.innerWidth && !window.wasResized) {
+          ct.camera.scale.y = 0.7;
+          ct.camera.scale.x = 0.7;
+          ct.camera.borderY = null;
+          window.wasResized = true;
+      }
+      else if (window.innerHeight < window.innerWidth && window.wasResized) {
+          ct.camera.scale.y = 1.0;
+          ct.camera.scale.x = 1.0;
+          ct.camera.borderY = 200;
+          window.wasResized = false;
+      }
+    onleave: ''
+    width: 1024
+    height: 700
+    backgrounds:
+      - depth: -50
+        texture: fd9d7012-6826-4368-8fe5-0385b72bc902
+        extends: {}
+    copies:
+      - x: 350
+        'y': 630
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 420
+        'y': 630
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 560
+        'y': 630
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 490
+        'y': 630
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 630
+        'y': 630
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 700
+        'y': 630
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 770
+        'y': 630
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 910
+        'y': 630
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 840
+        'y': 630
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 980
+        'y': 630
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 1050
+        'y': 630
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 1120
+        'y': 630
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 1190
+        'y': 630
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 1260
+        'y': 630
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 1330
+        'y': 630
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 1400
+        'y': 630
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 210
+        'y': 560
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 0
+        'y': 560
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 700
+        'y': 490
+        uid: 1f91fd7d-2d6c-4542-aead-78b8010b835b
+      - x: -140
+        'y': 490
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 700
+        'y': 420
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 770
+        'y': 420
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 840
+        'y': 350
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 910
+        'y': 350
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 0
+        'y': 350
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: -70
+        'y': 350
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 210
+        'y': 280
+        uid: 00664f77-21c6-4b06-b310-88640b1beaf9
+      - x: 910
+        'y': 280
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1050
+        'y': 280
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 1120
+        'y': 280
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 350
+        'y': 210
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+      - x: -140
+        'y': 210
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 1120
+        'y': 210
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 0
+        'y': 70
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: -70
+        'y': 70
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1400
+        'y': 70
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1050
+        'y': -0.0
+        uid: 1f91fd7d-2d6c-4542-aead-78b8010b835b
+      - x: -140
+        'y': -70
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 280
+        'y': -140
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 560
+        'y': -140
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+      - x: 1260
+        'y': -140
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 105
+        'y': -210
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: -70
+        'y': -210
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 420
+        'y': -210
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 490
+        'y': -210
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1400
+        'y': -210
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 1260
+        'y': -280
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: -420
+        'y': -280
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: -350
+        'y': -280
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: -280
+        'y': -280
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: -630
+        'y': -280
+        uid: 1f91fd7d-2d6c-4542-aead-78b8010b835b
+      - x: -1050
+        'y': -280
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: -980
+        'y': -280
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: -910
+        'y': -280
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 420
+        'y': -350
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 490
+        'y': -350
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 910
+        'y': -350
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 1120
+        'y': -350
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 945
+        'y': -420
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1400
+        'y': -420
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 1400
+        'y': -420
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: -420
+        'y': -420
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: -1050
+        'y': -420
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: -980
+        'y': -420
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: -700
+        'y': -420
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 700
+        'y': -490
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 770
+        'y': -490
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 70
+        'y': -490
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 0
+        'y': -490
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: -140
+        'y': -490
+        uid: 1f91fd7d-2d6c-4542-aead-78b8010b835b
+      - x: 980
+        'y': -560
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+      - x: 1260
+        'y': -560
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 1400
+        'y': -560
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 210
+        'y': -560
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+      - x: -910
+        'y': -560
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: -140
+        'y': -630
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: -210
+        'y': -630
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: -210
+        'y': -700
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+      - x: -490
+        'y': -700
+        uid: 1f91fd7d-2d6c-4542-aead-78b8010b835b
+      - x: 1015
+        'y': -770
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 560
+        'y': -770
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 420
+        'y': -770
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: -770
+        'y': -770
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: -630
+        'y': -770
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+    tiles:
+      - depth: -10
+        tiles:
+          - x: 560
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 630
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 700
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 770
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 0
+              - 1
+              - 1
+          - x: 280
+            'y': 280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 280
+            'y': 350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 210
+            'y': 420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 140
+            'y': 420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 210
+            'y': 280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 140
+            'y': 280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 140
+            'y': 350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 210
+            'y': 350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 280
+            'y': 420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+          - x: -0.0
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 70
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 140
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 210
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 280
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 350
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 420
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 490
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 560
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 700
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 700
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 770
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 840
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 910
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 980
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 280
+            'y': 630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+          - x: 210
+            'y': 630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 140
+            'y': 630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 70
+            'y': 630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 0
+            'y': 630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 490
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 630
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 420
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 0
+              - 1
+              - 1
+          - x: 350
+            'y': 280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 0
+              - 1
+              - 1
+          - x: -70
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -140
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -70
+            'y': 630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -210
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+          - x: -140
+            'y': 630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -210
+            'y': 630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 70
+            'y': 420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+          - x: 70
+            'y': 350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 70
+            'y': 280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 70
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 70
+            'y': 140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 70
+            'y': 70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 70
+            'y': -0.0
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 0
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 70
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 3
+              - 0
+              - 1
+              - 1
+          - x: 210
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 0
+              - 1
+              - 1
+          - x: 280
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 350
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 420
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -210
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': -140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': -280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 490
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 560
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 630
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 210
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 280
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 350
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 420
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 700
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+          - x: 700
+            'y': 0
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+          - x: 770
+            'y': 0
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 840
+            'y': 0
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 910
+            'y': 0
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 980
+            'y': 0
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1050
+            'y': 0
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 490
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 560
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 700
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+          - x: 770
+            'y': -280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+          - x: 630
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+          - x: 700
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 770
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 770
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 840
+            'y': -280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 840
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 910
+            'y': -280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 980
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+          - x: 980
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 980
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 980
+            'y': -280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 980
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1050
+            'y': -280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1050
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1050
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1050
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1120
+            'y': 0
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1050
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1120
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1190
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1190
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1260
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1330
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1400
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': -0.0
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1330
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1400
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1470
+            'y': -140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': -280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 910
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+          - x: 1050
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+          - x: 1190
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+          - x: 1260
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1190
+            'y': 0
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+          - x: 840
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 840
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 3
+              - 0
+              - 1
+              - 1
+          - x: 630
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+          - x: 1400
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1470
+            'y': 70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': 140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': 350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': 280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': 420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': 560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': 630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': 700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1260
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 0
+              - 1
+              - 1
+          - x: 1330
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -0.0
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 70
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 140
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -70
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 140
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+          - x: 210
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+          - x: -140
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -70
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+          - x: -210
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -140
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -140
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': -630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': -700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': -770
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': -840
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1470
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+          - x: 1400
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1330
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1260
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1190
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1120
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1050
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 840
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 980
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 910
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 770
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 560
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 700
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 630
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 420
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 490
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 350
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 280
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 210
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 70
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 140
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 0
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -140
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -70
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -210
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -280
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -350
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -280
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -350
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -420
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -490
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -490
+            'y': -280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+          - x: -560
+            'y': -280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -630
+            'y': -280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -700
+            'y': -280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -770
+            'y': -280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -840
+            'y': -280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+          - x: -840
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -770
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -700
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -630
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -560
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -910
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -980
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -1050
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -420
+            'y': -840
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -420
+            'y': -770
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -420
+            'y': -700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -420
+            'y': -630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+          - x: -490
+            'y': -630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -1120
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -1120
+            'y': -280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -1120
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -1120
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -1120
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -1120
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -1120
+            'y': -630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -1120
+            'y': -700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -1120
+            'y': -770
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -1120
+            'y': -840
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -1120
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+          - x: -1050
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -980
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -910
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -840
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -770
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -700
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -630
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -560
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -490
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -420
+            'y': -910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -490
+            'y': -700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -560
+            'y': -700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -630
+            'y': -700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -700
+            'y': -700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -770
+            'y': -700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -770
+            'y': -630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -700
+            'y': -630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -630
+            'y': -630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -560
+            'y': -630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -840
+            'y': -700
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+          - x: -840
+            'y': -630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+          - x: 1050
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+        extends: {}
+      - depth: -20
+        tiles:
+          - x: 210
+            'y': 560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 3
+              - 1
+              - 1
+          - x: 0
+            'y': 560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 3
+              - 3
+              - 1
+              - 1
+          - x: 350
+            'y': -140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 3
+              - 1
+              - 1
+          - x: -770
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 3
+              - 1
+              - 1
+          - x: -560
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 3
+              - 1
+              - 1
+          - x: -700
+            'y': -770
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 3
+              - 1
+              - 1
+          - x: 280
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 3
+              - 1
+              - 1
+          - x: 560
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 3
+              - 1
+              - 1
+          - x: 1260
+            'y': 140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 3
+              - 1
+              - 1
+          - x: 1330
+            'y': -140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 3
+              - 3
+              - 1
+              - 1
+          - x: 840
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 3
+              - 3
+              - 1
+              - 1
+          - x: 70
+            'y': -140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 3
+              - 1
+              - 1
+        extends: {}
+    uid: 85f2b44c-8058-42c4-af44-3887f8e4a4a3
+    thumbnail: 3887f8e4a4a3
+    extends: {}
+    gridX: 70
+    gridY: 70
+    lastmod: 1623632474815
+  - name: InGame3
+    oncreate: |
+      ct.transition.fadeIn(400, 0xc7f2f5);
+
+      this.coins = 0;
+      window.totalCoins = 38;
+
+      ct.rooms.append('UI_Layer', {isUi: true});
+
+      window.activeRoom = 3;
+      window.wasResized = false;
+    onstep: |+
+      if (window.totalCoins && this.coins >= window.totalCoins) {
+          if (!ct.types.list['Player'][0].goodSuspension) ct.types.list['Player'][0].goodSuspension = 24;
+      }
+
+    ondraw: |
+      if (window.innerHeight > window.innerWidth && !window.wasResized) {
+          ct.camera.scale.y = 0.7;
+          ct.camera.scale.x = 0.7;
+          ct.camera.borderY = null;
+          window.wasResized = true;
+      }
+      else if (window.innerHeight < window.innerWidth && window.wasResized) {
+          ct.camera.scale.y = 1.0;
+          ct.camera.scale.x = 1.0;
+          ct.camera.borderY = 200;
+          window.wasResized = false;
+      }
+    onleave: ''
+    width: 1024
+    height: 700
+    backgrounds:
+      - depth: '-50'
+        extends: {}
+        texture: fd9d7012-6826-4368-8fe5-0385b72bc902
+    uid: bdc51729-f7d1-4e48-a352-a20c8498ff6d
+    grid: 35
+    lastmod: 1623632477207
+    thumbnail: a20c8498ff6d
+    tiles:
+      - depth: -10
+        tiles:
+          - x: 280
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1680
+            'y': 280
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1680
+            'y': 210
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1680
+            'y': 140
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1680
+            'y': 70
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1680
+            'y': 0
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 350
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 420
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 840
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 910
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 980
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1050
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1120
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1400
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1470
+            'y': -70
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 0
+            'y': 490
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 70
+            'y': 490
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 140
+            'y': 490
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 210
+            'y': 490
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 840
+            'y': 490
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 630
+            'y': 490
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 700
+            'y': 490
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 770
+            'y': 490
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 840
+            'y': 560
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 910
+            'y': 560
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 980
+            'y': 560
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1050
+            'y': 560
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1120
+            'y': 560
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1190
+            'y': 560
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 0
+            'y': 560
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 0
+            'y': 630
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 0
+            'y': 700
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 0
+            'y': 770
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 0
+            'y': 840
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 70
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 140
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 210
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 420
+            'y': 910
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 490
+            'y': 910
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 560
+            'y': 910
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 560
+            'y': 840
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 630
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 700
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 770
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 840
+            'y': 840
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 840
+            'y': 910
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1050
+            'y': 910
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 910
+            'y': 910
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 980
+            'y': 910
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1190
+            'y': 350
+            grid:
+              - 3
+              - 0
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1190
+            'y': 420
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1190
+            'y': 490
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1330
+            'y': 350
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1330
+            'y': 420
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1330
+            'y': 490
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1330
+            'y': 560
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1400
+            'y': 560
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1400
+            'y': 630
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1400
+            'y': 700
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1400
+            'y': 770
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1400
+            'y': 840
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1400
+            'y': 350
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1470
+            'y': 350
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1540
+            'y': 350
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1610
+            'y': 350
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1680
+            'y': 350
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1120
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1190
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1260
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1330
+            'y': 840
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1050
+            'y': 840
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 105
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 0
+              - 1
+              - 1
+          - x: 175
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 245
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 315
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 385
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 455
+            'y': 210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 0
+              - 1
+              - 1
+          - x: -210
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 315
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 245
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 175
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 175
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 245
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 0
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': 70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -140
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -70
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 280
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 350
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 0
+              - 1
+              - 1
+          - x: 490
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 0
+              - 1
+              - 1
+          - x: 560
+            'y': 490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -210
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': -140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: -210
+            'y': -280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 210
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 280
+            'y': 910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 350
+            'y': 910
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 280
+            'y': 840
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+          - x: 140
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 0
+              - 1
+              - 1
+          - x: -210
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+          - x: -140
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: -70
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 0
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 70
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 140
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 210
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 280
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+          - x: 280
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+          - x: 350
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+          - x: 350
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+          - x: 420
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+          - x: 420
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+          - x: 490
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+          - x: 490
+            'y': -630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+          - x: 490
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 2
+              - 1
+              - 1
+          - x: 490
+            'y': -140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 1
+              - 1
+              - 1
+          - x: 560
+            'y': -140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 630
+            'y': -140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 700
+            'y': -140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 770
+            'y': -140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+          - x: 770
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+          - x: 560
+            'y': -630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 630
+            'y': -630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 700
+            'y': -630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 770
+            'y': -630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 840
+            'y': -630
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+          - x: 840
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 2
+              - 1
+              - 1
+          - x: 1190
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 0
+              - 1
+              - 1
+          - x: 1330
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 0
+              - 0
+              - 1
+              - 1
+          - x: 910
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 980
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1050
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1120
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1190
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1260
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1330
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1400
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1470
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1540
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1610
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 1
+              - 1
+              - 1
+          - x: 1680
+            'y': -560
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 1
+              - 1
+              - 1
+          - x: 1680
+            'y': -490
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1680
+            'y': -420
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1680
+            'y': -350
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1680
+            'y': -280
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1680
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1680
+            'y': -140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1680
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 2
+              - 1
+              - 1
+          - x: 1540
+            'y': -70
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 2
+              - 0
+              - 1
+              - 1
+        extends:
+          ctype: Solid
+      - depth: -20
+        tiles:
+          - x: 70
+            'y': 420
+            grid:
+              - 3
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 140
+            'y': 420
+            grid:
+              - 3
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 210
+            'y': 420
+            grid:
+              - 3
+              - 2
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 945
+            'y': 490
+            grid:
+              - 1
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 770
+            'y': 420
+            grid:
+              - 2
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 735
+            'y': 420
+            grid:
+              - 0
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1575
+            'y': 280
+            grid:
+              - 0
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1435
+            'y': 280
+            grid:
+              - 1
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1190
+            'y': 280
+            grid:
+              - 3
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 245
+            'y': 770
+            grid:
+              - 2
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 245
+            'y': 140
+            grid:
+              - 1
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: -70
+            'y': 420
+            grid:
+              - 0
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1120
+            'y': 490
+            grid:
+              - 0
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 1400
+            'y': 490
+            grid:
+              - 3
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 770
+            'y': 770
+            grid:
+              - 0
+              - 3
+              - 1
+              - 1
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+          - x: 175
+            'y': 770
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 3
+              - 1
+              - 1
+          - x: 280
+            'y': -140
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 1
+              - 3
+              - 1
+              - 1
+          - x: 525
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 3
+              - 3
+              - 1
+              - 1
+          - x: 735
+            'y': -210
+            texture: 9968de05-f39d-4455-aaed-175c03728bb1
+            grid:
+              - 3
+              - 3
+              - 1
+              - 1
+        extends: {}
+    gridX: 35
+    gridY: 35
+    copies:
+      - x: 420
+        'y': 840
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+        exts: {}
+      - x: 490
+        'y': 840
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+        exts: {}
+      - x: 910
+        'y': 840
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+        exts: {}
+      - x: 980
+        'y': 840
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+        exts: {}
+      - x: 700
+        'y': 840
+        uid: 1f91fd7d-2d6c-4542-aead-78b8010b835b
+        exts: {}
+      - x: 350
+        'y': 840
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+      - x: 1225
+        'y': 770
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+        exts: {}
+      - x: 1295
+        'y': 770
+        uid: 036a2de1-89b0-48e3-b26f-d608ce2079fd
+        exts: {}
+      - x: 840
+        'y': 770
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 175
+        'y': 770
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 245
+        'y': 770
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+        exts: {}
+      - x: 1050
+        'y': 770
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+      - x: 1190
+        'y': 770
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 560
+        'y': 770
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+      - x: 140
+        'y': 735
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 210
+        'y': 735
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 175
+        'y': 735
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 1295
+        'y': 700
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 980
+        'y': 700
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 175
+        'y': 700
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 280
+        'y': 700
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 385
+        'y': 700
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1295
+        'y': 595
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 455
+        'y': 560
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 1120
+        'y': 560
+        uid: 1f91fd7d-2d6c-4542-aead-78b8010b835b
+        exts: {}
+      - x: 1295
+        'y': 490
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 1050
+        'y': 490
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1015
+        'y': 490
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1050
+        'y': 455
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1015
+        'y': 455
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 245
+        'y': 420
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+      - x: 1295
+        'y': 385
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 455
+        'y': 385
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 70
+        'y': 350
+        uid: 00664f77-21c6-4b06-b310-88640b1beaf9
+        exts: {}
+      - x: 840
+        'y': 350
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+        exts: {}
+      - x: 910
+        'y': 350
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+        exts: {}
+      - x: 980
+        'y': 350
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+        exts: {}
+      - x: 1050
+        'y': 350
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+        exts: {}
+      - x: 770
+        'y': 350
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 700
+        'y': 350
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 1050
+        'y': 280
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+        exts: {}
+      - x: -70
+        'y': 280
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+        exts: {}
+      - x: -140
+        'y': 280
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 735
+        'y': 280
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+      - x: 1645
+        'y': 245
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 385
+        'y': 210
+        uid: 1f91fd7d-2d6c-4542-aead-78b8010b835b
+      - x: 1645
+        'y': 175
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 735
+        'y': 175
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 1295
+        'y': 175
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 385
+        'y': 140
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 315
+        'y': 140
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 245
+        'y': 140
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: -140
+        'y': 140
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 1645
+        'y': 105
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: 280
+        'y': 105
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 350
+        'y': 105
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 770
+        'y': 70
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1295
+        'y': 70
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1645
+        'y': 35
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+        exts: {}
+      - x: -0.0
+        'y': -0.0
+        uid: 1026c1c8-90e4-4b93-bb6a-568f53918097
+      - x: 910
+        'y': -140
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+      - x: 1435
+        'y': -140
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 1540
+        'y': -140
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 700
+        'y': -210
+        uid: b7a528f8-655c-4920-900f-f191533f411d
+      - x: 1085
+        'y': -245
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 665
+        'y': -280
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 665
+        'y': -350
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+      - x: 665
+        'y': -420
+        uid: 9402709c-5d0d-4198-9dce-877a5b7c77a2
+    extends: {}
+soundtick: 6
+roomtick: 3
+typetick: 12
+styletick: 4
+starting: 0
+settings:
+  export:
+    linux: true
+    windows: false
+    mac: false
+    functionWrap: false
+    codeModifier: none
+  branding:
+    icon: -1
+    accent: '#C7F2F5'
+    invertPreloaderScheme: true
+  rendering:
+    maxFPS: 60
+    pixelatedrender: false
+    highDensity: true
+    usePixiLegacy: true
+    desktopMode: maximized
+  authoring:
+    title: Greed II
+    author: Mark Pazolli and Cosmo Myzrail Gorynych
+    site: 'https://ctjs.rocks'
+    version:
+      - 0
+      - 0
+      - 0
+    versionPostfix: ''
+  fps: 30
+palette:
+  - '#257073'
+startroom: 722faf0e-6b82-4588-a870-6a9c9220830c
+scripts: []
+ctjsVersion: 1.5.0
+fonts: []
+skeletons: []
+actions:
+  - name: Jump
+    methods:
+      - code: keyboard.Space
+      - code: keyboard.KeyW
+      - code: keyboard.ArrowUp
+      - code: vkeys.Vk3
+      - code: gamepad.Button1
+  - name: Move
+    methods:
+      - code: keyboard.ArrowLeft
+        multiplier: -1
+      - code: keyboard.ArrowRight
+      - code: keyboard.KeyA
+        multiplier: -1
+      - code: keyboard.KeyD
+      - code: vkeys.Vk2
+        multiplier: -1
+      - code: vkeys.Vk1
+      - code: gamepad.LStickX
+  - name: Touch
+    methods:
+      - code: mouse.Left
+      - code: gamepad.Button1
+  - name: JumpAndForward
+    methods:
+      - code: vkeys.Vk4
+  - name: Restart
+    methods:
+      - code: vkeys.Vk5
+      - code: gamepad.Start
+      - code: keyboard.Escape
+  - name: Enter
+    methods:
+      - code: keyboard.Enter
+textures:
+  - name: boxAlt
+    untill: 0
+    grid:
+      - 1
+      - 1
+    axis:
+      - 0
+      - 0
+    marginx: 0
+    marginy: 0
+    offx: 0
+    offy: 0
+    origname: i1.png
+    shape: rect
+    left: 0
+    right: 70
+    top: 0
+    bottom: 70
+    frames: 1
+    width: 70
+    height: 70
+    lastmod: 1621256044134
+    imgWidth: 70
+    imgHeight: 70
+    uid: d8dd2bfd-0f9d-495a-bbfd-0e65b80153b9
+    padding: 1
+  - name: bridgeLogs
+    untill: 0
+    grid:
+      - 1
+      - 1
+    axis:
+      - 0
+      - 45
+    marginx: 0
+    marginy: 0
+    offx: 0
+    offy: 0
+    origname: i2.png
+    shape: rect
+    left: 0
+    right: 70
+    top: 0
+    bottom: 24
+    frames: 1
+    width: 70
+    height: 70
+    imgWidth: 70
+    imgHeight: 70
+    lastmod: 1543409370189
+    uid: f3de5077-0e66-43de-93f2-d3a75184aa2e
+    padding: 1
+  - name: fence
+    untill: 0
+    grid:
+      - 1
+      - 1
+    axis:
+      - 0
+      - 0
+    marginx: 0
+    marginy: 0
+    offx: 0
+    offy: 0
+    origname: i3.png
+    shape: rect
+    left: 0
+    right: 70
+    top: 0
+    bottom: 70
+    frames: 1
+    width: 70
+    height: 70
+    imgWidth: 70
+    imgHeight: 70
+    lastmod: 1543409082603
+    uid: 21a0f13c-5806-43d4-929b-c1bcb5213d9b
+    padding: 1
+  - name: grass
+    untill: 0
+    grid:
+      - 4
+      - 4
+    axis:
+      - 0
+      - 0
+    marginx: 0
+    marginy: 0
+    offx: 0
+    offy: 0
+    origname: i4.png
+    shape: rect
+    left: 0
+    right: 70
+    top: 0
+    bottom: 70
+    frames: 1
+    width: 70
+    height: 70
+    imgWidth: 280
+    imgHeight: 280
+    lastmod: 1621257540695
+    uid: 9968de05-f39d-4455-aaed-175c03728bb1
+    padding: 1
+  - name: Spikes
+    untill: 0
+    grid:
+      - 1
+      - 1
+    axis:
+      - 0
+      - 0
+    marginx: 0
+    marginy: 0
+    offx: 0
+    offy: 0
+    origname: i5.png
+    shape: rect
+    left: 0
+    right: 70
+    top: -36
+    bottom: 70
+    frames: 1
+    width: 70
+    height: 70
+    imgWidth: 70
+    imgHeight: 70
+    lastmod: 1522391498568
+    uid: eed6bb2f-301f-460a-8d91-93396d103b4e
+    padding: 1
+  - name: coinGold
+    untill: 0
+    grid:
+      - 1
+      - 1
+    axis:
+      - 35
+      - 36
+    marginx: 0
+    marginy: 0
+    offx: 0
+    offy: 0
+    origname: i6.png
+    shape: circle
+    left: 0
+    right: 70
+    top: 0
+    width: 70
+    height: 70
+    imgWidth: 70
+    imgHeight: 70
+    bottom: 70
+    r: 17
+    lastmod: 1522422329142
+    uid: 62be2903-9782-49fc-b551-ef2e641091c9
+    padding: 1
+  - name: bg
+    untill: 0
+    grid:
+      - 1
+      - 1
+    axis:
+      - 0
+      - 0
+    marginx: 0
+    marginy: 0
+    offx: 0
+    offy: 0
+    origname: ifd9d7012-6826-4368-8fe5-0385b72bc902.png
+    shape: rect
+    left: 0
+    right: 2048
+    top: 0
+    bottom: 2048
+    frames: 1
+    width: 256
+    height: 256
+    imgWidth: 256
+    imgHeight: 256
+    lastmod: 1621294666318
+    uid: fd9d7012-6826-4368-8fe5-0385b72bc902
+    tiled: true
+    source: /home/comigo/Загрузки/platformer-art-complete-pack-0/Base pack/bg.png
+    padding: 0
+  - name: Player
+    untill: 14
+    grid:
+      - 5
+      - 3
+    axis:
+      - 36
+      - 96
+    marginx: 0
+    marginy: 0
+    offx: 0
+    offy: 0
+    origname: i9.png
+    shape: rect
+    left: 24
+    right: 24
+    top: 94
+    bottom: 0
+    frames: 15
+    width: 72
+    height: 97
+    imgWidth: 360
+    imgHeight: 291
+    lastmod: 1621130793643
+    uid: ad390b6e-4c2c-412f-8143-1c70b9c16fc0
+    padding: 1
+  - name: greedyDeath
+    untill: 0
+    grid:
+      - 1
+      - 1
+    axis:
+      - 218
+      - 217
+    marginx: 0
+    marginy: 0
+    imgWidth: 436
+    imgHeight: 434
+    width: 436
+    height: 434
+    offx: 0
+    offy: 0
+    origname: i10.png
+    shape: rect
+    left: 218
+    right: 218
+    top: 217
+    bottom: 217
+    lastmod: 1543409206474
+    uid: e90eb23b-547a-4d96-a203-ffe63c00cf9b
+    padding: 1
+  - name: Slime
+    untill: 0
+    grid:
+      - 1
+      - 2
+    axis:
+      - 25
+      - 27
+    marginx: 0
+    marginy: 1
+    imgWidth: 51
+    imgHeight: 55
+    width: 51
+    height: 27
+    offx: 0
+    offy: 0
+    origname: i11.png
+    shape: rect
+    left: 25
+    right: 26
+    top: 28
+    bottom: -1
+    lastmod: 1621127496772
+    uid: 703fb5d5-cf20-4450-b760-0b1cd037a5ad
+    padding: 1
+  - name: Rich
+    untill: 0
+    grid:
+      - 1
+      - 1
+    axis:
+      - 149
+      - 232
+    marginx: 0
+    marginy: 0
+    imgWidth: 298
+    imgHeight: 464
+    width: 298
+    height: 464
+    offx: 0
+    offy: 0
+    origname: i12.png
+    shape: rect
+    left: 149
+    right: 149
+    top: 232
+    bottom: 232
+    lastmod: 1522476036664
+    uid: 1da28af4-53f1-4958-82b2-a696778f910f
+    padding: 1
+  - name: MaximiseMinimise
+    untill: 0
+    grid:
+      - 2
+      - 1
+    axis:
+      - 24
+      - 24
+    marginx: 0
+    marginy: 0
+    imgWidth: 96
+    imgHeight: 48
+    width: 48
+    height: 48
+    offx: 0
+    offy: 0
+    origname: i15.png
+    shape: rect
+    left: 24
+    right: 24
+    top: 24
+    bottom: 24
+    lastmod: 1621085492402
+    uid: d161a39a-203e-4099-99e2-41385d94f975
+    padding: 1
+  - name: buttonJump
+    untill: 0
+    grid:
+      - 1
+      - 1
+    axis:
+      - 40
+      - 40
+    marginx: 0
+    marginy: 0
+    imgWidth: 80
+    imgHeight: 80
+    width: 80
+    height: 80
+    offx: 0
+    offy: 0
+    origname: ib5121b5f-8109-45c0-9fa4-44f9f10ce88c.png
+    source: 'D:\Downloads\onscreencontrols\Sprites\flatDark\flatDark44.png'
+    shape: circle
+    left: 40
+    right: 40
+    top: 80
+    bottom: 0
+    uid: b5121b5f-8109-45c0-9fa4-44f9f10ce88c
+    padding: 1
+    lastmod: 1621256050952
+    r: 40
+  - name: buttonRight
+    untill: 0
+    grid:
+      - 1
+      - 1
+    axis:
+      - 40
+      - 40
+    marginx: 0
+    marginy: 0
+    imgWidth: 80
+    imgHeight: 80
+    width: 80
+    height: 80
+    offx: 0
+    offy: 0
+    origname: i8f3b23d8-3aed-429a-a66e-9572cad7919a.png
+    source: 'D:\Downloads\onscreencontrols\Sprites\flatDark\flatDark24.png'
+    shape: circle
+    left: 60
+    right: 20
+    top: 80
+    bottom: 0
+    uid: 8f3b23d8-3aed-429a-a66e-9572cad7919a
+    padding: 1
+    lastmod: 1586161215286
+    r: 40
+  - name: buttonLeft
+    untill: 0
+    grid:
+      - 1
+      - 1
+    axis:
+      - 40
+      - 40
+    marginx: 0
+    marginy: 0
+    imgWidth: 80
+    imgHeight: 80
+    width: 80
+    height: 80
+    offx: 0
+    offy: 0
+    origname: ie706498a-bfef-4366-9481-687b01ff7bf1.png
+    source: 'D:\Downloads\onscreencontrols\Sprites\flatDark\flatDark23.png'
+    shape: circle
+    left: 40
+    right: 40
+    top: 80
+    bottom: 0
+    uid: e706498a-bfef-4366-9481-687b01ff7bf1
+    padding: 1
+    lastmod: 1586161218807
+    r: 40
+  - name: TryAgain
+    untill: 0
+    grid:
+      - 2
+      - 2
+    axis:
+      - 150
+      - 42
+    marginx: 0
+    marginy: 0
+    imgWidth: 256
+    imgHeight: 85
+    width: 300
+    height: 85
+    offx: 0
+    offy: 0
+    origname: i0298d848-efe7-48e5-8d68-9128ba8b4e02.png
+    source: 'C:\Users\Master\Desktop\TryAgain.png'
+    shape: rect
+    left: 150
+    right: 150
+    top: 42
+    bottom: 43
+    uid: 0298d848-efe7-48e5-8d68-9128ba8b4e02
+    padding: 1
+    lastmod: 1621430541975
+  - name: reload
+    untill: 0
+    grid:
+      - 1
+      - 1
+    axis:
+      - 32
+      - 32
+    marginx: 0
+    marginy: 0
+    imgWidth: 64
+    imgHeight: 64
+    width: 64
+    height: 64
+    offx: 0
+    offy: 0
+    origname: i5bb12d21-9254-4d3a-9052-b972154978ed.png
+    shape: rect
+    left: 26
+    right: 26
+    top: 26
+    bottom: 26
+    uid: 5bb12d21-9254-4d3a-9052-b972154978ed
+    padding: 1
+    source: /Users/pazollim/Desktop/reload-ii.png
+    lastmod: 1621085487666
+  - name: greedTitle
+    untill: 0
+    grid:
+      - 1
+      - 1
+    axis:
+      - 0
+      - 0
+    marginx: 0
+    marginy: 0
+    imgWidth: 424
+    imgHeight: 215
+    width: 424
+    height: 215
+    offx: 0
+    offy: 0
+    origname: ia8c34fdd-072d-4eac-8e28-1f39e63b6af0.png
+    shape: rect
+    left: 0
+    right: 424
+    top: 0
+    bottom: 215
+    uid: a8c34fdd-072d-4eac-8e28-1f39e63b6af0
+    padding: 1
+    source: /Users/pazollim/ct.js/Projects/greed/svg/greedTitle.png
+    lastmod: 1621258052543
+  - name: button-two
+    untill: 0
+    grid:
+      - 2
+      - 1
+    axis:
+      - 0
+      - 0
+    marginx: 0
+    marginy: 0
+    imgWidth: 640
+    imgHeight: 260
+    width: 320
+    height: 260
+    offx: 0
+    offy: 0
+    origname: ic437a8d1-6eb5-4c5c-98cd-db33b25aa5ba.png
+    shape: rect
+    left: 0
+    right: 320
+    top: 0
+    bottom: 260
+    uid: c437a8d1-6eb5-4c5c-98cd-db33b25aa5ba
+    padding: 1
+    source: /Users/pazollim/ct.js/Projects/greed/svg/button-both.png
+    lastmod: 1621327019802
+  - name: room1-transparent
+    untill: 0
+    grid:
+      - 1
+      - 1
+    axis:
+      - 0
+      - 0
+    marginx: 0
+    marginy: 0
+    imgWidth: 735
+    imgHeight: 393
+    width: 735
+    height: 393
+    offx: 0
+    offy: 0
+    origname: if2e6a514-1fb9-426a-a1d0-75ab60d9a381.png
+    shape: rect
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+    uid: f2e6a514-1fb9-426a-a1d0-75ab60d9a381
+    padding: 1
+    source: /Users/pazollim/ct.js/Projects/greed/svg/room1-transparent.png
+    lastmod: 1621815844751
+  - name: button-both
+    untill: 4
+    grid:
+      - 2
+      - 2
+    axis:
+      - 0
+      - 0
+    marginx: 0
+    marginy: 0
+    imgWidth: 640
+    imgHeight: 520
+    width: 320
+    height: 260
+    offx: 0
+    offy: 0
+    origname: i95379108-a9a4-48a2-8dc2-bcdf749107aa.png
+    shape: rect
+    left: 0
+    right: 320
+    top: 0
+    bottom: 260
+    uid: 95379108-a9a4-48a2-8dc2-bcdf749107aa
+    padding: 1
+    source: /Users/pazollim/ct.js/Projects/greed/svg/button-both.png
+    lastmod: 1621429512635
+  - name: room2
+    untill: 0
+    grid:
+      - 1
+      - 1
+    axis:
+      - 0
+      - 0
+    marginx: 0
+    marginy: 0
+    imgWidth: 648
+    imgHeight: 414
+    width: 648
+    height: 414
+    offx: 0
+    offy: 0
+    origname: i3db19a65-87a0-4d7b-bf48-f9edf7ed4e83.png
+    shape: rect
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+    uid: 3db19a65-87a0-4d7b-bf48-f9edf7ed4e83
+    padding: 1
+    source: /Users/pazollim/ct.js/Projects/greed/svg/room2.png
+    lastmod: 1621815852158
+  - name: room3
+    untill: 0
+    grid:
+      - 1
+      - 1
+    axis:
+      - 0
+      - 0
+    marginx: 0
+    marginy: 0
+    imgWidth: 325
+    imgHeight: 270
+    width: 325
+    height: 270
+    offx: 0
+    offy: 0
+    origname: i911ffbab-a3f3-41e9-92f0-f4b3579b47de.png
+    shape: rect
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+    uid: 911ffbab-a3f3-41e9-92f0-f4b3579b47de
+    padding: 1
+    source: /Users/pazollim/ct.js/Projects/greed/svg/room3.png
+    lastmod: 1621815859580
+texturetick: 15
+emitterTandems: []
