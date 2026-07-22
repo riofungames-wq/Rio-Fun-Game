@@ -6,6 +6,16 @@
 
   <title>Rio Maggi Point - Digital Loyalty Card</title>
 
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#263525">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Rio Maggi Point">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
   <style>
     * {
       box-sizing: border-box;
@@ -174,6 +184,24 @@
       font-size: 14px;
     }
 
+    .nav-btn {
+      margin: 0 25px 20px;
+      padding: 14px;
+      background: #263525;
+      color: #ffd54f;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      width: calc(100% - 50px);
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .nav-btn:hover {
+      background: #1c271b;
+    }
+
     .footer {
       background: #263525;
       color: white;
@@ -212,8 +240,9 @@
         font-size: 9px;
       }
 
-      .reward {
+      .reward, .nav-btn {
         margin: 0 15px 20px;
+        width: calc(100% - 30px);
       }
     }
   </style>
@@ -240,10 +269,8 @@
 
     <div class="customer-box">
       <div class="customer-label">CUSTOMER NAME</div>
-
-      <!-- बाद में यह नाम Sign Up से अपने-आप आएगा -->
-      <div class="customer-name">
-        YOUR NAME
+      <div class="customer-name" id="customerNameDisplay">
+        GUEST USER
       </div>
     </div>
 
@@ -255,44 +282,18 @@
       🎟️ YOUR LOYALTY STAMPS
     </div>
 
-    <div class="stamps">
-
-      <div class="stamp">
-        <div class="stamp-number">1</div>
-        <div class="stamp-status">AVAILABLE</div>
-      </div>
-
-      <div class="stamp">
-        <div class="stamp-number">2</div>
-        <div class="stamp-status">AVAILABLE</div>
-      </div>
-
-      <div class="stamp">
-        <div class="stamp-number">3</div>
-        <div class="stamp-status">AVAILABLE</div>
-      </div>
-
-      <div class="stamp">
-        <div class="stamp-number">4</div>
-        <div class="stamp-status">AVAILABLE</div>
-      </div>
-
-      <div class="stamp">
-        <div class="stamp-number">5</div>
-        <div class="stamp-status">AVAILABLE</div>
-      </div>
-
-      <div class="stamp">
-        <div class="stamp-number">6</div>
-        <div class="stamp-status">FREE MAGGI</div>
-      </div>
-
+    <div class="stamps" id="stampsContainer">
+      <!-- Stamps render dynamically via JavaScript -->
     </div>
 
     <div class="reward">
       <h2>🎁 REWARD</h2>
-      <p>Collect 6 Stamps & Get 1 Veg Maggi FREE!</p>
+      <p id="rewardText">Collect 6 Stamps & Get 1 Veg Maggi FREE!</p>
     </div>
+
+    <button class="nav-btn" id="actionBtn">
+      📱 View My Profile
+    </button>
 
     <div class="footer">
       <strong>RIO MAGGI POINT</strong><br>
@@ -300,6 +301,64 @@
     </div>
 
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const customer = JSON.parse(localStorage.getItem("currentCustomer"));
+      const actionBtn = document.getElementById("actionBtn");
+      const nameDisplay = document.getElementById("customerNameDisplay");
+      const stampsContainer = document.getElementById("stampsContainer");
+      const rewardText = document.getElementById("rewardText");
+
+      if (customer) {
+        nameDisplay.textContent = customer.name;
+        actionBtn.textContent = "👤 Go to Profile";
+        actionBtn.addEventListener("click", () => {
+          window.location.href = "profile.html";
+        });
+      } else {
+        nameDisplay.textContent = "GUEST USER";
+        actionBtn.textContent = "🔑 Login / Sign Up";
+        actionBtn.addEventListener("click", () => {
+          window.location.href = "login.html";
+        });
+      }
+
+      const userStamps = customer ? customer.stamps : 0;
+
+      // Render 6 Stamps
+      stampsContainer.innerHTML = "";
+      for (let i = 1; i <= 6; i++) {
+        const stampDiv = document.createElement("div");
+        stampDiv.classList.add("stamp");
+
+        if (i <= userStamps) {
+          stampDiv.classList.add("approved");
+          stampDiv.innerHTML = `
+            <div class="stamp-number">${i}</div>
+            <div class="stamp-status">EARNED</div>
+          `;
+        } else {
+          stampDiv.innerHTML = `
+            <div class="stamp-number">${i}</div>
+            <div class="stamp-status">${i === 6 ? "FREE MAGGI" : "AVAILABLE"}</div>
+          `;
+        }
+        stampsContainer.appendChild(stampDiv);
+      }
+
+      if (userStamps >= 6) {
+        rewardText.textContent = "🎉 Congratulations! You unlocked 1 FREE Veg Maggi!";
+      }
+    });
+
+    // Register Service Worker for PWA
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js");
+      });
+    }
+  </script>
 
 </body>
 </html>
