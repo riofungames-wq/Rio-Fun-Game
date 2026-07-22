@@ -1,1 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Rio Maggi Point - Terms & Conditions</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #050505;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 750px;
+    background: #f5d99b;
+    border: 3px solid #d19b4a;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.45);
+}
+
+h1 {
+    text-align: center;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+.section {
+    background: #fff7df;
+    border: 2px solid #d19b4a;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+.section h2 {
+    color: #263525;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.section p {
+    color: #333;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.bannerAd {
+    height: 90px;
+    border: 2px dashed #999;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    margin: 20px 0;
+    font-weight: bold;
+    color: #777;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background: #263525;
+    color: #ffd54f;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .25s;
+}
+
+button:hover {
+    background: #1c271b;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📜 Terms & Conditions</h1>
+
+    <p class="subtitle">
+        Please read our Loyalty Program Terms carefully.
+    </p>
+
+    <div class="section">
+        <h2>🎁 Loyalty Program</h2>
+        <p>
+            Each eligible purchase earns one loyalty stamp.
+            Rewards can only be claimed after completing the required number of stamps.
+            Stamps cannot be exchanged for cash.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>👤 Customer Responsibility</h2>
+        <p>
+            Customers are responsible for keeping their login information secure.
+            Sharing your account with others is not recommended.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>❌ Misuse</h2>
+        <p>
+            Any attempt to manipulate stamps, rewards or customer accounts
+            may result in permanent removal from the loyalty program.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>📝 Changes</h2>
+        <p>
+            Rio Maggi Point reserves the right to update these Terms &
+            Conditions, rewards or loyalty rules at any time without prior notice.
+        </p>
+    </div>
+
+    <div class="bannerAd">
+        Google AdSense Banner (Responsive)
+    </div>
+
+    <button id="backBtn">
+        ⬅ Back to Home
+    </button>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const customer = JSON.parse(
+        localStorage.getItem("currentCustomer")
+    );
+
+    document.getElementById("backBtn").addEventListener("click", () => {
+        if (customer) {
+            window.location.href = "profile.html";
+        } else {
+            window.location.href = "index.html";
+        }
+    });
+
+});
+</script>
+
+</body>
+</html>
