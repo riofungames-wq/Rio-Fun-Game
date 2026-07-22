@@ -1,4 +1,4 @@
-const CACHE_NAME = "rio-maggi-v1";
+const CACHE_NAME = "rio-maggi-v2";
 
 const FILES_TO_CACHE = [
     "./",
@@ -6,6 +6,9 @@ const FILES_TO_CACHE = [
     "./login.html",
     "./signup.html",
     "./profile.html",
+    "./reward.html",
+    "./admin-login.html",
+    "./admin.html",
     "./qr.html",
     "./about.html",
     "./contact.html",
@@ -30,7 +33,7 @@ self.addEventListener("install", (event) => {
     self.skipWaiting();
 });
 
-// Activate Service Worker
+// Activate Service Worker (Purge old cache)
 self.addEventListener("activate", (event) => {
     event.waitUntil(
         caches.keys().then((cacheNames) => {
@@ -46,16 +49,18 @@ self.addEventListener("activate", (event) => {
     self.clients.claim();
 });
 
-// Fetch Requests
+// Fetch Requests (Network-First with Offline Fallback)
 self.addEventListener("fetch", (event) => {
     event.respondWith(
         fetch(event.request)
         .then((response) => {
-            // Save fresh response to cache
-            const responseClone = response.clone();
-            caches.open(CACHE_NAME).then((cache) => {
-                cache.put(event.request, responseClone);
-            });
+            // Check if response is valid before caching
+            if (response && response.status === 200 && response.type === "basic") {
+                const responseClone = response.clone();
+                caches.open(CACHE_NAME).then((cache) => {
+                    cache.put(event.request, responseClone);
+                });
+            }
             return response;
         })
         .catch(() => {
@@ -64,7 +69,7 @@ self.addEventListener("fetch", (event) => {
                 if (cachedResponse) {
                     return cachedResponse;
                 }
-                // Show Offline Page for navigation requests
+                // Show Offline Page for navigation requests if page not in cache
                 if (event.request.mode === "navigate") {
                     return caches.match("./offline.html");
                 }
