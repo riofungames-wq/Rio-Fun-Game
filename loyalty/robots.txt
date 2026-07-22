@@ -1,1 +1,4 @@
+User-agent: *
+Allow: /
 
+Sitemap: https://riofungames-wq.github.io/Rio-Fun-Game/loyalty/sitemap.xml
