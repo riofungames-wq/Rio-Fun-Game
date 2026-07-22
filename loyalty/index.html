@@ -6,15 +6,17 @@
 
   <title>Rio Maggi Point - Digital Loyalty Card</title>
 
-  <!-- PWA Manifest & Icons -->
+  <!-- PWA Manifest & Favicon Tags -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#263525">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
+  <!-- Additional Mobile App Tags -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Rio Maggi Point">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" href="icon-192.png">
 
   <style>
     * {
@@ -352,7 +354,7 @@
       }
     });
 
-    // Register Service Worker for PWA
+    // Service Worker Registration
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker.register("./service-worker.js");
