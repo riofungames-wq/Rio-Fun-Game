@@ -1,1 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rio Maggi Point - Sign Up</title>
 
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      min-height:100vh;
+      background:#050505;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:20px;
+    }
+
+    .container{
+      width:100%;
+      max-width:420px;
+      background:#f5d99b;
+      border:3px solid #d19b4a;
+      border-radius:18px;
+      padding:30px;
+      box-shadow:0 15px 40px rgba(0,0,0,.5);
+    }
+
+    h1{
+      text-align:center;
+      color:#222;
+      margin-bottom:10px;
+    }
+
+    p{
+      text-align:center;
+      color:#444;
+      margin-bottom:25px;
+    }
+
+    label{
+      display:block;
+      margin-bottom:6px;
+      font-weight:bold;
+      color:#222;
+    }
+
+    input{
+      width:100%;
+      padding:12px;
+      margin-bottom:18px;
+      border:2px solid #d19b4a;
+      border-radius:10px;
+      font-size:15px;
+      outline:none;
+    }
+
+    input:focus{
+      border-color:#263525;
+    }
+
+    button{
+      width:100%;
+      padding:14px;
+      border:none;
+      border-radius:10px;
+      background:#263525;
+      color:#ffd54f;
+      font-size:17px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:.3s;
+    }
+
+    button:hover{
+      background:#1d281c;
+    }
+
+    .bottom{
+      text-align:center;
+      margin-top:20px;
+      font-size:15px;
+    }
+
+    .bottom a{
+      text-decoration:none;
+      color:#c62828;
+      font-weight:bold;
+    }
+
+    .bottom a:hover{
+      text-decoration:underline;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>👤 Create Account</h1>
+
+  <p>Join Rio Maggi Point Loyalty Program</p>
+
+  <form id="signupForm">
+
+    <label for="name">Full Name</label>
+    <input
+      type="text"
+      id="name"
+      placeholder="Enter your full name"
+      required
+    >
+
+    <label for="mobile">Mobile Number</label>
+    <input
+      type="tel"
+      id="mobile"
+      placeholder="Enter 10-digit mobile number"
+      maxlength="10"
+      required
+    >
+
+    <label for="email">Email (Optional)</label>
+    <input
+      type="email"
+      id="email"
+      placeholder="Enter your email"
+    >
+
+    <button type="submit">
+      Create Account
+    </button>
+
+  </form>
+
+  <div class="bottom">
+    Already have an account?
+    <a href="login.html">Login</a>
+  </div>
+
+</div>
+
+<!-- JavaScript Part 2 में आएगा -->
+
+</body>
+</html>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const form = document.getElementById("signupForm");
+
+    form.addEventListener("submit", function (e) {
+
+        e.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const mobile = document.getElementById("mobile").value.trim();
+        const email = document.getElementById("email").value.trim();
+
+        // Name Validation
+        if (name.length < 3) {
+            alert("Please enter a valid name.");
+            return;
+        }
+
+        // Mobile Validation
+        if (!/^[0-9]{10}$/.test(mobile)) {
+            alert("Please enter a valid 10-digit mobile number.");
+            return;
+        }
+
+        // Get Existing Customers
+        const customers = JSON.parse(localStorage.getItem("customers")) || [];
+
+        // Duplicate Mobile Check
+        const alreadyExists = customers.find(
+            customer => customer.mobile === mobile
+        );
+
+        if (alreadyExists) {
+            alert("This mobile number is already registered. Please login.");
+            window.location.href = "login.html";
+            return;
+        }
+
+        // New Customer Object
+        const customer = {
+            id: Date.now(),
+            name: name,
+            mobile: mobile,
+            email: email,
+            stamps: 0,
+            reward: false,
+            createdAt: new Date().toISOString()
+        };
+
+        // Save Customer
+        customers.push(customer);
+
+        localStorage.setItem(
+            "customers",
+            JSON.stringify(customers)
+        );
+
+        // Current Logged-in Customer
+        localStorage.setItem(
+            "currentCustomer",
+            JSON.stringify(customer)
+        );
+
+        alert("Account Created Successfully!");
+
+        window.location.href = "index.html";
+
+    });
+
+});
+</script>
