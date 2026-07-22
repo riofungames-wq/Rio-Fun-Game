@@ -1,1 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Rio Maggi Point - Digital Loyalty Card</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #050505;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .loyalty-card {
+      width: 100%;
+      max-width: 650px;
+      background: #f5d99b;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      border: 3px solid #d19b4a;
+      position: relative;
+    }
+
+    .header {
+      padding: 25px 20px 15px;
+      text-align: center;
+      background: linear-gradient(135deg, #f8dda0, #edc77d);
+    }
+
+    .brand {
+      font-size: 15px;
+      font-weight: bold;
+      color: #222;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .brand span {
+      color: #e53935;
+    }
+
+    .title {
+      font-size: clamp(42px, 10vw, 70px);
+      font-weight: 900;
+      line-height: 0.9;
+      color: #111;
+      letter-spacing: -2px;
+    }
+
+    .title span {
+      color: #c62828;
+    }
+
+    .subtitle {
+      margin-top: 15px;
+      font-size: 16px;
+      font-style: italic;
+      color: #333;
+    }
+
+    .customer-box {
+      margin: 15px 20px;
+      padding: 15px;
+      background: #263525;
+      color: white;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .customer-label {
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: #f5d99b;
+    }
+
+    .customer-name {
+      margin-top: 5px;
+      font-size: 28px;
+      font-weight: 900;
+      color: #ffd54f;
+      text-transform: uppercase;
+    }
+
+    .message {
+      text-align: center;
+      font-weight: bold;
+      color: #222;
+      padding: 10px 15px;
+    }
+
+    .stamps-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 900;
+      color: #222;
+      margin: 10px 0 15px;
+    }
+
+    .stamps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      padding: 0 25px 25px;
+    }
+
+    .stamp {
+      aspect-ratio: 1;
+      border: 3px dashed #7a5b27;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #555;
+      position: relative;
+    }
+
+    .stamp-number {
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .stamp-status {
+      font-size: 11px;
+      margin-top: 5px;
+      font-weight: bold;
+    }
+
+    .stamp.approved {
+      background: #263525;
+      border: 4px solid #d99b27;
+      color: #ffd54f;
+      transform: rotate(-4deg);
+    }
+
+    .stamp.approved::after {
+      content: "✓";
+      position: absolute;
+      font-size: 55px;
+      color: rgba(255, 213, 79, 0.18);
+    }
+
+    .reward {
+      margin: 0 25px 25px;
+      padding: 18px;
+      border-radius: 15px;
+      background: #c62828;
+      color: white;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+    }
+
+    .reward h2 {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    .reward p {
+      font-size: 14px;
+    }
+
+    .footer {
+      background: #263525;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .footer strong {
+      color: #ffd54f;
+    }
+
+    @media (max-width: 450px) {
+      body {
+        padding: 10px;
+      }
+
+      .header {
+        padding: 20px 10px 12px;
+      }
+
+      .customer-box {
+        margin: 10px;
+      }
+
+      .stamps {
+        gap: 10px;
+        padding: 0 15px 20px;
+      }
+
+      .stamp-number {
+        font-size: 19px;
+      }
+
+      .stamp-status {
+        font-size: 9px;
+      }
+
+      .reward {
+        margin: 0 15px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="loyalty-card">
+
+    <div class="header">
+      <div class="brand">
+        <span>▶</span> RIO MAGGI POINT
+      </div>
+
+      <div class="title">
+        LOYALTY<br>
+        <span>CARD</span>
+      </div>
+
+      <div class="subtitle">
+        Thank you for choosing us!
+      </div>
+    </div>
+
+    <div class="customer-box">
+      <div class="customer-label">CUSTOMER NAME</div>
+
+      <!-- बाद में यह नाम Sign Up से अपने-आप आएगा -->
+      <div class="customer-name">
+        YOUR NAME
+      </div>
+    </div>
+
+    <div class="message">
+      COLLECT STAMPS & EARN REWARDS!
+    </div>
+
+    <div class="stamps-title">
+      🎟️ YOUR LOYALTY STAMPS
+    </div>
+
+    <div class="stamps">
+
+      <div class="stamp">
+        <div class="stamp-number">1</div>
+        <div class="stamp-status">AVAILABLE</div>
+      </div>
+
+      <div class="stamp">
+        <div class="stamp-number">2</div>
+        <div class="stamp-status">AVAILABLE</div>
+      </div>
+
+      <div class="stamp">
+        <div class="stamp-number">3</div>
+        <div class="stamp-status">AVAILABLE</div>
+      </div>
+
+      <div class="stamp">
+        <div class="stamp-number">4</div>
+        <div class="stamp-status">AVAILABLE</div>
+      </div>
+
+      <div class="stamp">
+        <div class="stamp-number">5</div>
+        <div class="stamp-status">AVAILABLE</div>
+      </div>
+
+      <div class="stamp">
+        <div class="stamp-number">6</div>
+        <div class="stamp-status">FREE MAGGI</div>
+      </div>
+
+    </div>
+
+    <div class="reward">
+      <h2>🎁 REWARD</h2>
+      <p>Collect 6 Stamps & Get 1 Veg Maggi FREE!</p>
+    </div>
+
+    <div class="footer">
+      <strong>RIO MAGGI POINT</strong><br>
+      One Stamp on Every Eligible Purchase
+    </div>
+
+  </div>
+
+</body>
+</html>
