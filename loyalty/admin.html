@@ -1,1 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rio Maggi Point - Admin Panel</title>
 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #050505;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: #f5d99b;
+            border: 3px solid #d19b4a;
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .45);
+        }
+
+        h1 {
+            text-align: center;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d19b4a;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            margin-bottom: 18px;
+        }
+
+        input:focus {
+            border-color: #263525;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #263525;
+            color: #ffd54f;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .25s;
+            margin-bottom: 12px;
+        }
+
+        button:hover {
+            background: #1c271b;
+        }
+
+        .result {
+            display: none;
+            margin-top: 20px;
+            padding: 18px;
+            background: #fff7df;
+            border: 2px solid #d19b4a;
+            border-radius: 12px;
+        }
+
+        .info {
+            margin: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .stampBtn {
+            background: #c62828;
+            color: #fff;
+        }
+
+        .stampBtn:hover {
+            background: #a81f1f;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🛠️ Admin Panel</h1>
+
+    <p class="subtitle">
+        Search Customer & Add Loyalty Stamps
+    </p>
+
+    <label for="mobile">
+        Customer Mobile Number
+    </label>
+
+    <input
+        type="tel"
+        id="mobile"
+        placeholder="Enter 10-digit mobile number"
+        inputmode="numeric"
+        maxlength="10"
+        oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+    >
+
+    <button id="searchBtn">
+        🔍 Search Customer
+    </button>
+
+    <div class="result" id="resultBox">
+        <div class="info">
+            👤 Name: <span id="customerName">-</span>
+        </div>
+
+        <div class="info">
+            📱 Mobile: <span id="customerMobile">-</span>
+        </div>
+
+        <div class="info">
+            🎟️ Stamps: <span id="customerStamps">0</span> / 6
+        </div>
+
+        <button class="stampBtn" id="addStampBtn">
+            ➕ Add 1 Stamp
+        </button>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    let selectedCustomer = null;
+
+    const searchBtn = document.getElementById("searchBtn");
+    const addStampBtn = document.getElementById("addStampBtn");
+
+    searchBtn.addEventListener("click", () => {
+        const mobile = document.getElementById("mobile").value.trim();
+
+        if (!/^[0-9]{10}$/.test(mobile)) {
+            alert("Enter a valid 10-digit mobile number.");
+            return;
+        }
+
+        const customers = JSON.parse(localStorage.getItem("customers")) || [];
+
+        selectedCustomer = customers.find(c => c.mobile === mobile);
+
+        if (!selectedCustomer) {
+            alert("Customer not found.");
+            document.getElementById("resultBox").style.display = "none";
+            return;
+        }
+
+        document.getElementById("resultBox").style.display = "block";
+        document.getElementById("customerName").textContent = selectedCustomer.name;
+        document.getElementById("customerMobile").textContent = selectedCustomer.mobile;
+        document.getElementById("customerStamps").textContent = selectedCustomer.stamps;
+    });
+
+    addStampBtn.addEventListener("click", () => {
+        if (!selectedCustomer) {
+            alert("Search a customer first.");
+            return;
+        }
+
+        let customers = JSON.parse(localStorage.getItem("customers")) || [];
+
+        const index = customers.findIndex(c => c.id === selectedCustomer.id);
+
+        if (index === -1) {
+            alert("Customer not found.");
+            return;
+        }
+
+        if (customers[index].stamps < 6) {
+            customers[index].stamps++;
+        }
+
+        if (customers[index].stamps >= 6) {
+            customers[index].reward = true;
+        }
+
+        localStorage.setItem("customers", JSON.stringify(customers));
+
+        // अगर यही customer अभी login है तो उसका data भी update करो
+        const currentCustomer = JSON.parse(localStorage.getItem("currentCustomer"));
+
+        if (currentCustomer && currentCustomer.id === customers[index].id) {
+            localStorage.setItem("currentCustomer", JSON.stringify(customers[index]));
+        }
+
+        selectedCustomer = customers[index];
+        document.getElementById("customerStamps").textContent = selectedCustomer.stamps;
+
+        alert("1 Stamp Added Successfully!");
+    });
+});
+</script>
+
+</body>
+</html>
