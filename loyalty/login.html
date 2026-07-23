@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Rio Maggi Point - Login</title>
 
-    <!-- PWA Manifest & Favicon Tags -->
+    <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#263525">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Rio Maggi Point">
+    <link rel="icon" href="favicon.ico">
     <link rel="apple-touch-icon" href="icon-192.png">
 
     <style>
@@ -21,21 +27,21 @@
 
         body {
             min-height: 100vh;
+            background: #050505;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #050505;
             padding: 20px;
         }
 
         .container {
             width: 100%;
-            max-width: 420px;
+            max-width: 430px;
             background: #f5d99b;
             border: 3px solid #d19b4a;
             border-radius: 18px;
             padding: 30px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .45);
         }
 
         h1 {
@@ -46,15 +52,15 @@
 
         .subtitle {
             text-align: center;
-            color: #555;
             margin-bottom: 25px;
+            color: #555;
         }
 
         label {
             display: block;
             margin-bottom: 6px;
-            color: #222;
             font-weight: bold;
+            color: #222;
         }
 
         input {
@@ -65,7 +71,7 @@
             border-radius: 10px;
             font-size: 15px;
             outline: none;
-            transition: 0.25s;
+            transition: .25s;
         }
 
         input:focus {
@@ -82,7 +88,7 @@
             font-size: 17px;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.25s;
+            transition: .25s;
         }
 
         button:hover {
@@ -97,8 +103,8 @@
 
         .bottom a {
             color: #c62828;
-            text-decoration: none;
             font-weight: bold;
+            text-decoration: none;
         }
 
         .bottom a:hover {
@@ -111,75 +117,98 @@
 
 <div class="container">
     <h1>🔑 Login</h1>
-
-    <p class="subtitle">
-        Welcome Back to Rio Maggi Point
-    </p>
+    <p class="subtitle">Welcome Back to Rio Maggi Point</p>
 
     <form id="loginForm">
-        <label for="mobile">Mobile Number</label>
-
+        <label>Email Address</label>
         <input
-            type="tel"
-            id="mobile"
-            placeholder="Enter your registered mobile number"
-            inputmode="numeric"
-            maxlength="10"
-            pattern="[0-9]{10}"
-            autocomplete="tel"
-            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            autocomplete="email"
             required
         >
 
-        <button type="submit">
-            Login
-        </button>
+        <label>Password</label>
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+        >
+
+        <button type="submit">Login</button>
     </form>
 
     <div class="bottom">
-        Don't have an account?
-        <a href="signup.html">Sign Up</a>
+        Don't have an account? <a href="signup.html">Create Account</a>
     </div>
 </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("loginForm");
+<script type="module">
+    import { auth } from "./js/firebase-config.js";
+    import {
+        signInWithEmailAndPassword
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-    form.addEventListener("submit", function(e) {
+    const loginForm = document.getElementById("loginForm");
+
+    loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const mobile = document.getElementById("mobile").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
 
-        if (!/^[0-9]{10}$/.test(mobile)) {
-            alert("Please enter a valid 10-digit mobile number.");
+        if (!email) {
+            alert("Please enter your email.");
             return;
         }
 
-        const customers = JSON.parse(localStorage.getItem("customers")) || [];
-
-        const customer = customers.find(user => user.mobile === mobile);
-
-        if (!customer) {
-            alert("Account not found. Please Sign Up first.");
-            window.location.href = "signup.html";
+        if (password.length < 6) {
+            alert("Please enter a valid password.");
             return;
         }
 
-        localStorage.setItem("currentCustomer", JSON.stringify(customer));
+        try {
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
 
-        alert("Login Successful!");
-        window.location.href = "index.html";
+            alert("Login Successful!");
+            window.location.href = "index.html";
+
+        } catch (error) {
+            console.error(error);
+
+            switch (error.code) {
+                case "auth/invalid-credential":
+                    alert("Invalid email or password.");
+                    break;
+                case "auth/user-not-found":
+                    alert("Account not found.");
+                    break;
+                case "auth/wrong-password":
+                    alert("Wrong password.");
+                    break;
+                case "auth/invalid-email":
+                    alert("Invalid email address.");
+                    break;
+                default:
+                    alert(error.message);
+            }
+        }
     });
-});
 </script>
 
 <script>
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js");
-    });
-}
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker.register("./service-worker.js");
+        });
+    }
 </script>
 
 </body>
