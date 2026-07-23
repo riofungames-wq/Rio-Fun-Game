@@ -1,217 +1,449 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rio Maggi Point - My QR Code</title>
+    <title>Rio Maggi Point - My QR</title>
 
-<!-- PWA Manifest & Favicon Tags -->
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#263525">
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" href="icon-192.png">
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#263525">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Rio Maggi Point">
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
+    <link rel="icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="icon-192.png">
 
-body {
-    background: #050505;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-}
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-.container {
-    width: 100%;
-    max-width: 450px;
-    background: #f5d99b;
-    border: 3px solid #d19b4a;
-    border-radius: 18px;
-    padding: 30px;
-    box-shadow: 0 15px 40px rgba(0,0,0,.45);
-}
+    <style>
 
-h1 {
-    text-align: center;
-    color: #222;
-    margin-bottom: 10px;
-    font-size: 30px;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-.subtitle {
-    text-align: center;
-    color: #555;
-    margin-bottom: 25px;
-    font-size: 15px;
-}
+        body {
+            min-height: 100vh;
+            background: #050505;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-.qr-box {
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    border: 2px solid #d19b4a;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-}
+        .qr-card {
+            width: 100%;
+            max-width: 500px;
+            background: #f5d99b;
+            border: 3px solid #d19b4a;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,.55);
+            text-align: center;
+        }
 
-.card {
-    background: #fff7df;
-    border: 2px solid #d19b4a;
-    border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 15px;
-}
+        .header {
+            background: linear-gradient(135deg, #f8dda0, #edc77d);
+            padding: 25px 20px;
+        }
 
-.label {
-    font-size: 13px;
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 4px;
-}
+        .brand {
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: #222;
+        }
 
-.value {
-    font-size: 18px;
-    font-weight: bold;
-    color: #222;
-    word-break: break-word;
-}
+        .brand span {
+            color: #c62828;
+        }
 
-.status {
-    padding: 15px;
-    border-radius: 12px;
-    text-align: center;
-    font-weight: bold;
-    background: #fff7df;
-    border: 2px solid #d19b4a;
-    color: #222;
-    font-size: 16px;
-}
+        .title {
+            margin-top: 8px;
+            font-size: 30px;
+            font-weight: 900;
+            color: #c62828;
+        }
 
-.bannerAd {
-    height: 90px;
-    margin: 20px 0;
-    border: 2px dashed #999;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #fff;
-    color: #777;
-    font-weight: bold;
-}
+        .subtitle {
+            margin-top: 8px;
+            color: #444;
+            font-size: 14px;
+        }
 
-button {
-    width: 100%;
-    margin-top: 20px;
-    padding: 14px;
-    background: #263525;
-    color: #ffd54f;
-    border: none;
-    border-radius: 10px;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .25s;
-}
+        .customer-box {
+            margin: 20px;
+            padding: 15px;
+            background: #263525;
+            color: white;
+            border-radius: 14px;
+        }
 
-button:hover {
-    background: #1c271b;
-}
-</style>
+        .welcome {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #f5d99b;
+        }
+
+        .customer-name {
+            margin-top: 5px;
+            font-size: 25px;
+            font-weight: 900;
+            color: #ffd54f;
+            text-transform: uppercase;
+        }
+
+        .qr-area {
+            margin: 20px;
+            padding: 25px;
+            background: white;
+            border-radius: 18px;
+            border: 3px solid #d19b4a;
+        }
+
+        #qrcode {
+            width: 220px;
+            height: 220px;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #qrcode img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .scan-text {
+            margin-top: 18px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #263525;
+        }
+
+        .info {
+            margin: 0 20px 20px;
+            padding: 15px;
+            background: #fff7df;
+            border-radius: 12px;
+            color: #444;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .back-btn {
+            width: calc(100% - 40px);
+            margin: 0 20px 20px;
+            padding: 14px;
+            background: #263525;
+            color: #ffd54f;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background: #1c271b;
+        }
+
+        .loading {
+            padding: 40px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #263525;
+        }
+
+        @media(max-width: 450px) {
+
+            .qr-area {
+                margin: 15px;
+                padding: 20px;
+            }
+
+            #qrcode {
+                width: 200px;
+                height: 200px;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
 
-<div class="container">
+<div class="qr-card">
 
-    <h1>📱 My QR Code</h1>
+    <div class="header">
 
-    <p class="subtitle">
-        Show this QR Code to the Staff
-    </p>
+        <div class="brand">
+            <span>▶</span> RIO MAGGI POINT
+        </div>
 
-    <div class="qr-box">
-        <div id="qrcode"></div>
+        <div class="title">
+            MY QR CODE
+        </div>
+
+        <div class="subtitle">
+            Show this QR at Rio Maggi Point
+        </div>
+
     </div>
 
-    <div class="card">
-        <div class="label">Customer Name</div>
-        <div class="value" id="customerName">Loading...</div>
+
+    <div
+        class="loading"
+        id="loadingMessage"
+    >
+        Loading your QR Code...
     </div>
 
-    <div class="card">
-        <div class="label">Mobile Number</div>
-        <div class="value" id="customerMobile">Loading...</div>
-    </div>
 
-    <div class="status" id="stampStatus">
-        Loading...
-    </div>
+    <div
+        id="qrContent"
+        style="display:none;"
+    >
 
-    <div class="bannerAd">
-        Google AdSense Banner
-    </div>
+        <div class="customer-box">
 
-    <button id="profileBtn">
-        ⬅ Back to Profile
-    </button>
+            <div class="welcome">
+                CUSTOMER
+            </div>
+
+            <div
+                class="customer-name"
+                id="customerName"
+            >
+                Customer
+            </div>
+
+        </div>
+
+
+        <div class="qr-area">
+
+            <div id="qrcode"></div>
+
+            <div class="scan-text">
+                📱 Show this QR to Admin
+            </div>
+
+        </div>
+
+
+        <div class="info">
+
+            🔐 This QR Code is linked to your
+            Rio Maggi Point loyalty account.
+
+            <br><br>
+
+            Your personal mobile number is
+            <strong>not displayed</strong>
+            in this QR Code.
+
+        </div>
+
+
+        <button
+            class="back-btn"
+            id="backBtn"
+        >
+            🏠 Back to Loyalty Card
+        </button>
+
+    </div>
 
 </div>
 
-<!-- QR Code Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
+<script type="module">
 
-    const customer = JSON.parse(
-        localStorage.getItem("currentCustomer")
-    );
+    import { auth, db } from "./js/firebase-config.js";
 
-    // Login Check
-    if (!customer) {
-        alert("Please Login First!");
-        window.location.href = "login.html";
-        return;
-    }
+    import {
+        onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-    // Customer Details
-    document.getElementById("customerName").textContent = customer.name;
-    document.getElementById("customerMobile").textContent = customer.mobile;
-    document.getElementById("stampStatus").textContent = "Loyalty Stamps: " + customer.stamps + " / 6";
+    import {
+        doc,
+        getDoc
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-    // Generate QR Code
-    new QRCode(document.getElementById("qrcode"), {
-        text: customer.mobile,
-        width: 200,
-        height: 200
+
+    const loadingMessage =
+        document.getElementById("loadingMessage");
+
+    const qrContent =
+        document.getElementById("qrContent");
+
+    const customerName =
+        document.getElementById("customerName");
+
+    const qrCode =
+        document.getElementById("qrcode");
+
+
+    // =========================
+    // CHECK CUSTOMER LOGIN
+    // =========================
+
+    onAuthStateChanged(auth, async (user) => {
+
+        if (!user) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        try {
+
+            // Get Customer Data
+
+            const customerRef =
+                doc(
+                    db,
+                    "customers",
+                    user.uid
+                );
+
+
+            const customerSnap =
+                await getDoc(customerRef);
+
+
+            if (!customerSnap.exists()) {
+
+                alert(
+                    "Customer account data not found."
+                );
+
+                window.location.href =
+                    "index.html";
+
+                return;
+
+            }
+
+
+            const customer =
+                customerSnap.data();
+
+
+            // Show Customer Name
+
+            customerName.textContent =
+                customer.name ||
+                "Customer";
+
+
+            // =========================
+            // CREATE PERMANENT QR
+            // =========================
+
+            // Only Firebase UID is stored
+            // No mobile number
+            // No email
+            // No password
+
+            const qrData =
+                "RIO_MAGGI_CUSTOMER:" +
+                user.uid;
+
+
+            new QRCode(
+                qrCode,
+                {
+                    text: qrData,
+                    width: 220,
+                    height: 220,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel:
+                        QRCode.CorrectLevel.H
+                }
+            );
+
+
+            // Show Page
+
+            loadingMessage.style.display =
+                "none";
+
+            qrContent.style.display =
+                "block";
+
+
+        } catch (error) {
+
+            console.error(
+                "QR Error:",
+                error
+            );
+
+            loadingMessage.textContent =
+                "Unable to load QR Code.";
+
+        }
+
     });
 
-    // Back Button
-    document.getElementById("profileBtn").addEventListener("click", () => {
-        window.location.href = "profile.html";
-    });
 
-});
+    // =========================
+    // BACK BUTTON
+    // =========================
+
+    document
+        .getElementById("backBtn")
+        .addEventListener(
+            "click",
+            () => {
+
+                window.location.href =
+                    "index.html";
+
+            }
+        );
+
+
 </script>
 
+
 <script>
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js");
-    });
-}
+
+    if ("serviceWorker" in navigator) {
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                navigator.serviceWorker.register(
+                    "./service-worker.js"
+                );
+
+            }
+        );
+
+    }
+
 </script>
 
 </body>
+
 </html>
