@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Rio Maggi Point - Digital Loyalty Card</title>
+    <title>Rio Maggi Point - Weekly Loyalty Card</title>
 
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
@@ -14,6 +14,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Rio Maggi Point">
+
     <link rel="icon" href="favicon.ico">
     <link rel="apple-touch-icon" href="icon-192.png">
 
@@ -26,35 +27,35 @@
         }
 
         body {
-            min-height: 100vh;
             background: #050505;
             display: flex;
             justify-content: center;
-            align-items: center;
             padding: 20px;
+            min-height: 100vh;
+            align-items: center;
         }
 
         .loyalty-card {
             width: 100%;
             max-width: 650px;
             background: #f5d99b;
-            border-radius: 18px;
+            border-radius: 20px;
             overflow: hidden;
             border: 3px solid #d19b4a;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, .55);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, .55);
         }
 
         .header {
+            background: linear-gradient(135deg, #f8dda0, #edc77d);
             padding: 25px 20px 15px;
             text-align: center;
-            background: linear-gradient(135deg, #f8dda0, #edc77d);
         }
 
         .brand {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
-            letter-spacing: 1px;
             color: #222;
+            letter-spacing: 1px;
             margin-bottom: 8px;
         }
 
@@ -63,11 +64,11 @@
         }
 
         .title {
-            font-size: clamp(42px, 10vw, 70px);
+            font-size: clamp(40px, 8vw, 65px);
             font-weight: 900;
             line-height: .9;
             color: #111;
-            letter-spacing: -2px;
+            letter-spacing: -1px;
         }
 
         .title span {
@@ -75,166 +76,177 @@
         }
 
         .subtitle {
-            margin-top: 15px;
+            margin-top: 12px;
             font-size: 16px;
             font-style: italic;
             color: #333;
         }
 
-        .customer-box {
+        .member-box {
             margin: 15px 20px;
-            padding: 15px;
             background: #263525;
-            border-radius: 12px;
-            text-align: center;
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
             color: white;
         }
 
-        .customer-label {
-            font-size: 12px;
+        .member-label {
+            font-size: 11px;
             letter-spacing: 2px;
             color: #f5d99b;
         }
 
-        .customer-name {
-            margin-top: 5px;
-            font-size: 28px;
+        .member-name {
+            font-size: 26px;
             font-weight: 900;
             color: #ffd54f;
             text-transform: uppercase;
         }
 
-        .message {
-            padding: 10px;
-            text-align: center;
-            font-weight: bold;
-            color: #222;
+        .member-info {
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: right;
+            color: #e0e0e0;
         }
 
-        .stamps-title {
+        .stamp-title {
             text-align: center;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 900;
-            margin: 12px 0;
             color: #222;
+            margin: 15px 0 10px;
         }
 
-        .stamps {
+        /* Top 6 Stamps: 3x2 Grid */
+        .stamps-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 15px;
-            padding: 0 25px 25px;
+            padding: 10px 25px 15px;
         }
 
-        .stamp {
+        /* Bottom Row: 🎁 Free Maggi + ❤️ Enjoy */
+        .stamps-bottom-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            padding: 0 25px 20px;
+        }
+
+        .circle {
             aspect-ratio: 1;
-            border: 3px dashed #7a5b27;
             border-radius: 50%;
-            background: rgba(255, 255, 255, .25);
+            border: 3px dashed #8a6232;
+            background: #fff5df;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            position: relative;
-            color: #555;
-        }
-
-        .stamp-number {
-            font-size: 24px;
-            font-weight: 900;
-        }
-
-        .stamp-status {
-            font-size: 11px;
-            margin-top: 5px;
+            flex-direction: column;
             font-weight: bold;
-        }
-
-        .stamp.approved {
-            background: #263525;
-            border: 4px solid #d99b27;
-            color: #ffd54f;
-            transform: rotate(-4deg);
-        }
-
-        .stamp.approved::after {
-            content: "✓";
-            position: absolute;
-            font-size: 55px;
-            color: rgba(255, 213, 79, .18);
-        }
-
-        .reward {
-            margin: 0 25px 25px;
-            padding: 18px;
-            border-radius: 15px;
-            background: #c62828;
             text-align: center;
-            color: white;
+            font-size: 15px;
+            color: #444;
+            transition: transform 0.2s;
         }
 
-        .reward h2 {
-            font-size: 24px;
+        .circle.done {
+            background: #263525;
+            color: #ffd54f;
+            border: 4px solid #d99b27;
+            transform: rotate(-3deg);
+        }
+
+        .circle.reward-box {
+            background: #c62828;
+            color: white;
+            border: 4px solid gold;
+        }
+
+        .circle.heart-box {
+            background: #ffe4ec;
+            border: 4px solid #ff5c8a;
+            color: #d81b60;
+        }
+
+        .reward-section {
+            margin: 0 25px 20px;
+            background: #b71c1c;
+            color: white;
+            padding: 15px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .reward-section h2 {
+            font-size: 20px;
             margin-bottom: 5px;
         }
 
-        .reward p {
+        .reward-section p {
             font-size: 14px;
         }
 
-        .nav-btn {
-            margin: 0 25px 20px;
-            width: calc(100% - 50px);
-            padding: 14px;
+        .bottom-nav {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
             background: #263525;
-            color: #ffd54f;
+            border-top: 2px solid #d19b4a;
+        }
+
+        .bottom-nav button {
+            padding: 14px 5px;
+            background: none;
             border: none;
-            border-radius: 10px;
-            font-size: 16px;
+            color: white;
+            font-size: 13px;
             font-weight: bold;
             cursor: pointer;
             transition: .25s;
         }
 
-        .nav-btn:hover {
+        .bottom-nav button:hover {
             background: #1c271b;
-        }
-
-        .footer {
-            background: #263525;
-            padding: 15px;
-            text-align: center;
-            font-size: 13px;
-            color: white;
-        }
-
-        .footer strong {
             color: #ffd54f;
         }
 
-        @media(max-width: 450px) {
-            body {
-                padding: 10px;
+        .footer {
+            padding: 12px;
+            text-align: center;
+            background: #1b261b;
+            color: #ffd54f;
+            font-size: 13px;
+        }
+
+        @media(max-width: 500px) {
+            .member-box {
+                flex-direction: column;
+                text-align: center;
             }
 
-            .header {
-                padding: 20px 10px 12px;
+            .member-info {
+                text-align: center;
             }
 
-            .customer-box {
-                margin: 10px;
-            }
-
-            .stamps {
-                padding: 0 15px 20px;
+            .stamps-grid {
                 gap: 10px;
+                padding: 10px 15px 10px;
             }
 
-            .reward,
-            .nav-btn {
-                margin: 0 15px 20px;
-                width: calc(100% - 30px);
+            .stamps-bottom-row {
+                gap: 10px;
+                padding: 0 15px 15px;
+            }
+
+            .bottom-nav button {
+                font-size: 11px;
+                padding: 10px 2px;
             }
         }
     </style>
@@ -243,6 +255,7 @@
 <body>
 
 <div class="loyalty-card">
+
     <div class="header">
         <div class="brand">
             <span>▶</span> RIO MAGGI POINT
@@ -252,52 +265,84 @@
             <span>CARD</span>
         </div>
         <div class="subtitle">
-            Thank you for choosing us!
+            🍜 Daily Purchase • Weekly Reward 🍜
         </div>
     </div>
 
-    <div class="customer-box">
-        <div class="customer-label">CUSTOMER NAME</div>
-        <div class="customer-name" id="customerNameDisplay">Loading...</div>
+    <div class="member-box">
+        <div>
+            <div class="member-label">WELCOME</div>
+            <div class="member-name" id="customerNameDisplay">Loading...</div>
+        </div>
+        <div class="member-info">
+            ⭐ Weekly Program<br>
+            🎁 6 Stamps = FREE Maggi
+        </div>
     </div>
 
-    <div class="message">
-        COLLECT STAMPS & EARN REWARDS!
+    <div class="stamp-title">
+        🎟️ YOUR WEEKLY STAMPS
     </div>
 
-    <div class="stamps-title">
-        🎟️ YOUR LOYALTY STAMPS
+    <!-- Top 6 Stamps Grid (3x2) -->
+    <div class="stamps-grid" id="stampsGridContainer">
+        <!-- Generated dynamically -->
     </div>
 
-    <div class="stamps" id="stampsContainer"></div>
-
-    <div class="reward">
-        <h2>🎁 REWARD</h2>
-        <p id="rewardText">Collect 6 Stamps & Get 1 Veg Maggi FREE!</p>
+    <!-- Bottom Row (7th Free Maggi & 8th Love Icon) -->
+    <div class="stamps-bottom-row" id="stampsBottomRow">
+        <div class="circle reward-box">
+            <div style="font-size: 30px;">🎁</div>
+            <div style="font-size: 12px; font-weight: 900;">FREE MAGGI</div>
+        </div>
+        <div class="circle heart-box">
+            <div style="font-size: 32px;">❤️</div>
+            <div style="font-size: 12px; font-weight: 900;">ENJOY FOOD</div>
+        </div>
     </div>
 
-    <button class="nav-btn" id="actionBtn">Loading...</button>
+    <div class="reward-section">
+        <h2>🎁 WEEKLY REWARD</h2>
+        <p id="rewardText">
+            Collect 6 Daily Stamps & Get 1 Veg Maggi FREE!
+        </p>
+    </div>
+
+    <div class="bottom-nav">
+        <button id="homeBtn">🏠<br>Home</button>
+        <button id="profileBtn">👤<br>Profile</button>
+        <button id="qrBtn">📱<br>QR</button>
+        <button id="historyBtn">🕘<br>History</button>
+        <button id="logoutBtn">🚪<br>Logout</button>
+    </div>
 
     <div class="footer">
         <strong>RIO MAGGI POINT</strong><br>
-        One Stamp on Every Eligible Purchase
+        Get 1 Stamp on Daily Purchase
     </div>
+
 </div>
 
 <script type="module">
     import { auth, db } from "./js/firebase-config.js";
     import {
-        onAuthStateChanged
+        onAuthStateChanged,
+        signOut
     } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
     import {
         doc,
         getDoc
     } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-    const nameDisplay = document.getElementById("customerNameDisplay");
-    const stampsContainer = document.getElementById("stampsContainer");
+    const customerName = document.getElementById("customerNameDisplay");
+    const stampsGridContainer = document.getElementById("stampsGridContainer");
     const rewardText = document.getElementById("rewardText");
-    const actionBtn = document.getElementById("actionBtn");
+
+    const homeBtn = document.getElementById("homeBtn");
+    const profileBtn = document.getElementById("profileBtn");
+    const qrBtn = document.getElementById("qrBtn");
+    const historyBtn = document.getElementById("historyBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
 
     onAuthStateChanged(auth, async (user) => {
         if (!user) {
@@ -306,52 +351,59 @@
         }
 
         try {
-            const docRef = doc(db, "customers", user.uid);
-            const docSnap = await getDoc(docRef);
+            const snap = await getDoc(doc(db, "customers", user.uid));
 
-            if (!docSnap.exists()) {
+            if (!snap.exists()) {
                 alert("Customer data not found.");
                 return;
             }
 
-            const customer = docSnap.data();
-
-            nameDisplay.textContent = customer.name;
-            actionBtn.textContent = "👤 View My Profile";
-            actionBtn.onclick = () => {
-                window.location.href = "profile.html";
-            };
+            const customer = snap.data();
+            customerName.textContent = customer.name || "Customer";
 
             const stamps = customer.stamps || 0;
-            stampsContainer.innerHTML = "";
+            stampsGridContainer.innerHTML = "";
 
+            // Render top 6 stamps in 3x2 grid
             for (let i = 1; i <= 6; i++) {
-                const div = document.createElement("div");
-                div.className = "stamp";
+                const circle = document.createElement("div");
+                circle.className = "circle";
 
                 if (i <= stamps) {
-                    div.classList.add("approved");
-                    div.innerHTML = `
-                        <div class="stamp-number">${i}</div>
-                        <div class="stamp-status">EARNED</div>
+                    circle.classList.add("done");
+                    circle.innerHTML = `
+                        <div style="font-size:28px;">✔</div>
+                        <div style="font-size:12px;">DAY ${i}</div>
                     `;
                 } else {
-                    div.innerHTML = `
-                        <div class="stamp-number">${i}</div>
-                        <div class="stamp-status">${i === 6 ? "FREE MAGGI" : "AVAILABLE"}</div>
+                    circle.innerHTML = `
+                        <div style="font-size:24px;">${i}</div>
+                        <div style="font-size:12px;">DAY ${i}</div>
                     `;
                 }
 
-                stampsContainer.appendChild(div);
+                stampsGridContainer.appendChild(circle);
             }
 
             if (stamps >= 6) {
-                rewardText.textContent = "🎉 Congratulations! You unlocked 1 FREE Veg Maggi!";
+                rewardText.textContent = "🎉 Congratulations! Your 7th Veg Maggi is FREE.";
             }
         } catch (error) {
-            console.error("Error fetching customer data:", error);
+            console.error("Firebase Error:", error);
         }
     });
+
+    homeBtn.onclick = () => window.location.href = "index.html";
+    profileBtn.onclick = () => window.location.href = "profile.html";
+    qrBtn.onclick = () => window.location.href = "qr.html";
+    historyBtn.onclick = () => window.location.href = "history.html";
+
+    logoutBtn.onclick = async () => {
+        if (confirm("Are you sure you want to logout?")) {
+            await signOut(auth);
+            window.location.href = "login.html";
+        }
+    };
 </script>
 
 <script>
