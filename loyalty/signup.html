@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Rio Maggi Point - Customer Signup</title>
+    <title>Rio Maggi Point - Create Account</title>
 
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
@@ -13,10 +14,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Rio Maggi Point">
+
     <link rel="icon" href="favicon.ico">
     <link rel="apple-touch-icon" href="icon-192.png">
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -35,29 +38,30 @@
 
         .container {
             width: 100%;
-            max-width: 430px;
+            max-width: 460px;
             background: #f5d99b;
             border: 3px solid #d19b4a;
-            border-radius: 18px;
-            padding: 30px;
+            border-radius: 20px;
+            padding: 28px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, .45);
         }
 
         h1 {
             text-align: center;
             color: #222;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .subtitle {
             text-align: center;
             margin-bottom: 25px;
             color: #555;
+            font-size: 15px;
         }
 
         label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 7px;
             font-weight: bold;
             color: #222;
         }
@@ -70,11 +74,80 @@
             border-radius: 10px;
             font-size: 15px;
             outline: none;
-            transition: .25s;
+            background: #fffdf7;
         }
 
         input:focus {
             border-color: #263525;
+        }
+
+        /* Avatar Section */
+
+        .avatar-title {
+            text-align: center;
+            font-weight: bold;
+            color: #222;
+            margin: 5px 0 12px;
+        }
+
+        .avatar-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .avatar-option {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            background: #fff7df;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .avatar-option:hover {
+            transform: scale(1.06);
+            border-color: #d19b4a;
+        }
+
+        .avatar-option.selected {
+            border-color: #263525;
+            background: #ffd54f;
+            box-shadow: 0 0 0 3px #d19b4a;
+        }
+
+        .selected-avatar-preview {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            background: #fff7df;
+            border: 3px solid #d19b4a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 42px;
+            overflow: hidden;
+        }
+
+        .selected-avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-note {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: -10px;
+            margin-bottom: 20px;
         }
 
         button {
@@ -94,6 +167,11 @@
             background: #1c271b;
         }
 
+        button:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
         .bottom {
             text-align: center;
             margin-top: 20px;
@@ -110,21 +188,68 @@
             text-decoration: underline;
         }
 
+        .message {
+            display: none;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .message.error {
+            display: block;
+            background: #ffdddd;
+            color: #b71c1c;
+            border: 1px solid #e57373;
+        }
+
+        .message.success {
+            display: block;
+            background: #ddffdd;
+            color: #1b5e20;
+            border: 1px solid #66bb6a;
+        }
+
         @media(max-width: 450px) {
+
             .container {
                 padding: 22px;
             }
+
+            .avatar-grid {
+                gap: 8px;
+            }
+
+            .avatar-option {
+                font-size: 28px;
+            }
         }
+
     </style>
 </head>
+
 <body>
 
 <div class="container">
+
     <h1>👤 Create Account</h1>
-    <p class="subtitle">Join Rio Maggi Point Loyalty Program</p>
+
+    <p class="subtitle">
+        Join Rio Maggi Point Loyalty Program
+    </p>
+
+    <div id="messageBox" class="message"></div>
 
     <form id="signupForm">
-        <label>Full Name</label>
+
+        <!-- Full Name -->
+
+        <label for="name">
+            Full Name
+        </label>
+
         <input
             type="text"
             id="name"
@@ -133,7 +258,13 @@
             required
         >
 
-        <label>Mobile Number</label>
+
+        <!-- Mobile -->
+
+        <label for="mobile">
+            Mobile Number
+        </label>
+
         <input
             type="tel"
             id="mobile"
@@ -145,7 +276,13 @@
             required
         >
 
-        <label>Email Address</label>
+
+        <!-- Email -->
+
+        <label for="email">
+            Email Address
+        </label>
+
         <input
             type="email"
             id="email"
@@ -154,35 +291,153 @@
             required
         >
 
-        <label>Password</label>
+
+        <!-- Password -->
+
+        <label for="password">
+            Password
+        </label>
+
         <input
             type="password"
             id="password"
             placeholder="Minimum 6 characters"
+            autocomplete="new-password"
             required
         >
 
-        <label>Confirm Password</label>
+
+        <!-- Confirm Password -->
+
+        <label for="confirmPassword">
+            Confirm Password
+        </label>
+
         <input
             type="password"
             id="confirmPassword"
             placeholder="Confirm password"
+            autocomplete="new-password"
             required
         >
 
-        <button type="submit">Create Account</button>
+
+        <!-- Avatar Preview -->
+
+        <div class="avatar-title">
+            ✨ Choose Your Avatar
+        </div>
+
+        <div
+            class="selected-avatar-preview"
+            id="avatarPreview"
+        >
+            😊
+        </div>
+
+
+        <!-- Avatar Options -->
+
+        <div class="avatar-grid">
+
+            <div
+                class="avatar-option selected"
+                data-avatar="😊"
+            >
+                😊
+            </div>
+
+            <div
+                class="avatar-option"
+                data-avatar="🥰"
+            >
+                🥰
+            </div>
+
+            <div
+                class="avatar-option"
+                data-avatar="😍"
+            >
+                😍
+            </div>
+
+            <div
+                class="avatar-option"
+                data-avatar="😎"
+            >
+                😎
+            </div>
+
+            <div
+                class="avatar-option"
+                data-avatar="🤗"
+            >
+                🤗
+            </div>
+
+            <div
+                class="avatar-option"
+                data-avatar="😇"
+            >
+                😇
+            </div>
+
+            <div
+                class="avatar-option"
+                data-avatar="🧑‍🍳"
+            >
+                🧑‍🍳
+            </div>
+
+            <div
+                class="avatar-option"
+                data-avatar="👩‍🍳"
+            >
+                👩‍🍳
+            </div>
+
+        </div>
+
+        <div class="photo-note">
+            You can choose your favorite avatar now.
+            Photo upload will be added with Firebase Storage.
+        </div>
+
+
+        <!-- Create Account -->
+
+        <button
+            type="submit"
+            id="signupBtn"
+        >
+            Create Account
+        </button>
+
     </form>
 
+
     <div class="bottom">
-        Already have an account? <a href="login.html">Login</a>
+        Already have an account?
+        <a href="login.html">
+            Login
+        </a>
     </div>
+
 </div>
 
+
+<!-- Firebase Signup -->
+
 <script type="module">
-    import { auth, db } from "./js/firebase-config.js";
+
+    import { auth, db }
+    from "./js/firebase-config.js";
+
     import {
         createUserWithEmailAndPassword
-    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    }
+    from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
     import {
         doc,
         setDoc,
@@ -190,105 +445,379 @@
         query,
         where,
         getDocs,
-        serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+        serverTimestamp,
+        Timestamp
+    }
+    from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-    const signupForm = document.getElementById("signupForm");
 
-    signupForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
+    const signupForm =
+        document.getElementById("signupForm");
 
-        const name = document.getElementById("name").value.trim();
-        const mobile = document.getElementById("mobile").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value;
-        const confirmPassword = document.getElementById("confirmPassword").value;
+    const signupBtn =
+        document.getElementById("signupBtn");
 
-        if (name.length < 3) {
-            alert("Please enter a valid name.");
-            return;
-        }
+    const messageBox =
+        document.getElementById("messageBox");
 
-        if (!/^[0-9]{10}$/.test(mobile)) {
-            alert("Please enter a valid 10-digit mobile number.");
-            return;
-        }
+    const avatarPreview =
+        document.getElementById("avatarPreview");
 
-        if (password.length < 6) {
-            alert("Password must be at least 6 characters.");
-            return;
-        }
+    const avatarOptions =
+        document.querySelectorAll(".avatar-option");
 
-        if (password !== confirmPassword) {
-            alert("Passwords do not match.");
-            return;
-        }
 
-        try {
-            // Duplicate Mobile Check
-            const q = query(
-                collection(db, "customers"),
-                where("mobile", "==", mobile)
-            );
+    // Default Avatar
 
-            const querySnapshot = await getDocs(q);
+    let selectedAvatar = "😊";
 
-            if (!querySnapshot.empty) {
-                alert("This mobile number is already registered.");
+
+    // Show Message
+
+    function showMessage(message, type) {
+
+        messageBox.textContent = message;
+
+        messageBox.className =
+            "message " + type;
+
+    }
+
+
+    // Avatar Selection
+
+    avatarOptions.forEach(option => {
+
+        option.addEventListener("click", () => {
+
+            avatarOptions.forEach(item => {
+                item.classList.remove("selected");
+            });
+
+            option.classList.add("selected");
+
+            selectedAvatar =
+                option.dataset.avatar;
+
+            avatarPreview.textContent =
+                selectedAvatar;
+
+        });
+
+    });
+
+
+    // Signup
+
+    signupForm.addEventListener(
+        "submit",
+        async (e) => {
+
+            e.preventDefault();
+
+
+            const name =
+                document.getElementById("name")
+                .value
+                .trim();
+
+            const mobile =
+                document.getElementById("mobile")
+                .value
+                .trim();
+
+            const email =
+                document.getElementById("email")
+                .value
+                .trim();
+
+            const password =
+                document.getElementById("password")
+                .value;
+
+            const confirmPassword =
+                document.getElementById("confirmPassword")
+                .value;
+
+
+            // Validation
+
+            if (name.length < 3) {
+
+                showMessage(
+                    "Please enter a valid name.",
+                    "error"
+                );
+
                 return;
             }
 
-            // Create Firebase User
-            const userCredential = await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
 
-            const user = userCredential.user;
+            if (!/^[0-9]{10}$/.test(mobile)) {
 
-            // Save Customer
-            await setDoc(doc(db, "customers", user.uid), {
-                uid: user.uid,
-                name: name,
-                mobile: mobile,
-                email: email,
-                stamps: 0,
-                reward: false,
-                status: "active",
-                createdAt: serverTimestamp()
-            });
+                showMessage(
+                    "Please enter a valid 10-digit mobile number.",
+                    "error"
+                );
 
-            alert("Account Created Successfully!");
-            window.location.href = "index.html";
-
-        } catch (error) {
-            console.error(error);
-
-            switch (error.code) {
-                case "auth/email-already-in-use":
-                    alert("Email already registered.");
-                    break;
-                case "auth/invalid-email":
-                    alert("Invalid email.");
-                    break;
-                case "auth/weak-password":
-                    alert("Weak password.");
-                    break;
-                default:
-                    alert(error.message);
+                return;
             }
+
+
+            if (password.length < 6) {
+
+                showMessage(
+                    "Password must be at least 6 characters.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (password !== confirmPassword) {
+
+                showMessage(
+                    "Passwords do not match.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            try {
+
+                signupBtn.disabled = true;
+
+                signupBtn.textContent =
+                    "Creating Account...";
+
+
+                // Check Duplicate Mobile
+
+                const q = query(
+                    collection(db, "customers"),
+                    where("mobile", "==", mobile)
+                );
+
+
+                const querySnapshot =
+                    await getDocs(q);
+
+
+                if (!querySnapshot.empty) {
+
+                    showMessage(
+                        "This mobile number is already registered.",
+                        "error"
+                    );
+
+                    signupBtn.disabled = false;
+
+                    signupBtn.textContent =
+                        "Create Account";
+
+                    return;
+                }
+
+
+                // Create Firebase Auth User
+
+                const userCredential =
+                    await createUserWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+
+                const user =
+                    userCredential.user;
+
+
+                // Loyalty Cycle Start
+
+                const cycleStartDate =
+                    new Date();
+
+
+                // 40 Days Later
+
+                const cycleExpiryDate =
+                    new Date();
+
+                cycleExpiryDate.setDate(
+                    cycleExpiryDate.getDate() + 40
+                );
+
+
+                // Save Customer Profile
+
+                await setDoc(
+                    doc(
+                        db,
+                        "customers",
+                        user.uid
+                    ),
+                    {
+
+                        uid:
+                            user.uid,
+
+                        name:
+                            name,
+
+                        mobile:
+                            mobile,
+
+                        email:
+                            email,
+
+                        avatar:
+                            selectedAvatar,
+
+                        photoURL:
+                            "",
+
+                        stamps:
+                            0,
+
+                        reward:
+                            false,
+
+                        rewardUnlocked:
+                            false,
+
+                        rewardRedeemed:
+                            false,
+
+                        status:
+                            "active",
+
+                        cycleStartDate:
+                            Timestamp.fromDate(
+                                cycleStartDate
+                            ),
+
+                        cycleExpiryDate:
+                            Timestamp.fromDate(
+                                cycleExpiryDate
+                            ),
+
+                        createdAt:
+                            serverTimestamp(),
+
+                        updatedAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+
+                showMessage(
+                    "🎉 Account Created Successfully!",
+                    "success"
+                );
+
+
+                setTimeout(() => {
+
+                    window.location.href =
+                        "index.html";
+
+                }, 1200);
+
+
+            } catch (error) {
+
+                console.error(
+                    "Signup Error:",
+                    error
+                );
+
+
+                switch (error.code) {
+
+                    case "auth/email-already-in-use":
+
+                        showMessage(
+                            "This email is already registered.",
+                            "error"
+                        );
+
+                        break;
+
+
+                    case "auth/invalid-email":
+
+                        showMessage(
+                            "Please enter a valid email address.",
+                            "error"
+                        );
+
+                        break;
+
+
+                    case "auth/weak-password":
+
+                        showMessage(
+                            "Password is too weak. Use at least 6 characters.",
+                            "error"
+                        );
+
+                        break;
+
+
+                    default:
+
+                        showMessage(
+                            error.message ||
+                            "Something went wrong. Please try again.",
+                            "error"
+                        );
+
+                }
+
+
+            } finally {
+
+                signupBtn.disabled = false;
+
+                signupBtn.textContent =
+                    "Create Account";
+
+            }
+
         }
-    });
+
+    );
+
 </script>
+
+
+<!-- Service Worker -->
 
 <script>
+
     if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-            navigator.serviceWorker.register("./service-worker.js");
-        });
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                navigator.serviceWorker.register(
+                    "./service-worker.js"
+                );
+
+            }
+        );
+
     }
+
 </script>
 
+
 </body>
+
 </html>
