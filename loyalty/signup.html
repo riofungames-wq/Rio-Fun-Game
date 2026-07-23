@@ -1,496 +1,1207 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rio Maggi Point - Create Account</title>
 
-    <!-- PWA Settings -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#FF4B2B">
-    <link rel="icon" href="favicon.ico">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google Fonts & Font Awesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<title>Rio Maggi Point | Create Account</title>
 
-    <style>
-        :root {
-            --primary-gradient: linear-gradient(135deg, #FF4B2B 0%, #FF416C 100%);
-            --card-bg: rgba(255, 255, 255, 0.12);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --bg-color: #0f0c20;
-            --text-color: #ffffff;
-            --input-bg: rgba(255, 255, 255, 0.08);
-        }
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#263525">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        body {
-            background: var(--bg-color);
-            background-image: radial-gradient(circle at top right, #2a0845, transparent),
-                              radial-gradient(circle at bottom left, #6441A5, transparent);
-            color: var(--text-color);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-        .container {
-            width: 100%;
-            max-width: 440px;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 30px 24px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-        }
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
 
-        .header-title {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+<style>
 
-        .header-title h1 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #FF416C, #FF4B2B);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
 
-        .header-title p {
-            font-size: 0.85rem;
-            color: #d1d1d1;
-            margin-top: 4px;
-        }
+body{
 
-        /* Avatar & Photo Picker */
-        .profile-picker-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+background:#e8d3a5;
 
-        .preview-box {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 3px solid #FF4B2B;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 45px;
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(255, 75, 43, 0.4);
-            margin-bottom: 12px;
-            position: relative;
-        }
+background-image:
 
-        .preview-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+linear-gradient(rgba(255,255,255,.08),rgba(255,255,255,.08)),
 
-        .picker-options {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
+radial-gradient(circle at top,#fff5d8 0%,#e8d3a5 45%,#d7b577 100%);
 
-        .picker-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--glass-border);
-            color: #fff;
-            padding: 6px 12px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+min-height:100vh;
 
-        .picker-btn.active {
-            background: var(--primary-gradient);
-            border-color: transparent;
-        }
+display:flex;
 
-        .avatar-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            width: 100%;
-            margin-top: 8px;
-        }
+justify-content:center;
 
-        .avatar-item {
-            aspect-ratio: 1;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid transparent;
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 26px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
+align-items:center;
 
-        .avatar-item:hover, .avatar-item.selected {
-            border-color: #FF4B2B;
-            background: rgba(255, 75, 43, 0.2);
-        }
+padding:30px 15px;
 
-        .file-input-wrapper {
-            display: none;
-            width: 100%;
-            text-align: center;
-            margin-top: 8px;
-        }
+}
 
-        .file-label {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px dashed var(--glass-border);
-            padding: 10px 15px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            width: 100%;
-        }
+.signup-card{
 
-        /* Form Inputs */
-        .form-group {
-            margin-bottom: 15px;
-        }
+width:100%;
 
-        .form-group label {
-            display: block;
-            font-size: 0.8rem;
-            margin-bottom: 6px;
-            color: #e0e0e0;
-        }
+max-width:470px;
 
-        .input-box {
-            width: 100%;
-            padding: 12px 14px;
-            background: var(--input-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 0.9rem;
-            outline: none;
-            transition: 0.3s;
-        }
+background:#fffaf0;
 
-        .input-box:focus {
-            border-color: #FF4B2B;
-            box-shadow: 0 0 10px rgba(255, 75, 43, 0.3);
-        }
+border-radius:30px;
 
-        .submit-btn {
-            width: 100%;
-            padding: 14px;
-            background: var(--primary-gradient);
-            border: none;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 5px 15px rgba(255, 75, 43, 0.4);
-            transition: 0.3s;
-        }
+overflow:hidden;
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            opacity: 0.95;
-        }
+box-shadow:0 20px 45px rgba(0,0,0,.18);
 
-        .submit-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
+border:3px solid #c89b3c;
 
-        .login-link {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 0.85rem;
-            color: #bbb;
-        }
+}
 
-        .login-link a {
-            color: #FF416C;
-            text-decoration: none;
-            font-weight: 600;
-        }
+.card-header{
 
-        /* Notifications */
-        .msg-box {
-            display: none;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            text-align: center;
-            margin-bottom: 15px;
-        }
+background:linear-gradient(135deg,#1d2d1d,#314b30);
 
-        .msg-box.error {
-            display: block;
-            background: rgba(255, 0, 0, 0.2);
-            border: 1px solid rgba(255, 0, 0, 0.4);
-            color: #ff8080;
-        }
+padding:30px 25px;
 
-        .msg-box.success {
-            display: block;
-            background: rgba(0, 255, 0, 0.2);
-            border: 1px solid rgba(0, 255, 0, 0.4);
-            color: #80ff80;
-        }
-    </style>
+text-align:center;
+
+color:#fff;
+
+position:relative;
+
+}
+
+.card-header::after{
+
+content:"";
+
+position:absolute;
+
+left:0;
+
+bottom:0;
+
+width:100%;
+
+height:5px;
+
+background:#f4c542;
+
+}
+
+.shop-name{
+
+font-size:28px;
+
+font-weight:800;
+
+letter-spacing:1px;
+
+color:#ffd54f;
+
+}
+
+.shop-tag{
+
+margin-top:6px;
+
+font-size:13px;
+
+color:#f8f8f8;
+
+letter-spacing:1px;
+
+}
+
+.form-area{
+
+padding:28px;
+
+}
+
+.preview-box{
+
+width:110px;
+
+height:110px;
+
+border-radius:50%;
+
+margin:auto;
+
+background:#fff;
+
+border:4px solid #d7a02d;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+overflow:hidden;
+
+box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+}
+
+.preview-box img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+}
+
+.preview-placeholder{
+
+font-size:55px;
+
+color:#777;
+
+}
+
+.switch-buttons{
+
+display:flex;
+
+gap:12px;
+
+margin-top:20px;
+
+}
+
+.switch-buttons button{
+
+flex:1;
+
+padding:12px;
+
+border:none;
+
+border-radius:12px;
+
+font-weight:700;
+
+cursor:pointer;
+
+background:#ece7d7;
+
+color:#333;
+
+transition:.25s;
+
+}
+
+.switch-buttons button.active{
+
+background:#263525;
+
+color:#ffd54f;
+
+}
+
+.avatar-grid{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:12px;
+
+margin-top:20px;
+
+}
+
+.avatar-item{
+
+height:78px;
+
+border-radius:18px;
+
+border:2px solid #d7b577;
+
+background:#fff;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+cursor:pointer;
+
+transition:.25s;
+
+overflow:hidden;
+
+}
+
+.avatar-item img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+}
+
+.avatar-item:hover{
+
+transform:translateY(-3px);
+
+border-color:#c58b18;
+
+}
+
+.avatar-item.selected{
+
+border:3px solid #c58b18;
+
+box-shadow:0 0 15px rgba(197,139,24,.35);
+
+}
+
+.photo-upload{
+
+display:none;
+
+margin-top:20px;
+
+}
+
+.photo-upload label{
+
+display:block;
+
+padding:14px;
+
+border:2px dashed #b68b36;
+
+border-radius:15px;
+
+text-align:center;
+
+font-weight:600;
+
+cursor:pointer;
+
+background:#fffdf6;
+
+}
+
+.photo-upload input{
+
+display:none;
+
+}
+    /* ================= FORM ================= */
+
+.form-group{
+margin-top:18px;
+}
+
+.form-group label{
+
+display:block;
+
+font-size:13px;
+
+font-weight:700;
+
+margin-bottom:7px;
+
+color:#333;
+
+}
+
+.form-group input{
+
+width:100%;
+
+padding:14px 15px;
+
+border:2px solid #d8c089;
+
+border-radius:14px;
+
+outline:none;
+
+font-size:15px;
+
+background:#fff;
+
+transition:.25s;
+
+}
+
+.form-group input:focus{
+
+border-color:#c58b18;
+
+box-shadow:0 0 12px rgba(197,139,24,.18);
+
+}
+
+.file-name{
+
+margin-top:10px;
+
+font-size:12px;
+
+color:#777;
+
+text-align:center;
+
+}
+
+/* ================= BUTTON ================= */
+
+.create-btn{
+
+margin-top:28px;
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:15px;
+
+background:linear-gradient(135deg,#c62828,#9b1f1f);
+
+color:#fff;
+
+font-size:17px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.create-btn:hover{
+
+transform:translateY(-2px);
+
+box-shadow:0 10px 25px rgba(198,40,40,.30);
+
+}
+
+/* ================= MESSAGE ================= */
+
+.message-box{
+
+display:none;
+
+margin-top:18px;
+
+padding:13px;
+
+border-radius:12px;
+
+font-size:14px;
+
+font-weight:600;
+
+text-align:center;
+
+}
+
+.message-box.error{
+
+display:block;
+
+background:#ffe8e8;
+
+border:2px solid #e57373;
+
+color:#b71c1c;
+
+}
+
+.message-box.success{
+
+display:block;
+
+background:#e8fff1;
+
+border:2px solid #81c784;
+
+color:#2e7d32;
+
+}
+
+/* ================= LOGIN ================= */
+
+.login-area{
+
+margin-top:22px;
+
+text-align:center;
+
+font-size:14px;
+
+color:#666;
+
+}
+
+.login-area a{
+
+text-decoration:none;
+
+font-weight:700;
+
+color:#c62828;
+
+}
+
+.login-area a:hover{
+
+text-decoration:underline;
+
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+
+margin-top:28px;
+
+text-align:center;
+
+font-size:12px;
+
+color:#666;
+
+line-height:1.6;
+
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:480px){
+
+.signup-card{
+
+border-radius:22px;
+
+}
+
+.card-header{
+
+padding:24px 18px;
+
+}
+
+.shop-name{
+
+font-size:24px;
+
+}
+
+.form-area{
+
+padding:20px;
+
+}
+
+.preview-box{
+
+width:95px;
+
+height:95px;
+
+}
+
+.avatar-item{
+
+height:68px;
+
+}
+
+.avatar-grid{
+
+gap:10px;
+
+}
+
+.create-btn{
+
+font-size:16px;
+
+padding:14px;
+
+}
+
+}
+
+</style>
+
 </head>
-
 <body>
 
-    <div class="container">
-        <div class="header-title">
-            <h1>Create Account</h1>
-            <p>Join Rio Maggi Point Loyalty Program</p>
+<div class="signup-card">
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="card-header">
+
+        <div class="shop-name">
+            RIO MAGGI POINT
         </div>
 
-        <div id="msgBox" class="msg-box"></div>
-
-        <form id="signupForm">
-            <!-- Avatar / Photo Picker -->
-            <div class="profile-picker-container">
-                <div class="preview-box" id="profilePreview">😊</div>
-
-                <div class="picker-options">
-                    <button type="button" class="picker-btn active" id="btnAvatarTab">Avatar</button>
-                    <button type="button" class="picker-btn" id="btnPhotoTab">Upload Photo</button>
-                </div>
-
-                <!-- Avatar Options Grid -->
-                <div class="avatar-grid" id="avatarGrid">
-                    <div class="avatar-item selected" data-avatar="😊">😊</div>
-                    <div class="avatar-item" data-avatar="🥰">🥰</div>
-                    <div class="avatar-item" data-avatar="😍">😍</div>
-                    <div class="avatar-item" data-avatar="😎">😎</div>
-                    <div class="avatar-item" data-avatar="🤗">🤗</div>
-                    <div class="avatar-item" data-avatar="😇">😇</div>
-                    <div class="avatar-item" data-avatar="🧑‍🍳">🧑‍🍳</div>
-                    <div class="avatar-item" data-avatar="👩‍🍳">👩‍🍳</div>
-                </div>
-
-                <!-- Custom Photo File Input -->
-                <div class="file-input-wrapper" id="fileWrapper">
-                    <label class="file-label" for="photoInput">
-                        <i class="fa-solid fa-cloud-arrow-up"></i> Choose Image File
-                    </label>
-                    <input type="file" id="photoInput" accept="image/*" style="display: none;">
-                </div>
-            </div>
-
-            <!-- Full Name -->
-            <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" class="input-box" placeholder="Enter full name" required>
-            </div>
-
-            <!-- Mobile -->
-            <div class="form-group">
-                <label for="mobile">Mobile Number</label>
-                <input type="tel" id="mobile" class="input-box" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
-            </div>
-
-            <!-- Email -->
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" class="input-box" placeholder="Enter email" required>
-            </div>
-
-            <!-- Password -->
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" class="input-box" placeholder="Minimum 6 characters" required>
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="form-group">
-                <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" class="input-box" placeholder="Confirm password" required>
-            </div>
-
-            <button type="submit" id="signupBtn" class="submit-btn">Create Account</button>
-        </form>
-
-        <div class="login-link">
-            Already have an account? <a href="login.html">Login</a>
+        <div class="shop-tag">
+            Premium Loyalty Membership
         </div>
+
     </div>
 
-    <!-- Firebase Script -->
-    <script type="module">
-        import { firebaseConfig } from './firebase-config.js';
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, collection, query, where, getDocs, serverTimestamp, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    <!-- ================= FORM AREA ================= -->
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+    <div class="form-area">
 
-        // UI References
-        const signupForm = document.getElementById("signupForm");
-        const signupBtn = document.getElementById("signupBtn");
-        const msgBox = document.getElementById("msgBox");
-        const profilePreview = document.getElementById("profilePreview");
-        
-        const btnAvatarTab = document.getElementById("btnAvatarTab");
-        const btnPhotoTab = document.getElementById("btnPhotoTab");
-        const avatarGrid = document.getElementById("avatarGrid");
-        const fileWrapper = document.getElementById("fileWrapper");
-        const photoInput = document.getElementById("photoInput");
+        <!-- Avatar Preview -->
 
-        let selectedAvatar = "😊";
-        let uploadedPhotoBase64 = "";
+        <div class="preview-box" id="previewBox">
 
-        // Toggle Avatar / Photo Tabs
-        btnAvatarTab.addEventListener('click', () => {
-            btnAvatarTab.classList.add('active');
-            btnPhotoTab.classList.remove('active');
-            avatarGrid.style.display = 'grid';
-            fileWrapper.style.display = 'none';
-            if(!uploadedPhotoBase64) {
-                profilePreview.innerHTML = selectedAvatar;
-            }
-        });
+            <div class="preview-placeholder">
+                <i class="fa-solid fa-user"></i>
+            </div>
 
-        btnPhotoTab.addEventListener('click', () => {
-            btnPhotoTab.classList.add('active');
-            btnAvatarTab.classList.remove('active');
-            avatarGrid.style.display = 'none';
-            fileWrapper.style.display = 'block';
-        });
+        </div>
 
-        // Avatar Selection
-        document.querySelectorAll('.avatar-item').forEach(item => {
-            item.addEventListener('click', () => {
-                document.querySelectorAll('.avatar-item').forEach(i => i.classList.remove('selected'));
-                item.classList.add('selected');
-                selectedAvatar = item.dataset.avatar;
-                uploadedPhotoBase64 = ""; // Reset custom photo if avatar chosen
-                profilePreview.innerHTML = selectedAvatar;
-            });
-        });
+        <!-- Avatar / Photo Switch -->
 
-        // Handle Image File Upload (Base64)
-        photoInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                if (file.size > 1024 * 1024) { // 1MB Limit
-                    showMsg("Image size should be less than 1MB", "error");
-                    return;
-                }
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    uploadedPhotoBase64 = event.target.result;
-                    profilePreview.innerHTML = `<img src="${uploadedPhotoBase64}" alt="Profile">`;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
+        <div class="switch-buttons">
 
-        function showMsg(message, type) {
-            msgBox.textContent = message;
-            msgBox.className = "msg-box " + type;
-        }
+            <button
+                type="button"
+                id="avatarTab"
+                class="active">
 
-        // Form Submit
-        signupForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
+                Choose Avatar
 
-            const name = document.getElementById("name").value.trim();
-            const mobile = document.getElementById("mobile").value.trim();
-            const email = document.getElementById("email").value.trim();
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirmPassword").value;
+            </button>
 
-            if (name.length < 3) return showMsg("Please enter a valid name.", "error");
-            if (!/^[0-9]{10}$/.test(mobile)) return showMsg("Please enter a valid 10-digit mobile number.", "error");
-            if (password.length < 6) return showMsg("Password must be at least 6 characters.", "error");
-            if (password !== confirmPassword) return showMsg("Passwords do not match.", "error");
+            <button
+                type="button"
+                id="photoTab">
 
-            try {
-                signupBtn.disabled = true;
-                signupBtn.textContent = "Creating Account...";
+                Upload Photo
 
-                // Check Mobile Duplicates
-                const q = query(collection(db, "customers"), where("mobile", "==", mobile));
-                const querySnapshot = await getDocs(q);
+            </button>
 
-                if (!querySnapshot.empty) {
-                    showMsg("This mobile number is already registered.", "error");
-                    signupBtn.disabled = false;
-                    signupBtn.textContent = "Create Account";
-                    return;
-                }
+        </div>
 
-                // Auth Creation
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
+        <!-- Avatar Grid -->
 
-                // Dates
-                const cycleStartDate = new Date();
-                const cycleExpiryDate = new Date();
-                cycleExpiryDate.setDate(cycleExpiryDate.getDate() + 40);
+        <div
+            class="avatar-grid"
+            id="avatarGrid">
 
-                // Save to Firestore
-                await setDoc(doc(db, "customers", user.uid), {
-                    uid: user.uid,
-                    name: name,
-                    mobile: mobile,
-                    email: email,
-                    avatar: selectedAvatar,
-                    photoURL: uploadedPhotoBase64 || "",
-                    stamps: 0,
-                    reward: false,
-                    rewardUnlocked: false,
-                    rewardRedeemed: false,
-                    status: "active",
-                    cycleStartDate: Timestamp.fromDate(cycleStartDate),
-                    cycleExpiryDate: Timestamp.fromDate(cycleExpiryDate),
-                    createdAt: serverTimestamp(),
-                    updatedAt: serverTimestamp()
-                });
+            <!-- Avatar 1 -->
+            <div class="avatar-item selected"
+                 data-avatar="assets/avatars/avatar1.png">
 
-                showMsg("🎉 Account Created Successfully!", "success");
-                setTimeout(() => { window.location.href = "index.html"; }, 1200);
+                <img src="assets/avatars/avatar1.png">
 
-            } catch (error) {
-                console.error("Signup Error:", error);
-                showMsg(error.message || "Something went wrong.", "error");
-            } finally {
-                signupBtn.disabled = false;
-                signupBtn.textContent = "Create Account";
-            }
-        });
-    </script>
+            </div>
+
+            <!-- Avatar 2 -->
+            <div class="avatar-item"
+                 data-avatar="assets/avatars/avatar2.png">
+
+                <img src="assets/avatars/avatar2.png">
+
+            </div>
+
+            <!-- Avatar 3 -->
+            <div class="avatar-item"
+                 data-avatar="assets/avatars/avatar3.png">
+
+                <img src="assets/avatars/avatar3.png">
+
+            </div>
+
+            <!-- Avatar 4 -->
+            <div class="avatar-item"
+                 data-avatar="assets/avatars/avatar4.png">
+
+                <img src="assets/avatars/avatar4.png">
+
+            </div>
+
+            <!-- Avatar 5 -->
+            <div class="avatar-item"
+                 data-avatar="assets/avatars/avatar5.png">
+
+                <img src="assets/avatars/avatar5.png">
+
+            </div>
+
+            <!-- Avatar 6 -->
+            <div class="avatar-item"
+                 data-avatar="assets/avatars/avatar6.png">
+
+                <img src="assets/avatars/avatar6.png">
+
+            </div>
+
+            <!-- Avatar 7 -->
+            <div class="avatar-item"
+                 data-avatar="assets/avatars/avatar7.png">
+
+                <img src="assets/avatars/avatar7.png">
+
+            </div>
+
+            <!-- Avatar 8 -->
+            <div class="avatar-item"
+                 data-avatar="assets/avatars/avatar8.png">
+
+                <img src="assets/avatars/avatar8.png">
+
+            </div>
+
+        </div>
+
+        <!-- Upload Photo -->
+
+        <div
+            class="photo-upload"
+            id="photoUpload">
+
+            <label for="photoInput">
+
+                <i class="fa-solid fa-camera"></i>
+
+                Upload Your Photo
+
+            </label>
+
+            <input
+                type="file"
+                id="photoInput"
+                accept="image/*">
+
+            <div
+                class="file-name"
+                id="fileName">
+
+                No image selected
+
+            </div>
+
+        </div>
+
+        <!-- Message -->
+
+        <div
+            class="message-box"
+            id="messageBox">
+        </div>
+
+        <!-- Signup Form -->
+
+        <form id="signupForm">
+
+            <div class="form-group">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your full name"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    Mobile Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="mobile"
+                    maxlength="10"
+                    placeholder="10 Digit Mobile Number"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Minimum 6 Characters"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    Confirm Password
+                </label>
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Confirm Password"
+                    required>
+
+            </div>
+
+            <button
+                class="create-btn"
+                id="signupBtn"
+                type="submit">
+
+                Create Account
+
+            </button>
+
+        </form>
+
+        <div class="login-area">
+
+            Already have an account?
+
+            <a href="login.html">
+
+                Login
+
+            </a>
+
+        </div>
+
+        <div class="footer">
+
+            © Rio Maggi Point<br>
+
+            Premium Loyalty Program
+
+        </div>
+
+    </div>
+
+</div>
+<script type="module">
+
+import {
+    auth,
+    db
+} from "./js/firebase-config.js";
+
+import {
+    createUserWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+import {
+    doc,
+    setDoc,
+    serverTimestamp,
+    Timestamp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+
+const previewBox =
+    document.getElementById("previewBox");
+
+const avatarTab =
+    document.getElementById("avatarTab");
+
+const photoTab =
+    document.getElementById("photoTab");
+
+const avatarGrid =
+    document.getElementById("avatarGrid");
+
+const photoUpload =
+    document.getElementById("photoUpload");
+
+const photoInput =
+    document.getElementById("photoInput");
+
+const fileName =
+    document.getElementById("fileName");
+
+const signupForm =
+    document.getElementById("signupForm");
+
+const signupBtn =
+    document.getElementById("signupBtn");
+
+const messageBox =
+    document.getElementById("messageBox");
+
+
+let selectedAvatar =
+    "assets/avatars/avatar1.png";
+
+let uploadedPhoto =
+    "";
+
+
+/* ================= TAB SWITCH ================= */
+
+avatarTab.onclick = () => {
+
+    avatarTab.classList.add("active");
+
+    photoTab.classList.remove("active");
+
+    avatarGrid.style.display = "grid";
+
+    photoUpload.style.display = "none";
+
+};
+
+photoTab.onclick = () => {
+
+    photoTab.classList.add("active");
+
+    avatarTab.classList.remove("active");
+
+    avatarGrid.style.display = "none";
+
+    photoUpload.style.display = "block";
+
+};
+
+
+/* ================= AVATAR ================= */
+
+document
+.querySelectorAll(".avatar-item")
+.forEach(item=>{
+
+    item.onclick=()=>{
+
+        document
+        .querySelectorAll(".avatar-item")
+        .forEach(a=>a.classList.remove("selected"));
+
+        item.classList.add("selected");
+
+        selectedAvatar =
+            item.dataset.avatar;
+
+        uploadedPhoto="";
+
+        previewBox.innerHTML=
+
+        `<img src="${selectedAvatar}">`;
+
+    };
+
+});
+
+
+previewBox.innerHTML=
+
+`<img src="${selectedAvatar}">`;
+
+
+/* ================= PHOTO ================= */
+
+photoInput.addEventListener(
+
+"change",
+
+e=>{
+
+const file=e.target.files[0];
+
+if(!file) return;
+
+fileName.textContent=file.name;
+
+const reader=new FileReader();
+
+reader.onload=()=>{
+
+uploadedPhoto=reader.result;
+
+previewBox.innerHTML=
+
+`<img src="${uploadedPhoto}">`;
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
+);
+
+
+/* ================= MESSAGE ================= */
+
+function showMessage(text,type){
+
+messageBox.className=
+
+"message-box "+type;
+
+messageBox.textContent=text;
+
+}
+    /* ================= SIGNUP ================= */
+
+signupForm.addEventListener(
+
+"submit",
+
+async(e)=>{
+
+e.preventDefault();
+
+const name=
+document.getElementById("name").value.trim();
+
+const mobile=
+document.getElementById("mobile").value.trim();
+
+const email=
+document.getElementById("email").value.trim();
+
+const password=
+document.getElementById("password").value;
+
+const confirmPassword=
+document.getElementById("confirmPassword").value;
+
+
+/* ---------- VALIDATION ---------- */
+
+if(name.length<3){
+
+showMessage(
+"Please enter your full name.",
+"error"
+);
+
+return;
+
+}
+
+if(!/^[0-9]{10}$/.test(mobile)){
+
+showMessage(
+"Enter a valid 10 digit mobile number.",
+"error"
+);
+
+return;
+
+}
+
+if(password.length<6){
+
+showMessage(
+"Password must be at least 6 characters.",
+"error"
+);
+
+return;
+
+}
+
+if(password!==confirmPassword){
+
+showMessage(
+"Passwords do not match.",
+"error"
+);
+
+return;
+
+}
+
+
+signupBtn.disabled=true;
+
+signupBtn.textContent=
+"Creating Account...";
+
+
+try{
+
+const credential=
+
+await createUserWithEmailAndPassword(
+
+auth,
+
+email,
+
+password
+
+);
+
+const user=
+
+credential.user;
+
+
+/* ---------- 40 DAY CYCLE ---------- */
+
+const cycleStart=
+new Date();
+
+const cycleExpiry=
+new Date();
+
+cycleExpiry.setDate(
+
+cycleExpiry.getDate()+40
+
+);
+
+
+/* ---------- SAVE FIRESTORE ---------- */
+
+await setDoc(
+
+doc(
+
+db,
+
+"customers",
+
+user.uid
+
+),
+
+{
+
+uid:user.uid,
+
+name:name,
+
+mobile:mobile,
+
+email:email,
+
+avatar:selectedAvatar,
+
+photoURL:uploadedPhoto,
+
+stamps:0,
+
+reward:false,
+
+rewardUnlocked:false,
+
+rewardRedeemed:false,
+
+status:"active",
+
+cycleStartDate:
+
+Timestamp.fromDate(cycleStart),
+
+cycleExpiryDate:
+
+Timestamp.fromDate(cycleExpiry),
+
+createdAt:
+
+serverTimestamp(),
+
+updatedAt:
+
+serverTimestamp()
+
+}
+
+);
+
+showMessage(
+
+"🎉 Account Created Successfully!",
+
+"success"
+
+);
+
+setTimeout(()=>{
+
+window.location.href=
+
+"index.html";
+
+},1200);
+
+}
+
+catch(error){
+
+console.error(error);
+
+showMessage(
+
+error.message,
+
+"error"
+
+);
+
+signupBtn.disabled=false;
+
+signupBtn.textContent=
+
+"Create Account";
+
+}
+
+});
+
+</script>
+
 </body>
 
 </html>
