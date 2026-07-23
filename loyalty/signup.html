@@ -3,1120 +3,369 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rio Maggi Point | Create Account</title>
+    <title>Create Account | Rio Maggi Point</title>
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#263525">
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#D4AF37">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-
-background:#e8d3a5;
-
-background-image:
-
-linear-gradient(rgba(255,255,255,.08),rgba(255,255,255,.08)),
-
-radial-gradient(circle at top,#fff5d8 0%,#e8d3a5 45%,#d7b577 100%);
-
-min-height:100vh;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-padding:30px 15px;
-
-}
-
-.signup-card{
-
-width:100%;
-
-max-width:470px;
-
-background:#fffaf0;
-
-border-radius:30px;
-
-overflow:hidden;
-
-box-shadow:0 20px 45px rgba(0,0,0,.18);
-
-border:3px solid #c89b3c;
-
-}
-
-.card-header{
-
-background:linear-gradient(135deg,#1d2d1d,#314b30);
-
-padding:30px 25px;
-
-text-align:center;
-
-color:#fff;
-
-position:relative;
-
-}
-
-.card-header::after{
-
-content:"";
-
-position:absolute;
-
-left:0;
-
-bottom:0;
-
-width:100%;
-
-height:5px;
-
-background:#f4c542;
-
-}
-
-.shop-name{
-
-font-size:28px;
-
-font-weight:800;
-
-letter-spacing:1px;
-
-color:#ffd54f;
-
-}
-
-.shop-tag{
-
-margin-top:6px;
-
-font-size:13px;
-
-color:#f8f8f8;
-
-letter-spacing:1px;
-
-}
-
-.form-area{
-
-padding:28px;
-
-}
-
-.preview-box{
-
-width:110px;
-
-height:110px;
-
-border-radius:50%;
-
-margin:auto;
-
-background:#fff;
-
-border:4px solid #d7a02d;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-overflow:hidden;
-
-box-shadow:0 10px 25px rgba(0,0,0,.15);
-
-}
-
-.preview-box img{
-
-width:100%;
-
-height:100%;
-
-object-fit:cover;
-
-}
-
-.preview-placeholder{
-
-font-size:55px;
-
-color:#777;
-
-}
-
-.switch-buttons{
-
-display:flex;
-
-gap:12px;
-
-margin-top:20px;
-
-}
-
-.switch-buttons button{
-
-flex:1;
-
-padding:12px;
-
-border:none;
-
-border-radius:12px;
-
-font-weight:700;
-
-cursor:pointer;
-
-background:#ece7d7;
-
-color:#333;
-
-transition:.25s;
-
-}
-
-.switch-buttons button.active{
-
-background:#263525;
-
-color:#ffd54f;
-
-}
-
-.avatar-grid{
-
-display:grid;
-
-grid-template-columns:repeat(4,1fr);
-
-gap:12px;
-
-margin-top:20px;
-
-}
-
-.avatar-item{
-
-height:78px;
-
-border-radius:18px;
-
-border:2px solid #d7b577;
-
-background:#fff;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-cursor:pointer;
-
-transition:.25s;
-
-overflow:hidden;
-
-}
-
-.avatar-item img{
-
-width:100%;
-
-height:100%;
-
-object-fit:cover;
-
-}
-
-.avatar-item:hover{
-
-transform:translateY(-3px);
-
-border-color:#c58b18;
-
-}
-
-.avatar-item.selected{
-
-border:3px solid #c58b18;
-
-box-shadow:0 0 15px rgba(197,139,24,.35);
-
-}
-
-.photo-upload{
-
-display:none;
-
-margin-top:20px;
-
-}
-
-.photo-upload label{
-
-display:block;
-
-padding:14px;
-
-border:2px dashed #b68b36;
-
-border-radius:15px;
-
-text-align:center;
-
-font-weight:600;
-
-cursor:pointer;
-
-background:#fffdf6;
-
-}
-
-.photo-upload input{
-
-display:none;
-
-}
-    /* ================= FORM ================= */
-
-.form-group{
-margin-top:18px;
-}
-
-.form-group label{
-
-display:block;
-
-font-size:13px;
-
-font-weight:700;
-
-margin-bottom:7px;
-
-color:#333;
-
-}
-
-.form-group input{
-
-width:100%;
-
-padding:14px 15px;
-
-border:2px solid #d8c089;
-
-border-radius:14px;
-
-outline:none;
-
-font-size:15px;
-
-background:#fff;
-
-transition:.25s;
-
-}
-
-.form-group input:focus{
-
-border-color:#c58b18;
-
-box-shadow:0 0 12px rgba(197,139,24,.18);
-
-}
-
-.file-name{
-
-margin-top:10px;
-
-font-size:12px;
-
-color:#777;
-
-text-align:center;
-
-}
-
-/* ================= BUTTON ================= */
-
-.create-btn{
-
-margin-top:28px;
-
-width:100%;
-
-padding:15px;
-
-border:none;
-
-border-radius:15px;
-
-background:linear-gradient(135deg,#c62828,#9b1f1f);
-
-color:#fff;
-
-font-size:17px;
-
-font-weight:700;
-
-cursor:pointer;
-
-transition:.25s;
-
-}
-
-.create-btn:hover{
-
-transform:translateY(-2px);
-
-box-shadow:0 10px 25px rgba(198,40,40,.30);
-
-}
-
-/* ================= MESSAGE ================= */
-
-.message-box{
-
-display:none;
-
-margin-top:18px;
-
-padding:13px;
-
-border-radius:12px;
-
-font-size:14px;
-
-font-weight:600;
-
-text-align:center;
-
-}
-
-.message-box.error{
-
-display:block;
-
-background:#ffe8e8;
-
-border:2px solid #e57373;
-
-color:#b71c1c;
-
-}
-
-.message-box.success{
-
-display:block;
-
-background:#e8fff1;
-
-border:2px solid #81c784;
-
-color:#2e7d32;
-
-}
-
-/* ================= LOGIN ================= */
-
-.login-area{
-
-margin-top:22px;
-
-text-align:center;
-
-font-size:14px;
-
-color:#666;
-
-}
-
-.login-area a{
-
-text-decoration:none;
-
-font-weight:700;
-
-color:#c62828;
-
-}
-
-.login-area a:hover{
-
-text-decoration:underline;
-
-}
-
-/* ================= FOOTER ================= */
-
-.footer{
-
-margin-top:28px;
-
-text-align:center;
-
-font-size:12px;
-
-color:#666;
-
-line-height:1.6;
-
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:480px){
-
-.signup-card{
-
-border-radius:22px;
-
-}
-
-.card-header{
-
-padding:24px 18px;
-
-}
-
-.shop-name{
-
-font-size:24px;
-
-}
-
-.form-area{
-
-padding:20px;
-
-}
-
-.preview-box{
-
-width:95px;
-
-height:95px;
-
-}
-
-.avatar-item{
-
-height:68px;
-
-}
-
-.avatar-grid{
-
-gap:10px;
-
-}
-
-.create-btn{
-
-font-size:16px;
-
-padding:14px;
-
-}
-
-}
-
-</style>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
+
 <body>
 
-<div class="signup-card">
+<div class="page">
 
-    <!-- ================= HEADER ================= -->
+<div class="container">
 
-    <div class="card-header">
+<div class="card">
 
-        <div class="shop-name">
-            RIO MAGGI POINT
-        </div>
+<!-- Header -->
 
-        <div class="shop-tag">
-            Premium Loyalty Membership
-        </div>
+<div class="logo">
 
-    </div>
+<img src="assets/logo/logo.png" alt="Rio Maggi Point Logo">
 
-    <!-- ================= FORM AREA ================= -->
+<div>
 
-    <div class="form-area">
+<h2>Create Account</h2>
 
-        <!-- Avatar Preview -->
-
-        <div class="preview-box" id="previewBox">
-
-            <div class="preview-placeholder">
-                <i class="fa-solid fa-user"></i>
-            </div>
-
-        </div>
-
-        <!-- Avatar / Photo Switch -->
-
-        <div class="switch-buttons">
-
-            <button
-                type="button"
-                id="avatarTab"
-                class="active">
-
-                Choose Avatar
-
-            </button>
-
-            <button
-                type="button"
-                id="photoTab">
-
-                Upload Photo
-
-            </button>
-
-        </div>
-
-        <!-- Avatar Grid -->
-
-        <div
-            class="avatar-grid"
-            id="avatarGrid">
-
-            <!-- Avatar 1 -->
-            <div class="avatar-item selected"
-                 data-avatar="assets/avatars/avatar1.png">
-
-                <img src="assets/avatars/avatar1.png">
-
-            </div>
-
-            <!-- Avatar 2 -->
-            <div class="avatar-item"
-                 data-avatar="assets/avatars/avatar2.png">
-
-                <img src="assets/avatars/avatar2.png">
-
-            </div>
-
-            <!-- Avatar 3 -->
-            <div class="avatar-item"
-                 data-avatar="assets/avatars/avatar3.png">
-
-                <img src="assets/avatars/avatar3.png">
-
-            </div>
-
-            <!-- Avatar 4 -->
-            <div class="avatar-item"
-                 data-avatar="assets/avatars/avatar4.png">
-
-                <img src="assets/avatars/avatar4.png">
-
-            </div>
-
-            <!-- Avatar 5 -->
-            <div class="avatar-item"
-                 data-avatar="assets/avatars/avatar5.png">
-
-                <img src="assets/avatars/avatar5.png">
-
-            </div>
-
-            <!-- Avatar 6 -->
-            <div class="avatar-item"
-                 data-avatar="assets/avatars/avatar6.png">
-
-                <img src="assets/avatars/avatar6.png">
-
-            </div>
-
-            <!-- Avatar 7 -->
-            <div class="avatar-item"
-                 data-avatar="assets/avatars/avatar7.png">
-
-                <img src="assets/avatars/avatar7.png">
-
-            </div>
-
-            <!-- Avatar 8 -->
-            <div class="avatar-item"
-                 data-avatar="assets/avatars/avatar8.png">
-
-                <img src="assets/avatars/avatar8.png">
-
-            </div>
-
-        </div>
-
-        <!-- Upload Photo -->
-
-        <div
-            class="photo-upload"
-            id="photoUpload">
-
-            <label for="photoInput">
-
-                <i class="fa-solid fa-camera"></i>
-
-                Upload Your Photo
-
-            </label>
-
-            <input
-                type="file"
-                id="photoInput"
-                accept="image/*">
-
-            <div
-                class="file-name"
-                id="fileName">
-
-                No image selected
-
-            </div>
-
-        </div>
-
-        <!-- Message -->
-
-        <div
-            class="message-box"
-            id="messageBox">
-        </div>
-
-        <!-- Signup Form -->
-
-        <form id="signupForm">
-
-            <div class="form-group">
-
-                <label>
-                    Full Name
-                </label>
-
-                <input
-                    type="text"
-                    id="name"
-                    placeholder="Enter your full name"
-                    required>
-
-            </div>
-
-            <div class="form-group">
-
-                <label>
-                    Mobile Number
-                </label>
-
-                <input
-                    type="tel"
-                    id="mobile"
-                    maxlength="10"
-                    placeholder="10 Digit Mobile Number"
-                    required>
-
-            </div>
-
-            <div class="form-group">
-
-                <label>
-                    Email Address
-                </label>
-
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your email"
-                    required>
-
-            </div>
-
-            <div class="form-group">
-
-                <label>
-                    Password
-                </label>
-
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Minimum 6 Characters"
-                    required>
-
-            </div>
-
-            <div class="form-group">
-
-                <label>
-                    Confirm Password
-                </label>
-
-                <input
-                    type="password"
-                    id="confirmPassword"
-                    placeholder="Confirm Password"
-                    required>
-
-            </div>
-
-            <button
-                class="create-btn"
-                id="signupBtn"
-                type="submit">
-
-                Create Account
-
-            </button>
-
-        </form>
-
-        <div class="login-area">
-
-            Already have an account?
-
-            <a href="login.html">
-
-                Login
-
-            </a>
-
-        </div>
-
-        <div class="footer">
-
-            © Rio Maggi Point<br>
-
-            Premium Loyalty Program
-
-        </div>
-
-    </div>
+<p>Join Rio Maggi Point Loyalty Program</p>
 
 </div>
+
+</div>
+
+<!-- Message Box -->
+
+<div id="msgBox"
+style="display:none;margin-top:20px;"></div>
+
+<!-- Signup Form -->
+
+<form id="signupForm">
+
+<!-- Profile Preview -->
+
+<div
+style="display:flex;justify-content:center;margin:25px 0;">
+
+<div id="profilePreview"
+
+style="width:100px;
+height:100px;
+border-radius:50%;
+border:4px solid var(--primary);
+overflow:hidden;
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:center;">
+
+<img
+id="previewImage"
+src="assets/avatars/boy-01.png"
+alt="Avatar"
+
+style="width:100%;
+height:100%;
+object-fit:cover;">
+
+</div>
+
+</div>
+<!-- Avatar Type -->
+
+<h3 style="margin-bottom:15px;">Choose Avatar</h3>
+
+<div style="display:flex;gap:10px;margin-bottom:20px;">
+
+<button type="button"
+class="btn"
+id="boyBtn"
+style="flex:1;">
+Boy
+</button>
+
+<button type="button"
+class="btn"
+id="girlBtn"
+style="flex:1;">
+Girl
+</button>
+
+</div>
+
+<!-- Avatar Grid -->
+
+<div class="avatar-grid" id="avatarGrid">
+
+<div class="avatar-item selected">
+<img src="assets/avatars/boy-01.png" data-avatar="boy-01.png">
+</div>
+
+<div class="avatar-item">
+<img src="assets/avatars/boy-02.png" data-avatar="boy-02.png">
+</div>
+
+<div class="avatar-item">
+<img src="assets/avatars/boy-03.png" data-avatar="boy-03.png">
+</div>
+
+<div class="avatar-item">
+<img src="assets/avatars/boy-04.png" data-avatar="boy-04.png">
+</div>
+
+<div class="avatar-item">
+<img src="assets/avatars/boy-05.png" data-avatar="boy-05.png">
+</div>
+
+<div class="avatar-item">
+<img src="assets/avatars/boy-06.png" data-avatar="boy-06.png">
+</div>
+
+<div class="avatar-item">
+<img src="assets/avatars/boy-07.png" data-avatar="boy-07.png">
+</div>
+
+<div class="avatar-item">
+<img src="assets/avatars/boy-08.png" data-avatar="boy-08.png">
+</div>
+
+</div>
+
+<!-- Upload Photo -->
+
+<div class="upload-box" style="margin-top:20px;">
+
+<i class="fa-solid fa-camera"></i>
+
+<p>Or Upload Your Own Photo</p>
+
+<input
+type="file"
+id="photoInput"
+accept="image/*"
+style="margin-top:10px;">
+
+</div>
+
+<!-- Full Name -->
+
+<div class="form-group">
+
+<label>Full Name</label>
+
+<input
+type="text"
+id="name"
+class="input-box"
+placeholder="Enter your full name"
+required>
+
+</div>
+
+<!-- Mobile -->
+
+<div class="form-group">
+
+<label>Mobile Number</label>
+
+<input
+type="tel"
+id="mobile"
+class="input-box"
+maxlength="10"
+placeholder="Enter 10 digit mobile number"
+required>
+
+</div>
+<!-- Email -->
+
+<div class="form-group">
+
+<label>Email Address</label>
+
+<input
+type="email"
+id="email"
+class="input-box"
+placeholder="Enter your email"
+required>
+
+</div>
+
+<!-- Password -->
+
+<div class="form-group">
+
+<label>Password</label>
+
+<input
+type="password"
+id="password"
+class="input-box"
+placeholder="Minimum 6 characters"
+required>
+
+</div>
+
+<!-- Confirm Password -->
+
+<div class="form-group">
+
+<label>Confirm Password</label>
+
+<input
+type="password"
+id="confirmPassword"
+class="input-box"
+placeholder="Re-enter password"
+required>
+
+</div>
+
+<!-- Create Account Button -->
+
+<button
+type="submit"
+class="btn"
+id="signupBtn">
+
+<i class="fa-solid fa-user-plus"></i>
+
+&nbsp;
+
+Create Account
+
+</button>
+
+</form>
+
+<!-- Login -->
+
+<p
+style="
+text-align:center;
+margin-top:20px;">
+
+Already have an account?
+
+<a
+href="login.html"
+style="
+font-weight:700;
+color:var(--primary-dark);">
+
+Login
+
+</a>
+
+</p>
 <script type="module">
 
-import {
-    auth,
-    db
-} from "./js/firebase-config.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-import {
-    createUserWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { firebaseConfig } from "./js/firebase-config.js";
 
-import {
-    doc,
-    setDoc,
-    serverTimestamp,
-    Timestamp
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
+// Avatar Selection
 
-const previewBox =
-    document.getElementById("previewBox");
+let selectedAvatar = "boy-01.png";
 
-const avatarTab =
-    document.getElementById("avatarTab");
+document.querySelectorAll(".avatar-item").forEach(item => {
 
-const photoTab =
-    document.getElementById("photoTab");
+    item.addEventListener("click", () => {
 
-const avatarGrid =
-    document.getElementById("avatarGrid");
-
-const photoUpload =
-    document.getElementById("photoUpload");
-
-const photoInput =
-    document.getElementById("photoInput");
-
-const fileName =
-    document.getElementById("fileName");
-
-const signupForm =
-    document.getElementById("signupForm");
-
-const signupBtn =
-    document.getElementById("signupBtn");
-
-const messageBox =
-    document.getElementById("messageBox");
-
-
-let selectedAvatar =
-    "assets/avatars/avatar1.png";
-
-let uploadedPhoto =
-    "";
-
-
-/* ================= TAB SWITCH ================= */
-
-avatarTab.onclick = () => {
-
-    avatarTab.classList.add("active");
-
-    photoTab.classList.remove("active");
-
-    avatarGrid.style.display = "grid";
-
-    photoUpload.style.display = "none";
-
-};
-
-photoTab.onclick = () => {
-
-    photoTab.classList.add("active");
-
-    avatarTab.classList.remove("active");
-
-    avatarGrid.style.display = "none";
-
-    photoUpload.style.display = "block";
-
-};
-
-
-/* ================= AVATAR ================= */
-
-document
-.querySelectorAll(".avatar-item")
-.forEach(item=>{
-
-    item.onclick=()=>{
-
-        document
-        .querySelectorAll(".avatar-item")
-        .forEach(a=>a.classList.remove("selected"));
+        document.querySelectorAll(".avatar-item").forEach(i=>i.classList.remove("selected"));
 
         item.classList.add("selected");
 
-        selectedAvatar =
-            item.dataset.avatar;
+        const img = item.querySelector("img");
 
-        uploadedPhoto="";
+        selectedAvatar = img.dataset.avatar;
 
-        previewBox.innerHTML=
+        document.getElementById("previewImage").src = img.src;
 
-        `<img src="${selectedAvatar}">`;
-
-    };
+    });
 
 });
 
+// Photo Upload
 
-previewBox.innerHTML=
+const photoInput = document.getElementById("photoInput");
 
-`<img src="${selectedAvatar}">`;
+photoInput.addEventListener("change",(e)=>{
 
+    const file=e.target.files[0];
 
-/* ================= PHOTO ================= */
+    if(!file) return;
 
-photoInput.addEventListener(
+    const reader=new FileReader();
 
-"change",
+    reader.onload=function(ev){
 
-e=>{
+        document.getElementById("previewImage").src=ev.target.result;
 
-const file=e.target.files[0];
+    }
 
-if(!file) return;
+    reader.readAsDataURL(file);
 
-fileName.textContent=file.name;
+});
 
-const reader=new FileReader();
+// Signup
 
-reader.onload=()=>{
+const signupForm=document.getElementById("signupForm");
 
-uploadedPhoto=reader.result;
-
-previewBox.innerHTML=
-
-`<img src="${uploadedPhoto}">`;
-
-};
-
-reader.readAsDataURL(file);
-
-}
-
-);
-
-
-/* ================= MESSAGE ================= */
-
-function showMessage(text,type){
-
-messageBox.className=
-
-"message-box "+type;
-
-messageBox.textContent=text;
-
-}
-    /* ================= SIGNUP ================= */
-
-signupForm.addEventListener(
-
-"submit",
-
-async(e)=>{
+signupForm.addEventListener("submit",async(e)=>{
 
 e.preventDefault();
 
-const name=
-document.getElementById("name").value.trim();
+const name=document.getElementById("name").value.trim();
 
-const mobile=
-document.getElementById("mobile").value.trim();
+const mobile=document.getElementById("mobile").value.trim();
 
-const email=
-document.getElementById("email").value.trim();
+const email=document.getElementById("email").value.trim();
 
-const password=
-document.getElementById("password").value;
+const password=document.getElementById("password").value;
 
-const confirmPassword=
-document.getElementById("confirmPassword").value;
-
-
-/* ---------- VALIDATION ---------- */
-
-if(name.length<3){
-
-showMessage(
-"Please enter your full name.",
-"error"
-);
-
-return;
-
-}
-
-if(!/^[0-9]{10}$/.test(mobile)){
-
-showMessage(
-"Enter a valid 10 digit mobile number.",
-"error"
-);
-
-return;
-
-}
-
-if(password.length<6){
-
-showMessage(
-"Password must be at least 6 characters.",
-"error"
-);
-
-return;
-
-}
+const confirmPassword=document.getElementById("confirmPassword").value;
 
 if(password!==confirmPassword){
 
-showMessage(
-"Passwords do not match.",
-"error"
-);
+alert("Passwords do not match.");
 
 return;
 
 }
 
-
-signupBtn.disabled=true;
-
-signupBtn.textContent=
-"Creating Account...";
-
-
 try{
 
-const credential=
+const userCredential=await createUserWithEmailAndPassword(auth,email,password);
 
-await createUserWithEmailAndPassword(
+const user=userCredential.user;
 
-auth,
-
-email,
-
-password
-
-);
-
-const user=
-
-credential.user;
-
-
-/* ---------- 40 DAY CYCLE ---------- */
-
-const cycleStart=
-new Date();
-
-const cycleExpiry=
-new Date();
-
-cycleExpiry.setDate(
-
-cycleExpiry.getDate()+40
-
-);
-
-
-/* ---------- SAVE FIRESTORE ---------- */
-
-await setDoc(
-
-doc(
-
-db,
-
-"customers",
-
-user.uid
-
-),
-
-{
+await setDoc(doc(db,"customers",user.uid),{
 
 uid:user.uid,
 
@@ -1128,7 +377,7 @@ email:email,
 
 avatar:selectedAvatar,
 
-photoURL:uploadedPhoto,
+photoURL:"",
 
 stamps:0,
 
@@ -1140,67 +389,31 @@ rewardRedeemed:false,
 
 status:"active",
 
-cycleStartDate:
+createdAt:serverTimestamp(),
 
-Timestamp.fromDate(cycleStart),
+updatedAt:serverTimestamp()
 
-cycleExpiryDate:
+});
 
-Timestamp.fromDate(cycleExpiry),
-
-createdAt:
-
-serverTimestamp(),
-
-updatedAt:
-
-serverTimestamp()
-
-}
-
-);
-
-showMessage(
-
-"🎉 Account Created Successfully!",
-
-"success"
-
-);
-
-setTimeout(()=>{
-
-window.location.href=
-
-"index.html";
-
-},1200);
+window.location.href="index.html";
 
 }
 
 catch(error){
 
-console.error(error);
-
-showMessage(
-
-error.message,
-
-"error"
-
-);
-
-signupBtn.disabled=false;
-
-signupBtn.textContent=
-
-"Create Account";
+alert(error.message);
 
 }
 
 });
 
 </script>
+
+</div>
+
+</div>
+
+</div>
 
 </body>
 
