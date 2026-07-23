@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Rio Maggi Point - Admin Login</title>
 
-    <!-- PWA Manifest & Favicon Tags -->
+    <!-- PWA Manifest & Favicon -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#263525">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -87,12 +88,31 @@
         button:hover {
             background: #1c271b;
         }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #errorMessage {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            background: #ffe0e0;
+            color: #b00020;
+            border: 1px solid #ff9999;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
 
 <div class="container">
+
     <h1>🔐 Admin Login</h1>
 
     <p class="subtitle">
@@ -100,16 +120,23 @@
     </p>
 
     <form id="adminLoginForm">
-        <label for="username">Admin Username</label>
+
+        <label for="email">
+            Admin Email
+        </label>
+
         <input
-            type="text"
-            id="username"
-            placeholder="Enter Admin Username"
-            autocomplete="username"
+            type="email"
+            id="email"
+            placeholder="Enter Admin Email"
+            autocomplete="email"
             required
         >
 
-        <label for="password">Password</label>
+        <label for="password">
+            Password
+        </label>
+
         <input
             type="password"
             id="password"
@@ -118,45 +145,164 @@
             required
         >
 
-        <button type="submit">
+        <button type="submit" id="loginBtn">
             Login
         </button>
+
+        <div id="errorMessage"></div>
+
     </form>
+
 </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
+
+<!-- Firebase Admin Login -->
+<script type="module">
+
+    import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
+    import {
+        getAuth,
+        signInWithEmailAndPassword
+    }
+    from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+
+    // Firebase Configuration
+    const firebaseConfig = {
+
+        apiKey: "AIzaSyS5ZmPaMW17YnUOvd48QhHXwS8it6XDB70",
+
+        authDomain: "rio-maggi-point.firebaseapp.com",
+
+        projectId: "rio-maggi-point",
+
+        storageBucket: "rio-maggi-point.firebasestorage.app",
+
+        messagingSenderId: "472858143171",
+
+        appId: "1:472858143171:web:15cfb0b8de9cd25b957576"
+
+    };
+
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Initialize Firebase Authentication
+    const auth = getAuth(app);
+
+
+    // Get Elements
     const form = document.getElementById("adminLoginForm");
 
-    form.addEventListener("submit", function(e) {
-        e.preventDefault();
+    const emailInput = document.getElementById("email");
 
-        const username = document.getElementById("username").value.trim();
-        const password = document.getElementById("password").value.trim();
+    const passwordInput = document.getElementById("password");
 
-        // Default Admin Credentials
-        const ADMIN_USERNAME = "admin";
-        const ADMIN_PASSWORD = "123456";
+    const loginBtn = document.getElementById("loginBtn");
 
-        if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {
-            alert("Invalid Username or Password.");
-            return;
+    const errorMessage = document.getElementById("errorMessage");
+
+
+    // Admin Login
+    form.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        const email = emailInput.value.trim();
+
+        const password = passwordInput.value;
+
+
+        // Hide old error
+        errorMessage.style.display = "none";
+
+        errorMessage.textContent = "";
+
+
+        // Disable button
+        loginBtn.disabled = true;
+
+        loginBtn.textContent = "Logging in...";
+
+
+        try {
+
+            // Firebase Login
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+
+            // Login Successful
+            alert("Admin Login Successful!");
+
+
+            // Go to Admin Panel
+            window.location.href = "admin.html";
+
+
+        } catch (error) {
+
+            console.error("Login Error:", error);
+
+
+            // Show Error
+            errorMessage.style.display = "block";
+
+
+            if (
+                error.code === "auth/invalid-credential" ||
+                error.code === "auth/invalid-login-credentials"
+            ) {
+
+                errorMessage.textContent =
+                    "Invalid Email or Password.";
+
+            } else if (
+                error.code === "auth/too-many-requests"
+            ) {
+
+                errorMessage.textContent =
+                    "Too many failed attempts. Please try again later.";
+
+            } else {
+
+                errorMessage.textContent =
+                    "Login failed. Please check your Email and Password.";
+
+            }
+
+
+            // Enable button
+            loginBtn.disabled = false;
+
+            loginBtn.textContent = "Login";
+
         }
 
-        localStorage.setItem("adminLoggedIn", "true");
-
-        alert("Admin Login Successful!");
-        window.location.href = "admin.html";
     });
-});
+
 </script>
 
+
+<!-- Service Worker -->
 <script>
+
 if ("serviceWorker" in navigator) {
+
     window.addEventListener("load", () => {
+
         navigator.serviceWorker.register("./service-worker.js");
+
     });
+
 }
+
 </script>
 
 </body>
