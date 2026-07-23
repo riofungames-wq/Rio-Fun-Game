@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rio Maggi Point - Loyalty Program</title>
+    <title>Rio Maggi Point - Loyalty Card</title>
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#FF4B2B">
+    <meta name="theme-color" content="#f5d99b">
 
     <!-- Google Fonts & Font Awesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -15,13 +15,12 @@
 
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #FF4B2B 0%, #FF416C 100%);
-            --gold-gradient: linear-gradient(135deg, #FFE000 0%, #799F0C 100%);
-            --card-bg: rgba(255, 255, 255, 0.15);
-            --glass-border: rgba(255, 255, 255, 0.25);
-            --bg-color: #0f0c20;
-            --text-color: #ffffff;
-            --text-sub: #d1d1d1;
+            --primary-bg: #f5d99b;
+            --card-bg: #fff8e7;
+            --accent-color: #d19b4a;
+            --text-dark: #3a2e2b;
+            --text-muted: #7a6855;
+            --border-color: #e0be7b;
         }
 
         * {
@@ -32,15 +31,13 @@
         }
 
         body {
-            background: var(--bg-color);
-            background-image: radial-gradient(circle at top right, #2a0845, transparent),
-                              radial-gradient(circle at bottom left, #6441A5, transparent);
-            color: var(--text-color);
+            background-color: var(--primary-bg);
+            color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-bottom: 80px;
+            padding-bottom: 90px;
         }
 
         .container {
@@ -49,218 +46,105 @@
             padding: 20px;
         }
 
-        /* Header / Profile Bar */
+        /* Header Bar */
         .header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             margin-bottom: 20px;
         }
 
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
         }
 
-        .avatar-img {
-            width: 50px;
-            height: 50px;
+        .logout-btn {
+            background: rgba(209, 155, 74, 0.2);
+            border: 1px solid var(--border-color);
+            color: var(--text-dark);
+            padding: 8px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+
+        /* Card Container */
+        .loyalty-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .avatar-box {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
+            background: var(--primary-bg);
+            border: 2px solid var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            overflow: hidden;
+        }
+
+        .avatar-box img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border: 2px solid #FF4B2B;
-            box-shadow: 0 0 10px rgba(255, 75, 43, 0.5);
         }
 
         .user-info h3 {
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .user-info p {
-            font-size: 0.8rem;
-            color: var(--text-sub);
-        }
-
-        .logout-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--glass-border);
-            color: #fff;
-            padding: 8px 12px;
-            border-radius: 12px;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255, 75, 43, 0.3);
-        }
-
-        /* Loyalty Card (Glassmorphism) */
-        .loyalty-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 24px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 24px;
-        }
-
-        .card-brand {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .brand-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #FF416C, #FF4B2B);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .cycle-badge {
-            font-size: 0.75rem;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 4px 10px;
-            border-radius: 20px;
-            border: 1px solid var(--glass-border);
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
 
         /* Stamp Grid */
         .stamp-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-top: 15px;
         }
 
         .stamp-box {
             aspect-ratio: 1;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px dashed rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
+            background: rgba(245, 217, 155, 0.4);
+            border: 1.5px dashed var(--accent-color);
+            border-radius: 12px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: rgba(255, 255, 255, 0.3);
-            transition: all 0.4s ease;
-            position: relative;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            font-weight: bold;
         }
 
         .stamp-box.active {
-            background: var(--primary-gradient);
-            border: none;
+            background: var(--accent-color);
             color: #fff;
-            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
-            transform: scale(1.05);
-            animation: popIn 0.3s ease-out;
-        }
-
-        .stamp-number {
-            font-size: 0.65rem;
-            position: absolute;
-            top: 6px;
-            left: 8px;
-            opacity: 0.6;
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0.8); }
-            50% { transform: scale(1.15); }
-            100% { transform: scale(1.05); }
-        }
-
-        /* Reward Banner */
-        .reward-banner {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 16px;
-            padding: 15px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: 0.3s;
-        }
-
-        .reward-banner.unlocked {
-            background: var(--gold-gradient);
-            color: #000;
-            font-weight: 600;
-            box-shadow: 0 0 20px rgba(255, 224, 0, 0.5);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 224, 0, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(255, 224, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 224, 0, 0); }
-        }
-
-        .reward-title {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 4px;
-        }
-
-        .reward-desc {
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-
-        /* Feedback Section */
-        .feedback-section {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            border: 1px solid var(--glass-border);
-            margin-bottom: 24px;
-        }
-
-        .feedback-section h4 {
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-            font-weight: 400;
-        }
-
-        .feedback-btns {
-            display: flex;
-            justify-content: space-around;
-            gap: 10px;
-        }
-
-        .fb-btn {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--glass-border);
-            color: #fff;
-            padding: 10px 14px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.3s;
-            flex: 1;
-            justify-content: center;
-        }
-
-        .fb-btn:hover, .fb-btn.selected {
-            background: #FF4B2B;
-            border-color: #FF4B2B;
-            transform: translateY(-2px);
+            border-style: solid;
         }
 
         /* Bottom Navigation Bar */
@@ -271,10 +155,8 @@
             transform: translateX(-50%);
             width: 100%;
             max-width: 420px;
-            background: rgba(15, 12, 32, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid var(--glass-border);
+            background: var(--card-bg);
+            border-top: 2px solid var(--border-color);
             display: flex;
             justify-content: space-around;
             padding: 12px 0;
@@ -282,15 +164,15 @@
         }
 
         .nav-item {
-            color: rgba(255, 255, 255, 0.5);
+            color: var(--text-muted);
             text-decoration: none;
             display: flex;
             flex-direction: column;
             align-items: center;
             font-size: 0.75rem;
             gap: 4px;
-            transition: 0.3s;
             cursor: pointer;
+            font-weight: 600;
         }
 
         .nav-item i {
@@ -298,7 +180,7 @@
         }
 
         .nav-item.active, .nav-item:hover {
-            color: #FF4B2B;
+            color: var(--accent-color);
         }
     </style>
 </head>
@@ -307,78 +189,32 @@
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <div class="user-profile">
-                <img id="userAvatar" src="https://via.placeholder.com/150" alt="Avatar" class="avatar-img">
-                <div class="user-info">
-                    <h3 id="userName">Loading...</h3>
-                    <p id="cycleStatus">40 Days Cycle Active</p>
-                </div>
-            </div>
-            <button class="logout-btn" id="logoutBtn" title="Logout">
-                <i class="fa-solid fa-right-from-bracket"></i>
+            <h2>Rio Maggi Point</h2>
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
             </button>
         </header>
 
         <!-- Loyalty Card -->
         <div class="loyalty-card">
-            <div class="card-brand">
-                <span class="brand-title">Rio Maggi Point</span>
-                <span class="cycle-badge" id="daysLeft">-- Days Left</span>
-            </div>
-
-            <!-- 6 Stamp Grid -->
-            <div class="stamp-grid" id="stampGrid">
-                <div class="stamp-box" data-stamp="1">
-                    <span class="stamp-number">#1</span>
-                    <i class="fa-solid fa-bowl-rice"></i>
+            <div class="profile-section">
+                <div class="avatar-box" id="avatarDisplay">
+                    <span id="emojiAvatar">😊</span>
+                    <img id="imageAvatar" style="display:none;" alt="Profile">
                 </div>
-                <div class="stamp-box" data-stamp="2">
-                    <span class="stamp-number">#2</span>
-                    <i class="fa-solid fa-bowl-rice"></i>
-                </div>
-                <div class="stamp-box" data-stamp="3">
-                    <span class="stamp-number">#3</span>
-                    <i class="fa-solid fa-bowl-rice"></i>
-                </div>
-                <div class="stamp-box" data-stamp="4">
-                    <span class="stamp-number">#4</span>
-                    <i class="fa-solid fa-bowl-rice"></i>
-                </div>
-                <div class="stamp-box" data-stamp="5">
-                    <span class="stamp-number">#5</span>
-                    <i class="fa-solid fa-bowl-rice"></i>
-                </div>
-                <div class="stamp-box" data-stamp="6">
-                    <span class="stamp-number">#6</span>
-                    <i class="fa-solid fa-bowl-rice"></i>
+                <div class="user-info">
+                    <h3 id="userName">Loading...</h3>
+                    <p id="userEmail">Loading...</p>
                 </div>
             </div>
 
-            <!-- Reward Banner -->
-            <div class="reward-banner" id="rewardBanner">
-                <div class="reward-title" id="rewardStatus">Complete 6 Stamps</div>
-                <div class="reward-desc" id="rewardText">🎁 7th Visit: Free Veg Maggi!</div>
-            </div>
-        </div>
-
-        <!-- Feedback Section -->
-        <div class="feedback-section">
-            <h4>How was your last visit?</h4>
-            <div class="feedback-btns">
-                <button class="fb-btn" onclick="sendFeedback('Good')">
-                    <i class="fa-regular fa-face-smile"></i> Good
-                </button>
-                <button class="fb-btn" onclick="sendFeedback('Lovely')">
-                    <i class="fa-regular fa-face-laugh-beam"></i> Lovely
-                </button>
-                <button class="fb-btn" onclick="sendFeedback('I Love This')">
-                    <i class="fa-regular fa-face-heart"></i> Love It
-                </button>
+            <div class="stamp-grid" id="stampContainer">
+                <!-- Stamps generated via JS -->
             </div>
         </div>
     </div>
 
-    <!-- Bottom Navigation -->
+    <!-- Bottom Navigation Bar -->
     <nav class="bottom-nav">
         <a class="nav-item active" href="index.html">
             <i class="fa-solid fa-house"></i>
@@ -398,122 +234,69 @@
         </a>
     </nav>
 
-    <!-- Firebase & Logic Script -->
+    <!-- Firebase Script -->
     <script type="module">
         import { firebaseConfig } from './firebase-config.js';
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        let currentUserDocRef = null;
+        const userName = document.getElementById("userName");
+        const userEmail = document.getElementById("userEmail");
+        const emojiAvatar = document.getElementById("emojiAvatar");
+        const imageAvatar = document.getElementById("imageAvatar");
+        const stampContainer = document.getElementById("stampContainer");
+        const logoutBtn = document.getElementById("logoutBtn");
 
-        // Auth State Check
         onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                currentUserDocRef = doc(db, "customers", user.uid);
-                loadUserData(currentUserDocRef);
-            } else {
+            if (!user) {
                 window.location.href = "login.html";
+                return;
+            }
+
+            try {
+                const docRef = doc(db, "customers", user.uid);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    userName.textContent = data.name || "Customer";
+                    userEmail.textContent = data.email || user.email;
+
+                    if (data.photoURL) {
+                        imageAvatar.src = data.photoURL;
+                        imageAvatar.style.display = "block";
+                        emojiAvatar.style.display = "none";
+                    } else if (data.avatar) {
+                        emojiAvatar.textContent = data.avatar;
+                    }
+
+                    renderStamps(data.stamps || 0);
+                }
+            } catch (err) {
+                console.error("Error loading user data:", err);
             }
         });
 
-        // Load Customer Data
-        async function loadUserData(docRef) {
-            try {
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-
-                    // Render Profile
-                    document.getElementById('userName').innerText = data.name || "Customer";
-                    document.getElementById('userAvatar').src = data.photoURL || data.avatar || "https://via.placeholder.com/150";
-
-                    // Render Stamps & 7th Stamp Logic
-                    renderStamps(data.stamps || 0);
-
-                    // Render Cycle Expiry
-                    calculateExpiry(data.cycleExpiryDate);
-                }
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-            }
-        }
-
-        // Render Stamp UI Logic
         function renderStamps(count) {
-            const boxes = document.querySelectorAll('.stamp-box');
-            boxes.forEach((box, index) => {
-                if (index < count) {
-                    box.classList.add('active');
-                    box.innerHTML = `<span class="stamp-number">#${index + 1}</span><i class="fa-solid fa-circle-check"></i>`;
-                } else {
-                    box.classList.remove('active');
-                    box.innerHTML = `<span class="stamp-number">#${index + 1}</span><i class="fa-solid fa-bowl-rice"></i>`;
-                }
-            });
-
-            // Reward Status (6 Stamps Completed -> 7th Visit Free Maggi)
-            const rewardBanner = document.getElementById('rewardBanner');
-            const rewardStatus = document.getElementById('rewardStatus');
-            const rewardText = document.getElementById('rewardText');
-
-            if (count >= 6) {
-                rewardBanner.classList.add('unlocked');
-                rewardStatus.innerText = "🎉 REWARD UNLOCKED!";
-                rewardText.innerText = "Show this on 7th visit for Free Veg Maggi!";
-            } else {
-                rewardBanner.classList.remove('unlocked');
-                rewardStatus.innerText = `Collect ${6 - count} More Stamps`;
-                rewardText.innerText = "🎁 7th Visit: Free Veg Maggi!";
+            stampContainer.innerHTML = "";
+            for (let i = 1; i <= 10; i++) {
+                const stamp = document.createElement("div");
+                stamp.className = `stamp-box ${i <= count ? "active" : ""}`;
+                stamp.innerHTML = i <= count ? '<i class="fa-solid fa-check"></i>' : i;
+                stampContainer.appendChild(stamp);
             }
         }
 
-        // Days Remaining Logic
-        function calculateExpiry(expiryTimestamp) {
-            if (!expiryTimestamp) return;
-            const expiryDate = expiryTimestamp.toDate ? expiryTimestamp.toDate() : new Date(expiryTimestamp);
-            const now = new Date();
-            const diffTime = expiryDate - now;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-            const daysLeftElem = document.getElementById('daysLeft');
-            if (diffDays > 0) {
-                daysLeftElem.innerText = `${diffDays} Days Left`;
-            } else {
-                daysLeftElem.innerText = `Cycle Expired`;
-                daysLeftElem.style.background = `rgba(255, 0, 0, 0.3)`;
-            }
-        }
-
-        // Logout
-        document.getElementById('logoutBtn').addEventListener('click', () => {
+        logoutBtn.addEventListener("click", () => {
             signOut(auth).then(() => {
                 window.location.href = "login.html";
             });
         });
-
-        // Global Feedback Function
-        window.sendFeedback = async function(type) {
-            if (!currentUserDocRef) return;
-            try {
-                await updateDoc(currentUserDocRef, { feedback: type });
-                alert(`Thank you for your feedback: ${type}!`);
-            } catch (e) {
-                console.error("Error saving feedback:", e);
-            }
-        };
-
-        // PWA Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js')
-                .then(() => console.log("Service Worker Registered"))
-                .catch(err => console.error("SW Registration Failed:", err));
-        }
     </script>
 </body>
 </html>
