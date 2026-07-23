@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Rio Maggi Point - Admin Panel</title>
 
-    <!-- PWA Manifest & Favicon -->
+    <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#263525">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -90,6 +91,11 @@
             background: #1c271b;
         }
 
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         .logoutBtn {
             background: #555;
             color: white;
@@ -115,6 +121,17 @@
             color: #222;
         }
 
+        .statusBox {
+            margin: 15px 0;
+            padding: 12px;
+            border-radius: 10px;
+            background: #263525;
+            color: #ffd54f;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
         .stampBtn {
             background: #c62828;
             color: #fff;
@@ -122,6 +139,15 @@
 
         .stampBtn:hover {
             background: #a81f1f;
+        }
+
+        .resetBtn {
+            background: #8e44ad;
+            color: white;
+        }
+
+        .resetBtn:hover {
+            background: #6c3483;
         }
 
         .adminStatus {
@@ -134,6 +160,26 @@
             font-size: 13px;
             font-weight: bold;
         }
+
+        .message {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background: #ffe0e0;
+            color: #b00020;
+        }
     </style>
 </head>
 
@@ -144,7 +190,7 @@
     <h1>🛠️ Admin Panel</h1>
 
     <p class="subtitle">
-        Search Customer & Add Loyalty Stamps
+        Search Customer & Manage Loyalty Stamps
     </p>
 
     <div class="adminStatus">
@@ -168,22 +214,45 @@
         🔍 Search Customer
     </button>
 
+    <div id="messageBox" class="message"></div>
+
     <div class="result" id="resultBox">
 
         <div class="info">
-            👤 Name: <span id="customerName">-</span>
+            👤 Name:
+            <span id="customerName">-</span>
         </div>
 
         <div class="info">
-            📱 Mobile: <span id="customerMobile">-</span>
+            📱 Mobile:
+            <span id="customerMobile">-</span>
         </div>
 
         <div class="info">
-            🎟️ Stamps: <span id="customerStamps">0</span> / 6
+            🎟️ Stamps:
+            <span id="customerStamps">0</span> / 6
+        </div>
+
+        <div class="info">
+            📅 Cycle Started:
+            <span id="cycleStart">-</span>
+        </div>
+
+        <div class="info">
+            ⏳ Days Remaining:
+            <span id="daysRemaining">-</span>
+        </div>
+
+        <div class="statusBox" id="statusBox">
+            Loyalty Cycle Active
         </div>
 
         <button class="stampBtn" id="addStampBtn">
             ➕ Add 1 Stamp
+        </button>
+
+        <button class="resetBtn" id="newCycleBtn" style="display:none;">
+            🔄 Start New Loyalty Cycle (Free Maggi Given)
         </button>
 
     </div>
@@ -194,8 +263,7 @@
 
 </div>
 
-
-<!-- Firebase Authentication + Admin Panel -->
+<!-- Firebase Admin System Script -->
 <script type="module">
 
     import { initializeApp }
@@ -208,8 +276,20 @@
     }
     from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
+    import {
+        getFirestore,
+        collection,
+        query,
+        where,
+        getDocs,
+        doc,
+        updateDoc,
+        serverTimestamp
+    }
+    from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-    // Firebase Configuration
+
+    // FIREBASE CONFIGURATION
     const firebaseConfig = {
         apiKey: "AIzaSyS5ZmPaMW17YnUOvd48QhHXwS8it6XDB70",
         authDomain: "rio-maggi-point.firebaseapp.com",
@@ -219,13 +299,28 @@
         appId: "1:472858143171:web:15cfb0b8de9cd25b957576"
     };
 
-
-    // Initialize Firebase
+    // INITIALIZE FIREBASE
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getFirestore(app);
 
+    // GET HTML ELEMENTS
+    const searchBtn = document.getElementById("searchBtn");
+    const addStampBtn = document.getElementById("addStampBtn");
+    const newCycleBtn = document.getElementById("newCycleBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const resultBox = document.getElementById("resultBox");
+    const messageBox = document.getElementById("messageBox");
+    const customerName = document.getElementById("customerName");
+    const customerMobile = document.getElementById("customerMobile");
+    const customerStamps = document.getElementById("customerStamps");
+    const cycleStart = document.getElementById("cycleStart");
+    const daysRemaining = document.getElementById("daysRemaining");
+    const statusBox = document.getElementById("statusBox");
 
-    // ADMIN AUTHENTICATION GUARD
+    let selectedCustomer = null;
+
+    // ADMIN AUTH GUARD
     onAuthStateChanged(auth, (user) => {
         if (!user) {
             window.location.href = "admin-login.html";
@@ -234,95 +329,251 @@
         }
     });
 
+    // MESSAGE FUNCTION
+    function showMessage(text, type) {
+        messageBox.textContent = text;
+        messageBox.className = "message " + type;
+        messageBox.style.display = "block";
+    }
 
-    // LOGOUT
-    const logoutBtn = document.getElementById("logoutBtn");
-
-    logoutBtn.addEventListener("click", async () => {
-        try {
-            await signOut(auth);
-            alert("Admin Logout Successful!");
-            window.location.href = "admin-login.html";
-        } catch (error) {
-            console.error("Logout Error:", error);
-            alert("Logout failed. Please try again.");
+    // CALCULATE 40 DAY EXPIRY
+    function getCycleInfo(startDate) {
+        if (!startDate) {
+            return { expired: false, daysRemaining: 40 };
         }
-    });
 
+        const start = startDate.toDate ? startDate.toDate() : new Date(startDate);
+        const now = new Date();
+        const difference = now.getTime() - start.getTime();
+        const daysPassed = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const remaining = 40 - daysPassed;
 
-    // EXISTING CUSTOMER + STAMP SYSTEM (TEMPORARY LOCAL STORAGE)
-    let selectedCustomer = null;
+        return {
+            expired: remaining <= 0,
+            daysRemaining: Math.max(0, remaining)
+        };
+    }
 
-    const searchBtn = document.getElementById("searchBtn");
-    const addStampBtn = document.getElementById("addStampBtn");
+    // DISPLAY CUSTOMER DATA
+    function displayCustomer(customer) {
+        selectedCustomer = customer;
 
+        customerName.textContent = customer.data.name || "Customer";
+        customerMobile.textContent = customer.data.mobile || "-";
 
-    // SEARCH CUSTOMER
-    searchBtn.addEventListener("click", () => {
+        const stamps = customer.data.stamps || 0;
+        customerStamps.textContent = stamps;
+
+        const info = getCycleInfo(customer.data.cycleStartDate);
+        daysRemaining.textContent = info.daysRemaining;
+
+        if (customer.data.cycleStartDate) {
+            const start = customer.data.cycleStartDate.toDate
+                ? customer.data.cycleStartDate.toDate()
+                : new Date(customer.data.cycleStartDate);
+
+            cycleStart.textContent = start.toLocaleDateString();
+        } else {
+            cycleStart.textContent = "Not Started";
+        }
+
+        resultBox.style.display = "block";
+
+        // UI State based on Stamps
+        if (stamps >= 6) {
+            statusBox.textContent = "🎉 6 Stamps Complete - FREE MAGGI UNLOCKED!";
+            statusBox.style.background = "#2e7d32";
+            addStampBtn.style.display = "none";
+            newCycleBtn.style.display = "block";
+            showMessage("Customer is eligible for 1 FREE Veg Maggi!", "success");
+        } 
+        else {
+            statusBox.textContent = "🟢 Loyalty Cycle Active";
+            statusBox.style.background = "#263525";
+            addStampBtn.style.display = "block";
+            newCycleBtn.style.display = "none";
+        }
+    }
+
+    // SEARCH CUSTOMER (AUTO RESET IF 40 DAYS EXPIRED)
+    searchBtn.addEventListener("click", async () => {
         const mobile = document.getElementById("mobile").value.trim();
 
         if (!/^[0-9]{10}$/.test(mobile)) {
-            alert("Enter a valid 10-digit mobile number.");
+            showMessage("Enter a valid 10-digit mobile number.", "error");
             return;
         }
 
-        const customers = JSON.parse(localStorage.getItem("customers")) || [];
-        selectedCustomer = customers.find(c => c.mobile === mobile);
+        searchBtn.disabled = true;
+        searchBtn.textContent = "Searching...";
 
-        if (!selectedCustomer) {
-            alert("Customer not found.");
-            document.getElementById("resultBox").style.display = "none";
-            return;
+        try {
+            const customersRef = collection(db, "customers");
+            const q = query(customersRef, where("mobile", "==", mobile));
+            const snapshot = await getDocs(q);
+
+            if (snapshot.empty) {
+                resultBox.style.display = "none";
+                showMessage("Customer not found in Firebase.", "error");
+                return;
+            }
+
+            const customerDoc = snapshot.docs[0];
+            let data = customerDoc.data();
+            let customerId = customerDoc.id;
+
+            // CHECK AUTO RESET FOR EXPIRED CYCLE (ONLY IF STAMPS < 6)
+            const info = getCycleInfo(data.cycleStartDate);
+            if (info.expired && (data.stamps || 0) < 6) {
+                console.log("Cycle Expired. Auto-Resetting Customer Stamps...");
+                
+                const customerRef = doc(db, "customers", customerId);
+                await updateDoc(customerRef, {
+                    stamps: 0,
+                    reward: false,
+                    cycleStartDate: serverTimestamp(),
+                    updatedAt: serverTimestamp()
+                });
+
+                data.stamps = 0;
+                data.reward = false;
+                data.cycleStartDate = new Date();
+
+                showMessage("⏰ 40 days expired. Stamps automatically reset to 0 for a new cycle!", "error");
+            } else {
+                showMessage("Customer found successfully.", "success");
+            }
+
+            displayCustomer({
+                id: customerId,
+                data: data
+            });
+
+        } catch (error) {
+            console.error("Search Error:", error);
+            showMessage("Unable to search customer. Please try again.", "error");
+        } finally {
+            searchBtn.disabled = false;
+            searchBtn.textContent = "🔍 Search Customer";
         }
-
-        document.getElementById("resultBox").style.display = "block";
-        document.getElementById("customerName").textContent = selectedCustomer.name;
-        document.getElementById("customerMobile").textContent = selectedCustomer.mobile;
-        document.getElementById("customerStamps").textContent = selectedCustomer.stamps;
     });
 
-
     // ADD STAMP
-    addStampBtn.addEventListener("click", () => {
+    addStampBtn.addEventListener("click", async () => {
         if (!selectedCustomer) {
-            alert("Search a customer first.");
+            showMessage("Search a customer first.", "error");
             return;
         }
 
-        let customers = JSON.parse(localStorage.getItem("customers")) || [];
-        const index = customers.findIndex(c => c.id === selectedCustomer.id);
+        const customer = selectedCustomer.data;
+        const currentStamps = customer.stamps || 0;
 
-        if (index === -1) {
-            alert("Customer not found.");
+        if (currentStamps >= 6) {
+            showMessage("6 stamps already completed. Start a new cycle after providing free Maggi.", "success");
             return;
         }
 
-        if (customers[index].stamps < 6) {
-            customers[index].stamps++;
+        addStampBtn.disabled = true;
+        addStampBtn.textContent = "Adding Stamp...";
+
+        try {
+            const customerRef = doc(db, "customers", selectedCustomer.id);
+            const newStampCount = currentStamps + 1;
+
+            const updateData = {
+                stamps: newStampCount,
+                updatedAt: serverTimestamp()
+            };
+
+            // First stamp sets 40-day cycle start date
+            if (currentStamps === 0 || !customer.cycleStartDate) {
+                updateData.cycleStartDate = serverTimestamp();
+            }
+
+            // Sixth stamp unlocks reward
+            if (newStampCount >= 6) {
+                updateData.reward = true;
+            }
+
+            await updateDoc(customerRef, updateData);
+
+            // Update Local Data
+            selectedCustomer.data.stamps = newStampCount;
+            if (currentStamps === 0 || !customer.cycleStartDate) {
+                selectedCustomer.data.cycleStartDate = new Date();
+            }
+            if (newStampCount >= 6) {
+                selectedCustomer.data.reward = true;
+            }
+
+            displayCustomer(selectedCustomer);
+
+            if (newStampCount >= 6) {
+                showMessage("🎉 6 Stamps Complete! FREE Veg Maggi Unlocked!", "success");
+            } else {
+                showMessage("✅ 1 Stamp Added Successfully!", "success");
+            }
+
+        } catch (error) {
+            console.error("Add Stamp Error:", error);
+            showMessage("Unable to add stamp. Please try again.", "error");
+        } finally {
+            addStampBtn.disabled = false;
+            addStampBtn.textContent = "➕ Add 1 Stamp";
         }
+    });
 
-        if (customers[index].stamps >= 6) {
-            customers[index].reward = true;
+    // START NEW CYCLE (MANUAL RESET AFTER 6 STAMPS)
+    newCycleBtn.addEventListener("click", async () => {
+        if (!selectedCustomer) return;
+
+        const confirmReset = confirm("Did you provide the Free Veg Maggi? Clicking OK will start a fresh 40-day loyalty cycle with 0 stamps.");
+        if (!confirmReset) return;
+
+        newCycleBtn.disabled = true;
+        newCycleBtn.textContent = "Starting New Cycle...";
+
+        try {
+            const customerRef = doc(db, "customers", selectedCustomer.id);
+
+            await updateDoc(customerRef, {
+                stamps: 0,
+                reward: false,
+                cycleStartDate: serverTimestamp(),
+                updatedAt: serverTimestamp()
+            });
+
+            selectedCustomer.data.stamps = 0;
+            selectedCustomer.data.reward = false;
+            selectedCustomer.data.cycleStartDate = new Date();
+
+            displayCustomer(selectedCustomer);
+
+            showMessage("🔄 New 40-Day Loyalty Cycle Started!", "success");
+
+        } catch (error) {
+            console.error("New Cycle Error:", error);
+            showMessage("Unable to start new cycle.", "error");
+        } finally {
+            newCycleBtn.disabled = false;
+            newCycleBtn.textContent = "🔄 Start New Loyalty Cycle (Free Maggi Given)";
         }
+    });
 
-        localStorage.setItem("customers", JSON.stringify(customers));
-
-        const currentCustomer = JSON.parse(localStorage.getItem("currentCustomer"));
-
-        if (currentCustomer && currentCustomer.id === customers[index].id) {
-            localStorage.setItem("currentCustomer", JSON.stringify(customers[index]));
+    // ADMIN LOGOUT
+    logoutBtn.addEventListener("click", async () => {
+        try {
+            await signOut(auth);
+            window.location.href = "admin-login.html";
+        } catch (error) {
+            console.error("Logout Error:", error);
+            showMessage("Logout failed. Please try again.", "error");
         }
-
-        selectedCustomer = customers[index];
-        document.getElementById("customerStamps").textContent = selectedCustomer.stamps;
-
-        alert("1 Stamp Added Successfully!");
     });
 
 </script>
 
-
-<!-- Service Worker -->
+<!-- Service Worker Registration -->
 <script>
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
