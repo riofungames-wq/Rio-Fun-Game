@@ -1,35 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Rio Maggi Point - Create Account</title>
 
-    <!-- PWA -->
+    <!-- PWA Settings -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#263525">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Rio Maggi Point">
-
+    <meta name="theme-color" content="#FF4B2B">
     <link rel="icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #FF4B2B 0%, #FF416C 100%);
+            --card-bg: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --bg-color: #0f0c20;
+            --text-color: #ffffff;
+            --input-bg: rgba(255, 255, 255, 0.08);
+        }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
+            background: var(--bg-color);
+            background-image: radial-gradient(circle at top right, #2a0845, transparent),
+                              radial-gradient(circle at bottom left, #6441A5, transparent);
+            color: var(--text-color);
             min-height: 100vh;
-            background: #050505;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -38,786 +46,451 @@
 
         .container {
             width: 100%;
-            max-width: 460px;
-            background: #f5d99b;
-            border: 3px solid #d19b4a;
-            border-radius: 20px;
-            padding: 28px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, .45);
+            max-width: 440px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
         }
 
-        h1 {
+        .header-title {
             text-align: center;
-            color: #222;
-            margin-bottom: 8px;
+            margin-bottom: 20px;
         }
 
-        .subtitle {
-            text-align: center;
-            margin-bottom: 25px;
-            color: #555;
-            font-size: 15px;
+        .header-title h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #FF416C, #FF4B2B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        label {
-            display: block;
-            margin-bottom: 7px;
-            font-weight: bold;
-            color: #222;
+        .header-title p {
+            font-size: 0.85rem;
+            color: #d1d1d1;
+            margin-top: 4px;
         }
 
-        input {
+        /* Avatar & Photo Picker */
+        .profile-picker-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .preview-box {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 3px solid #FF4B2B;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 45px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(255, 75, 43, 0.4);
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .preview-box img {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 18px;
-            border: 2px solid #d19b4a;
-            border-radius: 10px;
-            font-size: 15px;
-            outline: none;
-            background: #fffdf7;
+            height: 100%;
+            object-fit: cover;
         }
 
-        input:focus {
-            border-color: #263525;
+        .picker-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
         }
 
-        /* Avatar Section */
+        .picker-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-        .avatar-title {
-            text-align: center;
-            font-weight: bold;
-            color: #222;
-            margin: 5px 0 12px;
+        .picker-btn.active {
+            background: var(--primary-gradient);
+            border-color: transparent;
         }
 
         .avatar-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 10px;
-            margin-bottom: 20px;
+            width: 100%;
+            margin-top: 8px;
         }
 
-        .avatar-option {
-            width: 100%;
+        .avatar-item {
             aspect-ratio: 1;
-            border-radius: 50%;
-            border: 3px solid transparent;
-            background: #fff7df;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid transparent;
+            border-radius: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 32px;
+            font-size: 26px;
             cursor: pointer;
-            transition: .2s;
+            transition: 0.2s;
         }
 
-        .avatar-option:hover {
-            transform: scale(1.06);
-            border-color: #d19b4a;
+        .avatar-item:hover, .avatar-item.selected {
+            border-color: #FF4B2B;
+            background: rgba(255, 75, 43, 0.2);
         }
 
-        .avatar-option.selected {
-            border-color: #263525;
-            background: #ffd54f;
-            box-shadow: 0 0 0 3px #d19b4a;
-        }
-
-        .selected-avatar-preview {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 12px;
-            border-radius: 50%;
-            background: #fff7df;
-            border: 3px solid #d19b4a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 42px;
-            overflow: hidden;
-        }
-
-        .selected-avatar-preview img {
+        .file-input-wrapper {
+            display: none;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .photo-note {
             text-align: center;
-            font-size: 12px;
-            color: #666;
-            margin-top: -10px;
-            margin-bottom: 20px;
+            margin-top: 8px;
         }
 
-        button {
+        .file-label {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px dashed var(--glass-border);
+            padding: 10px 15px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* Form Inputs */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            color: #e0e0e0;
+        }
+
+        .input-box {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--input-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 0.9rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-box:focus {
+            border-color: #FF4B2B;
+            box-shadow: 0 0 10px rgba(255, 75, 43, 0.3);
+        }
+
+        .submit-btn {
             width: 100%;
             padding: 14px;
-            background: #263525;
-            color: #ffd54f;
+            background: var(--primary-gradient);
             border: none;
-            border-radius: 10px;
-            font-size: 17px;
-            font-weight: bold;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: .25s;
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(255, 75, 43, 0.4);
+            transition: 0.3s;
         }
 
-        button:hover {
-            background: #1c271b;
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.95;
         }
 
-        button:disabled {
-            opacity: .6;
+        .submit-btn:disabled {
+            opacity: 0.5;
             cursor: not-allowed;
+            transform: none;
         }
 
-        .bottom {
+        .login-link {
             text-align: center;
             margin-top: 20px;
-            font-size: 15px;
+            font-size: 0.85rem;
+            color: #bbb;
         }
 
-        .bottom a {
-            color: #c62828;
-            font-weight: bold;
+        .login-link a {
+            color: #FF416C;
             text-decoration: none;
+            font-weight: 600;
         }
 
-        .bottom a:hover {
-            text-decoration: underline;
-        }
-
-        .message {
+        /* Notifications */
+        .msg-box {
             display: none;
-            margin-bottom: 15px;
             padding: 10px;
-            border-radius: 8px;
+            border-radius: 10px;
+            font-size: 0.85rem;
             text-align: center;
-            font-size: 14px;
-            font-weight: bold;
+            margin-bottom: 15px;
         }
 
-        .message.error {
+        .msg-box.error {
             display: block;
-            background: #ffdddd;
-            color: #b71c1c;
-            border: 1px solid #e57373;
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.4);
+            color: #ff8080;
         }
 
-        .message.success {
+        .msg-box.success {
             display: block;
-            background: #ddffdd;
-            color: #1b5e20;
-            border: 1px solid #66bb6a;
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid rgba(0, 255, 0, 0.4);
+            color: #80ff80;
         }
-
-        @media(max-width: 450px) {
-
-            .container {
-                padding: 22px;
-            }
-
-            .avatar-grid {
-                gap: 8px;
-            }
-
-            .avatar-option {
-                font-size: 28px;
-            }
-        }
-
     </style>
 </head>
 
 <body>
 
-<div class="container">
-
-    <h1>👤 Create Account</h1>
-
-    <p class="subtitle">
-        Join Rio Maggi Point Loyalty Program
-    </p>
-
-    <div id="messageBox" class="message"></div>
-
-    <form id="signupForm">
-
-        <!-- Full Name -->
-
-        <label for="name">
-            Full Name
-        </label>
-
-        <input
-            type="text"
-            id="name"
-            placeholder="Enter your full name"
-            autocomplete="name"
-            required
-        >
-
-
-        <!-- Mobile -->
-
-        <label for="mobile">
-            Mobile Number
-        </label>
-
-        <input
-            type="tel"
-            id="mobile"
-            placeholder="Enter 10-digit mobile number"
-            maxlength="10"
-            inputmode="numeric"
-            autocomplete="tel"
-            oninput="this.value=this.value.replace(/[^0-9]/g,'')"
-            required
-        >
-
-
-        <!-- Email -->
-
-        <label for="email">
-            Email Address
-        </label>
-
-        <input
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-            autocomplete="email"
-            required
-        >
-
-
-        <!-- Password -->
-
-        <label for="password">
-            Password
-        </label>
-
-        <input
-            type="password"
-            id="password"
-            placeholder="Minimum 6 characters"
-            autocomplete="new-password"
-            required
-        >
-
-
-        <!-- Confirm Password -->
-
-        <label for="confirmPassword">
-            Confirm Password
-        </label>
-
-        <input
-            type="password"
-            id="confirmPassword"
-            placeholder="Confirm password"
-            autocomplete="new-password"
-            required
-        >
-
-
-        <!-- Avatar Preview -->
-
-        <div class="avatar-title">
-            ✨ Choose Your Avatar
+    <div class="container">
+        <div class="header-title">
+            <h1>Create Account</h1>
+            <p>Join Rio Maggi Point Loyalty Program</p>
         </div>
 
-        <div
-            class="selected-avatar-preview"
-            id="avatarPreview"
-        >
-            😊
+        <div id="msgBox" class="msg-box"></div>
+
+        <form id="signupForm">
+            <!-- Avatar / Photo Picker -->
+            <div class="profile-picker-container">
+                <div class="preview-box" id="profilePreview">😊</div>
+
+                <div class="picker-options">
+                    <button type="button" class="picker-btn active" id="btnAvatarTab">Avatar</button>
+                    <button type="button" class="picker-btn" id="btnPhotoTab">Upload Photo</button>
+                </div>
+
+                <!-- Avatar Options Grid -->
+                <div class="avatar-grid" id="avatarGrid">
+                    <div class="avatar-item selected" data-avatar="😊">😊</div>
+                    <div class="avatar-item" data-avatar="🥰">🥰</div>
+                    <div class="avatar-item" data-avatar="😍">😍</div>
+                    <div class="avatar-item" data-avatar="😎">😎</div>
+                    <div class="avatar-item" data-avatar="🤗">🤗</div>
+                    <div class="avatar-item" data-avatar="😇">😇</div>
+                    <div class="avatar-item" data-avatar="🧑‍🍳">🧑‍🍳</div>
+                    <div class="avatar-item" data-avatar="👩‍🍳">👩‍🍳</div>
+                </div>
+
+                <!-- Custom Photo File Input -->
+                <div class="file-input-wrapper" id="fileWrapper">
+                    <label class="file-label" for="photoInput">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> Choose Image File
+                    </label>
+                    <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                </div>
+            </div>
+
+            <!-- Full Name -->
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" class="input-box" placeholder="Enter full name" required>
+            </div>
+
+            <!-- Mobile -->
+            <div class="form-group">
+                <label for="mobile">Mobile Number</label>
+                <input type="tel" id="mobile" class="input-box" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" class="input-box" placeholder="Enter email" required>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="input-box" placeholder="Minimum 6 characters" required>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" class="input-box" placeholder="Confirm password" required>
+            </div>
+
+            <button type="submit" id="signupBtn" class="submit-btn">Create Account</button>
+        </form>
+
+        <div class="login-link">
+            Already have an account? <a href="login.html">Login</a>
         </div>
-
-
-        <!-- Avatar Options -->
-
-        <div class="avatar-grid">
-
-            <div
-                class="avatar-option selected"
-                data-avatar="😊"
-            >
-                😊
-            </div>
-
-            <div
-                class="avatar-option"
-                data-avatar="🥰"
-            >
-                🥰
-            </div>
-
-            <div
-                class="avatar-option"
-                data-avatar="😍"
-            >
-                😍
-            </div>
-
-            <div
-                class="avatar-option"
-                data-avatar="😎"
-            >
-                😎
-            </div>
-
-            <div
-                class="avatar-option"
-                data-avatar="🤗"
-            >
-                🤗
-            </div>
-
-            <div
-                class="avatar-option"
-                data-avatar="😇"
-            >
-                😇
-            </div>
-
-            <div
-                class="avatar-option"
-                data-avatar="🧑‍🍳"
-            >
-                🧑‍🍳
-            </div>
-
-            <div
-                class="avatar-option"
-                data-avatar="👩‍🍳"
-            >
-                👩‍🍳
-            </div>
-
-        </div>
-
-        <div class="photo-note">
-            You can choose your favorite avatar now.
-            Photo upload will be added with Firebase Storage.
-        </div>
-
-
-        <!-- Create Account -->
-
-        <button
-            type="submit"
-            id="signupBtn"
-        >
-            Create Account
-        </button>
-
-    </form>
-
-
-    <div class="bottom">
-        Already have an account?
-        <a href="login.html">
-            Login
-        </a>
     </div>
 
-</div>
+    <!-- Firebase Script -->
+    <script type="module">
+        import { firebaseConfig } from './firebase-config.js';
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, collection, query, where, getDocs, serverTimestamp, Timestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
 
-<!-- Firebase Signup -->
+        // UI References
+        const signupForm = document.getElementById("signupForm");
+        const signupBtn = document.getElementById("signupBtn");
+        const msgBox = document.getElementById("msgBox");
+        const profilePreview = document.getElementById("profilePreview");
+        
+        const btnAvatarTab = document.getElementById("btnAvatarTab");
+        const btnPhotoTab = document.getElementById("btnPhotoTab");
+        const avatarGrid = document.getElementById("avatarGrid");
+        const fileWrapper = document.getElementById("fileWrapper");
+        const photoInput = document.getElementById("photoInput");
 
-<script type="module">
+        let selectedAvatar = "😊";
+        let uploadedPhotoBase64 = "";
 
-    import { auth, db }
-    from "./js/firebase-config.js";
-
-    import {
-        createUserWithEmailAndPassword
-    }
-    from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-    import {
-        doc,
-        setDoc,
-        collection,
-        query,
-        where,
-        getDocs,
-        serverTimestamp,
-        Timestamp
-    }
-    from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-
-    const signupForm =
-        document.getElementById("signupForm");
-
-    const signupBtn =
-        document.getElementById("signupBtn");
-
-    const messageBox =
-        document.getElementById("messageBox");
-
-    const avatarPreview =
-        document.getElementById("avatarPreview");
-
-    const avatarOptions =
-        document.querySelectorAll(".avatar-option");
-
-
-    // Default Avatar
-
-    let selectedAvatar = "😊";
-
-
-    // Show Message
-
-    function showMessage(message, type) {
-
-        messageBox.textContent = message;
-
-        messageBox.className =
-            "message " + type;
-
-    }
-
-
-    // Avatar Selection
-
-    avatarOptions.forEach(option => {
-
-        option.addEventListener("click", () => {
-
-            avatarOptions.forEach(item => {
-                item.classList.remove("selected");
-            });
-
-            option.classList.add("selected");
-
-            selectedAvatar =
-                option.dataset.avatar;
-
-            avatarPreview.textContent =
-                selectedAvatar;
-
+        // Toggle Avatar / Photo Tabs
+        btnAvatarTab.addEventListener('click', () => {
+            btnAvatarTab.classList.add('active');
+            btnPhotoTab.classList.remove('active');
+            avatarGrid.style.display = 'grid';
+            fileWrapper.style.display = 'none';
+            if(!uploadedPhotoBase64) {
+                profilePreview.innerHTML = selectedAvatar;
+            }
         });
 
-    });
+        btnPhotoTab.addEventListener('click', () => {
+            btnPhotoTab.classList.add('active');
+            btnAvatarTab.classList.remove('active');
+            avatarGrid.style.display = 'none';
+            fileWrapper.style.display = 'block';
+        });
 
+        // Avatar Selection
+        document.querySelectorAll('.avatar-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.avatar-item').forEach(i => i.classList.remove('selected'));
+                item.classList.add('selected');
+                selectedAvatar = item.dataset.avatar;
+                uploadedPhotoBase64 = ""; // Reset custom photo if avatar chosen
+                profilePreview.innerHTML = selectedAvatar;
+            });
+        });
 
-    // Signup
+        // Handle Image File Upload (Base64)
+        photoInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.size > 1024 * 1024) { // 1MB Limit
+                    showMsg("Image size should be less than 1MB", "error");
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    uploadedPhotoBase64 = event.target.result;
+                    profilePreview.innerHTML = `<img src="${uploadedPhotoBase64}" alt="Profile">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
 
-    signupForm.addEventListener(
-        "submit",
-        async (e) => {
+        function showMsg(message, type) {
+            msgBox.textContent = message;
+            msgBox.className = "msg-box " + type;
+        }
 
+        // Form Submit
+        signupForm.addEventListener("submit", async (e) => {
             e.preventDefault();
 
+            const name = document.getElementById("name").value.trim();
+            const mobile = document.getElementById("mobile").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
 
-            const name =
-                document.getElementById("name")
-                .value
-                .trim();
-
-            const mobile =
-                document.getElementById("mobile")
-                .value
-                .trim();
-
-            const email =
-                document.getElementById("email")
-                .value
-                .trim();
-
-            const password =
-                document.getElementById("password")
-                .value;
-
-            const confirmPassword =
-                document.getElementById("confirmPassword")
-                .value;
-
-
-            // Validation
-
-            if (name.length < 3) {
-
-                showMessage(
-                    "Please enter a valid name.",
-                    "error"
-                );
-
-                return;
-            }
-
-
-            if (!/^[0-9]{10}$/.test(mobile)) {
-
-                showMessage(
-                    "Please enter a valid 10-digit mobile number.",
-                    "error"
-                );
-
-                return;
-            }
-
-
-            if (password.length < 6) {
-
-                showMessage(
-                    "Password must be at least 6 characters.",
-                    "error"
-                );
-
-                return;
-            }
-
-
-            if (password !== confirmPassword) {
-
-                showMessage(
-                    "Passwords do not match.",
-                    "error"
-                );
-
-                return;
-            }
-
+            if (name.length < 3) return showMsg("Please enter a valid name.", "error");
+            if (!/^[0-9]{10}$/.test(mobile)) return showMsg("Please enter a valid 10-digit mobile number.", "error");
+            if (password.length < 6) return showMsg("Password must be at least 6 characters.", "error");
+            if (password !== confirmPassword) return showMsg("Passwords do not match.", "error");
 
             try {
-
                 signupBtn.disabled = true;
+                signupBtn.textContent = "Creating Account...";
 
-                signupBtn.textContent =
-                    "Creating Account...";
-
-
-                // Check Duplicate Mobile
-
-                const q = query(
-                    collection(db, "customers"),
-                    where("mobile", "==", mobile)
-                );
-
-
-                const querySnapshot =
-                    await getDocs(q);
-
+                // Check Mobile Duplicates
+                const q = query(collection(db, "customers"), where("mobile", "==", mobile));
+                const querySnapshot = await getDocs(q);
 
                 if (!querySnapshot.empty) {
-
-                    showMessage(
-                        "This mobile number is already registered.",
-                        "error"
-                    );
-
+                    showMsg("This mobile number is already registered.", "error");
                     signupBtn.disabled = false;
-
-                    signupBtn.textContent =
-                        "Create Account";
-
+                    signupBtn.textContent = "Create Account";
                     return;
                 }
 
+                // Auth Creation
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
 
-                // Create Firebase Auth User
+                // Dates
+                const cycleStartDate = new Date();
+                const cycleExpiryDate = new Date();
+                cycleExpiryDate.setDate(cycleExpiryDate.getDate() + 40);
 
-                const userCredential =
-                    await createUserWithEmailAndPassword(
-                        auth,
-                        email,
-                        password
-                    );
+                // Save to Firestore
+                await setDoc(doc(db, "customers", user.uid), {
+                    uid: user.uid,
+                    name: name,
+                    mobile: mobile,
+                    email: email,
+                    avatar: selectedAvatar,
+                    photoURL: uploadedPhotoBase64 || "",
+                    stamps: 0,
+                    reward: false,
+                    rewardUnlocked: false,
+                    rewardRedeemed: false,
+                    status: "active",
+                    cycleStartDate: Timestamp.fromDate(cycleStartDate),
+                    cycleExpiryDate: Timestamp.fromDate(cycleExpiryDate),
+                    createdAt: serverTimestamp(),
+                    updatedAt: serverTimestamp()
+                });
 
-
-                const user =
-                    userCredential.user;
-
-
-                // Loyalty Cycle Start
-
-                const cycleStartDate =
-                    new Date();
-
-
-                // 40 Days Later
-
-                const cycleExpiryDate =
-                    new Date();
-
-                cycleExpiryDate.setDate(
-                    cycleExpiryDate.getDate() + 40
-                );
-
-
-                // Save Customer Profile
-
-                await setDoc(
-                    doc(
-                        db,
-                        "customers",
-                        user.uid
-                    ),
-                    {
-
-                        uid:
-                            user.uid,
-
-                        name:
-                            name,
-
-                        mobile:
-                            mobile,
-
-                        email:
-                            email,
-
-                        avatar:
-                            selectedAvatar,
-
-                        photoURL:
-                            "",
-
-                        stamps:
-                            0,
-
-                        reward:
-                            false,
-
-                        rewardUnlocked:
-                            false,
-
-                        rewardRedeemed:
-                            false,
-
-                        status:
-                            "active",
-
-                        cycleStartDate:
-                            Timestamp.fromDate(
-                                cycleStartDate
-                            ),
-
-                        cycleExpiryDate:
-                            Timestamp.fromDate(
-                                cycleExpiryDate
-                            ),
-
-                        createdAt:
-                            serverTimestamp(),
-
-                        updatedAt:
-                            serverTimestamp()
-
-                    }
-                );
-
-
-                showMessage(
-                    "🎉 Account Created Successfully!",
-                    "success"
-                );
-
-
-                setTimeout(() => {
-
-                    window.location.href =
-                        "index.html";
-
-                }, 1200);
-
+                showMsg("🎉 Account Created Successfully!", "success");
+                setTimeout(() => { window.location.href = "index.html"; }, 1200);
 
             } catch (error) {
-
-                console.error(
-                    "Signup Error:",
-                    error
-                );
-
-
-                switch (error.code) {
-
-                    case "auth/email-already-in-use":
-
-                        showMessage(
-                            "This email is already registered.",
-                            "error"
-                        );
-
-                        break;
-
-
-                    case "auth/invalid-email":
-
-                        showMessage(
-                            "Please enter a valid email address.",
-                            "error"
-                        );
-
-                        break;
-
-
-                    case "auth/weak-password":
-
-                        showMessage(
-                            "Password is too weak. Use at least 6 characters.",
-                            "error"
-                        );
-
-                        break;
-
-
-                    default:
-
-                        showMessage(
-                            error.message ||
-                            "Something went wrong. Please try again.",
-                            "error"
-                        );
-
-                }
-
-
+                console.error("Signup Error:", error);
+                showMsg(error.message || "Something went wrong.", "error");
             } finally {
-
                 signupBtn.disabled = false;
-
-                signupBtn.textContent =
-                    "Create Account";
-
+                signupBtn.textContent = "Create Account";
             }
-
-        }
-
-    );
-
-</script>
-
-
-<!-- Service Worker -->
-
-<script>
-
-    if ("serviceWorker" in navigator) {
-
-        window.addEventListener(
-            "load",
-            () => {
-
-                navigator.serviceWorker.register(
-                    "./service-worker.js"
-                );
-
-            }
-        );
-
-    }
-
-</script>
-
-
+        });
+    </script>
 </body>
 
 </html>
