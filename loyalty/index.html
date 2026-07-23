@@ -1,1542 +1,519 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="hi">
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Rio Maggi Point - Loyalty Card</title>
-
-    <!-- PWA -->
+    <title>Rio Maggi Point - Loyalty Program</title>
+    
+    <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
-
-    <meta name="theme-color" content="#263525">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Rio Maggi Point">
-
-    <link rel="icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="icon-192.png">
-
-
-<style>
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-body {
-
-    min-height: 100vh;
-
-    background:
-        radial-gradient(
-            circle at top,
-            #263525 0%,
-            #101710 35%,
-            #050505 75%
-        );
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 20px;
-
-}
-
-
-.loyalty-card {
-
-    width: 100%;
-    max-width: 650px;
-
-    background: #f5d99b;
-
-    border: 3px solid #d19b4a;
-
-    border-radius: 24px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 25px 60px rgba(0,0,0,.65);
-
-}
-
-
-/* ================= HEADER ================= */
-
-.header {
-
-    background:
-        linear-gradient(
-            135deg,
-            #f8dda0,
-            #edc77d
-        );
-
-    padding: 28px 20px 20px;
-
-    text-align: center;
-
-}
-
-
-.brand {
-
-    font-size: 17px;
-
-    font-weight: 900;
-
-    letter-spacing: 2px;
-
-    color: #222;
-
-    margin-bottom: 10px;
-
-}
-
-
-.brand span {
-
-    color: #e53935;
-
-}
-
-
-.title {
-
-    font-size:
-        clamp(
-            42px,
-            9vw,
-            68px
-        );
-
-    font-weight: 900;
-
-    line-height: .9;
-
-    color: #111;
-
-}
-
-
-.title span {
-
-    color: #c62828;
-
-}
-
-
-.subtitle {
-
-    margin-top: 14px;
-
-    font-size: 15px;
-
-    font-style: italic;
-
-    color: #333;
-
-}
-
-
-/* ================= MEMBER ================= */
-
-.member-box {
-
-    margin: 18px 20px;
-
-    background: #263525;
-
-    border-radius: 16px;
-
-    padding: 18px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-    color: white;
-
-}
-
-
-.avatar {
-
-    width: 72px;
-
-    height: 72px;
-
-    min-width: 72px;
-
-    border-radius: 50%;
-
-    background: #fff7df;
-
-    border: 3px solid #ffd54f;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    font-size: 40px;
-
-    overflow: hidden;
-
-}
-
-
-.avatar img {
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: cover;
-
-}
-
-
-.member-details {
-
-    flex: 1;
-
-}
-
-
-.member-label {
-
-    font-size: 10px;
-
-    letter-spacing: 2px;
-
-    color: #f5d99b;
-
-    margin-bottom: 4px;
-
-}
-
-
-.member-name {
-
-    font-size: 25px;
-
-    font-weight: 900;
-
-    color: #ffd54f;
-
-    text-transform: uppercase;
-
-    word-break: break-word;
-
-}
-
-
-.member-program {
-
-    margin-top: 5px;
-
-    font-size: 12px;
-
-    color: #e0e0e0;
-
-}
-
-
-/* ================= CYCLE STATUS ================= */
-
-.cycle-status {
-
-    margin: 0 20px 18px;
-
-    padding: 12px 15px;
-
-    border-radius: 12px;
-
-    background: #fff7df;
-
-    border: 2px solid #d19b4a;
-
-    text-align: center;
-
-    color: #333;
-
-    font-size: 13px;
-
-    font-weight: bold;
-
-}
-
-
-.cycle-status strong {
-
-    color: #c62828;
-
-}
-
-
-/* ================= STAMPS ================= */
-
-.stamp-title {
-
-    text-align: center;
-
-    font-size: 21px;
-
-    font-weight: 900;
-
-    color: #222;
-
-    margin: 12px 0 8px;
-
-}
-
-
-.stamps-grid {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 15px;
-
-    padding:
-        12px 25px 20px;
-
-}
-
-
-.circle {
-
-    aspect-ratio: 1;
-
-    border-radius: 50%;
-
-    border: 3px dashed #8a6232;
-
-    background: #fff5df;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    flex-direction: column;
-
-    font-weight: bold;
-
-    text-align: center;
-
-    color: #555;
-
-    transition: .25s;
-
-}
-
-
-.circle.done {
-
-    background: #263525;
-
-    color: #ffd54f;
-
-    border: 4px solid #d99b27;
-
-    box-shadow:
-        0 6px 12px rgba(0,0,0,.2);
-
-}
-
-
-.circle-number {
-
-    font-size: 28px;
-
-}
-
-
-.circle-check {
-
-    font-size: 27px;
-
-}
-
-
-.circle-label {
-
-    font-size: 11px;
-
-    margin-top: 4px;
-
-}
-
-
-/* ================= FREE MAGGI ================= */
-
-.reward-box {
-
-    margin:
-        0 25px 20px;
-
-    padding: 20px;
-
-    border-radius: 16px;
-
-    text-align: center;
-
-    background: #c62828;
-
-    color: white;
-
-    border:
-        3px solid #ffd54f;
-
-    box-shadow:
-        0 6px 15px rgba(0,0,0,.2);
-
-}
-
-
-.reward-icon {
-
-    font-size: 42px;
-
-    margin-bottom: 5px;
-
-}
-
-
-.reward-title {
-
-    font-size: 21px;
-
-    font-weight: 900;
-
-}
-
-
-.reward-text {
-
-    margin-top: 7px;
-
-    font-size: 14px;
-
-    line-height: 1.5;
-
-}
-
-
-.reward-box.locked {
-
-    background: #6d6d6d;
-
-    border-color: #aaa;
-
-}
-
-
-.reward-box.ready {
-
-    animation:
-        rewardPulse 1.5s infinite;
-
-}
-
-
-@keyframes rewardPulse {
-
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.02);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-
-}
-
-
-/* ================= FEEDBACK ================= */
-
-.feedback-section {
-
-    margin:
-        0 25px 20px;
-
-    padding: 16px;
-
-    background: #fff7df;
-
-    border:
-        2px solid #d19b4a;
-
-    border-radius: 14px;
-
-    text-align: center;
-
-}
-
-
-.feedback-title {
-
-    font-size: 16px;
-
-    font-weight: 900;
-
-    color: #333;
-
-    margin-bottom: 12px;
-
-}
-
-
-.feedback-buttons {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap: 8px;
-
-}
-
-
-.feedback-buttons button {
-
-    padding: 10px 5px;
-
-    border: none;
-
-    border-radius: 10px;
-
-    background: #263525;
-
-    color: #ffd54f;
-
-    font-size: 12px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-}
-
-
-.feedback-buttons button:hover {
-
-    background: #1c271b;
-
-}
-
-
-/* ================= NAV ================= */
-
-.bottom-nav {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(5,1fr);
-
-    background: #263525;
-
-    border-top:
-        2px solid #d19b4a;
-
-}
-
-
-.bottom-nav button {
-
-    padding: 13px 4px;
-
-    background: none;
-
-    border: none;
-
-    color: white;
-
-    font-size: 12px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-}
-
-
-.bottom-nav button:hover {
-
-    background: #1c271b;
-
-    color: #ffd54f;
-
-}
-
-
-/* ================= FOOTER ================= */
-
-.footer {
-
-    padding: 14px;
-
-    text-align: center;
-
-    background: #1b261b;
-
-    color: #ffd54f;
-
-    font-size: 12px;
-
-}
-
-
-.footer strong {
-
-    font-size: 14px;
-
-}
-
-
-@media(max-width:500px) {
-
-    .member-box {
-
-        margin:
-            15px;
-
-    }
-
-    .stamps-grid {
-
-        gap: 10px;
-
-        padding:
-            10px 15px 15px;
-
-    }
-
-    .reward-box {
-
-        margin:
-            0 15px 15px;
-
-    }
-
-    .feedback-section {
-
-        margin:
-            0 15px 15px;
-
-    }
-
-    .member-name {
-
-        font-size: 21px;
-
-    }
-
-    .avatar {
-
-        width: 62px;
-
-        height: 62px;
-
-        min-width: 62px;
-
-        font-size: 34px;
-
-    }
-
-    .bottom-nav button {
-
-        font-size: 10px;
-
-        padding:
-            10px 2px;
-
-    }
-
-}
-
-</style>
-
+    <meta name="theme-color" content="#FF4B2B">
+
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #FF4B2B 0%, #FF416C 100%);
+            --gold-gradient: linear-gradient(135deg, #FFE000 0%, #799F0C 100%);
+            --card-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --bg-color: #0f0c20;
+            --text-color: #ffffff;
+            --text-sub: #d1d1d1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--bg-color);
+            background-image: radial-gradient(circle at top right, #2a0845, transparent),
+                              radial-gradient(circle at bottom left, #6441A5, transparent);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+        }
+
+        /* Header / Profile Bar */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #FF4B2B;
+            box-shadow: 0 0 10px rgba(255, 75, 43, 0.5);
+        }
+
+        .user-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .user-info p {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 75, 43, 0.3);
+        }
+
+        /* Loyalty Card (Glassmorphism) */
+        .loyalty-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .card-brand {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .brand-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #FF416C, #FF4B2B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cycle-badge {
+            font-size: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+        }
+
+        /* Stamp Grid */
+        .stamp-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stamp-box {
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .stamp-box.active {
+            background: var(--primary-gradient);
+            border: none;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
+            transform: scale(1.05);
+            animation: popIn 0.3s ease-out;
+        }
+
+        .stamp-number {
+            font-size: 0.65rem;
+            position: absolute;
+            top: 6px;
+            left: 8px;
+            opacity: 0.6;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1.05); }
+        }
+
+        /* Reward Banner */
+        .reward-banner {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+
+        .reward-banner.unlocked {
+            background: var(--gold-gradient);
+            color: #000;
+            font-weight: 600;
+            box-shadow: 0 0 20px rgba(255, 224, 0, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 224, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 224, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 224, 0, 0); }
+        }
+
+        .reward-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .reward-desc {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        /* Feedback Section */
+        .feedback-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            margin-bottom: 24px;
+        }
+
+        .feedback-section h4 {
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .feedback-btns {
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+        }
+
+        .fb-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.3s;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .fb-btn:hover, .fb-btn.selected {
+            background: #FF4B2B;
+            border-color: #FF4B2B;
+            transform: translateY(-2px);
+        }
+
+        /* Bottom Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 420px;
+            background: rgba(15, 12, 32, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.75rem;
+            gap: 4px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+        }
+
+        .nav-item.active, .nav-item:hover {
+            color: #FF4B2B;
+        }
+    </style>
 </head>
-
-
 <body>
 
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="user-profile">
+                <img id="userAvatar" src="https://via.placeholder.com/150" alt="Avatar" class="avatar-img">
+                <div class="user-info">
+                    <h3 id="userName">Loading...</h3>
+                    <p id="cycleStatus">40 Days Cycle Active</p>
+                </div>
+            </div>
+            <button class="logout-btn" id="logoutBtn" title="Logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+        </header>
 
-<div class="loyalty-card">
-
-
-    <!-- HEADER -->
-
-    <div class="header">
-
-        <div class="brand">
-
-            <span>▶</span>
-            RIO MAGGI POINT
-
-        </div>
-
-
-        <div class="title">
-
-            LOYALTY<br>
-
-            <span>CARD</span>
-
-        </div>
-
-
-        <div class="subtitle">
-
-            🍜 Collect 6 Stamps • Get 1 Veg Maggi FREE 🍜
-
-        </div>
-
-    </div>
-
-
-
-    <!-- CUSTOMER -->
-
-    <div class="member-box">
-
-
-        <div
-            class="avatar"
-            id="avatarDisplay"
-        >
-
-            😊
-
-        </div>
-
-
-        <div class="member-details">
-
-            <div class="member-label">
-
-                WELCOME
-
+        <!-- Loyalty Card -->
+        <div class="loyalty-card">
+            <div class="card-brand">
+                <span class="brand-title">Rio Maggi Point</span>
+                <span class="cycle-badge" id="daysLeft">-- Days Left</span>
             </div>
 
-
-            <div
-                class="member-name"
-                id="customerNameDisplay"
-            >
-
-                Loading...
-
+            <!-- 6 Stamp Grid -->
+            <div class="stamp-grid" id="stampGrid">
+                <div class="stamp-box" data-stamp="1">
+                    <span class="stamp-number">#1</span>
+                    <i class="fa-solid fa-bowl-rice"></i>
+                </div>
+                <div class="stamp-box" data-stamp="2">
+                    <span class="stamp-number">#2</span>
+                    <i class="fa-solid fa-bowl-rice"></i>
+                </div>
+                <div class="stamp-box" data-stamp="3">
+                    <span class="stamp-number">#3</span>
+                    <i class="fa-solid fa-bowl-rice"></i>
+                </div>
+                <div class="stamp-box" data-stamp="4">
+                    <span class="stamp-number">#4</span>
+                    <i class="fa-solid fa-bowl-rice"></i>
+                </div>
+                <div class="stamp-box" data-stamp="5">
+                    <span class="stamp-number">#5</span>
+                    <i class="fa-solid fa-bowl-rice"></i>
+                </div>
+                <div class="stamp-box" data-stamp="6">
+                    <span class="stamp-number">#6</span>
+                    <i class="fa-solid fa-bowl-rice"></i>
+                </div>
             </div>
 
-
-            <div class="member-program">
-
-                🎟️ Rio Maggi Point Loyalty Member
-
+            <!-- Reward Banner -->
+            <div class="reward-banner" id="rewardBanner">
+                <div class="reward-title" id="rewardStatus">Complete 6 Stamps</div>
+                <div class="reward-desc" id="rewardText">🎁 7th Visit: Free Veg Maggi!</div>
             </div>
-
         </div>
 
-
-    </div>
-
-
-
-    <!-- CYCLE STATUS -->
-
-    <div
-        class="cycle-status"
-        id="cycleStatus"
-    >
-
-        Checking your loyalty cycle...
-
-    </div>
-
-
-
-    <!-- STAMPS -->
-
-    <div class="stamp-title">
-
-        🎟️ YOUR 6 STAMPS
-
-    </div>
-
-
-    <div
-        class="stamps-grid"
-        id="stampsGridContainer"
-    >
-
-    </div>
-
-
-
-    <!-- REWARD -->
-
-    <div
-        class="reward-box locked"
-        id="rewardBox"
-    >
-
-        <div class="reward-icon">
-
-            🎁
-
+        <!-- Feedback Section -->
+        <div class="feedback-section">
+            <h4>How was your last visit?</h4>
+            <div class="feedback-btns">
+                <button class="fb-btn" onclick="sendFeedback('Good')">
+                    <i class="fa-regular fa-face-smile"></i> Good
+                </button>
+                <button class="fb-btn" onclick="sendFeedback('Lovely')">
+                    <i class="fa-regular fa-face-laugh-beam"></i> Lovely
+                </button>
+                <button class="fb-btn" onclick="sendFeedback('I Love This')">
+                    <i class="fa-regular fa-face-heart"></i> Love It
+                </button>
+            </div>
         </div>
-
-
-        <div class="reward-title">
-
-            FREE VEG MAGGI
-
-        </div>
-
-
-        <div
-            class="reward-text"
-            id="rewardText"
-        >
-
-            Collect all 6 stamps to unlock your FREE Veg Maggi.
-
-        </div>
-
     </div>
 
-
-
-    <!-- FEEDBACK -->
-
-    <div class="feedback-section">
-
-        <div class="feedback-title">
-
-            ❤️ How was your Maggi today?
-
-        </div>
-
-
-        <div class="feedback-buttons">
-
-            <button
-                data-feedback="Good"
-            >
-
-                😊 Good
-
-            </button>
-
-
-            <button
-                data-feedback="Lovely"
-            >
-
-                🥰 Lovely
-
-            </button>
-
-
-            <button
-                data-feedback="I Love This"
-            >
-
-                ❤️ I Love This
-
-            </button>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- NAVIGATION -->
-
-    <div class="bottom-nav">
-
-        <button id="homeBtn">
-
-            🏠<br>
-            Home
-
-        </button>
-
-
-        <button id="profileBtn">
-
-            👤<br>
-            Profile
-
-        </button>
-
-
-        <button id="qrBtn">
-
-            📱<br>
-            QR
-
-        </button>
-
-
-        <button id="historyBtn">
-
-            🕘<br>
-            History
-
-        </button>
-
-
-        <button id="logoutBtn">
-
-            🚪<br>
-            Logout
-
-        </button>
-
-    </div>
-
-
-
-    <!-- FOOTER -->
-
-    <div class="footer">
-
-        <strong>
-            RIO MAGGI POINT
-        </strong>
-
-        <br>
-
-        6 Stamps = 1 FREE Veg Maggi
-
-    </div>
-
-
-</div>
-
-
-
-<!-- FIREBASE -->
-
-<script type="module">
-
-
-import {
-    auth,
-    db
-}
-from "./js/firebase-config.js";
-
-
-import {
-    onAuthStateChanged,
-    signOut
-}
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-
-import {
-    doc,
-    getDoc,
-    updateDoc,
-    serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-
-
-const customerName =
-    document.getElementById(
-        "customerNameDisplay"
-    );
-
-
-const avatarDisplay =
-    document.getElementById(
-        "avatarDisplay"
-    );
-
-
-const stampsGrid =
-    document.getElementById(
-        "stampsGridContainer"
-    );
-
-
-const cycleStatus =
-    document.getElementById(
-        "cycleStatus"
-    );
-
-
-const rewardBox =
-    document.getElementById(
-        "rewardBox"
-    );
-
-
-const rewardText =
-    document.getElementById(
-        "rewardText"
-    );
-
-
-
-let currentUser = null;
-
-
-
-/* ================= LOAD CUSTOMER ================= */
-
-
-onAuthStateChanged(
-    auth,
-    async (user) => {
-
-
-        if (!user) {
-
-            window.location.href =
-                "login.html";
-
-            return;
-
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a class="nav-item active" href="index.html">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        <a class="nav-item" href="qr.html">
+            <i class="fa-solid fa-qrcode"></i>
+            <span>QR</span>
+        </a>
+        <a class="nav-item" href="history.html">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>History</span>
+        </a>
+        <a class="nav-item" href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <!-- Firebase & Logic Script -->
+    <script type="module">
+        import { firebaseConfig } from './firebase-config.js';
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let currentUserDocRef = null;
+
+        // Auth State Check
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUserDocRef = doc(db, "customers", user.uid);
+                loadUserData(currentUserDocRef);
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        // Load Customer Data
+        async function loadUserData(docRef) {
+            try {
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+
+                    // Render Profile
+                    document.getElementById('userName').innerText = data.name || "Customer";
+                    document.getElementById('userAvatar').src = data.photoURL || data.avatar || "https://via.placeholder.com/150";
+
+                    // Render Stamps & 7th Stamp Logic
+                    renderStamps(data.stamps || 0);
+
+                    // Render Cycle Expiry
+                    calculateExpiry(data.cycleExpiryDate);
+                }
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
         }
 
-
-        currentUser = user;
-
-
-        try {
-
-
-            const customerRef =
-                doc(
-                    db,
-                    "customers",
-                    user.uid
-                );
-
-
-            const snap =
-                await getDoc(
-                    customerRef
-                );
-
-
-            if (!snap.exists()) {
-
-                alert(
-                    "Customer data not found."
-                );
-
-                await signOut(auth);
-
-                window.location.href =
-                    "login.html";
-
-                return;
-
-            }
-
-
-            const customer =
-                snap.data();
-
-
-
-            /* ================= NAME ================= */
-
-
-            customerName.textContent =
-                customer.name ||
-                "Customer";
-
-
-
-            /* ================= AVATAR ================= */
-
-
-            if (
-                customer.photoURL &&
-                customer.photoURL.trim() !== ""
-            ) {
-
-
-                avatarDisplay.innerHTML = `
-
-                    <img
-                        src="${customer.photoURL}"
-                        alt="Customer Photo"
-                    >
-
-                `;
-
-
-            } else {
-
-
-                avatarDisplay.textContent =
-                    customer.avatar ||
-                    "😊";
-
-            }
-
-
-
-            /* ================= 40 DAY CYCLE ================= */
-
-
-            let stamps =
-                Number(
-                    customer.stamps || 0
-                );
-
-
-            let cycleExpired = false;
-
-
-            if (
-                customer.cycleExpiryDate
-            ) {
-
-
-                const expiryDate =
-                    customer
-                        .cycleExpiryDate
-                        .toDate();
-
-
-                const now =
-                    new Date();
-
-
-                if (
-                    now > expiryDate &&
-                    stamps < 6
-                ) {
-
-                    cycleExpired = true;
-
-                    stamps = 0;
-
-
-                    cycleStatus.innerHTML =
-
-                        "🔄 Your 40-day loyalty cycle has expired. A new cycle will start when your next stamp is added.";
-
-                }
-
-            }
-
-
-
-            if (!cycleExpired) {
-
-
-                if (
-                    customer.cycleExpiryDate
-                ) {
-
-
-                    const expiryDate =
-                        customer
-                            .cycleExpiryDate
-                            .toDate();
-
-
-                    const now =
-                        new Date();
-
-
-                    const remainingMs =
-                        expiryDate - now;
-
-
-                    const remainingDays =
-                        Math.max(
-                            0,
-                            Math.ceil(
-                                remainingMs /
-                                (
-                                    1000 *
-                                    60 *
-                                    60 *
-                                    24
-                                )
-                            )
-                        );
-
-
-                    cycleStatus.innerHTML =
-
-                        `⏳ Loyalty Cycle: <strong>${remainingDays} days remaining</strong>`;
-
-                }
-
-            }
-
-
-
-            /* ================= STAMPS ================= */
-
-
-            stampsGrid.innerHTML =
-                "";
-
-
-            for (
-                let i = 1;
-                i <= 6;
-                i++
-            ) {
-
-
-                const circle =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                circle.className =
-                    "circle";
-
-
-                if (
-                    i <= stamps
-                ) {
-
-
-                    circle.classList.add(
-                        "done"
-                    );
-
-
-                    circle.innerHTML = `
-
-                        <div
-                            class="circle-check"
-                        >
-                            ✔
-                        </div>
-
-                        <div
-                            class="circle-label"
-                        >
-                            STAMP ${i}
-                        </div>
-
-                    `;
-
-
+        // Render Stamp UI Logic
+        function renderStamps(count) {
+            const boxes = document.querySelectorAll('.stamp-box');
+            boxes.forEach((box, index) => {
+                if (index < count) {
+                    box.classList.add('active');
+                    box.innerHTML = `<span class="stamp-number">#${index + 1}</span><i class="fa-solid fa-circle-check"></i>`;
                 } else {
-
-
-                    circle.innerHTML = `
-
-                        <div
-                            class="circle-number"
-                        >
-                            ${i}
-                        </div>
-
-                        <div
-                            class="circle-label"
-                        >
-                            STAMP ${i}
-                        </div>
-
-                    `;
-
+                    box.classList.remove('active');
+                    box.innerHTML = `<span class="stamp-number">#${index + 1}</span><i class="fa-solid fa-bowl-rice"></i>`;
                 }
+            });
 
+            // Reward Status (6 Stamps Completed -> 7th Visit Free Maggi)
+            const rewardBanner = document.getElementById('rewardBanner');
+            const rewardStatus = document.getElementById('rewardStatus');
+            const rewardText = document.getElementById('rewardText');
 
-                stampsGrid.appendChild(
-                    circle
-                );
-
-            }
-
-
-
-            /* ================= REWARD ================= */
-
-
-            if (
-                stamps >= 6
-            ) {
-
-
-                rewardBox.classList.remove(
-                    "locked"
-                );
-
-
-                rewardBox.classList.add(
-                    "ready"
-                );
-
-
-                rewardText.textContent =
-
-                    "🎉 You completed all 6 stamps! Your FREE Veg Maggi reward is ready. Visit Rio Maggi Point to redeem it.";
-
-
+            if (count >= 6) {
+                rewardBanner.classList.add('unlocked');
+                rewardStatus.innerText = "🎉 REWARD UNLOCKED!";
+                rewardText.innerText = "Show this on 7th visit for Free Veg Maggi!";
             } else {
-
-
-                rewardBox.classList.add(
-                    "locked"
-                );
-
-
-                rewardText.textContent =
-
-                    `Collect ${6 - stamps} more stamp(s) to unlock your FREE Veg Maggi.`;
-
+                rewardBanner.classList.remove('unlocked');
+                rewardStatus.innerText = `Collect ${6 - count} More Stamps`;
+                rewardText.innerText = "🎁 7th Visit: Free Veg Maggi!";
             }
-
-
-
-        } catch (error) {
-
-
-            console.error(
-                "Firebase Error:",
-                error
-            );
-
-
-            customerName.textContent =
-                "Unable to Load";
-
-
-            cycleStatus.textContent =
-                "Unable to load loyalty data.";
-
         }
 
-    }
+        // Days Remaining Logic
+        function calculateExpiry(expiryTimestamp) {
+            if (!expiryTimestamp) return;
+            const expiryDate = expiryTimestamp.toDate ? expiryTimestamp.toDate() : new Date(expiryTimestamp);
+            const now = new Date();
+            const diffTime = expiryDate - now;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-);
-
-
-
-/* ================= FEEDBACK ================= */
-
-
-document
-    .querySelectorAll(
-        "[data-feedback]"
-    )
-    .forEach(
-        button => {
-
-
-            button.addEventListener(
-                "click",
-                async () => {
-
-
-                    if (!currentUser) {
-
-                        return;
-
-                    }
-
-
-                    const feedback =
-                        button.dataset.feedback;
-
-
-                    try {
-
-
-                        await updateDoc(
-
-                            doc(
-                                db,
-                                "customers",
-                                currentUser.uid
-                            ),
-
-                            {
-
-                                lastFeedback:
-                                    feedback,
-
-                                feedbackAt:
-                                    serverTimestamp()
-
-                            }
-
-                        );
-
-
-                        alert(
-                            "❤️ Thank you for your feedback!"
-                        );
-
-
-                    } catch (error) {
-
-
-                        console.error(
-                            "Feedback Error:",
-                            error
-                        );
-
-
-                        alert(
-                            "Could not save feedback. Please try again."
-                        );
-
-                    }
-
-                }
-
-            );
-
+            const daysLeftElem = document.getElementById('daysLeft');
+            if (diffDays > 0) {
+                daysLeftElem.innerText = `${diffDays} Days Left`;
+            } else {
+                daysLeftElem.innerText = `Cycle Expired`;
+                daysLeftElem.style.background = `rgba(255, 0, 0, 0.3)`;
+            }
         }
 
-    );
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            signOut(auth).then(() => {
+                window.location.href = "login.html";
+            });
+        });
 
+        // Global Feedback Function
+        window.sendFeedback = async function(type) {
+            if (!currentUserDocRef) return;
+            try {
+                await updateDoc(currentUserDocRef, { feedback: type });
+                alert(`Thank you for your feedback: ${type}!`);
+            } catch (e) {
+                console.error("Error saving feedback:", e);
+            }
+        };
 
-
-/* ================= NAVIGATION ================= */
-
-
-document
-    .getElementById(
-        "homeBtn"
-    )
-    .onclick = () => {
-
-        window.location.href =
-            "index.html";
-
-    };
-
-
-document
-    .getElementById(
-        "profileBtn"
-    )
-    .onclick = () => {
-
-        window.location.href =
-            "profile.html";
-
-    };
-
-
-document
-    .getElementById(
-        "qrBtn"
-    )
-    .onclick = () => {
-
-        window.location.href =
-            "qr.html";
-
-    };
-
-
-document
-    .getElementById(
-        "historyBtn"
-    )
-    .onclick = () => {
-
-        window.location.href =
-            "history.html";
-
-    };
-
-
-document
-    .getElementById(
-        "logoutBtn"
-    )
-    .onclick = async () => {
-
-
-        if (
-            confirm(
-                "Are you sure you want to logout?"
-            )
-        ) {
-
-
-            await signOut(
-                auth
-            );
-
-
-            window.location.href =
-                "login.html";
-
+        // PWA Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .then(() => console.log("Service Worker Registered"))
+                .catch(err => console.error("SW Registration Failed:", err));
         }
-
-    };
-
-
-</script>
-
-
-
-<!-- SERVICE WORKER -->
-
-<script>
-
-if (
-    "serviceWorker"
-    in navigator
-) {
-
-    window.addEventListener(
-        "load",
-        () => {
-
-            navigator.serviceWorker.register(
-                "./service-worker.js"
-            );
-
-        }
-    );
-
-}
-
-</script>
-
-
+    </script>
 </body>
-
 </html>
