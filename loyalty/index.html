@@ -21,6 +21,7 @@
             --text-dark: #3a2e2b;
             --text-muted: #7a6855;
             --border-color: #e0be7b;
+            --btn-red: #c62828;
         }
 
         * {
@@ -77,10 +78,10 @@
         /* Card Container */
         .loyalty-card {
             background: var(--card-bg);
-            border: 2px solid var(--border-color);
+            border: 3px solid var(--accent-color);
             border-radius: 20px;
             padding: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             margin-bottom: 20px;
         }
 
@@ -95,7 +96,7 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: var(--primary-bg);
+            background: #fff7df;
             border: 2px solid var(--accent-color);
             display: flex;
             align-items: center;
@@ -113,6 +114,7 @@
         .user-info h3 {
             font-size: 1.1rem;
             font-weight: 700;
+            color: var(--text-dark);
         }
 
         .user-info p {
@@ -123,15 +125,15 @@
         /* Stamp Grid */
         .stamp-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
             margin-top: 15px;
         }
 
         .stamp-box {
             aspect-ratio: 1;
-            background: rgba(245, 217, 155, 0.4);
-            border: 1.5px dashed var(--accent-color);
+            background: #fff;
+            border: 2px dashed var(--accent-color);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -142,9 +144,9 @@
         }
 
         .stamp-box.active {
-            background: var(--accent-color);
+            background: var(--btn-red);
             color: #fff;
-            border-style: solid;
+            border: 2px solid var(--btn-red);
         }
 
         /* Bottom Navigation Bar */
@@ -155,8 +157,8 @@
             transform: translateX(-50%);
             width: 100%;
             max-width: 420px;
-            background: var(--card-bg);
-            border-top: 2px solid var(--border-color);
+            background: #263525;
+            border-top: 2px solid var(--accent-color);
             display: flex;
             justify-content: space-around;
             padding: 12px 0;
@@ -164,7 +166,7 @@
         }
 
         .nav-item {
-            color: var(--text-muted);
+            color: #ffd54f;
             text-decoration: none;
             display: flex;
             flex-direction: column;
@@ -173,6 +175,7 @@
             gap: 4px;
             cursor: pointer;
             font-weight: 600;
+            opacity: 0.7;
         }
 
         .nav-item i {
@@ -180,7 +183,8 @@
         }
 
         .nav-item.active, .nav-item:hover {
-            color: var(--accent-color);
+            opacity: 1;
+            color: #ffffff;
         }
     </style>
 </head>
@@ -209,7 +213,7 @@
             </div>
 
             <div class="stamp-grid" id="stampContainer">
-                <!-- Stamps generated via JS -->
+                <!-- Stamps loaded via JS -->
             </div>
         </div>
     </div>
@@ -284,7 +288,7 @@
 
         function renderStamps(count) {
             stampContainer.innerHTML = "";
-            for (let i = 1; i <= 10; i++) {
+            for (let i = 1; i <= 6; i++) {
                 const stamp = document.createElement("div");
                 stamp.className = `stamp-box ${i <= count ? "active" : ""}`;
                 stamp.innerHTML = i <= count ? '<i class="fa-solid fa-check"></i>' : i;
