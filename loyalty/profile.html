@@ -1,92 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Rio Maggi Point - My Profile</title>
-
-    <!-- PWA -->
+    <title>Rio Maggi Point - Profile</title>
+    
+    <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#263525">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Rio Maggi Point">
+    <meta name="theme-color" content="#FF4B2B">
 
-    <link rel="icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="icon-192.png">
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #FF4B2B 0%, #FF416C 100%);
+            --card-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --bg-color: #0f0c20;
+            --text-color: #ffffff;
+            --text-sub: #d1d1d1;
+        }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
+            background: var(--bg-color);
+            background-image: radial-gradient(circle at top right, #2a0845, transparent),
+                              radial-gradient(circle at bottom left, #6441A5, transparent);
+            color: var(--text-color);
             min-height: 100vh;
-            background: #050505;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            padding-bottom: 90px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
             padding: 20px;
         }
 
-        .profile-card {
-            width: 100%;
-            max-width: 500px;
-            background: #f5d99b;
-            border: 3px solid #d19b4a;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,.55);
-        }
-
+        /* Header Bar */
         .header {
-            background: linear-gradient(135deg, #f8dda0, #edc77d);
-            text-align: center;
-            padding: 25px 20px;
-        }
-
-        .brand {
-            font-size: 18px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            color: #222;
-        }
-
-        .brand span {
-            color: #c62828;
-        }
-
-        .title {
-            margin-top: 8px;
-            font-size: 30px;
-            font-weight: 900;
-            color: #c62828;
-        }
-
-        .profile-section {
-            text-align: center;
-            padding: 25px 20px 20px;
-        }
-
-        .avatar-wrapper {
-            width: 120px;
-            height: 120px;
-            margin: auto;
-            border-radius: 50%;
-            background: #fff7df;
-            border: 5px solid #d19b4a;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .header h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Profile Glass Card */
+        .profile-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .avatar-preview-wrapper {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            border: 3px solid #FF4B2B;
+            box-shadow: 0 0 15px rgba(255, 75, 43, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,.25);
+            background: rgba(255, 255, 255, 0.1);
+            position: relative;
         }
 
         #profileImage {
@@ -97,668 +112,329 @@
         }
 
         #defaultAvatar {
-            font-size: 60px;
+            font-size: 50px;
         }
 
         .customer-name {
-            margin-top: 15px;
-            font-size: 27px;
-            font-weight: 900;
-            color: #263525;
-            text-transform: uppercase;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 4px;
         }
 
         .customer-email {
-            margin-top: 6px;
-            color: #555;
-            font-size: 14px;
-            word-break: break-word;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            margin-bottom: 20px;
         }
 
-        .avatar-title {
-            margin-top: 25px;
-            font-size: 17px;
-            font-weight: bold;
-            color: #222;
+        /* Avatar Options Grid */
+        .section-title {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            margin-bottom: 12px;
+            text-align: left;
         }
 
-        .avatar-options {
+        .avatar-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 10px;
-            margin-top: 15px;
+            margin-bottom: 20px;
         }
 
         .avatar-option {
-            width: 60px;
-            height: 60px;
-            margin: auto;
-            border-radius: 50%;
-            border: 3px solid transparent;
-            background: #fff7df;
-            font-size: 32px;
-            cursor: pointer;
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            transition: .2s;
-        }
-
-        .avatar-option:hover {
-            transform: scale(1.08);
-        }
-
-        .avatar-option.selected {
-            border-color: #c62828;
-            background: #ffe0e0;
-            transform: scale(1.08);
-        }
-
-        .upload-label {
-            display: block;
-            margin: 20px auto 10px;
-            width: 100%;
-            padding: 13px;
-            background: #263525;
-            color: #ffd54f;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
+            justify-content: center;
+            font-size: 1.8rem;
             cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .avatar-option:hover, .avatar-option.selected {
+            background: #FF4B2B;
+            border-color: #FF4B2B;
+            transform: scale(1.08);
+        }
+
+        /* Photo Upload Label */
+        .upload-btn-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            color: #fff;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+
+        .upload-btn-label:hover {
+            background: rgba(255, 255, 255, 0.15);
         }
 
         #photoInput {
             display: none;
         }
 
+        /* Primary Save Button */
         .save-btn {
             width: 100%;
             padding: 14px;
-            margin-top: 5px;
-            background: #c62828;
-            color: white;
+            background: var(--primary-gradient);
             border: none;
-            border-radius: 10px;
-            font-size: 17px;
-            font-weight: bold;
+            border-radius: 14px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
+            transition: 0.3s;
         }
 
         .save-btn:hover {
-            background: #a81f1f;
+            transform: translateY(-2px);
         }
 
-        .back-btn {
-            width: 100%;
-            padding: 14px;
-            margin-top: 10px;
-            background: #263525;
-            color: #ffd54f;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .status {
+        .status-msg {
             margin-top: 15px;
-            padding: 10px;
-            border-radius: 8px;
-            background: #fff7df;
-            color: #333;
-            font-size: 13px;
+            font-size: 0.85rem;
+            color: #4E9F3D;
             display: none;
         }
 
-        @media(max-width: 450px) {
-
-            .profile-card {
-                border-radius: 15px;
-            }
-
-            .avatar-options {
-                gap: 7px;
-            }
-
-            .avatar-option {
-                width: 55px;
-                height: 55px;
-                font-size: 28px;
-            }
-
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 420px;
+            background: rgba(15, 12, 32, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            z-index: 1000;
         }
 
+        .nav-item {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.75rem;
+            gap: 4px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+        }
+
+        .nav-item.active, .nav-item:hover {
+            color: #FF4B2B;
+        }
     </style>
 </head>
-
 <body>
 
-<div class="profile-card">
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h2>My Profile</h2>
+            <a href="index.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Home
+            </a>
+        </header>
 
-    <div class="header">
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <!-- Avatar / Photo Display -->
+            <div class="avatar-preview-wrapper">
+                <img id="profileImage" alt="Profile Photo">
+                <div id="defaultAvatar">😊</div>
+            </div>
 
-        <div class="brand">
-            <span>▶</span> RIO MAGGI POINT
+            <div class="customer-name" id="customerName">Loading...</div>
+            <div class="customer-email" id="customerEmail">Loading...</div>
+
+            <div class="section-title">Choose Avatar</div>
+            <div class="avatar-grid">
+                <div class="avatar-option" data-avatar="😊">😊</div>
+                <div class="avatar-option" data-avatar="🥰">🥰</div>
+                <div class="avatar-option" data-avatar="😎">😎</div>
+                <div class="avatar-option" data-avatar="🤩">🤩</div>
+                <div class="avatar-option" data-avatar="🌸">🌸</div>
+                <div class="avatar-option" data-avatar="🦋">🦋</div>
+                <div class="avatar-option" data-avatar="🐻">🐻</div>
+                <div class="avatar-option" data-avatar="🐼">🐼</div>
+            </div>
+
+            <!-- Upload Photo -->
+            <label class="upload-btn-label" for="photoInput">
+                <i class="fa-solid fa-camera"></i> Upload Photo
+            </label>
+            <input type="file" id="photoInput" accept="image/*">
+
+            <!-- Save Profile Button -->
+            <button class="save-btn" id="saveProfileBtn">
+                <i class="fa-solid fa-floppy-disk"></i> Save Profile
+            </button>
+
+            <div class="status-msg" id="statusMessage"></div>
         </div>
-
-        <div class="title">
-            MY PROFILE
-        </div>
-
     </div>
 
-
-    <div class="profile-section">
-
-        <!-- Profile Image / Avatar -->
-
-        <div class="avatar-wrapper">
-
-            <img
-                id="profileImage"
-                alt="Profile Photo"
-            >
-
-            <div id="defaultAvatar">
-                😊
-            </div>
-
-        </div>
-
-
-        <!-- Customer Information -->
-
-        <div
-            class="customer-name"
-            id="customerName"
-        >
-            Loading...
-        </div>
-
-        <div
-            class="customer-email"
-            id="customerEmail"
-        >
-            Loading...
-        </div>
-
-
-        <!-- Avatar Selection -->
-
-        <div class="avatar-title">
-            Choose Your Avatar
-        </div>
-
-
-        <div class="avatar-options">
-
-            <div class="avatar-option" data-avatar="😊">
-                😊
-            </div>
-
-            <div class="avatar-option" data-avatar="🥰">
-                🥰
-            </div>
-
-            <div class="avatar-option" data-avatar="😎">
-                😎
-            </div>
-
-            <div class="avatar-option" data-avatar="🤩">
-                🤩
-            </div>
-
-            <div class="avatar-option" data-avatar="🌸">
-                🌸
-            </div>
-
-            <div class="avatar-option" data-avatar="🦋">
-                🦋
-            </div>
-
-            <div class="avatar-option" data-avatar="🐻">
-                🐻
-            </div>
-
-            <div class="avatar-option" data-avatar="🐼">
-                🐼
-            </div>
-
-        </div>
-
-
-        <!-- Upload Photo -->
-
-        <label
-            class="upload-label"
-            for="photoInput"
-        >
-            📷 Choose My Photo
-        </label>
-
-        <input
-            type="file"
-            id="photoInput"
-            accept="image/*"
-        >
-
-
-        <!-- Save -->
-
-        <button
-            class="save-btn"
-            id="saveProfileBtn"
-        >
-            💾 Save Profile
-        </button>
-
-
-        <div
-            class="status"
-            id="statusMessage"
-        ></div>
-
-
-        <!-- Back -->
-
-        <button
-            class="back-btn"
-            id="backBtn"
-        >
-            🏠 Back to Loyalty Card
-        </button>
-
-    </div>
-
-</div>
-
-
-<script type="module">
-
-    import { auth, db } from "./js/firebase-config.js";
-
-    import {
-        onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-    import {
-        doc,
-        getDoc,
-        updateDoc
-    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-
-    const customerName =
-        document.getElementById("customerName");
-
-    const customerEmail =
-        document.getElementById("customerEmail");
-
-    const profileImage =
-        document.getElementById("profileImage");
-
-    const defaultAvatar =
-        document.getElementById("defaultAvatar");
-
-    const photoInput =
-        document.getElementById("photoInput");
-
-    const saveProfileBtn =
-        document.getElementById("saveProfileBtn");
-
-    const statusMessage =
-        document.getElementById("statusMessage");
-
-    const backBtn =
-        document.getElementById("backBtn");
-
-    const avatarOptions =
-        document.querySelectorAll(".avatar-option");
-
-
-    let currentUser = null;
-
-    let selectedAvatar = "😊";
-
-    let selectedPhoto = null;
-
-
-    // =========================
-    // LOAD CUSTOMER PROFILE
-    // =========================
-
-    onAuthStateChanged(auth, async (user) => {
-
-        if (!user) {
-
-            window.location.href = "login.html";
-
-            return;
-
-        }
-
-
-        currentUser = user;
-
-
-        try {
-
-            const customerRef =
-                doc(db, "customers", user.uid);
-
-            const customerSnap =
-                await getDoc(customerRef);
-
-
-            if (!customerSnap.exists()) {
-
-                alert("Customer profile not found.");
-
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <a class="nav-item" href="index.html">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        <a class="nav-item" href="qr.html">
+            <i class="fa-solid fa-qrcode"></i>
+            <span>QR</span>
+        </a>
+        <a class="nav-item" href="history.html">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>History</span>
+        </a>
+        <a class="nav-item active" href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            <span>Profile</span>
+        </a>
+    </nav>
+
+    <!-- Firebase Script -->
+    <script type="module">
+        import { firebaseConfig } from './firebase-config.js';
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const customerName = document.getElementById("customerName");
+        const customerEmail = document.getElementById("customerEmail");
+        const profileImage = document.getElementById("profileImage");
+        const defaultAvatar = document.getElementById("defaultAvatar");
+        const photoInput = document.getElementById("photoInput");
+        const saveProfileBtn = document.getElementById("saveProfileBtn");
+        const statusMessage = document.getElementById("statusMessage");
+        const avatarOptions = document.querySelectorAll(".avatar-option");
+
+        let currentUser = null;
+        let selectedAvatar = "😊";
+
+        // Auth State Check & Load Data
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "login.html";
                 return;
-
             }
 
-
-            const customer =
-                customerSnap.data();
-
-
-            customerName.textContent =
-                customer.name || "Customer";
-
-
-            customerEmail.textContent =
-                customer.email || user.email || "";
-
-
-            // Load saved avatar
-
-            if (customer.avatar) {
-
-                selectedAvatar =
-                    customer.avatar;
-
-                defaultAvatar.textContent =
-                    selectedAvatar;
-
-            }
-
-
-            // Load saved photo
-
-            if (customer.photoURL) {
-
-                profileImage.src =
-                    customer.photoURL;
-
-                profileImage.style.display =
-                    "block";
-
-                defaultAvatar.style.display =
-                    "none";
-
-            }
-
-
-            // Select current avatar
-
-            avatarOptions.forEach(option => {
-
-                if (
-                    option.dataset.avatar ===
-                    selectedAvatar
-                ) {
-
-                    option.classList.add("selected");
-
-                }
-
-            });
-
-
-        } catch (error) {
-
-            console.error(
-                "Profile Load Error:",
-                error
-            );
-
-            alert(
-                "Unable to load profile."
-            );
-
-        }
-
-    });
-
-
-    // =========================
-    // AVATAR SELECTION
-    // =========================
-
-    avatarOptions.forEach(option => {
-
-        option.addEventListener(
-            "click",
-            () => {
-
-                selectedAvatar =
-                    option.dataset.avatar;
-
-                selectedPhoto = null;
-
-                profileImage.style.display =
-                    "none";
-
-                defaultAvatar.style.display =
-                    "block";
-
-                defaultAvatar.textContent =
-                    selectedAvatar;
-
-
-                avatarOptions.forEach(item => {
-
-                    item.classList.remove(
-                        "selected"
-                    );
-
-                });
-
-
-                option.classList.add(
-                    "selected"
-                );
-
-            }
-        );
-
-    });
-
-
-    // =========================
-    // PHOTO PREVIEW
-    // =========================
-
-    photoInput.addEventListener(
-        "change",
-        (event) => {
-
-            const file =
-                event.target.files[0];
-
-
-            if (!file) {
-
-                return;
-
-            }
-
-
-            if (!file.type.startsWith("image/")) {
-
-                alert(
-                    "Please choose an image file."
-                );
-
-                return;
-
-            }
-
-
-            selectedPhoto = file;
-
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload = (e) => {
-
-                profileImage.src =
-                    e.target.result;
-
-                profileImage.style.display =
-                    "block";
-
-                defaultAvatar.style.display =
-                    "none";
-
-            };
-
-
-            reader.readAsDataURL(file);
-
-        }
-    );
-
-
-    // =========================
-    // SAVE PROFILE
-    // =========================
-
-    saveProfileBtn.addEventListener(
-        "click",
-        async () => {
-
-            if (!currentUser) {
-
-                alert(
-                    "Please login first."
-                );
-
-                return;
-
-            }
-
+            currentUser = user;
 
             try {
+                const customerRef = doc(db, "customers", user.uid);
+                const customerSnap = await getDoc(customerRef);
 
-                saveProfileBtn.disabled =
-                    true;
+                if (customerSnap.exists()) {
+                    const customer = customerSnap.data();
+                    customerName.textContent = customer.name || "Customer";
+                    customerEmail.textContent = customer.email || user.email || "";
 
-                saveProfileBtn.textContent =
-                    "Saving...";
+                    if (customer.avatar) {
+                        selectedAvatar = customer.avatar;
+                        defaultAvatar.textContent = selectedAvatar;
+                    }
 
+                    if (customer.photoURL) {
+                        profileImage.src = customer.photoURL;
+                        profileImage.style.display = "block";
+                        defaultAvatar.style.display = "none";
+                    }
 
-                const customerRef =
-                    doc(
-                        db,
-                        "customers",
-                        currentUser.uid
-                    );
-
-
-                // Avatar save
-
-                if (selectedAvatar) {
-
-                    await updateDoc(
-                        customerRef,
-                        {
-                            avatar:
-                                selectedAvatar
+                    avatarOptions.forEach(option => {
+                        if (option.dataset.avatar === selectedAvatar) {
+                            option.classList.add("selected");
                         }
-                    );
-
+                    });
                 }
-
-
-                // Photo is preview-only for now
-                // Firebase Storage will be added
-                // in the next phase.
-
-
-                statusMessage.style.display =
-                    "block";
-
-                statusMessage.textContent =
-                    "✅ Profile saved successfully!";
-
-
             } catch (error) {
+                console.error("Profile Load Error:", error);
+            }
+        });
 
-                console.error(
-                    "Save Profile Error:",
-                    error
-                );
+        // Avatar Selection
+        avatarOptions.forEach(option => {
+            option.addEventListener("click", () => {
+                selectedAvatar = option.dataset.avatar;
+                profileImage.style.display = "none";
+                defaultAvatar.style.display = "block";
+                defaultAvatar.textContent = selectedAvatar;
 
-                alert(
-                    "Unable to save profile."
-                );
+                avatarOptions.forEach(item => item.classList.remove("selected"));
+                option.classList.add("selected");
+            });
+        });
 
+        // Photo Preview
+        photoInput.addEventListener("change", (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    profileImage.src = e.target.result;
+                    profileImage.style.display = "block";
+                    defaultAvatar.style.display = "none";
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Save Profile
+        saveProfileBtn.addEventListener("click", async () => {
+            if (!currentUser) return;
+
+            try {
+                saveProfileBtn.disabled = true;
+                saveProfileBtn.innerText = "Saving...";
+
+                const customerRef = doc(db, "customers", currentUser.uid);
+                await updateDoc(customerRef, {
+                    avatar: selectedAvatar,
+                    photoURL: profileImage.style.display === "block" ? profileImage.src : ""
+                });
+
+                statusMessage.style.display = "block";
+                statusMessage.textContent = "✅ Profile updated successfully!";
+            } catch (error) {
+                console.error("Save Profile Error:", error);
+                alert("Failed to update profile.");
             } finally {
-
-                saveProfileBtn.disabled =
-                    false;
-
-                saveProfileBtn.textContent =
-                    "💾 Save Profile";
-
+                saveProfileBtn.disabled = false;
+                saveProfileBtn.innerText = "Save Profile";
             }
-
-        }
-    );
-
-
-    // =========================
-    // BACK TO LOYALTY CARD
-    // =========================
-
-    backBtn.addEventListener(
-        "click",
-        () => {
-
-            window.location.href =
-                "index.html";
-
-        }
-    );
-
-
-</script>
-
-
-<script>
-
-    if ("serviceWorker" in navigator) {
-
-        window.addEventListener(
-            "load",
-            () => {
-
-                navigator.serviceWorker.register(
-                    "./service-worker.js"
-                );
-
-            }
-        );
-
-    }
-
-</script>
-
+        });
+    </script>
 </body>
-
 </html>
