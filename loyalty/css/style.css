@@ -1,1 +1,593 @@
+/* ==========================================
+   RIO MAGGI POINT
+   Global Premium Theme
+========================================== */
 
+:root{
+
+    --primary:#D4AF37;
+    --primary-dark:#B8860B;
+
+    --cream:#FFF8E7;
+    --cream-dark:#F6E7C1;
+
+    --green:#304D30;
+    --green-dark:#213721;
+
+    --red:#C62828;
+
+    --white:#ffffff;
+
+    --text:#2F2F2F;
+    --text-light:#6C6C6C;
+
+    --border:#E8C97A;
+
+    --shadow:0 10px 30px rgba(0,0,0,.12);
+
+    --radius:22px;
+
+}
+
+/* Reset */
+
+*{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+font-family:'Poppins',sans-serif;
+
+}
+
+html{
+
+scroll-behavior:smooth;
+
+}
+
+body{
+
+background:linear-gradient(
+180deg,
+#FFF8E7 0%,
+#F8E3AE 100%
+);
+
+color:var(--text);
+
+min-height:100vh;
+
+}
+
+/* Links */
+
+a{
+
+text-decoration:none;
+
+color:inherit;
+
+}
+
+/* Images */
+
+img{
+
+max-width:100%;
+
+display:block;
+
+}
+
+/* Buttons */
+
+button{
+
+border:none;
+
+outline:none;
+
+cursor:pointer;
+
+font-family:'Poppins',sans-serif;
+
+}
+
+/* Inputs */
+
+input,
+select,
+textarea{
+
+font-family:'Poppins',sans-serif;
+
+outline:none;
+
+}
+/* ==========================================
+   Layout
+========================================== */
+
+.container{
+
+    width:100%;
+    max-width:430px;
+    margin:auto;
+    padding:20px;
+
+}
+
+.page{
+
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+
+}
+
+/* ==========================================
+   Premium Card
+========================================== */
+
+.card{
+
+    background:var(--cream);
+
+    border:2px solid var(--border);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    padding:24px;
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+.card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:6px;
+
+    background:linear-gradient(
+        90deg,
+        var(--primary),
+        var(--primary-dark)
+    );
+
+}
+
+/* ==========================================
+   Typography
+========================================== */
+
+h1{
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:var(--green);
+
+}
+
+h2{
+
+    font-size:22px;
+
+    font-weight:700;
+
+    color:var(--green);
+
+}
+
+h3{
+
+    font-size:18px;
+
+    font-weight:600;
+
+}
+
+p{
+
+    font-size:14px;
+
+    color:var(--text-light);
+
+    line-height:1.6;
+
+}
+
+/* ==========================================
+   Header
+========================================== */
+
+.header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:24px;
+
+}
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+.logo img{
+
+    width:52px;
+
+    height:52px;
+
+}
+
+.logo-text{
+
+    font-size:20px;
+
+    font-weight:700;
+
+    color:var(--green);
+
+}
+/* ==========================================
+   Premium Form Design
+========================================== */
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:8px;
+    font-size:14px;
+    font-weight:600;
+    color:var(--green);
+}
+
+.input-box{
+    width:100%;
+    padding:14px 16px;
+    border:2px solid var(--border);
+    border-radius:14px;
+    background:#fff;
+    color:var(--text);
+    font-size:15px;
+    transition:.25s;
+}
+
+.input-box:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 4px rgba(212,175,55,.15);
+}
+
+/* ==========================================
+   Buttons
+========================================== */
+
+.btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary-dark)
+    );
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
+
+.btn:active{
+    transform:scale(.98);
+}
+
+/* ==========================================
+   Avatar Grid
+========================================== */
+
+.avatar-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-top:15px;
+}
+
+.avatar-item{
+    aspect-ratio:1;
+    border:2px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+    cursor:pointer;
+    background:#fff;
+    transition:.25s;
+}
+
+.avatar-item img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.avatar-item:hover{
+    transform:translateY(-3px);
+    border-color:var(--primary);
+}
+
+.avatar-item.selected{
+    border:3px solid var(--primary);
+    box-shadow:0 0 12px rgba(212,175,55,.35);
+}
+
+/* ==========================================
+   Upload Photo Box
+========================================== */
+
+.upload-box{
+    border:2px dashed var(--border);
+    border-radius:16px;
+    padding:18px;
+    text-align:center;
+    background:#fff;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.upload-box:hover{
+    border-color:var(--primary);
+    background:var(--cream-dark);
+}
+
+.upload-box i{
+    font-size:28px;
+    color:var(--primary-dark);
+    margin-bottom:8px;
+}
+
+.upload-box p{
+    font-size:13px;
+}
+/* ==========================================
+   Premium Loyalty Card
+========================================== */
+
+.loyalty-card{
+    position:relative;
+    background:linear-gradient(
+        135deg,
+        #FFF8E7,
+        #F6E7C1
+    );
+    border:2px solid var(--primary);
+    border-radius:24px;
+    padding:22px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+}
+
+.loyalty-card::after{
+    content:"";
+    position:absolute;
+    top:-60px;
+    right:-60px;
+    width:160px;
+    height:160px;
+    background:rgba(212,175,55,.12);
+    border-radius:50%;
+}
+
+/* Customer */
+
+.customer-info{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-bottom:22px;
+}
+
+.customer-avatar{
+    width:74px;
+    height:74px;
+    border-radius:50%;
+    overflow:hidden;
+    border:3px solid var(--primary);
+    background:#fff;
+}
+
+.customer-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.customer-name{
+    font-size:22px;
+    font-weight:700;
+    color:var(--green);
+}
+
+.customer-role{
+    font-size:13px;
+    color:var(--text-light);
+}
+
+/* Stamp Grid */
+
+.stamp-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-top:18px;
+}
+
+.stamp-box{
+    aspect-ratio:1;
+    border-radius:18px;
+    border:2px dashed var(--primary);
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    font-weight:700;
+    transition:.3s;
+}
+
+.stamp-box.active{
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary-dark)
+    );
+    color:#fff;
+    border:none;
+    animation:stampPop .35s ease;
+}
+
+@keyframes stampPop{
+
+0%{
+transform:scale(.5);
+opacity:0;
+}
+
+60%{
+transform:scale(1.15);
+}
+
+100%{
+transform:scale(1);
+opacity:1;
+}
+
+}
+
+/* Reward */
+
+.reward-box{
+    margin-top:20px;
+    padding:16px;
+    border-radius:16px;
+    background:#fff;
+    border:2px solid var(--primary);
+    text-align:center;
+    font-weight:600;
+}
+
+/* Bottom Navigation */
+
+.bottom-nav{
+
+position:fixed;
+
+bottom:0;
+
+left:50%;
+
+transform:translateX(-50%);
+
+width:100%;
+
+max-width:430px;
+
+display:flex;
+
+justify-content:space-around;
+
+padding:14px 0;
+
+background:var(--green);
+
+border-top:3px solid var(--primary);
+
+z-index:999;
+
+}
+
+.bottom-nav a{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:5px;
+
+font-size:12px;
+
+font-weight:600;
+
+color:#F8E3AE;
+
+transition:.25s;
+
+}
+
+.bottom-nav a.active{
+
+color:#fff;
+
+}
+
+.bottom-nav a:hover{
+
+transform:translateY(-3px);
+
+}
+
+/* Responsive */
+
+@media(max-width:420px){
+
+.customer-name{
+
+font-size:19px;
+
+}
+
+.logo-text{
+
+font-size:17px;
+
+}
+
+}
