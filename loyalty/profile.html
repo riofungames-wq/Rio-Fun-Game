@@ -1,17 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Rio Maggi Point - My Profile</title>
 
-    <!-- PWA Manifest & Favicon Tags -->
+    <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#263525">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Rio Maggi Point">
+
+    <link rel="icon" href="favicon.ico">
     <link rel="apple-touch-icon" href="icon-192.png">
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -28,159 +36,729 @@
             padding: 20px;
         }
 
-        .container {
+        .profile-card {
             width: 100%;
-            max-width: 450px;
+            max-width: 500px;
             background: #f5d99b;
             border: 3px solid #d19b4a;
-            border-radius: 18px;
-            padding: 30px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, .45);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,.55);
         }
 
-        h1 {
+        .header {
+            background: linear-gradient(135deg, #f8dda0, #edc77d);
             text-align: center;
-            color: #222;
-            margin-bottom: 10px;
+            padding: 25px 20px;
         }
 
-        .subtitle {
-            text-align: center;
-            color: #555;
-            margin-bottom: 25px;
-        }
-
-        .card {
-            background: #fff7df;
-            border: 2px solid #d19b4a;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-
-        .label {
-            font-size: 13px;
-            font-weight: bold;
-            color: #555;
-            margin-bottom: 4px;
-        }
-
-        .value {
+        .brand {
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 900;
+            letter-spacing: 1px;
             color: #222;
+        }
+
+        .brand span {
+            color: #c62828;
+        }
+
+        .title {
+            margin-top: 8px;
+            font-size: 30px;
+            font-weight: 900;
+            color: #c62828;
+        }
+
+        .profile-section {
+            text-align: center;
+            padding: 25px 20px 20px;
+        }
+
+        .avatar-wrapper {
+            width: 120px;
+            height: 120px;
+            margin: auto;
+            border-radius: 50%;
+            background: #fff7df;
+            border: 5px solid #d19b4a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,.25);
+        }
+
+        #profileImage {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        #defaultAvatar {
+            font-size: 60px;
+        }
+
+        .customer-name {
+            margin-top: 15px;
+            font-size: 27px;
+            font-weight: 900;
+            color: #263525;
+            text-transform: uppercase;
+        }
+
+        .customer-email {
+            margin-top: 6px;
+            color: #555;
+            font-size: 14px;
             word-break: break-word;
         }
 
-        .reward {
-            text-align: center;
-            background: #c62828;
-            color: #fff;
-            border-radius: 12px;
-            padding: 15px;
-            margin-top: 20px;
+        .avatar-title {
+            margin-top: 25px;
+            font-size: 17px;
             font-weight: bold;
+            color: #222;
         }
 
-        button {
+        .avatar-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .avatar-option {
+            width: 60px;
+            height: 60px;
+            margin: auto;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            background: #fff7df;
+            font-size: 32px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: .2s;
+        }
+
+        .avatar-option:hover {
+            transform: scale(1.08);
+        }
+
+        .avatar-option.selected {
+            border-color: #c62828;
+            background: #ffe0e0;
+            transform: scale(1.08);
+        }
+
+        .upload-label {
+            display: block;
+            margin: 20px auto 10px;
             width: 100%;
-            margin-top: 20px;
-            padding: 14px;
+            padding: 13px;
             background: #263525;
             color: #ffd54f;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #photoInput {
+            display: none;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 5px;
+            background: #c62828;
+            color: white;
             border: none;
             border-radius: 10px;
             font-size: 17px;
             font-weight: bold;
             cursor: pointer;
-            transition: .25s;
         }
 
-        button:hover {
-            background: #1c271b;
+        .save-btn:hover {
+            background: #a81f1f;
         }
+
+        .back-btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 10px;
+            background: #263525;
+            color: #ffd54f;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            background: #fff7df;
+            color: #333;
+            font-size: 13px;
+            display: none;
+        }
+
+        @media(max-width: 450px) {
+
+            .profile-card {
+                border-radius: 15px;
+            }
+
+            .avatar-options {
+                gap: 7px;
+            }
+
+            .avatar-option {
+                width: 55px;
+                height: 55px;
+                font-size: 28px;
+            }
+
+        }
+
     </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h1>👤 My Profile</h1>
+<div class="profile-card">
 
-    <p class="subtitle">
-        Rio Maggi Point Loyalty Member
-    </p>
+    <div class="header">
 
-    <div class="card">
-        <div class="label">Full Name</div>
-        <div class="value" id="customerName">Loading...</div>
+        <div class="brand">
+            <span>▶</span> RIO MAGGI POINT
+        </div>
+
+        <div class="title">
+            MY PROFILE
+        </div>
+
     </div>
 
-    <div class="card">
-        <div class="label">Mobile Number</div>
-        <div class="value" id="customerMobile">Loading...</div>
+
+    <div class="profile-section">
+
+        <!-- Profile Image / Avatar -->
+
+        <div class="avatar-wrapper">
+
+            <img
+                id="profileImage"
+                alt="Profile Photo"
+            >
+
+            <div id="defaultAvatar">
+                😊
+            </div>
+
+        </div>
+
+
+        <!-- Customer Information -->
+
+        <div
+            class="customer-name"
+            id="customerName"
+        >
+            Loading...
+        </div>
+
+        <div
+            class="customer-email"
+            id="customerEmail"
+        >
+            Loading...
+        </div>
+
+
+        <!-- Avatar Selection -->
+
+        <div class="avatar-title">
+            Choose Your Avatar
+        </div>
+
+
+        <div class="avatar-options">
+
+            <div class="avatar-option" data-avatar="😊">
+                😊
+            </div>
+
+            <div class="avatar-option" data-avatar="🥰">
+                🥰
+            </div>
+
+            <div class="avatar-option" data-avatar="😎">
+                😎
+            </div>
+
+            <div class="avatar-option" data-avatar="🤩">
+                🤩
+            </div>
+
+            <div class="avatar-option" data-avatar="🌸">
+                🌸
+            </div>
+
+            <div class="avatar-option" data-avatar="🦋">
+                🦋
+            </div>
+
+            <div class="avatar-option" data-avatar="🐻">
+                🐻
+            </div>
+
+            <div class="avatar-option" data-avatar="🐼">
+                🐼
+            </div>
+
+        </div>
+
+
+        <!-- Upload Photo -->
+
+        <label
+            class="upload-label"
+            for="photoInput"
+        >
+            📷 Choose My Photo
+        </label>
+
+        <input
+            type="file"
+            id="photoInput"
+            accept="image/*"
+        >
+
+
+        <!-- Save -->
+
+        <button
+            class="save-btn"
+            id="saveProfileBtn"
+        >
+            💾 Save Profile
+        </button>
+
+
+        <div
+            class="status"
+            id="statusMessage"
+        ></div>
+
+
+        <!-- Back -->
+
+        <button
+            class="back-btn"
+            id="backBtn"
+        >
+            🏠 Back to Loyalty Card
+        </button>
+
     </div>
 
-    <div class="card">
-        <div class="label">Email</div>
-        <div class="value" id="customerEmail">Loading...</div>
-    </div>
-
-    <div class="card">
-        <div class="label">Total Stamps</div>
-        <div class="value" id="customerStamps">0 / 6</div>
-    </div>
-
-    <div class="reward" id="rewardBox">
-        🎁 Reward Locked
-    </div>
-
-    <button id="logoutBtn">
-        Logout
-    </button>
 </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const customer = JSON.parse(
-        localStorage.getItem("currentCustomer")
+
+<script type="module">
+
+    import { auth, db } from "./js/firebase-config.js";
+
+    import {
+        onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+    import {
+        doc,
+        getDoc,
+        updateDoc
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+
+    const customerName =
+        document.getElementById("customerName");
+
+    const customerEmail =
+        document.getElementById("customerEmail");
+
+    const profileImage =
+        document.getElementById("profileImage");
+
+    const defaultAvatar =
+        document.getElementById("defaultAvatar");
+
+    const photoInput =
+        document.getElementById("photoInput");
+
+    const saveProfileBtn =
+        document.getElementById("saveProfileBtn");
+
+    const statusMessage =
+        document.getElementById("statusMessage");
+
+    const backBtn =
+        document.getElementById("backBtn");
+
+    const avatarOptions =
+        document.querySelectorAll(".avatar-option");
+
+
+    let currentUser = null;
+
+    let selectedAvatar = "😊";
+
+    let selectedPhoto = null;
+
+
+    // =========================
+    // LOAD CUSTOMER PROFILE
+    // =========================
+
+    onAuthStateChanged(auth, async (user) => {
+
+        if (!user) {
+
+            window.location.href = "login.html";
+
+            return;
+
+        }
+
+
+        currentUser = user;
+
+
+        try {
+
+            const customerRef =
+                doc(db, "customers", user.uid);
+
+            const customerSnap =
+                await getDoc(customerRef);
+
+
+            if (!customerSnap.exists()) {
+
+                alert("Customer profile not found.");
+
+                return;
+
+            }
+
+
+            const customer =
+                customerSnap.data();
+
+
+            customerName.textContent =
+                customer.name || "Customer";
+
+
+            customerEmail.textContent =
+                customer.email || user.email || "";
+
+
+            // Load saved avatar
+
+            if (customer.avatar) {
+
+                selectedAvatar =
+                    customer.avatar;
+
+                defaultAvatar.textContent =
+                    selectedAvatar;
+
+            }
+
+
+            // Load saved photo
+
+            if (customer.photoURL) {
+
+                profileImage.src =
+                    customer.photoURL;
+
+                profileImage.style.display =
+                    "block";
+
+                defaultAvatar.style.display =
+                    "none";
+
+            }
+
+
+            // Select current avatar
+
+            avatarOptions.forEach(option => {
+
+                if (
+                    option.dataset.avatar ===
+                    selectedAvatar
+                ) {
+
+                    option.classList.add("selected");
+
+                }
+
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "Profile Load Error:",
+                error
+            );
+
+            alert(
+                "Unable to load profile."
+            );
+
+        }
+
+    });
+
+
+    // =========================
+    // AVATAR SELECTION
+    // =========================
+
+    avatarOptions.forEach(option => {
+
+        option.addEventListener(
+            "click",
+            () => {
+
+                selectedAvatar =
+                    option.dataset.avatar;
+
+                selectedPhoto = null;
+
+                profileImage.style.display =
+                    "none";
+
+                defaultAvatar.style.display =
+                    "block";
+
+                defaultAvatar.textContent =
+                    selectedAvatar;
+
+
+                avatarOptions.forEach(item => {
+
+                    item.classList.remove(
+                        "selected"
+                    );
+
+                });
+
+
+                option.classList.add(
+                    "selected"
+                );
+
+            }
+        );
+
+    });
+
+
+    // =========================
+    // PHOTO PREVIEW
+    // =========================
+
+    photoInput.addEventListener(
+        "change",
+        (event) => {
+
+            const file =
+                event.target.files[0];
+
+
+            if (!file) {
+
+                return;
+
+            }
+
+
+            if (!file.type.startsWith("image/")) {
+
+                alert(
+                    "Please choose an image file."
+                );
+
+                return;
+
+            }
+
+
+            selectedPhoto = file;
+
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload = (e) => {
+
+                profileImage.src =
+                    e.target.result;
+
+                profileImage.style.display =
+                    "block";
+
+                defaultAvatar.style.display =
+                    "none";
+
+            };
+
+
+            reader.readAsDataURL(file);
+
+        }
     );
 
-    if (!customer) {
-        alert("Please Login First!");
-        window.location.href = "login.html";
-        return;
-    }
 
-    document.getElementById("customerName").textContent = customer.name;
-    document.getElementById("customerMobile").textContent = customer.mobile;
-    document.getElementById("customerEmail").textContent = customer.email || "Not Provided";
-    document.getElementById("customerStamps").textContent = customer.stamps + " / 6";
+    // =========================
+    // SAVE PROFILE
+    // =========================
 
-    const rewardBox = document.getElementById("rewardBox");
+    saveProfileBtn.addEventListener(
+        "click",
+        async () => {
 
-    if (customer.reward === true) {
-        rewardBox.innerHTML = "🎉 Congratulations! Your FREE Veg Maggi is Ready!";
-        rewardBox.style.background = "#2e7d32";
-    } else {
-        rewardBox.innerHTML = "🔒 Collect 6 Stamps to Unlock Your FREE Veg Maggi!";
-    }
+            if (!currentUser) {
 
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-        localStorage.removeItem("currentCustomer");
-        alert("Logged Out Successfully!");
-        window.location.href = "login.html";
-    });
-});
+                alert(
+                    "Please login first."
+                );
+
+                return;
+
+            }
+
+
+            try {
+
+                saveProfileBtn.disabled =
+                    true;
+
+                saveProfileBtn.textContent =
+                    "Saving...";
+
+
+                const customerRef =
+                    doc(
+                        db,
+                        "customers",
+                        currentUser.uid
+                    );
+
+
+                // Avatar save
+
+                if (selectedAvatar) {
+
+                    await updateDoc(
+                        customerRef,
+                        {
+                            avatar:
+                                selectedAvatar
+                        }
+                    );
+
+                }
+
+
+                // Photo is preview-only for now
+                // Firebase Storage will be added
+                // in the next phase.
+
+
+                statusMessage.style.display =
+                    "block";
+
+                statusMessage.textContent =
+                    "✅ Profile saved successfully!";
+
+
+            } catch (error) {
+
+                console.error(
+                    "Save Profile Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to save profile."
+                );
+
+            } finally {
+
+                saveProfileBtn.disabled =
+                    false;
+
+                saveProfileBtn.textContent =
+                    "💾 Save Profile";
+
+            }
+
+        }
+    );
+
+
+    // =========================
+    // BACK TO LOYALTY CARD
+    // =========================
+
+    backBtn.addEventListener(
+        "click",
+        () => {
+
+            window.location.href =
+                "index.html";
+
+        }
+    );
+
+
 </script>
 
+
 <script>
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js");
-    });
-}
+
+    if ("serviceWorker" in navigator) {
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                navigator.serviceWorker.register(
+                    "./service-worker.js"
+                );
+
+            }
+        );
+
+    }
+
 </script>
 
 </body>
+
 </html>
