@@ -1,366 +1,366 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Rio Maggi Point - Digital Loyalty Card</title>
+    <title>Rio Maggi Point - Digital Loyalty Card</title>
 
-  <!-- PWA Manifest & Favicon Tags -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#263525">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" href="icon-192.png">
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#263525">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Rio Maggi Point">
+    <link rel="icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="icon-192.png">
 
-  <!-- Additional Mobile App Tags -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="Rio Maggi Point">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        body {
+            min-height: 100vh;
+            background: #050505;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-    body {
-      min-height: 100vh;
-      background: #050505;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
+        .loyalty-card {
+            width: 100%;
+            max-width: 650px;
+            background: #f5d99b;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 3px solid #d19b4a;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .55);
+        }
 
-    .loyalty-card {
-      width: 100%;
-      max-width: 650px;
-      background: #f5d99b;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-      border: 3px solid #d19b4a;
-      position: relative;
-    }
+        .header {
+            padding: 25px 20px 15px;
+            text-align: center;
+            background: linear-gradient(135deg, #f8dda0, #edc77d);
+        }
 
-    .header {
-      padding: 25px 20px 15px;
-      text-align: center;
-      background: linear-gradient(135deg, #f8dda0, #edc77d);
-    }
+        .brand {
+            font-size: 15px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #222;
+            margin-bottom: 8px;
+        }
 
-    .brand {
-      font-size: 15px;
-      font-weight: bold;
-      color: #222;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-    }
+        .brand span {
+            color: #e53935;
+        }
 
-    .brand span {
-      color: #e53935;
-    }
+        .title {
+            font-size: clamp(42px, 10vw, 70px);
+            font-weight: 900;
+            line-height: .9;
+            color: #111;
+            letter-spacing: -2px;
+        }
 
-    .title {
-      font-size: clamp(42px, 10vw, 70px);
-      font-weight: 900;
-      line-height: 0.9;
-      color: #111;
-      letter-spacing: -2px;
-    }
+        .title span {
+            color: #c62828;
+        }
 
-    .title span {
-      color: #c62828;
-    }
+        .subtitle {
+            margin-top: 15px;
+            font-size: 16px;
+            font-style: italic;
+            color: #333;
+        }
 
-    .subtitle {
-      margin-top: 15px;
-      font-size: 16px;
-      font-style: italic;
-      color: #333;
-    }
+        .customer-box {
+            margin: 15px 20px;
+            padding: 15px;
+            background: #263525;
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+        }
 
-    .customer-box {
-      margin: 15px 20px;
-      padding: 15px;
-      background: #263525;
-      color: white;
-      border-radius: 12px;
-      text-align: center;
-    }
+        .customer-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #f5d99b;
+        }
 
-    .customer-label {
-      font-size: 12px;
-      letter-spacing: 2px;
-      color: #f5d99b;
-    }
+        .customer-name {
+            margin-top: 5px;
+            font-size: 28px;
+            font-weight: 900;
+            color: #ffd54f;
+            text-transform: uppercase;
+        }
 
-    .customer-name {
-      margin-top: 5px;
-      font-size: 28px;
-      font-weight: 900;
-      color: #ffd54f;
-      text-transform: uppercase;
-    }
+        .message {
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            color: #222;
+        }
 
-    .message {
-      text-align: center;
-      font-weight: bold;
-      color: #222;
-      padding: 10px 15px;
-    }
+        .stamps-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 900;
+            margin: 12px 0;
+            color: #222;
+        }
 
-    .stamps-title {
-      text-align: center;
-      font-size: 18px;
-      font-weight: 900;
-      color: #222;
-      margin: 10px 0 15px;
-    }
+        .stamps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 0 25px 25px;
+        }
 
-    .stamps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      padding: 0 25px 25px;
-    }
+        .stamp {
+            aspect-ratio: 1;
+            border: 3px dashed #7a5b27;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .25);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            color: #555;
+        }
 
-    .stamp {
-      aspect-ratio: 1;
-      border: 3px dashed #7a5b27;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.25);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: #555;
-      position: relative;
-    }
+        .stamp-number {
+            font-size: 24px;
+            font-weight: 900;
+        }
 
-    .stamp-number {
-      font-size: 24px;
-      font-weight: 900;
-    }
+        .stamp-status {
+            font-size: 11px;
+            margin-top: 5px;
+            font-weight: bold;
+        }
 
-    .stamp-status {
-      font-size: 11px;
-      margin-top: 5px;
-      font-weight: bold;
-    }
+        .stamp.approved {
+            background: #263525;
+            border: 4px solid #d99b27;
+            color: #ffd54f;
+            transform: rotate(-4deg);
+        }
 
-    .stamp.approved {
-      background: #263525;
-      border: 4px solid #d99b27;
-      color: #ffd54f;
-      transform: rotate(-4deg);
-    }
+        .stamp.approved::after {
+            content: "✓";
+            position: absolute;
+            font-size: 55px;
+            color: rgba(255, 213, 79, .18);
+        }
 
-    .stamp.approved::after {
-      content: "✓";
-      position: absolute;
-      font-size: 55px;
-      color: rgba(255, 213, 79, 0.18);
-    }
+        .reward {
+            margin: 0 25px 25px;
+            padding: 18px;
+            border-radius: 15px;
+            background: #c62828;
+            text-align: center;
+            color: white;
+        }
 
-    .reward {
-      margin: 0 25px 25px;
-      padding: 18px;
-      border-radius: 15px;
-      background: #c62828;
-      color: white;
-      text-align: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.25);
-    }
+        .reward h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
 
-    .reward h2 {
-      font-size: 24px;
-      margin-bottom: 5px;
-    }
+        .reward p {
+            font-size: 14px;
+        }
 
-    .reward p {
-      font-size: 14px;
-    }
+        .nav-btn {
+            margin: 0 25px 20px;
+            width: calc(100% - 50px);
+            padding: 14px;
+            background: #263525;
+            color: #ffd54f;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .25s;
+        }
 
-    .nav-btn {
-      margin: 0 25px 20px;
-      padding: 14px;
-      background: #263525;
-      color: #ffd54f;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: bold;
-      width: calc(100% - 50px);
-      cursor: pointer;
-      transition: .25s;
-    }
+        .nav-btn:hover {
+            background: #1c271b;
+        }
 
-    .nav-btn:hover {
-      background: #1c271b;
-    }
+        .footer {
+            background: #263525;
+            padding: 15px;
+            text-align: center;
+            font-size: 13px;
+            color: white;
+        }
 
-    .footer {
-      background: #263525;
-      color: white;
-      padding: 15px;
-      text-align: center;
-      font-size: 13px;
-    }
+        .footer strong {
+            color: #ffd54f;
+        }
 
-    .footer strong {
-      color: #ffd54f;
-    }
+        @media(max-width: 450px) {
+            body {
+                padding: 10px;
+            }
 
-    @media (max-width: 450px) {
-      body {
-        padding: 10px;
-      }
+            .header {
+                padding: 20px 10px 12px;
+            }
 
-      .header {
-        padding: 20px 10px 12px;
-      }
+            .customer-box {
+                margin: 10px;
+            }
 
-      .customer-box {
-        margin: 10px;
-      }
+            .stamps {
+                padding: 0 15px 20px;
+                gap: 10px;
+            }
 
-      .stamps {
-        gap: 10px;
-        padding: 0 15px 20px;
-      }
-
-      .stamp-number {
-        font-size: 19px;
-      }
-
-      .stamp-status {
-        font-size: 9px;
-      }
-
-      .reward, .nav-btn {
-        margin: 0 15px 20px;
-        width: calc(100% - 30px);
-      }
-    }
-  </style>
+            .reward,
+            .nav-btn {
+                margin: 0 15px 20px;
+                width: calc(100% - 30px);
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <div class="loyalty-card">
-
+<div class="loyalty-card">
     <div class="header">
-      <div class="brand">
-        <span>▶</span> RIO MAGGI POINT
-      </div>
-
-      <div class="title">
-        LOYALTY<br>
-        <span>CARD</span>
-      </div>
-
-      <div class="subtitle">
-        Thank you for choosing us!
-      </div>
+        <div class="brand">
+            <span>▶</span> RIO MAGGI POINT
+        </div>
+        <div class="title">
+            LOYALTY<br>
+            <span>CARD</span>
+        </div>
+        <div class="subtitle">
+            Thank you for choosing us!
+        </div>
     </div>
 
     <div class="customer-box">
-      <div class="customer-label">CUSTOMER NAME</div>
-      <div class="customer-name" id="customerNameDisplay">
-        GUEST USER
-      </div>
+        <div class="customer-label">CUSTOMER NAME</div>
+        <div class="customer-name" id="customerNameDisplay">Loading...</div>
     </div>
 
     <div class="message">
-      COLLECT STAMPS & EARN REWARDS!
+        COLLECT STAMPS & EARN REWARDS!
     </div>
 
     <div class="stamps-title">
-      🎟️ YOUR LOYALTY STAMPS
+        🎟️ YOUR LOYALTY STAMPS
     </div>
 
-    <div class="stamps" id="stampsContainer">
-      <!-- Stamps render dynamically via JavaScript -->
-    </div>
+    <div class="stamps" id="stampsContainer"></div>
 
     <div class="reward">
-      <h2>🎁 REWARD</h2>
-      <p id="rewardText">Collect 6 Stamps & Get 1 Veg Maggi FREE!</p>
+        <h2>🎁 REWARD</h2>
+        <p id="rewardText">Collect 6 Stamps & Get 1 Veg Maggi FREE!</p>
     </div>
 
-    <button class="nav-btn" id="actionBtn">
-      📱 View My Profile
-    </button>
+    <button class="nav-btn" id="actionBtn">Loading...</button>
 
     <div class="footer">
-      <strong>RIO MAGGI POINT</strong><br>
-      One Stamp on Every Eligible Purchase
+        <strong>RIO MAGGI POINT</strong><br>
+        One Stamp on Every Eligible Purchase
     </div>
+</div>
 
-  </div>
+<script type="module">
+    import { auth, db } from "./js/firebase-config.js";
+    import {
+        onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    import {
+        doc,
+        getDoc
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const customer = JSON.parse(localStorage.getItem("currentCustomer"));
-      const actionBtn = document.getElementById("actionBtn");
-      const nameDisplay = document.getElementById("customerNameDisplay");
-      const stampsContainer = document.getElementById("stampsContainer");
-      const rewardText = document.getElementById("rewardText");
+    const nameDisplay = document.getElementById("customerNameDisplay");
+    const stampsContainer = document.getElementById("stampsContainer");
+    const rewardText = document.getElementById("rewardText");
+    const actionBtn = document.getElementById("actionBtn");
 
-      if (customer) {
-        nameDisplay.textContent = customer.name;
-        actionBtn.textContent = "👤 Go to Profile";
-        actionBtn.addEventListener("click", () => {
-          window.location.href = "profile.html";
-        });
-      } else {
-        nameDisplay.textContent = "GUEST USER";
-        actionBtn.textContent = "🔑 Login / Sign Up";
-        actionBtn.addEventListener("click", () => {
-          window.location.href = "login.html";
-        });
-      }
-
-      const userStamps = customer ? customer.stamps : 0;
-
-      // Render 6 Stamps
-      stampsContainer.innerHTML = "";
-      for (let i = 1; i <= 6; i++) {
-        const stampDiv = document.createElement("div");
-        stampDiv.classList.add("stamp");
-
-        if (i <= userStamps) {
-          stampDiv.classList.add("approved");
-          stampDiv.innerHTML = `
-            <div class="stamp-number">${i}</div>
-            <div class="stamp-status">EARNED</div>
-          `;
-        } else {
-          stampDiv.innerHTML = `
-            <div class="stamp-number">${i}</div>
-            <div class="stamp-status">${i === 6 ? "FREE MAGGI" : "AVAILABLE"}</div>
-          `;
+    onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+            window.location.href = "login.html";
+            return;
         }
-        stampsContainer.appendChild(stampDiv);
-      }
 
-      if (userStamps >= 6) {
-        rewardText.textContent = "🎉 Congratulations! You unlocked 1 FREE Veg Maggi!";
-      }
+        try {
+            const docRef = doc(db, "customers", user.uid);
+            const docSnap = await getDoc(docRef);
+
+            if (!docSnap.exists()) {
+                alert("Customer data not found.");
+                return;
+            }
+
+            const customer = docSnap.data();
+
+            nameDisplay.textContent = customer.name;
+            actionBtn.textContent = "👤 View My Profile";
+            actionBtn.onclick = () => {
+                window.location.href = "profile.html";
+            };
+
+            const stamps = customer.stamps || 0;
+            stampsContainer.innerHTML = "";
+
+            for (let i = 1; i <= 6; i++) {
+                const div = document.createElement("div");
+                div.className = "stamp";
+
+                if (i <= stamps) {
+                    div.classList.add("approved");
+                    div.innerHTML = `
+                        <div class="stamp-number">${i}</div>
+                        <div class="stamp-status">EARNED</div>
+                    `;
+                } else {
+                    div.innerHTML = `
+                        <div class="stamp-number">${i}</div>
+                        <div class="stamp-status">${i === 6 ? "FREE MAGGI" : "AVAILABLE"}</div>
+                    `;
+                }
+
+                stampsContainer.appendChild(div);
+            }
+
+            if (stamps >= 6) {
+                rewardText.textContent = "🎉 Congratulations! You unlocked 1 FREE Veg Maggi!";
+            }
+        } catch (error) {
+            console.error("Error fetching customer data:", error);
+        }
     });
+</script>
 
-    // Service Worker Registration
+<script>
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js");
-      });
+        window.addEventListener("load", () => {
+            navigator.serviceWorker.register("./service-worker.js");
+        });
     }
-  </script>
+</script>
 
 </body>
 </html>
