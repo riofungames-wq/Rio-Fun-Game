@@ -2,569 +2,544 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rio Maggi Point - Admin Panel</title>
+    <title>Rio Maggi Point - Admin Panel</title>
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#263525">
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" href="icon-192.png">
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#263525">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
-<style>
+    <link rel="icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="icon-192.png">
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
+    <!-- QR Scanner Library -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
 
-body {
-    min-height: 100vh;
-    background: #050505;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
+    <style>
 
-.container {
-    width: 100%;
-    max-width: 500px;
-    background: #f5d99b;
-    border: 3px solid #d19b4a;
-    border-radius: 18px;
-    padding: 30px;
-    box-shadow: 0 15px 40px rgba(0,0,0,.45);
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-h1 {
-    text-align: center;
-    color: #222;
-    margin-bottom: 10px;
-}
+        body {
+            min-height: 100vh;
+            background: #050505;
+            padding: 20px;
+        }
 
-.subtitle {
-    text-align: center;
-    color: #555;
-    margin-bottom: 18px;
-}
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            background: #f5d99b;
+            border: 3px solid #d19b4a;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,.55);
+        }
 
-.termsNote {
-    text-align: center;
-    font-size: 13px;
-    color: #882b00;
-    margin-bottom: 18px;
-    font-weight: bold;
-}
+        h1 {
+            text-align: center;
+            color: #222;
+            margin-bottom: 8px;
+        }
 
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #222;
-}
+        .subtitle {
+            text-align: center;
+            color: #555;
+            margin-bottom: 20px;
+        }
 
-input {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #d19b4a;
-    border-radius: 10px;
-    font-size: 15px;
-    outline: none;
-    margin-bottom: 18px;
-}
+        .admin-status {
+            background: #263525;
+            color: #ffd54f;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
 
-input:focus {
-    border-color: #263525;
-}
+        .section {
+            background: #fff7df;
+            border: 2px solid #d19b4a;
+            border-radius: 15px;
+            padding: 18px;
+            margin-bottom: 20px;
+        }
 
-button {
-    width: 100%;
-    padding: 14px;
-    background: #263525;
-    color: #ffd54f;
-    border: none;
-    border-radius: 10px;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .25s;
-    margin-bottom: 12px;
-}
+        .section h2 {
+            text-align: center;
+            color: #263525;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
 
-button:hover {
-    background: #1c271b;
-}
+        #reader {
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 12px;
+            overflow: hidden;
+        }
 
-button:disabled {
-    opacity: .6;
-    cursor: not-allowed;
-}
+        .scan-message {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 14px;
+            color: #555;
+        }
 
-.logoutBtn {
-    background: #555;
-    color: white;
-}
+        .customer-card {
+            display: none;
+            background: #263525;
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
 
-.logoutBtn:hover {
-    background: #333;
-}
+        .customer-card h2 {
+            color: #ffd54f;
+            text-align: center;
+            margin-bottom: 15px;
+        }
 
-.result {
-    display: none;
-    margin-top: 20px;
-    padding: 18px;
-    background: #fff7df;
-    border: 2px solid #d19b4a;
-    border-radius: 12px;
-}
+        .customer-info {
+            font-size: 16px;
+            line-height: 1.8;
+        }
 
-.info {
-    margin: 10px 0;
-    font-size: 16px;
-    font-weight: bold;
-    color: #222;
-}
+        .stamp-count {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 900;
+            color: #ffd54f;
+            margin: 10px 0;
+        }
 
-.statusBox {
-    margin: 15px 0;
-    padding: 12px;
-    border-radius: 10px;
-    background: #263525;
-    color: #ffd54f;
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-}
+        .stamp-progress {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 7px;
+            margin: 15px 0;
+        }
 
-.stampBtn {
-    background: #c62828;
-    color: white;
-}
+        .stamp-dot {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: #fff7df;
+            border: 2px solid #d19b4a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #555;
+            font-weight: bold;
+            font-size: 12px;
+        }
 
-.stampBtn:hover {
-    background: #a81f1f;
-}
+        .stamp-dot.done {
+            background: #ffd54f;
+            color: #263525;
+            border-color: #ffd54f;
+        }
 
-.resetBtn {
-    background: #8e44ad;
-    color: white;
-}
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
 
-.resetBtn:hover {
-    background: #6c3483;
-}
+        .scan-btn {
+            background: #263525;
+            color: #ffd54f;
+        }
 
-.adminStatus {
-    text-align: center;
-    margin-bottom: 15px;
-    padding: 8px;
-    border-radius: 8px;
-    background: #263525;
-    color: #ffd54f;
-    font-size: 13px;
-    font-weight: bold;
-}
+        .stamp-btn {
+            background: #c62828;
+            color: white;
+        }
 
-.message {
-    display: none;
-    margin-top: 15px;
-    padding: 12px;
-    border-radius: 8px;
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-}
+        .reset-btn {
+            background: #8e24aa;
+            color: white;
+        }
 
-.success {
-    background: #d4edda;
-    color: #155724;
-}
+        .logout-btn {
+            background: #555;
+            color: white;
+        }
 
-.error {
-    background: #ffe0e0;
-    color: #b00020;
-}
+        button:hover {
+            opacity: .9;
+        }
 
-</style>
+        button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        .success-message {
+            display: none;
+            background: #2e7d32;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .reward-message {
+            display: none;
+            background: #c62828;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        @media(max-width: 450px) {
+
+            .container {
+                padding: 18px;
+            }
+
+            .stamp-progress {
+                gap: 5px;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<h1>🛠️ Admin Panel</h1>
+    <h1>🛠️ Admin Panel</h1>
 
-<p class="subtitle">
-Search Customer & Manage Loyalty Stamps
-</p>
+    <p class="subtitle">
+        Scan Customer QR & Manage Loyalty Stamps
+    </p>
 
-<div class="adminStatus">
-🔐 Firebase Admin Session Active
-</div>
+    <div class="admin-status">
+        🔐 Firebase Admin Session Active
+    </div>
 
-<p class="termsNote">
-📌 Loyalty Stamp Offer valid only on Maggi orders above ₹40.
-</p>
 
-<label for="mobile">
-Customer Mobile Number
-</label>
+    <!-- SUCCESS MESSAGE -->
 
-<input
-type="tel"
-id="mobile"
-placeholder="Enter 10-digit mobile number"
-inputmode="numeric"
-maxlength="10"
-oninput="this.value=this.value.replace(/[^0-9]/g,'')"
->
+    <div
+        class="success-message"
+        id="successMessage"
+    >
+        ✅ Stamp Added Successfully!
+    </div>
 
-<button id="searchBtn">
-🔍 Search Customer
-</button>
 
-<div id="messageBox" class="message"></div>
+    <!-- REWARD MESSAGE -->
 
-<div class="result" id="resultBox">
+    <div
+        class="reward-message"
+        id="rewardMessage"
+    >
+        🎉 Customer has completed 6 Stamps!
+        <br>
+        🎁 7th Veg Maggi is FREE!
+    </div>
 
-<div class="info">
-👤 Name:
-<span id="customerName">-</span>
-</div>
 
-<div class="info">
-📱 Mobile:
-<span id="customerMobile">-</span>
-</div>
+    <!-- QR SCANNER -->
 
-<div class="info">
-🎟️ Stamps:
-<span id="customerStamps">0</span> / 6
-</div>
+    <div class="section">
 
-<div class="info">
-📅 Cycle Started:
-<span id="cycleStart">-</span>
-</div>
+        <h2>📱 Scan Customer QR</h2>
 
-<div class="info">
-⏳ Days Remaining:
-<span id="daysRemaining">-</span>
-</div>
+        <div id="reader"></div>
 
-<div class="statusBox" id="statusBox">
-🟢 Loyalty Cycle Active
-</div>
+        <p class="scan-message">
+            Ask the customer to show their Rio Maggi Point QR Code.
+        </p>
 
-<button class="stampBtn" id="addStampBtn">
-➕ Add 1 Stamp (Order Above ₹40)
-</button>
+    </div>
 
-<button class="resetBtn" id="newCycleBtn" style="display:none;">
-🎁 Free Maggi Given - Reset & Start New Cycle
-</button>
 
-</div>
+    <!-- CUSTOMER INFORMATION -->
 
-<button class="logoutBtn" id="logoutBtn">
-🚪 Admin Logout
-</button>
+    <div
+        class="customer-card"
+        id="customerCard"
+    >
+
+        <h2>
+            👤 Customer Details
+        </h2>
+
+        <div class="customer-info">
+
+            <strong>Name:</strong>
+            <span id="customerName">-</span>
+
+            <br>
+
+            <strong>Mobile:</strong>
+            <span id="customerMobile">-</span>
+
+        </div>
+
+
+        <div class="stamp-count">
+
+            <span id="stampNumber">0</span>
+            / 6 Stamps
+
+        </div>
+
+
+        <!-- 6 STAMP PROGRESS -->
+
+        <div
+            class="stamp-progress"
+            id="stampProgress"
+        >
+
+        </div>
+
+
+        <!-- ADD STAMP -->
+
+        <button
+            class="stamp-btn"
+            id="addStampBtn"
+        >
+            ✅ Accept & Add 1 Stamp
+        </button>
+
+
+        <!-- RESET AFTER FREE MAGGI -->
+
+        <button
+            class="reset-btn"
+            id="resetBtn"
+            style="display:none;"
+        >
+            🎁 Free Maggi Given — Reset to 0
+        </button>
+
+    </div>
+
+
+    <!-- LOGOUT -->
+
+    <button
+        class="logout-btn"
+        id="logoutBtn"
+    >
+        🚪 Admin Logout
+    </button>
 
 </div>
 
 
 <script type="module">
 
-/* =========================================
-   FIREBASE IMPORT
-========================================= */
+    import { auth, db }
+    from "./js/firebase-config.js";
 
-import { auth, db } from "./js/firebase-config.js";
-
-import {
-    onAuthStateChanged,
-    signOut
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-import {
-    collection,
-    query,
-    where,
-    getDocs,
-    doc,
-    updateDoc,
-    serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-
-/* =========================================
-   HTML ELEMENTS
-========================================= */
-
-const searchBtn = document.getElementById("searchBtn");
-const addStampBtn = document.getElementById("addStampBtn");
-const newCycleBtn = document.getElementById("newCycleBtn");
-const logoutBtn = document.getElementById("logoutBtn");
-
-const resultBox = document.getElementById("resultBox");
-const messageBox = document.getElementById("messageBox");
-
-const customerName = document.getElementById("customerName");
-const customerMobile = document.getElementById("customerMobile");
-const customerStamps = document.getElementById("customerStamps");
-
-const cycleStart = document.getElementById("cycleStart");
-const daysRemaining = document.getElementById("daysRemaining");
-
-const statusBox = document.getElementById("statusBox");
-
-
-let selectedCustomer = null;
-
-
-/* =========================================
-   ADMIN LOGIN CHECK
-========================================= */
-
-onAuthStateChanged(auth, (user) => {
-
-    if (!user) {
-
-        window.location.href = "admin-login.html";
-
-    } else {
-
-        console.log("Admin Logged In:", user.email);
-
+    import {
+        onAuthStateChanged,
+        signOut
     }
+    from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-});
-
-
-/* =========================================
-   MESSAGE FUNCTION
-========================================= */
-
-function showMessage(text, type) {
-
-    messageBox.textContent = text;
-
-    messageBox.className = "message " + type;
-
-    messageBox.style.display = "block";
-
-}
+    import {
+        doc,
+        getDoc,
+        updateDoc,
+        serverTimestamp
+    }
+    from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
-/* =========================================
-   40 DAY CYCLE CALCULATION
-========================================= */
+    // =========================
+    // ELEMENTS
+    // =========================
 
-function getCycleInfo(startDate) {
+    const customerCard =
+        document.getElementById("customerCard");
 
-    if (!startDate) {
+    const customerName =
+        document.getElementById("customerName");
 
-        return {
-            expired: false,
-            daysRemaining: 40
+    const customerMobile =
+        document.getElementById("customerMobile");
+
+    const stampNumber =
+        document.getElementById("stampNumber");
+
+    const stampProgress =
+        document.getElementById("stampProgress");
+
+    const addStampBtn =
+        document.getElementById("addStampBtn");
+
+    const resetBtn =
+        document.getElementById("resetBtn");
+
+    const successMessage =
+        document.getElementById("successMessage");
+
+    const rewardMessage =
+        document.getElementById("rewardMessage");
+
+
+    let selectedCustomerUID = null;
+
+    let selectedCustomerData = null;
+
+    let scanner = null;
+
+    let scannerRunning = false;
+
+
+    // =========================
+    // ADMIN LOGIN CHECK
+    // =========================
+
+    onAuthStateChanged(auth, (user) => {
+
+        if (!user) {
+
+            window.location.href =
+                "admin-login.html";
+
+            return;
+
+        }
+
+        console.log(
+            "Admin Logged In:",
+            user.email
+        );
+
+        startScanner();
+
+    });
+
+
+    // =========================
+    // START QR SCANNER
+    // =========================
+
+    function startScanner() {
+
+        scanner =
+            new Html5Qrcode("reader");
+
+
+        const config = {
+
+            fps: 10,
+
+            qrbox: {
+                width: 250,
+                height: 250
+            }
+
         };
 
-    }
 
-    const start = startDate.toDate
-        ? startDate.toDate()
-        : new Date(startDate);
+        scanner.start(
 
-    const now = new Date();
+            {
+                facingMode: "environment"
+            },
 
-    const difference =
-        now.getTime() - start.getTime();
+            config,
 
-    const daysPassed =
-        Math.floor(
-            difference /
-            (1000 * 60 * 60 * 24)
-        );
+            onScanSuccess,
 
-    const remaining =
-        40 - daysPassed;
+            onScanFailure
 
-    return {
+        ).then(() => {
 
-        expired: remaining <= 0,
+            scannerRunning = true;
 
-        daysRemaining:
-            Math.max(0, remaining)
+        }).catch((error) => {
 
-    };
-
-}
-
-
-/* =========================================
-   DISPLAY CUSTOMER
-========================================= */
-
-function displayCustomer(customer) {
-
-    selectedCustomer = customer;
-
-    const data = customer.data;
-
-    customerName.textContent =
-        data.name || "Customer";
-
-    customerMobile.textContent =
-        data.mobile || "-";
-
-    const stamps =
-        data.stamps || 0;
-
-    customerStamps.textContent =
-        stamps;
-
-
-    const info =
-        getCycleInfo(data.cycleStartDate);
-
-    daysRemaining.textContent =
-        info.daysRemaining;
-
-
-    if (data.cycleStartDate) {
-
-        const start =
-            data.cycleStartDate.toDate
-            ? data.cycleStartDate.toDate()
-            : new Date(data.cycleStartDate);
-
-        cycleStart.textContent =
-            start.toLocaleDateString();
-
-    } else {
-
-        cycleStart.textContent =
-            "Not Started";
-
-    }
-
-
-    resultBox.style.display =
-        "block";
-
-
-    /* =================================
-       6 STAMPS COMPLETE
-    ================================= */
-
-    if (stamps >= 6) {
-
-        statusBox.textContent =
-            "🎉 6 Stamps Complete - 7th FREE MAGGI UNLOCKED!";
-
-        statusBox.style.background =
-            "#2e7d32";
-
-        addStampBtn.style.display =
-            "none";
-
-        newCycleBtn.style.display =
-            "block";
-
-        showMessage(
-            "🎁 Customer can now receive 1 FREE Veg Maggi. After giving it, click Reset.",
-            "success"
-        );
-
-    }
-
-    /* =================================
-       NORMAL ACTIVE CYCLE
-    ================================= */
-
-    else {
-
-        statusBox.textContent =
-            "🟢 Loyalty Cycle Active";
-
-        statusBox.style.background =
-            "#263525";
-
-        addStampBtn.style.display =
-            "block";
-
-        newCycleBtn.style.display =
-            "none";
-
-    }
-
-}
-
-
-/* =========================================
-   SEARCH CUSTOMER
-   AUTO RESET AFTER 40 DAYS
-========================================= */
-
-searchBtn.addEventListener(
-"click",
-async () => {
-
-    const mobile =
-        document
-        .getElementById("mobile")
-        .value
-        .trim();
-
-
-    if (!/^[0-9]{10}$/.test(mobile)) {
-
-        showMessage(
-            "Enter a valid 10-digit mobile number.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    searchBtn.disabled =
-        true;
-
-    searchBtn.textContent =
-        "Searching...";
-
-
-    try {
-
-        const customersRef =
-            collection(db, "customers");
-
-
-        const q =
-            query(
-                customersRef,
-                where("mobile", "==", mobile)
+            console.error(
+                "Scanner Error:",
+                error
             );
 
+            alert(
+                "Camera access failed. Please allow camera permission."
+            );
 
-        const snapshot =
-            await getDocs(q);
+        });
+
+    }
 
 
-        if (snapshot.empty) {
+    function onScanFailure(error) {
 
-            resultBox.style.display =
-                "none";
+        // Ignore continuous scan errors
 
-            showMessage(
-                "Customer not found in Firebase.",
-                "error"
+    }
+
+
+    // =========================
+    // QR SCANNED
+    // =========================
+
+    async function onScanSuccess(decodedText) {
+
+        console.log(
+            "QR Scanned:",
+            decodedText
+        );
+
+
+        // Prevent multiple scans
+
+        if (selectedCustomerUID) {
+
+            return;
+
+        }
+
+
+        // Check QR format
+
+        const prefix =
+            "RIO_MAGGI_CUSTOMER:";
+
+
+        if (
+            !decodedText.startsWith(prefix)
+        ) {
+
+            alert(
+                "❌ Invalid Rio Maggi Point QR Code."
             );
 
             return;
@@ -572,536 +547,539 @@ async () => {
         }
 
 
-        const customerDoc =
-            snapshot.docs[0];
+        const uid =
+            decodedText.replace(
+                prefix,
+                ""
+            ).trim();
 
 
-        let data =
-            customerDoc.data();
+        if (!uid) {
 
-
-        const customerId =
-            customerDoc.id;
-
-
-        const currentStamps =
-            data.stamps || 0;
-
-
-        const info =
-            getCycleInfo(
-                data.cycleStartDate
+            alert(
+                "Invalid Customer QR."
             );
 
+            return;
 
-        /* =================================
-           IMPORTANT:
-           ONLY AUTO RESET IF 40 DAYS EXPIRED
-           AND CUSTOMER HAS LESS THAN 6 STAMPS
-        ================================= */
+        }
+
+
+        selectedCustomerUID = uid;
+
+
+        // Stop scanner
 
         if (
-            info.expired &&
-            currentStamps < 6
+            scanner &&
+            scannerRunning
         ) {
 
-            console.log(
-                "40-Day Cycle Expired. Auto Reset."
-            );
+            try {
 
+                await scanner.stop();
+
+                scannerRunning = false;
+
+            } catch (error) {
+
+                console.error(error);
+
+            }
+
+        }
+
+
+        // Load Customer
+
+        await loadCustomer(uid);
+
+    }
+
+
+    // =========================
+    // LOAD CUSTOMER
+    // =========================
+
+    async function loadCustomer(uid) {
+
+        try {
 
             const customerRef =
                 doc(
                     db,
                     "customers",
-                    customerId
+                    uid
                 );
 
 
-            await updateDoc(
-                customerRef,
-                {
+            const customerSnap =
+                await getDoc(customerRef);
 
-                    stamps: 0,
 
-                    reward: false,
+            if (
+                !customerSnap.exists()
+            ) {
 
-                    cycleStartDate:
-                        serverTimestamp(),
+                alert(
+                    "Customer account not found."
+                );
 
-                    updatedAt:
-                        serverTimestamp()
+                resetScanner();
 
-                }
-            );
-
-
-            data.stamps =
-                0;
-
-            data.reward =
-                false;
-
-            data.cycleStartDate =
-                new Date();
-
-
-            showMessage(
-                "⏰ 40 days completed. Customer automatically reset to 0 stamps. New cycle started!",
-                "success"
-            );
-
-        }
-
-        else {
-
-            showMessage(
-                "Customer found successfully.",
-                "success"
-            );
-
-        }
-
-
-        displayCustomer({
-
-            id:
-                customerId,
-
-            data:
-                data
-
-        });
-
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Search Error:",
-            error
-        );
-
-
-        showMessage(
-            "Unable to search customer. Please try again.",
-            "error"
-        );
-
-    }
-
-    finally {
-
-        searchBtn.disabled =
-            false;
-
-        searchBtn.textContent =
-            "🔍 Search Customer";
-
-    }
-
-});
-
-
-/* =========================================
-   ADD STAMP
-   ONLY FOR ORDERS ABOVE ₹40
-========================================= */
-
-addStampBtn.addEventListener(
-"click",
-async () => {
-
-
-    if (!selectedCustomer) {
-
-        showMessage(
-            "Search a customer first.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    const customer =
-        selectedCustomer.data;
-
-
-    const currentStamps =
-        customer.stamps || 0;
-
-
-    if (currentStamps >= 6) {
-
-        showMessage(
-            "6 stamps already completed. Customer must receive the FREE Veg Maggi first.",
-            "success"
-        );
-
-        return;
-
-    }
-
-
-    const confirmOrder =
-        confirm(
-            "Confirm: Customer purchased Maggi worth MORE THAN ₹40?\n\nClick OK to add 1 loyalty stamp."
-        );
-
-
-    if (!confirmOrder) {
-
-        return;
-
-    }
-
-
-    addStampBtn.disabled =
-        true;
-
-    addStampBtn.textContent =
-        "Adding Stamp...";
-
-
-    try {
-
-
-        const customerRef =
-            doc(
-                db,
-                "customers",
-                selectedCustomer.id
-            );
-
-
-        const newStampCount =
-            currentStamps + 1;
-
-
-        const updateData = {
-
-            stamps:
-                newStampCount,
-
-            updatedAt:
-                serverTimestamp()
-
-        };
-
-
-        /* FIRST STAMP STARTS 40-DAY CYCLE */
-
-        if (
-            currentStamps === 0 ||
-            !customer.cycleStartDate
-        ) {
-
-            updateData.cycleStartDate =
-                serverTimestamp();
-
-        }
-
-
-        /* SIXTH STAMP UNLOCKS FREE MAGGI */
-
-        if (
-            newStampCount >= 6
-        ) {
-
-            updateData.reward =
-                true;
-
-        }
-
-
-        await updateDoc(
-            customerRef,
-            updateData
-        );
-
-
-        /* UPDATE LOCAL DATA */
-
-        selectedCustomer.data.stamps =
-            newStampCount;
-
-
-        if (
-            currentStamps === 0 ||
-            !customer.cycleStartDate
-        ) {
-
-            selectedCustomer.data.cycleStartDate =
-                new Date();
-
-        }
-
-
-        if (
-            newStampCount >= 6
-        ) {
-
-            selectedCustomer.data.reward =
-                true;
-
-        }
-
-
-        displayCustomer(
-            selectedCustomer
-        );
-
-
-        if (
-            newStampCount >= 6
-        ) {
-
-            showMessage(
-                "🎉 6 Stamps Complete! 7th FREE Veg Maggi is now UNLOCKED!",
-                "success"
-            );
-
-        }
-
-        else {
-
-            showMessage(
-                "✅ 1 Loyalty Stamp Added! Order above ₹40 confirmed.",
-                "success"
-            );
-
-        }
-
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Add Stamp Error:",
-            error
-        );
-
-
-        showMessage(
-            "Unable to add stamp. Please try again.",
-            "error"
-        );
-
-    }
-
-    finally {
-
-        addStampBtn.disabled =
-            false;
-
-        addStampBtn.textContent =
-            "➕ Add 1 Stamp (Order Above ₹40)";
-
-    }
-
-});
-
-
-/* =========================================
-   FREE MAGGI GIVEN
-   MANUAL RESET TO ZERO
-========================================= */
-
-newCycleBtn.addEventListener(
-"click",
-async () => {
-
-
-    if (!selectedCustomer) {
-
-        return;
-
-    }
-
-
-    const customer =
-        selectedCustomer.data;
-
-
-    if (
-        (customer.stamps || 0) < 6
-    ) {
-
-        showMessage(
-            "Customer has not completed 6 stamps yet.",
-            "error"
-        );
-
-        return;
-
-    }
-
-
-    const confirmReset =
-        confirm(
-            "IMPORTANT:\n\nDid you give the customer their 7th FREE Veg Maggi?\n\nClick OK only AFTER giving the FREE Maggi.\n\nThe loyalty cycle will reset to 0 stamps and start a new 40-day cycle."
-        );
-
-
-    if (!confirmReset) {
-
-        return;
-
-    }
-
-
-    newCycleBtn.disabled =
-        true;
-
-    newCycleBtn.textContent =
-        "Resetting Cycle...";
-
-
-    try {
-
-
-        const customerRef =
-            doc(
-                db,
-                "customers",
-                selectedCustomer.id
-            );
-
-
-        await updateDoc(
-            customerRef,
-            {
-
-                stamps: 0,
-
-                reward: false,
-
-                cycleStartDate:
-                    serverTimestamp(),
-
-                updatedAt:
-                    serverTimestamp(),
-
-                lastRewardGivenAt:
-                    serverTimestamp()
+                return;
 
             }
-        );
 
 
-        /* LOCAL RESET */
-
-        selectedCustomer.data.stamps =
-            0;
+            selectedCustomerData =
+                customerSnap.data();
 
 
-        selectedCustomer.data.reward =
-            false;
+            customerName.textContent =
+                selectedCustomerData.name ||
+                "Customer";
 
 
-        selectedCustomer.data.cycleStartDate =
-            new Date();
+            customerMobile.textContent =
+                selectedCustomerData.mobile ||
+                "Not Available";
 
 
-        displayCustomer(
-            selectedCustomer
-        );
+            updateCustomerDisplay();
 
 
-        showMessage(
-            "🔄 FREE Maggi given successfully! Customer's loyalty cycle has been reset to 0 and a new 40-day cycle has started.",
-            "success"
-        );
+            customerCard.style.display =
+                "block";
 
 
-    }
+        } catch (error) {
 
-    catch (error) {
-
-        console.error(
-            "Reset Error:",
-            error
-        );
-
-
-        showMessage(
-            "Unable to reset loyalty cycle.",
-            "error"
-        );
-
-    }
-
-    finally {
-
-        newCycleBtn.disabled =
-            false;
-
-        newCycleBtn.textContent =
-            "🎁 Free Maggi Given - Reset & Start New Cycle";
-
-    }
-
-});
-
-
-/* =========================================
-   ADMIN LOGOUT
-========================================= */
-
-logoutBtn.addEventListener(
-"click",
-async () => {
-
-    try {
-
-        await signOut(auth);
-
-        window.location.href =
-            "admin-login.html";
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Logout Error:",
-            error
-        );
-
-        showMessage(
-            "Logout failed. Please try again.",
-            "error"
-        );
-
-    }
-
-});
-
-</script>
-
-
-<script>
-
-if ("serviceWorker" in navigator) {
-
-    window.addEventListener(
-        "load",
-        () => {
-
-            navigator.serviceWorker.register(
-                "./service-worker.js"
+            console.error(
+                "Customer Load Error:",
+                error
             );
+
+            alert(
+                "Unable to load customer data."
+            );
+
+            resetScanner();
+
+        }
+
+    }
+
+
+    // =========================
+    // UPDATE CUSTOMER DISPLAY
+    // =========================
+
+    function updateCustomerDisplay() {
+
+        const stamps =
+            Number(
+                selectedCustomerData.stamps || 0
+            );
+
+
+        stampNumber.textContent =
+            stamps;
+
+
+        stampProgress.innerHTML =
+            "";
+
+
+        for (
+            let i = 1;
+            i <= 6;
+            i++
+        ) {
+
+            const dot =
+                document.createElement(
+                    "div"
+                );
+
+
+            dot.className =
+                "stamp-dot";
+
+
+            if (
+                i <= stamps
+            ) {
+
+                dot.classList.add(
+                    "done"
+                );
+
+                dot.textContent =
+                    "✓";
+
+            } else {
+
+                dot.textContent =
+                    i;
+
+            }
+
+
+            stampProgress.appendChild(
+                dot
+            );
+
+        }
+
+
+        // If 6 stamps completed
+
+        if (stamps >= 6) {
+
+            addStampBtn.disabled =
+                true;
+
+            addStampBtn.textContent =
+                "🎉 6 Stamps Completed";
+
+
+            rewardMessage.style.display =
+                "block";
+
+
+            resetBtn.style.display =
+                "block";
+
+        } else {
+
+            addStampBtn.disabled =
+                false;
+
+            addStampBtn.textContent =
+                "✅ Accept & Add 1 Stamp";
+
+
+            rewardMessage.style.display =
+                "none";
+
+
+            resetBtn.style.display =
+                "none";
+
+        }
+
+    }
+
+
+    // =========================
+    // ADD STAMP
+    // =========================
+
+    addStampBtn.addEventListener(
+        "click",
+        async () => {
+
+            if (
+                !selectedCustomerUID ||
+                !selectedCustomerData
+            ) {
+
+                alert(
+                    "Please scan a customer QR first."
+                );
+
+                return;
+
+            }
+
+
+            const currentStamps =
+                Number(
+                    selectedCustomerData.stamps || 0
+                );
+
+
+            if (
+                currentStamps >= 6
+            ) {
+
+                alert(
+                    "Customer already completed 6 stamps."
+                );
+
+                return;
+
+            }
+
+
+            try {
+
+                addStampBtn.disabled =
+                    true;
+
+
+                const newStamps =
+                    currentStamps + 1;
+
+
+                const customerRef =
+                    doc(
+                        db,
+                        "customers",
+                        selectedCustomerUID
+                    );
+
+
+                await updateDoc(
+                    customerRef,
+                    {
+
+                        stamps:
+                            newStamps,
+
+                        lastStampAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+
+                selectedCustomerData.stamps =
+                    newStamps;
+
+
+                updateCustomerDisplay();
+
+
+                successMessage.style.display =
+                    "block";
+
+
+                setTimeout(() => {
+
+                    successMessage.style.display =
+                        "none";
+
+                }, 3000);
+
+
+            } catch (error) {
+
+                console.error(
+                    "Stamp Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to add stamp."
+                );
+
+                addStampBtn.disabled =
+                    false;
+
+            }
 
         }
     );
 
-}
+
+    // =========================
+    // RESET AFTER FREE MAGGI
+    // =========================
+
+    resetBtn.addEventListener(
+        "click",
+        async () => {
+
+            if (
+                !selectedCustomerUID
+            ) {
+
+                return;
+
+            }
+
+
+            const confirmReset =
+                confirm(
+                    "क्या ग्राहक को Free Veg Maggi दे दी गई है?\n\nOK दबाने पर Loyalty Card 0 Stamps से फिर शुरू होगा."
+                );
+
+
+            if (!confirmReset) {
+
+                return;
+
+            }
+
+
+            try {
+
+                resetBtn.disabled =
+                    true;
+
+
+                const customerRef =
+                    doc(
+                        db,
+                        "customers",
+                        selectedCustomerUID
+                    );
+
+
+                await updateDoc(
+                    customerRef,
+                    {
+
+                        stamps: 0,
+
+                        reward: false,
+
+                        lastResetAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+
+                selectedCustomerData.stamps =
+                    0;
+
+
+                selectedCustomerData.reward =
+                    false;
+
+
+                updateCustomerDisplay();
+
+
+                alert(
+                    "✅ Free Maggi completed!\nLoyalty Card reset to 0."
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Reset Error:",
+                    error
+                );
+
+                alert(
+                    "Unable to reset loyalty card."
+                );
+
+            } finally {
+
+                resetBtn.disabled =
+                    false;
+
+            }
+
+        }
+    );
+
+
+    // =========================
+    // SCAN NEXT CUSTOMER
+    // =========================
+
+    function resetScanner() {
+
+        selectedCustomerUID =
+            null;
+
+        selectedCustomerData =
+            null;
+
+        customerCard.style.display =
+            "none";
+
+
+        successMessage.style.display =
+            "none";
+
+        rewardMessage.style.display =
+            "none";
+
+
+        startScanner();
+
+    }
+
+
+    // =========================
+    // LOGOUT
+    // =========================
+
+    document
+        .getElementById("logoutBtn")
+        .addEventListener(
+            "click",
+            async () => {
+
+                try {
+
+                    if (
+                        scanner &&
+                        scannerRunning
+                    ) {
+
+                        await scanner.stop();
+
+                    }
+
+
+                    await signOut(auth);
+
+
+                    window.location.href =
+                        "admin-login.html";
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Logout Error:",
+                        error
+                    );
+
+                    alert(
+                        "Logout failed."
+                    );
+
+                }
+
+            }
+        );
+
+</script>
+
+
+<!-- Service Worker -->
+
+<script>
+
+    if (
+        "serviceWorker" in navigator
+    ) {
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                navigator.serviceWorker.register(
+                    "./service-worker.js"
+                );
+
+            }
+        );
+
+    }
 
 </script>
 
 </body>
+
 </html>
