@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rio Maggi Point - Sign Up</title>
 
-    <!-- PWA Manifest & Favicon Tags -->
+    <title>Rio Maggi Point - Customer Signup</title>
+
+    <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#263525">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Rio Maggi Point">
+    <link rel="icon" href="favicon.ico">
     <link rel="apple-touch-icon" href="icon-192.png">
 
     <style>
@@ -21,21 +26,21 @@
 
         body {
             min-height: 100vh;
+            background: #050505;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #050505;
             padding: 20px;
         }
 
         .container {
             width: 100%;
-            max-width: 420px;
+            max-width: 430px;
             background: #f5d99b;
             border: 3px solid #d19b4a;
             border-radius: 18px;
             padding: 30px;
-            box-shadow: 0 15px 40px rgba(0,0,0,.45);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .45);
         }
 
         h1 {
@@ -46,15 +51,15 @@
 
         .subtitle {
             text-align: center;
-            color: #555;
             margin-bottom: 25px;
+            color: #555;
         }
 
         label {
             display: block;
             margin-bottom: 6px;
-            color: #222;
             font-weight: bold;
+            color: #222;
         }
 
         input {
@@ -97,27 +102,29 @@
 
         .bottom a {
             color: #c62828;
-            text-decoration: none;
             font-weight: bold;
+            text-decoration: none;
         }
 
         .bottom a:hover {
             text-decoration: underline;
         }
+
+        @media(max-width: 450px) {
+            .container {
+                padding: 22px;
+            }
+        }
     </style>
 </head>
-
 <body>
 
 <div class="container">
     <h1>👤 Create Account</h1>
-
-    <p class="subtitle">
-        Join Rio Maggi Point Loyalty Program
-    </p>
+    <p class="subtitle">Join Rio Maggi Point Loyalty Program</p>
 
     <form id="signupForm">
-        <label for="name">Full Name</label>
+        <label>Full Name</label>
         <input
             type="text"
             id="name"
@@ -126,47 +133,76 @@
             required
         >
 
-        <label for="mobile">Mobile Number</label>
+        <label>Mobile Number</label>
         <input
             type="tel"
             id="mobile"
             placeholder="Enter 10-digit mobile number"
-            inputmode="numeric"
             maxlength="10"
-            pattern="[0-9]{10}"
+            inputmode="numeric"
             autocomplete="tel"
+            oninput="this.value=this.value.replace(/[^0-9]/g,'')"
             required
         >
 
-        <label for="email">Email (Optional)</label>
+        <label>Email Address</label>
         <input
             type="email"
             id="email"
             placeholder="Enter your email"
             autocomplete="email"
+            required
         >
 
-        <button type="submit">
-            Create Account
-        </button>
+        <label>Password</label>
+        <input
+            type="password"
+            id="password"
+            placeholder="Minimum 6 characters"
+            required
+        >
+
+        <label>Confirm Password</label>
+        <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm password"
+            required
+        >
+
+        <button type="submit">Create Account</button>
     </form>
 
     <div class="bottom">
-        Already have an account?
-        <a href="login.html">Login</a>
+        Already have an account? <a href="login.html">Login</a>
     </div>
 </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("signupForm");
+<script type="module">
+    import { auth, db } from "./js/firebase-config.js";
+    import {
+        createUserWithEmailAndPassword
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    import {
+        doc,
+        setDoc,
+        collection,
+        query,
+        where,
+        getDocs,
+        serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-    form.addEventListener("submit", function(e) {
+    const signupForm = document.getElementById("signupForm");
+
+    signupForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const name = document.getElementById("name").value.trim();
         const mobile = document.getElementById("mobile").value.trim();
         const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
 
         if (name.length < 3) {
             alert("Please enter a valid name.");
@@ -178,43 +214,80 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const customers = JSON.parse(localStorage.getItem("customers")) || [];
-
-        const alreadyExists = customers.find(customer => customer.mobile === mobile);
-
-        if (alreadyExists) {
-            alert("This mobile number is already registered. Please login.");
-            window.location.href = "login.html";
+        if (password.length < 6) {
+            alert("Password must be at least 6 characters.");
             return;
         }
 
-        const customer = {
-            id: Date.now(),
-            name: name,
-            mobile: mobile,
-            email: email,
-            stamps: 0,
-            reward: false,
-            createdAt: new Date().toISOString()
-        };
+        if (password !== confirmPassword) {
+            alert("Passwords do not match.");
+            return;
+        }
 
-        customers.push(customer);
+        try {
+            // Duplicate Mobile Check
+            const q = query(
+                collection(db, "customers"),
+                where("mobile", "==", mobile)
+            );
 
-        localStorage.setItem("customers", JSON.stringify(customers));
-        localStorage.setItem("currentCustomer", JSON.stringify(customer));
+            const querySnapshot = await getDocs(q);
 
-        alert("Account Created Successfully!");
-        window.location.href = "index.html";
+            if (!querySnapshot.empty) {
+                alert("This mobile number is already registered.");
+                return;
+            }
+
+            // Create Firebase User
+            const userCredential = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+            const user = userCredential.user;
+
+            // Save Customer
+            await setDoc(doc(db, "customers", user.uid), {
+                uid: user.uid,
+                name: name,
+                mobile: mobile,
+                email: email,
+                stamps: 0,
+                reward: false,
+                status: "active",
+                createdAt: serverTimestamp()
+            });
+
+            alert("Account Created Successfully!");
+            window.location.href = "index.html";
+
+        } catch (error) {
+            console.error(error);
+
+            switch (error.code) {
+                case "auth/email-already-in-use":
+                    alert("Email already registered.");
+                    break;
+                case "auth/invalid-email":
+                    alert("Invalid email.");
+                    break;
+                case "auth/weak-password":
+                    alert("Weak password.");
+                    break;
+                default:
+                    alert(error.message);
+            }
+        }
     });
-});
 </script>
 
 <script>
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js");
-    });
-}
+    if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker.register("./service-worker.js");
+        });
+    }
 </script>
 
 </body>
