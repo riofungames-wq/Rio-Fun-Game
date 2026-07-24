@@ -1,1 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rio Loyalty Club | History</title>
+
+    <meta name="theme-color" content="#263525">
+
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/history.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="history-page">
+
+    <header class="topbar">
+
+        <a href="profile.html" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+
+        <h1>
+            Stamp History
+        </h1>
+
+        <div class="top-space"></div>
+
+    </header>
+
+    <section class="customer-card">
+
+        <div class="customer-avatar">
+
+            <img
+            id="customerAvatar"
+            src="assets/avatars/default.png"
+            alt="Avatar">
+
+        </div>
+
+        <div class="customer-info">
+
+            <h2 id="customerName">
+
+                Loading...
+
+            </h2>
+
+            <p id="memberId">
+
+                Member ID
+
+            </p>
+
+        </div>
+
+    </section>
+
+    <section class="summary-cards">
+
+        <div class="summary-card">
+
+            <h3>Total Stamps</h3>
+
+            <h2 id="totalStamps">
+
+                0
+
+            </h2>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h3>Rewards</h3>
+
+            <h2 id="totalRewards">
+
+                0
+
+            </h2>
+
+        </div>
+
+    </section>
+
+    <section class="history-list">
+
+        <h2>
+
+            Activity History
+
+        </h2>
+
+        <div id="historyContainer">
+
+            <!-- Firebase History Here -->
+
+        </div>
+
+    </section>
+          <div class="history-item">
+
+            <div class="history-icon stamp">
+
+                ⭐
+
+            </div>
+
+            <div class="history-details">
+
+                <h3>
+
+                    Welcome to Rio Loyalty Club
+
+                </h3>
+
+                <p>
+
+                    Your activity history will appear here.
+
+                </p>
+
+                <span>
+
+                    Just Now
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="reward-history">
+
+        <h2>
+
+            Reward History
+
+        </h2>
+
+        <div id="rewardHistoryContainer">
+
+            <div class="history-item">
+
+                <div class="history-icon reward">
+
+                    🎁
+
+                </div>
+
+                <div class="history-details">
+
+                    <h3>
+
+                        No Rewards Yet
+
+                    </h3>
+
+                    <p>
+
+                        Unlock 6 stamps to claim your first Free Veg Maggi.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+      <nav class="bottom-nav">
+
+        <a href="index.html">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+
+        <a href="qr.html">
+            <i class="fa-solid fa-qrcode"></i>
+            <span>QR</span>
+        </a>
+
+        <a href="history.html" class="active">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <span>History</span>
+        </a>
+
+        <a href="profile.html">
+            <i class="fa-solid fa-user"></i>
+            <span>Profile</span>
+        </a>
+
+    </nav>
+
+</div>
+
+<!-- JavaScript -->
+<script type="module" src="js/history.js"></script>
+
+</body>
+</html>
