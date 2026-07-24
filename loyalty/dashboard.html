@@ -13,7 +13,7 @@
 
 <link rel="manifest" href="manifest.json">
 
-<!-- Google Font -->
+<!-- Google Fonts -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -26,7 +26,7 @@
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-<!-- CSS -->
+<!-- Global CSS -->
 
 <link rel="stylesheet" href="css/style.css">
 
@@ -36,7 +36,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 <div class="container">
 
-<!-- Header -->
+<!-- ==========================
+HEADER
+========================== -->
 
 <div class="header">
 
@@ -65,105 +67,140 @@ Logout
 
 </div>
 
-<!-- Loyalty Card -->
+<!-- ==========================
+LOYALTY CARD
+========================== -->
 
 <div class="loyalty-card">
-  <!-- =====================================
-CUSTOMER PROFILE
-===================================== -->
 
 <div class="customer-info">
 
-    <div class="customer-avatar">
+<div class="customer-avatar">
 
-        <img
-        id="customerAvatar"
-        src="assets/avatars/default.png"
-        alt="Customer">
-
-    </div>
-
-    <div>
-
-        <div
-        class="customer-name"
-        id="customerName">
-
-        Loading...
-
-        </div>
-
-        <div
-        class="customer-role"
-        id="memberId">
-
-        Member ID : -----
-
-        </div>
-
-    </div>
+<img
+id="customerAvatar"
+src="assets/avatars/default.png"
+alt="Customer">
 
 </div>
 
-<!-- =====================================
+<div>
+
+<div
+class="customer-name"
+id="customerName">
+
+Loading...
+
+</div>
+
+<div
+class="customer-role"
+id="memberId">
+
+Member ID : -----
+
+</div>
+
+</div>
+
+</div>
+<!-- ==========================
 REWARD STATUS
-===================================== -->
+========================== -->
 
 <div class="reward-box">
 
-    <h3>Your Loyalty Progress</h3>
+<h3>Your Loyalty Progress</h3>
 
-    <p id="rewardStatus">
+<p id="rewardStatus">
 
-        Collect 6 stamps to get
-        <strong>1 FREE Veg Maggi</strong>
+Collect 6 stamps to get
+<strong>1 FREE Veg Maggi</strong>
 
-    </p>
+</p>
 
 </div>
 
-<!-- =====================================
+<!-- ==========================
 STAMP GRID
-===================================== -->
+========================== -->
 
 <div
 class="stamp-grid"
 id="stampGrid">
 
-    <div class="stamp-box" id="stamp1">1</div>
+<div class="stamp-box" id="stamp1">1</div>
 
-    <div class="stamp-box" id="stamp2">2</div>
+<div class="stamp-box" id="stamp2">2</div>
 
-    <div class="stamp-box" id="stamp3">3</div>
+<div class="stamp-box" id="stamp3">3</div>
 
-    <div class="stamp-box" id="stamp4">4</div>
+<div class="stamp-box" id="stamp4">4</div>
 
-    <div class="stamp-box" id="stamp5">5</div>
+<div class="stamp-box" id="stamp5">5</div>
 
-    <div class="stamp-box" id="stamp6">🎁</div>
+<div class="stamp-box" id="stamp6">
+🎁
+</div>
 
 </div>
-  <!-- =====================================
-ADVERTISEMENT
-===================================== -->
+
+<!-- ==========================
+MEMBER INFORMATION
+========================== -->
+
+<div class="card" style="margin-top:20px;">
+
+<h3>Membership Details</h3>
+
+<p style="margin-top:12px;">
+<b>Name :</b>
+<span id="infoName">Loading...</span>
+</p>
+
+<p style="margin-top:8px;">
+<b>Email :</b>
+<span id="infoEmail">Loading...</span>
+</p>
+
+<p style="margin-top:8px;">
+<b>Mobile :</b>
+<span id="infoMobile">Loading...</span>
+</p>
+
+<p style="margin-top:8px;">
+<b>Gender :</b>
+<span id="infoGender">Loading...</span>
+</p>
+
+<p style="margin-top:8px;">
+<b>Status :</b>
+<span id="infoStatus">Active</span>
+</p>
+
+</div>
+
+<!-- ==========================
+SPECIAL OFFERS
+========================== -->
 
 <div class="card" style="margin-top:20px;text-align:center;">
 
-    <h3>Special Offers</h3>
+<h3>Today's Special Offer</h3>
 
-    <p>
+<p>
 
-        Exciting offers and promotions will appear here.
+🔥 Buy 5 Maggi and Complete Your Card Faster!
 
-    </p>
-
-</div>
+</p>
 
 </div>
+</div>
 
-<!-- =====================================
+<!-- ==========================
 BOTTOM NAVIGATION
-===================================== -->
+========================== -->
 
 <div class="bottom-nav">
 
@@ -193,11 +230,13 @@ BOTTOM NAVIGATION
 
 </div>
 
-<!-- =====================================
+<!-- ==========================
 JAVASCRIPT
-===================================== -->
+========================== -->
 
 <script src="js/dashboard.js"></script>
+
+<script type="module" src="js/dashboard-firebase.js"></script>
 
 </body>
 
