@@ -1,16 +1,21 @@
 // ======================================
 // RIO LOYALTY CLUB
 // DASHBOARD
+// FINAL VERSION
 // PART 1
 // ======================================
 
 // ---------- Elements ----------
 
 const customerName = document.getElementById("customerName");
-
 const memberId = document.getElementById("memberId");
-
 const customerAvatar = document.getElementById("customerAvatar");
+
+const infoName = document.getElementById("infoName");
+const infoEmail = document.getElementById("infoEmail");
+const infoMobile = document.getElementById("infoMobile");
+const infoGender = document.getElementById("infoGender");
+const infoStatus = document.getElementById("infoStatus");
 
 const rewardStatus = document.getElementById("rewardStatus");
 
@@ -35,32 +40,42 @@ document.getElementById("stamp6")
 ];
 
 // ======================================
-// Load User Data
+// WAIT FOR FIREBASE DATA
 // ======================================
 
-window.addEventListener("load",()=>{
+window.addEventListener("dashboard-ready", () => {
 
 const user = window.currentUser;
 
-if(!user){
+if (!user) return;
 
-alert("Please login first.");
+// Header
 
-window.location.href="login.html";
+customerName.textContent = user.name;
 
-return;
+memberId.textContent = "Member ID : " + user.memberId;
 
-}
+// Profile
 
-customerName.textContent=user.name;
+if (user.avatar) {
 
-memberId.textContent="Member ID : " + user.memberId;
-
-if(user.avatar){
-
-customerAvatar.src=user.avatar;
+customerAvatar.src = user.avatar;
 
 }
+
+// Member Details
+
+infoName.textContent = user.name;
+
+infoEmail.textContent = user.email;
+
+infoMobile.textContent = user.mobile;
+
+infoGender.textContent = user.gender;
+
+infoStatus.textContent = user.status || "Active";
+
+// Stamp Update
 
 updateStamps(user.stamps || 0);
 
@@ -72,7 +87,7 @@ updateStamps(user.stamps || 0);
 
 function updateStamps(totalStamps){
 
-// Reset
+// Reset All
 
 stamps.forEach(box=>{
 
@@ -80,7 +95,7 @@ box.classList.remove("active");
 
 });
 
-// Fill Stamps
+// Fill Active Stamps
 
 for(let i=0;i<totalStamps && i<6;i++){
 
@@ -88,25 +103,44 @@ stamps[i].classList.add("active");
 
 }
 
-// Reward Status
+// Reward Message
 
 if(totalStamps>=6){
 
 rewardStatus.innerHTML=
 
-"🎉 Congratulations!<br><strong>You have earned 1 FREE Veg Maggi.</strong>";
+`
+🎉 <b>Congratulations!</b><br>
+
+You earned
+
+<b>1 FREE Veg Maggi 🍜</b>
+
+`;
 
 }else{
 
+const remaining = 6-totalStamps;
+
 rewardStatus.innerHTML=
 
-`You have <strong>${totalStamps}</strong> stamp${totalStamps===1?"":"s"}.
+`
+You have <b>${totalStamps}</b>
+stamp${totalStamps===1?"":"s"}.
 
-<br>
+<br><br>
 
-Collect <strong>${6-totalStamps}</strong> more to get
+Collect
 
-<strong>1 FREE Veg Maggi</strong>.`;
+<b>${remaining}</b>
+
+more stamp${remaining===1?"":"s"}
+
+to get
+
+<b>1 FREE Veg Maggi 🍜</b>
+
+`;
 
 }
 
@@ -118,14 +152,20 @@ Collect <strong>${6-totalStamps}</strong> more to get
 
 logoutBtn.addEventListener("click", async () => {
 
-    const confirmLogout = confirm("Are you sure you want to logout?");
+    const confirmLogout = confirm(
+        "Are you sure you want to logout?"
+    );
 
     if (!confirmLogout) return;
 
     try {
 
-        // Firebase Auth Logout
-        const { getAuth, signOut } = await import(
+        // Firebase Logout
+
+        const {
+            getAuth,
+            signOut
+        } = await import(
             "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js"
         );
 
@@ -133,16 +173,21 @@ logoutBtn.addEventListener("click", async () => {
 
         await signOut(auth);
 
-        // Clear Session
-        sessionStorage.removeItem("rioLoggedIn");
+        // Clear Global Data
+
         window.currentUser = null;
 
+        sessionStorage.removeItem("rioLoggedIn");
+
         // Redirect
-        window.location.href = "login.html";
 
-    } catch (error) {
+        window.location.replace("login.html");
 
-        console.error("Logout Error:", error);
+    }
+
+    catch(error){
+
+        console.error("Logout Error :", error);
 
         alert("Logout failed. Please try again.");
 
@@ -153,4 +198,3 @@ logoutBtn.addEventListener("click", async () => {
 // ======================================
 // END OF FILE
 // ======================================
-
