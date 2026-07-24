@@ -4,100 +4,111 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Create Account | Rio Maggi Point</title>
+    <title>Rio Loyalty Club | Create Account</title>
 
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#D4AF37">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
-
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
+        rel="stylesheet">
 
     <!-- Font Awesome -->
 
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <!-- Global CSS -->
 
     <link rel="stylesheet"
-          href="css/style.css">
+        href="css/style.css">
+
+    <!-- Multi Step CSS -->
+
+    <link rel="stylesheet"
+        href="css/multistep-signup.css">
 
 </head>
 
 <body>
 
-<div class="page">
+<div class="signup-page">
 
-<div class="container">
+<div class="signup-card">
 
-<div class="card">
+<!-- Logo -->
 
-<!-- ===========================
-     HEADER
-=========================== -->
+<div class="logo-box">
 
-<div class="logo">
-
-<img src="assets/logo/logo.png"
-     alt="Rio Maggi Point">
-
-<div>
+<img
+src="assets/logo/logo.png"
+alt="Rio Maggi Point">
 
 <h2>Create Account</h2>
 
 <p>
-Join Rio Maggi Point Loyalty Program
+
+Rio Loyalty Club
+
 </p>
 
 </div>
 
+<!-- Progress -->
+
+<div class="progress-wrapper">
+
+<div class="progress-bar">
+
+<div
+class="progress-fill"
+id="progressFill">
+
 </div>
 
-<!-- ===========================
-     MESSAGE BOX
-=========================== -->
-
-<div id="msgBox"
-     style="display:none;">
 </div>
 
-<!-- ===========================
-     SIGNUP FORM
-=========================== -->
+<div class="progress-text">
+
+Step
+
+<span id="stepNumber">
+
+1
+
+</span>
+
+of 4
+
+</div>
+
+</div>
 
 <form id="signupForm">
 
-<!-- Profile Preview -->
+<!-- =======================
+STEP 1
+======================= -->
 
-<div class="profile-preview">
+<div
+class="step active"
+data-step="1">
 
-<img id="previewImage"
+<h3>
 
-src="assets/avatars/default-avatar.png"
+Account Information
 
-alt="Profile Preview">
-
-</div>
-
-<!-- Full Name -->
+</h3>
 
 <div class="form-group">
 
 <label>
-
-<i class="fa-solid fa-user"></i>
 
 Full Name
 
@@ -106,19 +117,14 @@ Full Name
 <input
 type="text"
 id="name"
-class="input-box"
 placeholder="Enter your full name"
 required>
 
 </div>
 
-<!-- Mobile Number -->
-
 <div class="form-group">
 
 <label>
-
-<i class="fa-solid fa-phone"></i>
 
 Mobile Number
 
@@ -127,19 +133,15 @@ Mobile Number
 <input
 type="tel"
 id="mobile"
-class="input-box"
 maxlength="10"
-placeholder="Enter your mobile number"
+placeholder="10 Digit Mobile Number"
 required>
 
 </div>
-<!-- Email -->
 
 <div class="form-group">
 
 <label>
-
-<i class="fa-solid fa-envelope"></i>
 
 Email Address
 
@@ -148,19 +150,14 @@ Email Address
 <input
 type="email"
 id="email"
-class="input-box"
-placeholder="Enter your email address"
+placeholder="Enter your email"
 required>
 
 </div>
 
-<!-- Password -->
-
 <div class="form-group">
 
 <label>
-
-<i class="fa-solid fa-lock"></i>
 
 Password
 
@@ -169,19 +166,14 @@ Password
 <input
 type="password"
 id="password"
-class="input-box"
-placeholder="Minimum 6 characters"
+placeholder="Minimum 6 Characters"
 required>
 
 </div>
 
-<!-- Confirm Password -->
-
 <div class="form-group">
 
 <label>
-
-<i class="fa-solid fa-shield-halved"></i>
 
 Confirm Password
 
@@ -190,445 +182,23 @@ Confirm Password
 <input
 type="password"
 id="confirmPassword"
-class="input-box"
-placeholder="Re-enter your password"
+placeholder="Confirm Password"
 required>
 
 </div>
 
-<!-- Gender -->
-
-<div class="form-group">
-
-<label>
-
-<i class="fa-solid fa-venus-mars"></i>
-
-Gender
-
-</label>
-
-<div class="gender-box">
-
-<label class="gender-option">
-
-<input
-type="radio"
-name="gender"
-value="male"
-required>
-
-<span>Male</span>
-
-</label>
-
-<label class="gender-option">
-
-<input
-type="radio"
-name="gender"
-value="female">
-
-<span>Female</span>
-
-</label>
-
-</div>
-
-</div>
-
-<!-- Avatar Section -->
-
-<div id="avatarSection"
-style="display:none;">
-
-<h3>
-
-Choose Your Avatar
-
-</h3>
-
-<div
-class="avatar-grid"
-id="avatarGrid">
-
-<!-- JavaScript will load avatars here -->
-
-</div>
-
-</div>
-<!-- Upload Photo Tile -->
-
-<div class="upload-avatar">
-
-<label for="photoInput" class="upload-tile">
-
-<i class="fa-solid fa-camera"></i>
-
-<span>Upload Photo</span>
-
-</label>
-
-<input
-type="file"
-id="photoInput"
-accept="image/png,image/jpeg,image/webp"
-hidden>
-
-</div>
-
-<!-- Copyright Confirmation -->
-
-<div class="form-group">
-
-<label class="checkbox-label">
-
-<input
-type="checkbox"
-id="copyrightAgree"
-required>
-
-<span>
-
-I confirm that I have the right to use this profile photo and understand that I am responsible for any uploaded content.
-
-</span>
-
-</label>
-
-</div>
-
-<!-- Future Advertisement -->
-
-<div class="ad-placeholder">
-
-<div class="ad-title">
-
-Future Advertisement
-
-</div>
-
-<div class="ad-text">
-
-Google AdSense Banner will appear here after approval.
-
-</div>
-
-</div>
-
-<!-- Create Account -->
+<div class="button-row">
 
 <button
-type="submit"
-class="btn"
-id="signupBtn">
+type="button"
+class="next-btn">
 
-<i class="fa-solid fa-user-plus"></i>
+Continue
 
-&nbsp;
-
-Create Account
+<i class="fa-solid fa-arrow-right"></i>
 
 </button>
 
-</form>
-
-<!-- Login -->
-
-<div class="login-link">
-
-Already have an account?
-
-<a href="login.html">
-
-Login Here
-
-</a>
-
-</div>
-<script type="module">
-
-import { auth, db } from "./js/firebase-config.js";
-
-import {
-createUserWithEmailAndPassword
-}
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-import {
-doc,
-setDoc,
-serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-/* --------------------------
-   Variables
--------------------------- */
-
-const signupForm = document.getElementById("signupForm");
-const previewImage = document.getElementById("previewImage");
-const avatarSection = document.getElementById("avatarSection");
-const avatarGrid = document.getElementById("avatarGrid");
-const photoInput = document.getElementById("photoInput");
-
-let selectedAvatar = "";
-let uploadedPhoto = "";
-let selectedGender = "";
-
-/* --------------------------
-   Avatar List
--------------------------- */
-
-const maleAvatars = [
-
-"assets/avatars/male/male-01.webp",
-"assets/avatars/male/male-02.webp",
-"assets/avatars/male/male-03.webp",
-"assets/avatars/male/male-04.webp",
-"assets/avatars/male/male-05.webp",
-"assets/avatars/male/male-06.webp",
-"assets/avatars/male/male-07.webp",
-"assets/avatars/male/male-08.webp"
-
-];
-
-const femaleAvatars = [
-
-"assets/avatars/female/female-01.webp",
-"assets/avatars/female/female-02.webp",
-"assets/avatars/female/female-03.webp",
-"assets/avatars/female/female-04.webp",
-"assets/avatars/female/female-05.webp",
-"assets/avatars/female/female-06.webp",
-"assets/avatars/female/female-07.webp",
-"assets/avatars/female/female-08.webp"
-
-];
-
-/* --------------------------
-   Gender Change
--------------------------- */
-
-document
-.querySelectorAll('input[name="gender"]')
-.forEach(radio => {
-
-radio.addEventListener("change", () => {
-
-selectedGender = radio.value;
-
-avatarSection.style.display = "block";
-
-loadAvatars(
-selectedGender === "male"
-? maleAvatars
-: femaleAvatars
-);
-
-});
-
-});
-
-function loadAvatars(list){
-
-avatarGrid.innerHTML="";
-
-list.forEach(path=>{
-
-const div=document.createElement("div");
-
-div.className="avatar-item";
-
-div.innerHTML=`
-<img src="${path}">
-`;
-
-div.onclick=()=>{
-
-document
-.querySelectorAll(".avatar-item")
-.forEach(v=>v.classList.remove("selected"));
-
-div.classList.add("selected");
-
-selectedAvatar=path;
-
-previewImage.src=path;
-
-uploadedPhoto="";
-
-};
-
-avatarGrid.appendChild(div);
-
-});
-
-}
-    /* --------------------------
-   Upload Photo
--------------------------- */
-
-photoInput.addEventListener("change", (e) => {
-
-    const file = e.target.files[0];
-
-    if (!file) return;
-
-    if (file.size > 2 * 1024 * 1024) {
-        alert("Please upload an image smaller than 2 MB.");
-        photoInput.value = "";
-        return;
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = function (event) {
-
-        uploadedPhoto = event.target.result;
-
-        previewImage.src = uploadedPhoto;
-
-        selectedAvatar = "";
-
-        document
-            .querySelectorAll(".avatar-item")
-            .forEach(item => item.classList.remove("selected"));
-
-    };
-
-    reader.readAsDataURL(file);
-
-});
-
-/* --------------------------
-   Signup
--------------------------- */
-
-signupForm.addEventListener("submit", async (e) => {
-
-    e.preventDefault();
-
-    const name = document.getElementById("name").value.trim();
-
-    const mobile = document.getElementById("mobile").value.trim();
-
-    const email = document.getElementById("email").value.trim();
-
-    const password = document.getElementById("password").value;
-
-    const confirmPassword =
-        document.getElementById("confirmPassword").value;
-
-    const copyrightAgree =
-        document.getElementById("copyrightAgree").checked;
-
-    if (password !== confirmPassword) {
-
-        alert("Passwords do not match.");
-
-        return;
-
-    }
-
-    if (!selectedGender) {
-
-        alert("Please select your gender.");
-
-        return;
-
-    }
-
-    if (!selectedAvatar && !uploadedPhoto) {
-
-        alert("Please choose an avatar or upload your photo.");
-
-        return;
-
-    }
-
-    if (!copyrightAgree) {
-
-        alert("Please confirm the copyright declaration.");
-
-        return;
-
-    }
-
-    try {
-
-        const userCredential =
-            await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-
-        const user = userCredential.user;
-
-        await setDoc(doc(db, "customers", user.uid), {
-
-            uid: user.uid,
-
-            name: name,
-
-            mobile: mobile,
-
-            email: email,
-
-            gender: selectedGender,
-
-            avatar: selectedAvatar,
-
-            photoURL: uploadedPhoto,
-
-            stamps: 0,
-
-            reward: false,
-
-            rewardUnlocked: false,
-
-            rewardRedeemed: false,
-
-            status: "active",
-
-            createdAt: serverTimestamp(),
-
-            updatedAt: serverTimestamp()
-
-        });
-
-        window.location.href = "index.html";
-
-    }
-
-    catch (error) {
-
-        alert(error.message);
-
-    }
-
-});
-    /* --------------------------
-   Future Features
--------------------------- */
-
-// Google AdSense Placeholder
-// Push Notifications
-// Feedback System
-// Loyalty Reward Animation
-// Profile Edit
-// QR Auto Refresh
-// These will be added in future updates.
-
-</script>
-
 </div>
 
 </div>
-
-</div>
-
-</body>
-
-</html>
