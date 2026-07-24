@@ -4,7 +4,8 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Create Account | Rio Maggi Point</title>
 
@@ -13,17 +14,25 @@
     <meta name="theme-color" content="#D4AF37">
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 
     <!-- Font Awesome -->
+
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <!-- Global CSS -->
-    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet"
+          href="css/style.css">
 
 </head>
 
@@ -35,133 +44,50 @@
 
 <div class="card">
 
-<!-- Header -->
+<!-- ===========================
+     HEADER
+=========================== -->
 
 <div class="logo">
 
-<img src="assets/logo/logo.png" alt="Rio Maggi Point Logo">
+<img src="assets/logo/logo.png"
+     alt="Rio Maggi Point">
 
 <div>
 
 <h2>Create Account</h2>
 
-<p>Join Rio Maggi Point Loyalty Program</p>
+<p>
+Join Rio Maggi Point Loyalty Program
+</p>
 
 </div>
 
 </div>
 
-<!-- Message Box -->
+<!-- ===========================
+     MESSAGE BOX
+=========================== -->
 
 <div id="msgBox"
-style="display:none;margin-top:20px;"></div>
+     style="display:none;">
+</div>
 
-<!-- Signup Form -->
+<!-- ===========================
+     SIGNUP FORM
+=========================== -->
 
 <form id="signupForm">
 
 <!-- Profile Preview -->
 
-<div
-style="display:flex;justify-content:center;margin:25px 0;">
+<div class="profile-preview">
 
-<div id="profilePreview"
+<img id="previewImage"
 
-style="width:100px;
-height:100px;
-border-radius:50%;
-border:4px solid var(--primary);
-overflow:hidden;
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:center;">
+src="assets/avatars/default-avatar.png"
 
-<img
-id="previewImage"
-src="assets/avatars/boy-01.png"
-alt="Avatar"
-
-style="width:100%;
-height:100%;
-object-fit:cover;">
-
-</div>
-
-</div>
-<!-- Avatar Type -->
-
-<h3 style="margin-bottom:15px;">Choose Avatar</h3>
-
-<div style="display:flex;gap:10px;margin-bottom:20px;">
-
-<button type="button"
-class="btn"
-id="boyBtn"
-style="flex:1;">
-Boy
-</button>
-
-<button type="button"
-class="btn"
-id="girlBtn"
-style="flex:1;">
-Girl
-</button>
-
-</div>
-
-<!-- Avatar Grid -->
-
-<div class="avatar-grid" id="avatarGrid">
-
-<div class="avatar-item selected">
-<img src="assets/avatars/boy-01.png" data-avatar="boy-01.png">
-</div>
-
-<div class="avatar-item">
-<img src="assets/avatars/boy-02.png" data-avatar="boy-02.png">
-</div>
-
-<div class="avatar-item">
-<img src="assets/avatars/boy-03.png" data-avatar="boy-03.png">
-</div>
-
-<div class="avatar-item">
-<img src="assets/avatars/boy-04.png" data-avatar="boy-04.png">
-</div>
-
-<div class="avatar-item">
-<img src="assets/avatars/boy-05.png" data-avatar="boy-05.png">
-</div>
-
-<div class="avatar-item">
-<img src="assets/avatars/boy-06.png" data-avatar="boy-06.png">
-</div>
-
-<div class="avatar-item">
-<img src="assets/avatars/boy-07.png" data-avatar="boy-07.png">
-</div>
-
-<div class="avatar-item">
-<img src="assets/avatars/boy-08.png" data-avatar="boy-08.png">
-</div>
-
-</div>
-
-<!-- Upload Photo -->
-
-<div class="upload-box" style="margin-top:20px;">
-
-<i class="fa-solid fa-camera"></i>
-
-<p>Or Upload Your Own Photo</p>
-
-<input
-type="file"
-id="photoInput"
-accept="image/*"
-style="margin-top:10px;">
+alt="Profile Preview">
 
 </div>
 
@@ -169,7 +95,13 @@ style="margin-top:10px;">
 
 <div class="form-group">
 
-<label>Full Name</label>
+<label>
+
+<i class="fa-solid fa-user"></i>
+
+Full Name
+
+</label>
 
 <input
 type="text"
@@ -180,18 +112,24 @@ required>
 
 </div>
 
-<!-- Mobile -->
+<!-- Mobile Number -->
 
 <div class="form-group">
 
-<label>Mobile Number</label>
+<label>
+
+<i class="fa-solid fa-phone"></i>
+
+Mobile Number
+
+</label>
 
 <input
 type="tel"
 id="mobile"
 class="input-box"
 maxlength="10"
-placeholder="Enter 10 digit mobile number"
+placeholder="Enter your mobile number"
 required>
 
 </div>
@@ -199,13 +137,19 @@ required>
 
 <div class="form-group">
 
-<label>Email Address</label>
+<label>
+
+<i class="fa-solid fa-envelope"></i>
+
+Email Address
+
+</label>
 
 <input
 type="email"
 id="email"
 class="input-box"
-placeholder="Enter your email"
+placeholder="Enter your email address"
 required>
 
 </div>
@@ -214,7 +158,13 @@ required>
 
 <div class="form-group">
 
-<label>Password</label>
+<label>
+
+<i class="fa-solid fa-lock"></i>
+
+Password
+
+</label>
 
 <input
 type="password"
@@ -229,18 +179,144 @@ required>
 
 <div class="form-group">
 
-<label>Confirm Password</label>
+<label>
+
+<i class="fa-solid fa-shield-halved"></i>
+
+Confirm Password
+
+</label>
 
 <input
 type="password"
 id="confirmPassword"
 class="input-box"
-placeholder="Re-enter password"
+placeholder="Re-enter your password"
 required>
 
 </div>
 
-<!-- Create Account Button -->
+<!-- Gender -->
+
+<div class="form-group">
+
+<label>
+
+<i class="fa-solid fa-venus-mars"></i>
+
+Gender
+
+</label>
+
+<div class="gender-box">
+
+<label class="gender-option">
+
+<input
+type="radio"
+name="gender"
+value="male"
+required>
+
+<span>Male</span>
+
+</label>
+
+<label class="gender-option">
+
+<input
+type="radio"
+name="gender"
+value="female">
+
+<span>Female</span>
+
+</label>
+
+</div>
+
+</div>
+
+<!-- Avatar Section -->
+
+<div id="avatarSection"
+style="display:none;">
+
+<h3>
+
+Choose Your Avatar
+
+</h3>
+
+<div
+class="avatar-grid"
+id="avatarGrid">
+
+<!-- JavaScript will load avatars here -->
+
+</div>
+
+</div>
+<!-- Upload Photo Tile -->
+
+<div class="upload-avatar">
+
+<label for="photoInput" class="upload-tile">
+
+<i class="fa-solid fa-camera"></i>
+
+<span>Upload Photo</span>
+
+</label>
+
+<input
+type="file"
+id="photoInput"
+accept="image/png,image/jpeg,image/webp"
+hidden>
+
+</div>
+
+<!-- Copyright Confirmation -->
+
+<div class="form-group">
+
+<label class="checkbox-label">
+
+<input
+type="checkbox"
+id="copyrightAgree"
+required>
+
+<span>
+
+I confirm that I have the right to use this profile photo and understand that I am responsible for any uploaded content.
+
+</span>
+
+</label>
+
+</div>
+
+<!-- Future Advertisement -->
+
+<div class="ad-placeholder">
+
+<div class="ad-title">
+
+Future Advertisement
+
+</div>
+
+<div class="ad-text">
+
+Google AdSense Banner will appear here after approval.
+
+</div>
+
+</div>
+
+<!-- Create Account -->
 
 <button
 type="submit"
@@ -259,153 +335,291 @@ Create Account
 
 <!-- Login -->
 
-<p
-style="
-text-align:center;
-margin-top:20px;">
+<div class="login-link">
 
 Already have an account?
 
-<a
-href="login.html"
-style="
-font-weight:700;
-color:var(--primary-dark);">
+<a href="login.html">
 
-Login
+Login Here
 
 </a>
 
-</p>
+</div>
 <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { auth, db } from "./js/firebase-config.js";
 
-import { firebaseConfig } from "./js/firebase-config.js";
+import {
+createUserWithEmailAndPassword
+}
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+import {
+doc,
+setDoc,
+serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// Avatar Selection
+/* --------------------------
+   Variables
+-------------------------- */
 
-let selectedAvatar = "boy-01.png";
+const signupForm = document.getElementById("signupForm");
+const previewImage = document.getElementById("previewImage");
+const avatarSection = document.getElementById("avatarSection");
+const avatarGrid = document.getElementById("avatarGrid");
+const photoInput = document.getElementById("photoInput");
 
-document.querySelectorAll(".avatar-item").forEach(item => {
+let selectedAvatar = "";
+let uploadedPhoto = "";
+let selectedGender = "";
 
-    item.addEventListener("click", () => {
+/* --------------------------
+   Avatar List
+-------------------------- */
 
-        document.querySelectorAll(".avatar-item").forEach(i=>i.classList.remove("selected"));
+const maleAvatars = [
 
-        item.classList.add("selected");
+"assets/avatars/male/male-01.webp",
+"assets/avatars/male/male-02.webp",
+"assets/avatars/male/male-03.webp",
+"assets/avatars/male/male-04.webp",
+"assets/avatars/male/male-05.webp",
+"assets/avatars/male/male-06.webp",
+"assets/avatars/male/male-07.webp",
+"assets/avatars/male/male-08.webp"
 
-        const img = item.querySelector("img");
+];
 
-        selectedAvatar = img.dataset.avatar;
+const femaleAvatars = [
 
-        document.getElementById("previewImage").src = img.src;
+"assets/avatars/female/female-01.webp",
+"assets/avatars/female/female-02.webp",
+"assets/avatars/female/female-03.webp",
+"assets/avatars/female/female-04.webp",
+"assets/avatars/female/female-05.webp",
+"assets/avatars/female/female-06.webp",
+"assets/avatars/female/female-07.webp",
+"assets/avatars/female/female-08.webp"
 
-    });
+];
+
+/* --------------------------
+   Gender Change
+-------------------------- */
+
+document
+.querySelectorAll('input[name="gender"]')
+.forEach(radio => {
+
+radio.addEventListener("change", () => {
+
+selectedGender = radio.value;
+
+avatarSection.style.display = "block";
+
+loadAvatars(
+selectedGender === "male"
+? maleAvatars
+: femaleAvatars
+);
 
 });
 
-// Photo Upload
+});
 
-const photoInput = document.getElementById("photoInput");
+function loadAvatars(list){
 
-photoInput.addEventListener("change",(e)=>{
+avatarGrid.innerHTML="";
 
-    const file=e.target.files[0];
+list.forEach(path=>{
 
-    if(!file) return;
+const div=document.createElement("div");
 
-    const reader=new FileReader();
+div.className="avatar-item";
 
-    reader.onload=function(ev){
+div.innerHTML=`
+<img src="${path}">
+`;
 
-        document.getElementById("previewImage").src=ev.target.result;
+div.onclick=()=>{
 
+document
+.querySelectorAll(".avatar-item")
+.forEach(v=>v.classList.remove("selected"));
+
+div.classList.add("selected");
+
+selectedAvatar=path;
+
+previewImage.src=path;
+
+uploadedPhoto="";
+
+};
+
+avatarGrid.appendChild(div);
+
+});
+
+}
+    /* --------------------------
+   Upload Photo
+-------------------------- */
+
+photoInput.addEventListener("change", (e) => {
+
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    if (file.size > 2 * 1024 * 1024) {
+        alert("Please upload an image smaller than 2 MB.");
+        photoInput.value = "";
+        return;
     }
+
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+
+        uploadedPhoto = event.target.result;
+
+        previewImage.src = uploadedPhoto;
+
+        selectedAvatar = "";
+
+        document
+            .querySelectorAll(".avatar-item")
+            .forEach(item => item.classList.remove("selected"));
+
+    };
 
     reader.readAsDataURL(file);
 
 });
 
-// Signup
+/* --------------------------
+   Signup
+-------------------------- */
 
-const signupForm=document.getElementById("signupForm");
+signupForm.addEventListener("submit", async (e) => {
 
-signupForm.addEventListener("submit",async(e)=>{
+    e.preventDefault();
 
-e.preventDefault();
+    const name = document.getElementById("name").value.trim();
 
-const name=document.getElementById("name").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
 
-const mobile=document.getElementById("mobile").value.trim();
+    const email = document.getElementById("email").value.trim();
 
-const email=document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
 
-const password=document.getElementById("password").value;
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
 
-const confirmPassword=document.getElementById("confirmPassword").value;
+    const copyrightAgree =
+        document.getElementById("copyrightAgree").checked;
 
-if(password!==confirmPassword){
+    if (password !== confirmPassword) {
 
-alert("Passwords do not match.");
+        alert("Passwords do not match.");
 
-return;
+        return;
 
-}
+    }
 
-try{
+    if (!selectedGender) {
 
-const userCredential=await createUserWithEmailAndPassword(auth,email,password);
+        alert("Please select your gender.");
 
-const user=userCredential.user;
+        return;
 
-await setDoc(doc(db,"customers",user.uid),{
+    }
 
-uid:user.uid,
+    if (!selectedAvatar && !uploadedPhoto) {
 
-name:name,
+        alert("Please choose an avatar or upload your photo.");
 
-mobile:mobile,
+        return;
 
-email:email,
+    }
 
-avatar:selectedAvatar,
+    if (!copyrightAgree) {
 
-photoURL:"",
+        alert("Please confirm the copyright declaration.");
 
-stamps:0,
+        return;
 
-reward:false,
+    }
 
-rewardUnlocked:false,
+    try {
 
-rewardRedeemed:false,
+        const userCredential =
+            await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
 
-status:"active",
+        const user = userCredential.user;
 
-createdAt:serverTimestamp(),
+        await setDoc(doc(db, "customers", user.uid), {
 
-updatedAt:serverTimestamp()
+            uid: user.uid,
+
+            name: name,
+
+            mobile: mobile,
+
+            email: email,
+
+            gender: selectedGender,
+
+            avatar: selectedAvatar,
+
+            photoURL: uploadedPhoto,
+
+            stamps: 0,
+
+            reward: false,
+
+            rewardUnlocked: false,
+
+            rewardRedeemed: false,
+
+            status: "active",
+
+            createdAt: serverTimestamp(),
+
+            updatedAt: serverTimestamp()
+
+        });
+
+        window.location.href = "index.html";
+
+    }
+
+    catch (error) {
+
+        alert(error.message);
+
+    }
 
 });
+    /* --------------------------
+   Future Features
+-------------------------- */
 
-window.location.href="index.html";
-
-}
-
-catch(error){
-
-alert(error.message);
-
-}
-
-});
+// Google AdSense Placeholder
+// Push Notifications
+// Feedback System
+// Loyalty Reward Animation
+// Profile Edit
+// QR Auto Refresh
+// These will be added in future updates.
 
 </script>
 
