@@ -1,7 +1,7 @@
 /* ==========================================
    RIO MAGGI POINT
    ADMIN DASHBOARD
-   PART 1
+   PART 1 : ROOT + RESET + LAYOUT
 ========================================== */
 
 :root{
@@ -13,14 +13,17 @@
     --green-dark:#1B271B;
 
     --white:#FFFFFF;
+
     --bg:#F5F6F8;
 
     --border:#E5E7EB;
 
     --text:#1F2937;
+
     --text-light:#6B7280;
 
     --success:#22C55E;
+
     --danger:#EF4444;
 
     --shadow:0 12px 30px rgba(0,0,0,.08);
@@ -30,22 +33,45 @@
 *{
 
     margin:0;
+
     padding:0;
+
     box-sizing:border-box;
+
     font-family:'Poppins',sans-serif;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
 
 }
 
 body{
 
     background:var(--bg);
+
     color:var(--text);
+
+}
+
+a{
+
+    text-decoration:none;
+
+}
+
+button{
+
+    font-family:inherit;
 
 }
 
 .dashboard{
 
     display:flex;
+
     min-height:100vh;
 
 }
@@ -57,6 +83,7 @@ body{
 .sidebar{
 
     width:260px;
+
     background:linear-gradient(
         180deg,
         var(--green),
@@ -65,13 +92,15 @@ body{
 
     color:#fff;
 
-    padding:25px;
-
     position:fixed;
 
     top:0;
+
     left:0;
+
     bottom:0;
+
+    padding:25px;
 
     overflow-y:auto;
 
@@ -85,25 +114,20 @@ body{
 
 }
 
-.logo img{
-
-    width:90px;
-    margin-bottom:15px;
-
-}
-
 .logo h2{
 
     color:var(--primary);
-    font-size:28px;
+
+    font-size:30px;
+
+    margin-bottom:6px;
 
 }
 
 .logo span{
 
-    display:block;
-    margin-top:6px;
     color:#ddd;
+
     font-size:14px;
 
 }
@@ -121,6 +145,7 @@ body{
 }
 
 .sidebar a,
+
 .sidebar button{
 
     width:100%;
@@ -131,15 +156,13 @@ body{
 
     gap:12px;
 
-    border:none;
+    padding:15px 16px;
 
     background:none;
 
+    border:none;
+
     color:#fff;
-
-    text-decoration:none;
-
-    padding:14px 16px;
 
     border-radius:14px;
 
@@ -152,7 +175,9 @@ body{
 }
 
 .sidebar a:hover,
+
 .sidebar button:hover,
+
 .sidebar .active a{
 
     background:rgba(255,255,255,.15);
@@ -181,23 +206,23 @@ body{
 
     align-items:center;
 
-    margin-bottom:30px;
+    margin-bottom:35px;
 
 }
 
 .topbar h1{
 
-    color:var(--green);
-
     font-size:32px;
+
+    color:var(--green);
 
 }
 
 .topbar p{
 
-    color:var(--text-light);
-
     margin-top:6px;
+
+    color:var(--text-light);
 
 }
 
@@ -205,13 +230,13 @@ body{
 
     background:#fff;
 
-    padding:14px 20px;
+    padding:14px 22px;
 
     border-radius:14px;
 
-    font-weight:700;
-
     box-shadow:var(--shadow);
+
+    font-weight:700;
 
 }
 /* ==========================================
@@ -222,7 +247,7 @@ body{
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 
     gap:22px;
 
@@ -232,7 +257,7 @@ body{
 
 .card{
 
-    background:#fff;
+    background:var(--white);
 
     border-radius:18px;
 
@@ -240,7 +265,7 @@ body{
 
     box-shadow:var(--shadow);
 
-    border-left:5px solid var(--primary);
+    border-left:6px solid var(--primary);
 
     transition:.25s;
 
@@ -248,7 +273,9 @@ body{
 
 .card:hover{
 
-    transform:translateY(-4px);
+    transform:translateY(-5px);
+
+    box-shadow:0 18px 35px rgba(0,0,0,.12);
 
 }
 
@@ -259,6 +286,8 @@ body{
     font-size:15px;
 
     margin-bottom:12px;
+
+    font-weight:600;
 
 }
 
@@ -278,7 +307,7 @@ body{
 
 .customer-section{
 
-    background:#fff;
+    background:var(--white);
 
     border-radius:18px;
 
@@ -286,7 +315,7 @@ body{
 
     box-shadow:var(--shadow);
 
-    margin-bottom:30px;
+    margin-bottom:35px;
 
 }
 
@@ -300,7 +329,7 @@ body{
 
     gap:20px;
 
-    margin-bottom:22px;
+    margin-bottom:20px;
 
 }
 
@@ -314,13 +343,11 @@ body{
 
 #searchCustomer{
 
-    width:320px;
+    width:300px;
 
     max-width:100%;
 
-    height:48px;
-
-    padding:0 16px;
+    padding:13px 16px;
 
     border:2px solid var(--border);
 
@@ -330,17 +357,17 @@ body{
 
     transition:.25s;
 
+    font-size:15px;
+
 }
 
 #searchCustomer:focus{
 
     border-color:var(--primary);
 
-}
+    box-shadow:0 0 0 4px rgba(245,158,11,.15);
 
-/* ==========================================
-   TABLE
-========================================== */
+}
 
 .table-wrapper{
 
@@ -380,6 +407,14 @@ td{
 
     border-bottom:1px solid #ECECEC;
 
+    font-size:15px;
+
+}
+
+tbody tr{
+
+    transition:.25s;
+
 }
 
 tbody tr:hover{
@@ -396,7 +431,7 @@ tbody tr:hover{
 
     border:none;
 
-    padding:10px 16px;
+    padding:9px 15px;
 
     border-radius:10px;
 
@@ -409,23 +444,34 @@ tbody tr:hover{
 }
 
 .viewBtn:hover{
-   /* ==========================================
-   CUSTOMER MODAL
+
+    background:var(--primary-dark);
+
+}
+/* ==========================================
+   CUSTOMER DETAILS MODAL
 ========================================== */
 
 .modal{
 
     display:none;
+
     position:fixed;
+
     inset:0;
+
     background:rgba(0,0,0,.55);
+
     z-index:999;
+
+    backdrop-filter:blur(4px);
 
 }
 
 .modal-content{
 
     width:90%;
+
     max-width:560px;
 
     background:#fff;
@@ -438,7 +484,29 @@ tbody tr:hover{
 
     position:relative;
 
-    box-shadow:var(--shadow);
+    box-shadow:0 20px 60px rgba(0,0,0,.20);
+
+    animation:popup .25s ease;
+
+}
+
+@keyframes popup{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
 
 }
 
@@ -448,7 +516,7 @@ tbody tr:hover{
 
     top:18px;
 
-    right:20px;
+    right:22px;
 
     font-size:30px;
 
@@ -462,39 +530,25 @@ tbody tr:hover{
 
 .closeModal:hover{
 
-    color:#000;
+    color:var(--danger);
 
 }
 
-.modal-content h2{
+#customerInfo{
 
-    color:var(--green);
+    margin-top:20px;
 
-    margin-bottom:20px;
-
-}
-
-.modal-content p{
-
-    margin:12px 0;
-
-    font-size:15px;
-
-    color:var(--text);
+    line-height:2;
 
 }
 
-/* ==========================================
-   MODAL BUTTONS
-========================================== */
+#customerInfo button{
 
-.modal-content button{
+    margin-top:12px;
 
-    width:100%;
+    margin-right:10px;
 
-    margin-top:14px;
-
-    padding:14px;
+    padding:12px 18px;
 
     border:none;
 
@@ -502,53 +556,35 @@ tbody tr:hover{
 
     cursor:pointer;
 
-    font-size:15px;
+    color:#fff;
 
-    font-weight:700;
+    font-weight:600;
 
     transition:.25s;
 
 }
 
-.addStampBtn{
+#customerInfo button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+#customerInfo button:nth-child(1){
 
     background:var(--primary);
 
-    color:#fff;
+}
+
+#customerInfo button:nth-child(2){
+
+    background:var(--danger);
 
 }
 
-.addStampBtn:hover{
+#customerInfo button:nth-child(3){
 
-    background:var(--primary-dark);
-
-}
-
-.removeStampBtn{
-
-    background:#EF4444;
-
-    color:#fff;
-
-}
-
-.removeStampBtn:hover{
-
-    background:#DC2626;
-
-}
-
-.redeemBtn{
-
-    background:#22C55E;
-
-    color:#fff;
-
-}
-
-.redeemBtn:hover{
-
-    background:#16A34A;
+    background:var(--success);
 
 }
 
@@ -564,9 +600,9 @@ tbody tr:hover{
 
     padding:25px;
 
-    margin-bottom:30px;
-
     box-shadow:var(--shadow);
+
+    margin-bottom:35px;
 
 }
 
@@ -582,15 +618,15 @@ tbody tr:hover{
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
 
-    gap:18px;
+    gap:16px;
 
 }
 
 .action-grid button{
 
-    padding:16px;
+    padding:15px;
 
     border:none;
 
@@ -600,7 +636,9 @@ tbody tr:hover{
 
     color:#fff;
 
-    font-weight:700;
+    font-size:15px;
+
+    font-weight:600;
 
     cursor:pointer;
 
@@ -612,7 +650,7 @@ tbody tr:hover{
 
     background:var(--primary-dark);
 
-    transform:translateY(-2px);
+    transform:translateY(-3px);
 
 }
 
@@ -640,17 +678,38 @@ tbody tr:hover{
 
 }
 
-.status-box p{
+.status-box{
 
-    margin:12px 0;
+    display:grid;
 
-    color:var(--text);
+    gap:12px;
 
 }
 
+.status-box p{
+
+    font-size:15px;
+
+}
+
+.status-box span{
+
+    font-weight:700;
+
+}
 /* ==========================================
-   RESPONSIVE
+   RESPONSIVE DESIGN
 ========================================== */
+
+@media(max-width:1100px){
+
+    .cards{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
 
 @media(max-width:900px){
 
@@ -674,7 +733,7 @@ tbody tr:hover{
 
         margin-left:0;
 
-        padding:20px;
+        padding:25px;
 
     }
 
@@ -684,7 +743,7 @@ tbody tr:hover{
 
         align-items:flex-start;
 
-        gap:15px;
+        gap:18px;
 
     }
 
@@ -706,9 +765,21 @@ tbody tr:hover{
 
 @media(max-width:600px){
 
+    .main-content{
+
+        padding:16px;
+
+    }
+
     .cards{
 
         grid-template-columns:1fr;
+
+    }
+
+    .card{
+
+        padding:20px;
 
     }
 
@@ -722,12 +793,101 @@ tbody tr:hover{
 
         width:95%;
 
-        padding:22px;
+        padding:20px;
+
+        margin:30px auto;
+
+    }
+
+    .action-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    th,
+
+    td{
+
+        padding:12px;
+
+        font-size:14px;
+
+    }
+
+    .logo h2{
+
+        font-size:24px;
+
+    }
+
+    .topbar h1{
+
+        font-size:26px;
 
     }
 
 }
 
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#ECECEC;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--primary);
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
     background:var(--primary-dark);
+
+}
+
+/* ==========================================
+   SMALL ANIMATIONS
+========================================== */
+
+.card,
+.customer-section,
+.quick-actions,
+.system-status{
+
+    animation:fadeUp .35s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(15px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
 
 }
