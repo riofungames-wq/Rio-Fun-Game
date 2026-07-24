@@ -2458,3 +2458,398 @@
 
         }
     );
+                            // =========================
+    // RESET AFTER FREE MAGGI
+    // =========================
+
+    resetBtn.addEventListener(
+        "click",
+        async () => {
+
+            if (!selectedCustomerUID) {
+
+                alert(
+                    "Please scan a customer QR first."
+                );
+
+                return;
+
+            }
+
+
+            if (!selectedCustomerData) {
+
+                alert(
+                    "Customer data not loaded."
+                );
+
+                return;
+
+            }
+
+
+            const confirmReset =
+                confirm(
+                    "🎁 Confirm that the customer has received the FREE Veg Maggi?\n\n" +
+                    "After confirmation, the loyalty cycle will reset to 0 stamps."
+                );
+
+
+            if (!confirmReset) {
+
+                return;
+
+            }
+
+
+            try {
+
+                const customerRef =
+                    doc(
+                        db,
+                        "customers",
+                        selectedCustomerUID
+                    );
+
+
+                // =========================
+                // RESET LOYALTY CYCLE
+                // =========================
+
+                await updateDoc(
+                    customerRef,
+                    {
+
+                        stamps: 0,
+
+                        rewardUnlocked: false,
+
+                        rewardRedeemed: true,
+
+                        rewardRedeemedAt:
+                            serverTimestamp(),
+
+                        cycleStartedAt:
+                            serverTimestamp(),
+
+                        lastStampAt: null
+
+                    }
+                );
+
+
+                // =========================
+                // UPDATE LOCAL DATA
+                // =========================
+
+                selectedCustomerData.stamps =
+                    0;
+
+                selectedCustomerData.rewardUnlocked =
+                    false;
+
+                selectedCustomerData.rewardRedeemed =
+                    true;
+
+
+                // =========================
+                // UPDATE SCREEN
+                // =========================
+
+                stampNumber.textContent =
+                    "0";
+
+
+                stampProgress.innerHTML =
+                    "";
+
+
+                for (
+                    let i = 1;
+                    i <= 6;
+                    i++
+                ) {
+
+                    const dot =
+                        document.createElement("div");
+
+
+                    dot.className =
+                        "stamp-dot";
+
+
+                    dot.textContent =
+                        i;
+
+
+                    stampProgress.appendChild(dot);
+
+                }
+
+
+                // =========================
+                // HIDE REWARD
+                // =========================
+
+                rewardMessage.style.display =
+                    "none";
+
+
+                resetBtn.style.display =
+                    "none";
+
+
+                // =========================
+                // ENABLE ADD STAMP
+                // =========================
+
+                addStampBtn.disabled =
+                    false;
+
+
+                addStampBtn.textContent =
+                    "✅ Accept & Add 1 Stamp";
+
+
+                // =========================
+                // SUCCESS MESSAGE
+                // =========================
+
+                successMessage.textContent =
+                    "🎉 FREE Veg Maggi Redeemed! Loyalty Card Reset to 0.";
+
+
+                successMessage.style.display =
+                    "block";
+
+
+                setTimeout(
+                    () => {
+
+                        successMessage.style.display =
+                            "none";
+
+                    },
+                    3000
+                );
+
+
+                // =========================
+                // CLEAR CUSTOMER
+                // =========================
+
+                setTimeout(
+                    () => {
+
+                        resetAdminPanel();
+
+                    },
+                    3500
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Reset Reward Error:",
+                    error
+                );
+
+
+                alert(
+                    "❌ Unable to reset loyalty card. Please try again."
+                );
+
+            }
+
+        }
+    );
+
+
+    // =========================
+    // RESET ADMIN PANEL
+    // =========================
+
+    function resetAdminPanel() {
+
+        selectedCustomerUID =
+            null;
+
+
+        selectedCustomerData =
+            null;
+
+
+        customerCard.style.display =
+            "none";
+
+
+        successMessage.style.display =
+            "none";
+
+
+        rewardMessage.style.display =
+            "none";
+
+
+        // =========================
+        // RESTART QR SCANNER
+        // =========================
+
+        startScanner();
+
+    }
+                            // =========================
+    // ADMIN LOGOUT
+    // =========================
+
+    const logoutBtn =
+        document.getElementById("logoutBtn");
+
+
+    if (logoutBtn) {
+
+        logoutBtn.addEventListener(
+            "click",
+            async () => {
+
+                const confirmLogout =
+                    confirm(
+                        "🚪 Are you sure you want to logout from Admin Panel?"
+                    );
+
+
+                if (!confirmLogout) {
+
+                    return;
+
+                }
+
+
+                try {
+
+                    // Stop QR Scanner
+
+                    if (
+                        scanner &&
+                        scannerRunning
+                    ) {
+
+                        try {
+
+                            await scanner.stop();
+
+                            scannerRunning =
+                                false;
+
+                        }
+
+                        catch (scannerError) {
+
+                            console.error(
+                                "Scanner Stop Error:",
+                                scannerError
+                            );
+
+                        }
+
+                    }
+
+
+                    // Firebase Logout
+
+                    await signOut(auth);
+
+
+                    // Redirect
+
+                    window.location.href =
+                        "admin-login.html";
+
+                }
+
+                catch (error) {
+
+                    console.error(
+                        "Admin Logout Error:",
+                        error
+                    );
+
+
+                    alert(
+                        "❌ Logout failed. Please try again."
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    // =========================
+    // PAGE VISIBILITY
+    // =========================
+
+    document.addEventListener(
+        "visibilitychange",
+        () => {
+
+            if (
+                document.hidden &&
+                scanner &&
+                scannerRunning
+            ) {
+
+                scanner.pause(
+                    true
+                );
+
+                scannerRunning =
+                    false;
+
+            }
+
+        }
+    );
+
+
+    // =========================
+    // FINAL STARTUP MESSAGE
+    // =========================
+
+    console.log(
+        "==================================="
+    );
+
+    console.log(
+        "RIO MAGGI POINT"
+    );
+
+    console.log(
+        "ADMIN PANEL READY"
+    );
+
+    console.log(
+        "QR SCANNER READY"
+    );
+
+    console.log(
+        "STAMP SYSTEM READY"
+    );
+
+    console.log(
+        "REWARD RESET SYSTEM READY"
+    );
+
+    console.log(
+        "==================================="
+    );
+
+</script>
+
+</body>
+
+</html>
