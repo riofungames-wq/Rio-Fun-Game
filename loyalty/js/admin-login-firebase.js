@@ -1,339 +1,297 @@
 // ======================================
-
 // RIO LOYALTY CLUB
-
 // ADMIN LOGIN FIREBASE
-
-// PART 1
-
+// FINAL CLEAN VERSION
 // ======================================
-
-
-
-import { firebaseConfig } from "./firebase-config.js";
-
-
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-
-
 
 import {
-
-
-
-getAuth,
-
-
-
-signInWithEmailAndPassword
-
-
-
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-
-
+    auth,
+    db
+} from "./firebase-config.js";
 
 import {
+    signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-
-
-getFirestore,
-
-
-
-doc,
-
-
-
-getDoc
-
-
-
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-
+import {
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
 // ======================================
-
-// FIREBASE INITIALIZE
-
+// ADMIN LOGIN EVENT
 // ======================================
 
+document.addEventListener(
+    "admin-login-ready",
+    async () => {
 
+        // --------------------------------------
+        // GET LOGIN DATA
+        // --------------------------------------
 
-const app = initializeApp(firebaseConfig);
+        const data =
+            window.adminLoginData;
 
 
+        if (!data) {
 
-const auth = getAuth(app);
+            if (
+                typeof window.showAdminError ===
+                "function"
+            ) {
 
+                window.showAdminError(
+                    "Login data not found."
+                );
 
+            } else {
 
-const db = getFirestore(app);
+                alert(
+                    "Login data not found."
+                );
 
-// ======================================
-
-// PART 2
-
-// ADMIN LOGIN
-
-// ======================================
-
-
-
-document.addEventListener("admin-login-ready", async () => {
-
-
-
-    const data = window.adminLoginData;
-
-
-
-    if (!data) {
-
-
-
-        window.showAdminError("Login data not found.");
-
-
-
-        return;
-
-
-
-    }
-
-
-
-    try {
-
-
-
-        // Firebase Authentication Login
-
-
-
-        const userCredential =
-
-        await signInWithEmailAndPassword(
-
-
-
-            auth,
-
-
-
-            data.email,
-
-
-
-            data.password
-
-
-
-        );
-
-
-
-        const user = userCredential.user;
-
-
-
-        // Check Admin Record
-
-
-
-        const adminRef = doc(db, "admins", user.uid);
-
-
-
-        const adminSnap = await getDoc(adminRef);
-
-
-
-        if (!adminSnap.exists()) {
-
-
-
-            await auth.signOut();
-
-
-
-            window.showAdminError(
-
-                "Access Denied. You are not an Admin."
-
-            );
-
-
+            }
 
             return;
 
-
-
         }
 
 
+        try {
 
-        // Save Admin Data
+            // --------------------------------------
+            // FIREBASE AUTH LOGIN
+            // --------------------------------------
 
-
-
-        window.currentAdmin = adminSnap.data();
-
-
-
-        // Login Success
-
-
-
-        window.adminLoginSuccess();
+            const userCredential =
+                await signInWithEmailAndPassword(
+                    auth,
+                    data.email,
+                    data.password
+                );
 
 
+            const user =
+                userCredential.user;
 
-        setTimeout(() => {
+
+            console.log(
+                "Admin Firebase Login:",
+                user.email
+            );
 
 
+            // --------------------------------------
+            // CHECK ADMIN DOCUMENT
+            // --------------------------------------
+
+            const adminRef =
+                doc(
+                    db,
+                    "admins",
+                    user.uid
+                );
+
+
+            const adminSnap =
+                await getDoc(
+                    adminRef
+                );
+
+
+            // --------------------------------------
+            // ADMIN NOT FOUND
+            // --------------------------------------
+
+            if (
+                !adminSnap.exists()
+            ) {
+
+                await auth.signOut();
+
+                if (
+                    typeof window.showAdminError ===
+                    "function"
+                ) {
+
+                    window.showAdminError(
+                        "Access Denied. This account is not registered as an Admin."
+                    );
+
+                } else {
+
+                    alert(
+                        "Access Denied. This account is not registered as an Admin."
+                    );
+
+                }
+
+                return;
+
+            }
+
+
+            // --------------------------------------
+            // SAVE ADMIN DATA
+            // --------------------------------------
+
+            const adminData =
+                adminSnap.data();
+
+
+            window.currentAdmin =
+                adminData;
+
+
+            // --------------------------------------
+            // LOGIN SUCCESS
+            // --------------------------------------
+
+            console.log(
+                "Admin Authentication Successful"
+            );
+
+
+            if (
+                typeof window.adminLoginSuccess ===
+                "function"
+            ) {
+
+                window.adminLoginSuccess();
+
+            }
+
+
+            // --------------------------------------
+            // GO TO ADMIN DASHBOARD
+            // --------------------------------------
 
             window.location.href =
-
-            "admin-dashboard.html";
-
-
-
-        }, 800);
-
-
-
-    }
-
-    catch (error) {
-
-
-
-        console.error("Admin Login Error :", error);
-
-
-
-        switch (error.code) {
-
-
-
-            case "auth/invalid-credential":
-
-
-
-                window.showAdminError(
-
-                    "Invalid Email or Password."
-
-                );
-
-
-
-                break;
-
-
-
-            case "auth/wrong-password":
-
-
-
-                window.showAdminError(
-
-                    "Incorrect Password."
-
-                );
-
-
-
-                break;
-
-
-
-            case "auth/user-not-found":
-
-
-
-                window.showAdminError(
-
-                    "Admin account not found."
-
-                );
-
-
-
-                break;
-
-
-
-            case "auth/invalid-email":
-
-
-
-                window.showAdminError(
-
-                    "Invalid Email Address."
-
-                );
-
-
-
-                break;
-
-
-
-            case "auth/network-request-failed":
-
-
-
-                window.showAdminError(
-
-                    "No Internet Connection."
-
-                );
-
-
-
-                break;
-
-
-
-            case "auth/too-many-requests":
-
-
-
-                window.showAdminError(
-
-                    "Too many failed attempts. Try again later."
-
-                );
-
-
-
-                break;
-
-
-
-            default:
-
-
-
-                window.showAdminError(
-
-                    error.message
-
-                );
-
-
+                "admin-dashboard.html";
 
         }
 
 
+        // ======================================
+        // ERROR HANDLING
+        // ======================================
+
+        catch (error) {
+
+            console.error(
+                "Admin Login Error:",
+                error
+            );
+
+
+            let message =
+                "Admin Login Failed.";
+
+
+            switch (
+                error.code
+            ) {
+
+                case "auth/user-not-found":
+
+                    message =
+                        "No Admin account found with this email.";
+
+                    break;
+
+
+                case "auth/invalid-credential":
+
+                    message =
+                        "Incorrect Admin Email or Password.";
+
+                    break;
+
+
+                case "auth/wrong-password":
+
+                    message =
+                        "Incorrect Admin Email or Password.";
+
+                    break;
+
+
+                case "auth/invalid-email":
+
+                    message =
+                        "Invalid Email Address.";
+
+                    break;
+
+
+                case "auth/network-request-failed":
+
+                    message =
+                        "Network Error. Please check your internet connection.";
+
+                    break;
+
+
+                case "auth/too-many-requests":
+
+                    message =
+                        "Too many login attempts. Please try again later.";
+
+                    break;
+
+
+                default:
+
+                    message =
+                        "Login Failed: " +
+                        error.message;
+
+                    break;
+
+            }
+
+
+            if (
+                typeof window.showAdminError ===
+                "function"
+            ) {
+
+                window.showAdminError(
+                    message
+                );
+
+            } else {
+
+                alert(
+                    message
+                );
+
+            }
+
+        }
 
     }
+);
 
 
+// ======================================
+// STARTUP
+// ======================================
 
-});
+console.log(
+    "==================================="
+);
+
+console.log(
+    "RIO MAGGI POINT"
+);
+
+console.log(
+    "ADMIN LOGIN FIREBASE READY"
+);
+
+console.log(
+    "==================================="
+);
