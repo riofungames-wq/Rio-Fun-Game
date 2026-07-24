@@ -1,1 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rio Loyalty Club | Dashboard</title>
+
+<meta name="theme-color" content="#D4AF37">
+
+<link rel="manifest" href="manifest.json">
+
+<!-- Google Font -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<!-- CSS -->
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- Header -->
+
+<div class="header">
+
+<div class="logo">
+
+<img src="assets/logo/logo.png" alt="Rio Logo">
+
+<div class="logo-text">
+
+Rio Loyalty Club
+
+</div>
+
+</div>
+
+<button
+id="logoutBtn"
+class="btn"
+style="width:auto;padding:10px 18px;">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+Logout
+
+</button>
+
+</div>
+
+<!-- Loyalty Card -->
+
+<div class="loyalty-card">
+  <!-- =====================================
+CUSTOMER PROFILE
+===================================== -->
+
+<div class="customer-info">
+
+    <div class="customer-avatar">
+
+        <img
+        id="customerAvatar"
+        src="assets/avatars/default.png"
+        alt="Customer">
+
+    </div>
+
+    <div>
+
+        <div
+        class="customer-name"
+        id="customerName">
+
+        Loading...
+
+        </div>
+
+        <div
+        class="customer-role"
+        id="memberId">
+
+        Member ID : -----
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =====================================
+REWARD STATUS
+===================================== -->
+
+<div class="reward-box">
+
+    <h3>Your Loyalty Progress</h3>
+
+    <p id="rewardStatus">
+
+        Collect 6 stamps to get
+        <strong>1 FREE Veg Maggi</strong>
+
+    </p>
+
+</div>
+
+<!-- =====================================
+STAMP GRID
+===================================== -->
+
+<div
+class="stamp-grid"
+id="stampGrid">
+
+    <div class="stamp-box" id="stamp1">1</div>
+
+    <div class="stamp-box" id="stamp2">2</div>
+
+    <div class="stamp-box" id="stamp3">3</div>
+
+    <div class="stamp-box" id="stamp4">4</div>
+
+    <div class="stamp-box" id="stamp5">5</div>
+
+    <div class="stamp-box" id="stamp6">🎁</div>
+
+</div>
+  <!-- =====================================
+ADVERTISEMENT
+===================================== -->
+
+<div class="card" style="margin-top:20px;text-align:center;">
+
+    <h3>Special Offers</h3>
+
+    <p>
+
+        Exciting offers and promotions will appear here.
+
+    </p>
+
+</div>
+
+</div>
+
+<!-- =====================================
+BOTTOM NAVIGATION
+===================================== -->
+
+<div class="bottom-nav">
+
+    <a href="dashboard.html" class="active">
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>Home</span>
+
+    </a>
+
+    <a href="history.html">
+
+        <i class="fa-solid fa-clock-rotate-left"></i>
+
+        <span>History</span>
+
+    </a>
+
+    <a href="profile.html">
+
+        <i class="fa-solid fa-user"></i>
+
+        <span>Profile</span>
+
+    </a>
+
+</div>
+
+<!-- =====================================
+JAVASCRIPT
+===================================== -->
+
+<script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
