@@ -1,1 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rio Maggi Point | Admin Dashboard</title>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#263525">
+
+    <link rel="icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="css/admin.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ========================= -->
+    <!-- SIDEBAR -->
+    <!-- ========================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <h2>🍜 Rio Maggi</h2>
+
+            <span>Admin Panel</span>
+
+        </div>
+
+        <nav>
+
+            <ul>
+
+                <li class="active">
+                    <a href="#">
+                        📊 Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        👥 Customers
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        🎁 Rewards
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        ⭐ Stamp Manager
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        ⚙ Settings
+                    </a>
+                </li>
+
+                <li>
+
+                    <button id="logoutBtn">
+
+                        🚪 Logout
+
+                    </button>
+
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </aside>
+
+    <!-- ========================= -->
+    <!-- MAIN CONTENT START -->
+    <!-- ========================= -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>
+
+                    Welcome Admin 👋
+
+                </h1>
+
+                <p>
+
+                    Rio Loyalty Club Dashboard
+
+                </p>
+
+            </div>
+
+            <div id="adminName">
+
+                Loading...
+
+            </div>
+
+        </header>
+              <!-- ========================= -->
+        <!-- DASHBOARD CARDS -->
+        <!-- ========================= -->
+
+        <section class="cards">
+
+            <div class="card">
+
+                <h3>Total Customers</h3>
+
+                <h2 id="totalCustomers">
+
+                    0
+
+                </h2>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Total Stamps</h3>
+
+                <h2 id="totalStamps">
+
+                    0
+
+                </h2>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Rewards Unlocked</h3>
+
+                <h2 id="rewardUnlocked">
+
+                    0
+
+                </h2>
+
+            </div>
+
+            <div class="card">
+
+                <h3>Rewards Redeemed</h3>
+
+                <h2 id="rewardRedeemed">
+
+                    0
+
+                </h2>
+
+            </div>
+
+        </section>
+
+        <!-- ========================= -->
+        <!-- CUSTOMER SECTION -->
+        <!-- ========================= -->
+
+        <section class="customer-section">
+
+            <div class="section-header">
+
+                <h2>
+
+                    Customer List
+
+                </h2>
+
+                <input
+                    type="text"
+                    id="searchCustomer"
+                    placeholder="Search Customer..."
+                >
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Name</th>
+
+                            <th>Mobile</th>
+
+                            <th>Member ID</th>
+
+                            <th>Stamps</th>
+
+                            <th>Reward</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="customerTable">
+
+                        <!-- Firebase Data Here -->
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+              <!-- ========================= -->
+        <!-- CUSTOMER DETAILS MODAL -->
+        <!-- ========================= -->
+
+        <div id="customerModal" class="modal">
+
+            <div class="modal-content">
+
+                <span class="closeModal">&times;</span>
+
+                <h2>Customer Details</h2>
+
+                <div id="customerInfo">
+
+                    Loading...
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- QUICK ACTIONS -->
+        <!-- ========================= -->
+
+        <section class="quick-actions">
+
+            <h2>Quick Actions</h2>
+
+            <div class="action-grid">
+
+                <button id="refreshDataBtn">
+
+                    🔄 Refresh Data
+
+                </button>
+
+                <button id="exportBtn">
+
+                    📄 Export Customers
+
+                </button>
+
+                <button id="rewardListBtn">
+
+                    🎁 Reward List
+
+                </button>
+
+                <button id="settingsBtn">
+
+                    ⚙ Settings
+
+                </button>
+
+            </div>
+
+        </section>
+              <!-- ========================= -->
+        <!-- SYSTEM STATUS -->
+        <!-- ========================= -->
+
+        <section class="system-status">
+
+            <h2>System Status</h2>
+
+            <div class="status-box">
+
+                <p>
+
+                    Firebase :
+
+                    <span id="firebaseStatus">
+
+                        Connecting...
+
+                    </span>
+
+                </p>
+
+                <p>
+
+                    Admin :
+
+                    <span id="adminStatus">
+
+                        Checking...
+
+                    </span>
+
+                </p>
+
+                <p>
+
+                    Last Refresh :
+
+                    <span id="lastRefresh">
+
+                        --
+
+                    </span>
+
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+  <!-- ========================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================= -->
+
+<script type="module" src="js/admin-dashboard.js"></script>
+
+</body>
+</html>
