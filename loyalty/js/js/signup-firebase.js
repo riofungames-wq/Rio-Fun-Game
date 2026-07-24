@@ -107,3 +107,38 @@ document.addEventListener("signup-ready", async () => {
         alert("🎉 Account Created Successfully!");
 
         window.location.href = "login.html";
+// ======================================
+// PART 4
+// FIREBASE ERROR HANDLING
+// ======================================
+
+    } catch (error) {
+
+        console.error(error);
+
+        switch (error.code) {
+
+            case "auth/email-already-in-use":
+                alert("This email is already registered.");
+                break;
+
+            case "auth/invalid-email":
+                alert("Invalid email address.");
+                break;
+
+            case "auth/weak-password":
+                alert("Password must be at least 6 characters.");
+                break;
+
+            case "auth/network-request-failed":
+                alert("No internet connection.");
+                break;
+
+            default:
+                alert("Signup Failed : " + error.message);
+
+        }
+
+    }
+
+});
