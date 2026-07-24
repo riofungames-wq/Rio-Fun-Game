@@ -2,214 +2,183 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Rio Maggi Point - Login</title>
+<meta charset="UTF-8">
 
-    <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#263525">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Rio Maggi Point">
-    <link rel="icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="icon-192.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+<title>Rio Loyalty Club | Login</title>
 
-        body {
-            min-height: 100vh;
-            background: #050505;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+<meta name="theme-color" content="#D4AF37">
 
-        .container {
-            width: 100%;
-            max-width: 430px;
-            background: #f5d99b;
-            border: 3px solid #d19b4a;
-            border-radius: 18px;
-            padding: 30px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, .45);
-        }
+<link rel="manifest" href="manifest.json">
 
-        h1 {
-            text-align: center;
-            color: #222;
-            margin-bottom: 10px;
-        }
+<!-- Google Font -->
 
-        .subtitle {
-            text-align: center;
-            margin-bottom: 25px;
-            color: #555;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-            color: #222;
-        }
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 18px;
-            border: 2px solid #d19b4a;
-            border-radius: 10px;
-            font-size: 15px;
-            outline: none;
-            transition: .25s;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        input:focus {
-            border-color: #263525;
-        }
+<!-- Font Awesome -->
 
-        button {
-            width: 100%;
-            padding: 14px;
-            background: #263525;
-            color: #ffd54f;
-            border: none;
-            border-radius: 10px;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: .25s;
-        }
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-        button:hover {
-            background: #1c271b;
-        }
+<!-- Global CSS -->
 
-        .bottom {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 15px;
-        }
+<link rel="stylesheet" href="css/style.css">
 
-        .bottom a {
-            color: #c62828;
-            font-weight: bold;
-            text-decoration: none;
-        }
+<!-- Login CSS -->
 
-        .bottom a:hover {
-            text-decoration: underline;
-        }
-    </style>
+<link rel="stylesheet" href="css/login.css">
+
 </head>
 
 <body>
 
-<div class="container">
-    <h1>🔑 Login</h1>
-    <p class="subtitle">Welcome Back to Rio Maggi Point</p>
+<div class="login-page">
 
-    <form id="loginForm">
-        <label>Email Address</label>
-        <input
-            type="email"
-            id="email"
-            placeholder="Enter your email"
-            autocomplete="email"
-            required
-        >
+<div class="login-card">
 
-        <label>Password</label>
-        <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            autocomplete="current-password"
-            required
-        >
+<!-- Logo -->
 
-        <button type="submit">Login</button>
-    </form>
+<div class="logo-box">
 
-    <div class="bottom">
-        Don't have an account? <a href="signup.html">Create Account</a>
-    </div>
+<img
+src="assets/logo/logo.png"
+alt="Rio Logo"
+id="logo">
+
+<h1>Welcome Back</h1>
+
+<p>Login to Rio Loyalty Club</p>
+
 </div>
 
-<script type="module">
-    import { auth } from "./js/firebase-config.js";
-    import {
-        signInWithEmailAndPassword
-    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+<form id="loginForm">
+    <!-- =========================
+LOGIN FORM
+========================= -->
 
-    const loginForm = document.getElementById("loginForm");
+<div class="form-group">
 
-    loginForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
+<label>Email Address</label>
 
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value;
+<input
+type="email"
+id="email"
+placeholder="Enter your email"
+required>
 
-        if (!email) {
-            alert("Please enter your email.");
-            return;
-        }
+</div>
 
-        if (password.length < 6) {
-            alert("Please enter a valid password.");
-            return;
-        }
+<div class="form-group">
 
-        try {
-            await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
+<label>Password</label>
 
-            alert("Login Successful!");
-            window.location.href = "index.html";
+<div class="password-box">
 
-        } catch (error) {
-            console.error(error);
+<input
+type="password"
+id="password"
+placeholder="Enter your password"
+required>
 
-            switch (error.code) {
-                case "auth/invalid-credential":
-                    alert("Invalid email or password.");
-                    break;
-                case "auth/user-not-found":
-                    alert("Account not found.");
-                    break;
-                case "auth/wrong-password":
-                    alert("Wrong password.");
-                    break;
-                case "auth/invalid-email":
-                    alert("Invalid email address.");
-                    break;
-                default:
-                    alert(error.message);
-            }
-        }
-    });
-</script>
+<button
+type="button"
+id="togglePassword"
+class="toggle-password">
 
-<script>
-    if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-            navigator.serviceWorker.register("./service-worker.js");
-        });
-    }
-</script>
+<i class="fa-solid fa-eye"></i>
+
+</button>
+
+</div>
+
+</div>
+
+<div class="remember-row">
+
+<label class="remember-me">
+
+<input
+type="checkbox"
+id="rememberMe">
+
+<span>Remember Me</span>
+
+</label>
+
+<a
+href="#"
+id="forgotPassword"
+class="forgot-link">
+
+Forgot Password?
+
+</a>
+
+</div>
+
+<div class="button-area">
+
+<button
+type="submit"
+class="login-btn">
+
+<i class="fa-solid fa-right-to-bracket"></i>
+
+Login
+
+</button>
+
+</div>
+<!-- =========================
+SIGNUP LINK
+========================= -->
+
+<div class="signup-link">
+
+<p>
+
+Don't have an account?
+
+<a href="signup.html">
+
+Create Account
+
+</a>
+
+</p>
+
+</div>
+
+<!-- Future AdSense -->
+
+<div class="ads-placeholder">
+
+Future Advertisement
+
+<br>
+
+(Google AdSense)
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+<!-- JavaScript -->
+
+<script src="js/login.js"></script>
+
+<script type="module" src="js/login-firebase.js"></script>
 
 </body>
+
 </html>
