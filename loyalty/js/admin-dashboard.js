@@ -1,7 +1,7 @@
 // ======================================
 // RIO MAGGI POINT
 // ADMIN DASHBOARD
-// PART 1
+// CLEAN VERSION - PART 1
 // ======================================
 
 import { firebaseConfig } from "./firebase-config.js";
@@ -23,7 +23,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 // ======================================
-// FIREBASE INITIALIZE
+// FIREBASE
 // ======================================
 
 const app = initializeApp(firebaseConfig);
@@ -36,83 +36,108 @@ const db = getFirestore(app);
 // HTML ELEMENTS
 // ======================================
 
-const adminName = document.getElementById("adminName");
+const adminName =
+document.getElementById("adminName");
 
-const totalCustomers = document.getElementById("totalCustomers");
+const totalCustomers =
+document.getElementById("totalCustomers");
 
-const totalStamps = document.getElementById("totalStamps");
+const totalStamps =
+document.getElementById("totalStamps");
 
-const rewardUnlocked = document.getElementById("rewardUnlocked");
+const rewardUnlocked =
+document.getElementById("rewardUnlocked");
 
-const rewardRedeemed = document.getElementById("rewardRedeemed");
+const rewardRedeemed =
+document.getElementById("rewardRedeemed");
 
-const customerTable = document.getElementById("customerTable");
+const customerTable =
+document.getElementById("customerTable");
 
-const firebaseStatus = document.getElementById("firebaseStatus");
+const firebaseStatus =
+document.getElementById("firebaseStatus");
 
-const adminStatus = document.getElementById("adminStatus");
+const adminStatus =
+document.getElementById("adminStatus");
 
-const lastRefresh = document.getElementById("lastRefresh");
+const lastRefresh =
+document.getElementById("lastRefresh");
 
-const logoutBtn = document.getElementById("logoutBtn");
+const logoutBtn =
+document.getElementById("logoutBtn");
+
+const refreshBtn =
+document.getElementById("refreshDataBtn");
+
+const searchInput =
+document.getElementById("searchCustomer");
+
+const customerModal =
+document.getElementById("customerModal");
+
+const customerInfo =
+document.getElementById("customerInfo");
+
+const closeModal =
+document.querySelector(".closeModal");
+
 // ======================================
-// PART 2
-// CHECK ADMIN LOGIN
+// AUTH CHECK
 // ======================================
 
-onAuthStateChanged(auth, async (user) => {
+onAuthStateChanged(auth, async (user)=>{
 
-    if (!user) {
+    if(!user){
 
-        window.location.href = "admin-login.html";
+        location.href="admin-login.html";
+
         return;
 
     }
 
-    try {
+    try{
 
-        firebaseStatus.textContent = "Connected";
-        adminStatus.textContent = "Verified";
+        firebaseStatus.textContent="Connected";
 
-        // Admin Document Read
+        const adminRef=doc(db,"admins",user.uid);
 
-        const adminRef = doc(db, "admins", user.uid);
+        const adminSnap=await getDoc(adminRef);
 
-        const adminSnap = await getDoc(adminRef);
-
-        if (!adminSnap.exists()) {
+        if(!adminSnap.exists()){
 
             alert("Access Denied");
 
             await signOut(auth);
 
-            window.location.href = "admin-login.html";
+            location.href="admin-login.html";
 
             return;
 
         }
 
-        const admin = adminSnap.data();
+        const admin=adminSnap.data();
 
-        adminName.textContent = admin.name || "Admin";
+        adminName.textContent=admin.name || "Admin";
+
+        adminStatus.textContent="Verified";
 
         loadDashboard();
 
     }
 
-    catch (error) {
+    catch(error){
 
         console.error(error);
 
-        firebaseStatus.textContent = "Error";
+        firebaseStatus.textContent="Error";
 
-        adminStatus.textContent = "Failed";
+        adminStatus.textContent="Failed";
 
     }
 
 });
-
 // ======================================
+// CLEAN VERSION - PART 2
 // LOAD DASHBOARD
 // ======================================
 
@@ -124,41 +149,26 @@ async function loadDashboard() {
     const snapshot =
         await getDocs(collection(db, "customers"));
 
-    totalCustomers.textContent =
-        snapshot.size;
-
-}
-// ======================================
-// PART 3
-// LOAD CUSTOMER TABLE
-// ======================================
-
-async function loadDashboard() {
-
-    lastRefresh.textContent =
-        new Date().toLocaleString();
-
-    const snapshot =
-        await getDocs(collection(db, "customers"));
-
-    totalCustomers.textContent = snapshot.size;
-
     customerTable.innerHTML = "";
 
-    let stampCount = 0;
+    let totalStampCount = 0;
     let unlockedCount = 0;
     let redeemedCount = 0;
 
-    snapshot.forEach((docSnap) => {
+    totalCustomers.textContent = snapshot.size;
 
-        const customer = docSnap.data();
+    snapshot.forEach((customerDoc) => {
 
-        stampCount += customer.stamps || 0;
+        const customer = customerDoc.data();
 
-        if (customer.rewardUnlocked)
+        const id = customerDoc.id;
+
+        totalStampCount += customer.stamps || 0;
+
+        if (customer.rewardUnlocked === true)
             unlockedCount++;
 
-        if (customer.rewardRedeemed)
+        if (customer.rewardRedeemed === true)
             redeemedCount++;
 
         customerTable.innerHTML += `
@@ -175,7 +185,9 @@ async function loadDashboard() {
 
             <td>
 
-                ${customer.rewardUnlocked ? "🎁 Unlocked" : "❌ Locked"}
+                ${customer.rewardUnlocked
+                    ? "🎁 Unlocked"
+                    : "❌ Locked"}
 
             </td>
 
@@ -183,7 +195,7 @@ async function loadDashboard() {
 
                 <button
                     class="viewBtn"
-                    data-id="${docSnap.id}"
+                    data-id="${id}"
                 >
 
                     View
@@ -198,7 +210,7 @@ async function loadDashboard() {
 
     });
 
-    totalStamps.textContent = stampCount;
+    totalStamps.textContent = totalStampCount;
 
     rewardUnlocked.textContent = unlockedCount;
 
@@ -206,36 +218,11 @@ async function loadDashboard() {
 
 }
 // ======================================
-// PART 4
-// LOGOUT + REFRESH + SEARCH
+// CLEAN VERSION - PART 3
+// SEARCH + REFRESH + LOGOUT + MODAL
 // ======================================
 
-// Logout
-logoutBtn.addEventListener("click", async () => {
-
-    const ok = confirm("Are you sure you want to Logout?");
-
-    if (!ok) return;
-
-    try {
-
-        await signOut(auth);
-
-        window.location.href = "admin-login.html";
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert("Logout Failed");
-
-    }
-
-});
-
 // Refresh Dashboard
-const refreshBtn = document.getElementById("refreshDataBtn");
-
 if (refreshBtn) {
 
     refreshBtn.addEventListener("click", () => {
@@ -247,8 +234,6 @@ if (refreshBtn) {
 }
 
 // Search Customer
-const searchInput = document.getElementById("searchCustomer");
-
 if (searchInput) {
 
     searchInput.addEventListener("keyup", () => {
@@ -270,29 +255,54 @@ if (searchInput) {
 
 }
 
-// Firebase Connected
-firebaseStatus.textContent = "Connected";
-// ======================================
-// PART 5 (FINAL)
-// CUSTOMER DETAILS + FINISH
-// ======================================
+// Logout
+if (logoutBtn) {
+
+    logoutBtn.addEventListener("click", async () => {
+
+        const ok = confirm("Logout from Admin Panel?");
+
+        if (!ok) return;
+
+        try {
+
+            await signOut(auth);
+
+            location.href = "admin-login.html";
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            alert("Logout Failed");
+
+        }
+
+    });
+
+}
 
 // View Customer Details
 customerTable.addEventListener("click", async (event) => {
 
-    if (!event.target.classList.contains("viewBtn")) return;
+    if (!event.target.classList.contains("viewBtn"))
+        return;
 
     const customerId = event.target.dataset.id;
 
     try {
 
-        const customerRef = doc(db, "customers", customerId);
+        const customerRef =
+            doc(db, "customers", customerId);
 
-        const customerSnap = await getDoc(customerRef);
+        const customerSnap =
+            await getDoc(customerRef);
 
         if (!customerSnap.exists()) {
 
-            alert("Customer not found.");
+            alert("Customer not found");
 
             return;
 
@@ -300,29 +310,35 @@ customerTable.addEventListener("click", async (event) => {
 
         const customer = customerSnap.data();
 
-        const customerInfo = document.getElementById("customerInfo");
-
         customerInfo.innerHTML = `
 
-            <p><strong>Name:</strong> ${customer.name || "-"}</p>
+            <p><strong>Name :</strong> ${customer.name || "-"}</p>
 
-            <p><strong>Mobile:</strong> ${customer.mobile || "-"}</p>
+            <p><strong>Mobile :</strong> ${customer.mobile || "-"}</p>
 
-            <p><strong>Email:</strong> ${customer.email || "-"}</p>
+            <p><strong>Email :</strong> ${customer.email || "-"}</p>
 
-            <p><strong>Member ID:</strong> ${customer.memberId || "-"}</p>
+            <p><strong>Member ID :</strong> ${customer.memberId || "-"}</p>
 
-            <p><strong>Gender:</strong> ${customer.gender || "-"}</p>
+            <p><strong>Gender :</strong> ${customer.gender || "-"}</p>
 
-            <p><strong>Stamps:</strong> ${customer.stamps || 0}</p>
+            <p><strong>Stamps :</strong> ${customer.stamps || 0}</p>
 
-            <p><strong>Reward Unlocked:</strong> ${customer.rewardUnlocked ? "Yes" : "No"}</p>
+            <p><strong>Reward Unlocked :</strong>
 
-            <p><strong>Reward Redeemed:</strong> ${customer.rewardRedeemed ? "Yes" : "No"}</p>
+                ${customer.rewardUnlocked ? "Yes" : "No"}
+
+            </p>
+
+            <p><strong>Reward Redeemed :</strong>
+
+                ${customer.rewardRedeemed ? "Yes" : "No"}
+
+            </p>
 
         `;
 
-        document.getElementById("customerModal").style.display = "block";
+        customerModal.style.display = "block";
 
     }
 
@@ -330,35 +346,96 @@ customerTable.addEventListener("click", async (event) => {
 
         console.error(error);
 
-        alert("Unable to load customer details.");
+        alert("Unable to load customer.");
 
     }
 
 });
+// ======================================
+// CLEAN VERSION - PART 4 (FINAL)
+// MODAL + FINISH
+// ======================================
 
-// Close Modal
-const closeModal = document.querySelector(".closeModal");
-
+// Close Modal Button
 if (closeModal) {
 
     closeModal.addEventListener("click", () => {
 
-        document.getElementById("customerModal").style.display = "none";
+        customerModal.style.display = "none";
 
     });
 
 }
 
+// Close Modal on Outside Click
 window.addEventListener("click", (event) => {
 
-    const modal = document.getElementById("customerModal");
+    if (event.target === customerModal) {
 
-    if (event.target === modal) {
-
-        modal.style.display = "none";
+        customerModal.style.display = "none";
 
     }
 
 });
 
-console.log("✅ Rio Maggi Admin Dashboard Loaded Successfully");
+// ======================================
+// EXPORT BUTTON (TEMP)
+// ======================================
+
+const exportBtn = document.getElementById("exportBtn");
+
+if (exportBtn) {
+
+    exportBtn.addEventListener("click", () => {
+
+        alert("Export feature will be added soon.");
+
+    });
+
+}
+
+// ======================================
+// REWARD LIST BUTTON (TEMP)
+// ======================================
+
+const rewardListBtn = document.getElementById("rewardListBtn");
+
+if (rewardListBtn) {
+
+    rewardListBtn.addEventListener("click", () => {
+
+        alert("Reward List feature coming soon.");
+
+    });
+
+}
+
+// ======================================
+// SETTINGS BUTTON (TEMP)
+// ======================================
+
+const settingsBtn = document.getElementById("settingsBtn");
+
+if (settingsBtn) {
+
+    settingsBtn.addEventListener("click", () => {
+
+        alert("Settings panel coming soon.");
+
+    });
+
+}
+
+// ======================================
+// STARTUP COMPLETE
+// ======================================
+
+console.clear();
+
+console.log("===================================");
+
+console.log("RIO MAGGI POINT");
+
+console.log("ADMIN DASHBOARD LOADED SUCCESSFULLY");
+
+console.log("===================================");
