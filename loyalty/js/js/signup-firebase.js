@@ -1,7 +1,8 @@
 // ======================================
 // RIO LOYALTY CLUB
 // SIGNUP FIREBASE
-// PART 1
+// FINAL VERSION
+// PART 1 / 2
 // ======================================
 
 import { firebaseConfig } from "./firebase-config.js";
@@ -9,82 +10,81 @@ import { firebaseConfig } from "./firebase-config.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
 
 import {
-
-getAuth,
-
-createUserWithEmailAndPassword,
-
-updateProfile
-
+    getAuth,
+    createUserWithEmailAndPassword,
+    updateProfile
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
 import {
-
-getFirestore,
-
-doc,
-
-setDoc,
-
-serverTimestamp
-
+    getFirestore,
+    doc,
+    setDoc,
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-// ---------- Initialize ----------
+// --------------------------------------
+// Firebase Initialize
+// --------------------------------------
 
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
 const db = getFirestore(app);
-// ======================================
-// PART 2
-// LISTEN FOR SIGNUP EVENT
-// ======================================
+
+// --------------------------------------
+// Listen Signup Event
+// --------------------------------------
 
 document.addEventListener("signup-ready", async () => {
 
     const data = window.signupData;
 
     if (!data) {
+
         alert("Signup data not found.");
+
         return;
+
     }
 
     try {
 
         // Create Authentication Account
-        const userCredential = await createUserWithEmailAndPassword(
+
+        const userCredential =
+        await createUserWithEmailAndPassword(
+
             auth,
+
             data.email,
+
             data.password
+
         );
 
         const user = userCredential.user;
 
-        // Update Display Name
+        // Update Firebase Profile
+
         await updateProfile(user, {
+
             displayName: data.name
+
         });
 
-        // आगे Firestore में Save करेंगे...
+        // Generate Member ID
 
-    } catch (error) {
+        const memberId = "RIO-" + Date.now();
+                // --------------------------------------
+        // Save Customer Data
+        // --------------------------------------
 
-        alert(error.message);
-        console.error(error);
-
-    }
-
-});
-// ======================================
-// PART 3
-// SAVE USER TO FIRESTORE
-// ======================================
-
-        await setDoc(doc(db, "users", user.uid), {
+        await setDoc(doc(db, "customers", user.uid), {
 
             uid: user.uid,
+
+            memberId: memberId,
 
             name: data.name,
 
@@ -100,41 +100,54 @@ document.addEventListener("signup-ready", async () => {
 
             rewardClaimed: false,
 
+            status: "active",
+
             createdAt: serverTimestamp()
 
         });
 
+        // --------------------------------------
+        // Success
+        // --------------------------------------
+
         alert("🎉 Account Created Successfully!");
 
         window.location.href = "login.html";
-// ======================================
-// PART 4
-// FIREBASE ERROR HANDLING
-// ======================================
 
-    } catch (error) {
+    }
 
-        console.error(error);
+    catch (error) {
+
+        console.error("Signup Error :", error);
 
         switch (error.code) {
 
             case "auth/email-already-in-use":
+
                 alert("This email is already registered.");
+
                 break;
 
             case "auth/invalid-email":
+
                 alert("Invalid email address.");
+
                 break;
 
             case "auth/weak-password":
+
                 alert("Password must be at least 6 characters.");
+
                 break;
 
             case "auth/network-request-failed":
+
                 alert("No internet connection.");
+
                 break;
 
             default:
+
                 alert("Signup Failed : " + error.message);
 
         }
