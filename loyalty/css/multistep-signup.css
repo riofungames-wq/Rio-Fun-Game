@@ -1,465 +1,225 @@
-/* =========================================
-   Rio Loyalty Club - Multi Step Signup
-========================================= */
+/* ===========================
+   MULTI STEP FIX
+=========================== */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+.signup-step{
+    display:none;
+    animation:fadeIn .35s ease;
 }
 
-body{
-    font-family:'Poppins',sans-serif;
-    background:linear-gradient(135deg,#0f172a,#111827,#1f2937);
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
+.signup-step.active{
+    display:block;
 }
 
-.signup-page{
-    width:100%;
-    display:flex;
-    justify-content:center;
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(20px);
 }
 
-.signup-card{
-
-    width:100%;
-    max-width:430px;
-
-    background:rgba(255,255,255,.08);
-
-    backdrop-filter:blur(18px);
-
-    border:1px solid rgba(255,255,255,.15);
-
-    border-radius:30px;
-
-    padding:28px;
-
-    box-shadow:0 25px 60px rgba(0,0,0,.45);
+to{
+opacity:1;
+transform:translateY(0);
+}
 
 }
 
-.logo-box{
-
-    text-align:center;
-
-    margin-bottom:25px;
-
-}
-
-.logo-box img{
-
-    width:90px;
-
-    height:90px;
-
-    object-fit:contain;
-
-    margin-bottom:12px;
-
-}
-
-.logo-box h2{
-
-    color:#FFD54F;
-
-    font-size:28px;
-
-    font-weight:700;
-
-}
-
-.logo-box p{
-
-    color:#ddd;
-
-    margin-top:5px;
-
-}
+/* Progress */
 
 .progress-wrapper{
 
-    margin:25px 0;
+margin:25px 0;
 
 }
 
 .progress-bar{
 
-    width:100%;
+width:100%;
 
-    height:10px;
+height:10px;
 
-    background:#2d3748;
+background:#2b2b2b;
 
-    border-radius:30px;
+border-radius:50px;
 
-    overflow:hidden;
+overflow:hidden;
 
 }
 
 .progress-fill{
 
-    width:25%;
+width:25%;
 
-    height:100%;
+height:100%;
 
-    background:linear-gradient(90deg,#FFD54F,#FFB300);
+background:linear-gradient(90deg,#FFD700,#F4B400);
 
-    border-radius:30px;
-
-    transition:.35s;
+transition:.35s;
 
 }
 
-.progress-text{
+.progress-wrapper p{
 
-    margin-top:10px;
+text-align:center;
 
-    text-align:center;
+margin-top:12px;
 
-    color:#fff;
-
-    font-size:14px;
+font-weight:600;
 
 }
 
-.step{
+/* Buttons */
 
-    display:none;
+.button-area{
 
-    animation:fade .35s ease;
+display:flex;
 
-}
+justify-content:space-between;
 
-.step.active{
+gap:15px;
 
-    display:block;
-
-}
-
-@keyframes fade{
-
-from{
-
-opacity:0;
-
-transform:translateY(15px);
+margin-top:25px;
 
 }
 
-to{
+.button-area button{
 
-opacity:1;
+flex:1;
 
-transform:translateY(0);
-
-}
+cursor:pointer;
 
 }
 
-.step h3{
-
-    color:#fff;
-
-    margin-bottom:22px;
-
-    font-size:22px;
-
-}
-
-.form-group{
-
-    margin-bottom:18px;
-
-}
-
-.form-group label{
-
-    display:block;
-
-    color:#FFD54F;
-
-    margin-bottom:8px;
-
-    font-weight:600;
-
-}
-
-.form-group input{
-
-    width:100%;
-
-    padding:14px 16px;
-
-    border:none;
-
-    border-radius:14px;
-
-    background:#ffffff;
-
-    font-size:15px;
-
-    outline:none;
-
-}
-
-.button-row{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:12px;
-
-    margin-top:28px;
-
-}
-
-.next-btn,
-
-.back-btn,
-
-.create-btn{
-
-    flex:1;
-
-    border:none;
-
-    cursor:pointer;
-
-    padding:15px;
-
-    border-radius:16px;
-
-    font-size:16px;
-
-    font-weight:700;
-
-    transition:.25s;
-
-}
-
-.next-btn,
-
-.create-btn{
-
-    background:linear-gradient(90deg,#FFD54F,#FFB300);
-
-    color:#111;
-
-}
-
-.back-btn{
-
-    background:#2c2c2c;
-
-    color:#fff;
-
-}
-
-.next-btn:hover,
-
-.create-btn:hover{
-
-    transform:translateY(-2px);
-
-}
-
-.back-btn:hover{
-
-    background:#3a3a3a;
-
-}
+/* Gender */
 
 .gender-grid{
 
-    display:grid;
+display:grid;
 
-    grid-template-columns:repeat(3,1fr);
+grid-template-columns:repeat(3,1fr);
 
-    gap:15px;
+gap:15px;
 
-    margin-top:15px;
+margin-top:20px;
 
 }
 
 .gender-card{
 
-    background:#ffffff10;
+border:2px solid rgba(255,255,255,.08);
 
-    border:2px solid transparent;
+border-radius:18px;
 
-    border-radius:18px;
+padding:18px;
 
-    padding:20px 10px;
+text-align:center;
 
-    text-align:center;
+cursor:pointer;
 
-    cursor:pointer;
-
-    transition:.25s;
+transition:.25s;
 
 }
 
 .gender-card:hover{
 
-    border-color:#FFD54F;
+transform:translateY(-4px);
 
 }
 
 .gender-card.active{
 
-    border-color:#FFD54F;
+border-color:#FFD700;
 
-    background:#FFD54F22;
+box-shadow:0 0 18px rgba(255,215,0,.35);
 
 }
 
 .gender-card i{
 
-    font-size:34px;
+font-size:30px;
 
-    color:#FFD54F;
+margin-bottom:10px;
 
-    margin-bottom:10px;
-
-}
-
-.gender-card span{
-
-    display:block;
-
-    color:#fff;
-
-    font-weight:600;
+color:#FFD700;
 
 }
+
+/* Avatar */
 
 .avatar-grid{
 
-    display:grid;
+display:grid;
 
-    grid-template-columns:repeat(4,1fr);
+grid-template-columns:repeat(4,1fr);
 
-    gap:12px;
+gap:12px;
 
-    margin-top:20px;
+margin-top:20px;
 
 }
 
 .avatar-item{
 
-    aspect-ratio:1;
+aspect-ratio:1;
 
-    border-radius:18px;
+border-radius:18px;
 
-    overflow:hidden;
+overflow:hidden;
 
-    border:2px solid transparent;
+cursor:pointer;
 
-    cursor:pointer;
-
-    background:#fff;
+border:2px solid transparent;
 
 }
 
 .avatar-item img{
 
-    width:100%;
+width:100%;
 
-    height:100%;
+height:100%;
 
-    object-fit:cover;
-
-}
-
-.avatar-item.selected{
-
-    border-color:#FFD54F;
+object-fit:cover;
 
 }
 
-.upload-tile{
+.avatar-item.active{
 
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    height:100%;
-
-    background:#ffffff15;
-
-    color:#FFD54F;
-
-    font-size:14px;
+border-color:#FFD700;
 
 }
 
-.upload-tile i{
+/* Review */
 
-    font-size:28px;
+.review-box{
 
-    margin-bottom:8px;
+margin-top:20px;
 
-}
+display:flex;
 
-.checkbox{
+flex-direction:column;
 
-    display:flex;
-
-    gap:10px;
-
-    align-items:flex-start;
-
-    margin-top:15px;
-
-    color:#eee;
-
-    font-size:14px;
+gap:12px;
 
 }
 
-.ad-box{
+.review-item{
 
-    margin:20px 0;
+display:flex;
 
-    border:2px dashed #FFD54F55;
+justify-content:space-between;
 
-    border-radius:16px;
+padding:12px;
 
-    padding:18px;
+border-radius:12px;
 
-    text-align:center;
-
-    color:#FFD54F;
-
-    background:#ffffff08;
+background:rgba(255,255,255,.05);
 
 }
 
-@media(max-width:480px){
+/* Mobile */
 
-.signup-card{
-
-padding:20px;
-
-border-radius:24px;
-
-}
-
-.logo-box h2{
-
-font-size:24px;
-
-}
+@media(max-width:700px){
 
 .gender-grid{
 
