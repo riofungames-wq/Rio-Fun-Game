@@ -24,7 +24,7 @@ import {
 const firebaseConfig = {
 
     apiKey:
-        "AIzaSyB5ZmPaMW17YnUOvd48qHxhW8sIt6XDB70",
+        "AIzaSyB5ZmPaMW17YnUOvd48qHHXwS8it6XDB70",
 
     authDomain:
         "rio-maggi-point.firebaseapp.com",
@@ -79,30 +79,6 @@ export {
 };
 
 
-// ======================================
-// STARTUP LOG
-// ======================================
-
 console.log(
-    "==================================="
-);
-
-console.log(
-    "RIO MAGGI POINT"
-);
-
-console.log(
-    "FIREBASE INITIALIZED SUCCESSFULLY"
-);
-
-console.log(
-    "AUTH READY"
-);
-
-console.log(
-    "FIRESTORE READY"
-);
-
-console.log(
-    "==================================="
+    "RIO MAGGI POINT - FIREBASE READY"
 );
