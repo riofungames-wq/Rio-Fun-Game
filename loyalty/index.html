@@ -11,13 +11,16 @@
 Rio Maggi Point - Loyalty Card
 </title>
 
+
 <link rel="manifest" href="manifest.json">
 
 <meta name="theme-color" content="#f5d99b">
 
 <link rel="icon" href="favicon.ico">
 
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -28,11 +31,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 :root{
 
 --primary-bg:#f5d99b;
+
 --card-bg:#fff8e7;
+
 --accent-color:#d19b4a;
+
 --text-dark:#3a2e2b;
+
 --text-muted:#7a6855;
+
 --border-color:#e0be7b;
+
 --btn-red:#c62828;
 
 }
@@ -58,9 +67,7 @@ min-height:100vh;
 
 display:flex;
 
-flex-direction:column;
-
-align-items:center;
+justify-content:center;
 
 padding-bottom:90px;
 
@@ -80,14 +87,13 @@ padding:20px;
 
 /* HEADER */
 
-
 .header{
 
 display:flex;
 
-align-items:center;
-
 justify-content:space-between;
+
+align-items:center;
 
 margin-bottom:20px;
 
@@ -96,7 +102,7 @@ margin-bottom:20px;
 
 .header h2{
 
-font-size:1.3rem;
+font-size:22px;
 
 font-weight:700;
 
@@ -109,21 +115,20 @@ background:rgba(209,155,74,.2);
 
 border:1px solid var(--border-color);
 
-color:var(--text-dark);
-
 padding:8px 14px;
 
 border-radius:12px;
 
+font-weight:600;
+
 cursor:pointer;
 
-font-weight:600;
+color:var(--text-dark);
 
 }
 
 
-/* CARD */
-
+/* LOYALTY CARD */
 
 .loyalty-card{
 
@@ -140,6 +145,8 @@ box-shadow:0 10px 25px rgba(0,0,0,.1);
 }
 
 
+/* PROFILE */
+
 .profile-section{
 
 display:flex;
@@ -155,9 +162,9 @@ margin-bottom:20px;
 
 .avatar-box{
 
-width:60px;
+width:65px;
 
-height:60px;
+height:65px;
 
 border-radius:50%;
 
@@ -167,11 +174,11 @@ border:2px solid var(--accent-color);
 
 display:flex;
 
-align-items:center;
-
 justify-content:center;
 
-font-size:30px;
+align-items:center;
+
+font-size:32px;
 
 overflow:hidden;
 
@@ -191,7 +198,7 @@ object-fit:cover;
 
 .user-info h3{
 
-font-size:1.1rem;
+font-size:18px;
 
 font-weight:700;
 
@@ -200,15 +207,14 @@ font-weight:700;
 
 .user-info p{
 
-font-size:.85rem;
+font-size:14px;
 
 color:var(--text-muted);
 
 }
 
 
-/* STAMPS */
-
+/* STAMP */
 
 .stamp-grid{
 
@@ -235,11 +241,11 @@ border-radius:12px;
 
 display:flex;
 
-align-items:center;
-
 justify-content:center;
 
-font-size:1.2rem;
+align-items:center;
+
+font-size:20px;
 
 font-weight:bold;
 
@@ -252,12 +258,17 @@ color:var(--accent-color);
 
 background:var(--btn-red);
 
-border:2px solid var(--btn-red);
-
 color:white;
 
+border:2px solid var(--btn-red);
+
 }
-    <body>
+
+
+</style>
+
+</head>
+<body>
 
 
 <div class="container">
@@ -275,6 +286,7 @@ class="logout-btn"
 id="logoutBtn">
 
 <i class="fa-solid fa-right-from-bracket"></i>
+
 Logout
 
 </button>
@@ -312,12 +324,16 @@ alt="Profile">
 
 
 <h3 id="userName">
+
 Loading...
+
 </h3>
 
 
 <p id="userEmail">
+
 Loading...
+
 </p>
 
 
@@ -356,16 +372,13 @@ id="stampContainer">
 class="nav-item active"
 href="index.html">
 
-
 <i class="fa-solid fa-house"></i>
 
 <span>
 Home
 </span>
 
-
 </a>
-
 
 
 
@@ -373,16 +386,13 @@ Home
 class="nav-item"
 href="qr.html">
 
-
 <i class="fa-solid fa-qrcode"></i>
 
 <span>
 QR
 </span>
 
-
 </a>
-
 
 
 
@@ -390,16 +400,13 @@ QR
 class="nav-item"
 href="history.html">
 
-
 <i class="fa-solid fa-clock-rotate-left"></i>
 
 <span>
 History
 </span>
 
-
 </a>
-
 
 
 
@@ -407,13 +414,11 @@ History
 class="nav-item"
 href="profile.html">
 
-
 <i class="fa-solid fa-user"></i>
 
 <span>
 Profile
 </span>
-
 
 </a>
 
@@ -423,9 +428,6 @@ Profile
 
 
 <style>
-
-
-/* BOTTOM NAVIGATION */
 
 
 .bottom-nav{
@@ -470,7 +472,7 @@ flex-direction:column;
 
 align-items:center;
 
-font-size:.75rem;
+font-size:12px;
 
 gap:4px;
 
@@ -484,7 +486,7 @@ opacity:.7;
 
 .nav-item i{
 
-font-size:1.2rem;
+font-size:20px;
 
 }
 
@@ -500,11 +502,14 @@ color:white;
 }
 
 
-
 </style>
-    <script type="module">
+<!-- FIREBASE SCRIPT -->
 
-import { firebaseConfig } from "./firebase-config.js";
+<script type="module">
+
+
+import { firebaseConfig } from "./js/firebase-config.js";
+
 
 import { 
 initializeApp 
@@ -530,13 +535,17 @@ getDoc
 
 
 
-// Firebase Start
+
+// Firebase Initialize
 
 const app = initializeApp(firebaseConfig);
 
+
 const auth = getAuth(app);
 
+
 const db = getFirestore(app);
+
 
 
 
@@ -557,16 +566,18 @@ const logoutBtn = document.getElementById("logoutBtn");
 
 
 
-// Auth Check
+// Check Login User
 
 onAuthStateChanged(auth, async(user)=>{
 
 
 if(!user){
 
+
 window.location.href="login.html";
 
 return;
+
 
 }
 
@@ -582,7 +593,15 @@ user.uid
 );
 
 
+
 const userSnap = await getDoc(userRef);
+
+
+
+console.log(
+"Firebase User:",
+user.uid
+);
 
 
 
@@ -590,6 +609,13 @@ if(userSnap.exists()){
 
 
 const data = userSnap.data();
+
+
+
+console.log(
+"Customer Data:",
+data
+);
 
 
 
@@ -603,16 +629,17 @@ data.email || user.email;
 
 
 
-
-// Avatar
+// Avatar Load
 
 
 if(data.photoURL){
 
 
-imageAvatar.src=data.photoURL;
+imageAvatar.src = data.photoURL;
+
 
 imageAvatar.style.display="block";
+
 
 emojiAvatar.style.display="none";
 
@@ -622,14 +649,17 @@ emojiAvatar.style.display="none";
 else if(data.avatar){
 
 
-emojiAvatar.textContent=data.avatar;
+emojiAvatar.textContent =
+data.avatar;
 
 
 }
 
 
 
-// Stamps
+
+// Stamp Load
+
 
 renderStamps(
 data.stamps || 0
@@ -642,9 +672,14 @@ data.stamps || 0
 else{
 
 
-userName.textContent="Customer";
+userName.textContent =
+"Welcome Customer";
 
-userEmail.textContent=user.email || "";
+
+userEmail.textContent =
+user.email || "";
+
+
 
 renderStamps(0);
 
@@ -659,23 +694,24 @@ catch(error){
 
 
 console.error(
-"Home Loading Error:",
+"Firebase Loading Error:",
 error
 );
 
 
-userName.textContent="Error Loading";
+
+userName.textContent =
+"Error Loading";
 
 
 }
+
 
 
 });
 
 
 
-
-// Stamp Function
 
 
 function renderStamps(count){
@@ -684,10 +720,12 @@ function renderStamps(count){
 stampContainer.innerHTML="";
 
 
+
 for(let i=1;i<=6;i++){
 
 
 const box=document.createElement("div");
+
 
 
 box.className =
@@ -712,12 +750,11 @@ stampContainer.appendChild(box);
 }
 
 
+
 }
 
 
 
-
-// Logout
 
 
 logoutBtn.addEventListener(
@@ -735,14 +772,11 @@ window.location.href="login.html";
 });
 
 
-}
-
-);
-
+});
 
 
 </script>
-
+<!-- END -->
 
 </body>
 
