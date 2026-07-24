@@ -1,309 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Rio Maggi Point - Admin Login</title>
+<meta charset="UTF-8">
 
-    <!-- PWA Manifest & Favicon -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#263525">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="icon-192.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+<title>Rio Loyalty Club | Admin Login</title>
 
-        body {
-            min-height: 100vh;
-            background: #050505;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+<meta name="theme-color" content="#D4AF37">
 
-        .container {
-            width: 100%;
-            max-width: 420px;
-            background: #f5d99b;
-            border: 3px solid #d19b4a;
-            border-radius: 18px;
-            padding: 30px;
-            box-shadow: 0 15px 40px rgba(0,0,0,.45);
-        }
+<link rel="manifest" href="manifest.json">
 
-        h1 {
-            text-align: center;
-            color: #222;
-            margin-bottom: 10px;
-        }
+<!-- Google Font -->
 
-        .subtitle {
-            text-align: center;
-            color: #555;
-            margin-bottom: 25px;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-            color: #222;
-        }
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 18px;
-            border: 2px solid #d19b4a;
-            border-radius: 10px;
-            font-size: 15px;
-            outline: none;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        input:focus {
-            border-color: #263525;
-        }
+<!-- Font Awesome -->
 
-        button {
-            width: 100%;
-            padding: 14px;
-            background: #263525;
-            color: #ffd54f;
-            border: none;
-            border-radius: 10px;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: .25s;
-        }
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-        button:hover {
-            background: #1c271b;
-        }
+<!-- CSS -->
 
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
+<link rel="stylesheet" href="css/style.css">
 
-        #errorMessage {
-            display: none;
-            margin-top: 15px;
-            padding: 12px;
-            background: #ffe0e0;
-            color: #b00020;
-            border: 1px solid #ff9999;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 14px;
-            font-weight: bold;
-        }
-    </style>
+<link rel="stylesheet" href="css/admin.css">
+
 </head>
 
 <body>
 
-<div class="container">
+<div class="login-page">
 
-    <h1>🔐 Admin Login</h1>
+<div class="login-card">
 
-    <p class="subtitle">
-        Authorized Access Only
-    </p>
+<div class="logo-box">
 
-    <form id="adminLoginForm">
+<img
+src="assets/logo/logo.png"
+alt="Rio Logo">
 
-        <label for="email">
-            Admin Email
-        </label>
+<h1>Admin Panel</h1>
 
-        <input
-            type="email"
-            id="email"
-            placeholder="Enter Admin Email"
-            autocomplete="email"
-            required
-        >
+<p>
 
-        <label for="password">
-            Password
-        </label>
+Authorized Access Only
 
-        <input
-            type="password"
-            id="password"
-            placeholder="Enter Password"
-            autocomplete="current-password"
-            required
-        >
-
-        <button type="submit" id="loginBtn">
-            Login
-        </button>
-
-        <div id="errorMessage"></div>
-
-    </form>
+</p>
 
 </div>
 
+<form id="adminLoginForm">
 
-<!-- Firebase Admin Login -->
-<script type="module">
+<div class="form-group">
 
-    import { initializeApp }
-    from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+<label>
 
-    import {
-        getAuth,
-        signInWithEmailAndPassword
-    }
-    from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+Admin Email
 
+</label>
 
-    // Firebase Configuration
-    const firebaseConfig = {
+<input
+type="email"
+id="adminEmail"
+class="input-box"
+placeholder="Enter Admin Email"
+required>
 
-        apiKey: "AIzaSyS5ZmPaMW17YnUOvd48QhHXwS8it6XDB70",
+</div>
 
-        authDomain: "rio-maggi-point.firebaseapp.com",
+<div class="form-group">
 
-        projectId: "rio-maggi-point",
+<label>
 
-        storageBucket: "rio-maggi-point.firebasestorage.app",
+Password
 
-        messagingSenderId: "472858143171",
+</label>
 
-        appId: "1:472858143171:web:15cfb0b8de9cd25b957576"
+<div class="password-box">
 
-    };
+<input
+type="password"
+id="adminPassword"
+class="input-box"
+placeholder="Enter Password"
+required>
 
+<button
+type="button"
+class="toggle-password"
+id="togglePassword">
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
+<i class="fa-solid fa-eye"></i>
 
-    // Initialize Firebase Authentication
-    const auth = getAuth(app);
+</button>
 
+</div>
 
-    // Get Elements
-    const form = document.getElementById("adminLoginForm");
+</div>
+<div id="loginError" class="error-box" style="display:none;">
 
-    const emailInput = document.getElementById("email");
+Invalid Email or Password
 
-    const passwordInput = document.getElementById("password");
+</div>
 
-    const loginBtn = document.getElementById("loginBtn");
+<div class="button-area">
 
-    const errorMessage = document.getElementById("errorMessage");
+<button
+type="submit"
+class="login-btn"
+id="loginBtn">
 
+<i class="fa-solid fa-lock"></i>
 
-    // Admin Login
-    form.addEventListener("submit", async (event) => {
+&nbsp;
 
-        event.preventDefault();
+Admin Login
 
-        const email = emailInput.value.trim();
+</button>
 
-        const password = passwordInput.value;
+</div>
 
+</form>
 
-        // Hide old error
-        errorMessage.style.display = "none";
+<div class="signup-link">
 
-        errorMessage.textContent = "";
+<p>
 
+← Back to
 
-        // Disable button
-        loginBtn.disabled = true;
+<a href="login.html">
 
-        loginBtn.textContent = "Logging in...";
+Customer Login
 
+</a>
 
-        try {
+</p>
 
-            // Firebase Login
-            await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
+</div>
 
+</div>
 
-            // Login Successful
-            alert("Admin Login Successful!");
+</div>
 
+<!-- =====================================
+JAVASCRIPT
+===================================== -->
 
-            // Go to Admin Panel
-            window.location.href = "admin.html";
+<script src="js/admin-login.js"></script>
 
-
-        } catch (error) {
-
-            console.error("Login Error:", error);
-
-
-            // Show Error
-            errorMessage.style.display = "block";
-
-
-            if (
-                error.code === "auth/invalid-credential" ||
-                error.code === "auth/invalid-login-credentials"
-            ) {
-
-                errorMessage.textContent =
-                    "Invalid Email or Password.";
-
-            } else if (
-                error.code === "auth/too-many-requests"
-            ) {
-
-                errorMessage.textContent =
-                    "Too many failed attempts. Please try again later.";
-
-            } else {
-
-                errorMessage.textContent =
-                    "Login failed. Please check your Email and Password.";
-
-            }
-
-
-            // Enable button
-            loginBtn.disabled = false;
-
-            loginBtn.textContent = "Login";
-
-        }
-
-    });
-
-</script>
-
-
-<!-- Service Worker -->
-<script>
-
-if ("serviceWorker" in navigator) {
-
-    window.addEventListener("load", () => {
-
-        navigator.serviceWorker.register("./service-worker.js");
-
-    });
-
-}
-
-</script>
+<script type="module" src="js/admin-login-firebase.js"></script>
 
 </body>
+
 </html>
