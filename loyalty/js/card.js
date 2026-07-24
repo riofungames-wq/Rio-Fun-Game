@@ -1,7 +1,7 @@
 // ======================================
 // RIO MAGGI POINT
 // CUSTOMER CARD JS
-// FIREBASE CONNECT
+// FINAL FIREBASE VERSION
 // PART 1
 // ======================================
 
@@ -11,7 +11,7 @@
 import { firebaseConfig } from "../firebase-config.js";
 
 
-// Firebase
+// Firebase Imports
 
 import {
 
@@ -39,7 +39,9 @@ getDoc
 
 
 
-// Initialize Firebase
+// ======================================
+// INITIALIZE FIREBASE
+// ======================================
 
 
 const app = initializeApp(firebaseConfig);
@@ -58,30 +60,53 @@ const db = getFirestore(app);
 // ======================================
 
 
-const customerName = 
-document.getElementById("customerName");
+const customerName = document.getElementById(
+"customerName"
+);
 
 
-const memberId = 
-document.getElementById("memberId");
+const memberId = document.getElementById(
+"memberId"
+);
 
 
-const avatarDisplay = 
-document.getElementById("avatarDisplay");
+const avatarDisplay = document.getElementById(
+"avatarDisplay"
+);
 
 
-const customerPhoto = 
-document.getElementById("customerPhoto");
+const customerPhoto = document.getElementById(
+"customerPhoto"
+);
 
 
-const qrCodeBox = 
-document.getElementById("qrCodeBox");
+const qrCodeBox = document.getElementById(
+"qrCodeBox"
+);
 
 
-const qrCustomerId = 
-document.getElementById("qrCustomerId");
+const qrCustomerId = document.getElementById(
+"qrCustomerId"
+);
 
 
+
+// QR Buttons
+
+
+const openQR = document.getElementById(
+"openQR"
+);
+
+
+const qrPopup = document.getElementById(
+"qrPopup"
+);
+
+
+const closeQR = document.getElementById(
+"closeQR"
+);
 
 
 
@@ -131,7 +156,16 @@ if(customerSnap.exists()){
 const data = customerSnap.data();
 
 
-// Name
+
+console.log(
+"Customer Card Data:",
+data
+);
+
+
+
+// CUSTOMER NAME
+
 
 if(customerName){
 
@@ -141,56 +175,54 @@ data.name || "Customer";
 }
 
 
-// Member ID
+
+// MEMBER ID
+
+
+const customerID =
+data.memberId || user.uid;
+
+
 
 if(memberId){
 
 memberId.textContent =
-
-"Member ID : " +
-
-(data.memberId || user.uid);
+"Member ID : " + customerID;
 
 }
 
 
-// Avatar / Photo
+
+// LOAD PHOTO / AVATAR
+
 
 loadAvatar(data);
 
 
 
-// QR ID
+// GENERATE QR
+
+
+generateQR(customerID);
+
+
 
 if(qrCustomerId){
 
 qrCustomerId.textContent =
-
-"ID : " +
-
-(data.memberId || user.uid);
+"ID : " + customerID;
 
 }
 
 
 
-generateQR(
-
-data.memberId || user.uid
-
-);
-
-
-
 }
-
-
 
 else{
 
 
 console.log(
-"Customer data not found"
+"Customer record not found"
 );
 
 
@@ -204,11 +236,8 @@ catch(error){
 
 
 console.error(
-
-"Card Load Error :",
-
+"Card Loading Error:",
 error
-
 );
 
 
@@ -216,111 +245,149 @@ error
 
 
 });
-// ======================================
-// RIO MAGGI POINT
-// CUSTOMER CARD JS
-// AVATAR + QR SYSTEM
-// PART 2
-// ======================================
-
-
 
 // ======================================
-// LOAD AVATAR
+// LOAD CUSTOMER AVATAR / PHOTO
 // ======================================
 
 
 function loadAvatar(data){
 
 
-const photoBox = 
-document.getElementById("customerPhoto");
+
+// HTML ELEMENTS
 
 
-const emojiBox = 
-document.getElementById("avatarEmoji");
-
-
-
-if(!photoBox) return;
+const emojiAvatar = document.getElementById(
+"avatarDisplay"
+);
 
 
 
-// Customer Photo Available
+
+const photo = document.getElementById(
+"customerPhoto"
+);
+
+
+
+
+
+// CUSTOMER PHOTO EXISTS
+
 
 if(data.photoURL){
 
 
-photoBox.src = data.photoURL;
+
+if(photo){
 
 
-photoBox.style.display="block";
+photo.src = data.photoURL;
 
 
-if(emojiBox){
-
-emojiBox.style.display="none";
-
-}
+photo.style.display = "block";
 
 
 }
 
 
-// Emoji Avatar
+
+if(emojiAvatar){
+
+
+emojiAvatar.style.display = "none";
+
+
+}
+
+
+
+}
+
+
+
+
+
+// EMOJI AVATAR EXISTS
+
 
 else if(data.avatar){
 
 
-if(emojiBox){
+
+if(emojiAvatar){
 
 
-emojiBox.textContent =
-data.avatar;
+emojiAvatar.textContent = data.avatar;
 
 
-emojiBox.style.display="block";
+emojiAvatar.style.display = "block";
+
+
+}
+
+
+
+if(photo){
+
+
+photo.style.display = "none";
 
 
 }
 
 
 
-photoBox.style.display="none";
-
-
 }
 
 
-// Default
+
+
+
+// DEFAULT AVATAR
+
 
 else{
 
 
-if(emojiBox){
+
+if(emojiAvatar){
 
 
-emojiBox.textContent="😊";
+emojiAvatar.textContent = "😊";
+
+
+emojiAvatar.style.display = "block";
+
+
+}
+
+
+
+if(photo){
+
+
+photo.style.display = "none";
 
 
 }
 
 
-photoBox.style.display="none";
-
 
 }
 
 
 
 }
+
 
 
 
 
 
 // ======================================
-// QR GENERATOR
+// GENERATE CUSTOMER QR
 // ======================================
 
 
@@ -328,15 +395,21 @@ function generateQR(id){
 
 
 
-if(!qrCodeBox) return;
+if(!qrCodeBox){
+
+return;
+
+}
 
 
 
-qrCodeBox.innerHTML="";
+qrCodeBox.innerHTML = "";
 
 
 
-const qrImage = document.createElement("img");
+const qrImage = document.createElement(
+"img"
+);
 
 
 
@@ -350,11 +423,14 @@ encodeURIComponent(id);
 
 
 
-qrImage.alt="Customer QR";
+qrImage.alt =
+"Customer QR Code";
 
 
 
-qrCodeBox.appendChild(qrImage);
+qrCodeBox.appendChild(
+qrImage
+);
 
 
 
@@ -364,95 +440,98 @@ qrCodeBox.appendChild(qrImage);
 
 
 
+
 // ======================================
-// QR POPUP OPEN CLOSE
+// QR POPUP OPEN
 // ======================================
-
-
-const openQR = 
-
-document.getElementById("openQR");
-
-
-
-const qrPopup =
-
-document.getElementById("qrPopup");
-
-
-
-const closeQR =
-
-document.getElementById("closeQR");
-
-
-
 
 
 if(openQR){
 
 
+
 openQR.addEventListener(
-
 "click",
-
 ()=>{
-
-
-qrPopup.style.display="flex";
-
-
-}
-
-);
-
-
-}
-
-
-
-
-if(closeQR){
-
-
-closeQR.addEventListener(
-
-"click",
-
-()=>{
-
-
-qrPopup.style.display="none";
-
-
-}
-
-);
-
-
-}
-
-
-
 
 
 if(qrPopup){
 
 
-qrPopup.addEventListener(
-
-"click",
-
-(e)=>{
-
-
-if(e.target===qrPopup){
-
-
-qrPopup.style.display="none";
+qrPopup.style.display = "flex";
 
 
 }
+
+
+
+}
+
+);
+
+
+}
+
+
+
+
+
+
+// ======================================
+// QR POPUP CLOSE
+// ======================================
+
+
+if(closeQR){
+
+
+
+closeQR.addEventListener(
+"click",
+()=>{
+
+
+if(qrPopup){
+
+
+qrPopup.style.display = "none";
+
+
+}
+
+
+
+}
+
+);
+
+
+}
+
+
+
+
+
+// CLOSE WHEN CLICK OUTSIDE
+
+
+if(qrPopup){
+
+
+
+qrPopup.addEventListener(
+"click",
+(event)=>{
+
+
+if(event.target === qrPopup){
+
+
+qrPopup.style.display = "none";
+
+
+}
+
 
 
 }
@@ -469,34 +548,23 @@ qrPopup.style.display="none";
 // ======================================
 
 
-
 // ======================================
-// CUSTOMER CARD DATA BACKUP
+// CARD READY MESSAGE
 // ======================================
 
-
-window.addEventListener(
-"beforeunload",
-()=>{
 
 console.log(
-"Rio Customer Card Closed"
-);
-
-}
-
+"RIO MAGGI POINT CUSTOMER CARD READY"
 );
 
 
 
-
-
 // ======================================
-// PREVENT INVALID QR
+// PREVENT EMPTY QR DATA
 // ======================================
 
 
-function cleanQRData(value){
+function safeQR(value){
 
 
 if(!value){
@@ -508,58 +576,32 @@ return "RIO-CUSTOMER";
 }
 
 
-return String(value)
-
-.replace(
-
-/[^a-zA-Z0-9-_]/g,
-
-""
-
-);
+return String(value);
 
 
 }
 
 
 
-
 // ======================================
-// UPDATE QR WITH CLEAN ID
+// FINAL QR UPDATE CHECK
 // ======================================
 
 
-function updateCustomerQR(id){
-
-
-
-const cleanID = cleanQRData(id);
-
-
-
-generateQR(cleanID);
-
-
-
-}
-
-
-
-
-
-// ======================================
-// CARD READY MESSAGE
-// ======================================
+window.addEventListener(
+"load",
+()=>{
 
 
 console.log(
-
-"RIO MAGGI POINT CUSTOMER CARD READY"
-
+"Customer Card Loaded Successfully"
 );
+
+
+});
 
 
 
 // ======================================
-// END
+// END OF CARD.JS
 // ======================================
