@@ -409,6 +409,324 @@ tbody tr:hover{
 }
 
 .viewBtn:hover{
+   /* ==========================================
+   CUSTOMER MODAL
+========================================== */
+
+.modal{
+
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    z-index:999;
+
+}
+
+.modal-content{
+
+    width:90%;
+    max-width:560px;
+
+    background:#fff;
+
+    margin:60px auto;
+
+    border-radius:20px;
+
+    padding:28px;
+
+    position:relative;
+
+    box-shadow:var(--shadow);
+
+}
+
+.closeModal{
+
+    position:absolute;
+
+    top:18px;
+
+    right:20px;
+
+    font-size:30px;
+
+    color:#999;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.closeModal:hover{
+
+    color:#000;
+
+}
+
+.modal-content h2{
+
+    color:var(--green);
+
+    margin-bottom:20px;
+
+}
+
+.modal-content p{
+
+    margin:12px 0;
+
+    font-size:15px;
+
+    color:var(--text);
+
+}
+
+/* ==========================================
+   MODAL BUTTONS
+========================================== */
+
+.modal-content button{
+
+    width:100%;
+
+    margin-top:14px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    transition:.25s;
+
+}
+
+.addStampBtn{
+
+    background:var(--primary);
+
+    color:#fff;
+
+}
+
+.addStampBtn:hover{
+
+    background:var(--primary-dark);
+
+}
+
+.removeStampBtn{
+
+    background:#EF4444;
+
+    color:#fff;
+
+}
+
+.removeStampBtn:hover{
+
+    background:#DC2626;
+
+}
+
+.redeemBtn{
+
+    background:#22C55E;
+
+    color:#fff;
+
+}
+
+.redeemBtn:hover{
+
+    background:#16A34A;
+
+}
+
+/* ==========================================
+   QUICK ACTIONS
+========================================== */
+
+.quick-actions{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    margin-bottom:30px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.quick-actions h2{
+
+    color:var(--green);
+
+    margin-bottom:20px;
+
+}
+
+.action-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
+    gap:18px;
+
+}
+
+.action-grid button{
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:var(--primary);
+
+    color:#fff;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.action-grid button:hover{
+
+    background:var(--primary-dark);
+
+    transform:translateY(-2px);
+
+}
+
+/* ==========================================
+   SYSTEM STATUS
+========================================== */
+
+.system-status{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.system-status h2{
+
+    color:var(--green);
+
+    margin-bottom:18px;
+
+}
+
+.status-box p{
+
+    margin:12px 0;
+
+    color:var(--text);
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:900px){
+
+    .dashboard{
+
+        flex-direction:column;
+
+    }
+
+    .sidebar{
+
+        position:relative;
+
+        width:100%;
+
+        height:auto;
+
+    }
+
+    .main-content{
+
+        margin-left:0;
+
+        padding:20px;
+
+    }
+
+    .topbar{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:15px;
+
+    }
+
+    .section-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    #searchCustomer{
+
+        width:100%;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    .cards{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .card h2{
+
+        font-size:28px;
+
+    }
+
+    .modal-content{
+
+        width:95%;
+
+        padding:22px;
+
+    }
+
+}
 
     background:var(--primary-dark);
 
