@@ -1,1 +1,480 @@
+/* =======================================
+   RIO MAGGI POINT
+   QR PAGE
+======================================= */
 
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+
+background:#0d0d0d;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+min-height:100vh;
+
+padding:20px;
+
+}
+
+.page{
+
+width:100%;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+/* =======================================
+QR CARD
+======================================= */
+
+.qr-card{
+
+position:relative;
+
+width:340px;
+
+border-radius:22px;
+
+padding:18px;
+
+overflow:hidden;
+
+color:#fff;
+
+transition:.35s;
+
+}
+
+/* ==========================
+MALE
+========================== */
+
+.theme-male{
+
+background:
+
+linear-gradient(
+135deg,
+#151515,
+#123b2a,
+#151515
+);
+
+border:2px solid #d4af37;
+
+box-shadow:
+
+0 10px 35px rgba(0,0,0,.45),
+
+0 0 14px rgba(212,175,55,.45);
+
+}
+
+/* ==========================
+FEMALE
+========================== */
+
+.theme-female{
+
+background:
+
+linear-gradient(
+135deg,
+#1d1a1d,
+#4b2741,
+#1d1a1d
+);
+
+border:2px solid #E7A6B8;
+
+box-shadow:
+
+0 10px 35px rgba(0,0,0,.45),
+
+0 0 14px rgba(231,166,184,.45);
+
+}
+
+/* =======================================
+HEADER
+======================================= */
+
+.qr-header{
+
+text-align:center;
+
+margin-bottom:15px;
+
+}
+
+.brand{
+
+font-size:22px;
+
+font-weight:700;
+
+}
+
+.brand-title{
+
+font-size:15px;
+
+font-weight:700;
+
+letter-spacing:1px;
+
+}
+
+.brand-sub{
+
+margin-top:3px;
+
+font-size:10px;
+
+}
+
+.theme-male .brand-sub{
+
+color:#FFD86A;
+
+}
+
+.theme-female .brand-sub{
+
+color:#FFD3DD;
+
+}
+
+/* =======================================
+PROFILE
+======================================= */
+
+.profile-section{
+
+text-align:center;
+
+margin-bottom:18px;
+
+}
+
+.avatar-box{
+
+width:72px;
+
+height:72px;
+
+margin:auto;
+
+border-radius:18px;
+
+overflow:hidden;
+
+background:#2d2d2d;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+.theme-male .avatar-box{
+
+border:2px solid #d4af37;
+
+}
+
+.theme-female .avatar-box{
+
+border:2px solid #E7A6B8;
+
+}
+
+.avatar-box img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+}
+
+.customer-name{
+
+margin-top:8px;
+
+font-size:15px;
+
+font-weight:700;
+
+}
+
+.member-id{
+
+margin-top:4px;
+
+font-size:11px;
+
+opacity:.9;
+
+}
+/* =======================================
+   QR AREA
+======================================= */
+
+.qr-wrapper{
+
+background:#ffffff;
+
+border-radius:18px;
+
+padding:18px;
+
+text-align:center;
+
+margin-bottom:18px;
+
+}
+
+#qrcode{
+
+width:220px;
+
+height:220px;
+
+margin:auto;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+#qrcode img{
+
+width:100% !important;
+
+height:100% !important;
+
+border-radius:10px;
+
+}
+
+.scan-text{
+
+margin-top:14px;
+
+font-size:11px;
+
+font-weight:700;
+
+color:#222;
+
+letter-spacing:.5px;
+
+}
+
+/* =======================================
+INFO
+======================================= */
+
+.info-box{
+
+background:rgba(255,255,255,.08);
+
+border-radius:14px;
+
+padding:14px;
+
+margin-bottom:18px;
+
+text-align:center;
+
+}
+
+.info-title{
+
+font-size:13px;
+
+font-weight:700;
+
+margin-bottom:6px;
+
+}
+
+.info-text{
+
+font-size:11px;
+
+line-height:1.5;
+
+opacity:.9;
+
+}
+
+/* =======================================
+BUTTONS
+======================================= */
+
+.button-row{
+
+display:flex;
+
+gap:10px;
+
+margin-bottom:16px;
+
+}
+
+.primary-btn{
+
+flex:1;
+
+height:40px;
+
+border:none;
+
+border-radius:10px;
+
+font-size:13px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.theme-male .primary-btn{
+
+background:#d4af37;
+
+color:#111;
+
+}
+
+.theme-female .primary-btn{
+
+background:#E7A6B8;
+
+color:#111;
+
+}
+
+.primary-btn:hover{
+
+transform:translateY(-2px);
+
+}
+
+/* =======================================
+BOTTOM NAV
+======================================= */
+
+.bottom-nav{
+
+margin-top:20px;
+
+width:340px;
+
+display:flex;
+
+justify-content:space-between;
+
+}
+
+.bottom-nav a{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+text-decoration:none;
+
+color:#ffffff;
+
+font-size:10px;
+
+gap:4px;
+
+}
+
+.bottom-nav img{
+
+width:22px;
+
+height:22px;
+
+object-fit:contain;
+
+}
+
+/* =======================================
+RESPONSIVE
+======================================= */
+
+@media(max-width:480px){
+
+.qr-card{
+
+width:340px;
+
+}
+
+#qrcode{
+
+width:190px;
+
+height:190px;
+
+}
+
+.bottom-nav{
+
+width:340px;
+
+}
+
+}
+
+@media(min-width:900px){
+
+.qr-card{
+
+transform:scale(1.18);
+
+}
+
+.bottom-nav{
+
+margin-top:55px;
+
+}
+
+}
+
+/* =======================================
+END
+======================================= */
