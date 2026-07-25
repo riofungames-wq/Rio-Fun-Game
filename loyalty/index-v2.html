@@ -5,39 +5,29 @@
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
+<meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>
-
-RIO MAGGI POINT
-
+RIO MAGGI POINT • Premium Loyalty Card
 </title>
 
 <link rel="manifest"
 href="manifest.json">
 
-<meta
-name="theme-color"
-content="#D4AF37">
+<meta name="theme-color"
+content="#d4af37">
 
 <link rel="icon"
 href="favicon.ico">
-
-<!-- Google Font -->
 
 <link
 href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
 rel="stylesheet">
 
-<!-- Font Awesome -->
-
 <link
 rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
-<!-- CSS -->
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 <link
 rel="stylesheet"
@@ -47,15 +37,48 @@ href="css/index-v2.css">
 
 <body>
 
-<div class="home-page">
+<div class="page">
 
-<!-- ========================== -->
+<div class="premium-card">
+
+<!-- ============================= -->
+<!-- GOLD SHINE -->
+<!-- ============================= -->
+
+<div class="card-shine"></div>
+
+<!-- ============================= -->
 <!-- HEADER -->
-<!-- ========================== -->
+<!-- ============================= -->
 
-<header class="top-header">
+<header class="card-header">
 
-<div class="brand">
+<!-- LEFT -->
+
+<div class="profile-area">
+
+<div class="profile-frame">
+
+<img
+id="customerPhoto"
+src=""
+alt="Customer"
+style="display:none;">
+
+<span
+id="avatarDisplay">
+
+😊
+
+</span>
+
+</div>
+
+</div>
+
+<!-- CENTER -->
+
+<div class="customer-area">
 
 <h1>
 
@@ -63,54 +86,11 @@ href="css/index-v2.css">
 
 </h1>
 
-<p>
+<p class="subtitle">
 
-Premium Loyalty Club
+PREMIUM LOYALTY MEMBER
 
 </p>
-
-</div>
-
-<button
-id="logoutBtn"
-class="logout-btn">
-
-<i class="fa-solid fa-right-from-bracket"></i>
-
-Logout
-
-</button>
-
-</header>
-
-<!-- ========================== -->
-<!-- WELCOME CARD -->
-<!-- ========================== -->
-
-<section class="welcome-card">
-
-<div class="profile-area">
-
-<div
-class="profile-photo"
-id="profilePhotoBox">
-
-<span
-id="emojiAvatar">
-
-😊
-
-</span>
-
-<img
-id="profileImage"
-src=""
-style="display:none;"
-alt="Customer">
-
-</div>
-
-<div class="profile-info">
 
 <h2
 id="customerName">
@@ -120,65 +100,65 @@ Loading...
 </h2>
 
 <p
-id="customerEmail">
+id="memberId">
 
-Loading...
+Member ID : Loading...
 
 </p>
 
 <p
-id="memberLevel">
+id="welcomeMessage">
 
-Premium Member
+Welcome Back ❤️
 
 </p>
 
 </div>
 
-</div>
+<!-- RIGHT -->
 
-</section>
+<div class="owner-area">
 
-<!-- ========================== -->
-<!-- PREMIUM ATM CARD -->
-<!-- ========================== -->
+<span>
 
-<section
-class="card-preview">
+OWNER
+
+</span>
 
 <h3>
 
-Your Loyalty Card
+KABiR
 
 </h3>
 
-<div
-id="cardPreview">
+<p>
 
-<!-- ATM Card Preview -->
+📞 7987827979
+
+</p>
 
 </div>
 
-</section>
-  <!-- ========================== -->
-<!-- CARD VALIDITY -->
-<!-- ========================== -->
+</header>
+<!-- ============================= -->
+<!-- COUNTDOWN -->
+<!-- ============================= -->
 
-<section class="validity-card">
+<section class="countdown-section">
 
-<div class="section-title">
+<div class="countdown-title">
 
 <i class="fa-solid fa-hourglass-half"></i>
 
 <span>
 
-CARD VALIDITY
+Card Validity
 
 </span>
 
 </div>
 
-<div class="countdown-container">
+<div class="countdown-grid">
 
 <div class="time-box">
 
@@ -247,20 +227,42 @@ Seconds
 </div>
 
 <p
-id="expiryStatus"
-class="expiry-status">
+id="countdownMessage"
+class="countdown-message">
 
-Complete 6 Stamps Before Your Card Expires.
+Complete your loyalty card before it expires.
 
 </p>
 
 </section>
 
-<!-- ========================== -->
-<!-- STAMP PROGRESS -->
-<!-- ========================== -->
+<!-- ============================= -->
+<!-- PLAY FREE GAME -->
+<!-- ============================= -->
 
-<section class="progress-card">
+<section class="play-game-section">
+
+<a
+href="https://riofungames-wq.github.io/Rio-Fun-Game/"
+target="_blank"
+class="play-game-btn">
+
+<i class="fa-solid fa-gamepad"></i>
+
+<span>
+
+PLAY FREE GAME
+
+</span>
+
+</a>
+
+</section>
+<!-- ============================= -->
+<!-- STAMP SECTION -->
+<!-- ============================= -->
+
+<section class="stamp-section">
 
 <div class="section-title">
 
@@ -268,187 +270,126 @@ Complete 6 Stamps Before Your Card Expires.
 
 <span>
 
-TODAY'S PROGRESS
+Collect Stamps & Unlock Reward
 
 </span>
 
 </div>
 
-<div
-id="stampPreview"
-class="stamp-preview">
+<div class="stamp-wrapper">
 
-<!-- JS Will Create 8 Circles -->
+<!-- Stamp 1 -->
 
-</div>
+<div class="stamp-circle" id="stamp1">
 
-<div class="progress-text">
-
-<span id="homeStampText">
-
-0 / 6 Stamps Collected
-
-</span>
+<span>1</span>
 
 </div>
 
-</section>
+<!-- Stamp 2 -->
 
-<!-- ========================== -->
-<!-- NEXT REWARD -->
-<!-- ========================== -->
+<div class="stamp-circle" id="stamp2">
 
-<section class="reward-card">
+<span>2</span>
 
-<div class="reward-left">
+</div>
+
+<!-- Stamp 3 -->
+
+<div class="stamp-circle" id="stamp3">
+
+<span>3</span>
+
+</div>
+
+<!-- Stamp 4 -->
+
+<div class="stamp-circle" id="stamp4">
+
+<span>4</span>
+
+</div>
+
+<!-- Stamp 5 -->
+
+<div class="stamp-circle" id="stamp5">
+
+<span>5</span>
+
+</div>
+
+<!-- Stamp 6 -->
+
+<div class="stamp-circle" id="stamp6">
+
+<span>6</span>
+
+</div>
+
+<!-- Reward -->
+
+<div class="reward-circle" id="rewardStamp">
+
+<div class="reward-icon">
 
 🍜
 
 </div>
 
-<div class="reward-right">
+<div class="reward-label">
 
-<h3>
+FREE
 
-Next Reward
+<br>
 
-</h3>
+VEG MAGGI
 
-<p>
+</div>
 
-ONE FREE VEG MAGGI
+</div>
+
+<!-- Happy Emoji -->
+
+<div class="happy-circle" id="happyCircle">
+
+<span id="happyEmoji">
+
+🙂
+
+</span>
+
+</div>
+
+</div>
+
+<div class="progress-section">
+
+<p id="stampProgress">
+
+0 / 6 Stamps Collected
 
 </p>
 
-<small>
+<p id="rewardMessage">
 
-Complete 6 Stamps To Unlock
-
-</small>
-
-</div>
-
-</section>
-
-<!-- ========================== -->
-<!-- RIO FUN GAME -->
-<!-- ========================== -->
-
-<section class="game-card">
-
-<div class="game-left">
-
-🎮
-
-</div>
-
-<div class="game-right">
-
-<h3>
-
-RIO FUN GAME
-
-</h3>
-
-<p>
-
-Play & Win Exciting Rewards
-
-</p>
-
-</div>
-
-<button
-id="playGameBtn">
-
-Play
-
-</button>
-
-</section>
-
-<!-- ========================== -->
-<!-- QUICK STATUS -->
-<!-- ========================== -->
-
-<section class="stats-grid">
-
-<div class="stat-box">
-
-<h2 id="totalStamp">
-
-0
-
-</h2>
-
-<p>
-
-Total Stamps
-
-</p>
-
-</div>
-
-<div class="stat-box">
-
-<h2 id="remainingStamp">
-
-6
-
-</h2>
-
-<p>
-
-Remaining
-
-</p>
-
-</div>
-
-<div class="stat-box">
-
-<h2 id="rewardCount">
-
-0
-
-</h2>
-
-<p>
-
-Rewards
+Collect 6 Stamps To Unlock Free Veg Maggi 🍜
 
 </p>
 
 </div>
 
 </section>
-  <!-- ===================================== -->
+<!-- ============================= -->
 <!-- BOTTOM NAVIGATION -->
-<!-- ===================================== -->
+<!-- ============================= -->
 
 <nav class="bottom-nav">
 
-<a href="index.html" class="nav-item active">
+<a href="index-v2.html" class="nav-item active">
 
 <i class="fa-solid fa-house"></i>
 
-<span>
-
-Home
-
-</span>
-
-</a>
-
-<a href="card.html" class="nav-item">
-
-<i class="fa-solid fa-credit-card"></i>
-
-<span>
-
-Card
-
-</span>
+<span>Home</span>
 
 </a>
 
@@ -456,11 +397,7 @@ Card
 
 <i class="fa-solid fa-qrcode"></i>
 
-<span>
-
-QR
-
-</span>
+<span>QR</span>
 
 </a>
 
@@ -468,11 +405,7 @@ QR
 
 <i class="fa-solid fa-clock-rotate-left"></i>
 
-<span>
-
-History
-
-</span>
+<span>History</span>
 
 </a>
 
@@ -480,164 +413,23 @@ History
 
 <i class="fa-solid fa-user"></i>
 
-<span>
-
-Profile
-
-</span>
+<span>Profile</span>
 
 </a>
 
 </nav>
 
-<!-- ===================================== -->
-<!-- FIREBASE -->
-<!-- ===================================== -->
+</div>
 
-<script type="module">
+</div>
 
-import { firebaseConfig }
-from "./js/firebase-config.js";
+<!-- ============================= -->
+<!-- JAVASCRIPT -->
+<!-- ============================= -->
 
-import {
-
-initializeApp
-
-}
-
-from
-"https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-
-import {
-
-getAuth,
-onAuthStateChanged,
-signOut
-
-}
-
-from
-"https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-
-import {
-
-getFirestore,
-doc,
-getDoc
-
-}
-
-from
-"https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-
-const app =
-initializeApp(firebaseConfig);
-
-const auth =
-getAuth(app);
-
-const db =
-getFirestore(app);
-
-// Logout
-
-document
-.getElementById("logoutBtn")
-.onclick=()=>{
-
-signOut(auth)
-.then(()=>{
-
-location.href="login.html";
-
-});
-
-};
-
-// Login Check
-
-onAuthStateChanged(
-auth,
-async(user)=>{
-
-if(!user){
-
-location.href="login.html";
-
-return;
-
-}
-
-const ref=
-doc(
-db,
-"customers",
-user.uid
-);
-
-const snap=
-await getDoc(ref);
-
-if(!snap.exists()) return;
-
-const data=
-snap.data();
-
-// Name
-
-document
-.getElementById("customerName")
-.textContent=
-data.name || "Customer";
-
-// Email
-
-document
-.getElementById("customerEmail")
-.textContent=
-data.email || "";
-
-// Member
-
-document
-.getElementById("memberLevel")
-.textContent=
-data.level || "Premium Member";
-
-// Avatar
-
-const emoji=
-document
-.getElementById("emojiAvatar");
-
-const photo=
-document
-.getElementById("profileImage");
-
-if(data.photoURL){
-
-photo.src=data.photoURL;
-
-photo.style.display="block";
-
-emoji.style.display="none";
-
-}
-
-else{
-
-emoji.textContent=
-data.avatar || "😊";
-
-}
-
-// Next Parts
-
-loadHomeStamp(data);
-
-startHomeCountdown(data);
-
-});
+<script
+type="module"
+src="js/index-v2.js">
 
 </script>
 
