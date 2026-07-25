@@ -1,150 +1,329 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>
-RIO MAGGI POINT - Customer Card
+RIO MAGGI POINT - Premium Loyalty Card
 </title>
 
+<link rel="stylesheet"
+href="css/card.css">
 
-<link rel="stylesheet" href="css/card.css">
-
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
 
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
 </head>
 
-
 <body>
 
+<div class="card-page">
 
-<div class="card-wrapper">
+<div class="customer-card"
+id="customerCard">
 
+<!-- GOLD SHINE -->
 
-<div class="customer-card">
+<div class="shine-effect"></div>
 
+<!-- PREMIUM HEADER -->
 
-<!-- SHOP NAME -->
+<div class="card-header">
 
-<div class="shop-title">
+<div class="brand">
 
 <h1>
 🍜 RIO MAGGI POINT
 </h1>
 
-</div>
-
-
-
-<!-- CHIP DESIGN -->
-
-<div class="card-chip">
-
-<div></div>
-
-</div>
-
-
-
-<!-- CUSTOMER PROFILE -->
-
-<div class="profile-section">
-
-
-<div class="photo-box">
-
-
-<span id="avatarEmoji">
-😊
-</span>
-
-
-<img 
-id="customerPhoto"
-src=""
-style="display:none;"
-alt="Customer Photo">
-
-
-</div>
-
-
-
-
-<div class="customer-details">
-
-
-<h2 id="customerName">
-Loading...
-</h2>
-
-
-<p id="memberId">
-Member ID : ----
+<p>
+PREMIUM LOYALTY MEMBER
 </p>
 
+</div>
+
+<div class="website-qr">
+
+<img
+id="websiteQR"
+src="images/rio-website-qr.png"
+alt="Website QR">
+
+<span>
+Visit Us
+</span>
 
 </div>
 
+</div>
+
+<!-- MEMBER BADGE -->
+
+<div
+class="member-badge"
+id="memberBadge">
+
+⭐ SILVER MEMBER
 
 </div>
 
-<!-- OWNER DETAILS -->
+<!-- CARD TOP -->
+
+<div class="card-top">
+
+<!-- CUSTOMER PHOTO -->
+
+<div class="photo-section">
+
+<div class="photo-ring">
+
+<span
+id="avatarDisplay">
+
+😊
+
+</span>
+
+<img
+id="customerPhoto"
+src=""
+alt="Customer"
+style="display:none;">
+
+</div>
+
+</div>
+
+<!-- CUSTOMER INFO -->
+
+<div class="customer-info">
+
+<h2
+id="customerName">
+
+Loading...
+
+</h2>
+
+<p
+id="memberId">
+
+Member ID :
+Loading...
+
+</p>
+
+<p
+id="customerLevel">
+
+Premium Member
+
+</p>
+
+</div>
+
+<!-- ATM CHIP -->
+
+<div class="chip-section">
+
+<div class="atm-chip">
+
+<div class="chip-line"></div>
+
+<div class="chip-line"></div>
+
+<div class="chip-line"></div>
+
+</div>
+
+</div>
+
+</div>
+<!-- ===================================== -->
+<!-- STAMP SECTION -->
+<!-- ===================================== -->
+
+<div class="stamp-section">
+
+<div class="section-title">
+
+<i class="fa-solid fa-star"></i>
+
+<span>
+Collect 6 Stamps & Win
+</span>
+
+</div>
+
+<div class="stamp-container">
+
+<!-- Stamp 1 -->
+
+<div class="stamp-circle" id="stamp1">
+
+<span>1</span>
+
+</div>
+
+<!-- Stamp 2 -->
+
+<div class="stamp-circle" id="stamp2">
+
+<span>2</span>
+
+</div>
+
+<!-- Stamp 3 -->
+
+<div class="stamp-circle" id="stamp3">
+
+<span>3</span>
+
+</div>
+
+<!-- Stamp 4 -->
+
+<div class="stamp-circle" id="stamp4">
+
+<span>4</span>
+
+</div>
+
+<!-- Stamp 5 -->
+
+<div class="stamp-circle" id="stamp5">
+
+<span>5</span>
+
+</div>
+
+<!-- Stamp 6 -->
+
+<div class="stamp-circle" id="stamp6">
+
+<span>6</span>
+
+</div>
+
+<!-- Reward -->
+
+<div class="reward-circle" id="rewardStamp">
+
+<div class="reward-bowl">
+
+🍜
+
+</div>
+
+<p>
+
+FREE
+
+<br>
+
+VEG MAGGI
+
+</p>
+
+</div>
+
+</div>
+
+<div class="progress-box">
+
+<div class="progress-text">
+
+<span id="stampProgress">
+
+0 / 6 Stamps Collected
+
+</span>
+
+</div>
+
+<div
+class="reward-message"
+id="rewardMessage">
+
+Collect 6 stamps to unlock your
+FREE VEG MAGGI 🍜
+
+</div>
+
+</div>
+
+</div>
+<!-- ===================================== -->
+<!-- OWNER SECTION -->
+<!-- ===================================== -->
 
 <div class="owner-section">
 
+<div class="owner-left">
 
-<p>
+<span class="owner-label">
+
 OWNER
-</p>
 
+</span>
 
 <h3>
+
 KABiR
+
 </h3>
 
-
-<a href="tel:7987827979">
+<p>
 
 <i class="fa-solid fa-phone"></i>
 
 7987827979
 
-</a>
-
+</p>
 
 </div>
 
+<div class="owner-right">
 
+<i class="fa-solid fa-award"></i>
 
+<span>
 
+Official Store
 
+</span>
+
+</div>
+
+</div>
+
+<!-- ===================================== -->
 <!-- ADDRESS -->
+<!-- ===================================== -->
 
 <div class="address-section">
 
+<div class="address-icon">
 
 <i class="fa-solid fa-location-dot"></i>
 
+</div>
 
-<div>
-
+<div class="address-details">
 
 <h4>
-ADDRESS
-</h4>
 
+STORE ADDRESS
+
+</h4>
 
 <p>
 
@@ -164,141 +343,199 @@ DURGA MAIDAN
 
 </p>
 
+</div>
 
 </div>
 
+<!-- ===================================== -->
+<!-- SHOW QR BUTTON -->
+<!-- ===================================== -->
 
-</div>
-
-
-
-
-
-<!-- QR BUTTON -->
-
-
-<div class="qr-area">
-
+<div class="qr-button-area">
 
 <button id="openQR">
 
-
 <i class="fa-solid fa-qrcode"></i>
 
-
-SHOW QR CODE
-
+SHOW MY QR
 
 </button>
 
-
 </div>
 
-
-
-
-
+<!-- ===================================== -->
 <!-- CARD FOOTER -->
-
+<!-- ===================================== -->
 
 <div class="card-footer">
 
-
-<div class="loyalty-text">
-
+<div class="footer-left">
 
 <p>
-RIO LOYALTY CLUB
+
+🍜 Made For Maggi Lovers ❤️
+
 </p>
 
-
 <span>
-Premium Member Card
+
+Collect • Enjoy • Repeat
+
 </span>
 
+</div>
+
+<div class="footer-right">
+
+<span class="card-version">
+
+V2
+
+</span>
 
 </div>
 
-
-
-
-<div class="card-status">
-
-
-<i class="fa-solid fa-circle-check"></i>
-
-
-ACTIVE
-
+</div>
 
 </div>
 
+<!-- ===================================== -->
+<!-- BOTTOM NAVIGATION -->
+<!-- ===================================== -->
 
-</div>
+<nav class="bottom-nav">
 
+<a href="index.html" class="nav-item">
 
+<i class="fa-solid fa-house"></i>
 
-</div>
+<span>
 
-<!-- CUSTOMER CARD END -->
-  <!-- QR POPUP -->
+Home
+
+</span>
+
+</a>
+
+<a href="qr.html" class="nav-item">
+
+<i class="fa-solid fa-qrcode"></i>
+
+<span>
+
+QR
+
+</span>
+
+</a>
+
+<a href="history.html" class="nav-item">
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+<span>
+
+History
+
+</span>
+
+</a>
+
+<a href="profile.html" class="nav-item">
+
+<i class="fa-solid fa-user"></i>
+
+<span>
+
+Profile
+
+</span>
+
+</a>
+
+</nav>
+<!-- ===================================== -->
+<!-- PREMIUM QR POPUP -->
+<!-- ===================================== -->
 
 <div class="qr-popup" id="qrPopup">
 
+<div class="qr-popup-card">
 
-<div class="qr-box">
-
-
-<button 
-class="close-qr"
+<button
+class="close-popup"
 id="closeQR">
 
 <i class="fa-solid fa-xmark"></i>
 
 </button>
 
-
-
 <h2>
-RIO MAGGI POINT
+
+🍜 RIO MAGGI POINT
+
 </h2>
 
+<p class="popup-title">
 
+Premium Loyalty Member
 
+</p>
 
 <div id="qrCodeBox">
 
+<!-- Customer QR Here -->
+
 </div>
 
+<h3 id="qrCustomerName">
 
+Loading...
 
-
-<p>
-Scan For Loyalty Stamp
-</p>
-
-
+</h3>
 
 <p id="qrCustomerId">
 
+Member ID : Loading...
+
 </p>
 
+<div class="popup-message">
 
+<p id="randomMessage">
+
+Collect More Stamps
+&
+Enjoy Free Veg Maggi 🍜
+
+</p>
 
 </div>
 
+<div class="popup-footer">
+
+<p>
+
+⭐ Thank You For Visiting
+Rio Maggi Point ⭐
+
+</p>
 
 </div>
 
+</div>
 
+</div>
 
+<!-- ===================================== -->
+<!-- JAVASCRIPT -->
+<!-- ===================================== -->
 
+<script
+type="module"
+src="js/card.js">
 
-<!-- CARD JAVASCRIPT -->
-
-<script type="module" src="js/card.js"></script>
-
-
+</script>
 
 </body>
 
