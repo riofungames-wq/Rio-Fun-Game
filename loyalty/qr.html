@@ -2,447 +2,247 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Rio Maggi Point - My QR</title>
+<meta charset="UTF-8">
 
-    <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#263525">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Rio Maggi Point">
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="icon-192.png">
+<title>
 
-    <!-- QR Code Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+My QR | Rio Maggi Point
 
-    <style>
+</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+<!-- PWA -->
 
-        body {
-            min-height: 100vh;
-            background: #050505;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+<link
+rel="manifest"
+href="manifest.json">
 
-        .qr-card {
-            width: 100%;
-            max-width: 500px;
-            background: #f5d99b;
-            border: 3px solid #d19b4a;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,.55);
-            text-align: center;
-        }
+<meta
+name="theme-color"
+content="#111111">
 
-        .header {
-            background: linear-gradient(135deg, #f8dda0, #edc77d);
-            padding: 25px 20px;
-        }
+<link
+rel="icon"
+href="favicon.ico">
 
-        .brand {
-            font-size: 18px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            color: #222;
-        }
-
-        .brand span {
-            color: #c62828;
-        }
-
-        .title {
-            margin-top: 8px;
-            font-size: 30px;
-            font-weight: 900;
-            color: #c62828;
-        }
-
-        .subtitle {
-            margin-top: 8px;
-            color: #444;
-            font-size: 14px;
-        }
-
-        .customer-box {
-            margin: 20px;
-            padding: 15px;
-            background: #263525;
-            color: white;
-            border-radius: 14px;
-        }
-
-        .welcome {
-            font-size: 12px;
-            letter-spacing: 2px;
-            color: #f5d99b;
-        }
-
-        .customer-name {
-            margin-top: 5px;
-            font-size: 25px;
-            font-weight: 900;
-            color: #ffd54f;
-            text-transform: uppercase;
-        }
-
-        .qr-area {
-            margin: 20px;
-            padding: 25px;
-            background: white;
-            border-radius: 18px;
-            border: 3px solid #d19b4a;
-        }
-
-        #qrcode {
-            width: 220px;
-            height: 220px;
-            margin: auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #qrcode img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .scan-text {
-            margin-top: 18px;
-            font-size: 15px;
-            font-weight: bold;
-            color: #263525;
-        }
-
-        .info {
-            margin: 0 20px 20px;
-            padding: 15px;
-            background: #fff7df;
-            border-radius: 12px;
-            color: #444;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .back-btn {
-            width: calc(100% - 40px);
-            margin: 0 20px 20px;
-            padding: 14px;
-            background: #263525;
-            color: #ffd54f;
-            border: none;
-            border-radius: 10px;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .back-btn:hover {
-            background: #1c271b;
-        }
-
-        .loading {
-            padding: 40px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #263525;
-        }
-
-        @media(max-width: 450px) {
-
-            .qr-area {
-                margin: 15px;
-                padding: 20px;
-            }
-
-            #qrcode {
-                width: 200px;
-                height: 200px;
-            }
-
-        }
-
-    </style>
+<link
+rel="stylesheet"
+href="css/qr.css">
 
 </head>
 
 <body>
 
-<div class="qr-card">
+<div class="page">
 
-    <div class="header">
+<!-- ===================================== -->
+<!-- PREMIUM QR CARD -->
+<!-- ===================================== -->
 
-        <div class="brand">
-            <span>▶</span> RIO MAGGI POINT
-        </div>
+<div
+class="qr-card theme-male"
+id="qrCard">
 
-        <div class="title">
-            MY QR CODE
-        </div>
+<!-- HEADER -->
 
-        <div class="subtitle">
-            Show this QR at Rio Maggi Point
-        </div>
+<div class="qr-header">
 
-    </div>
+<div class="brand">
 
+<span class="rio">
 
-    <div
-        class="loading"
-        id="loadingMessage"
-    >
-        Loading your QR Code...
-    </div>
+Rio
 
+</span>
 
-    <div
-        id="qrContent"
-        style="display:none;"
-    >
+<span class="bowl">
 
-        <div class="customer-box">
+🍜
 
-            <div class="welcome">
-                CUSTOMER
-            </div>
-
-            <div
-                class="customer-name"
-                id="customerName"
-            >
-                Customer
-            </div>
-
-        </div>
-
-
-        <div class="qr-area">
-
-            <div id="qrcode"></div>
-
-            <div class="scan-text">
-                📱 Show this QR to Admin
-            </div>
-
-        </div>
-
-
-        <div class="info">
-
-            🔐 This QR Code is linked to your
-            Rio Maggi Point loyalty account.
-
-            <br><br>
-
-            Your personal mobile number is
-            <strong>not displayed</strong>
-            in this QR Code.
-
-        </div>
-
-
-        <button
-            class="back-btn"
-            id="backBtn"
-        >
-            🏠 Back to Loyalty Card
-        </button>
-
-    </div>
+</span>
 
 </div>
 
+<div class="brand-title">
 
-<script type="module">
+MAGGI POINT
 
-    import { auth, db } from "./js/firebase-config.js";
+</div>
 
-    import {
-        onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+<div class="brand-sub">
 
-    import {
-        doc,
-        getDoc
-    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+Premium Loyalty Member
 
+</div>
 
-    const loadingMessage =
-        document.getElementById("loadingMessage");
+</div>
 
-    const qrContent =
-        document.getElementById("qrContent");
+<!-- PROFILE -->
 
-    const customerName =
-        document.getElementById("customerName");
+<div class="profile-section">
 
-    const qrCode =
-        document.getElementById("qrcode");
+<div class="avatar-box">
 
+<img
 
-    // =========================
-    // CHECK CUSTOMER LOGIN
-    // =========================
+id="customerPhoto"
 
-    onAuthStateChanged(auth, async (user) => {
+src="assets/avatars/male.png"
 
-        if (!user) {
+alt="Avatar">
 
-            window.location.href =
-                "login.html";
+</div>
 
-            return;
+<div
+class="customer-name"
+id="customerName">
 
-        }
+Customer
 
+</div>
 
-        try {
+<div
+class="member-id"
+id="memberId">
 
-            // Get Customer Data
+ID : -----
 
-            const customerRef =
-                doc(
-                    db,
-                    "customers",
-                    user.uid
-                );
+</div>
 
+</div>
 
-            const customerSnap =
-                await getDoc(customerRef);
+<!-- QR AREA -->
 
+<div class="qr-wrapper">
 
-            if (!customerSnap.exists()) {
+<div
+id="qrcode">
 
-                alert(
-                    "Customer account data not found."
-                );
+</div>
 
-                window.location.href =
-                    "index.html";
+<div class="scan-text">
 
-                return;
+SHOW THIS QR TO RIO MAGGI POINT
 
-            }
+</div>
 
+</div>
+        <!-- INFO -->
 
-            const customer =
-                customerSnap.data();
+        <div class="info-box">
 
+            <div class="info-title">
 
-            // Show Customer Name
+                Secure QR
 
-            customerName.textContent =
-                customer.name ||
-                "Customer";
+            </div>
 
+            <div class="info-text">
 
-            // =========================
-            // CREATE PERMANENT QR
-            // =========================
+                Scan this QR at Rio Maggi Point
+                to receive your loyalty stamp.
 
-            // Only Firebase UID is stored
-            // No mobile number
-            // No email
-            // No password
+            </div>
 
-            const qrData =
-                "RIO_MAGGI_CUSTOMER:" +
-                user.uid;
+        </div>
 
+        <!-- BUTTONS -->
 
-            new QRCode(
-                qrCode,
-                {
-                    text: qrData,
-                    width: 220,
-                    height: 220,
-                    colorDark: "#000000",
-                    colorLight: "#ffffff",
-                    correctLevel:
-                        QRCode.CorrectLevel.H
-                }
-            );
+        <div class="button-row">
 
+            <button
+            id="downloadQR"
+            class="primary-btn">
 
-            // Show Page
+                Download
 
-            loadingMessage.style.display =
-                "none";
+            </button>
 
-            qrContent.style.display =
-                "block";
+            <button
+            id="shareQR"
+            class="primary-btn">
 
+                Share
 
-        } catch (error) {
+            </button>
 
-            console.error(
-                "QR Error:",
-                error
-            );
+        </div>
 
-            loadingMessage.textContent =
-                "Unable to load QR Code.";
+    </div>
 
-        }
+    <!-- ============================= -->
+    <!-- BOTTOM NAVIGATION -->
+    <!-- ============================= -->
 
-    });
+    <nav class="bottom-nav">
 
+        <a href="card.html">
 
-    // =========================
-    // BACK BUTTON
-    // =========================
+            <img
+            src="assets/icons/home.png"
+            alt="Home">
 
-    document
-        .getElementById("backBtn")
-        .addEventListener(
-            "click",
-            () => {
+            <span>Home</span>
 
-                window.location.href =
-                    "index.html";
+        </a>
 
-            }
-        );
+        <a href="qr.html">
 
+            <img
+            src="assets/icons/qr.png"
+            alt="QR">
 
-</script>
+            <span>QR</span>
 
+        </a>
 
-<script>
+        <a href="history.html">
 
-    if ("serviceWorker" in navigator) {
+            <img
+            src="assets/icons/history.png"
+            alt="History">
 
-        window.addEventListener(
-            "load",
-            () => {
+            <span>History</span>
 
-                navigator.serviceWorker.register(
-                    "./service-worker.js"
-                );
+        </a>
 
-            }
-        );
+        <a href="feedback.html">
 
-    }
+            <img
+            src="assets/icons/review.png"
+            alt="Review">
 
-</script>
+            <span>Review</span>
+
+        </a>
+
+        <a href="profile.html">
+
+            <img
+            src="assets/icons/profile.png"
+            alt="Profile">
+
+            <span>Profile</span>
+
+        </a>
+
+    </nav>
+
+</div>
+
+<!-- QR Library -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<!-- JS -->
+
+<script
+type="module"
+src="js/qr.js"></script>
 
 </body>
 
