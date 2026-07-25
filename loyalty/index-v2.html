@@ -1,1 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+RIO MAGGI POINT
+
+</title>
+
+<link rel="manifest"
+href="manifest.json">
+
+<meta
+name="theme-color"
+content="#D4AF37">
+
+<link rel="icon"
+href="favicon.ico">
+
+<!-- Google Font -->
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<!-- Font Awesome -->
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<!-- CSS -->
+
+<link
+rel="stylesheet"
+href="css/index-v2.css">
+
+</head>
+
+<body>
+
+<div class="home-page">
+
+<!-- ========================== -->
+<!-- HEADER -->
+<!-- ========================== -->
+
+<header class="top-header">
+
+<div class="brand">
+
+<h1>
+
+🍜 RIO MAGGI POINT
+
+</h1>
+
+<p>
+
+Premium Loyalty Club
+
+</p>
+
+</div>
+
+<button
+id="logoutBtn"
+class="logout-btn">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+Logout
+
+</button>
+
+</header>
+
+<!-- ========================== -->
+<!-- WELCOME CARD -->
+<!-- ========================== -->
+
+<section class="welcome-card">
+
+<div class="profile-area">
+
+<div
+class="profile-photo"
+id="profilePhotoBox">
+
+<span
+id="emojiAvatar">
+
+😊
+
+</span>
+
+<img
+id="profileImage"
+src=""
+style="display:none;"
+alt="Customer">
+
+</div>
+
+<div class="profile-info">
+
+<h2
+id="customerName">
+
+Loading...
+
+</h2>
+
+<p
+id="customerEmail">
+
+Loading...
+
+</p>
+
+<p
+id="memberLevel">
+
+Premium Member
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================== -->
+<!-- PREMIUM ATM CARD -->
+<!-- ========================== -->
+
+<section
+class="card-preview">
+
+<h3>
+
+Your Loyalty Card
+
+</h3>
+
+<div
+id="cardPreview">
+
+<!-- ATM Card Preview -->
+
+</div>
+
+</section>
+  <!-- ========================== -->
+<!-- CARD VALIDITY -->
+<!-- ========================== -->
+
+<section class="validity-card">
+
+<div class="section-title">
+
+<i class="fa-solid fa-hourglass-half"></i>
+
+<span>
+
+CARD VALIDITY
+
+</span>
+
+</div>
+
+<div class="countdown-container">
+
+<div class="time-box">
+
+<span id="days">
+
+40
+
+</span>
+
+<label>
+
+Days
+
+</label>
+
+</div>
+
+<div class="time-box">
+
+<span id="hours">
+
+00
+
+</span>
+
+<label>
+
+Hours
+
+</label>
+
+</div>
+
+<div class="time-box">
+
+<span id="minutes">
+
+00
+
+</span>
+
+<label>
+
+Minutes
+
+</label>
+
+</div>
+
+<div class="time-box">
+
+<span id="seconds">
+
+00
+
+</span>
+
+<label>
+
+Seconds
+
+</label>
+
+</div>
+
+</div>
+
+<p
+id="expiryStatus"
+class="expiry-status">
+
+Complete 6 Stamps Before Your Card Expires.
+
+</p>
+
+</section>
+
+<!-- ========================== -->
+<!-- STAMP PROGRESS -->
+<!-- ========================== -->
+
+<section class="progress-card">
+
+<div class="section-title">
+
+<i class="fa-solid fa-star"></i>
+
+<span>
+
+TODAY'S PROGRESS
+
+</span>
+
+</div>
+
+<div
+id="stampPreview"
+class="stamp-preview">
+
+<!-- JS Will Create 8 Circles -->
+
+</div>
+
+<div class="progress-text">
+
+<span id="homeStampText">
+
+0 / 6 Stamps Collected
+
+</span>
+
+</div>
+
+</section>
+
+<!-- ========================== -->
+<!-- NEXT REWARD -->
+<!-- ========================== -->
+
+<section class="reward-card">
+
+<div class="reward-left">
+
+🍜
+
+</div>
+
+<div class="reward-right">
+
+<h3>
+
+Next Reward
+
+</h3>
+
+<p>
+
+ONE FREE VEG MAGGI
+
+</p>
+
+<small>
+
+Complete 6 Stamps To Unlock
+
+</small>
+
+</div>
+
+</section>
+
+<!-- ========================== -->
+<!-- RIO FUN GAME -->
+<!-- ========================== -->
+
+<section class="game-card">
+
+<div class="game-left">
+
+🎮
+
+</div>
+
+<div class="game-right">
+
+<h3>
+
+RIO FUN GAME
+
+</h3>
+
+<p>
+
+Play & Win Exciting Rewards
+
+</p>
+
+</div>
+
+<button
+id="playGameBtn">
+
+Play
+
+</button>
+
+</section>
+
+<!-- ========================== -->
+<!-- QUICK STATUS -->
+<!-- ========================== -->
+
+<section class="stats-grid">
+
+<div class="stat-box">
+
+<h2 id="totalStamp">
+
+0
+
+</h2>
+
+<p>
+
+Total Stamps
+
+</p>
+
+</div>
+
+<div class="stat-box">
+
+<h2 id="remainingStamp">
+
+6
+
+</h2>
+
+<p>
+
+Remaining
+
+</p>
+
+</div>
+
+<div class="stat-box">
+
+<h2 id="rewardCount">
+
+0
+
+</h2>
+
+<p>
+
+Rewards
+
+</p>
+
+</div>
+
+</section>
+  <!-- ===================================== -->
+<!-- BOTTOM NAVIGATION -->
+<!-- ===================================== -->
+
+<nav class="bottom-nav">
+
+<a href="index.html" class="nav-item active">
+
+<i class="fa-solid fa-house"></i>
+
+<span>
+
+Home
+
+</span>
+
+</a>
+
+<a href="card.html" class="nav-item">
+
+<i class="fa-solid fa-credit-card"></i>
+
+<span>
+
+Card
+
+</span>
+
+</a>
+
+<a href="qr.html" class="nav-item">
+
+<i class="fa-solid fa-qrcode"></i>
+
+<span>
+
+QR
+
+</span>
+
+</a>
+
+<a href="history.html" class="nav-item">
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+<span>
+
+History
+
+</span>
+
+</a>
+
+<a href="profile.html" class="nav-item">
+
+<i class="fa-solid fa-user"></i>
+
+<span>
+
+Profile
+
+</span>
+
+</a>
+
+</nav>
+
+<!-- ===================================== -->
+<!-- FIREBASE -->
+<!-- ===================================== -->
+
+<script type="module">
+
+import { firebaseConfig }
+from "./js/firebase-config.js";
+
+import {
+
+initializeApp
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+
+import {
+
+getAuth,
+onAuthStateChanged,
+signOut
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+
+import {
+
+getFirestore,
+doc,
+getDoc
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
+const app =
+initializeApp(firebaseConfig);
+
+const auth =
+getAuth(app);
+
+const db =
+getFirestore(app);
+
+// Logout
+
+document
+.getElementById("logoutBtn")
+.onclick=()=>{
+
+signOut(auth)
+.then(()=>{
+
+location.href="login.html";
+
+});
+
+};
+
+// Login Check
+
+onAuthStateChanged(
+auth,
+async(user)=>{
+
+if(!user){
+
+location.href="login.html";
+
+return;
+
+}
+
+const ref=
+doc(
+db,
+"customers",
+user.uid
+);
+
+const snap=
+await getDoc(ref);
+
+if(!snap.exists()) return;
+
+const data=
+snap.data();
+
+// Name
+
+document
+.getElementById("customerName")
+.textContent=
+data.name || "Customer";
+
+// Email
+
+document
+.getElementById("customerEmail")
+.textContent=
+data.email || "";
+
+// Member
+
+document
+.getElementById("memberLevel")
+.textContent=
+data.level || "Premium Member";
+
+// Avatar
+
+const emoji=
+document
+.getElementById("emojiAvatar");
+
+const photo=
+document
+.getElementById("profileImage");
+
+if(data.photoURL){
+
+photo.src=data.photoURL;
+
+photo.style.display="block";
+
+emoji.style.display="none";
+
+}
+
+else{
+
+emoji.textContent=
+data.avatar || "😊";
+
+}
+
+// Next Parts
+
+loadHomeStamp(data);
+
+startHomeCountdown(data);
+
+});
+
+</script>
+
+</body>
+
+</html>
