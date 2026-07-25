@@ -1,25 +1,24 @@
 /* ==========================================
    RIO MAGGI POINT
-   PREMIUM LOYALTY CARD V2
+   PREMIUM LOYALTY CARD V3
 ========================================== */
 
 :root{
 
---gold:#d4af37;
---gold-light:#ffd95a;
---black:#111111;
---dark:#1b1b1b;
---white:#ffffff;
---silver:#d9d9d9;
+--gold:#D4AF37;
+--gold-light:#F7E7A1;
 
---male:#234e9b;
---female:#c85b9d;
+--dark:#141414;
+--black:#111;
+--white:#fff;
 
---success:#28a745;
---danger:#d62828;
+--cream:#FFF9E7;
+
+--red:#E53935;
+--green:#43A047;
 
 --shadow:
-0 18px 45px rgba(0,0,0,.35);
+0 18px 40px rgba(0,0,0,.30);
 
 }
 
@@ -27,6 +26,7 @@
 
 margin:0;
 padding:0;
+
 box-sizing:border-box;
 
 font-family:
@@ -40,110 +40,136 @@ background:
 
 linear-gradient(
 135deg,
-#e9d39a,
-#f8f3df
+#FFE082,
+#F5C542
 );
+
+min-height:100vh;
 
 display:flex;
 
 justify-content:center;
 
-align-items:flex-start;
+align-items:center;
 
-min-height:100vh;
-
-padding:25px;
+padding:20px;
 
 overflow-x:hidden;
 
 }
 
-/* =======================================
-CARD PAGE
-======================================= */
+/* ===================== */
 
 .card-page{
 
 width:100%;
 
-max-width:430px;
+display:flex;
 
-margin:auto;
-
-padding-bottom:100px;
+justify-content:center;
 
 }
 
-/* =======================================
-MAIN CARD
-======================================= */
+/* ===================== */
 
 .customer-card{
 
 position:relative;
 
-overflow:hidden;
+width:100%;
 
-border-radius:28px;
+max-width:430px;
+
+border-radius:26px;
+
+padding:22px;
+
+overflow:hidden;
 
 background:
 
 linear-gradient(
-160deg,
-#0f0f0f,
-#232323,
-#111111
+135deg,
+#FFFDF6,
+#FFF3C4,
+#F9DE73
 );
 
-border:
+border:3px solid var(--gold);
 
-3px solid var(--gold);
-
-box-shadow:
-
-var(--shadow);
-
-padding:24px;
-
-color:white;
+box-shadow:var(--shadow);
 
 }
 
-/* =======================================
-SHINE EFFECT
-======================================= */
+/* ===================== */
 
-.shine-effect{
+.glass-overlay{
 
 position:absolute;
 
-top:-120px;
-
-right:-120px;
-
-width:260px;
-
-height:260px;
+inset:0;
 
 background:
 
-radial-gradient(
+linear-gradient(
 
-rgba(255,255,255,.28),
+120deg,
 
-transparent 70%
+rgba(255,255,255,.25),
+
+transparent,
+
+rgba(255,255,255,.08)
 
 );
-
-border-radius:50%;
 
 pointer-events:none;
 
 }
 
-/* =======================================
-HEADER
-======================================= */
+/* ===================== */
+
+.shine-effect{
+
+position:absolute;
+
+top:-180px;
+
+left:-200px;
+
+width:180px;
+
+height:700px;
+
+background:
+
+rgba(255,255,255,.28);
+
+transform:rotate(25deg);
+
+animation:
+
+cardShine 5s linear infinite;
+
+}
+
+@keyframes cardShine{
+
+0%{
+
+left:-220px;
+
+}
+
+100%{
+
+left:650px;
+
+}
+
+}
+
+/* ===================== */
 
 .card-header{
 
@@ -151,13 +177,13 @@ display:flex;
 
 justify-content:space-between;
 
-align-items:flex-start;
+align-items:center;
 
 margin-bottom:18px;
 
 position:relative;
 
-z-index:2;
+z-index:10;
 
 }
 
@@ -167,39 +193,29 @@ font-size:22px;
 
 font-weight:800;
 
-color:var(--gold-light);
-
-letter-spacing:.5px;
+color:#3A2B00;
 
 }
 
 .brand p{
 
-margin-top:4px;
+font-size:11px;
 
-font-size:12px;
+font-weight:700;
 
-letter-spacing:2px;
+letter-spacing:1px;
 
-color:#ddd;
+color:#7D5A00;
 
 text-transform:uppercase;
 
-}
+margin-top:3px;
 
-/* =======================================
-WEBSITE QR
-======================================= */
+}
 
 .website-qr{
 
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-gap:5px;
+text-align:center;
 
 }
 
@@ -209,11 +225,11 @@ width:58px;
 
 height:58px;
 
-background:white;
+border-radius:12px;
+
+background:#fff;
 
 padding:4px;
-
-border-radius:10px;
 
 border:2px solid var(--gold);
 
@@ -221,15 +237,20 @@ border:2px solid var(--gold);
 
 .website-qr span{
 
+display:block;
+
 font-size:10px;
 
-color:#ddd;
+font-weight:700;
+
+margin-top:4px;
+
+color:#3A2B00;
 
 }
-
-/* =======================================
-MEMBER BADGE
-======================================= */
+/* ==========================================
+   MEMBER BADGE
+========================================== */
 
 .member-badge{
 
@@ -237,37 +258,29 @@ display:inline-flex;
 
 align-items:center;
 
-gap:8px;
+justify-content:center;
 
-padding:8px 16px;
-
-margin-bottom:22px;
+padding:7px 18px;
 
 border-radius:30px;
 
-background:
+background:linear-gradient(135deg,#FFD54F,#D4AF37);
 
-linear-gradient(
-90deg,
-var(--gold),
-#ffef9c
-);
-
-color:#111;
-
-font-weight:700;
+color:#3A2B00;
 
 font-size:12px;
 
-box-shadow:
+font-weight:700;
 
-0 5px 12px
-rgba(0,0,0,.25);
+margin-bottom:18px;
+
+box-shadow:0 6px 15px rgba(0,0,0,.18);
 
 }
-/* =======================================
-CARD TOP
-======================================= */
+
+/* ==========================================
+   CARD TOP
+========================================== */
 
 .card-top{
 
@@ -277,48 +290,33 @@ justify-content:space-between;
 
 align-items:center;
 
-gap:18px;
+gap:15px;
 
-margin-bottom:28px;
-
-position:relative;
-
-z-index:2;
+margin-bottom:20px;
 
 }
 
-/* =======================================
-PHOTO SECTION
-======================================= */
+/* ==========================================
+   PHOTO
+========================================== */
 
 .photo-section{
 
-display:flex;
-
-align-items:center;
-
-justify-content:center;
+flex-shrink:0;
 
 }
 
 .photo-ring{
 
-width:95px;
+width:88px;
 
-height:95px;
+height:88px;
 
 border-radius:50%;
 
+background:linear-gradient(135deg,#FFD54F,#D4AF37);
+
 padding:4px;
-
-background:
-
-linear-gradient(
-135deg,
-var(--gold-light),
-var(--gold),
-#8b6a15
-);
 
 display:flex;
 
@@ -326,14 +324,13 @@ align-items:center;
 
 justify-content:center;
 
-box-shadow:
-
-0 0 20px
-rgba(212,175,55,.45);
+box-shadow:0 8px 18px rgba(0,0,0,.20);
 
 }
 
-.photo-ring span{
+.photo-ring span,
+
+.photo-ring img{
 
 width:100%;
 
@@ -351,31 +348,19 @@ justify-content:center;
 
 font-size:42px;
 
-overflow:hidden;
-
-}
-
-.photo-ring img{
-
-width:100%;
-
-height:100%;
-
-border-radius:50%;
-
 object-fit:cover;
 
-display:block;
-
 }
 
-/* =======================================
-CUSTOMER INFO
-======================================= */
+/* ==========================================
+   CUSTOMER INFO
+========================================== */
 
 .customer-info{
 
 flex:1;
+
+min-width:0;
 
 }
 
@@ -383,164 +368,108 @@ flex:1;
 
 font-size:22px;
 
-font-weight:700;
+font-weight:800;
 
-color:white;
+color:#222;
 
-margin-bottom:6px;
+white-space:nowrap;
 
-word-break:break-word;
+overflow:hidden;
+
+text-overflow:ellipsis;
+
+margin-bottom:4px;
 
 }
 
 .customer-info p{
 
-font-size:13px;
-
-color:#d9d9d9;
-
-margin-bottom:5px;
-
-}
-
-#customerLevel{
-
-display:inline-block;
-
-margin-top:6px;
-
-padding:5px 12px;
-
-border-radius:20px;
-
-background:
-
-rgba(255,255,255,.10);
-
-font-size:11px;
+font-size:12px;
 
 font-weight:600;
 
-letter-spacing:.5px;
+color:#5C4A00;
+
+margin-bottom:3px;
 
 }
 
-/* =======================================
-ATM CHIP
-======================================= */
+/* ==========================================
+   ATM CHIP
+========================================== */
 
 .chip-section{
 
 display:flex;
 
-justify-content:center;
-
-align-items:center;
+align-items:flex-start;
 
 }
 
 .atm-chip{
 
-width:72px;
+width:58px;
 
-height:58px;
+height:46px;
 
 border-radius:10px;
 
-background:
+background:linear-gradient(135deg,#F5D76E,#C8A43A);
 
-linear-gradient(
-135deg,
-#f7d774,
-#cda434
-);
+border:2px solid #9B7B12;
 
-border:2px solid
-#8f6c12;
+padding:6px;
 
-display:flex;
+display:grid;
 
-flex-direction:column;
+grid-template-columns:repeat(3,1fr);
 
-justify-content:space-evenly;
+gap:3px;
 
-padding:8px;
-
-box-shadow:
-
-0 4px 10px
-rgba(0,0,0,.30);
+box-shadow:0 4px 10px rgba(0,0,0,.18);
 
 }
 
 .chip-line{
 
-height:4px;
+background:#9B7B12;
 
-border-radius:10px;
-
-background:#8f6c12;
+border-radius:2px;
 
 }
 
-/* =======================================
-GENDER THEMES
-======================================= */
-
-/* Male */
+/* ==========================================
+   MALE THEME
+========================================== */
 
 .customer-card.male{
 
-border-color:var(--male);
+background:linear-gradient(135deg,#EAF4FF,#B8D8FF,#7FB3FF);
+
+border-color:#1E88E5;
 
 }
 
-.customer-card.male .member-badge{
-
-background:
-
-linear-gradient(
-90deg,
-var(--male),
-#4f83ff
-);
-
-color:white;
-
-}
-
-/* Female */
+/* ==========================================
+   FEMALE THEME
+========================================== */
 
 .customer-card.female{
 
-border-color:var(--female);
+background:linear-gradient(135deg,#FFF0F7,#FFD6EA,#FFB3D6);
+
+border-color:#EC4899;
 
 }
-
-.customer-card.female .member-badge{
-
-background:
-
-linear-gradient(
-90deg,
-var(--female),
-#ff9acb
-);
-
-color:white;
-
-}
-/* =======================================
-STAMP SECTION
-======================================= */
+/* ==========================================
+   STAMP SECTION
+========================================== */
 
 .stamp-section{
 
-margin-top:28px;
+margin-top:18px;
 
-position:relative;
-
-z-index:2;
+margin-bottom:22px;
 
 }
 
@@ -550,203 +479,229 @@ display:flex;
 
 align-items:center;
 
+justify-content:center;
+
 gap:8px;
 
-margin-bottom:18px;
+margin-bottom:16px;
 
-font-size:15px;
+font-size:14px;
 
 font-weight:700;
 
-color:var(--gold-light);
+color:#4A3600;
+
+text-transform:uppercase;
 
 }
-
-.section-title i{
-
-color:gold;
-
-}
-
-/* =======================================
-STAMP CONTAINER
-======================================= */
 
 .stamp-container{
 
 display:grid;
 
-grid-template-columns:
+grid-template-columns:repeat(4,1fr);
 
-repeat(4,1fr);
+gap:12px;
 
-gap:14px;
+justify-items:center;
 
 }
 
-/* =======================================
-STAMP CIRCLE
-======================================= */
+/* ==========================================
+   NORMAL STAMP
+========================================== */
 
 .stamp-circle{
 
-width:72px;
+width:68px;
 
-height:72px;
-
-border-radius:50%;
-
-background:
-
-rgba(255,255,255,.08);
-
-border:
-
-2px dashed
-
-rgba(255,215,0,.55);
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:22px;
-
-font-weight:700;
-
-color:#ffffff;
-
-transition:.35s;
-
-cursor:default;
-
-}
-
-/* ACTIVE STAMP */
-
-.stamp-circle.active{
-
-background:
-
-linear-gradient(
-
-135deg,
-
-#FFD700,
-
-#F4B400
-
-);
-
-color:#111;
-
-border:
-
-2px solid
-
-gold;
-
-box-shadow:
-
-0 0 18px
-
-rgba(255,215,0,.55);
-
-}
-
-/* =======================================
-FREE VEG MAGGI
-======================================= */
-
-.reward-circle{
-
-width:78px;
-
-height:78px;
+height:68px;
 
 border-radius:50%;
 
-background:
+background:#FFFDF7;
 
-linear-gradient(
-
-135deg,
-
-#ffdf6b,
-
-#ffb300
-
-);
+border:2px dashed #D4AF37;
 
 display:flex;
 
 flex-direction:column;
 
+justify-content:center;
+
 align-items:center;
+
+transition:.35s;
+
+position:relative;
+
+}
+
+.stamp-circle.active{
+
+background:linear-gradient(135deg,#FFE082,#FBC02D);
+
+border:2px solid #C49000;
+
+transform:scale(1.05);
+
+box-shadow:0 6px 14px rgba(0,0,0,.20);
+
+}
+
+.stamp-number{
+
+font-size:20px;
+
+font-weight:800;
+
+color:#3A2B00;
+
+line-height:1;
+
+}
+
+.stamp-date{
+
+font-size:9px;
+
+font-weight:600;
+
+color:#666;
+
+margin-top:4px;
+
+}
+
+/* ==========================================
+   REWARD CIRCLE
+========================================== */
+
+.reward-circle{
+
+width:74px;
+
+height:74px;
+
+border-radius:50%;
+
+background:linear-gradient(135deg,#FFEB99,#FFC107);
+
+border:3px solid #D4AF37;
+
+display:flex;
+
+flex-direction:column;
 
 justify-content:center;
 
+align-items:center;
+
 text-align:center;
 
-padding:5px;
+box-shadow:0 8px 18px rgba(0,0,0,.20);
 
-border:
-
-3px solid
-
-gold;
-
-box-shadow:
-
-0 0 20px
-
-rgba(255,215,0,.45);
+animation:rewardGlow 2s infinite alternate;
 
 }
 
 .reward-bowl{
 
-font-size:24px;
+font-size:22px;
+
+line-height:1;
 
 margin-bottom:2px;
 
 }
 
-.reward-circle p{
+.reward-one{
 
-font-size:9px;
+font-size:8px;
 
-font-weight:700;
+font-weight:800;
 
-line-height:1.2;
+color:#B71C1C;
 
-color:#222;
+letter-spacing:.5px;
 
 }
 
-/* =======================================
-PROGRESS BOX
-======================================= */
+.reward-name{
+
+font-size:8px;
+
+font-weight:800;
+
+color:#222;
+
+line-height:1.1;
+
+}
+
+.reward-free{
+
+font-size:9px;
+
+font-weight:800;
+
+color:#E53935;
+
+margin-top:1px;
+
+}
+
+/* ==========================================
+   HAPPY EMOJI
+========================================== */
+
+.happy-circle{
+
+width:68px;
+
+height:68px;
+
+border-radius:50%;
+
+background:linear-gradient(135deg,#E8F5E9,#A5D6A7);
+
+border:2px solid #43A047;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:34px;
+
+animation:bounceEmoji 1.8s infinite;
+
+}
+
+#happyEmoji{
+
+transition:.4s;
+
+}
+
+/* ==========================================
+   PROGRESS
+========================================== */
 
 .progress-box{
 
-margin-top:22px;
+margin-top:18px;
 
-padding:16px;
+padding:14px;
 
-border-radius:18px;
+border-radius:16px;
 
-background:
+background:rgba(255,255,255,.65);
 
-rgba(255,255,255,.08);
+text-align:center;
 
-border:
-
-1px solid
-
-rgba(255,255,255,.15);
+border:1px solid rgba(212,175,55,.35);
 
 }
 
@@ -756,7 +711,7 @@ font-size:14px;
 
 font-weight:700;
 
-color:#fff;
+color:#3A2B00;
 
 margin-bottom:8px;
 
@@ -764,20 +719,168 @@ margin-bottom:8px;
 
 .reward-message{
 
-font-size:13px;
+font-size:12px;
 
-line-height:1.6;
+font-weight:600;
 
-color:#e8e8e8;
+color:#444;
+
+line-height:1.5;
 
 }
-/* =======================================
-OWNER SECTION
-======================================= */
+
+.reward-message b{
+
+color:#E53935;
+
+}
+
+/* ==========================================
+   ANIMATIONS
+========================================== */
+
+@keyframes rewardGlow{
+
+from{
+
+transform:scale(1);
+
+box-shadow:0 0 10px rgba(255,193,7,.30);
+
+}
+
+to{
+
+transform:scale(1.06);
+
+box-shadow:0 0 20px rgba(255,193,7,.65);
+
+}
+
+}
+
+@keyframes bounceEmoji{
+
+0%,100%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-8px);
+
+}
+
+}
+/* ==========================================
+   CARD VALIDITY
+========================================== */
+
+.validity-section{
+
+margin-top:22px;
+
+padding:16px;
+
+border-radius:18px;
+
+background:rgba(255,255,255,.75);
+
+border:2px solid rgba(212,175,55,.30);
+
+}
+
+.validity-header{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+gap:8px;
+
+font-size:15px;
+
+font-weight:700;
+
+color:#3A2B00;
+
+margin-bottom:15px;
+
+}
+
+.countdown-box{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:10px;
+
+}
+
+.time-box{
+
+background:#fff;
+
+border-radius:14px;
+
+padding:10px 5px;
+
+text-align:center;
+
+border:2px solid rgba(212,175,55,.25);
+
+box-shadow:0 4px 10px rgba(0,0,0,.08);
+
+}
+
+.time-box span{
+
+display:block;
+
+font-size:22px;
+
+font-weight:800;
+
+color:#D32F2F;
+
+}
+
+.time-box label{
+
+font-size:11px;
+
+font-weight:700;
+
+color:#555;
+
+text-transform:uppercase;
+
+}
+
+.expiry-warning{
+
+margin-top:12px;
+
+text-align:center;
+
+font-size:12px;
+
+font-weight:600;
+
+color:#C62828;
+
+}
+
+/* ==========================================
+   OWNER
+========================================== */
 
 .owner-section{
-
-margin-top:24px;
 
 display:flex;
 
@@ -785,101 +888,79 @@ justify-content:space-between;
 
 align-items:center;
 
-padding:18px;
+margin-top:22px;
+
+padding:15px;
 
 border-radius:18px;
 
-background:rgba(255,255,255,.08);
-
-border:1px solid rgba(255,255,255,.12);
+background:linear-gradient(135deg,#FFF8E1,#FFE082);
 
 }
 
-.owner-label{
+.owner-title{
 
 font-size:11px;
 
-color:#cccccc;
+font-weight:700;
 
-letter-spacing:2px;
+letter-spacing:1px;
+
+color:#777;
 
 }
 
 .owner-left h3{
 
-margin:4px 0;
+font-size:20px;
 
-font-size:22px;
+font-weight:800;
 
-color:var(--gold-light);
+color:#222;
 
-font-weight:700;
+margin:3px 0;
 
 }
 
 .owner-left p{
 
-font-size:14px;
-
-color:#ffffff;
-
-}
-
-.owner-left i{
-
-margin-right:8px;
-
-color:gold;
-
-}
-
-.owner-right{
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-gap:6px;
-
-}
-
-.owner-right i{
-
-font-size:30px;
-
-color:gold;
-
-}
-
-.owner-right span{
-
-font-size:11px;
-
-color:#ffffff;
+font-size:12px;
 
 font-weight:600;
 
 }
 
-/* =======================================
-ADDRESS
-======================================= */
+.owner-right{
+
+text-align:center;
+
+font-size:13px;
+
+font-weight:700;
+
+color:#D4AF37;
+
+}
+
+/* ==========================================
+   ADDRESS
+========================================== */
 
 .address-section{
 
-margin-top:18px;
-
 display:flex;
 
-gap:15px;
+gap:14px;
 
-padding:18px;
+align-items:flex-start;
+
+margin-top:18px;
+
+padding:15px;
 
 border-radius:18px;
 
-background:rgba(255,255,255,.08);
+background:#ffffffaa;
 
 }
 
@@ -887,87 +968,41 @@ background:rgba(255,255,255,.08);
 
 font-size:28px;
 
-color:#ff4747;
+color:#E53935;
 
 }
 
 .address-details h4{
 
-font-size:13px;
+font-size:14px;
 
-margin-bottom:6px;
+font-weight:800;
 
-color:var(--gold-light);
+margin-bottom:5px;
 
 }
 
 .address-details p{
 
-font-size:13px;
+font-size:12px;
 
-line-height:1.7;
+line-height:1.6;
 
-color:#eeeeee;
-
-}
-
-/* =======================================
-QR BUTTON
-======================================= */
-
-.qr-button-area{
-
-margin-top:24px;
+font-weight:600;
 
 }
 
-#openQR{
-
-width:100%;
-
-padding:16px;
-
-border:none;
-
-border-radius:16px;
-
-background:
-
-linear-gradient(
-135deg,
-var(--gold),
-var(--gold-light)
-);
-
-color:#111;
-
-font-size:16px;
-
-font-weight:700;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-#openQR:hover{
-
-transform:translateY(-2px);
-
-box-shadow:
-
-0 8px 18px rgba(212,175,55,.45);
-
-}
-
-/* =======================================
-FOOTER
-======================================= */
+/* ==========================================
+   FOOTER
+========================================== */
 
 .card-footer{
 
-margin-top:22px;
+margin-top:20px;
+
+padding-top:15px;
+
+border-top:1px dashed rgba(0,0,0,.20);
 
 display:flex;
 
@@ -975,71 +1010,67 @@ justify-content:space-between;
 
 align-items:center;
 
-padding-top:18px;
-
-border-top:1px solid rgba(255,255,255,.15);
-
 }
 
 .footer-left p{
 
-font-size:13px;
-
-font-weight:600;
-
-}
-
-.footer-left span{
-
 font-size:11px;
-
-color:#cccccc;
-
-}
-
-.card-version{
-
-padding:6px 12px;
-
-border-radius:20px;
-
-background:gold;
-
-color:#111;
-
-font-size:12px;
 
 font-weight:700;
 
 }
 
-/* =======================================
-BOTTOM NAVIGATION
-======================================= */
+.footer-left span{
+
+font-size:10px;
+
+color:#666;
+
+}
+
+.card-version{
+
+background:#222;
+
+color:#fff;
+
+padding:5px 12px;
+
+border-radius:30px;
+
+font-size:11px;
+
+font-weight:700;
+
+}
+
+/* ==========================================
+   BOTTOM NAVIGATION
+========================================== */
 
 .bottom-nav{
 
 position:fixed;
 
-bottom:0;
-
 left:50%;
 
 transform:translateX(-50%);
 
-width:100%;
+bottom:18px;
 
-max-width:430px;
+width:min(430px,95vw);
 
-background:#111;
+background:#fff;
+
+border-radius:20px;
 
 display:flex;
 
 justify-content:space-around;
 
-padding:14px 0;
+padding:12px 0;
 
-border-top:2px solid var(--gold);
+box-shadow:0 8px 25px rgba(0,0,0,.18);
 
 z-index:999;
 
@@ -1055,13 +1086,13 @@ align-items:center;
 
 text-decoration:none;
 
-color:#d8d8d8;
+color:#666;
 
-font-size:12px;
+font-size:11px;
 
-gap:6px;
+font-weight:600;
 
-transition:.25s;
+transition:.3s;
 
 }
 
@@ -1069,33 +1100,33 @@ transition:.25s;
 
 font-size:20px;
 
-}
+margin-bottom:5px;
 
-.nav-item:hover,
+}
 
 .nav-item.active{
 
-color:var(--gold-light);
+color:#D4AF37;
 
 }
 
-/* =======================================
-QR POPUP
-======================================= */
+/* ==========================================
+   QR POPUP
+========================================== */
 
 .qr-popup{
-
-display:none;
 
 position:fixed;
 
 inset:0;
 
-background:rgba(0,0,0,.82);
+display:none;
 
 justify-content:center;
 
 align-items:center;
+
+background:rgba(0,0,0,.60);
 
 z-index:9999;
 
@@ -1103,19 +1134,19 @@ z-index:9999;
 
 .qr-popup-card{
 
+background:#fff;
+
 width:92%;
 
 max-width:360px;
 
-background:white;
-
-border-radius:25px;
-
 padding:25px;
 
-text-align:center;
+border-radius:22px;
 
 position:relative;
+
+text-align:center;
 
 }
 
@@ -1123,69 +1154,45 @@ position:relative;
 
 position:absolute;
 
-top:15px;
-
 right:15px;
 
-width:42px;
-
-height:42px;
+top:15px;
 
 border:none;
 
-border-radius:50%;
+background:none;
 
-background:#d62828;
-
-color:white;
-
-font-size:18px;
+font-size:22px;
 
 cursor:pointer;
 
 }
 
+.popup-title{
+
+font-size:13px;
+
+font-weight:600;
+
+margin-bottom:15px;
+
+}
+
 #qrCodeBox{
-
-width:220px;
-
-height:220px;
-
-margin:18px auto;
 
 display:flex;
 
 justify-content:center;
 
-align-items:center;
-
-background:white;
-
-}
-
-#qrCodeBox img{
-
-width:100%;
-
-height:100%;
-
-object-fit:contain;
-
-}
-
-.popup-title{
-
-color:#666;
-
-margin-top:5px;
+margin:18px 0;
 
 }
 
 .popup-message{
 
-margin-top:16px;
+margin-top:15px;
 
-font-size:14px;
+font-size:13px;
 
 font-weight:600;
 
@@ -1193,17 +1200,19 @@ font-weight:600;
 
 .popup-footer{
 
-margin-top:20px;
+margin-top:18px;
 
 font-size:12px;
 
-color:#666;
+font-weight:700;
+
+color:#D4AF37;
 
 }
 
-/* =======================================
-MOBILE
-======================================= */
+/* ==========================================
+   MOBILE
+========================================== */
 
 @media(max-width:480px){
 
@@ -1211,35 +1220,35 @@ MOBILE
 
 padding:18px;
 
-}
-
-.stamp-container{
-
-grid-template-columns:repeat(4,1fr);
-
-gap:10px;
+border-radius:22px;
 
 }
 
-.stamp-circle,
+.brand h1{
 
-.reward-circle{
-
-width:64px;
-
-height:64px;
+font-size:18px;
 
 }
 
 .photo-ring{
 
-width:82px;
+width:72px;
 
-height:82px;
+height:72px;
 
 }
 
-.customer-info h2{
+.stamp-circle,
+.reward-circle,
+.happy-circle{
+
+width:60px;
+
+height:60px;
+
+}
+
+.time-box span{
 
 font-size:18px;
 
