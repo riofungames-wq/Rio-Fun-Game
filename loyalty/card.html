@@ -5,71 +5,55 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>
-Rio Maggi Point • Premium Loyalty Card
-</title>
+<title>Rio Maggi Point | Loyalty Card</title>
 
-<link rel="stylesheet"
-href="css/card.css">
+<link rel="stylesheet" href="css/card.css">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
 </head>
 
 <body>
 
-<!-- ========================= -->
-<!-- ANNOUNCEMENT -->
-<!-- ========================= -->
+<!-- Announcement -->
 
-<div
-id="announcementBar"
-class="announcement">
+<div id="announcementBar" class="announcement">
 
 <i class="fa-solid fa-bullhorn"></i>
 
-<span id="announcementText">
-
-</span>
+<span id="announcementText"></span>
 
 </div>
 
-<!-- ========================= -->
-<!-- CARD AREA -->
-<!-- ========================= -->
+<!-- Page -->
 
 <div class="page">
 
-<div
-id="downloadArea">
+<!-- Download Area -->
 
-<div
-class="premium-card">
+<div id="downloadArea">
 
-<!-- TOP -->
+<!-- ATM CARD -->
 
-<div class="card-top">
+<div class="premium-card">
+
+<!-- Header -->
+
+<div class="card-header">
 
 <div>
 
-<h2>
+<h2>🍜 Rio Maggi Point</h2>
 
-🍜 Rio Maggi Point
-
-</h2>
-
-<p>
-
-Premium Loyalty Member
-
-</p>
+<p>Premium Loyalty Member</p>
 
 </div>
 
@@ -81,45 +65,37 @@ Kabir Owner
 
 </div>
 
-<!-- PHOTO -->
+<!-- Customer -->
 
-<div class="profile-row">
+<div class="customer-row">
 
-<div
-class="avatar-frame">
+<div class="avatar-frame">
 
 <img
 id="customerPhoto"
-src="">
+alt="Customer">
 
-<div
-id="defaultAvatar">
-
-</div>
+<div id="defaultAvatar"></div>
 
 </div>
 
-<div
-class="customer-details">
+<div class="customer-info">
 
-<h3
-id="customerName">
+<h3 id="customerName">
 
 Loading...
 
 </h3>
 
-<p
-id="memberId">
+<p id="memberId">
 
 Member ID
 
 </p>
 
-<p
-id="mobileNumber">
+<p id="mobileNumber">
 
-Mobile
+Mobile Number
 
 </p>
 
@@ -127,122 +103,75 @@ Mobile
 
 </div>
 
-<!-- CHIP -->
+<!-- Countdown -->
 
-<div class="chip-row">
+<div class="countdown-box">
 
-<div class="chip">
+<div class="time-box">
 
-</div>
+<span id="days">00</span>
 
-<div
-class="countdown">
-
-<div
-id="days">
-
-00
+<label>Days</label>
 
 </div>
 
-<div
-id="hours">
+<div class="time-box">
 
-00
+<span id="hours">00</span>
 
-</div>
-
-<div
-id="minutes">
-
-00
+<label>Hours</label>
 
 </div>
 
-<div
-id="seconds">
+<div class="time-box">
 
-00
+<span id="minutes">00</span>
+
+<label>Minutes</label>
+
+</div>
+
+<div class="time-box">
+
+<span id="seconds">00</span>
+
+<label>Seconds</label>
 
 </div>
 
 </div>
 
-</div>
+<!-- Play Game -->
 
-<!-- PLAY -->
-
-<button
-id="playGameBtn">
+<button id="playGameBtn">
 
 🎮 Play Free Game
 
 </button>
 
-<!-- STAMPS -->
+<!-- Stamp -->
 
-<div
-class="stamp-grid">
+<div class="stamp-grid">
 
-<div
-id="stamp1"
-class="stamp">
+<div class="stamp" id="stamp1">1</div>
 
-1
+<div class="stamp" id="stamp2">2</div>
 
-</div>
+<div class="stamp" id="stamp3">3</div>
 
-<div
-id="stamp2"
-class="stamp">
+<div class="stamp" id="stamp4">4</div>
 
-2
+<div class="stamp" id="stamp5">5</div>
 
-</div>
+<div class="stamp" id="stamp6">6</div>
 
-<div
-id="stamp3"
-class="stamp">
-
-3
-
-</div>
-
-<div
-id="stamp4"
-class="stamp">
-
-4
-
-</div>
-
-<div
-id="stamp5"
-class="stamp">
-
-5
-
-</div>
-
-<div
-id="stamp6"
-class="stamp">
-
-6
-
-</div>
-
-<div
-id="rewardStamp"
-class="reward">
+<div class="reward" id="rewardStamp">
 
 🍜
 
 </div>
 
-<div
-id="happyStamp"
-class="happy">
+<div class="happy" id="happyStamp">
 
 😊
 
@@ -250,21 +179,19 @@ class="happy">
 
 </div>
 
-<div
-id="rewardMessage">
+<div id="rewardMessage">
 
-Collect stamps to unlock your FREE Veg Maggi.
-
-</div>
+Collect all stamps to unlock your FREE Veg Maggi.
 
 </div>
 
 </div>
 
-<!-- DOWNLOAD -->
+</div>
 
-<button
-id="downloadCard">
+<!-- Download -->
+
+<button id="downloadCard">
 
 <i class="fa-solid fa-download"></i>
 
@@ -274,21 +201,15 @@ Download Card
 
 </div>
 
-<!-- ========================= -->
-<!-- NAVIGATION -->
-<!-- ========================= -->
+<!-- Navigation -->
 
-<nav>
+<nav class="bottom-nav">
 
 <a href="index.html">
 
 <i class="fa-solid fa-house"></i>
 
-<span>
-
-Home
-
-</span>
+<span>Home</span>
 
 </a>
 
@@ -296,11 +217,7 @@ Home
 
 <i class="fa-solid fa-qrcode"></i>
 
-<span>
-
-QR
-
-</span>
+<span>QR</span>
 
 </a>
 
@@ -308,11 +225,7 @@ QR
 
 <i class="fa-solid fa-clock-rotate-left"></i>
 
-<span>
-
-History
-
-</span>
+<span>History</span>
 
 </a>
 
@@ -320,11 +233,7 @@ History
 
 <i class="fa-solid fa-heart"></i>
 
-<span>
-
-Feedback
-
-</span>
+<span>Feedback</span>
 
 </a>
 
@@ -332,21 +241,15 @@ Feedback
 
 <i class="fa-solid fa-user"></i>
 
-<span>
-
-Profile
-
-</span>
+<span>Profile</span>
 
 </a>
 
 </nav>
 
-<script
-type="module"
-src="js/card.js">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
-</script>
+<script type="module" src="js/card.js"></script>
 
 </body>
 
