@@ -1,35 +1,30 @@
-// =========================================
+// ==========================================
 // RIO MAGGI POINT
-// PREMIUM LOYALTY CARD
-// card.js
-// PART 1
-// =========================================
-
-// ---------- Firebase ----------
+// PREMIUM CARD
+// FINAL VERSION
+// ==========================================
 
 import { firebaseConfig } from "./firebase-config.js";
 
-import {
-initializeApp
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
 
 import {
-
 getAuth,
-onAuthStateChanged,
-signOut
-
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
 import {
-
 getFirestore,
 doc,
 getDoc
+}
+from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-
-// ---------- Initialize ----------
+// ==========================================
+// FIREBASE
+// ==========================================
 
 const app = initializeApp(firebaseConfig);
 
@@ -37,15 +32,12 @@ const auth = getAuth(app);
 
 const db = getFirestore(app);
 
-// =========================================
-// HTML ELEMENTS
-// =========================================
+// ==========================================
+// HTML
+// ==========================================
 
 const customerPhoto =
 document.getElementById("customerPhoto");
-
-const defaultAvatar =
-document.getElementById("defaultAvatar");
 
 const customerName =
 document.getElementById("customerName");
@@ -53,73 +45,14 @@ document.getElementById("customerName");
 const memberId =
 document.getElementById("memberId");
 
-const mobileNumber =
-document.getElementById("mobileNumber");
+const ownerNumber =
+document.getElementById("ownerNumber");
 
-const announcementBar =
-document.getElementById("announcementBar");
-
-const announcementText =
-document.getElementById("announcementText");
-
-const playGameBtn =
-document.getElementById("playGameBtn");
-
-const downloadBtn =
-document.getElementById("downloadCard");
-
-// Stamp
-
-const stamp1 =
-document.getElementById("stamp1");
-
-const stamp2 =
-document.getElementById("stamp2");
-
-const stamp3 =
-document.getElementById("stamp3");
-
-const stamp4 =
-document.getElementById("stamp4");
-
-const stamp5 =
-document.getElementById("stamp5");
-
-const stamp6 =
-document.getElementById("stamp6");
-
-const rewardStamp =
-document.getElementById("rewardStamp");
-
-const happyStamp =
-document.getElementById("happyStamp");
-
-const rewardMessage =
-document.getElementById("rewardMessage");
-
-// Countdown
-
-const days =
-document.getElementById("days");
-
-const hours =
-document.getElementById("hours");
-
-const minutes =
-document.getElementById("minutes");
-
-const seconds =
-document.getElementById("seconds");
-
-// =========================================
+// ==========================================
 // LOGIN CHECK
-// =========================================
+// ==========================================
 
-onAuthStateChanged(
-
-auth,
-
-async(user)=>{
+onAuthStateChanged(auth, async(user)=>{
 
 if(!user){
 
@@ -129,356 +62,88 @@ return;
 
 }
 
-try{
+loadCustomer(user.uid);
 
-const customerRef = doc(
+});
 
-db,
+// ==========================================
+// CUSTOMER
+// ==========================================
 
-"customers",
-
-user.uid
-
-);
-
-const snap =
-await getDoc(customerRef);
-
-if(!snap.exists()){
-
-alert("Customer data not found.");
-
-return;
-
-}
-
-const customer =
-snap.data();
-
-// Load Data
-
-loadCustomer(customer);
-
-// Announcement
-
-loadAnnouncement();
-
-// Stamp
-
-loadStamp(customer.stamps || 0);
-
-// Countdown
-
-startCountdown(customer);
-
-}
-catch(error){
-
-console.error(error);
-
-}
-
-}
-
-);
-
-console.log("Card JS Loaded - Part 1");
-// =========================================
-// LOAD CUSTOMER
-// =========================================
-
-function loadCustomer(customer){
-
-// Name
-
-customerName.textContent =
-customer.name || "Customer";
-
-// Member ID
-
-memberId.textContent =
-"Member ID : " +
-(customer.memberId || "------");
-
-// Mobile
-
-mobileNumber.textContent =
-customer.mobile || "No Mobile";
-
-// =========================================
-// PHOTO / PREMIUM AVATAR
-// =========================================
-
-if(customer.photoURL){
-
-customerPhoto.src =
-customer.photoURL;
-
-customerPhoto.style.display="block";
-
-defaultAvatar.style.display="none";
-
-}
-else{
-
-customerPhoto.style.display="none";
-
-defaultAvatar.style.display="flex";
-
-let avatarPath="";
-
-if(customer.gender==="female"){
-
-avatarPath=
-"assets/avatars/female/" +
-(customer.avatar || "female1.webp");
-
-}
-else{
-
-avatarPath=
-"assets/avatars/male/" +
-(customer.avatar || "male1.webp");
-
-}
-
-defaultAvatar.innerHTML=
-
-`
-<img
-src="${avatarPath}"
-class="avatar-image"
-alt="Avatar">
-`;
-
-}
-
-}
-
-// =========================================
-// LOAD ANNOUNCEMENT
-// =========================================
-
-async function loadAnnouncement(){
+async function loadCustomer(uid){
 
 try{
 
-const ref = doc(
-
-db,
-
-"settings",
-
-"announcement"
-
-);
+const ref =
+doc(db,"customers",uid);
 
 const snap =
 await getDoc(ref);
 
-if(!snap.exists()){
+if(!snap.exists()) return;
 
-announcementBar.style.display="none";
+const data = snap.data();
 
-return;
+// Name
 
-}
+customerName.textContent =
+data.name || "Customer";
 
-const data=snap.data();
+// Member ID
 
-if(data.active===true){
+memberId.textContent =
+"ID : " + (data.memberId || "------");
 
-announcementBar.style.display="flex";
+// Avatar
 
-announcementText.textContent=
-data.message;
+if(data.photoURL){
 
-}
-else{
-
-announcementBar.style.display="none";
-
-}
-
-}
-catch(error){
-
-console.log(error);
-
-}
-
-}
-
-// =========================================
-// LOAD STAMPS
-// =========================================
-
-function loadStamp(total){
-
-const stamps=[
-
-stamp1,
-stamp2,
-stamp3,
-stamp4,
-stamp5,
-stamp6
-
-];
-
-stamps.forEach(
-
-(item,index)=>{
-
-item.classList.remove("active");
-
-if(index<total){
-
-item.classList.add("active");
-
-}
-
-}
-
-);
-
-// FREE VEG MAGGI
-
-if(total>=7){
-
-rewardStamp.classList.add("active");
-
-rewardMessage.innerHTML=
-
-"🎉 Congratulations!<br>FREE Veg Maggi Unlocked.";
-
-happyStamp.style.display="flex";
+customerPhoto.src =
+data.photoURL;
 
 }
 else{
 
-rewardStamp.classList.remove("active");
+customerPhoto.src =
+"assets/avatar/default.png";
 
-happyStamp.style.display="none";
+}
 
-rewardMessage.innerHTML=
+// Stamp Dates
 
-"Collect all stamps to unlock your FREE Veg Maggi.";
+for(let i=1;i<=6;i++){
+
+const el =
+document.getElementById("date"+i);
+
+if(el){
+
+el.textContent =
+data["stamp"+i] || "";
 
 }
 
 }
 
-// =========================================
-// COUNTDOWN
-// =========================================
+}
+catch(e){
 
-function startCountdown(customer){
-
-if(!customer.expiryDate){
-
-days.textContent="00";
-hours.textContent="00";
-minutes.textContent="00";
-seconds.textContent="00";
-
-return;
+console.log(e);
 
 }
 
-const expiry =
-new Date(customer.expiryDate).getTime();
-
-setInterval(()=>{
-
-const now = Date.now();
-
-const distance =
-expiry-now;
-
-if(distance<=0){
-
-days.textContent="00";
-hours.textContent="00";
-minutes.textContent="00";
-seconds.textContent="00";
-
-return;
-
 }
 
-days.textContent =
-Math.floor(distance/(1000*60*60*24));
+// ==========================================
+// PLAY GAME
+// ==========================================
 
-hours.textContent =
-Math.floor(
-(distance%(1000*60*60*24))/
-(1000*60*60)
-);
+const playBtn =
+document.getElementById("playGameBtn");
 
-minutes.textContent =
-Math.floor(
-(distance%(1000*60*60))/
-(1000*60)
-);
+if(playBtn){
 
-seconds.textContent =
-Math.floor(
-(distance%(1000*60))/1000
-);
-
-},1000);
-
-}
-// =========================================
-// DOWNLOAD CARD
-// =========================================
-
-async function downloadCard(){
-
-document.body.classList.add("downloading");
-
-const card =
-document.getElementById("downloadArea");
-
-const canvas =
-await html2canvas(card,{
-
-scale:3,
-
-useCORS:true,
-
-backgroundColor:null
-
-});
-
-const image =
-canvas.toDataURL("image/png");
-
-const link =
-document.createElement("a");
-
-link.download="Rio-Maggi-Loyalty-Card.png";
-
-link.href=image;
-
-link.click();
-
-document.body.classList.remove("downloading");
-
-}
-
-// =========================================
-// PLAY FREE GAME
-// =========================================
-
-if(playGameBtn){
-
-playGameBtn.addEventListener(
-
-"click",
-
-()=>{
+playBtn.onclick=function(){
 
 window.open(
 
@@ -488,110 +153,24 @@ window.open(
 
 );
 
+};
+
 }
 
+// ==========================================
+// DOWNLOAD CARD
+// ==========================================
+
+window.downloadCard=function(){
+
+alert(
+"Download Module Next Step"
 );
-
-}
-
-// =========================================
-// DOWNLOAD BUTTON
-// =========================================
-
-if(downloadBtn){
-
-downloadBtn.addEventListener(
-
-"click",
-
-downloadCard
-
-);
-
-}
-
-// =========================================
-// LOGOUT
-// =========================================
-
-window.logout=function(){
-
-signOut(auth)
-
-.then(()=>{
-
-window.location.href="login.html";
-
-})
-
-.catch(error=>{
-
-console.log(error);
-
-});
 
 };
 
-// =========================================
-// HAPPY EMOJI ANIMATION
-// =========================================
+// ==========================================
+// LOG
+// ==========================================
 
-setInterval(()=>{
-
-if(
-
-happyStamp.style.display==="flex"
-
-){
-
-happyStamp.animate([
-
-{
-
-transform:"translateY(0px) scale(1)"
-
-},
-
-{
-
-transform:"translateY(-10px) scale(1.15)"
-
-},
-
-{
-
-transform:"translateY(0px) scale(1)"
-
-}
-
-],{
-
-duration:900,
-
-iterations:1
-
-});
-
-}
-
-},2000);
-
-// =========================================
-// PAGE READY
-// =========================================
-
-window.addEventListener(
-
-"load",
-
-()=>{
-
-console.log(
-
-"RIO Premium Loyalty Card Loaded Successfully"
-
-);
-
-}
-
-);
+console.log("RIO Premium Card Loaded");
