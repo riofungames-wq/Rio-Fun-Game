@@ -1,7 +1,6 @@
 // ======================================
 // RIO MAGGI POINT
 // PROFILE SYSTEM
-// PART 1
 // ======================================
 
 import {
@@ -36,7 +35,7 @@ deleteObject
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
 
 // ======================================
-// HTML ELEMENTS
+// HTML
 // ======================================
 
 const previewImage =
@@ -51,22 +50,22 @@ document.getElementById("saveAvatar");
 const removeAvatar =
 document.getElementById("removeAvatar");
 
-const avatarOptions =
-document.querySelectorAll(".avatar-option");
+const avatarType =
+document.getElementsByName("avatarType");
 
 // ======================================
 
 let currentUser = null;
 
-let selectedAvatar = "";
-
 let uploadedFile = null;
+
+let selectedAvatar = "male";
 
 // ======================================
 // LOGIN CHECK
 // ======================================
 
-onAuthStateChanged(auth, async(user)=>{
+onAuthStateChanged(auth,async(user)=>{
 
 if(!user){
 
@@ -76,9 +75,9 @@ return;
 
 }
 
-currentUser = user;
+currentUser=user;
 
-loadProfile(user.uid);
+loadProfile();
 
 });
 
@@ -86,38 +85,75 @@ loadProfile(user.uid);
 // LOAD PROFILE
 // ======================================
 
-async function loadProfile(uid){
+async function loadProfile(){
 
-try{
+const refDoc=
 
-const customerRef =
-doc(db,"customers",uid);
+doc(db,"customers",currentUser.uid);
 
-const snap =
-await getDoc(customerRef);
+const snap=
+
+await getDoc(refDoc);
 
 if(!snap.exists()) return;
 
-const data = snap.data();
+const data=snap.data();
 
-if(data.photoURL){
+// Male / Female
 
-previewImage.src =
+selectedAvatar=
+
+data.avatarType || "male";
+
+avatarType.forEach((radio)=>{
+
+radio.checked=
+
+radio.value===selectedAvatar;
+
+});
+
+// Preview
+
+if(data.usePhoto && data.photoURL){
+
+previewImage.src=
+
 data.photoURL;
 
-selectedAvatar =
-data.photoURL;
+}
+
+else{
+
+previewImage.src=
+
+`assets/avatars/${selectedAvatar}.png`;
 
 }
 
 }
-catch(error){
 
-console.log(error);
+// ======================================
+// CHANGE DEFAULT AVATAR
+// ======================================
+
+avatarType.forEach((radio)=>{
+
+radio.addEventListener("change",()=>{
+
+selectedAvatar=radio.value;
+
+if(!uploadedFile){
+
+previewImage.src=
+
+`assets/avatars/${selectedAvatar}.png`;
 
 }
 
-}
+});
+
+});
 
 // ======================================
 // IMAGE PICK
@@ -125,58 +161,34 @@ console.log(error);
 
 photoInput.addEventListener("change",(e)=>{
 
-const file =
-e.target.files[0];
+const file=e.target.files[0];
 
 if(!file) return;
 
-uploadedFile = file;
+uploadedFile=file;
 
-previewImage.src =
+previewImage.src=
+
 URL.createObjectURL(file);
 
 });
-
 // ======================================
-// DEFAULT AVATAR
-// ======================================
-
-avatarOptions.forEach((avatar)=>{
-
-avatar.onclick=function(){
-
-selectedAvatar =
-this.src;
-
-previewImage.src =
-this.src;
-
-uploadedFile = null;
-
-};
-
-});
-// ======================================
-// SAVE AVATAR
+// SAVE PROFILE
 // ======================================
 
 saveAvatar.addEventListener("click", async()=>{
 
-if(!currentUser){
-
-alert("Login Required");
-
-return;
-
-}
+if(!currentUser) return;
 
 try{
 
-let photoURL = selectedAvatar;
+let photoURL = "";
 
-// ======================================
-// UPLOAD CUSTOM PHOTO
-// ======================================
+let usePhoto = false;
+
+// ================================
+// UPLOAD PHOTO
+// ================================
 
 if(uploadedFile){
 
@@ -202,11 +214,13 @@ uploadedFile
 
 photoURL = await getDownloadURL(storageRef);
 
+usePhoto = true;
+
 }
 
-// ======================================
-// SAVE TO FIRESTORE
-// ======================================
+// ================================
+// SAVE FIRESTORE
+// ================================
 
 await updateDoc(
 
@@ -214,20 +228,26 @@ doc(db,"customers",currentUser.uid),
 
 {
 
-photoURL:photoURL
+avatarType:selectedAvatar,
+
+photoURL:photoURL,
+
+usePhoto:usePhoto
 
 }
 
 );
 
-alert("Profile Updated Successfully");
+alert("✅ Profile Updated Successfully");
+
+loadProfile();
 
 }
 catch(error){
 
 console.log(error);
 
-alert("Upload Failed");
+alert("❌ Failed To Save Profile");
 
 }
 
@@ -237,7 +257,7 @@ alert("Upload Failed");
 // REMOVE PHOTO
 // ======================================
 
-removeAvatar.addEventListener("click", async()=>{
+removeAvatar.addEventListener("click",async()=>{
 
 if(!currentUser) return;
 
@@ -261,15 +281,9 @@ await deleteObject(storageRef);
 
 }catch(e){
 
-// Ignore if file not found
+console.log("Photo Already Removed");
 
 }
-
-// Default Avatar
-
-const defaultAvatar =
-
-"assets/avatar/default.png";
 
 await updateDoc(
 
@@ -277,112 +291,32 @@ doc(db,"customers",currentUser.uid),
 
 {
 
-photoURL:defaultAvatar
+photoURL:"",
+
+usePhoto:false,
+
+avatarType:selectedAvatar
 
 }
 
 );
 
-previewImage.src = defaultAvatar;
+previewImage.src =
 
-selectedAvatar = defaultAvatar;
+`assets/avatars/${selectedAvatar}.png`;
 
 uploadedFile = null;
 
-alert("Photo Removed");
+alert("✅ Photo Removed");
 
 }
 catch(error){
 
 console.log(error);
 
-}
-
-});
-// ======================================
-// ACTIVE AVATAR BORDER
-// ======================================
-
-avatarOptions.forEach((avatar)=>{
-
-avatar.addEventListener("click",()=>{
-
-avatarOptions.forEach((item)=>{
-
-item.style.border =
-"2px solid #444";
-
-});
-
-avatar.style.border =
-"3px solid gold";
-
-});
-
-});
-
-// ======================================
-// AUTO REFRESH AFTER SAVE
-// ======================================
-
-async function refreshProfile(){
-
-if(!currentUser) return;
-
-try{
-
-const customerRef =
-doc(db,"customers",currentUser.uid);
-
-const snap =
-await getDoc(customerRef);
-
-if(!snap.exists()) return;
-
-const data = snap.data();
-
-if(data.photoURL){
-
-previewImage.src =
-data.photoURL;
-
-selectedAvatar =
-data.photoURL;
+alert("❌ Remove Failed");
 
 }
-
-}
-catch(error){
-
-console.log(error);
-
-}
-
-}
-
-// ======================================
-// PAGE LOAD
-// ======================================
-
-window.addEventListener("load",()=>{
-
-refreshProfile();
-
-});
-
-// ======================================
-// NAVIGATION
-// ======================================
-
-document.querySelectorAll(".bottom-nav a")
-
-.forEach((link)=>{
-
-link.addEventListener("click",(e)=>{
-
-// Future Animation Ready
-
-});
 
 });
 
@@ -390,8 +324,4 @@ link.addEventListener("click",(e)=>{
 // PROFILE READY
 // ======================================
 
-console.log("RIO PROFILE READY");
-
-// ======================================
-// END OF profile.js
-// ======================================
+console.log("PROFILE READY");
