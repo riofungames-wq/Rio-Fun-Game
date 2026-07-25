@@ -551,3 +551,148 @@ iterations:3
 );
 
 }
+// ======================================
+// PART 4
+// QR + AUTO RESET + FINAL
+// ======================================
+
+// ======================================
+// QR SETUP
+// ======================================
+
+function setupQR(data){
+
+const openQR =
+document.getElementById("openQR");
+
+const closeQR =
+document.getElementById("closeQR");
+
+const popup =
+document.getElementById("qrPopup");
+
+const qrName =
+document.getElementById("qrCustomerName");
+
+const qrId =
+document.getElementById("qrCustomerId");
+
+const qrBox =
+document.getElementById("qrCodeBox");
+
+const randomMessage =
+document.getElementById("randomMessage");
+
+// -------------------------------
+// Customer Info
+// -------------------------------
+
+qrName.textContent =
+data.name || "Rio Customer";
+
+qrId.textContent =
+"Member ID : " +
+(data.memberId || "--");
+
+// -------------------------------
+// QR Image
+// -------------------------------
+
+qrBox.innerHTML = "";
+
+const img = document.createElement("img");
+
+img.src =
+"https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=" +
+encodeURIComponent(data.memberId || data.name);
+
+img.alt = "Customer QR";
+
+qrBox.appendChild(img);
+
+// -------------------------------
+// Random Messages
+// -------------------------------
+
+const messages = [
+
+"🍜 Every Stamp Brings You Closer To ONE FREE VEG MAGGI",
+
+"❤️ Thank You For Being Part Of Rio Loyalty Club",
+
+"🎉 Collect • Enjoy • Repeat",
+
+"🌟 Rio Maggi Point Loves Loyal Customers",
+
+"🍜 Your Next Maggi Could Be FREE",
+
+"🥳 Keep Collecting Stamps"
+
+];
+
+// -------------------------------
+// OPEN
+// -------------------------------
+
+openQR.onclick = ()=>{
+
+popup.style.display="flex";
+
+randomMessage.textContent =
+messages[
+Math.floor(
+Math.random()*messages.length
+)
+];
+
+};
+
+// -------------------------------
+// CLOSE
+// -------------------------------
+
+closeQR.onclick=()=>{
+
+popup.style.display="none";
+
+};
+
+popup.onclick=(e)=>{
+
+if(e.target===popup){
+
+popup.style.display="none";
+
+}
+
+};
+
+}
+
+// ======================================
+// AUTO RESET
+// ======================================
+
+async function resetCard(){
+
+console.log("Card Expired");
+
+// यहाँ अगले Version में Firestore Update करेंगे
+
+// stamps = 0
+// stampDates = []
+// cardStartDate = today
+
+}
+
+// ======================================
+// PAGE READY
+// ======================================
+
+window.addEventListener("load",()=>{
+
+console.log(
+"RIO MAGGI POINT CARD V3 LOADED"
+);
+
+});
