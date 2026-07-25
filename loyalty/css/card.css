@@ -1,627 +1,1248 @@
-/* =====================================
+/* ==========================================
    RIO MAGGI POINT
-   PREMIUM CUSTOMER CARD DESIGN
-===================================== */
-
+   PREMIUM LOYALTY CARD V2
+========================================== */
 
 :root{
 
-    --gold:#d4a44c;
-    --dark:#263525;
-    --cream:#fff8e7;
-    --text:#3a2e2b;
+--gold:#d4af37;
+--gold-light:#ffd95a;
+--black:#111111;
+--dark:#1b1b1b;
+--white:#ffffff;
+--silver:#d9d9d9;
+
+--male:#234e9b;
+--female:#c85b9d;
+
+--success:#28a745;
+--danger:#d62828;
+
+--shadow:
+0 18px 45px rgba(0,0,0,.35);
 
 }
-
-
 
 *{
 
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+
+font-family:
+'Poppins',sans-serif;
 
 }
-
-
 
 body{
 
-    min-height:100vh;
-    background:#f5d99b;
+background:
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+linear-gradient(
+135deg,
+#e9d39a,
+#f8f3df
+);
 
-    padding:20px;
+display:flex;
+
+justify-content:center;
+
+align-items:flex-start;
+
+min-height:100vh;
+
+padding:25px;
+
+overflow-x:hidden;
 
 }
 
+/* =======================================
+CARD PAGE
+======================================= */
 
+.card-page{
 
-/* CARD WRAPPER */
+width:100%;
 
-.card-wrapper{
+max-width:430px;
 
-    width:100%;
-    max-width:420px;
+margin:auto;
+
+padding-bottom:100px;
 
 }
 
-
-
-/* MAIN CARD */
+/* =======================================
+MAIN CARD
+======================================= */
 
 .customer-card{
 
-    background:
-    linear-gradient(
-        135deg,
-        #fff8e7,
-        #f7dfad
-    );
+position:relative;
 
-    border-radius:25px;
+overflow:hidden;
 
-    padding:22px;
+border-radius:28px;
 
-    border:3px solid var(--gold);
+background:
 
-    box-shadow:
+linear-gradient(
+160deg,
+#0f0f0f,
+#232323,
+#111111
+);
 
-    0 15px 35px rgba(0,0,0,0.25);
+border:
 
-    position:relative;
+3px solid var(--gold);
 
-    overflow:hidden;
+box-shadow:
 
-}
+var(--shadow);
 
+padding:24px;
 
-
-/* GOLD SHINE EFFECT */
-
-.customer-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:220px;
-    height:220px;
-
-    background:
-    rgba(255,255,255,0.25);
-
-    border-radius:50%;
-
-    top:-100px;
-    right:-100px;
+color:white;
 
 }
 
+/* =======================================
+SHINE EFFECT
+======================================= */
 
+.shine-effect{
 
-/* SHOP TITLE */
+position:absolute;
 
-.shop-title{
+top:-120px;
 
-    text-align:center;
+right:-120px;
 
-    position:relative;
+width:260px;
 
-    z-index:2;
+height:260px;
 
-}
+background:
 
+radial-gradient(
 
+rgba(255,255,255,.28),
 
-.shop-title h1{
+transparent 70%
 
-    font-size:22px;
+);
 
-    font-weight:700;
+border-radius:50%;
 
-    color:#3a2e2b;
-
-    letter-spacing:1px;
-
-}
-
-
-
-/* CHIP DESIGN */
-
-.card-chip{
-
-    width:55px;
-
-    height:42px;
-
-    background:
-
-    linear-gradient(
-        135deg,
-        #d4a44c,
-        #f8dc8c
-    );
-
-
-    border-radius:8px;
-
-    margin-top:20px;
-
-    border:2px solid #b8862c;
-
-    position:relative;
+pointer-events:none;
 
 }
 
+/* =======================================
+HEADER
+======================================= */
 
-.card-chip div{
+.card-header{
 
-    width:100%;
-    height:50%;
+display:flex;
 
-    border-bottom:2px solid #b8862c;
+justify-content:space-between;
 
-}
-/* =====================================
-   PROFILE SECTION
-===================================== */
+align-items:flex-start;
 
+margin-bottom:18px;
 
-.profile-section{
+position:relative;
 
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
-
-    margin-top:25px;
-
-    position:relative;
-
-    z-index:2;
+z-index:2;
 
 }
 
+.brand h1{
 
+font-size:22px;
 
-/* CUSTOMER PHOTO */
+font-weight:800;
 
-.photo-box{
+color:var(--gold-light);
 
-    width:75px;
-
-    height:75px;
-
-    border-radius:50%;
-
-    background:#fff;
-
-    border:3px solid var(--gold);
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    overflow:hidden;
-
-    font-size:38px;
+letter-spacing:.5px;
 
 }
 
+.brand p{
 
+margin-top:4px;
 
-.photo-box img{
+font-size:12px;
 
-    width:100%;
+letter-spacing:2px;
 
-    height:100%;
+color:#ddd;
 
-    object-fit:cover;
-
-}
-
-
-
-
-
-/* CUSTOMER DETAILS */
-
-
-.customer-details h2{
-
-    font-size:22px;
-
-    color:var(--text);
-
-    font-weight:700;
+text-transform:uppercase;
 
 }
 
+/* =======================================
+WEBSITE QR
+======================================= */
 
+.website-qr{
 
-.customer-details p{
+display:flex;
 
-    margin-top:5px;
+flex-direction:column;
 
-    font-size:13px;
+align-items:center;
 
-    color:#6f5b45;
-
-    font-weight:600;
+gap:5px;
 
 }
 
+.website-qr img{
 
+width:58px;
 
+height:58px;
 
+background:white;
 
-/* OWNER SECTION */
+padding:4px;
 
+border-radius:10px;
+
+border:2px solid var(--gold);
+
+}
+
+.website-qr span{
+
+font-size:10px;
+
+color:#ddd;
+
+}
+
+/* =======================================
+MEMBER BADGE
+======================================= */
+
+.member-badge{
+
+display:inline-flex;
+
+align-items:center;
+
+gap:8px;
+
+padding:8px 16px;
+
+margin-bottom:22px;
+
+border-radius:30px;
+
+background:
+
+linear-gradient(
+90deg,
+var(--gold),
+#ffef9c
+);
+
+color:#111;
+
+font-weight:700;
+
+font-size:12px;
+
+box-shadow:
+
+0 5px 12px
+rgba(0,0,0,.25);
+
+}
+/* =======================================
+CARD TOP
+======================================= */
+
+.card-top{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+gap:18px;
+
+margin-bottom:28px;
+
+position:relative;
+
+z-index:2;
+
+}
+
+/* =======================================
+PHOTO SECTION
+======================================= */
+
+.photo-section{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+.photo-ring{
+
+width:95px;
+
+height:95px;
+
+border-radius:50%;
+
+padding:4px;
+
+background:
+
+linear-gradient(
+135deg,
+var(--gold-light),
+var(--gold),
+#8b6a15
+);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+box-shadow:
+
+0 0 20px
+rgba(212,175,55,.45);
+
+}
+
+.photo-ring span{
+
+width:100%;
+
+height:100%;
+
+border-radius:50%;
+
+background:#ffffff;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:42px;
+
+overflow:hidden;
+
+}
+
+.photo-ring img{
+
+width:100%;
+
+height:100%;
+
+border-radius:50%;
+
+object-fit:cover;
+
+display:block;
+
+}
+
+/* =======================================
+CUSTOMER INFO
+======================================= */
+
+.customer-info{
+
+flex:1;
+
+}
+
+.customer-info h2{
+
+font-size:22px;
+
+font-weight:700;
+
+color:white;
+
+margin-bottom:6px;
+
+word-break:break-word;
+
+}
+
+.customer-info p{
+
+font-size:13px;
+
+color:#d9d9d9;
+
+margin-bottom:5px;
+
+}
+
+#customerLevel{
+
+display:inline-block;
+
+margin-top:6px;
+
+padding:5px 12px;
+
+border-radius:20px;
+
+background:
+
+rgba(255,255,255,.10);
+
+font-size:11px;
+
+font-weight:600;
+
+letter-spacing:.5px;
+
+}
+
+/* =======================================
+ATM CHIP
+======================================= */
+
+.chip-section{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+.atm-chip{
+
+width:72px;
+
+height:58px;
+
+border-radius:10px;
+
+background:
+
+linear-gradient(
+135deg,
+#f7d774,
+#cda434
+);
+
+border:2px solid
+#8f6c12;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:space-evenly;
+
+padding:8px;
+
+box-shadow:
+
+0 4px 10px
+rgba(0,0,0,.30);
+
+}
+
+.chip-line{
+
+height:4px;
+
+border-radius:10px;
+
+background:#8f6c12;
+
+}
+
+/* =======================================
+GENDER THEMES
+======================================= */
+
+/* Male */
+
+.customer-card.male{
+
+border-color:var(--male);
+
+}
+
+.customer-card.male .member-badge{
+
+background:
+
+linear-gradient(
+90deg,
+var(--male),
+#4f83ff
+);
+
+color:white;
+
+}
+
+/* Female */
+
+.customer-card.female{
+
+border-color:var(--female);
+
+}
+
+.customer-card.female .member-badge{
+
+background:
+
+linear-gradient(
+90deg,
+var(--female),
+#ff9acb
+);
+
+color:white;
+
+}
+/* =======================================
+STAMP SECTION
+======================================= */
+
+.stamp-section{
+
+margin-top:28px;
+
+position:relative;
+
+z-index:2;
+
+}
+
+.section-title{
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+margin-bottom:18px;
+
+font-size:15px;
+
+font-weight:700;
+
+color:var(--gold-light);
+
+}
+
+.section-title i{
+
+color:gold;
+
+}
+
+/* =======================================
+STAMP CONTAINER
+======================================= */
+
+.stamp-container{
+
+display:grid;
+
+grid-template-columns:
+
+repeat(4,1fr);
+
+gap:14px;
+
+}
+
+/* =======================================
+STAMP CIRCLE
+======================================= */
+
+.stamp-circle{
+
+width:72px;
+
+height:72px;
+
+border-radius:50%;
+
+background:
+
+rgba(255,255,255,.08);
+
+border:
+
+2px dashed
+
+rgba(255,215,0,.55);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:22px;
+
+font-weight:700;
+
+color:#ffffff;
+
+transition:.35s;
+
+cursor:default;
+
+}
+
+/* ACTIVE STAMP */
+
+.stamp-circle.active{
+
+background:
+
+linear-gradient(
+
+135deg,
+
+#FFD700,
+
+#F4B400
+
+);
+
+color:#111;
+
+border:
+
+2px solid
+
+gold;
+
+box-shadow:
+
+0 0 18px
+
+rgba(255,215,0,.55);
+
+}
+
+/* =======================================
+FREE VEG MAGGI
+======================================= */
+
+.reward-circle{
+
+width:78px;
+
+height:78px;
+
+border-radius:50%;
+
+background:
+
+linear-gradient(
+
+135deg,
+
+#ffdf6b,
+
+#ffb300
+
+);
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+text-align:center;
+
+padding:5px;
+
+border:
+
+3px solid
+
+gold;
+
+box-shadow:
+
+0 0 20px
+
+rgba(255,215,0,.45);
+
+}
+
+.reward-bowl{
+
+font-size:24px;
+
+margin-bottom:2px;
+
+}
+
+.reward-circle p{
+
+font-size:9px;
+
+font-weight:700;
+
+line-height:1.2;
+
+color:#222;
+
+}
+
+/* =======================================
+PROGRESS BOX
+======================================= */
+
+.progress-box{
+
+margin-top:22px;
+
+padding:16px;
+
+border-radius:18px;
+
+background:
+
+rgba(255,255,255,.08);
+
+border:
+
+1px solid
+
+rgba(255,255,255,.15);
+
+}
+
+.progress-text{
+
+font-size:14px;
+
+font-weight:700;
+
+color:#fff;
+
+margin-bottom:8px;
+
+}
+
+.reward-message{
+
+font-size:13px;
+
+line-height:1.6;
+
+color:#e8e8e8;
+
+}
+/* =======================================
+OWNER SECTION
+======================================= */
 
 .owner-section{
 
-    margin-top:25px;
+margin-top:24px;
 
-    background:rgba(212,164,76,0.15);
+display:flex;
 
-    border-radius:15px;
+justify-content:space-between;
 
-    padding:15px;
+align-items:center;
 
-    position:relative;
+padding:18px;
 
-    z-index:2;
+border-radius:18px;
 
-}
+background:rgba(255,255,255,.08);
 
-
-
-.owner-title p{
-
-    font-size:12px;
-
-    color:#7a6855;
-
-    font-weight:600;
+border:1px solid rgba(255,255,255,.12);
 
 }
 
+.owner-label{
 
+font-size:11px;
 
-.owner-title h3{
+color:#cccccc;
 
-    font-size:20px;
-
-    margin:3px 0;
-
-    color:#3a2e2b;
+letter-spacing:2px;
 
 }
 
+.owner-left h3{
 
+margin:4px 0;
 
-.owner-title a{
+font-size:22px;
 
-    text-decoration:none;
+color:var(--gold-light);
 
-    color:#c62828;
-
-    font-size:15px;
-
-    font-weight:600;
+font-weight:700;
 
 }
 
+.owner-left p{
 
+font-size:14px;
 
+color:#ffffff;
 
+}
 
-/* ADDRESS SECTION */
+.owner-left i{
 
+margin-right:8px;
+
+color:gold;
+
+}
+
+.owner-right{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:6px;
+
+}
+
+.owner-right i{
+
+font-size:30px;
+
+color:gold;
+
+}
+
+.owner-right span{
+
+font-size:11px;
+
+color:#ffffff;
+
+font-weight:600;
+
+}
+
+/* =======================================
+ADDRESS
+======================================= */
 
 .address-section{
 
-    display:flex;
+margin-top:18px;
 
-    gap:12px;
+display:flex;
 
-    margin-top:15px;
+gap:15px;
 
-    padding:15px;
+padding:18px;
 
-    background:#fff;
+border-radius:18px;
 
-    border-radius:15px;
-
-    position:relative;
-
-    z-index:2;
+background:rgba(255,255,255,.08);
 
 }
 
+.address-icon{
 
+font-size:28px;
 
-.address-section i{
-
-    color:#c62828;
-
-    font-size:22px;
-
-    margin-top:5px;
+color:#ff4747;
 
 }
 
+.address-details h4{
 
+font-size:13px;
 
-.address-section h4{
+margin-bottom:6px;
 
-    font-size:12px;
-
-    color:#7a6855;
-
-}
-
-
-
-.address-section p{
-
-    font-size:13px;
-
-    font-weight:600;
-
-    line-height:1.5;
-
-    color:#3a2e2b;
-
-}
-/* =====================================
-   QR BUTTON
-===================================== */
-
-
-.qr-area{
-
-    margin-top:20px;
-
-    text-align:center;
-
-    position:relative;
-
-    z-index:2;
+color:var(--gold-light);
 
 }
 
+.address-details p{
 
+font-size:13px;
+
+line-height:1.7;
+
+color:#eeeeee;
+
+}
+
+/* =======================================
+QR BUTTON
+======================================= */
+
+.qr-button-area{
+
+margin-top:24px;
+
+}
 
 #openQR{
 
-    width:100%;
+width:100%;
 
-    padding:14px;
+padding:16px;
 
-    border:none;
+border:none;
 
-    border-radius:15px;
+border-radius:16px;
 
-    background:#263525;
+background:
 
-    color:#ffd54f;
+linear-gradient(
+135deg,
+var(--gold),
+var(--gold-light)
+);
 
-    font-size:16px;
+color:#111;
 
-    font-weight:700;
+font-size:16px;
 
-    cursor:pointer;
+font-weight:700;
 
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+cursor:pointer;
 
-}
-
-
-
-#openQR i{
-
-    margin-right:8px;
+transition:.3s;
 
 }
 
+#openQR:hover{
 
+transform:translateY(-2px);
 
+box-shadow:
 
+0 8px 18px rgba(212,175,55,.45);
 
-/* =====================================
-   CARD FOOTER
-===================================== */
+}
 
+/* =======================================
+FOOTER
+======================================= */
 
 .card-footer{
 
-    margin-top:20px;
+margin-top:22px;
 
-    padding-top:15px;
+display:flex;
 
-    border-top:1px dashed var(--gold);
+justify-content:space-between;
 
-    display:flex;
+align-items:center;
 
-    justify-content:space-between;
+padding-top:18px;
 
-    align-items:center;
-
-    position:relative;
-
-    z-index:2;
+border-top:1px solid rgba(255,255,255,.15);
 
 }
 
+.footer-left p{
 
+font-size:13px;
 
-.loyalty-text p{
-
-    font-weight:700;
-
-    font-size:14px;
+font-weight:600;
 
 }
 
+.footer-left span{
 
+font-size:11px;
 
-.loyalty-text span{
-
-    font-size:11px;
-
-    color:#7a6855;
+color:#cccccc;
 
 }
 
+.card-version{
 
+padding:6px 12px;
 
-.card-status{
+border-radius:20px;
 
-    background:#263525;
+background:gold;
 
-    color:#ffd54f;
+color:#111;
 
-    padding:6px 12px;
+font-size:12px;
 
-    border-radius:20px;
-
-    font-size:12px;
-
-    font-weight:700;
+font-weight:700;
 
 }
 
+/* =======================================
+BOTTOM NAVIGATION
+======================================= */
 
+.bottom-nav{
 
+position:fixed;
 
+bottom:0;
 
-/* =====================================
-   QR POPUP
-===================================== */
+left:50%;
 
+transform:translateX(-50%);
+
+width:100%;
+
+max-width:430px;
+
+background:#111;
+
+display:flex;
+
+justify-content:space-around;
+
+padding:14px 0;
+
+border-top:2px solid var(--gold);
+
+z-index:999;
+
+}
+
+.nav-item{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+text-decoration:none;
+
+color:#d8d8d8;
+
+font-size:12px;
+
+gap:6px;
+
+transition:.25s;
+
+}
+
+.nav-item i{
+
+font-size:20px;
+
+}
+
+.nav-item:hover,
+
+.nav-item.active{
+
+color:var(--gold-light);
+
+}
+
+/* =======================================
+QR POPUP
+======================================= */
 
 .qr-popup{
 
-    display:none;
+display:none;
 
-    position:fixed;
+position:fixed;
 
-    inset:0;
+inset:0;
 
-    background:rgba(0,0,0,0.65);
+background:rgba(0,0,0,.82);
 
-    justify-content:center;
+justify-content:center;
 
-    align-items:center;
+align-items:center;
 
-    z-index:999;
-
-}
-
-
-
-.qr-box{
-
-    width:90%;
-
-    max-width:350px;
-
-    background:#fff8e7;
-
-    border-radius:25px;
-
-    padding:25px;
-
-    text-align:center;
-
-    border:3px solid var(--gold);
+z-index:9999;
 
 }
 
+.qr-popup-card{
 
+width:92%;
 
-.qr-box h2{
+max-width:360px;
 
-    margin-bottom:20px;
+background:white;
 
-    color:#3a2e2b;
+border-radius:25px;
+
+padding:25px;
+
+text-align:center;
+
+position:relative;
 
 }
 
+.close-popup{
 
+position:absolute;
+
+top:15px;
+
+right:15px;
+
+width:42px;
+
+height:42px;
+
+border:none;
+
+border-radius:50%;
+
+background:#d62828;
+
+color:white;
+
+font-size:18px;
+
+cursor:pointer;
+
+}
 
 #qrCodeBox{
 
-    width:220px;
+width:220px;
 
-    height:220px;
+height:220px;
 
-    margin:auto;
+margin:18px auto;
 
-    background:white;
+display:flex;
 
-    display:flex;
+justify-content:center;
 
-    justify-content:center;
+align-items:center;
 
-    align-items:center;
+background:white;
 
 }
-
-
 
 #qrCodeBox img{
 
-    width:100%;
+width:100%;
 
-    height:100%;
+height:100%;
 
-}
-
-
-
-.qr-box p{
-
-    margin-top:15px;
-
-    font-weight:600;
+object-fit:contain;
 
 }
 
+.popup-title{
 
+color:#666;
 
-.close-qr{
+margin-top:5px;
 
-    position:absolute;
+}
 
-    top:20px;
+.popup-message{
 
-    right:20px;
+margin-top:16px;
 
-    width:40px;
+font-size:14px;
 
-    height:40px;
+font-weight:600;
 
-    border-radius:50%;
+}
 
-    border:none;
+.popup-footer{
 
-    background:#c62828;
+margin-top:20px;
 
-    color:white;
+font-size:12px;
 
-    font-size:20px;
+color:#666;
 
-    cursor:pointer;
+}
+
+/* =======================================
+MOBILE
+======================================= */
+
+@media(max-width:480px){
+
+.customer-card{
+
+padding:18px;
+
+}
+
+.stamp-container{
+
+grid-template-columns:repeat(4,1fr);
+
+gap:10px;
+
+}
+
+.stamp-circle,
+
+.reward-circle{
+
+width:64px;
+
+height:64px;
+
+}
+
+.photo-ring{
+
+width:82px;
+
+height:82px;
+
+}
+
+.customer-info h2{
+
+font-size:18px;
+
+}
 
 }
