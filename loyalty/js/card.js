@@ -262,7 +262,285 @@ badge = "⭐ SILVER MEMBER";
 }
 
 customerLevel.textContent = level;
+  // ======================================
+// RIO MAGGI POINT
+// PREMIUM CARD V3
+// PART 3
+// STAMP SYSTEM
+// ======================================
+
+function loadStamps(totalStamps){
+
+// Maximum 6 stamps
+
+const stamps = Math.min(totalStamps,6);
+
+// Clear all stamps
+
+for(let i=1;i<=6;i++){
+
+const stamp =
+document.getElementById("stamp"+i);
+
+if(stamp){
+
+stamp.classList.remove("active");
+
+}
+
+}
+
+// Fill stamps
+
+for(let i=1;i<=stamps;i++){
+
+const stamp =
+document.getElementById("stamp"+i);
+
+if(stamp){
+
+stamp.classList.add("active");
+
+}
+
+}
+
+// Progress Text
+
+if(stampProgress){
+
+stampProgress.textContent =
+stamps + " / 6 Stamps Collected";
+
+}
+
+// Reward
+
+const reward =
+document.getElementById("rewardStamp");
+
+if(stamps>=6){
+
+if(reward){
+
+reward.classList.add("reward-active");
+
+}
+
+if(rewardMessage){
+
+rewardMessage.innerHTML =
+"🎉 Congratulations!<br>FREE VEG MAGGI UNLOCKED 🍜";
+
+}
+
+animateReward();
+
+}
+
+else{
+
+if(reward){
+
+reward.classList.remove("reward-active");
+
+}
+
+const left = 6 - stamps;
+
+if(rewardMessage){
+
+rewardMessage.innerHTML =
+"Collect <b>" +
+left +
+"</b> more stamp" +
+(left>1?"s":"") +
+" to unlock your <b>FREE VEG MAGGI 🍜</b>";
+
+}
+
+}
+
+}
+
+// ======================================
+// REWARD ANIMATION
+// ======================================
+
+function animateReward(){
+
+const reward =
+document.getElementById("rewardStamp");
+
+if(!reward) return;
+
+reward.animate(
+
+[
+
+{
+
+transform:"scale(1)",
+
+boxShadow:"0 0 0 rgba(255,215,0,0)"
+
+},
+
+{
+
+transform:"scale(1.12)",
+
+boxShadow:"0 0 30px gold"
+
+},
+
+{
+
+transform:"scale(1)",
+
+boxShadow:"0 0 15px gold"
+
+}
+
+],
+
+{
+
+duration:1200,
+
+iterations:2
+
+}
+
+);
+
+}
 
 memberBadge.textContent = badge;
 
 }
+// ======================================
+// RIO MAGGI POINT
+// PREMIUM CARD V3
+// FINAL PART
+// ======================================
+
+// ======================================
+// QR GENERATOR
+// ======================================
+
+function generateQR(id){
+
+if(!qrCodeBox) return;
+
+qrCodeBox.innerHTML="";
+
+const img = document.createElement("img");
+
+img.src =
+"https://api.qrserver.com/v1/create-qr-code/?size=220x220&data="
++
+encodeURIComponent(id);
+
+img.alt="Customer QR";
+
+qrCodeBox.appendChild(img);
+
+}
+
+// ======================================
+// QR POPUP
+// ======================================
+
+const openQR =
+document.getElementById("openQR");
+
+const closeQR =
+document.getElementById("closeQR");
+
+const qrPopup =
+document.getElementById("qrPopup");
+
+if(openQR){
+
+openQR.addEventListener("click",()=>{
+
+qrPopup.style.display="flex";
+
+showRandomMessage();
+
+});
+
+}
+
+if(closeQR){
+
+closeQR.addEventListener("click",()=>{
+
+qrPopup.style.display="none";
+
+});
+
+}
+
+if(qrPopup){
+
+qrPopup.addEventListener("click",(e)=>{
+
+if(e.target===qrPopup){
+
+qrPopup.style.display="none";
+
+}
+
+});
+
+}
+
+// ======================================
+// PREMIUM RANDOM MESSAGE
+// ======================================
+
+const premiumMessages=[
+
+"🍜 Every Stamp Brings You Closer To Free Veg Maggi.",
+
+"❤️ Thank You For Being A Rio Loyalty Member.",
+
+"🌟 Loyalty Has Its Rewards.",
+
+"🎉 Collect • Enjoy • Repeat.",
+
+"🚀 Keep Visiting Rio Maggi Point.",
+
+"🥰 We Love Our Loyal Customers.",
+
+"🍜 Free Veg Maggi Is Waiting For You!"
+
+];
+
+function showRandomMessage(){
+
+const box =
+document.getElementById("randomMessage");
+
+if(!box) return;
+
+const index =
+Math.floor(
+Math.random() *
+premiumMessages.length
+);
+
+box.textContent =
+premiumMessages[index];
+
+}
+
+// ======================================
+// READY
+// ======================================
+
+console.log(
+"RIO MAGGI POINT PREMIUM CARD V3 READY"
+);
