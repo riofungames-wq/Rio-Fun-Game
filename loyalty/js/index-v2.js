@@ -1,136 +1,90 @@
-// ======================================
+// =======================================
 // RIO MAGGI POINT
-// HOME PAGE
-// VERSION 2
+// PREMIUM CARD V2
 // PART 1
-// ======================================
+// =======================================
 
 import { firebaseConfig }
 from "./firebase-config.js";
 
 import {
-
-LOYALTY_SETTINGS,
-
-getHomeSummary,
-
-getCountdown,
-
-getExpiryWarning,
-
-getHappyAnimation
-
-}
-
-from "./shared-loyalty.js";
-
-import {
-
 initializeApp
-
 }
-
 from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
 
 import {
-
 getAuth,
 onAuthStateChanged,
 signOut
-
 }
-
 from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
 import {
-
 getFirestore,
 doc,
 getDoc
-
 }
-
 from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-// ======================================
+// =======================================
 // FIREBASE
-// ======================================
+// =======================================
 
-const app =
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-const auth =
-getAuth(app);
+const auth = getAuth(app);
 
-const db =
-getFirestore(app);
+const db = getFirestore(app);
 
-// ======================================
-// ELEMENTS
-// ======================================
+// =======================================
+// HTML ELEMENTS
+// =======================================
+
+const customerPhoto =
+document.getElementById("customerPhoto");
+
+const avatarDisplay =
+document.getElementById("avatarDisplay");
 
 const customerName =
 document.getElementById("customerName");
 
-const customerEmail =
-document.getElementById("customerEmail");
+const memberId =
+document.getElementById("memberId");
 
-const memberLevel =
-document.getElementById("memberLevel");
+const welcomeMessage =
+document.getElementById("welcomeMessage");
 
-const emojiAvatar =
-document.getElementById("emojiAvatar");
+const stampProgress =
+document.getElementById("stampProgress");
 
-const profileImage =
-document.getElementById("profileImage");
+const rewardMessage =
+document.getElementById("rewardMessage");
+// =======================================
+// CHECK LOGIN
+// =======================================
 
-const logoutBtn =
-document.getElementById("logoutBtn");
+onAuthStateChanged(auth, async (user) => {
 
-// ======================================
-// LOGOUT
-// ======================================
+if (!user) {
 
-logoutBtn.onclick=()=>{
-
-signOut(auth)
-.then(()=>{
-
-location.href="login.html";
-
-});
-
-};
-// ======================================
-// PART 2
-// LOGIN + CUSTOMER LOAD
-// ======================================
-
-onAuthStateChanged(auth, async(user)=>{
-
-if(!user){
-
-location.href="login.html";
+window.location.href = "login.html";
 
 return;
 
 }
 
-try{
+try {
 
-const ref=
-
-doc(
+const customerRef = doc(
 db,
 "customers",
 user.uid
 );
 
-const snap=
+const snap = await getDoc(customerRef);
 
-await getDoc(ref);
-
-if(!snap.exists()){
+if (!snap.exists()) {
 
 console.log("Customer Not Found");
 
@@ -138,82 +92,51 @@ return;
 
 }
 
-const data=
-
-snap.data();
+const data = snap.data();
 
 // ===============================
-// NAME
+// CUSTOMER NAME
 // ===============================
 
-customerName.textContent=
-
+customerName.textContent =
 data.name || "Customer";
 
 // ===============================
-// EMAIL
+// MEMBER ID
 // ===============================
 
-customerEmail.textContent=
-
-data.email || user.email;
-
-// ===============================
-// MEMBER LEVEL
-// ===============================
-
-const home=
-
-getHomeSummary(
-
-data.stamps || 0
-
-);
-
-memberLevel.textContent=
-
-home.member.level;
+memberId.textContent =
+"Member ID : " +
+(data.memberId || user.uid);
 
 // ===============================
-// AVATAR
+// WELCOME MESSAGE
 // ===============================
 
-if(data.photoURL){
+welcomeMessage.textContent =
+"Welcome Back, " +
+(data.name || "Customer") +
+" ❤️";
 
-profileImage.src=
+// ===============================
+// LOAD PROFILE
+// ===============================
 
-data.photoURL;
+loadProfile(data);
 
-profileImage.style.display="block";
+// ===============================
+// LOAD STAMPS
+// ===============================
 
-emojiAvatar.style.display="none";
+loadStamps(data.stamps || 0);
+
+// ===============================
+// START COUNTDOWN
+// ===============================
+
+startCountdown(data);
 
 }
-
-else{
-
-profileImage.style.display="none";
-
-emojiAvatar.style.display="flex";
-
-emojiAvatar.textContent=
-
-data.avatar || "😊";
-
-}
-
-// ===============================
-// LOAD HOME DATA
-// ===============================
-
-loadStampPreview(data);
-
-loadCountdown(data);
-
-loadStats(data);
-
-}
-
 catch(err){
 
 console.error(err);
@@ -221,242 +144,184 @@ console.error(err);
 }
 
 });
-// ======================================
-// PART 3
-// HOME STAMP PREVIEW
-// ======================================
 
-function loadStampPreview(data){
+// =======================================
+// PROFILE PHOTO / AVATAR
+// =======================================
 
-const container =
-document.getElementById("stampPreview");
+function loadProfile(data){
 
-const progressText =
-document.getElementById("homeStampText");
+// Priority:
+// 1. User Photo
+// 2. Premium Avatar
+// 3. Default Avatar
 
-if(!container) return;
+if(data.photoURL){
 
-container.innerHTML = "";
+customerPhoto.src = data.photoURL;
 
-const stamps =
-Number(data.stamps || 0);
+customerPhoto.style.display = "block";
 
-// ===============================
-// STAMP 1 TO 6
-// ===============================
+avatarDisplay.style.display = "none";
+
+return;
+
+}
+
+customerPhoto.style.display = "none";
+
+avatarDisplay.style.display = "flex";
+
+// Premium Avatar Name
+
+avatarDisplay.textContent =
+data.avatar || "👤";
+
+}
+// =======================================
+// LOAD STAMPS
+// =======================================
+
+function loadStamps(totalStamps){
+
+const stamps = Math.min(totalStamps,6);
+
+// Reset
 
 for(let i=1;i<=6;i++){
 
-const circle =
-document.createElement("div");
+const stamp =
+document.getElementById("stamp"+i);
 
-circle.className =
-"home-stamp";
+if(stamp){
 
-if(i<=stamps){
-
-circle.classList.add("active");
-
-circle.innerHTML="✔";
-
-}else{
-
-circle.innerHTML=i;
+stamp.classList.remove("active");
 
 }
 
-container.appendChild(circle);
+}
+
+// Fill
+
+for(let i=1;i<=stamps;i++){
+
+const stamp =
+document.getElementById("stamp"+i);
+
+if(stamp){
+
+stamp.classList.add("active");
 
 }
 
-// ===============================
-// 7th REWARD
-// ===============================
+}
+
+// Progress
+
+stampProgress.textContent =
+stamps + " / 6 Stamps Collected";
+
+// Reward
 
 const reward =
-document.createElement("div");
+document.getElementById("rewardStamp");
 
-reward.className="reward-stamp";
+const happy =
+document.getElementById("happyCircle");
 
-reward.innerHTML=`
-
-<div class="reward-bowl">🍜</div>
-
-<div class="reward-title">
-
-ONE
-
-</div>
-
-<div class="reward-name">
-
-FREE VEG MAGGI
-
-</div>
-
-`;
+const emoji =
+document.getElementById("happyEmoji");
 
 if(stamps>=6){
 
-reward.classList.add("unlock");
+reward.classList.add("reward-active");
+
+happy.classList.add("happy-active");
+
+emoji.textContent="😄";
+
+rewardMessage.innerHTML=
+"🎉 Congratulations!<br>FREE VEG MAGGI UNLOCKED 🍜";
 
 }
 
-container.appendChild(reward);
+else{
 
-// ===============================
-// 8th HAPPY EMOJI
-// ===============================
+reward.classList.remove("reward-active");
 
-const happy =
-document.createElement("div");
+happy.classList.remove("happy-active");
 
-happy.className="happy-stamp";
+emoji.textContent="🙂";
 
-const emoji =
-getHappyAnimation(stamps);
+const left=6-stamps;
 
-happy.innerHTML=
+rewardMessage.innerHTML=
 
-emoji.emoji;
+"Collect <b>"+
 
-happy.classList.add(
+left+
 
-emoji.animation
+"</b> More Stamp"+
 
-);
+(left>1?"s":"")+
 
-container.appendChild(happy);
-
-// ===============================
-// PROGRESS TEXT
-// ===============================
-
-if(progressText){
-
-progressText.textContent=
-
-stamps+
-
-" / "+
-
-LOYALTY_SETTINGS.MAX_STAMPS+
-
-" Stamps Collected";
+" To Unlock<br><b>FREE VEG MAGGI 🍜</b>";
 
 }
 
 }
 
-// ======================================
-// HOME STATS
-// ======================================
+// =======================================
+// COUNTDOWN TIMER
+// =======================================
 
-function loadStats(data){
+function startCountdown(data){
 
-const stamps =
-Number(data.stamps||0);
+// अभी 40 Days Demo
+// बाद में Firebase Expiry Date से चलेगा
 
-document
-.getElementById("totalStamp")
-.textContent=stamps;
+let totalSeconds=
 
-document
-.getElementById("remainingStamp")
-.textContent=
-Math.max(0,6-stamps);
-
-document
-.getElementById("rewardCount")
-.textContent=
-data.rewardClaimed
-?1:0;
-
-}
-// ======================================
-// PART 4
-// COUNTDOWN + GAME + FINAL
-// ======================================
-
-// ======================================
-// LIVE COUNTDOWN
-// ======================================
-
-function loadCountdown(data){
-
-const startDate =
-data.cardStartDate || new Date().toISOString();
-
-updateCountdown(startDate);
+40*24*60*60;
 
 setInterval(()=>{
 
-updateCountdown(startDate);
+if(totalSeconds<=0)return;
+
+totalSeconds--;
+
+const days=Math.floor(totalSeconds/86400);
+
+const hours=Math.floor((totalSeconds%86400)/3600);
+
+const minutes=Math.floor((totalSeconds%3600)/60);
+
+const seconds=totalSeconds%60;
+
+document.getElementById("days").textContent=days;
+
+document.getElementById("hours").textContent=
+
+String(hours).padStart(2,"0");
+
+document.getElementById("minutes").textContent=
+
+String(minutes).padStart(2,"0");
+
+document.getElementById("seconds").textContent=
+
+String(seconds).padStart(2,"0");
 
 },1000);
 
 }
 
-function updateCountdown(startDate){
-
-const countdown =
-getCountdown(startDate);
-
-const warning =
-getExpiryWarning(startDate);
-
-document.getElementById("days").textContent =
-countdown.days;
-
-document.getElementById("hours").textContent =
-countdown.hours;
-
-document.getElementById("minutes").textContent =
-countdown.minutes;
-
-document.getElementById("seconds").textContent =
-countdown.seconds;
-
-const status =
-document.getElementById("expiryStatus");
-
-if(status){
-
-status.textContent =
-warning.text;
-
-status.style.color =
-warning.color;
-
-}
-
-}
-
-// ======================================
-// PLAY GAME BUTTON
-// ======================================
-
-const playGameBtn =
-document.getElementById("playGameBtn");
-
-if(playGameBtn){
-
-playGameBtn.addEventListener("click",()=>{
-
-alert(
-"🎮 Rio Fun Game Coming Soon!"
-);
-
-});
-
-}
-
-// ======================================
-// PAGE READY
-// ======================================
+// =======================================
+// READY
+// =======================================
 
 console.log(
 
-"RIO HOME V2 READY"
+"RIO MAGGI POINT PREMIUM V2 READY"
 
 );
