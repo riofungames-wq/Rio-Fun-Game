@@ -30,22 +30,30 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
 <div class="customer-card"
 id="customerCard">
 
-<!-- GOLD SHINE -->
+<!-- PREMIUM SHINE -->
 
 <div class="shine-effect"></div>
 
-<!-- PREMIUM HEADER -->
+<div class="glass-overlay"></div>
+
+<!-- =============================== -->
+<!-- HEADER -->
+<!-- =============================== -->
 
 <div class="card-header">
 
 <div class="brand">
 
 <h1>
+
 🍜 RIO MAGGI POINT
+
 </h1>
 
 <p>
+
 PREMIUM LOYALTY MEMBER
+
 </p>
 
 </div>
@@ -55,10 +63,12 @@ PREMIUM LOYALTY MEMBER
 <img
 id="websiteQR"
 src="images/rio-website-qr.png"
-alt="Website QR">
+alt="Rio Website">
 
 <span>
-Visit Us
+
+Play Rio Fun Game
+
 </span>
 
 </div>
@@ -75,11 +85,13 @@ id="memberBadge">
 
 </div>
 
+<!-- =============================== -->
 <!-- CARD TOP -->
+<!-- =============================== -->
 
 <div class="card-top">
 
-<!-- CUSTOMER PHOTO -->
+<!-- PHOTO -->
 
 <div class="photo-section">
 
@@ -102,7 +114,7 @@ style="display:none;">
 
 </div>
 
-<!-- CUSTOMER INFO -->
+<!-- CUSTOMER DETAILS -->
 
 <div class="customer-info">
 
@@ -128,6 +140,14 @@ Premium Member
 
 </p>
 
+<p
+id="memberSince">
+
+Member Since :
+Loading...
+
+</p>
+
 </div>
 
 <!-- ATM CHIP -->
@@ -147,9 +167,10 @@ Premium Member
 </div>
 
 </div>
-<!-- ===================================== -->
+
+<!-- =============================== -->
 <!-- STAMP SECTION -->
-<!-- ===================================== -->
+<!-- =============================== -->
 
 <div class="stamp-section">
 
@@ -158,18 +179,30 @@ Premium Member
 <i class="fa-solid fa-star"></i>
 
 <span>
-Collect 6 Stamps & Win
+
+COLLECT STAMPS & UNLOCK REWARDS
+
 </span>
 
 </div>
 
 <div class="stamp-container">
-
-<!-- Stamp 1 -->
+  <!-- Stamp 1 -->
 
 <div class="stamp-circle" id="stamp1">
 
-<span>1</span>
+<div class="stamp-number">
+
+1
+
+</div>
+
+<div class="stamp-date"
+id="stampDate1">
+
+--
+
+</div>
 
 </div>
 
@@ -177,7 +210,18 @@ Collect 6 Stamps & Win
 
 <div class="stamp-circle" id="stamp2">
 
-<span>2</span>
+<div class="stamp-number">
+
+2
+
+</div>
+
+<div class="stamp-date"
+id="stampDate2">
+
+--
+
+</div>
 
 </div>
 
@@ -185,7 +229,18 @@ Collect 6 Stamps & Win
 
 <div class="stamp-circle" id="stamp3">
 
-<span>3</span>
+<div class="stamp-number">
+
+3
+
+</div>
+
+<div class="stamp-date"
+id="stampDate3">
+
+--
+
+</div>
 
 </div>
 
@@ -193,7 +248,18 @@ Collect 6 Stamps & Win
 
 <div class="stamp-circle" id="stamp4">
 
-<span>4</span>
+<div class="stamp-number">
+
+4
+
+</div>
+
+<div class="stamp-date"
+id="stampDate4">
+
+--
+
+</div>
 
 </div>
 
@@ -201,7 +267,18 @@ Collect 6 Stamps & Win
 
 <div class="stamp-circle" id="stamp5">
 
-<span>5</span>
+<div class="stamp-number">
+
+5
+
+</div>
+
+<div class="stamp-date"
+id="stampDate5">
+
+--
+
+</div>
 
 </div>
 
@@ -209,13 +286,27 @@ Collect 6 Stamps & Win
 
 <div class="stamp-circle" id="stamp6">
 
-<span>6</span>
+<div class="stamp-number">
+
+6
 
 </div>
 
-<!-- Reward -->
+<div class="stamp-date"
+id="stampDate6">
 
-<div class="reward-circle" id="rewardStamp">
+--
+
+</div>
+
+</div>
+
+<!-- ================================= -->
+<!-- 7th REWARD -->
+<!-- ================================= -->
+
+<div class="reward-circle"
+id="rewardStamp">
 
 <div class="reward-bowl">
 
@@ -223,19 +314,49 @@ Collect 6 Stamps & Win
 
 </div>
 
-<p>
+<div class="reward-text">
 
-FREE
+<div class="reward-one">
 
-<br>
+ONE
+
+</div>
+
+<div class="reward-name">
 
 VEG MAGGI
 
-</p>
+</div>
+
+<div class="reward-free">
+
+FREE
 
 </div>
 
 </div>
+
+</div>
+
+<!-- ================================= -->
+<!-- 8th HAPPY EMOJI -->
+<!-- ================================= -->
+
+<div class="happy-circle"
+id="happyCircle">
+
+<span
+id="happyEmoji">
+
+🙂
+
+</span>
+
+</div>
+
+</div>
+
+<!-- END STAMP CONTAINER -->
 
 <div class="progress-box">
 
@@ -253,23 +374,120 @@ VEG MAGGI
 class="reward-message"
 id="rewardMessage">
 
-Collect 6 stamps to unlock your
-FREE VEG MAGGI 🍜
+Collect 6 Stamps To Unlock
+
+<b>ONE FREE VEG MAGGI</b>
+
+🍜
+
+</div>
+
+</div
+  <!-- ================================= -->
+<!-- CARD VALIDITY -->
+<!-- ================================= -->
+
+<div class="validity-section">
+
+<div class="validity-header">
+
+<i class="fa-solid fa-hourglass-half"></i>
+
+<span>
+
+CARD VALIDITY
+
+</span>
+
+</div>
+
+<div class="countdown-box">
+
+<div class="time-box">
+
+<span id="days">
+
+40
+
+</span>
+
+<label>
+
+Days
+
+</label>
+
+</div>
+
+<div class="time-box">
+
+<span id="hours">
+
+00
+
+</span>
+
+<label>
+
+Hours
+
+</label>
+
+</div>
+
+<div class="time-box">
+
+<span id="minutes">
+
+00
+
+</span>
+
+<label>
+
+Minutes
+
+</label>
+
+</div>
+
+<div class="time-box">
+
+<span id="seconds">
+
+00
+
+</span>
+
+<label>
+
+Seconds
+
+</label>
 
 </div>
 
 </div>
 
+<div
+class="expiry-warning"
+id="expiryWarning">
+
+Complete all 6 stamps before your card expires.
+
 </div>
-<!-- ===================================== -->
-<!-- OWNER SECTION -->
-<!-- ===================================== -->
+
+</div>
+
+<!-- ================================= -->
+<!-- OWNER -->
+<!-- ================================= -->
 
 <div class="owner-section">
 
 <div class="owner-left">
 
-<span class="owner-label">
+<span class="owner-title">
 
 OWNER
 
@@ -305,9 +523,9 @@ Official Store
 
 </div>
 
-<!-- ===================================== -->
+<!-- ================================= -->
 <!-- ADDRESS -->
-<!-- ===================================== -->
+<!-- ================================= -->
 
 <div class="address-section">
 
@@ -347,25 +565,9 @@ DURGA MAIDAN
 
 </div>
 
-<!-- ===================================== -->
-<!-- SHOW QR BUTTON -->
-<!-- ===================================== -->
-
-<div class="qr-button-area">
-
-<button id="openQR">
-
-<i class="fa-solid fa-qrcode"></i>
-
-SHOW MY QR
-
-</button>
-
-</div>
-
-<!-- ===================================== -->
-<!-- CARD FOOTER -->
-<!-- ===================================== -->
+<!-- ================================= -->
+<!-- FOOTER -->
+<!-- ================================= -->
 
 <div class="card-footer">
 
@@ -373,7 +575,7 @@ SHOW MY QR
 
 <p>
 
-🍜 Made For Maggi Lovers ❤️
+EST. 2026 • RIO MAGGI POINT • BHILAI
 
 </p>
 
@@ -389,23 +591,20 @@ Collect • Enjoy • Repeat
 
 <span class="card-version">
 
-V2
+V3
 
 </span>
 
 </div>
 
 </div>
-
-</div>
-
-<!-- ===================================== -->
+<!-- ================================= -->
 <!-- BOTTOM NAVIGATION -->
-<!-- ===================================== -->
+<!-- ================================= -->
 
 <nav class="bottom-nav">
 
-<a href="index.html" class="nav-item">
+<a href="index.html" class="nav-item active">
 
 <i class="fa-solid fa-house"></i>
 
@@ -454,9 +653,10 @@ Profile
 </a>
 
 </nav>
-<!-- ===================================== -->
-<!-- PREMIUM QR POPUP -->
-<!-- ===================================== -->
+
+<!-- ================================= -->
+<!-- CUSTOMER QR POPUP -->
+<!-- ================================= -->
 
 <div class="qr-popup" id="qrPopup">
 
@@ -484,7 +684,7 @@ Premium Loyalty Member
 
 <div id="qrCodeBox">
 
-<!-- Customer QR Here -->
+<!-- Customer QR -->
 
 </div>
 
@@ -504,9 +704,9 @@ Member ID : Loading...
 
 <p id="randomMessage">
 
-Collect More Stamps
-&
-Enjoy Free Veg Maggi 🍜
+Collect More Stamps &
+Enjoy Your
+ONE FREE VEG MAGGI 🍜
 
 </p>
 
@@ -517,7 +717,7 @@ Enjoy Free Veg Maggi 🍜
 <p>
 
 ⭐ Thank You For Visiting
-Rio Maggi Point ⭐
+RIO MAGGI POINT ⭐
 
 </p>
 
@@ -527,15 +727,17 @@ Rio Maggi Point ⭐
 
 </div>
 
-<!-- ===================================== -->
+<!-- ================================= -->
 <!-- JAVASCRIPT -->
-<!-- ===================================== -->
+<!-- ================================= -->
 
 <script
 type="module"
 src="js/card.js">
 
 </script>
+
+</div>
 
 </body>
 
