@@ -1,21 +1,21 @@
-// ======================================
+// ==========================================
 // RIO MAGGI POINT
-// PROFILE SYSTEM
-// ======================================
+// PROFILE
+// PART 1
+// ==========================================
 
-import {
-
-auth,
-db,
-storage
-
-} from "./firebase-config.js";
+import { auth, db }
+from "./firebase-config.js";
 
 import {
 
 onAuthStateChanged
 
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 import {
 
@@ -23,20 +23,15 @@ doc,
 getDoc,
 updateDoc
 
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+}
 
-import {
+from
 
-ref,
-uploadBytes,
-getDownloadURL,
-deleteObject
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
-
-// ======================================
+// ==========================================
 // HTML
-// ======================================
+// ==========================================
 
 const previewImage =
 document.getElementById("previewImage");
@@ -50,22 +45,28 @@ document.getElementById("saveAvatar");
 const removeAvatar =
 document.getElementById("removeAvatar");
 
-const avatarType =
-document.getElementsByName("avatarType");
+const avatarOptions =
+document.querySelectorAll(".avatar-option");
 
-// ======================================
+// ==========================================
+// VARIABLES
+// ==========================================
 
 let currentUser = null;
 
-let uploadedFile = null;
+let selectedAvatar = "";
 
-let selectedAvatar = "male";
+let selectedGender = "male";
 
-// ======================================
-// LOGIN CHECK
-// ======================================
+// ==========================================
+// LOGIN
+// ==========================================
 
-onAuthStateChanged(auth,async(user)=>{
+onAuthStateChanged(
+
+auth,
+
+async(user)=>{
 
 if(!user){
 
@@ -75,253 +76,267 @@ return;
 
 }
 
-currentUser=user;
+currentUser = user;
 
-loadProfile();
+loadProfile(user.uid);
 
-});
+}
 
-// ======================================
+);
+
+// ==========================================
 // LOAD PROFILE
-// ======================================
+// ==========================================
 
-async function loadProfile(){
+async function loadProfile(uid){
 
-const refDoc=
+try{
 
-doc(db,"customers",currentUser.uid);
+const ref =
 
-const snap=
+doc(
 
-await getDoc(refDoc);
+db,
+
+"customers",
+
+uid
+
+);
+
+const snap =
+
+await getDoc(ref);
 
 if(!snap.exists()) return;
 
-const data=snap.data();
+const data = snap.data();
 
-// Male / Female
+// Gender
 
-selectedAvatar=
+selectedGender =
 
-data.avatarType || "male";
+data.gender || "male";
 
-avatarType.forEach((radio)=>{
+// Avatar
 
-radio.checked=
+selectedAvatar =
 
-radio.value===selectedAvatar;
+data.photoURL || "";
+
+if(selectedAvatar!=""){
+
+previewImage.src =
+
+selectedAvatar;
+
+}
+
+else{
+
+if(selectedGender==="female"){
+
+previewImage.src =
+
+"assets/avatars/female.png";
+
+}
+
+else{
+
+previewImage.src =
+
+"assets/avatars/male.png";
+
+}
+
+}
+
+}
+
+catch(err){
+
+console.log(err);
+
+}
+
+}
+// ==========================================
+// AVATAR SELECT
+// ==========================================
+
+avatarOptions.forEach((avatar)=>{
+
+avatar.addEventListener("click",()=>{
+
+selectedAvatar =
+avatar.src;
+
+previewImage.src =
+selectedAvatar;
+
+// Gender Detect
+
+if(
+
+selectedAvatar
+.toLowerCase()
+.includes("female")
+
+||
+
+selectedAvatar
+.toLowerCase()
+.includes("girl")
+
+){
+
+selectedGender =
+"female";
+
+}
+
+else{
+
+selectedGender =
+"male";
+
+}
 
 });
 
-// Preview
+});
 
-if(data.usePhoto && data.photoURL){
+// ==========================================
+// PHOTO UPLOAD
+// ==========================================
+
+photoInput.addEventListener(
+
+"change",
+
+(e)=>{
+
+const file =
+e.target.files[0];
+
+if(!file) return;
+
+const reader =
+new FileReader();
+
+reader.onload=function(){
+
+selectedAvatar =
+reader.result;
+
+previewImage.src =
+reader.result;
+
+};
+
+reader.readAsDataURL(file);
+
+}
+
+);
+
+// ==========================================
+// REMOVE PHOTO
+// ==========================================
+
+removeAvatar.addEventListener(
+
+"click",
+
+()=>{
+
+selectedAvatar="";
+
+if(selectedGender==="female"){
 
 previewImage.src=
-
-data.photoURL;
+"assets/avatars/female.png";
 
 }
 
 else{
 
 previewImage.src=
-
-`assets/avatars/${selectedAvatar}.png`;
-
-}
+"assets/avatars/male.png";
 
 }
 
-// ======================================
-// CHANGE DEFAULT AVATAR
-// ======================================
-
-avatarType.forEach((radio)=>{
-
-radio.addEventListener("change",()=>{
-
-selectedAvatar=radio.value;
-
-if(!uploadedFile){
-
-previewImage.src=
-
-`assets/avatars/${selectedAvatar}.png`;
-
 }
 
-});
+);
 
-});
+// ==========================================
+// SAVE
+// ==========================================
 
-// ======================================
-// IMAGE PICK
-// ======================================
+saveAvatar.addEventListener(
 
-photoInput.addEventListener("change",(e)=>{
+"click",
 
-const file=e.target.files[0];
-
-if(!file) return;
-
-uploadedFile=file;
-
-previewImage.src=
-
-URL.createObjectURL(file);
-
-});
-// ======================================
-// SAVE PROFILE
-// ======================================
-
-saveAvatar.addEventListener("click", async()=>{
+async()=>{
 
 if(!currentUser) return;
 
 try{
 
-let photoURL = "";
-
-let usePhoto = false;
-
-// ================================
-// UPLOAD PHOTO
-// ================================
-
-if(uploadedFile){
-
-const storageRef = ref(
-
-storage,
-
-"customers/" +
-
-currentUser.uid +
-
-"/profile.jpg"
-
-);
-
-await uploadBytes(
-
-storageRef,
-
-uploadedFile
-
-);
-
-photoURL = await getDownloadURL(storageRef);
-
-usePhoto = true;
-
-}
-
-// ================================
-// SAVE FIRESTORE
-// ================================
-
 await updateDoc(
 
-doc(db,"customers",currentUser.uid),
+doc(
+
+db,
+
+"customers",
+
+currentUser.uid
+
+),
 
 {
 
-avatarType:selectedAvatar,
+photoURL:selectedAvatar,
 
-photoURL:photoURL,
-
-usePhoto:usePhoto
+gender:selectedGender
 
 }
 
 );
 
-alert("✅ Profile Updated Successfully");
+alert(
 
-loadProfile();
+"Profile Updated Successfully"
+
+);
+
+window.location.href="card.html";
 
 }
-catch(error){
 
-console.log(error);
+catch(err){
 
-alert("❌ Failed To Save Profile");
+console.log(err);
+
+alert(
+
+"Update Failed"
+
+);
 
 }
 
 });
 
-// ======================================
-// REMOVE PHOTO
-// ======================================
+// ==========================================
+// READY
+// ==========================================
 
-removeAvatar.addEventListener("click",async()=>{
+console.log(
 
-if(!currentUser) return;
-
-try{
-
-const storageRef = ref(
-
-storage,
-
-"customers/" +
-
-currentUser.uid +
-
-"/profile.jpg"
+"RIO PROFILE READY"
 
 );
-
-try{
-
-await deleteObject(storageRef);
-
-}catch(e){
-
-console.log("Photo Already Removed");
-
-}
-
-await updateDoc(
-
-doc(db,"customers",currentUser.uid),
-
-{
-
-photoURL:"",
-
-usePhoto:false,
-
-avatarType:selectedAvatar
-
-}
-
-);
-
-previewImage.src =
-
-`assets/avatars/${selectedAvatar}.png`;
-
-uploadedFile = null;
-
-alert("✅ Photo Removed");
-
-}
-catch(error){
-
-console.log(error);
-
-alert("❌ Remove Failed");
-
-}
-
-});
-
-// ======================================
-// PROFILE READY
-// ======================================
-
-console.log("PROFILE READY");
