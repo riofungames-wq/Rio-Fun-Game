@@ -1,116 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+<h3>Choose Default Avatar</h3>
 
-<head>
+<div class="avatar-choice">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Profile | Rio Maggi Point</title>
-
-<link rel="stylesheet" href="css/profile.css">
-
-</head>
-
-<body>
-
-<div class="profile-page">
-
-    <h2>👤 My Profile</h2>
-
-    <!-- Preview -->
-
-    <div class="profile-preview">
-
-        <img
-        id="previewImage"
-        src="assets/avatar/default.png"
-        alt="Avatar">
-
-    </div>
-
-    <!-- Upload -->
-
-    <label class="upload-btn">
-
-        📷 Upload Photo
+    <label>
 
         <input
-        id="photoInput"
-        type="file"
-        accept="image/*"
-        hidden>
+        type="radio"
+        name="avatarType"
+        value="male"
+        checked>
+
+        👨 Male
 
     </label>
 
-    <!-- Default Avatar -->
+    <label>
 
-    <h3>Choose Avatar</h3>
+        <input
+        type="radio"
+        name="avatarType"
+        value="female">
 
-    <div class="avatar-grid">
+        👩 Female
 
-        <img src="assets/avatar/boy1.png" class="avatar-option">
-        <img src="assets/avatar/boy2.png" class="avatar-option">
-        <img src="assets/avatar/boy3.png" class="avatar-option">
-
-        <img src="assets/avatar/girl1.png" class="avatar-option">
-        <img src="assets/avatar/girl2.png" class="avatar-option">
-        <img src="assets/avatar/girl3.png" class="avatar-option">
-
-    </div>
-
-    <!-- Buttons -->
-
-    <div class="buttons">
-
-        <button id="saveAvatar">
-
-            💾 Save
-
-        </button>
-
-        <button id="removeAvatar">
-
-            ❌ Remove Photo
-
-        </button>
-
-    </div>
+    </label>
 
 </div>
-
-<!-- Bottom Navigation -->
-
-<nav class="bottom-nav">
-
-    <a href="card.html">
-        🏠
-        <span>Home</span>
-    </a>
-
-    <a href="qr.html">
-        📷
-        <span>QR</span>
-    </a>
-
-    <a href="history.html">
-        🕒
-        <span>History</span>
-    </a>
-
-    <a href="feedback.html">
-        ❤️
-        <span>Review</span>
-    </a>
-
-    <a href="profile.html">
-        👤
-        <span>Profile</span>
-    </a>
-
-</nav>
-
-<script type="module" src="js/profile.js"></script>
-
-</body>
-</html>
