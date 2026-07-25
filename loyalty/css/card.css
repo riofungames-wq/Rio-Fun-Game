@@ -1,145 +1,92 @@
-/* =========================================
+/* =======================================
    RIO MAGGI POINT
    PREMIUM ATM CARD
-   PART 1
-========================================= */
+======================================= */
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-}
-
-html{
-
-scroll-behavior:smooth;
-
+font-family:Poppins,sans-serif;
 }
 
 body{
 
-font-family:'Poppins',sans-serif;
+background:#0f0f0f;
 
-background:#ececec;
+display:flex;
+justify-content:center;
+align-items:center;
 
-color:#ffffff;
+min-height:100vh;
 
-overflow-x:hidden;
+padding:20px;
 
 }
 
-/* ===============================
-PAGE
-=============================== */
+/* PAGE */
 
 .page{
 
 width:100%;
-
-max-width:500px;
-
-margin:auto;
-
-padding:18px 18px 120px;
-
-}
-
-/* ===============================
-ANNOUNCEMENT
-=============================== */
-
-.announcement{
-
-display:none;
-
+display:flex;
+flex-direction:column;
 align-items:center;
 
-gap:10px;
-
-background:#ffeb3b;
-
-color:#222;
-
-padding:12px 18px;
-
-border-radius:14px;
-
-margin-bottom:20px;
-
-font-weight:600;
-
-box-shadow:0 8px 20px rgba(0,0,0,.15);
-
 }
 
-.announcement i{
-
-font-size:20px;
-
-color:#d32f2f;
-
-}
-
-/* ===============================
-DOWNLOAD AREA
-=============================== */
-
-#downloadArea{
-
-width:100%;
-
-}
-
-/* ===============================
+/* ===================================
 ATM CARD
-=============================== */
+=================================== */
 
-.premium-card{
+.loyalty-card{
 
 position:relative;
 
-width:100%;
+width:340px;
+height:214px;
 
-min-height:680px;
+/* ATM Ratio */
 
-border-radius:28px;
+border-radius:20px;
 
-padding:26px;
+padding:18px;
 
 overflow:hidden;
 
 background:
-
 linear-gradient(
 135deg,
-#111111 0%,
-#1e1e1e 40%,
-#0d0d0d 100%
+#1a1a1a,
+#123b2a,
+#1a1a1a
 );
+
+border:2px solid #d4af37;
 
 box-shadow:
 
-0 25px 60px rgba(0,0,0,.35);
+0 8px 30px rgba(0,0,0,.45),
 
-border:2px solid rgba(255,215,0,.28);
+0 0 12px rgba(212,175,55,.35);
+
+color:#fff;
 
 }
 
 /* GOLD SHINE */
 
-.premium-card::before{
+.loyalty-card::before{
 
 content:"";
 
 position:absolute;
 
-top:-180px;
+top:-60%;
+left:-20%;
 
-left:-100px;
-
-width:280px;
-
-height:900px;
+width:70%;
+height:250%;
 
 background:
 
@@ -149,7 +96,7 @@ linear-gradient(
 
 transparent,
 
-rgba(255,255,255,.16),
+rgba(255,255,255,.10),
 
 transparent
 
@@ -157,555 +104,303 @@ transparent
 
 transform:rotate(25deg);
 
-animation:shine 7s linear infinite;
+}
+
+/* ============================= */
+
+.owner-area{
+
+position:absolute;
+
+top:15px;
+right:16px;
+
+text-align:right;
 
 }
 
-@keyframes shine{
+.owner-name{
 
-0%{
-
-left:-260px;
-
-}
-
-100%{
-
-left:650px;
-
-}
-
-}
-
-/* ===============================
-HEADER
-=============================== */
-
-.card-header{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:flex-start;
-
-margin-bottom:30px;
-
-position:relative;
-
-z-index:5;
-
-}
-
-.card-header h2{
-
-font-size:26px;
-
+font-size:12px;
 font-weight:700;
 
-color:#FFD54F;
-
 }
 
-.card-header p{
-
-font-size:13px;
+.owner-mobile{
 
 margin-top:4px;
 
-color:#ffffffcc;
+font-size:10px;
+
+color:#7dff7d;
 
 }
 
-.owner{
+/* ============================= */
 
-padding:8px 16px;
+.left-area{
 
-border-radius:30px;
+position:absolute;
 
-background:rgba(255,215,0,.15);
+top:20px;
+left:18px;
 
-border:1px solid rgba(255,215,0,.35);
+width:70px;
 
-font-size:12px;
-
-font-weight:600;
-
-color:#FFD54F;
+text-align:center;
 
 }
 
-/* ===============================
-PROFILE
-=============================== */
+.crown{
 
-.customer-row{
+font-size:16px;
 
-display:flex;
-
-align-items:center;
-
-gap:18px;
-
-margin-bottom:30px;
-
-position:relative;
-
-z-index:5;
+margin-bottom:4px;
 
 }
 
-.avatar-frame{
+.avatar-box{
 
-width:92px;
+width:54px;
+height:54px;
 
-height:92px;
+margin:auto;
 
-border-radius:50%;
-
-background:#222;
-
-border:3px solid #FFD54F;
+border-radius:14px;
 
 overflow:hidden;
 
+border:2px solid gold;
+
+background:#2d2d2d;
+
 display:flex;
-
 justify-content:center;
-
 align-items:center;
-
-box-shadow:
-
-0 0 20px rgba(255,215,0,.35);
 
 }
 
-.avatar-frame img{
+.avatar-box img{
 
 width:100%;
-
 height:100%;
 
 object-fit:cover;
 
-display:none;
+}
+
+/* ============================= */
+
+.center-area{
+
+margin-left:82px;
+
+margin-top:8px;
 
 }
 
-#defaultAvatar{
+.brand{
 
-width:100%;
+text-align:center;
 
-height:100%;
+}
+
+.brand-top{
+
+font-size:18px;
+font-weight:700;
+
+}
+
+.brand-middle{
+
+font-size:14px;
+
+font-weight:700;
+
+letter-spacing:1px;
+
+}
+
+.brand-bottom{
+
+font-size:9px;
+
+color:#ffd86a;
+
+margin-top:2px;
+
+}
+
+.customer-name{
+
+margin-top:8px;
+
+font-size:13px;
+
+font-weight:600;
+
+text-align:center;
+
+}
+
+.member-id{
+
+margin-top:3px;
+
+font-size:10px;
+
+text-align:center;
+
+opacity:.9;
+
+}
+
+/* ============================= */
+
+.bottom-area{
+
+position:absolute;
+
+left:18px;
+right:18px;
+
+bottom:15px;
+
+}
+
+/* STAMPS */
+
+.stamp-row{
+
+display:flex;
+
+align-items:center;
+
+gap:5px;
+
+}
+
+.stamp{
+
+width:28px;
+height:28px;
+
+border-radius:50%;
+
+border:2px solid gold;
 
 display:flex;
 
 justify-content:center;
-
 align-items:center;
-
-font-size:44px;
-
-background:#2b2b2b;
-
-}
-
-.customer-info{
-
-flex:1;
-
-}
-
-.customer-info h3{
-
-font-size:22px;
-
-font-weight:700;
-
-color:#fff;
-
-margin-bottom:8px;
-
-}
-
-.customer-info p{
-
-font-size:14px;
-
-color:#d7d7d7;
-
-margin-bottom:4px;
-
-}
-/* ===============================
-ATM CHIP
-=============================== */
-
-.chip-row{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:28px;
-
-position:relative;
-
-z-index:5;
-
-}
-
-.chip{
-
-width:68px;
-
-height:52px;
-
-border-radius:10px;
-
-background:linear-gradient(
-135deg,
-#f7d774,
-#d6a93d
-);
-
-position:relative;
-
-box-shadow:
-0 4px 12px rgba(0,0,0,.35);
-
-}
-
-.chip::before{
-
-content:"";
-
-position:absolute;
-
-left:12px;
-right:12px;
-top:24px;
-
-height:2px;
-
-background:#8b6b22;
-
-}
-
-.chip::after{
-
-content:"";
-
-position:absolute;
-
-top:8px;
-bottom:8px;
-left:32px;
-
-width:2px;
-
-background:#8b6b22;
-
-}
-
-/* ===============================
-COUNTDOWN
-=============================== */
-
-.countdown-box{
-
-display:grid;
-
-grid-template-columns:repeat(4,1fr);
-
-gap:10px;
-
-margin-bottom:28px;
-
-position:relative;
-
-z-index:5;
-
-}
-
-.time-box{
-
-background:rgba(255,255,255,.08);
-
-border:1px solid rgba(255,255,255,.12);
-
-border-radius:14px;
-
-padding:10px;
-
-text-align:center;
-
-backdrop-filter:blur(8px);
-
-}
-
-.time-box span{
-
-display:block;
-
-font-size:20px;
-
-font-weight:700;
-
-color:#FFD54F;
-
-margin-bottom:4px;
-
-}
-
-.time-box label{
 
 font-size:11px;
+
+font-weight:700;
+
+position:relative;
+
+}
+
+.stamp small{
+
+position:absolute;
+
+top:31px;
+
+font-size:7px;
 
 color:#ddd;
 
 }
 
-/* ===============================
-PLAY GAME BUTTON
-=============================== */
+.reward-stamp{
 
-#playGameBtn{
+width:62px;
+height:28px;
 
-width:100%;
+border-radius:30px;
 
-padding:15px;
-
-border:none;
-
-border-radius:16px;
-
-background:linear-gradient(
-135deg,
-#FFD54F,
-#F9A825
-);
+background:#d4af37;
 
 color:#111;
 
-font-size:16px;
+font-size:7px;
 
 font-weight:700;
-
-cursor:pointer;
-
-transition:.3s;
-
-margin-bottom:28px;
-
-box-shadow:
-0 10px 25px rgba(255,193,7,.35);
-
-}
-
-#playGameBtn:hover{
-
-transform:translateY(-2px);
-
-box-shadow:
-0 15px 35px rgba(255,193,7,.45);
-
-}
-
-/* ===============================
-STAMP GRID
-=============================== */
-
-.stamp-grid{
-
-display:grid;
-
-grid-template-columns:repeat(4,1fr);
-
-gap:14px;
-
-margin-bottom:20px;
-
-position:relative;
-
-z-index:5;
-
-}
-
-.stamp,
-.reward,
-.happy{
-
-width:70px;
-
-height:70px;
-
-border-radius:50%;
 
 display:flex;
 
 justify-content:center;
-
 align-items:center;
-
-font-size:22px;
-
-font-weight:700;
-
-margin:auto;
-
-border:2px solid rgba(255,215,0,.35);
-
-background:rgba(255,255,255,.06);
-
-color:#FFD54F;
-
-transition:.35s;
-
-}
-
-.stamp.active{
-
-background:#FFD54F;
-
-color:#111;
-
-border-color:#FFD54F;
-
-transform:scale(1.06);
-
-}
-
-.reward{
-
-font-size:28px;
-
-}
-
-.happy{
-
-font-size:30px;
-
-animation:happyBounce 1.2s infinite;
-
-display:none;
-
-}
-
-@keyframes happyBounce{
-
-0%{transform:translateY(0);}
-50%{transform:translateY(-8px);}
-100%{transform:translateY(0);}
-
-}
-
-/* ===============================
-REWARD MESSAGE
-=============================== */
-
-#rewardMessage{
 
 text-align:center;
 
-font-size:14px;
-
-line-height:22px;
-
-color:#f2f2f2;
-
-margin-top:8px;
+padding:2px;
 
 }
-/* ===============================
-DOWNLOAD BUTTON
-=============================== */
 
-#downloadCard{
+.emoji-stamp{
 
-width:100%;
+width:28px;
+height:28px;
 
-margin-top:25px;
+border-radius:50%;
 
-padding:16px;
+background:#fff;
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+font-size:16px;
+
+}
+
+/* ============================= */
+
+.play-btn{
+
+position:absolute;
+
+right:0;
+bottom:-42px;
+
+height:28px;
+
+padding:0 12px;
 
 border:none;
 
-border-radius:16px;
+border-radius:20px;
 
-background:linear-gradient(
-135deg,
-#00c853,
-#43a047
-);
+background:#18a84f;
 
 color:#fff;
 
-font-size:16px;
+font-size:10px;
 
 font-weight:700;
 
 cursor:pointer;
 
-transition:.3s;
-
-box-shadow:
-0 10px 25px rgba(0,200,83,.35);
+box-shadow:0 0 8px rgba(0,255,0,.35);
 
 }
 
-#downloadCard:hover{
-
-transform:translateY(-2px);
-
-box-shadow:
-0 15px 35px rgba(0,200,83,.45);
-
-}
-
-#downloadCard i{
-
-margin-right:8px;
-
-}
-
-/* ===============================
-BOTTOM NAVIGATION
-=============================== */
+/* ============================= */
 
 .bottom-nav{
 
-position:fixed;
+margin-top:18px;
 
-left:50%;
-
-bottom:0;
-
-transform:translateX(-50%);
-
-width:100%;
-
-max-width:500px;
-
-height:78px;
-
-background:#111;
+width:340px;
 
 display:flex;
 
-justify-content:space-around;
-
-align-items:center;
-
-border-top:1px solid rgba(255,215,0,.25);
-
-box-shadow:
-0 -10px 30px rgba(0,0,0,.25);
-
-z-index:999;
+justify-content:space-between;
 
 }
 
@@ -713,166 +408,46 @@ z-index:999;
 
 text-decoration:none;
 
+color:#fff;
+
+font-size:12px;
+
 display:flex;
 
 flex-direction:column;
 
 align-items:center;
 
-gap:6px;
-
-color:#d0d0d0;
-
-font-size:12px;
-
-font-weight:600;
-
-transition:.25s;
+gap:4px;
 
 }
 
-.bottom-nav a i{
+.bottom-nav span{
 
-font-size:21px;
-
-}
-
-.bottom-nav a:hover{
-
-color:#FFD54F;
-
-transform:translateY(-2px);
+font-size:10px;
 
 }
 
-/* ===============================
-DOWNLOAD MODE
-=============================== */
-
-body.downloading .announcement{
-
-display:none !important;
-
-}
-
-body.downloading .bottom-nav{
-
-display:none !important;
-
-}
-
-body.downloading #downloadCard{
-
-display:none !important;
-
-}
-
-/* ===============================
-RESPONSIVE
-=============================== */
-
-@media(max-width:480px){
-
-.page{
-
-padding:12px 12px 110px;
-
-}
-
-.premium-card{
-
-padding:20px;
-
-border-radius:22px;
-
-min-height:auto;
-
-}
-
-.card-header h2{
-
-font-size:22px;
-
-}
-
-.customer-info h3{
-
-font-size:19px;
-
-}
-
-.avatar-frame{
-
-width:78px;
-
-height:78px;
-
-}
-
-.stamp,
-.reward,
-.happy{
-
-width:60px;
-
-height:60px;
-
-font-size:20px;
-
-}
-
-.time-box span{
-
-font-size:18px;
-
-}
-
-}
+/* ============================= */
 
 @media(min-width:900px){
 
-body{
-
-background:#dcdcdc;
-
-}
-
 .page{
 
-max-width:650px;
-
-padding-top:40px;
+justify-content:center;
 
 }
 
-.premium-card{
+.loyalty-card{
 
-transform:scale(1.02);
-
-}
+transform:scale(1.25);
 
 }
 
-/* ===============================
-SCROLLBAR
-=============================== */
+.bottom-nav{
 
-::-webkit-scrollbar{
-
-width:8px;
+margin-top:55px;
 
 }
-
-::-webkit-scrollbar-thumb{
-
-background:#FFD54F;
-
-border-radius:20px;
-
-}
-
-::-webkit-scrollbar-track{
-
-background:#111;
 
 }
