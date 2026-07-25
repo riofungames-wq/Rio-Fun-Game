@@ -1,28 +1,150 @@
-<h3>Choose Default Avatar</h3>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Profile | Rio Maggi Point</title>
+
+<link rel="stylesheet"
+href="css/profile.css">
+
+</head>
+
+<body>
+
+<div class="profile-page">
+
+<h2>👤 My Profile</h2>
+
+<div class="profile-card">
+
+<div class="profile-preview">
+
+<img
+id="previewImage"
+src="assets/avatars/male.png"
+alt="Profile">
+
+</div>
+
+<h3>Default Avatar</h3>
 
 <div class="avatar-choice">
 
-    <label>
+<label>
 
-        <input
-        type="radio"
-        name="avatarType"
-        value="male"
-        checked>
+<input
+type="radio"
+name="avatarType"
+value="male"
+checked>
 
-        👨 Male
+👨 Male
 
-    </label>
+</label>
 
-    <label>
+<label>
 
-        <input
-        type="radio"
-        name="avatarType"
-        value="female">
+<input
+type="radio"
+name="avatarType"
+value="female">
 
-        👩 Female
+👩 Female
 
-    </label>
+</label>
 
 </div>
+
+<label
+class="upload-btn">
+
+📷 Upload Photo
+
+<input
+id="photoInput"
+type="file"
+accept="image/*"
+hidden>
+
+</label>
+
+<div class="buttons">
+
+<button
+id="saveAvatar">
+
+💾 Save Profile
+
+</button>
+
+<button
+id="removeAvatar">
+
+🗑 Remove Photo
+
+</button>
+
+</div>
+
+</div>
+<!-- Bottom Navigation -->
+
+<nav class="bottom-nav">
+
+<a href="card.html">
+
+🏠
+
+<span>Home</span>
+
+</a>
+
+<a href="qr.html">
+
+📷
+
+<span>QR</span>
+
+</a>
+
+<a href="history.html">
+
+🕒
+
+<span>History</span>
+
+</a>
+
+<a href="feedback.html">
+
+❤️
+
+<span>Review</span>
+
+</a>
+
+<a href="profile.html" class="active">
+
+👤
+
+<span>Profile</span>
+
+</a>
+
+</nav>
+
+</div>
+
+<script
+type="module"
+src="js/profile.js"></script>
+
+</body>
+
+</html>
