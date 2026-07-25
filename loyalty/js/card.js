@@ -1,607 +1,268 @@
 // ======================================
 // RIO MAGGI POINT
-// CUSTOMER CARD JS
-// FINAL FIREBASE VERSION
+// PREMIUM CARD V3
+// FIREBASE
 // PART 1
 // ======================================
 
-
-// Firebase Config
-
-import { firebaseConfig } from "../firebase-config.js";
-
-
-// Firebase Imports
+import { firebaseConfig }
+from "../js/firebase-config.js";
 
 import {
-
 initializeApp
-
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-
+}
+from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
 
 import {
-
 getAuth,
 onAuthStateChanged
-
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
-
+}
+from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
 import {
-
 getFirestore,
 doc,
 getDoc
-
-} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-
-
-
+}
+from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
 // ======================================
-// INITIALIZE FIREBASE
+// FIREBASE
 // ======================================
-
 
 const app = initializeApp(firebaseConfig);
 
-
 const auth = getAuth(app);
 
-
 const db = getFirestore(app);
-
-
-
 
 // ======================================
 // HTML ELEMENTS
 // ======================================
 
+const customerCard =
+document.getElementById("customerCard");
 
-const customerName = document.getElementById(
-"customerName"
-);
+const customerPhoto =
+document.getElementById("customerPhoto");
 
+const avatarDisplay =
+document.getElementById("avatarDisplay");
 
-const memberId = document.getElementById(
-"memberId"
-);
+const customerName =
+document.getElementById("customerName");
 
+const memberId =
+document.getElementById("memberId");
 
-const avatarDisplay = document.getElementById(
-"avatarDisplay"
-);
+const memberBadge =
+document.getElementById("memberBadge");
 
+const customerLevel =
+document.getElementById("customerLevel");
 
-const customerPhoto = document.getElementById(
-"customerPhoto"
-);
+const stampProgress =
+document.getElementById("stampProgress");
 
+const rewardMessage =
+document.getElementById("rewardMessage");
 
-const qrCodeBox = document.getElementById(
-"qrCodeBox"
-);
+const qrCustomerName =
+document.getElementById("qrCustomerName");
 
+const qrCustomerId =
+document.getElementById("qrCustomerId");
 
-const qrCustomerId = document.getElementById(
-"qrCustomerId"
-);
-
-
-
-// QR Buttons
-
-
-const openQR = document.getElementById(
-"openQR"
-);
-
-
-const qrPopup = document.getElementById(
-"qrPopup"
-);
-
-
-const closeQR = document.getElementById(
-"closeQR"
-);
-
-
+const qrCodeBox =
+document.getElementById("qrCodeBox");
 
 // ======================================
-// LOAD CUSTOMER DATA
+// LOAD CUSTOMER
 // ======================================
-
 
 onAuthStateChanged(auth, async(user)=>{
 
-
 if(!user){
-
 
 window.location.href="login.html";
 
-
 return;
-
 
 }
 
-
-
 try{
 
-
 const customerRef = doc(
-
 db,
-
 "customers",
-
 user.uid
-
 );
 
+const snap = await getDoc(customerRef);
 
+if(!snap.exists()){
 
-const customerSnap = await getDoc(customerRef);
+console.log("Customer Not Found");
 
+return;
 
+}
 
-if(customerSnap.exists()){
+const data = snap.data();
 
-
-const data = customerSnap.data();
-
-
-
-console.log(
-"Customer Card Data:",
-data
-);
-
-
-
-// CUSTOMER NAME
-
-
-if(customerName){
+// Name
 
 customerName.textContent =
 data.name || "Customer";
 
-}
+// QR Name
 
+qrCustomerName.textContent =
+data.name || "Customer";
 
+// Member ID
 
-// MEMBER ID
-
-
-const customerID =
+const id =
 data.memberId || user.uid;
 
-
-
-if(memberId){
-
 memberId.textContent =
-"Member ID : " + customerID;
+"Member ID : " + id;
 
-}
+qrCustomerId.textContent =
+"Member ID : " + id;
 
-
-
-// LOAD PHOTO / AVATAR
-
+// Avatar
 
 loadAvatar(data);
 
+// Gender Theme
 
+applyTheme(data);
 
-// GENERATE QR
+// Member Level
 
+updateMemberLevel(data.stamps || 0);
 
-generateQR(customerID);
+// Stamp
 
+loadStamps(data.stamps || 0);
 
+// QR
 
-if(qrCustomerId){
-
-qrCustomerId.textContent =
-"ID : " + customerID;
-
-}
-
-
+generateQR(id);
 
 }
 
-else{
+catch(err){
 
-
-console.log(
-"Customer record not found"
-);
-
+console.error(err);
 
 }
-
-
-
-}
-
-catch(error){
-
-
-console.error(
-"Card Loading Error:",
-error
-);
-
-
-}
-
 
 });
+// ======================================
+// RIO MAGGI POINT
+// PREMIUM CARD V3
+// PART 2
+// ======================================
 
 // ======================================
-// LOAD CUSTOMER AVATAR / PHOTO
+// LOAD AVATAR
 // ======================================
-
 
 function loadAvatar(data){
 
-
-
-// HTML ELEMENTS
-
-
-const emojiAvatar = document.getElementById(
-"avatarDisplay"
-);
-
-
-
-
-const photo = document.getElementById(
-"customerPhoto"
-);
-
-
-
-
-
-// CUSTOMER PHOTO EXISTS
-
-
 if(data.photoURL){
 
+customerPhoto.src = data.photoURL;
 
+customerPhoto.style.display = "block";
 
-if(photo){
-
-
-photo.src = data.photoURL;
-
-
-photo.style.display = "block";
-
+avatarDisplay.style.display = "none";
 
 }
-
-
-
-if(emojiAvatar){
-
-
-emojiAvatar.style.display = "none";
-
-
-}
-
-
-
-}
-
-
-
-
-
-// EMOJI AVATAR EXISTS
-
-
-else if(data.avatar){
-
-
-
-if(emojiAvatar){
-
-
-emojiAvatar.textContent = data.avatar;
-
-
-emojiAvatar.style.display = "block";
-
-
-}
-
-
-
-if(photo){
-
-
-photo.style.display = "none";
-
-
-}
-
-
-
-}
-
-
-
-
-
-// DEFAULT AVATAR
-
 
 else{
 
+customerPhoto.style.display = "none";
 
+avatarDisplay.style.display = "flex";
 
-if(emojiAvatar){
-
-
-emojiAvatar.textContent = "😊";
-
-
-emojiAvatar.style.display = "block";
-
+avatarDisplay.textContent =
+data.avatar || "😊";
 
 }
 
-
-
-if(photo){
-
-
-photo.style.display = "none";
-
-
 }
-
-
-
-}
-
-
-
-}
-
-
-
-
-
 
 // ======================================
-// GENERATE CUSTOMER QR
+// APPLY GENDER THEME
 // ======================================
 
+function applyTheme(data){
 
-function generateQR(id){
-
-
-
-if(!qrCodeBox){
-
-return;
-
-}
-
-
-
-qrCodeBox.innerHTML = "";
-
-
-
-const qrImage = document.createElement(
-"img"
+customerCard.classList.remove(
+"male",
+"female"
 );
 
+// Expected values:
+// "male", "female", "boy", "girl", "M", "F"
 
+const gender =
+(data.gender || "")
+.toLowerCase();
 
-qrImage.src =
+if(
+gender === "female" ||
+gender === "girl" ||
+gender === "f"
+){
 
-"https://api.qrserver.com/v1/create-qr-code/?size=220x220&data="
-
-+
-
-encodeURIComponent(id);
-
-
-
-qrImage.alt =
-"Customer QR Code";
-
-
-
-qrCodeBox.appendChild(
-qrImage
-);
-
-
+customerCard.classList.add("female");
 
 }
 
+else{
 
-
-
-
-
-// ======================================
-// QR POPUP OPEN
-// ======================================
-
-
-if(openQR){
-
-
-
-openQR.addEventListener(
-"click",
-()=>{
-
-
-if(qrPopup){
-
-
-qrPopup.style.display = "flex";
-
+customerCard.classList.add("male");
 
 }
 
+}
 
+// ======================================
+// MEMBER LEVEL
+// ======================================
+
+function updateMemberLevel(stamps){
+
+let level = "";
+let badge = "";
+
+if(stamps >= 6){
+
+level = "👑 Elite Member";
+badge = "👑 ELITE MEMBER";
 
 }
 
-);
+else if(stamps >= 3){
 
-
-}
-
-
-
-
-
-
-// ======================================
-// QR POPUP CLOSE
-// ======================================
-
-
-if(closeQR){
-
-
-
-closeQR.addEventListener(
-"click",
-()=>{
-
-
-if(qrPopup){
-
-
-qrPopup.style.display = "none";
-
+level = "🥇 Gold Member";
+badge = "🥇 GOLD MEMBER";
 
 }
 
+else{
 
-
-}
-
-);
-
+level = "⭐ Silver Member";
+badge = "⭐ SILVER MEMBER";
 
 }
 
+customerLevel.textContent = level;
 
-
-
-
-// CLOSE WHEN CLICK OUTSIDE
-
-
-if(qrPopup){
-
-
-
-qrPopup.addEventListener(
-"click",
-(event)=>{
-
-
-if(event.target === qrPopup){
-
-
-qrPopup.style.display = "none";
-
+memberBadge.textContent = badge;
 
 }
-
-
-
-}
-
-);
-
-
-}
-// ======================================
-// RIO MAGGI POINT
-// CUSTOMER CARD JS
-// FINAL PART
-// PART 3
-// ======================================
-
-
-// ======================================
-// CARD READY MESSAGE
-// ======================================
-
-
-console.log(
-"RIO MAGGI POINT CUSTOMER CARD READY"
-);
-
-
-
-// ======================================
-// PREVENT EMPTY QR DATA
-// ======================================
-
-
-function safeQR(value){
-
-
-if(!value){
-
-
-return "RIO-CUSTOMER";
-
-
-}
-
-
-return String(value);
-
-
-}
-
-
-
-// ======================================
-// FINAL QR UPDATE CHECK
-// ======================================
-
-
-window.addEventListener(
-"load",
-()=>{
-
-
-console.log(
-"Customer Card Loaded Successfully"
-);
-
-
-});
-
-
-
-// ======================================
-// END OF CARD.JS
-// ======================================
