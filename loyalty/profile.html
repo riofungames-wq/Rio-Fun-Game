@@ -1,440 +1,116 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rio Maggi Point - Profile</title>
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#FF4B2B">
 
-    <!-- Google Fonts & Font Awesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        :root {
-            --primary-gradient: linear-gradient(135deg, #FF4B2B 0%, #FF416C 100%);
-            --card-bg: rgba(255, 255, 255, 0.15);
-            --glass-border: rgba(255, 255, 255, 0.25);
-            --bg-color: #0f0c20;
-            --text-color: #ffffff;
-            --text-sub: #d1d1d1;
-        }
+<title>Profile | Rio Maggi Point</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+<link rel="stylesheet" href="css/profile.css">
 
-        body {
-            background: var(--bg-color);
-            background-image: radial-gradient(circle at top right, #2a0845, transparent),
-                              radial-gradient(circle at bottom left, #6441A5, transparent);
-            color: var(--text-color);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-bottom: 90px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 420px;
-            padding: 20px;
-        }
-
-        /* Header Bar */
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .header h2 {
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .back-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--glass-border);
-            color: #fff;
-            padding: 8px 14px;
-            border-radius: 12px;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-            text-decoration: none;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* Profile Glass Card */
-        .profile-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 24px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        .avatar-preview-wrapper {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 15px;
-            border-radius: 50%;
-            border: 3px solid #FF4B2B;
-            box-shadow: 0 0 15px rgba(255, 75, 43, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.1);
-            position: relative;
-        }
-
-        #profileImage {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: none;
-        }
-
-        #defaultAvatar {
-            font-size: 50px;
-        }
-
-        .customer-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .customer-email {
-            font-size: 0.85rem;
-            color: var(--text-sub);
-            margin-bottom: 20px;
-        }
-
-        /* Avatar Options Grid */
-        .section-title {
-            font-size: 0.9rem;
-            color: var(--text-sub);
-            margin-bottom: 12px;
-            text-align: left;
-        }
-
-        .avatar-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .avatar-option {
-            aspect-ratio: 1;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--glass-border);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .avatar-option:hover, .avatar-option.selected {
-            background: #FF4B2B;
-            border-color: #FF4B2B;
-            transform: scale(1.08);
-        }
-
-        /* Photo Upload Label */
-        .upload-btn-label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--glass-border);
-            border-radius: 14px;
-            color: #fff;
-            font-size: 0.9rem;
-            cursor: pointer;
-            margin-bottom: 15px;
-            transition: 0.3s;
-        }
-
-        .upload-btn-label:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        #photoInput {
-            display: none;
-        }
-
-        /* Primary Save Button */
-        .save-btn {
-            width: 100%;
-            padding: 14px;
-            background: var(--primary-gradient);
-            border: none;
-            border-radius: 14px;
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
-            transition: 0.3s;
-        }
-
-        .save-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .status-msg {
-            margin-top: 15px;
-            font-size: 0.85rem;
-            color: #4E9F3D;
-            display: none;
-        }
-
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 420px;
-            background: rgba(15, 12, 32, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid var(--glass-border);
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
-            z-index: 1000;
-        }
-
-        .nav-item {
-            color: rgba(255, 255, 255, 0.5);
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 0.75rem;
-            gap: 4px;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .nav-item i {
-            font-size: 1.2rem;
-        }
-
-        .nav-item.active, .nav-item:hover {
-            color: #FF4B2B;
-        }
-    </style>
 </head>
+
 <body>
 
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <h2>My Profile</h2>
-            <a href="index.html" class="back-btn">
-                <i class="fa-solid fa-arrow-left"></i> Home
-            </a>
-        </header>
+<div class="profile-page">
 
-        <!-- Profile Card -->
-        <div class="profile-card">
-            <!-- Avatar / Photo Display -->
-            <div class="avatar-preview-wrapper">
-                <img id="profileImage" alt="Profile Photo">
-                <div id="defaultAvatar">😊</div>
-            </div>
+    <h2>👤 My Profile</h2>
 
-            <div class="customer-name" id="customerName">Loading...</div>
-            <div class="customer-email" id="customerEmail">Loading...</div>
+    <!-- Preview -->
 
-            <div class="section-title">Choose Avatar</div>
-            <div class="avatar-grid">
-                <div class="avatar-option" data-avatar="😊">😊</div>
-                <div class="avatar-option" data-avatar="🥰">🥰</div>
-                <div class="avatar-option" data-avatar="😎">😎</div>
-                <div class="avatar-option" data-avatar="🤩">🤩</div>
-                <div class="avatar-option" data-avatar="🌸">🌸</div>
-                <div class="avatar-option" data-avatar="🦋">🦋</div>
-                <div class="avatar-option" data-avatar="🐻">🐻</div>
-                <div class="avatar-option" data-avatar="🐼">🐼</div>
-            </div>
+    <div class="profile-preview">
 
-            <!-- Upload Photo -->
-            <label class="upload-btn-label" for="photoInput">
-                <i class="fa-solid fa-camera"></i> Upload Photo
-            </label>
-            <input type="file" id="photoInput" accept="image/*">
+        <img
+        id="previewImage"
+        src="assets/avatar/default.png"
+        alt="Avatar">
 
-            <!-- Save Profile Button -->
-            <button class="save-btn" id="saveProfileBtn">
-                <i class="fa-solid fa-floppy-disk"></i> Save Profile
-            </button>
-
-            <div class="status-msg" id="statusMessage"></div>
-        </div>
     </div>
 
-    <!-- Bottom Navigation Bar -->
-    <nav class="bottom-nav">
-        <a class="nav-item" href="index.html">
-            <i class="fa-solid fa-house"></i>
-            <span>Home</span>
-        </a>
-        <a class="nav-item" href="qr.html">
-            <i class="fa-solid fa-qrcode"></i>
-            <span>QR</span>
-        </a>
-        <a class="nav-item" href="history.html">
-            <i class="fa-solid fa-clock-rotate-left"></i>
-            <span>History</span>
-        </a>
-        <a class="nav-item active" href="profile.html">
-            <i class="fa-solid fa-user"></i>
-            <span>Profile</span>
-        </a>
-    </nav>
+    <!-- Upload -->
 
-    <!-- Firebase Script -->
-    <script type="module">
-        import { firebaseConfig } from './firebase-config.js';
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    <label class="upload-btn">
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+        📷 Upload Photo
 
-        const customerName = document.getElementById("customerName");
-        const customerEmail = document.getElementById("customerEmail");
-        const profileImage = document.getElementById("profileImage");
-        const defaultAvatar = document.getElementById("defaultAvatar");
-        const photoInput = document.getElementById("photoInput");
-        const saveProfileBtn = document.getElementById("saveProfileBtn");
-        const statusMessage = document.getElementById("statusMessage");
-        const avatarOptions = document.querySelectorAll(".avatar-option");
+        <input
+        id="photoInput"
+        type="file"
+        accept="image/*"
+        hidden>
 
-        let currentUser = null;
-        let selectedAvatar = "😊";
+    </label>
 
-        // Auth State Check & Load Data
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) {
-                window.location.href = "login.html";
-                return;
-            }
+    <!-- Default Avatar -->
 
-            currentUser = user;
+    <h3>Choose Avatar</h3>
 
-            try {
-                const customerRef = doc(db, "customers", user.uid);
-                const customerSnap = await getDoc(customerRef);
+    <div class="avatar-grid">
 
-                if (customerSnap.exists()) {
-                    const customer = customerSnap.data();
-                    customerName.textContent = customer.name || "Customer";
-                    customerEmail.textContent = customer.email || user.email || "";
+        <img src="assets/avatar/boy1.png" class="avatar-option">
+        <img src="assets/avatar/boy2.png" class="avatar-option">
+        <img src="assets/avatar/boy3.png" class="avatar-option">
 
-                    if (customer.avatar) {
-                        selectedAvatar = customer.avatar;
-                        defaultAvatar.textContent = selectedAvatar;
-                    }
+        <img src="assets/avatar/girl1.png" class="avatar-option">
+        <img src="assets/avatar/girl2.png" class="avatar-option">
+        <img src="assets/avatar/girl3.png" class="avatar-option">
 
-                    if (customer.photoURL) {
-                        profileImage.src = customer.photoURL;
-                        profileImage.style.display = "block";
-                        defaultAvatar.style.display = "none";
-                    }
+    </div>
 
-                    avatarOptions.forEach(option => {
-                        if (option.dataset.avatar === selectedAvatar) {
-                            option.classList.add("selected");
-                        }
-                    });
-                }
-            } catch (error) {
-                console.error("Profile Load Error:", error);
-            }
-        });
+    <!-- Buttons -->
 
-        // Avatar Selection
-        avatarOptions.forEach(option => {
-            option.addEventListener("click", () => {
-                selectedAvatar = option.dataset.avatar;
-                profileImage.style.display = "none";
-                defaultAvatar.style.display = "block";
-                defaultAvatar.textContent = selectedAvatar;
+    <div class="buttons">
 
-                avatarOptions.forEach(item => item.classList.remove("selected"));
-                option.classList.add("selected");
-            });
-        });
+        <button id="saveAvatar">
 
-        // Photo Preview
-        photoInput.addEventListener("change", (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    profileImage.src = e.target.result;
-                    profileImage.style.display = "block";
-                    defaultAvatar.style.display = "none";
-                };
-                reader.readAsDataURL(file);
-            }
-        });
+            💾 Save
 
-        // Save Profile
-        saveProfileBtn.addEventListener("click", async () => {
-            if (!currentUser) return;
+        </button>
 
-            try {
-                saveProfileBtn.disabled = true;
-                saveProfileBtn.innerText = "Saving...";
+        <button id="removeAvatar">
 
-                const customerRef = doc(db, "customers", currentUser.uid);
-                await updateDoc(customerRef, {
-                    avatar: selectedAvatar,
-                    photoURL: profileImage.style.display === "block" ? profileImage.src : ""
-                });
+            ❌ Remove Photo
 
-                statusMessage.style.display = "block";
-                statusMessage.textContent = "✅ Profile updated successfully!";
-            } catch (error) {
-                console.error("Save Profile Error:", error);
-                alert("Failed to update profile.");
-            } finally {
-                saveProfileBtn.disabled = false;
-                saveProfileBtn.innerText = "Save Profile";
-            }
-        });
-    </script>
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Bottom Navigation -->
+
+<nav class="bottom-nav">
+
+    <a href="card.html">
+        🏠
+        <span>Home</span>
+    </a>
+
+    <a href="qr.html">
+        📷
+        <span>QR</span>
+    </a>
+
+    <a href="history.html">
+        🕒
+        <span>History</span>
+    </a>
+
+    <a href="feedback.html">
+        ❤️
+        <span>Review</span>
+    </a>
+
+    <a href="profile.html">
+        👤
+        <span>Profile</span>
+    </a>
+
+</nav>
+
+<script type="module" src="js/profile.js"></script>
+
 </body>
 </html>
