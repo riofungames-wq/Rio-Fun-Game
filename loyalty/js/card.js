@@ -1,22 +1,31 @@
 // ==========================================
 // RIO MAGGI POINT
-// PREMIUM LOYALTY CARD
-// card.js
+// PREMIUM CARD
+// PART 1
 // ==========================================
 
-import { auth, db } from "./firebase-config.js";
+import { auth, db }
+from "./firebase-config.js";
 
 import {
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+onAuthStateChanged
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 import {
-    doc,
-    getDoc
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+doc,
+getDoc
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // ==========================================
-// HTML ELEMENTS
+// HTML
 // ==========================================
 
 const loyaltyCard =
@@ -31,38 +40,38 @@ document.getElementById("customerName");
 const memberId =
 document.getElementById("memberId");
 
-const ownerName =
-document.querySelector(".owner-name");
-
 const ownerNumber =
 document.getElementById("ownerNumber");
 
+const rewardBadge =
+document.querySelector(".reward-badge");
+
 const countdown =
 document.getElementById("countdown");
-
-const rewardStamp =
-document.querySelector(".reward-stamp");
-
-const playBtn =
-document.getElementById("playGameBtn");
 
 // ==========================================
 // LOGIN
 // ==========================================
 
-onAuthStateChanged(auth, async(user)=>{
+onAuthStateChanged(
 
-    if(!user){
+auth,
 
-        window.location.href="login.html";
+async(user)=>{
 
-        return;
+if(!user){
 
-    }
+window.location.href="login.html";
 
-    await loadCustomer(user.uid);
+return;
 
-});
+}
+
+loadCustomer(user.uid);
+
+}
+
+);
 
 // ==========================================
 // LOAD CUSTOMER
@@ -70,192 +79,184 @@ onAuthStateChanged(auth, async(user)=>{
 
 async function loadCustomer(uid){
 
-    try{
+try{
 
-        const ref=
-        doc(db,"customers",uid);
+const ref=
 
-        const snap=
-        await getDoc(ref);
+doc(db,"customers",uid);
 
-        if(!snap.exists()){
+const snap=
 
-            console.log("Customer Not Found");
+await getDoc(ref);
 
-            return;
+if(!snap.exists()) return;
 
-        }
+const data=snap.data();
 
-        const data=
-        snap.data();
+// =======================
+// NAME
+// =======================
 
-        // ==================================
-        // OWNER NAME
-        // ==================================
+customerName.textContent=
 
-        if(ownerName){
+data.name || "Customer";
 
-            ownerName.textContent=
-            data.name || "Member";
+// =======================
+// MEMBER ID
+// =======================
 
-        }
+memberId.textContent=
 
-        // ==================================
-        // CUSTOMER NAME
-        // ==================================
+"ID : " +
 
-        customerName.textContent=
-        data.name || "Customer";
+(data.memberId || "------");
 
-        // ==================================
-        // MEMBER ID
-        // ==================================
+// =======================
+// MOBILE
+// =======================
 
-        memberId.textContent=
-        "ID : " +
-        (data.memberId || "------");
+ownerNumber.textContent=
 
-        // ==================================
-        // MOBILE
-        // ==================================
+data.mobile || "";
 
-        ownerNumber.textContent=
-        data.mobile || "";
+// =======================
+// THEME
+// =======================
 
-        // ==================================
-        // CARD THEME
-        // ==================================
+loyaltyCard.classList.remove(
 
-        loyaltyCard.classList.remove(
+"theme-male",
 
-            "theme-male",
-            "theme-female"
+"theme-female"
 
-        );
+);
 
-        if(data.gender==="female"){
+if(data.gender==="female"){
 
-            loyaltyCard.classList.add(
+loyaltyCard.classList.add(
 
-                "theme-female"
+"theme-female"
 
-            );
+);
 
-        }
+}else{
 
-        else{
+loyaltyCard.classList.add(
 
-            loyaltyCard.classList.add(
+"theme-male"
 
-                "theme-male"
+);
 
-            );
+}
 
-        }
+// =======================
+// PHOTO
+// =======================
 
-        // ==================================
-        // CUSTOMER PHOTO
-        // ==================================
+if(data.photoURL){
 
-        if(
+customerPhoto.src=
 
-            data.photoURL &&
-            data.photoURL!=="" 
+data.photoURL;
 
-        ){
+}else{
 
-            customerPhoto.src=
-            data.photoURL;
+customerPhoto.src=
 
-        }
+data.gender==="female"
 
-        else{
+?
 
-            if(data.gender==="female"){
+"assets/avatars/female.png"
 
-                customerPhoto.src=
-                "assets/avatars/female.png";
+:
 
-            }
+"assets/avatars/male.png";
 
-            else{
+}
 
-                customerPhoto.src=
-                "assets/avatars/male.png";
+// =======================
+// STAMPS
+// =======================
 
-            }
+for(let i=1;i<=6;i++){
 
-        }
-              // ==================================
-        // STAMP DATES
-        // ==================================
+const el=
 
-        for(let i=1;i<=6;i++){
+document.getElementById(
 
-            const el=
-            document.getElementById("date"+i);
+"date"+i
 
-            if(el){
+);
 
-                el.textContent=
-                data["stamp"+i] || "";
+if(el){
 
-            }
+el.textContent=
 
-        }
+data["stamp"+i] || "";
 
-        // ==================================
-        // TOTAL STAMP
-        // ==================================
+}
 
-        const totalStamp=
-        Number(data.totalStamp || 0);
+}
+    // =======================
+// REWARD
+// =======================
 
-        if(rewardStamp){
+const totalStamp =
 
-            if(totalStamp>=6){
+Number(data.totalStamp || 0);
 
-                rewardStamp.style.opacity="1";
+if(totalStamp>=6){
 
-                rewardStamp.style.filter=
-                "drop-shadow(0 0 8px gold)";
+rewardBadge.style.opacity="1";
 
-            }
+rewardBadge.style.transform="scale(1.02)";
 
-            else{
+}else{
 
-                rewardStamp.style.opacity=".45";
+rewardBadge.style.opacity=".45";
 
-                rewardStamp.style.filter="none";
+rewardBadge.style.transform="scale(.96)";
 
-            }
+}
 
-        }
+// =======================
+// COUNTDOWN
+// =======================
 
-        // ==================================
-        // COUNTDOWN
-        // ==================================
+if(countdown){
 
-        if(countdown){
+const remain =
 
-            countdown.textContent=
-            data.countdown ?? "--";
+Math.max(
 
-        }
+0,
 
-    }
+6-totalStamp
 
-    catch(err){
+);
 
-        console.error(
+if(remain===0){
 
-            "Customer Load Error :",
+countdown.textContent=
 
-            err
+"Reward Ready";
 
-        );
+}else{
 
-    }
+countdown.textContent=
+
+remain + " Stamp Left";
+
+}
+
+}
+
+}catch(err){
+
+console.error(err);
+
+}
 
 }
 
@@ -263,42 +264,56 @@ async function loadCustomer(uid){
 // PLAY GAME
 // ==========================================
 
+const playBtn=
+
+document.getElementById(
+
+"playGameBtn"
+
+);
+
 if(playBtn){
 
-    playBtn.addEventListener("click",()=>{
+playBtn.addEventListener(
 
-        window.location.href=
+"click",
 
-        "https://riofungames-wq.github.io/Rio-Fun-Game/";
+()=>{
 
-    });
+window.open(
+
+"https://riofungames-wq.github.io/Rio-Fun-Game/",
+
+"_blank"
+
+);
+
+}
+
+);
 
 }
 
 // ==========================================
-// CARD READY
+// DOWNLOAD CARD
+// ==========================================
+
+window.downloadCard=function(){
+
+alert(
+
+"Download Module Coming Soon"
+
+);
+
+};
+
+// ==========================================
+// READY
 // ==========================================
 
 console.log(
 
-"=================================="
-
-);
-
-console.log(
-
-"RIO MAGGI POINT"
-
-);
-
-console.log(
-
-"Premium Loyalty Card Loaded"
-
-);
-
-console.log(
-
-"=================================="
+"RIO PREMIUM CARD READY"
 
 );
