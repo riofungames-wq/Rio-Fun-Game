@@ -1,913 +1,980 @@
-/* =====================================================
+/* ==========================================================
    RIO MAGGI POINT
-   PREMIUM LOYALTY CARD
-   card.css
-   PART 1
-===================================================== */
+   FINAL PREMIUM CARD
+========================================================== */
+
+:root{
+
+    --gold:#D4AF37;
+    --gold-dark:#B8860B;
+
+    --green:#233C2C;
+    --green-dark:#16261C;
+
+    --cream:#FFF8E7;
+
+    --rose:#D88FA8;
+    --rose-dark:#B96D89;
+
+    --white:#FFFFFF;
+
+    --black:#111111;
+
+    --gray:#BEBEBE;
+
+}
+
+/* ================= RESET ================= */
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+
+font-family:"Poppins",sans-serif;
+
+}
+
+body{
+
+background:
+linear-gradient(
+180deg,
+#1A1A1A,
+#111111
+);
+
+min-height:100vh;
+
+display:flex;
+justify-content:center;
+
+color:#fff;
+
+}
+
+.page{
+
+width:100%;
+
+max-width:430px;
+
+padding:16px;
+
+padding-bottom:95px;
+
+}
+
+/* ================= CARD ================= */
 
 .loyalty-card{
 
-    position:relative;
+position:relative;
 
-    width:100%;
+overflow:hidden;
 
-    max-width:430px;
+border-radius:28px;
 
-    min-height:720px;
+background:
+linear-gradient(
+145deg,
+#203626,
+#16261C
+);
 
-    background:linear-gradient(
-        160deg,
-        #1B2A20 0%,
-        #23432E 100%
-    );
+border:2px solid var(--gold);
 
-    border:2px solid #D4AF37;
+box-shadow:
 
-    border-radius:28px;
+0 15px 45px rgba(0,0,0,.45),
 
-    overflow:hidden;
-
-    box-shadow:
-        0 25px 60px rgba(0,0,0,.35);
-
-    color:#fff;
+0 0 20px rgba(212,175,55,.15);
 
 }
 
-/* ==========================================
-   BACKGROUND EFFECT
-========================================== */
+/* Female Theme */
 
-.card-bg-circle{
+.loyalty-card.female-theme{
 
-    position:absolute;
+background:
+linear-gradient(
+145deg,
+#2A1D23,
+#1C1217
+);
 
-    border-radius:50%;
-
-    opacity:.08;
-
-    pointer-events:none;
-
-}
-
-.circle-1{
-
-    width:260px;
-    height:260px;
-
-    background:#D4AF37;
-
-    top:-120px;
-    right:-120px;
+border-color:var(--rose);
 
 }
 
-.circle-2{
+/* Premium Glow */
 
-    width:180px;
-    height:180px;
+.premium-glow{
 
-    background:#ffffff;
+position:absolute;
 
-    bottom:-80px;
-    left:-80px;
+width:280px;
+height:280px;
 
-}
+background:
+radial-gradient(
+circle,
+rgba(212,175,55,.18),
+transparent 70%
+);
 
-/* ==========================================
-   HEADER
-========================================== */
+top:-120px;
+right:-100px;
 
-.card-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:24px;
+pointer-events:none;
 
 }
 
-.brand-area{
+/* Female */
 
-    display:flex;
+.female-theme .premium-glow{
 
-    align-items:center;
-
-    gap:14px;
-
-}
-
-.brand-logo{
-
-    width:58px;
-
-    height:58px;
-
-    object-fit:contain;
+background:
+radial-gradient(
+circle,
+rgba(216,143,168,.20),
+transparent 70%
+);
 
 }
 
-.brand-text h1{
+/* Premium Shine */
 
-    font-size:1.2rem;
+.premium-shine{
 
-    color:#FFD54F;
+position:absolute;
 
-    font-weight:700;
+top:-80px;
+left:-180px;
 
-    margin:0;
+width:120px;
+height:800px;
 
-}
+background:
 
-.brand-text span{
+linear-gradient(
 
-    font-size:.78rem;
+90deg,
 
-    color:#E7E7E7;
+transparent,
 
-}
+rgba(255,255,255,.12),
 
-.premium-badge{
+transparent
 
-    padding:8px 14px;
+);
 
-    border-radius:30px;
+transform:rotate(25deg);
 
-    background:linear-gradient(
-        135deg,
-        #D4AF37,
-        #B8860B
-    );
-
-    color:#fff;
-
-    font-size:.72rem;
-
-    font-weight:700;
-
-    letter-spacing:1px;
-
-}
-
-/* ==========================================
-   CUSTOMER
-========================================== */
-
-.customer-section{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:18px;
-
-    padding:0 24px 24px;
-
-}
-
-.avatar-area{
-
-    position:relative;
-
-    width:90px;
-
-    height:90px;
-
-}
-
-.avatar-ring{
-
-    position:absolute;
-
-    inset:-4px;
-
-    border-radius:50%;
-
-    border:3px solid #FFD54F;
-
-}
-
-.avatar-area img{
-
-    width:100%;
-
-    height:100%;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-}
-
-.customer-details{
-
-    flex:1;
-
-}
-
-.customer-name{
-
-    font-size:1.5rem;
-
-    font-weight:700;
-
-    color:#fff;
-
-}
-
-.member-id{
-
-    margin-top:8px;
-
-    color:#FFD54F;
-
-    font-size:.9rem;
-
-    font-weight:500;
-
-}
-
-/* ==========================================
-   DIVIDER
-========================================== */
-
-.premium-divider{
-
-    width:calc(100% - 48px);
-
-    height:2px;
-
-    background:rgba(212,175,55,.35);
-
-    margin:auto;
-
-}
-/* =====================================================
-   PART 2
-   STAMP SECTION + PLAY BUTTON + BOTTOM NAV
-===================================================== */
-
-/* ==========================================
-   STAMP SECTION
-========================================== */
-
-.stamp-section{
-
-    padding:24px;
-
-}
-
-.section-title{
-
-    font-size:.95rem;
-
-    font-weight:700;
-
-    color:#FFD54F;
-
-    letter-spacing:1px;
-
-    margin-bottom:18px;
-
-    text-align:center;
-
-}
-
-.stamp-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:16px;
-
-}
-
-.stamp-box{
-
-    position:relative;
-
-    height:95px;
-
-    border-radius:18px;
-
-    background:rgba(255,255,255,.08);
-
-    border:2px solid rgba(212,175,55,.35);
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    transition:.3s;
-
-}
-
-.stamp-box:hover{
-
-    transform:translateY(-4px);
-
-    border-color:#FFD54F;
-
-}
-
-.stamp-number{
-
-    font-size:1.5rem;
-
-    font-weight:700;
-
-    color:#FFD54F;
-
-}
-
-.stamp-date{
-
-    margin-top:8px;
-
-    font-size:.70rem;
-
-    color:#EAEAEA;
-
-    text-align:center;
-
-    min-height:18px;
-
-}
-
-/* Filled Stamp */
-
-.stamp-box.active{
-
-    background:linear-gradient(
-        135deg,
-        #D4AF37,
-        #B8860B
-    );
-
-    border:none;
-
-}
-
-.stamp-box.active .stamp-number{
-
-    color:#fff;
-
-}
-
-.stamp-box.active .stamp-date{
-
-    color:#fff;
-
-}
-
-/* ==========================================
-   PLAY BUTTON
-========================================== */
-
-.card-action{
-
-    padding:24px;
-
-}
-
-.play-btn{
-
-    width:100%;
-
-    height:56px;
-
-    border-radius:18px;
-
-    background:linear-gradient(
-        135deg,
-        #D4AF37,
-        #B8860B
-    );
-
-    color:#fff;
-
-    font-size:1rem;
-
-    font-weight:700;
-
-    letter-spacing:.5px;
-
-    transition:.3s;
-
-}
-
-.play-btn:hover{
-
-    transform:translateY(-3px);
-
-    box-shadow:0 12px 25px rgba(0,0,0,.30);
-
-}
-
-.play-btn:active{
-
-    transform:scale(.98);
-
-}
-
-/* ==========================================
-   BOTTOM NAVIGATION
-========================================== */
-
-.bottom-nav{
-
-    position:fixed;
-
-    bottom:0;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    width:100%;
-
-    max-width:430px;
-
-    height:72px;
-
-    background:#16281C;
-
-    border-top:2px solid #D4AF37;
-
-    display:flex;
-
-    justify-content:space-around;
-
-    align-items:center;
-
-    z-index:999;
-
-}
-
-.bottom-nav a{
-
-    flex:1;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:5px;
-
-    color:#E7D38B;
-
-    transition:.25s;
-
-}
-
-.bottom-nav a img{
-
-    width:22px;
-
-    height:22px;
-
-    object-fit:contain;
-
-}
-
-.bottom-nav a span{
-
-    font-size:.70rem;
-
-    font-weight:600;
-
-}
-
-.bottom-nav a.active{
-
-    color:#ffffff;
-
-}
-
-.bottom-nav a:hover{
-
-    transform:translateY(-3px);
-
-}
-
-/* ==========================================
-   MOBILE
-========================================== */
-
-@media(max-width:480px){
-
-    .loyalty-card{
-
-        min-height:auto;
-
-        border-radius:22px;
-
-    }
-
-    .customer-name{
-
-        font-size:1.25rem;
-
-    }
-
-    .avatar-area{
-
-        width:75px;
-
-        height:75px;
-
-    }
-
-    .stamp-box{
-
-        height:82px;
-
-    }
-
-}
-
-/* ==========================================
-   TABLET
-========================================== */
-
-@media(min-width:768px){
-
-    .loyalty-card{
-
-        max-width:700px;
-
-    }
-
-    .stamp-grid{
-
-        grid-template-columns:repeat(6,1fr);
-
-    }
-
-}
-
-/* ==========================================
-   DESKTOP
-========================================== */
-
-@media(min-width:1200px){
-
-    .loyalty-card{
-
-        max-width:900px;
-
-    }
-
-    .bottom-nav{
-
-        max-width:900px;
-
-    }
-
-}
-/* =====================================================
-   PART 3
-   PREMIUM EFFECTS
-===================================================== */
-
-/* ==========================================
-   CARD ENTRY
-========================================== */
-
-.loyalty-card{
-
-    animation:cardEntry .7s ease;
-
-}
-
-@keyframes cardEntry{
-
-    0%{
-
-        opacity:0;
-
-        transform:translateY(40px) scale(.92);
-
-    }
-
-    100%{
-
-        opacity:1;
-
-        transform:translateY(0) scale(1);
-
-    }
-
-}
-
-/* ==========================================
-   GOLD GLOW
-========================================== */
-
-.loyalty-card::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    border-radius:28px;
-
-    pointer-events:none;
-
-    box-shadow:
-
-        inset 0 0 0 1px rgba(255,255,255,.08),
-
-        0 0 40px rgba(212,175,55,.12);
-
-}
-
-/* ==========================================
-   GLASS PANEL
-========================================== */
-
-.glass{
-
-    background:rgba(255,255,255,.08);
-
-    backdrop-filter:blur(14px);
-
-    -webkit-backdrop-filter:blur(14px);
-
-    border:1px solid rgba(255,255,255,.12);
-
-}
-
-/* ==========================================
-   PREMIUM SHINE
-========================================== */
-
-.card-shine{
-
-    position:absolute;
-
-    top:-140px;
-
-    left:-180px;
-
-    width:260px;
-
-    height:900px;
-
-    background:
-
-        linear-gradient(
-
-            90deg,
-
-            transparent,
-
-            rgba(255,255,255,.18),
-
-            transparent
-
-        );
-
-    transform:rotate(25deg);
-
-    animation:shineMove 7s linear infinite;
-
-    pointer-events:none;
+animation:shineMove 8s linear infinite;
 
 }
 
 @keyframes shineMove{
 
-    from{
+from{
 
-        transform:translateX(-350px) rotate(25deg);
-
-    }
-
-    to{
-
-        transform:translateX(900px) rotate(25deg);
-
-    }
+transform:
+translateX(-250px)
+rotate(25deg);
 
 }
 
-/* ==========================================
-   AVATAR GLOW
-========================================== */
+to{
+
+transform:
+translateX(700px)
+rotate(25deg);
+
+}
+
+}
+
+/* ================= HEADER ================= */
+
+.card-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:flex-start;
+
+padding:22px;
+
+}
+
+.brand-left{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+}
+
+.brand-logo{
+
+width:56px;
+
+height:56px;
+
+object-fit:contain;
+
+}
+
+.brand-text h2{
+
+font-size:1rem;
+
+font-weight:800;
+
+letter-spacing:.8px;
+
+color:#FFD54F;
+
+}
+
+.brand-text p{
+
+font-size:.72rem;
+
+color:#F3E5AB;
+
+margin-top:3px;
+
+}
+
+/* Owner */
+
+.owner-box{
+
+text-align:right;
+
+}
+
+.owner-name{
+
+font-size:.95rem;
+
+font-weight:700;
+
+color:#FFD54F;
+
+}
+
+.owner-mobile{
+
+margin-top:4px;
+
+font-size:.78rem;
+
+color:#E5E5E5;
+
+}
+/* ==========================================================
+   CUSTOMER SECTION
+========================================================== */
+
+.customer-section{
+
+display:flex;
+
+align-items:center;
+
+padding:0 22px 20px;
+
+gap:18px;
+
+}
+
+/* Avatar */
+
+.avatar-area{
+
+position:relative;
+
+width:92px;
+
+height:92px;
+
+flex-shrink:0;
+
+}
 
 .avatar-ring{
 
-    animation:ringGlow 2.2s ease-in-out infinite;
+position:absolute;
+
+inset:-4px;
+
+border-radius:50%;
+
+background:linear-gradient(
+135deg,
+#FFD54F,
+#B8860B
+);
+
+animation:ringRotate 8s linear infinite;
 
 }
 
-@keyframes ringGlow{
+.female-theme .avatar-ring{
 
-    0%{
+background:linear-gradient(
+135deg,
+#F7B7D2,
+#D88FA8
+);
 
-        box-shadow:0 0 0 rgba(212,175,55,.2);
+}
+
+#customerPhoto{
+
+position:absolute;
+
+inset:4px;
+
+width:84px;
+
+height:84px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+background:#fff;
+
+border:3px solid #fff;
+
+}
+
+@keyframes ringRotate{
+
+from{
+
+transform:rotate(0deg);
+
+}
+
+to{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+/* Customer Details */
+
+.customer-details{
+
+flex:1;
+
+}
+
+.customer-name{
+
+font-size:1.35rem;
+
+font-weight:800;
+
+color:#FFD54F;
+
+margin-bottom:6px;
+
+}
+
+.female-theme .customer-name{
+
+color:#FFD3E2;
+
+}
+
+.member-id{
+
+font-size:.82rem;
+
+color:#E6E6E6;
+
+letter-spacing:.5px;
+
+}
+
+/* ==========================================================
+   PLAY BUTTON
+========================================================== */
+
+.play-btn{
+
+margin-top:12px;
+
+padding:10px 18px;
+
+border:none;
+
+border-radius:14px;
+
+background:linear-gradient(
+135deg,
+#FFD54F,
+#C79A17
+);
+
+color:#111;
+
+font-weight:700;
+
+font-size:.82rem;
+
+cursor:pointer;
+
+transition:.25s;
+
+box-shadow:0 8px 18px rgba(0,0,0,.25);
+
+}
+
+.play-btn:hover{
+
+transform:translateY(-2px);
+
+}
+
+.play-btn:active{
+
+transform:scale(.97);
+
+}
+
+.female-theme .play-btn{
+
+background:linear-gradient(
+135deg,
+#F7B7D2,
+#D88FA8
+);
+
+color:#fff;
+
+}
+
+/* ==========================================================
+   DIVIDER
+========================================================== */
+
+.premium-divider{
+
+height:1px;
+
+margin:0 22px 18px;
+
+background:linear-gradient(
+90deg,
+transparent,
+rgba(255,213,79,.6),
+transparent
+);
+
+}
+
+.female-theme .premium-divider{
+
+background:linear-gradient(
+90deg,
+transparent,
+rgba(247,183,210,.6),
+transparent
+);
+
+}
+/* ==========================================================
+   STAMP SECTION
+========================================================== */
+
+.stamp-section{
+
+    padding:0 22px 22px;
+
+}
+
+/* Heading */
+
+.stamp-heading{
+
+    text-align:center;
+
+    font-size:.78rem;
+
+    font-weight:600;
+
+    color:#F6E6B4;
+
+    margin-bottom:16px;
+
+    letter-spacing:.4px;
+
+}
+
+.female-theme .stamp-heading{
+
+    color:#FFD8E6;
+
+}
+
+/* ================= GRID ================= */
+
+.stamp-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:16px;
+
+    justify-items:center;
+
+}
+
+/* ================= BOX ================= */
+
+.stamp-box{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+/* ================= CIRCLE ================= */
+
+.stamp-circle{
+
+    width:62px;
+
+    height:62px;
+
+    border-radius:50%;
+
+    border:2px dashed rgba(255,213,79,.55);
+
+    background:rgba(255,255,255,.05);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    transition:.30s;
+
+}
+
+.female-theme .stamp-circle{
+
+    border-color:rgba(247,183,210,.60);
+
+}
+
+/* Number */
+
+.stamp-circle span{
+
+    font-size:1.15rem;
+
+    font-weight:700;
+
+    color:#FFD54F;
+
+}
+
+.female-theme .stamp-circle span{
+
+    color:#FFD6E5;
+
+}
+
+/* Filled Stamp */
+
+.stamp-circle.active{
+
+    background:linear-gradient(
+        135deg,
+        #FFD54F,
+        #B8860B
+    );
+
+    border:none;
+
+    box-shadow:0 0 18px rgba(255,213,79,.45);
+
+}
+
+.female-theme .stamp-circle.active{
+
+    background:linear-gradient(
+        135deg,
+        #FFD6E5,
+        #D88FA8
+    );
+
+    box-shadow:0 0 18px rgba(247,183,210,.45);
+
+}
+
+.stamp-circle.active span{
+
+    color:#111;
+
+}
+
+/* ================= DATE ================= */
+
+.stamp-box small{
+
+    min-height:14px;
+
+    font-size:.60rem;
+
+    color:#D5D5D5;
+
+    text-align:center;
+
+}
+
+/* ================= REWARD ================= */
+
+.reward-circle{
+
+    border-style:solid;
+
+    border-color:#FFD54F;
+
+}
+
+.reward-circle img{
+
+    width:34px;
+
+    height:34px;
+
+    object-fit:contain;
+
+}
+
+/* ================= HAPPY ================= */
+
+.happy-circle{
+
+    font-size:1.6rem;
+
+    border-style:solid;
+
+    border-color:#FFD54F;
+
+    animation:happyBounce 2s infinite;
+
+}
+
+.female-theme .happy-circle{
+
+    border-color:#FFD6E5;
+
+}
+
+@keyframes happyBounce{
+
+    0%,100%{
+
+        transform:translateY(0);
 
     }
 
     50%{
 
-        box-shadow:
-
-            0 0 18px rgba(212,175,55,.8);
-
-    }
-
-    100%{
-
-        box-shadow:0 0 0 rgba(212,175,55,.2);
+        transform:translateY(-6px);
 
     }
 
 }
 
-/* ==========================================
-   STAMP EFFECT
-========================================== */
+/* ================= RESPONSIVE ================= */
 
-.stamp-box.active{
+@media(max-width:430px){
 
-    animation:stampPop .35s ease;
+    .stamp-circle{
 
-}
+        width:56px;
 
-@keyframes stampPop{
-
-    0%{
-
-        transform:scale(.6);
-
-        opacity:0;
-
-    }
-
-    70%{
-
-        transform:scale(1.08);
-
-    }
-
-    100%{
-
-        transform:scale(1);
-
-        opacity:1;
+        height:56px;
 
     }
 
 }
 
-/* ==========================================
-   PLAY BUTTON EFFECT
-========================================== */
-
-.play-btn{
-
-    position:relative;
-
-    overflow:hidden;
-
-}
-
-.play-btn::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-
-    left:-120%;
-
-    width:120%;
-
-    height:100%;
-
-    background:
-
-        linear-gradient(
-
-            90deg,
-
-            transparent,
-
-            rgba(255,255,255,.28),
-
-            transparent
-
-        );
-
-    transition:.7s;
-
-}
-
-.play-btn:hover::before{
-
-    left:120%;
-
-}
-
-/* ==========================================
-   DESKTOP PREMIUM
-========================================== */
-
-@media(min-width:1200px){
-
-    body{
-
-        padding:40px;
-
-    }
-
-    .page{
-
-        align-items:center;
-
-    }
-
-    .loyalty-card{
-
-        max-width:920px;
-
-        min-height:560px;
-
-    }
-
-    .customer-section{
-
-        gap:28px;
-
-    }
-
-    .customer-name{
-
-        font-size:2rem;
-
-    }
-
-    .member-id{
-
-        font-size:1rem;
-
-    }
-
-}
-
-/* ==========================================
-   TABLET
-========================================== */
-
-@media(min-width:768px) and (max-width:1199px){
-
-    .loyalty-card{
-
-        max-width:700px;
-
-    }
-
-}
-
-/* ==========================================
-   SMALL MOBILE
-========================================== */
-
-@media(max-width:360px){
+@media(min-width:768px){
 
     .stamp-grid{
 
-        gap:10px;
+        grid-template-columns:repeat(8,1fr);
 
     }
 
-    .stamp-box{
+}
+/* ==========================================================
+   BOTTOM NAVIGATION
+========================================================== */
 
-        height:72px;
+.bottom-nav{
 
-    }
+position:fixed;
 
-    .stamp-number{
+bottom:0;
 
-        font-size:1.2rem;
+left:50%;
 
-    }
+transform:translateX(-50%);
+
+width:100%;
+
+max-width:430px;
+
+height:72px;
+
+background:rgba(17,17,17,.95);
+
+backdrop-filter:blur(16px);
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+border-top:2px solid rgba(212,175,55,.35);
+
+z-index:999;
+
+}
+
+.female-theme ~ .bottom-nav{
+
+border-top:2px solid rgba(216,143,168,.35);
+
+}
+
+.bottom-nav a{
+
+flex:1;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+gap:4px;
+
+color:#BDBDBD;
+
+font-size:.70rem;
+
+font-weight:600;
+
+transition:.30s;
+
+}
+
+.bottom-nav a i{
+
+font-size:1.15rem;
+
+}
+
+.bottom-nav a:hover{
+
+color:#FFD54F;
+
+transform:translateY(-3px);
+
+}
+
+.bottom-nav a.active{
+
+color:#FFD54F;
+
+}
+
+.female-theme ~ .bottom-nav a.active{
+
+color:#FFD6E5;
+
+}
+
+/* ==========================================================
+   DESKTOP RESPONSIVE
+========================================================== */
+
+@media(min-width:768px){
+
+body{
+
+padding:40px;
+
+}
+
+.page{
+
+max-width:900px;
+
+padding-bottom:110px;
+
+}
+
+.loyalty-card{
+
+max-width:820px;
+
+margin:auto;
+
+}
+
+.card-header{
+
+padding:28px 32px;
+
+}
+
+.customer-section{
+
+padding:0 32px 28px;
+
+}
+
+.stamp-section{
+
+padding:0 32px 32px;
+
+}
+
+.stamp-grid{
+
+grid-template-columns:repeat(8,1fr);
+
+gap:20px;
+
+}
+
+.bottom-nav{
+
+max-width:820px;
+
+height:78px;
+
+}
+
+}
+
+/* ==========================================================
+   LARGE DESKTOP
+========================================================== */
+
+@media(min-width:1200px){
+
+.page{
+
+max-width:1000px;
+
+}
+
+.loyalty-card{
+
+max-width:920px;
+
+}
+
+.bottom-nav{
+
+max-width:920px;
+
+}
+
+}
+
+/* ==========================================================
+   PREMIUM HOVER EFFECTS
+========================================================== */
+
+.stamp-circle:hover{
+
+transform:translateY(-4px);
+
+box-shadow:0 10px 20px rgba(0,0,0,.25);
+
+}
+
+.reward-circle:hover{
+
+transform:scale(1.08);
+
+}
+
+.play-btn:hover{
+
+filter:brightness(1.05);
+
+}
+
+.brand-logo:hover{
+
+transform:rotate(-6deg) scale(1.05);
+
+transition:.3s;
+
+}
+
+#customerPhoto:hover{
+
+transform:scale(1.04);
+
+transition:.3s;
+
+}
+
+/* ==========================================================
+   SCROLLBAR
+========================================================== */
+
+::-webkit-scrollbar{
+
+width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+background:#B8860B;
+
+border-radius:20px;
+
+}
+
+::-webkit-scrollbar-track{
+
+background:#111;
 
 }
