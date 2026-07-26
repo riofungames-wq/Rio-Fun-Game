@@ -1,757 +1,913 @@
-/* ==========================================
+/* =====================================================
    RIO MAGGI POINT
    PREMIUM LOYALTY CARD
-========================================== */
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
-}
-
-body{
-
-background:#0d0d0d;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-min-height:100vh;
-
-padding:20px;
-
-}
-
-.page{
-
-width:100%;
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-}
-
-/* ==========================================
-CARD
-========================================== */
+   card.css
+   PART 1
+===================================================== */
 
 .loyalty-card{
 
-position:relative;
+    position:relative;
 
-width:350px;
+    width:100%;
 
-border-radius:24px;
+    max-width:430px;
 
-padding:22px;
+    min-height:720px;
 
-overflow:hidden;
+    background:linear-gradient(
+        160deg,
+        #1B2A20 0%,
+        #23432E 100%
+    );
 
-color:#fff;
+    border:2px solid #D4AF37;
 
-transition:.35s;
+    border-radius:28px;
 
-}
+    overflow:hidden;
 
-/* =========================
-MALE
-========================= */
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.35);
 
-.theme-male{
-
-background:
-
-linear-gradient(
-
-135deg,
-
-#111111 0%,
-
-#0f2b21 45%,
-
-#1b1b1b 100%
-
-);
-
-border:2px solid #D4AF37;
-
-box-shadow:
-
-0 15px 45px rgba(0,0,0,.55),
-
-0 0 20px rgba(212,175,55,.35);
-
-}
-
-/* =========================
-FEMALE
-========================= */
-
-.theme-female{
-
-background:
-
-linear-gradient(
-
-135deg,
-
-#25141c 0%,
-
-#5d3148 50%,
-
-#2a1720 100%
-
-);
-
-border:2px solid #E8B2C5;
-
-box-shadow:
-
-0 15px 45px rgba(0,0,0,.55),
-
-0 0 20px rgba(232,178,197,.35);
+    color:#fff;
 
 }
 
 /* ==========================================
-PREMIUM SHINE
+   BACKGROUND EFFECT
 ========================================== */
 
-.card-shine{
+.card-bg-circle{
 
-position:absolute;
+    position:absolute;
 
-top:-140px;
+    border-radius:50%;
 
-left:-80px;
+    opacity:.08;
 
-width:160px;
+    pointer-events:none;
 
-height:500px;
+}
 
-background:
+.circle-1{
 
-linear-gradient(
+    width:260px;
+    height:260px;
 
-90deg,
+    background:#D4AF37;
 
-transparent,
+    top:-120px;
+    right:-120px;
 
-rgba(255,255,255,.10),
+}
 
-transparent
+.circle-2{
 
-);
+    width:180px;
+    height:180px;
 
-transform:rotate(28deg);
+    background:#ffffff;
 
-pointer-events:none;
+    bottom:-80px;
+    left:-80px;
 
 }
 
 /* ==========================================
-TOP
+   HEADER
 ========================================== */
 
-.card-top{
+.card-header{
 
-display:flex;
+    display:flex;
 
-justify-content:space-between;
+    justify-content:space-between;
 
-align-items:center;
+    align-items:center;
 
-margin-bottom:18px;
+    padding:24px;
 
 }
 
-.brand{
+.brand-area{
 
-display:flex;
+    display:flex;
 
-align-items:center;
+    align-items:center;
 
-gap:12px;
+    gap:14px;
 
 }
 
 .brand-logo{
 
-width:46px;
+    width:58px;
 
-height:46px;
+    height:58px;
 
-border-radius:14px;
-
-background:#ffffff;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-overflow:hidden;
+    object-fit:contain;
 
 }
 
-.brand-logo img{
+.brand-text h1{
 
-width:100%;
+    font-size:1.2rem;
 
-height:100%;
+    color:#FFD54F;
 
-object-fit:cover;
+    font-weight:700;
 
-}
-
-.brand-text h2{
-
-font-size:16px;
-
-font-weight:700;
-
-letter-spacing:.5px;
+    margin:0;
 
 }
 
-.brand-text p{
+.brand-text span{
 
-font-size:10px;
+    font-size:.78rem;
 
-opacity:.85;
-
-margin-top:2px;
+    color:#E7E7E7;
 
 }
 
-.premium-chip{
+.premium-badge{
 
-width:52px;
+    padding:8px 14px;
 
-height:40px;
+    border-radius:30px;
 
-border-radius:10px;
+    background:linear-gradient(
+        135deg,
+        #D4AF37,
+        #B8860B
+    );
 
-background:
+    color:#fff;
 
-linear-gradient(
+    font-size:.72rem;
 
-135deg,
+    font-weight:700;
 
-#e6d18c,
-
-#c79b2a
-
-);
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
+    letter-spacing:1px;
 
 }
 
-.premium-chip img{
-
-width:28px;
-
-height:28px;
-
-object-fit:contain;
-
-}
 /* ==========================================
-CUSTOMER SECTION
+   CUSTOMER
 ========================================== */
 
 .customer-section{
 
-display:flex;
+    display:flex;
 
-align-items:center;
+    align-items:center;
 
-gap:16px;
+    gap:18px;
 
-margin-bottom:20px;
-
-}
-
-.avatar-wrapper{
-
-position:relative;
-
-width:82px;
-
-height:82px;
-
-flex-shrink:0;
+    padding:0 24px 24px;
 
 }
 
-.avatar-wrapper img{
+.avatar-area{
 
-width:100%;
+    position:relative;
 
-height:100%;
+    width:90px;
 
-border-radius:20px;
-
-object-fit:cover;
-
-background:#222;
+    height:90px;
 
 }
 
-.theme-male .avatar-wrapper img{
+.avatar-ring{
 
-border:3px solid #D4AF37;
+    position:absolute;
 
-}
+    inset:-4px;
 
-.theme-female .avatar-wrapper img{
+    border-radius:50%;
 
-border:3px solid #E8B2C5;
-
-}
-
-/* VIP RING */
-
-.vip-ring{
-
-position:absolute;
-
-inset:-6px;
-
-border-radius:24px;
-
-pointer-events:none;
+    border:3px solid #FFD54F;
 
 }
 
-.theme-male .vip-ring{
+.avatar-area img{
 
-border:2px solid rgba(212,175,55,.45);
+    width:100%;
 
-}
+    height:100%;
 
-.theme-female .vip-ring{
+    border-radius:50%;
 
-border:2px solid rgba(232,178,197,.45);
-
-}
-
-.customer-info{
-
-flex:1;
+    object-fit:cover;
 
 }
 
-.customer-info h3{
+.customer-details{
 
-font-size:22px;
-
-font-weight:700;
-
-letter-spacing:.3px;
-
-margin-bottom:4px;
+    flex:1;
 
 }
 
-.customer-info p{
+.customer-name{
 
-font-size:12px;
+    font-size:1.5rem;
 
-opacity:.9;
+    font-weight:700;
 
-margin-bottom:10px;
-
-}
-
-.mobile-row{
-
-display:flex;
-
-align-items:center;
-
-gap:8px;
-
-font-size:13px;
-
-font-weight:600;
+    color:#fff;
 
 }
 
-.mobile-row img{
+.member-id{
 
-width:18px;
+    margin-top:8px;
 
-height:18px;
+    color:#FFD54F;
 
-object-fit:contain;
+    font-size:.9rem;
+
+    font-weight:500;
 
 }
 
 /* ==========================================
-STAMP SECTION
+   DIVIDER
 ========================================== */
 
-.stamp-title{
+.premium-divider{
 
-font-size:13px;
+    width:calc(100% - 48px);
 
-font-weight:700;
+    height:2px;
 
-margin-bottom:10px;
+    background:rgba(212,175,55,.35);
 
-opacity:.9;
-
-}
-
-.stamp-row{
-
-display:flex;
-
-justify-content:space-between;
-
-gap:8px;
-
-margin-bottom:18px;
+    margin:auto;
 
 }
+/* =====================================================
+   PART 2
+   STAMP SECTION + PLAY BUTTON + BOTTOM NAV
+===================================================== */
 
-.stamp{
-
-width:42px;
-
-height:42px;
-
-border-radius:50%;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-font-size:14px;
-
-font-weight:700;
-
-position:relative;
-
-background:rgba(255,255,255,.08);
-
-}
-
-.theme-male .stamp{
-
-border:2px solid #D4AF37;
-
-}
-
-.theme-female .stamp{
-
-border:2px solid #E8B2C5;
-
-}
-
-.stamp small{
-
-position:absolute;
-
-top:48px;
-
-left:50%;
-
-transform:translateX(-50%);
-
-font-size:8px;
-
-white-space:nowrap;
-
-opacity:.8;
-
-}
 /* ==========================================
-REWARD SECTION
+   STAMP SECTION
 ========================================== */
 
-.reward-section{
+.stamp-section{
 
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-top:18px;
-
-margin-bottom:20px;
+    padding:24px;
 
 }
 
-.reward-badge{
+.section-title{
 
-display:flex;
+    font-size:.95rem;
 
-align-items:center;
+    font-weight:700;
 
-gap:10px;
+    color:#FFD54F;
 
-padding:10px 16px;
+    letter-spacing:1px;
 
-border-radius:30px;
+    margin-bottom:18px;
 
-font-size:12px;
-
-font-weight:700;
+    text-align:center;
 
 }
 
-.theme-male .reward-badge{
+.stamp-grid{
 
-background:linear-gradient(135deg,#D4AF37,#F4D675);
+    display:grid;
 
-color:#111;
+    grid-template-columns:repeat(3,1fr);
 
-}
-
-.theme-female .reward-badge{
-
-background:linear-gradient(135deg,#E8B2C5,#FFD9E4);
-
-color:#222;
+    gap:16px;
 
 }
 
-.reward-badge img{
+.stamp-box{
 
-width:22px;
+    position:relative;
 
-height:22px;
+    height:95px;
 
-object-fit:contain;
+    border-radius:18px;
 
-}
+    background:rgba(255,255,255,.08);
 
-.countdown-box{
+    border:2px solid rgba(212,175,55,.35);
 
-display:flex;
+    display:flex;
 
-align-items:center;
+    flex-direction:column;
 
-gap:8px;
+    justify-content:center;
 
-padding:10px 14px;
+    align-items:center;
 
-border-radius:18px;
-
-background:rgba(255,255,255,.08);
-
-font-size:13px;
-
-font-weight:700;
+    transition:.3s;
 
 }
 
-.countdown-box img{
+.stamp-box:hover{
 
-width:18px;
+    transform:translateY(-4px);
 
-height:18px;
+    border-color:#FFD54F;
 
-object-fit:contain;
+}
+
+.stamp-number{
+
+    font-size:1.5rem;
+
+    font-weight:700;
+
+    color:#FFD54F;
+
+}
+
+.stamp-date{
+
+    margin-top:8px;
+
+    font-size:.70rem;
+
+    color:#EAEAEA;
+
+    text-align:center;
+
+    min-height:18px;
+
+}
+
+/* Filled Stamp */
+
+.stamp-box.active{
+
+    background:linear-gradient(
+        135deg,
+        #D4AF37,
+        #B8860B
+    );
+
+    border:none;
+
+}
+
+.stamp-box.active .stamp-number{
+
+    color:#fff;
+
+}
+
+.stamp-box.active .stamp-date{
+
+    color:#fff;
 
 }
 
 /* ==========================================
-PLAY BUTTON
+   PLAY BUTTON
 ========================================== */
 
-.action-row{
+.card-action{
 
-margin-top:8px;
+    padding:24px;
 
 }
 
 .play-btn{
 
-width:100%;
+    width:100%;
 
-height:52px;
+    height:56px;
 
-border:none;
+    border-radius:18px;
 
-border-radius:16px;
+    background:linear-gradient(
+        135deg,
+        #D4AF37,
+        #B8860B
+    );
 
-display:flex;
+    color:#fff;
 
-justify-content:center;
+    font-size:1rem;
 
-align-items:center;
+    font-weight:700;
 
-gap:10px;
+    letter-spacing:.5px;
 
-cursor:pointer;
-
-font-size:15px;
-
-font-weight:700;
-
-transition:.30s;
-
-}
-
-.theme-male .play-btn{
-
-background:linear-gradient(135deg,#18b85a,#0d7b3b);
-
-color:#fff;
-
-}
-
-.theme-female .play-btn{
-
-background:linear-gradient(135deg,#d85b88,#b63f6d);
-
-color:#fff;
-
-}
-
-.play-btn img{
-
-width:22px;
-
-height:22px;
-
-object-fit:contain;
+    transition:.3s;
 
 }
 
 .play-btn:hover{
 
-transform:translateY(-2px);
+    transform:translateY(-3px);
 
-filter:brightness(1.08);
+    box-shadow:0 12px 25px rgba(0,0,0,.30);
 
-box-shadow:0 10px 25px rgba(0,0,0,.35);
+}
+
+.play-btn:active{
+
+    transform:scale(.98);
 
 }
 
 /* ==========================================
-BOTTOM NAVIGATION
+   BOTTOM NAVIGATION
 ========================================== */
 
 .bottom-nav{
 
-width:350px;
+    position:fixed;
 
-margin-top:22px;
+    bottom:0;
 
-display:flex;
+    left:50%;
 
-justify-content:space-between;
+    transform:translateX(-50%);
 
-padding:14px 10px;
+    width:100%;
 
-border-radius:18px;
+    max-width:430px;
 
-background:#171717;
+    height:72px;
+
+    background:#16281C;
+
+    border-top:2px solid #D4AF37;
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    z-index:999;
 
 }
 
 .bottom-nav a{
 
-display:flex;
+    flex:1;
 
-flex-direction:column;
+    display:flex;
 
-align-items:center;
+    flex-direction:column;
 
-gap:6px;
+    justify-content:center;
 
-text-decoration:none;
+    align-items:center;
 
-font-size:11px;
+    gap:5px;
 
-color:#ffffff;
+    color:#E7D38B;
 
-transition:.25s;
+    transition:.25s;
+
+}
+
+.bottom-nav a img{
+
+    width:22px;
+
+    height:22px;
+
+    object-fit:contain;
+
+}
+
+.bottom-nav a span{
+
+    font-size:.70rem;
+
+    font-weight:600;
 
 }
 
 .bottom-nav a.active{
 
-color:#FFD86A;
+    color:#ffffff;
 
 }
 
 .bottom-nav a:hover{
 
-transform:translateY(-3px);
-
-}
-
-.bottom-nav img{
-
-width:24px;
-
-height:24px;
-
-object-fit:contain;
+    transform:translateY(-3px);
 
 }
 
 /* ==========================================
-RESPONSIVE
+   MOBILE
 ========================================== */
 
 @media(max-width:480px){
 
+    .loyalty-card{
+
+        min-height:auto;
+
+        border-radius:22px;
+
+    }
+
+    .customer-name{
+
+        font-size:1.25rem;
+
+    }
+
+    .avatar-area{
+
+        width:75px;
+
+        height:75px;
+
+    }
+
+    .stamp-box{
+
+        height:82px;
+
+    }
+
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media(min-width:768px){
+
+    .loyalty-card{
+
+        max-width:700px;
+
+    }
+
+    .stamp-grid{
+
+        grid-template-columns:repeat(6,1fr);
+
+    }
+
+}
+
+/* ==========================================
+   DESKTOP
+========================================== */
+
+@media(min-width:1200px){
+
+    .loyalty-card{
+
+        max-width:900px;
+
+    }
+
+    .bottom-nav{
+
+        max-width:900px;
+
+    }
+
+}
+/* =====================================================
+   PART 3
+   PREMIUM EFFECTS
+===================================================== */
+
+/* ==========================================
+   CARD ENTRY
+========================================== */
+
 .loyalty-card{
 
-width:100%;
+    animation:cardEntry .7s ease;
 
 }
 
-.bottom-nav{
+@keyframes cardEntry{
 
-width:100%;
+    0%{
 
-}
+        opacity:0;
 
-}
+        transform:translateY(40px) scale(.92);
 
-@media(min-width:992px){
+    }
 
-.page{
+    100%{
 
-max-width:1200px;
+        opacity:1;
 
-}
+        transform:translateY(0) scale(1);
 
-.loyalty-card{
-
-width:430px;
-
-transform:scale(1.08);
+    }
 
 }
 
-.bottom-nav{
+/* ==========================================
+   GOLD GLOW
+========================================== */
 
-width:430px;
+.loyalty-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:28px;
+
+    pointer-events:none;
+
+    box-shadow:
+
+        inset 0 0 0 1px rgba(255,255,255,.08),
+
+        0 0 40px rgba(212,175,55,.12);
 
 }
+
+/* ==========================================
+   GLASS PANEL
+========================================== */
+
+.glass{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(14px);
+
+    -webkit-backdrop-filter:blur(14px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+}
+
+/* ==========================================
+   PREMIUM SHINE
+========================================== */
+
+.card-shine{
+
+    position:absolute;
+
+    top:-140px;
+
+    left:-180px;
+
+    width:260px;
+
+    height:900px;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            rgba(255,255,255,.18),
+
+            transparent
+
+        );
+
+    transform:rotate(25deg);
+
+    animation:shineMove 7s linear infinite;
+
+    pointer-events:none;
+
+}
+
+@keyframes shineMove{
+
+    from{
+
+        transform:translateX(-350px) rotate(25deg);
+
+    }
+
+    to{
+
+        transform:translateX(900px) rotate(25deg);
+
+    }
+
+}
+
+/* ==========================================
+   AVATAR GLOW
+========================================== */
+
+.avatar-ring{
+
+    animation:ringGlow 2.2s ease-in-out infinite;
+
+}
+
+@keyframes ringGlow{
+
+    0%{
+
+        box-shadow:0 0 0 rgba(212,175,55,.2);
+
+    }
+
+    50%{
+
+        box-shadow:
+
+            0 0 18px rgba(212,175,55,.8);
+
+    }
+
+    100%{
+
+        box-shadow:0 0 0 rgba(212,175,55,.2);
+
+    }
+
+}
+
+/* ==========================================
+   STAMP EFFECT
+========================================== */
+
+.stamp-box.active{
+
+    animation:stampPop .35s ease;
+
+}
+
+@keyframes stampPop{
+
+    0%{
+
+        transform:scale(.6);
+
+        opacity:0;
+
+    }
+
+    70%{
+
+        transform:scale(1.08);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+/* ==========================================
+   PLAY BUTTON EFFECT
+========================================== */
+
+.play-btn{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.play-btn::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-120%;
+
+    width:120%;
+
+    height:100%;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            rgba(255,255,255,.28),
+
+            transparent
+
+        );
+
+    transition:.7s;
+
+}
+
+.play-btn:hover::before{
+
+    left:120%;
+
+}
+
+/* ==========================================
+   DESKTOP PREMIUM
+========================================== */
+
+@media(min-width:1200px){
+
+    body{
+
+        padding:40px;
+
+    }
+
+    .page{
+
+        align-items:center;
+
+    }
+
+    .loyalty-card{
+
+        max-width:920px;
+
+        min-height:560px;
+
+    }
+
+    .customer-section{
+
+        gap:28px;
+
+    }
+
+    .customer-name{
+
+        font-size:2rem;
+
+    }
+
+    .member-id{
+
+        font-size:1rem;
+
+    }
+
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media(min-width:768px) and (max-width:1199px){
+
+    .loyalty-card{
+
+        max-width:700px;
+
+    }
+
+}
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media(max-width:360px){
+
+    .stamp-grid{
+
+        gap:10px;
+
+    }
+
+    .stamp-box{
+
+        height:72px;
+
+    }
+
+    .stamp-number{
+
+        font-size:1.2rem;
+
+    }
 
 }
