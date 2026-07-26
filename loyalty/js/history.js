@@ -1,580 +1,361 @@
-/* ==========================================
-   RIO MAGGI POINT
-   HISTORY PAGE JAVASCRIPT
-   PART 1
-========================================== */
+// ==========================================
+// RIO MAGGI POINT
+// HISTORY PAGE
+// PART 1
+// ==========================================
 
-
-import { 
-    auth,
-    db
-} from "./firebase-config.js";
-
-
-import { 
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
+import { auth, db }
+from "./firebase-config.js";
 
 import {
-    doc,
-    getDoc,
-    collection,
-    getDocs,
-    query,
-    orderBy
+
+onAuthStateChanged
+
 }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
+import {
+
+doc,
+getDoc
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+// ==========================================
+// HTML
+// ==========================================
+
+const profileCard =
+document.getElementById("profileCard");
+
+const customerPhoto =
+document.getElementById("customerPhoto");
 
 const customerName =
 document.getElementById("customerName");
 
-
 const memberId =
 document.getElementById("memberId");
 
+const totalStamp =
+document.getElementById("totalStamp");
 
-const totalStamps =
-document.getElementById("totalStamps");
-
-
-const totalRewards =
-document.getElementById("totalRewards");
-
+const rewardCount =
+document.getElementById("rewardCount");
 
 const historyContainer =
 document.getElementById("historyContainer");
 
+const rewardContainer =
+document.getElementById("rewardContainer");
 
-const rewardHistoryContainer =
-document.getElementById("rewardHistoryContainer");
+// ==========================================
+// LOGIN
+// ==========================================
 
+onAuthStateChanged(
 
+auth,
 
-/* ==========================================
-   AUTH CHECK
-========================================== */
+async(user)=>{
 
+if(!user){
 
-onAuthStateChanged(auth, async(user)=>{
+window.location.href="login.html";
 
-
-    if(!user){
-
-        window.location.href="login.html";
-
-        return;
-
-    }
-
-
-    loadCustomerHistory(user.uid);
-
-
-});
-
-
-
-/* ==========================================
-   LOAD CUSTOMER DATA
-========================================== */
-
-
-async function loadCustomerHistory(uid){
-
-
-    try{
-
-
-        const customerRef =
-        doc(db,"customers",uid);
-
-
-        const customerSnap =
-        await getDoc(customerRef);
-
-
-
-        if(customerSnap.exists()){
-
-
-            const data =
-            customerSnap.data();
-
-
-
-            customerName.innerText =
-            data.name || "Rio Customer";
-
-
-
-            memberId.innerText =
-            "Member ID : " + 
-            (data.memberId || "N/A");
-
-
-
-            totalStamps.innerText =
-            data.stamps || 0;
-
-
-
-            totalRewards.innerText =
-            data.rewards || 0;
-
-
-
-        }
-
-
-        loadStampHistory(uid);
-
-
-        loadRewardHistory(uid);
-
-
-
-    }
-
-    catch(error){
-
-
-        console.log(
-            "History Load Error:",
-            error
-        );
-
-
-    }
-
+return;
 
 }
-/* ==========================================
-   STAMP HISTORY LOAD
-========================================== */
 
-
-async function loadStampHistory(uid){
-
-
-    try{
-
-
-        const historyRef =
-        collection(
-            db,
-            "customers",
-            uid,
-            "history"
-        );
-
-
-        const q =
-        query(
-            historyRef,
-            orderBy(
-                "createdAt",
-                "desc"
-            )
-        );
-
-
-        const snapshot =
-        await getDocs(q);
-
-
-
-        historyContainer.innerHTML = "";
-
-
-
-        if(snapshot.empty){
-
-
-            historyContainer.innerHTML = `
-
-                <div class="history-item">
-
-                    <div class="history-icon stamp">
-                        ⭐
-                    </div>
-
-
-                    <div class="history-details">
-
-                        <h3>
-                            No Stamp History
-                        </h3>
-
-                        <p>
-                            Your stamp activity will appear here.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            `;
-
-
-            return;
-
-        }
-
-
-
-        snapshot.forEach((item)=>{
-
-
-            const data =
-            item.data();
-
-
-
-            historyContainer.innerHTML += `
-
-                <div class="history-item">
-
-
-                    <div class="history-icon stamp">
-
-                        ⭐
-
-                    </div>
-
-
-                    <div class="history-details">
-
-
-                        <h3>
-
-                            ${data.title || "Stamp Added"}
-
-                        </h3>
-
-
-                        <p>
-
-                            ${data.description || "Stamp activity"}
-
-                        </p>
-
-
-                        <span>
-
-                            ${formatDate(data.createdAt)}
-
-                        </span>
-
-
-                    </div>
-
-
-                </div>
-
-            `;
-
-
-        });
-
-
-
-    }
-
-    catch(error){
-
-
-        console.log(
-            "Stamp History Error:",
-            error
-        );
-
-
-    }
-
+loadHistory(user.uid);
 
 }
 
+);
 
+// ==========================================
+// LOAD HISTORY
+// ==========================================
 
+async function loadHistory(uid){
 
-/* ==========================================
-   REWARD HISTORY LOAD
-========================================== */
+try{
 
+const ref=
 
-async function loadRewardHistory(uid){
+doc(db,"customers",uid);
 
+const snap=
 
-    try{
+await getDoc(ref);
 
+if(!snap.exists()) return;
 
-        const rewardRef =
-        collection(
-            db,
-            "customers",
-            uid,
-            "rewards"
-        );
+const data=snap.data();
 
+// =====================
+// PROFILE
+// =====================
 
+customerName.textContent=
 
-        const snapshot =
-        await getDocs(rewardRef);
+data.name || "Customer";
 
+memberId.textContent=
 
+"ID : " +
 
-        rewardHistoryContainer.innerHTML = "";
+(data.memberId || "------");
 
+// =====================
+// THEME
+// =====================
 
+profileCard.classList.remove(
 
-        if(snapshot.empty){
+"theme-male",
 
+"theme-female"
 
-            rewardHistoryContainer.innerHTML = `
+);
 
+if(data.gender==="female"){
 
-                <div class="history-item">
+profileCard.classList.add(
 
+"theme-female"
 
-                    <div class="history-icon reward">
+);
 
-                        🎁
+}else{
 
-                    </div>
+profileCard.classList.add(
 
+"theme-male"
 
-                    <div class="history-details">
-
-
-                        <h3>
-
-                            No Rewards Yet
-
-                        </h3>
-
-
-                        <p>
-
-                            Complete 6 stamps to unlock reward.
-
-                        </p>
-
-
-                    </div>
-
-
-                </div>
-
-
-            `;
-
-
-            return;
-
-
-        }
-
-
-
-        snapshot.forEach((item)=>{
-
-
-            const data =
-            item.data();
-
-
-
-            rewardHistoryContainer.innerHTML += `
-
-
-                <div class="history-item">
-
-
-                    <div class="history-icon reward">
-
-                        🎁
-
-                    </div>
-
-
-                    <div class="history-details">
-
-
-                        <h3>
-
-                            ${data.reward || "Reward Unlocked"}
-
-                        </h3>
-
-
-                        <p>
-
-                            ${data.status || "Available"}
-
-                        </p>
-
-
-                        <span>
-
-                            ${formatDate(data.createdAt)}
-
-                        </span>
-
-
-                    </div>
-
-
-                </div>
-
-
-            `;
-
-
-        });
-
-
-
-    }
-
-    catch(error){
-
-
-        console.log(
-            "Reward History Error:",
-            error
-        );
-
-
-    }
-
-
-}
-/* ==========================================
-   DATE FORMAT FUNCTION
-========================================== */
-
-
-function formatDate(timestamp){
-
-
-    if(!timestamp){
-
-        return "Date unavailable";
-
-    }
-
-
-
-    try{
-
-
-        let date;
-
-
-
-        if(timestamp.toDate){
-
-            date = timestamp.toDate();
-
-        }
-        else{
-
-            date = new Date(timestamp);
-
-        }
-
-
-
-        return date.toLocaleString();
-
-
-
-    }
-
-    catch(error){
-
-
-        return "Invalid Date";
-
-
-    }
-
+);
 
 }
 
+// =====================
+// PHOTO
+// =====================
 
+if(data.photoURL){
 
-/* ==========================================
-   PAGE REFRESH SUPPORT
-========================================== */
+customerPhoto.src=
 
+data.photoURL;
 
-window.refreshHistory = function(){
+}else{
 
+customerPhoto.src=
 
-    if(auth.currentUser){
+data.gender==="female"
 
+?
 
-        loadCustomerHistory(
-            auth.currentUser.uid
-        );
+"assets/avatars/female.png"
 
+:
 
-    }
+"assets/avatars/male.png";
 
+}
 
-};
+// =====================
+// SUMMARY
+// =====================
 
+totalStamp.textContent=
 
+data.totalStamp || 0;
 
-/* ==========================================
-   LOADING MESSAGE HANDLER
-========================================== */
+rewardCount.textContent=
 
+data.totalReward || 0;
+   // ==========================================
+// ACTIVITY TIMELINE
+// ==========================================
 
-window.addEventListener(
-"load",
-()=>{
+historyContainer.innerHTML = "";
 
+for(let i=1;i<=6;i++){
 
-    if(historyContainer){
+const stampDate = data["stamp"+i];
 
+if(stampDate){
 
-        if(historyContainer.innerHTML.trim()===""){
+historyContainer.innerHTML += `
 
+<div class="history-item">
 
-            historyContainer.innerHTML = `
+<div class="history-icon">
 
-                <div class="history-item">
+⭐
 
-                    <div class="history-icon stamp">
-                        ⏳
-                    </div>
+</div>
 
-                    <div class="history-details">
+<div class="history-info">
 
-                        <h3>
-                            Loading History...
-                        </h3>
+<h3>
 
-                        <p>
-                            Please wait.
-                        </p>
+Stamp ${i} Collected
 
-                    </div>
+</h3>
 
-                </div>
+<p>
 
-            `;
+You earned Stamp ${i}
+at Rio Maggi Point.
 
+</p>
 
-        }
+<div class="history-date">
 
+${stampDate}
 
-    }
+</div>
 
+</div>
 
-});
+</div>
+
+`;
+
+}
+
+}
+
+// Empty State
+
+if(historyContainer.innerHTML===""){
+
+historyContainer.innerHTML = `
+
+<div class="history-item">
+
+<div class="history-icon">
+
+🕒
+
+</div>
+
+<div class="history-info">
+
+<h3>
+
+No Stamp Yet
+
+</h3>
+
+<p>
+
+Visit Rio Maggi Point
+to start collecting stamps.
+
+</p>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+// ==========================================
+// REWARD HISTORY
+// ==========================================
+
+rewardContainer.innerHTML="";
+
+if(Number(data.totalReward||0)>0){
+
+rewardContainer.innerHTML += `
+
+<div class="reward-item">
+
+<div class="reward-icon">
+
+🎁
+
+</div>
+
+<div class="reward-info">
+
+<h3>
+
+Free Veg Maggi Claimed
+
+</h3>
+
+<p>
+
+Congratulations!
+You successfully redeemed
+your loyalty reward.
+
+</p>
+
+</div>
+
+</div>
+
+`;
+
+}else{
+
+rewardContainer.innerHTML = `
+
+<div class="reward-item">
+
+<div class="reward-icon">
+
+🎁
+
+</div>
+
+<div class="reward-info">
+
+<h3>
+
+No Reward Yet
+
+</h3>
+
+<p>
+
+Collect 6 stamps to unlock
+your FREE Veg Maggi.
+
+</p>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+}catch(err){
+
+console.error(err);
+
+}
+
+}
+
+// ==========================================
+// READY
+// ==========================================
+
+console.log(
+
+"RIO HISTORY READY"
+
+);
