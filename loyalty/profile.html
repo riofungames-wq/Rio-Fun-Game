@@ -3,147 +3,507 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>Profile | Rio Maggi Point</title>
+    <title>My Profile | Rio Maggi Point</title>
 
-<link rel="stylesheet"
-href="css/profile.css">
+    <link
+        rel="stylesheet"
+        href="css/profile.css"
+    >
 
 </head>
+
 
 <body>
 
 <div class="profile-page">
 
-<h2>👤 My Profile</h2>
 
-<div class="profile-card">
+    <!-- ================================= -->
+    <!-- PROFILE HEADER -->
+    <!-- ================================= -->
 
-<div class="profile-preview">
+    <header class="profile-header">
 
-<img
-id="previewImage"
-src="assets/avatars/male.png"
-alt="Profile">
+        <div>
+
+            <h1>
+                👤 My Profile
+            </h1>
+
+            <p>
+                Rio Maggi Point Loyalty Club
+            </p>
+
+        </div>
+
+
+        <!-- RIO FUN GAME -->
+
+        <a
+            href="../index.html"
+            class="game-link"
+            title="Rio Fun Game"
+        >
+
+            🎮
+
+            <span>
+                Rio Fun Game
+            </span>
+
+        </a>
+
+    </header>
+
+
+
+    <!-- ================================= -->
+    <!-- PREMIUM PROFILE CARD -->
+    <!-- ================================= -->
+
+    <main
+        class="profile-card"
+        id="profileCard"
+    >
+
+
+        <!-- ================================= -->
+        <!-- CUSTOMER PROFILE -->
+        <!-- ================================= -->
+
+        <section class="customer-profile">
+
+
+            <!-- AVATAR -->
+
+            <div class="profile-preview">
+
+                <img
+                    id="previewImage"
+                    src="assets/avatars/male.png"
+                    alt="Customer Avatar"
+                >
+
+            </div>
+
+
+            <!-- CUSTOMER INFORMATION -->
+
+            <div class="customer-details">
+
+                <h2
+                    id="customerName"
+                >
+                    Customer Name
+                </h2>
+
+
+                <p>
+
+                    <strong>
+                        Member ID:
+                    </strong>
+
+                    <span
+                        id="memberId"
+                    >
+                        RMP000000
+                    </span>
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Gender:
+                    </strong>
+
+                    <span
+                        id="customerGender"
+                    >
+                        Male
+                    </span>
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================= -->
+        <!-- AVATAR SETTINGS -->
+        <!-- ================================= -->
+
+        <section class="avatar-settings">
+
+
+            <h3>
+                Choose Your Avatar
+            </h3>
+
+
+            <div class="avatar-choice">
+
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="avatarType"
+                        value="male"
+                        checked
+                    >
+
+                    👨 Male
+
+                </label>
+
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="avatarType"
+                        value="female"
+                    >
+
+                    👩 Female
+
+                </label>
+
+
+            </div>
+
+
+
+            <!-- PHOTO UPLOAD -->
+
+            <label
+                class="upload-btn"
+            >
+
+                📷 Upload Photo
+
+                <input
+                    id="photoInput"
+                    type="file"
+                    accept="image/*"
+                    hidden
+                >
+
+            </label>
+
+
+
+            <!-- PROFILE BUTTONS -->
+
+            <div class="buttons">
+
+
+                <button
+                    id="saveAvatar"
+                    type="button"
+                >
+
+                    💾 Save Profile
+
+                </button>
+
+
+                <button
+                    id="removeAvatar"
+                    type="button"
+                >
+
+                    🗑 Remove Photo
+
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================= -->
+        <!-- LOYALTY STAMP SECTION -->
+        <!-- ================================= -->
+
+        <section class="stamp-section">
+
+
+            <h3>
+
+                ⭐ Your Loyalty Progress
+
+            </h3>
+
+
+            <p class="stamp-subtitle">
+
+                Collect 7 Stamps & Get 1 Free Veg Maggi
+
+            </p>
+
+
+
+            <!-- 8 STAMP CIRCLES -->
+
+            <div
+                class="stamp-container"
+                id="stampContainer"
+            >
+
+
+                <!-- STAMP 1 -->
+
+                <div
+                    class="stamp-circle"
+                    data-stamp="1"
+                >
+
+                    <span>
+                        1
+                    </span>
+
+                </div>
+
+
+                <!-- STAMP 2 -->
+
+                <div
+                    class="stamp-circle"
+                    data-stamp="2"
+                >
+
+                    <span>
+                        2
+                    </span>
+
+                </div>
+
+
+                <!-- STAMP 3 -->
+
+                <div
+                    class="stamp-circle"
+                    data-stamp="3"
+                >
+
+                    <span>
+                        3
+                    </span>
+
+                </div>
+
+
+                <!-- STAMP 4 -->
+
+                <div
+                    class="stamp-circle"
+                    data-stamp="4"
+                >
+
+                    <span>
+                        4
+                    </span>
+
+                </div>
+
+
+                <!-- STAMP 5 -->
+
+                <div
+                    class="stamp-circle"
+                    data-stamp="5"
+                >
+
+                    <span>
+                        5
+                    </span>
+
+                </div>
+
+
+                <!-- STAMP 6 -->
+
+                <div
+                    class="stamp-circle"
+                    data-stamp="6"
+                >
+
+                    <span>
+                        6
+                    </span>
+
+                </div>
+
+
+                <!-- STAMP 7 FREE MAGGI -->
+
+                <div
+                    class="stamp-circle free-maggi"
+                    data-stamp="7"
+                >
+
+                    🎁
+
+                    <small>
+                        FREE
+                    </small>
+
+                </div>
+
+
+                <!-- STAMP 8 HAPPY ANIMATION -->
+
+                <div
+                    class="stamp-circle happy-reward"
+                    data-stamp="8"
+                >
+
+                    😍
+
+                </div>
+
+
+            </div>
+
+
+            <!-- REWARD STATUS -->
+
+            <div
+                id="rewardStatus"
+                class="reward-status"
+            >
+
+                Collect your stamps and unlock your reward! ⭐
+
+            </div>
+
+
+        </section>
+
+
+
+    </main>
+
+
+
+    <!-- ================================= -->
+    <!-- BOTTOM NAVIGATION -->
+    <!-- ================================= -->
+
+    <nav class="bottom-nav">
+
+
+        <!-- HOME -->
+
+        <a
+            href="card.html"
+        >
+
+            🏠
+
+            <span>
+                Home
+            </span>
+
+        </a>
+
+
+
+        <!-- QR -->
+
+        <a
+            href="qr.html"
+        >
+
+            📷
+
+            <span>
+                QR
+            </span>
+
+        </a>
+
+
+
+        <!-- HISTORY -->
+
+        <a
+            href="history.html"
+        >
+
+            🕒
+
+            <span>
+                History
+            </span>
+
+        </a>
+
+
+
+        <!-- REVIEW -->
+
+        <a
+            href="feedback.html"
+        >
+
+            ❤️
+
+            <span>
+                Review
+            </span>
+
+        </a>
+
+
+
+        <!-- PROFILE -->
+
+        <a
+            href="profile.html"
+            class="active"
+        >
+
+            👤
+
+            <span>
+                Profile
+            </span>
+
+        </a>
+
+
+    </nav>
+
 
 </div>
 
-<h3>Default Avatar</h3>
 
-<div class="avatar-choice">
 
-<label>
-
-<input
-type="radio"
-name="avatarType"
-value="male"
-checked>
-
-👨 Male
-
-</label>
-
-<label>
-
-<input
-type="radio"
-name="avatarType"
-value="female">
-
-👩 Female
-
-</label>
-
-</div>
-
-<label
-class="upload-btn">
-
-📷 Upload Photo
-
-<input
-id="photoInput"
-type="file"
-accept="image/*"
-hidden>
-
-</label>
-
-<div class="buttons">
-
-<button
-id="saveAvatar">
-
-💾 Save Profile
-
-</button>
-
-<button
-id="removeAvatar">
-
-🗑 Remove Photo
-
-</button>
-
-</div>
-
-</div>
-<!-- Bottom Navigation -->
-
-<nav class="bottom-nav">
-
-<a href="card.html">
-
-🏠
-
-<span>Home</span>
-
-</a>
-
-<a href="qr.html">
-
-📷
-
-<span>QR</span>
-
-</a>
-
-<a href="history.html">
-
-🕒
-
-<span>History</span>
-
-</a>
-
-<a href="feedback.html">
-
-❤️
-
-<span>Review</span>
-
-</a>
-
-<a href="profile.html" class="active">
-
-👤
-
-<span>Profile</span>
-
-</a>
-
-</nav>
-
-</div>
+<!-- ================================= -->
+<!-- JAVASCRIPT -->
+<!-- ================================= -->
 
 <script
-type="module"
-src="js/profile.js"></script>
+    type="module"
+    src="js/profile.js"
+></script>
+
 
 </body>
 
