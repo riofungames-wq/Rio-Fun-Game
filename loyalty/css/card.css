@@ -1,95 +1,18 @@
-/* =======================================
+/* ==========================================
    RIO MAGGI POINT
-   PREMIUM CARD THEMES
-======================================= */
+   PREMIUM LOYALTY CARD
+========================================== */
 
-/* ==========================
-   MALE CARD
-========================== */
-
-.theme-male{
-
-background:
-
-linear-gradient(
-135deg,
-#141414,
-#123b2a,
-#141414
-);
-
-border:2px solid #d4af37;
-
-box-shadow:
-
-0 8px 30px rgba(0,0,0,.45),
-
-0 0 18px rgba(212,175,55,.45);
-
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
 }
 
-/* ==========================
-   FEMALE CARD
-========================== */
+body{
 
-.theme-female{
-
-background:
-
-linear-gradient(
-135deg,
-#1c1a1d,
-#47253d,
-#1c1a1d
-);
-
-border:2px solid #E7A6B8;
-
-box-shadow:
-
-0 8px 30px rgba(0,0,0,.45),
-
-0 0 18px rgba(231,166,184,.55);
-
-}
-
-/* =======================================
-   OWNER
-======================================= */
-
-.owner-name{
-
-font-size:12px;
-
-font-weight:700;
-
-letter-spacing:.5px;
-
-}
-
-.owner-mobile{
-
-margin-top:4px;
-
-font-size:10px;
-
-font-weight:600;
-
-color:#ffffff;
-
-}
-
-/* =======================================
-   CROWN
-======================================= */
-
-.crown{
-
-width:22px;
-
-height:22px;
-
-margin:0 auto 6px;
+background:#0d0d0d;
 
 display:flex;
 
@@ -97,368 +20,15 @@ justify-content:center;
 
 align-items:center;
 
+min-height:100vh;
+
+padding:20px;
+
 }
 
-.crown img{
+.page{
 
 width:100%;
-
-height:100%;
-
-object-fit:contain;
-
-}
-
-/* =======================================
-   AVATAR
-======================================= */
-
-.avatar-box{
-
-width:56px;
-
-height:56px;
-
-border-radius:15px;
-
-overflow:hidden;
-
-background:#2b2b2b;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-}
-
-.theme-male .avatar-box{
-
-border:2px solid #d4af37;
-
-}
-
-.theme-female .avatar-box{
-
-border:2px solid #E7A6B8;
-
-}
-
-.avatar-box img{
-
-width:100%;
-
-height:100%;
-
-object-fit:cover;
-
-}
-
-/* =======================================
-   BRAND
-======================================= */
-
-.brand-bottom{
-
-font-size:9px;
-
-margin-top:2px;
-
-}
-
-.theme-male .brand-bottom{
-
-color:#FFD86A;
-
-}
-
-.theme-female .brand-bottom{
-
-color:#FFD3DD;
-
-}
-/* =======================================
-   STAMP ROW
-======================================= */
-
-.stamp-row{
-
-display:flex;
-
-align-items:center;
-
-gap:5px;
-
-margin-top:4px;
-
-}
-
-.stamp{
-
-width:28px;
-height:28px;
-
-border-radius:50%;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-font-size:11px;
-font-weight:700;
-
-position:relative;
-
-transition:.3s;
-
-}
-
-.theme-male .stamp{
-
-border:2px solid #d4af37;
-
-}
-
-.theme-female .stamp{
-
-border:2px solid #E7A6B8;
-
-}
-
-.stamp small{
-
-position:absolute;
-
-top:31px;
-
-font-size:7px;
-
-width:40px;
-
-text-align:center;
-
-left:50%;
-
-transform:translateX(-50%);
-
-color:#d8d8d8;
-
-}
-
-/* =======================================
-   REWARD
-======================================= */
-
-.reward-stamp{
-
-width:62px;
-
-height:28px;
-
-border-radius:30px;
-
-display:flex;
-
-justify-content:center;
-align-items:center;
-
-text-align:center;
-
-padding:2px;
-
-font-size:7px;
-
-font-weight:700;
-
-transition:.3s;
-
-}
-
-.theme-male .reward-stamp{
-
-background:#d4af37;
-
-color:#111;
-
-}
-
-.theme-female .reward-stamp{
-
-background:#E7A6B8;
-
-color:#111;
-
-}
-
-/* =======================================
-   REWARD ICON
-======================================= */
-
-.emoji-stamp{
-
-width:28px;
-height:28px;
-
-border-radius:50%;
-
-background:#ffffff;
-
-display:flex;
-
-justify-content:center;
-align-items:center;
-
-overflow:hidden;
-
-}
-
-.emoji-stamp img{
-
-width:18px;
-height:18px;
-
-object-fit:contain;
-
-}
-
-/* =======================================
-   COUNTDOWN
-======================================= */
-
-.countdown-row{
-
-margin-top:16px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-gap:6px;
-
-font-size:10px;
-
-font-weight:600;
-
-}
-
-.countdown-row img{
-
-width:14px;
-height:14px;
-
-object-fit:contain;
-
-}
-
-.theme-male .countdown-row{
-
-color:#FFD86A;
-
-}
-
-.theme-female .countdown-row{
-
-color:#FFD3DD;
-
-}
-
-/* =======================================
-   PLAY BUTTON
-======================================= */
-
-.play-btn{
-
-position:absolute;
-
-right:0;
-
-bottom:-42px;
-
-height:30px;
-
-padding:0 12px;
-
-display:flex;
-
-align-items:center;
-
-gap:6px;
-
-border:none;
-
-border-radius:20px;
-
-cursor:pointer;
-
-font-size:10px;
-
-font-weight:700;
-
-transition:.25s;
-
-}
-
-.theme-male .play-btn{
-
-background:#18A84F;
-
-color:#fff;
-
-box-shadow:0 0 10px rgba(24,168,79,.45);
-
-}
-
-.theme-female .play-btn{
-
-background:#D63384;
-
-color:#fff;
-
-box-shadow:0 0 10px rgba(214,51,132,.45);
-
-}
-
-.play-btn img{
-
-width:15px;
-
-height:15px;
-
-object-fit:contain;
-
-}
-
-.play-btn:hover{
-
-transform:scale(1.05);
-
-}
-/* =======================================
-   BOTTOM NAVIGATION
-======================================= */
-
-.bottom-nav{
-
-margin-top:18px;
-
-width:340px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-}
-
-.bottom-nav a{
-
-text-decoration:none;
-
-color:#ffffff;
 
 display:flex;
 
@@ -466,55 +36,105 @@ flex-direction:column;
 
 align-items:center;
 
-justify-content:center;
+}
 
-gap:4px;
+/* ==========================================
+CARD
+========================================== */
 
-transition:.25s;
+.loyalty-card{
+
+position:relative;
+
+width:350px;
+
+border-radius:24px;
+
+padding:22px;
+
+overflow:hidden;
+
+color:#fff;
+
+transition:.35s;
 
 }
 
-.bottom-nav a:hover{
+/* =========================
+MALE
+========================= */
 
-transform:translateY(-3px);
+.theme-male{
+
+background:
+
+linear-gradient(
+
+135deg,
+
+#111111 0%,
+
+#0f2b21 45%,
+
+#1b1b1b 100%
+
+);
+
+border:2px solid #D4AF37;
+
+box-shadow:
+
+0 15px 45px rgba(0,0,0,.55),
+
+0 0 20px rgba(212,175,55,.35);
 
 }
 
-.bottom-nav img{
+/* =========================
+FEMALE
+========================= */
 
-width:22px;
+.theme-female{
 
-height:22px;
+background:
 
-object-fit:contain;
+linear-gradient(
+
+135deg,
+
+#25141c 0%,
+
+#5d3148 50%,
+
+#2a1720 100%
+
+);
+
+border:2px solid #E8B2C5;
+
+box-shadow:
+
+0 15px 45px rgba(0,0,0,.55),
+
+0 0 20px rgba(232,178,197,.35);
 
 }
 
-.bottom-nav span{
+/* ==========================================
+PREMIUM SHINE
+========================================== */
 
-font-size:10px;
-
-font-weight:600;
-
-}
-
-/* =======================================
-   CARD SHINE
-======================================= */
-
-.loyalty-card::after{
-
-content:"";
+.card-shine{
 
 position:absolute;
 
-top:0;
+top:-140px;
 
-left:-120%;
+left:-80px;
 
-width:60%;
+width:160px;
 
-height:100%;
+height:500px;
 
 background:
 
@@ -524,122 +144,341 @@ linear-gradient(
 
 transparent,
 
-rgba(255,255,255,.18),
+rgba(255,255,255,.10),
 
 transparent
 
 );
 
-transform:skewX(-25deg);
-
-animation:cardShine 5s linear infinite;
+transform:rotate(28deg);
 
 pointer-events:none;
 
 }
 
-@keyframes cardShine{
+/* ==========================================
+TOP
+========================================== */
 
-0%{
+.card-top{
 
-left:-120%;
+display:flex;
 
-}
+justify-content:space-between;
 
-100%{
+align-items:center;
 
-left:160%;
-
-}
-
-}
-
-/* =======================================
-   CARD HOVER
-======================================= */
-
-.loyalty-card{
-
-transition:.35s;
+margin-bottom:18px;
 
 }
 
-.loyalty-card:hover{
+.brand{
 
-transform:translateY(-4px);
+display:flex;
 
-}
+align-items:center;
 
-/* =======================================
-   MOBILE
-======================================= */
-
-@media(max-width:480px){
-
-body{
-
-padding:14px;
+gap:12px;
 
 }
 
-.loyalty-card{
+.brand-logo{
 
-width:340px;
+width:46px;
 
-height:214px;
+height:46px;
 
-transform:scale(.95);
+border-radius:14px;
 
-}
+background:#ffffff;
 
-.bottom-nav{
+display:flex;
 
-width:340px;
+justify-content:center;
 
-}
+align-items:center;
 
-}
-
-/* =======================================
-   TABLET
-======================================= */
-
-@media(min-width:768px){
-
-.loyalty-card{
-
-transform:scale(1.15);
+overflow:hidden;
 
 }
 
-.bottom-nav{
+.brand-logo img{
 
-margin-top:45px;
+width:100%;
 
-}
+height:100%;
 
-}
-
-/* =======================================
-   DESKTOP
-======================================= */
-
-@media(min-width:1200px){
-
-.loyalty-card{
-
-transform:scale(1.28);
+object-fit:cover;
 
 }
 
-.bottom-nav{
+.brand-text h2{
 
-margin-top:60px;
+font-size:16px;
+
+font-weight:700;
+
+letter-spacing:.5px;
 
 }
 
+.brand-text p{
+
+font-size:10px;
+
+opacity:.85;
+
+margin-top:2px;
+
 }
 
-/* =======================================
-   END
-======================================= */
+.premium-chip{
+
+width:52px;
+
+height:40px;
+
+border-radius:10px;
+
+background:
+
+linear-gradient(
+
+135deg,
+
+#e6d18c,
+
+#c79b2a
+
+);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+.premium-chip img{
+
+width:28px;
+
+height:28px;
+
+object-fit:contain;
+
+}
+/* ==========================================
+CUSTOMER SECTION
+========================================== */
+
+.customer-section{
+
+display:flex;
+
+align-items:center;
+
+gap:16px;
+
+margin-bottom:20px;
+
+}
+
+.avatar-wrapper{
+
+position:relative;
+
+width:82px;
+
+height:82px;
+
+flex-shrink:0;
+
+}
+
+.avatar-wrapper img{
+
+width:100%;
+
+height:100%;
+
+border-radius:20px;
+
+object-fit:cover;
+
+background:#222;
+
+}
+
+.theme-male .avatar-wrapper img{
+
+border:3px solid #D4AF37;
+
+}
+
+.theme-female .avatar-wrapper img{
+
+border:3px solid #E8B2C5;
+
+}
+
+/* VIP RING */
+
+.vip-ring{
+
+position:absolute;
+
+inset:-6px;
+
+border-radius:24px;
+
+pointer-events:none;
+
+}
+
+.theme-male .vip-ring{
+
+border:2px solid rgba(212,175,55,.45);
+
+}
+
+.theme-female .vip-ring{
+
+border:2px solid rgba(232,178,197,.45);
+
+}
+
+.customer-info{
+
+flex:1;
+
+}
+
+.customer-info h3{
+
+font-size:22px;
+
+font-weight:700;
+
+letter-spacing:.3px;
+
+margin-bottom:4px;
+
+}
+
+.customer-info p{
+
+font-size:12px;
+
+opacity:.9;
+
+margin-bottom:10px;
+
+}
+
+.mobile-row{
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+font-size:13px;
+
+font-weight:600;
+
+}
+
+.mobile-row img{
+
+width:18px;
+
+height:18px;
+
+object-fit:contain;
+
+}
+
+/* ==========================================
+STAMP SECTION
+========================================== */
+
+.stamp-title{
+
+font-size:13px;
+
+font-weight:700;
+
+margin-bottom:10px;
+
+opacity:.9;
+
+}
+
+.stamp-row{
+
+display:flex;
+
+justify-content:space-between;
+
+gap:8px;
+
+margin-bottom:18px;
+
+}
+
+.stamp{
+
+width:42px;
+
+height:42px;
+
+border-radius:50%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:14px;
+
+font-weight:700;
+
+position:relative;
+
+background:rgba(255,255,255,.08);
+
+}
+
+.theme-male .stamp{
+
+border:2px solid #D4AF37;
+
+}
+
+.theme-female .stamp{
+
+border:2px solid #E8B2C5;
+
+}
+
+.stamp small{
+
+position:absolute;
+
+top:48px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+font-size:8px;
+
+white-space:nowrap;
+
+opacity:.8;
+
+}
