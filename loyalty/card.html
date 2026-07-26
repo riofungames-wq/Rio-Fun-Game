@@ -1,338 +1,265 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width,initial-scale=1.0">
-
-<title>Rio Maggi Point</title>
-
-<link rel="stylesheet"
-href="css/card.css">
-
-</head>
-
 <body>
 
 <div class="page">
 
-<!-- ========================= -->
-<!-- PREMIUM CARD -->
-<!-- ========================= -->
+<!-- ========================================= -->
+<!-- PREMIUM LOYALTY CARD -->
+<!-- ========================================= -->
 
-<div
-id="loyaltyCard"
-class="loyalty-card theme-male">
+<div id="loyaltyCard" class="loyalty-card theme-male">
 
-<!-- Premium Shine -->
+    <!-- Background Effects -->
 
-<div class="card-shine"></div>
+    <div class="card-bg-circle circle-1"></div>
+    <div class="card-bg-circle circle-2"></div>
 
-<!-- Top Row -->
+    <!-- Top Header -->
 
-<div class="card-top">
+    <div class="card-header">
 
-<div class="brand">
+        <div class="brand-area">
 
-<div class="brand-logo">
+            <img
+            class="brand-logo"
+            src="assets/logo/logo.png"
+            alt="Rio Logo">
 
-<img
-src="assets/icons/logo.png"
-alt="Rio">
+            <div class="brand-text">
+
+                <h1>RIO MAGGI POINT</h1>
+
+                <span>Premium Loyalty Club</span>
+
+            </div>
+
+        </div>
+
+        <div class="premium-badge">
+
+            PREMIUM
+
+        </div>
+
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CUSTOMER PROFILE -->
+    <!-- ========================================= -->
+
+    <div class="customer-section">
+
+        <div class="avatar-area">
+
+            <div class="avatar-ring"></div>
+
+            <img
+            id="customerPhoto"
+            src="assets/avatars/male.png"
+            alt="Avatar">
+
+        </div>
+
+        <div class="customer-details">
+
+            <div
+            id="customerName"
+            class="customer-name">
+
+                Loading...
+
+            </div>
+
+            <div
+            id="memberId"
+            class="member-id">
+
+                ID : -----
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CARD DIVIDER -->
+    <!-- ========================================= -->
+
+    <div class="premium-divider"></div>
+        <!-- ========================================= -->
+    <!-- STAMP SECTION -->
+    <!-- ========================================= -->
+
+    <div class="stamp-section">
+
+        <div class="section-title">
+
+            YOUR STAMP PROGRESS
+
+        </div>
+
+        <div class="stamp-grid">
+
+            <div class="stamp-box">
+
+                <div class="stamp-number">1</div>
+
+                <div id="date1" class="stamp-date"></div>
+
+            </div>
+
+            <div class="stamp-box">
+
+                <div class="stamp-number">2</div>
+
+                <div id="date2" class="stamp-date"></div>
+
+            </div>
+
+            <div class="stamp-box">
+
+                <div class="stamp-number">3</div>
+
+                <div id="date3" class="stamp-date"></div>
+
+            </div>
+
+            <div class="stamp-box">
+
+                <div class="stamp-number">4</div>
+
+                <div id="date4" class="stamp-date"></div>
+
+            </div>
+
+            <div class="stamp-box">
+
+                <div class="stamp-number">5</div>
+
+                <div id="date5" class="stamp-date"></div>
+
+            </div>
+
+            <div class="stamp-box">
+
+                <div class="stamp-number">6</div>
+
+                <div id="date6" class="stamp-date"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ========================================= -->
+    <!-- ACTION BUTTON -->
+    <!-- ========================================= -->
+
+    <div class="card-action">
+
+        <button
+        id="playGameBtn"
+        class="play-btn">
+
+            🎮 PLAY GAME
+
+        </button>
+
+    </div>
+
+    <!-- Hidden Firebase Element -->
+
+    <span
+    id="countdown"
+    style="display:none;">
+
+        --
+
+    </span>
+        <!-- ========================================= -->
+    <!-- PREMIUM FOOTER -->
+    <!-- ========================================= -->
 
 </div>
 
-<div class="brand-text">
-
-<h2>
-
-RIO MAGGI POINT
-
-</h2>
-
-<p>
-
-Premium Loyalty Member
-
-</p>
-
-</div>
-
-</div>
-
-<div class="premium-chip">
-
-<img
-src="assets/icons/chip.png"
-alt="Chip">
-
-</div>
-
-</div>
-
-<!-- ========================= -->
-<!-- CUSTOMER -->
-<!-- ========================= -->
-
-<div class="customer-section">
-
-<div class="avatar-wrapper">
-
-<img
-
-id="customerPhoto"
-
-src="assets/avatars/male.png"
-
-alt="Avatar">
-
-<div class="vip-ring"></div>
-
-</div>
-
-<div class="customer-info">
-
-<h3
-id="customerName">
-
-Loading...
-
-</h3>
-
-<p
-id="memberId">
-
-ID : -----
-
-</p>
-
-<div class="mobile-row">
-
-<img
-src="assets/icons/phone.png"
-alt="Phone">
-
-<span
-id="ownerNumber">
-
-Loading...
-
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ========================= -->
-<!-- STAMP AREA -->
-<!-- ========================= -->
-
-<div class="stamp-section">
-
-<div class="stamp-title">
-
-Loyalty Progress
-
-</div>
-
-<div class="stamp-row">
-
-<div class="stamp">
-
-<span>1</span>
-
-<small id="date1"></small>
-
-</div>
-
-<div class="stamp">
-
-<span>2</span>
-
-<small id="date2"></small>
-
-</div>
-
-<div class="stamp">
-
-<span>3</span>
-
-<small id="date3"></small>
-
-</div>
-
-<div class="stamp">
-
-<span>4</span>
-
-<small id="date4"></small>
-
-</div>
-<div class="stamp">
-
-<span>5</span>
-
-<small id="date5"></small>
-
-</div>
-
-<div class="stamp">
-
-<span>6</span>
-
-<small id="date6"></small>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ========================= -->
-<!-- REWARD -->
-<!-- ========================= -->
-
-<div class="reward-section">
-
-<div class="reward-badge">
-
-<img
-src="assets/icons/reward.png"
-alt="Reward">
-
-<span>
-
-FREE VEG MAGGI
-
-</span>
-
-</div>
-
-<div class="countdown-box">
-
-<img
-src="assets/icons/countdown.png"
-alt="Countdown">
-
-<span
-id="countdown">
-
---
-
-</span>
-
-</div>
-
-</div>
-
-<!-- ========================= -->
-<!-- ACTION -->
-<!-- ========================= -->
-
-<div class="action-row">
-
-<button
-id="playGameBtn"
-class="play-btn">
-
-<img
-src="assets/icons/play.png"
-alt="Play">
-
-<span>
-
-PLAY GAME
-
-</span>
-
-</button>
-
-</div>
-
-</div>
-
-<!-- ========================= -->
-<!-- BOTTOM NAVIGATION -->
-<!-- ========================= -->
+<!-- ========================================= -->
+<!-- BOTTOM NAVIGATION
+========================================= -->
 
 <nav class="bottom-nav">
 
-<a
-href="card.html"
-class="active">
+    <a
+    href="card.html"
+    class="active">
 
-<img
-src="assets/icons/home.png"
-alt="Home">
+        <img
+        src="assets/icons/home.png"
+        alt="Home">
 
-<span>
+        <span>
 
-Home
+            Home
 
-</span>
+        </span>
 
-</a>
+    </a>
 
-<a href="qr.html">
+    <a href="qr.html">
 
-<img
-src="assets/icons/qr.png"
-alt="QR">
+        <img
+        src="assets/icons/qr.png"
+        alt="QR">
 
-<span>
+        <span>
 
-QR
+            QR
 
-</span>
+        </span>
 
-</a>
+    </a>
 
-<a href="history.html">
+    <a href="history.html">
 
-<img
-src="assets/icons/history.png"
-alt="History">
+        <img
+        src="assets/icons/history.png"
+        alt="History">
 
-<span>
+        <span>
 
-History
+            History
 
-</span>
+        </span>
 
-</a>
+    </a>
 
-<a href="feedback.html">
+    <a href="feedback.html">
 
-<img
-src="assets/icons/review.png"
-alt="Review">
+        <img
+        src="assets/icons/review.png"
+        alt="Review">
 
-<span>
+        <span>
 
-Review
+            Review
 
-</span>
+        </span>
 
-</a>
+    </a>
 
-<a href="profile.html">
+    <a href="profile.html">
 
-<img
-src="assets/icons/profile.png"
-alt="Profile">
+        <img
+        src="assets/icons/profile.png"
+        alt="Profile">
 
-<span>
+        <span>
 
-Profile
+            Profile
 
-</span>
+        </span>
 
-</a>
+    </a>
 
 </nav>
 
@@ -341,7 +268,6 @@ Profile
 <script
 type="module"
 src="js/card.js">
-
 </script>
 
 </body>
