@@ -1,35 +1,24 @@
-// ==========================================
+// =====================================================
 // RIO MAGGI POINT
-// PREMIUM CARD
+// card.js
 // PART 1
-// ==========================================
+// =====================================================
 
-import { auth, db }
-from "./firebase-config.js";
-
-import {
-
-onAuthStateChanged
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { auth, db } from "./firebase-config.js";
 
 import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-doc,
-getDoc
+import {
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-}
-
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // ==========================================
-// HTML
+// ELEMENTS
 // ==========================================
-
-const loyaltyCard =
-document.getElementById("loyaltyCard");
 
 const customerPhoto =
 document.getElementById("customerPhoto");
@@ -40,280 +29,326 @@ document.getElementById("customerName");
 const memberId =
 document.getElementById("memberId");
 
-const ownerNumber =
-document.getElementById("ownerNumber");
+const playGameBtn =
+document.getElementById("playGameBtn");
 
-const rewardBadge =
-document.querySelector(".reward-badge");
+const loyaltyCard =
+document.getElementById("loyaltyCard");
 
-const countdown =
-document.getElementById("countdown");
+
+// Stamp Dates
+
+const date1 =
+document.getElementById("date1");
+
+const date2 =
+document.getElementById("date2");
+
+const date3 =
+document.getElementById("date3");
+
+const date4 =
+document.getElementById("date4");
+
+const date5 =
+document.getElementById("date5");
+
+const date6 =
+document.getElementById("date6");
+
+
+// Stamp Circles
+
+const stamp1 =
+document.getElementById("stamp1");
+
+const stamp2 =
+document.getElementById("stamp2");
+
+const stamp3 =
+document.getElementById("stamp3");
+
+const stamp4 =
+document.getElementById("stamp4");
+
+const stamp5 =
+document.getElementById("stamp5");
+
+const stamp6 =
+document.getElementById("stamp6");
+
+
+// Happy Emoji
+
+const happyCircle =
+document.getElementById("happyCircle");
+
 
 // ==========================================
-// LOGIN
+// LOGIN CHECK
 // ==========================================
 
-onAuthStateChanged(
+onAuthStateChanged(auth, async(user)=>{
 
-auth,
+    if(!user){
 
-async(user)=>{
+        window.location.href="login.html";
 
-if(!user){
+        return;
 
-window.location.href="login.html";
+    }
 
-return;
+    try{
 
-}
+        const customerRef =
+        doc(db,"customers",user.uid);
 
-loadCustomer(user.uid);
+        const customerSnap =
+        await getDoc(customerRef);
 
-}
+        if(!customerSnap.exists()){
 
-);
+            alert("Customer data not found.");
 
-// ==========================================
+            window.location.href="signup.html";
+
+            return;
+
+        }
+
+        const customer =
+        customerSnap.data();
+
+        loadCustomer(customer);
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Unable to load customer.");
+
+    }
+
+});
+// =====================================================
 // LOAD CUSTOMER
-// ==========================================
+// =====================================================
 
-async function loadCustomer(uid){
+function loadCustomer(customer){
 
-try{
+    // -----------------------------
+    // Name
+    // -----------------------------
 
-const ref=
+    customerName.textContent =
+    customer.name || "Customer";
 
-doc(db,"customers",uid);
+    // -----------------------------
+    // Member ID
+    // -----------------------------
 
-const snap=
+    memberId.textContent =
+    customer.memberId || "ID : -----";
 
-await getDoc(ref);
+    // -----------------------------
+    // Avatar
+    // -----------------------------
 
-if(!snap.exists()) return;
+    if(customer.photoURL){
 
-const data=snap.data();
+        customerPhoto.src =
+        customer.photoURL;
 
-// =======================
-// NAME
-// =======================
+    }
 
-customerName.textContent=
+    // -----------------------------
+    // Gender Theme
+    // -----------------------------
 
-data.name || "Customer";
+    if(customer.gender){
 
-// =======================
-// MEMBER ID
-// =======================
+        const gender =
+        customer.gender.toLowerCase();
 
-memberId.textContent=
+        loyaltyCard.classList.remove(
+            "male-theme",
+            "female-theme"
+        );
 
-"ID : " +
+        if(gender==="female"){
 
-(data.memberId || "------");
+            loyaltyCard.classList.add(
+                "female-theme"
+            );
 
-// =======================
-// MOBILE
-// =======================
+        }
 
-ownerNumber.textContent=
+        else{
 
-data.mobile || "";
+            loyaltyCard.classList.add(
+                "male-theme"
+            );
 
-// =======================
-// THEME
-// =======================
+        }
 
-loyaltyCard.classList.remove(
+    }
 
-"theme-male",
+    // -----------------------------
+    // Stamp Count
+    // -----------------------------
 
-"theme-female"
-
-);
-
-if(data.gender==="female"){
-
-loyaltyCard.classList.add(
-
-"theme-female"
-
-);
-
-}else{
-
-loyaltyCard.classList.add(
-
-"theme-male"
-
-);
+    loadStampProgress(customer);
 
 }
 
-// =======================
-// PHOTO
-// =======================
 
-if(data.photoURL){
+// =====================================================
+// LOAD STAMPS
+// =====================================================
 
-customerPhoto.src=
+function loadStampProgress(customer){
 
-data.photoURL;
+    const stamps =
+    customer.stamps || 0;
 
-}else{
+    const dates =
+    customer.stampDates || [];
 
-customerPhoto.src=
+    const circles=[
 
-data.gender==="female"
+        stamp1,
+        stamp2,
+        stamp3,
+        stamp4,
+        stamp5,
+        stamp6
 
-?
+    ];
 
-"assets/avatars/female.png"
+    const labels=[
 
-:
+        date1,
+        date2,
+        date3,
+        date4,
+        date5,
+        date6
 
-"assets/avatars/male.png";
+    ];
+
+    for(let i=0;i<6;i++){
+
+        circles[i].classList.remove("active");
+
+        labels[i].textContent="";
+
+        if(i<stamps){
+
+            circles[i].classList.add("active");
+
+        }
+
+        if(dates[i]){
+
+            labels[i].textContent=
+            formatDate(dates[i]);
+
+        }
+
+    }
+
+    updateHappyEmoji(stamps);
+
+}
+// =====================================================
+// FORMAT DATE
+// =====================================================
+
+function formatDate(value){
+
+    try{
+
+        if(!value) return "";
+
+        // Firestore Timestamp
+
+        if(value.toDate){
+
+            const d=value.toDate();
+
+            return d.toLocaleDateString("en-IN",{
+
+                day:"2-digit",
+                month:"short"
+
+            });
+
+        }
+
+        // JS Date
+
+        const d=new Date(value);
+
+        return d.toLocaleDateString("en-IN",{
+
+            day:"2-digit",
+            month:"short"
+
+        });
+
+    }
+
+    catch{
+
+        return "";
+
+    }
 
 }
 
-// =======================
-// STAMPS
-// =======================
 
-for(let i=1;i<=6;i++){
+// =====================================================
+// HAPPY EMOJI
+// =====================================================
 
-const el=
+function updateHappyEmoji(stamps){
 
-document.getElementById(
+    const emojiList=[
 
-"date"+i
+        "🙂",
+        "😊",
+        "😄",
+        "🤩",
+        "🥳",
+        "😍",
+        "🎉"
 
-);
+    ];
 
-if(el){
+    let index=Math.min(stamps,6);
 
-el.textContent=
-
-data["stamp"+i] || "";
-
-}
-
-}
-    // =======================
-// REWARD
-// =======================
-
-const totalStamp =
-
-Number(data.totalStamp || 0);
-
-if(totalStamp>=6){
-
-rewardBadge.style.opacity="1";
-
-rewardBadge.style.transform="scale(1.02)";
-
-}else{
-
-rewardBadge.style.opacity=".45";
-
-rewardBadge.style.transform="scale(.96)";
+    happyCircle.textContent=emojiList[index];
 
 }
 
-// =======================
-// COUNTDOWN
-// =======================
 
-if(countdown){
-
-const remain =
-
-Math.max(
-
-0,
-
-6-totalStamp
-
-);
-
-if(remain===0){
-
-countdown.textContent=
-
-"Reward Ready";
-
-}else{
-
-countdown.textContent=
-
-remain + " Stamp Left";
-
-}
-
-}
-
-}catch(err){
-
-console.error(err);
-
-}
-
-}
-
-// ==========================================
+// =====================================================
 // PLAY GAME
-// ==========================================
+// =====================================================
 
-const playBtn=
+playGameBtn.addEventListener("click",()=>{
 
-document.getElementById(
+    window.location.href="game.html";
 
-"playGameBtn"
+});
 
-);
 
-if(playBtn){
-
-playBtn.addEventListener(
-
-"click",
-
-()=>{
-
-window.open(
-
-"https://riofungames-wq.github.io/Rio-Fun-Game/",
-
-"_blank"
-
-);
-
-}
-
-);
-
-}
-
-// ==========================================
-// DOWNLOAD CARD
-// ==========================================
-
-window.downloadCard=function(){
-
-alert(
-
-"Download Module Coming Soon"
-
-);
-
-};
-
-// ==========================================
-// READY
-// ==========================================
-
-console.log(
-
-"RIO PREMIUM CARD READY"
-
-);
+// =====================================================
+// FUTURE REWARD LOGIC
+// =====================================================
+// Circle 7 (Veg Maggi) unlock
+// will be controlled from Admin Panel.
+// Firebase reward flag can be added later.
+// =====================================================
