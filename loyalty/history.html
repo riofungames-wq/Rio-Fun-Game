@@ -3,219 +3,286 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
 
-    <title>Rio Loyalty Club | History</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <meta name="theme-color" content="#263525">
+<title>
 
-    <link rel="manifest" href="manifest.json">
+History | Rio Maggi Point
 
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/history.css">
+</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link
+rel="stylesheet"
+href="css/history.css">
 
 </head>
 
 <body>
 
-<div class="history-page">
+<div class="page">
 
-    <header class="topbar">
+<!-- ============================= -->
+<!-- HEADER -->
+<!-- ============================= -->
 
-        <a href="profile.html" class="back-btn">
-            <i class="fa-solid fa-arrow-left"></i>
-        </a>
+<header class="top-header">
 
-        <h1>
-            Stamp History
-        </h1>
+<h1>
 
-        <div class="top-space"></div>
+Stamp History
 
-    </header>
+</h1>
 
-    <section class="customer-card">
+<p>
 
-        <div class="customer-avatar">
+Rio Maggi Point Loyalty Club
 
-            <img
-            id="customerAvatar"
-            src="assets/avatars/default.png"
-            alt="Avatar">
+</p>
 
-        </div>
+</header>
 
-        <div class="customer-info">
+<!-- ============================= -->
+<!-- PROFILE CARD -->
+<!-- ============================= -->
 
-            <h2 id="customerName">
+<div
+class="profile-card theme-male"
+id="profileCard">
 
-                Loading...
+<div class="profile-left">
 
-            </h2>
+<div class="avatar-box">
 
-            <p id="memberId">
+<img
 
-                Member ID
+id="customerPhoto"
 
-            </p>
+src="assets/avatars/male.png"
 
-        </div>
-
-    </section>
-
-    <section class="summary-cards">
-
-        <div class="summary-card">
-
-            <h3>Total Stamps</h3>
-
-            <h2 id="totalStamps">
-
-                0
-
-            </h2>
-
-        </div>
-
-        <div class="summary-card">
-
-            <h3>Rewards</h3>
-
-            <h2 id="totalRewards">
-
-                0
-
-            </h2>
-
-        </div>
-
-    </section>
-
-    <section class="history-list">
-
-        <h2>
-
-            Activity History
-
-        </h2>
-
-        <div id="historyContainer">
-
-            <!-- Firebase History Here -->
-
-        </div>
-
-    </section>
-          <div class="history-item">
-
-            <div class="history-icon stamp">
-
-                ⭐
-
-            </div>
-
-            <div class="history-details">
-
-                <h3>
-
-                    Welcome to Rio Loyalty Club
-
-                </h3>
-
-                <p>
-
-                    Your activity history will appear here.
-
-                </p>
-
-                <span>
-
-                    Just Now
-
-                </span>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <section class="reward-history">
-
-        <h2>
-
-            Reward History
-
-        </h2>
-
-        <div id="rewardHistoryContainer">
-
-            <div class="history-item">
-
-                <div class="history-icon reward">
-
-                    🎁
-
-                </div>
-
-                <div class="history-details">
-
-                    <h3>
-
-                        No Rewards Yet
-
-                    </h3>
-
-                    <p>
-
-                        Unlock 6 stamps to claim your first Free Veg Maggi.
-
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-      <nav class="bottom-nav">
-
-        <a href="index.html">
-            <i class="fa-solid fa-house"></i>
-            <span>Home</span>
-        </a>
-
-        <a href="qr.html">
-            <i class="fa-solid fa-qrcode"></i>
-            <span>QR</span>
-        </a>
-
-        <a href="history.html" class="active">
-            <i class="fa-solid fa-clock-rotate-left"></i>
-            <span>History</span>
-        </a>
-
-        <a href="profile.html">
-            <i class="fa-solid fa-user"></i>
-            <span>Profile</span>
-        </a>
-
-    </nav>
+alt="Avatar">
 
 </div>
 
-<!-- JavaScript -->
-<script type="module" src="js/history.js"></script>
+</div>
+
+<div class="profile-right">
+
+<h2
+id="customerName">
+
+Loading...
+
+</h2>
+
+<p
+id="memberId">
+
+ID : -----
+
+</p>
+
+</div>
+
+</div>
+
+<!-- ============================= -->
+<!-- SUMMARY -->
+<!-- ============================= -->
+
+<div class="summary-row">
+
+<div class="summary-box">
+
+<h3>
+
+Total Stamp
+
+</h3>
+
+<h2
+id="totalStamp">
+
+0
+
+</h2>
+
+</div>
+
+<div class="summary-box">
+
+<h3>
+
+Reward
+
+</h3>
+
+<h2
+id="rewardCount">
+
+0
+
+</h2>
+
+</div>
+
+</div>
+
+<!-- ============================= -->
+<!-- HISTORY TITLE -->
+<!-- ============================= -->
+
+<div class="section-title">
+
+Activity Timeline
+
+</div>
+
+<!-- ============================= -->
+<!-- HISTORY LIST -->
+<!-- ============================= -->
+
+<div
+class="history-list"
+id="historyContainer">
+            <!-- Timeline Items Firebase -->
+
+</div>
+
+<!-- ============================= -->
+<!-- REWARD HISTORY -->
+<!-- ============================= -->
+
+<div class="section-title">
+
+Reward History
+
+</div>
+
+<div
+class="reward-list"
+id="rewardContainer">
+
+<div class="reward-item">
+
+<div class="reward-icon">
+
+🎁
+
+</div>
+
+<div class="reward-info">
+
+<h3>
+
+No Reward Yet
+
+</h3>
+
+<p>
+
+Complete 6 stamps to unlock
+your first FREE Veg Maggi.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ============================= -->
+<!-- BOTTOM NAVIGATION -->
+<!-- ============================= -->
+
+<nav class="bottom-nav">
+
+<a href="card.html">
+
+<img
+src="assets/icons/home.png"
+alt="Home">
+
+<span>
+
+Home
+
+</span>
+
+</a>
+
+<a href="qr.html">
+
+<img
+src="assets/icons/qr.png"
+alt="QR">
+
+<span>
+
+QR
+
+</span>
+
+</a>
+
+<a
+href="history.html"
+class="active">
+
+<img
+src="assets/icons/history.png"
+alt="History">
+
+<span>
+
+History
+
+</span>
+
+</a>
+
+<a href="feedback.html">
+
+<img
+src="assets/icons/review.png"
+alt="Review">
+
+<span>
+
+Review
+
+</span>
+
+</a>
+
+<a href="profile.html">
+
+<img
+src="assets/icons/profile.png"
+alt="Profile">
+
+<span>
+
+Profile
+
+</span>
+
+</a>
+
+</nav>
+
+</div>
+
+<script
+type="module"
+src="js/history.js">
+
+</script>
 
 </body>
+
 </html>
