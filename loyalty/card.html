@@ -13,7 +13,7 @@ content="width=device-width, initial-scale=1.0">
 
 <meta
 name="theme-color"
-content="#263525">
+content="#304D30">
 
 <link
 rel="manifest"
@@ -50,28 +50,30 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 <div class="page">
 
+<!-- ================================================= -->
+<!-- PREMIUM LOYALTY CARD -->
+<!-- ================================================= -->
+
 <div
 id="loyaltyCard"
-class="loyalty-card male-theme">
+class="loyalty-card theme-male">
 
-<!-- Premium Background -->
+<div class="card-glow"></div>
 
-<div class="premium-glow"></div>
+<div class="card-shine"></div>
 
-<div class="premium-shine"></div>
-
-<!-- ===================================== -->
+<!-- ================================================= -->
 <!-- HEADER -->
-<!-- ===================================== -->
+<!-- ================================================= -->
 
 <div class="card-header">
 
-<div class="brand-left">
+<div class="brand-section">
 
 <img
-src="assets/logo/logo.png"
 class="brand-logo"
-alt="Rio">
+src="assets/logo/logo.png"
+alt="Rio Logo">
 
 <div class="brand-text">
 
@@ -91,7 +93,7 @@ Premium Loyalty Card
 
 </div>
 
-<div class="owner-box">
+<div class="owner-section">
 
 <div class="owner-name">
 
@@ -99,9 +101,11 @@ KABiR
 
 </div>
 
-<div class="owner-mobile">
+<div
+id="mobileNumber"
+class="owner-mobile">
 
-📞 7987827979
+📞 Loading...
 
 </div>
 
@@ -109,7 +113,13 @@ KABiR
 id="playGameBtn"
 class="play-btn">
 
-🎮 PLAY GAME
+<i class="fa-solid fa-gamepad"></i>
+
+<span>
+
+PLAY GAME
+
+</span>
 
 </button>
 
@@ -117,27 +127,24 @@ class="play-btn">
 
 </div>
 
-<!-- ===================================== -->
-<!-- CUSTOMER -->
-<!-- ===================================== -->
+<!-- ================================================= -->
+<!-- CUSTOMER PROFILE -->
+<!-- ================================================= -->
 
 <div class="customer-section">
 
-<div class="avatar-area">
+<div class="avatar-wrapper">
 
 <div class="avatar-ring"></div>
 
 <img
-
 id="customerPhoto"
-
-src="assets/avatars/male.png"
-
+src="assets/avatars/male-01.png"
 alt="Customer">
 
 </div>
 
-<div class="customer-details">
+<div class="customer-info">
 
 <h1
 id="customerName">
@@ -157,152 +164,211 @@ ID : -----
 
 </div>
 
-<!-- Divider -->
-
 <div class="premium-divider"></div>
-<!-- ===================================== -->
+<!-- ================================================= -->
 <!-- STAMP SECTION -->
-<!-- ===================================== -->
+<!-- ================================================= -->
 
 <div class="stamp-section">
 
-    <div class="stamp-heading">
+<div class="stamp-title">
 
-        Collect 6 Stamps & Get 1 Free Veg Maggi
-
-    </div>
-
-    <div class="stamp-grid">
-
-        <!-- Stamp 1 -->
-
-        <div class="stamp-box">
-
-            <div class="stamp-circle" id="stamp1">
-
-                <span>1</span>
-
-            </div>
-
-            <small id="date1"></small>
-
-        </div>
-
-        <!-- Stamp 2 -->
-
-        <div class="stamp-box">
-
-            <div class="stamp-circle" id="stamp2">
-
-                <span>2</span>
-
-            </div>
-
-            <small id="date2"></small>
-
-        </div>
-
-        <!-- Stamp 3 -->
-
-        <div class="stamp-box">
-
-            <div class="stamp-circle" id="stamp3">
-
-                <span>3</span>
-
-            </div>
-
-            <small id="date3"></small>
-
-        </div>
-
-        <!-- Stamp 4 -->
-
-        <div class="stamp-box">
-
-            <div class="stamp-circle" id="stamp4">
-
-                <span>4</span>
-
-            </div>
-
-            <small id="date4"></small>
-
-        </div>
-
-        <!-- Stamp 5 -->
-
-        <div class="stamp-box">
-
-            <div class="stamp-circle" id="stamp5">
-
-                <span>5</span>
-
-            </div>
-
-            <small id="date5"></small>
-
-        </div>
-
-        <!-- Stamp 6 -->
-
-        <div class="stamp-box">
-
-            <div class="stamp-circle" id="stamp6">
-
-                <span>6</span>
-
-            </div>
-
-            <small id="date6"></small>
-
-        </div>
-
-        <!-- Reward -->
-
-        <div class="stamp-box reward-box">
-
-            <div class="stamp-circle reward-circle">
-
-                <img
-                src="assets/icons/veg-maggi.png"
-                alt="Veg Maggi">
-
-            </div>
-
-            <small>
-
-                Reward
-
-            </small>
-
-        </div>
-
-        <!-- Happy -->
-
-        <div class="stamp-box happy-box">
-
-            <div
-            class="stamp-circle happy-circle"
-            id="happyCircle">
-
-                😊
-
-            </div>
-
-            <small>
-
-                Happy
-
-            </small>
-
-        </div>
-
-    </div>
+Collect 6 Stamps & Get 1 Free Veg Maggi
 
 </div>
 
-<!-- Hidden Firebase -->
+<div class="stamp-grid">
+
+<!-- ==================== -->
+<!-- Stamp 1 -->
+<!-- ==================== -->
+
+<div class="stamp-box">
+
+<div
+id="stamp1"
+class="stamp-circle">
+
+<span>1</span>
+
+</div>
+
+<small
+id="date1">
+
+--
+
+</small>
+
+</div>
+
+<!-- ==================== -->
+<!-- Stamp 2 -->
+<!-- ==================== -->
+
+<div class="stamp-box">
+
+<div
+id="stamp2"
+class="stamp-circle">
+
+<span>2</span>
+
+</div>
+
+<small
+id="date2">
+
+--
+
+</small>
+
+</div>
+
+<!-- ==================== -->
+<!-- Stamp 3 -->
+<!-- ==================== -->
+
+<div class="stamp-box">
+
+<div
+id="stamp3"
+class="stamp-circle">
+
+<span>3</span>
+
+</div>
+
+<small
+id="date3">
+
+--
+
+</small>
+
+</div>
+
+<!-- ==================== -->
+<!-- Stamp 4 -->
+<!-- ==================== -->
+
+<div class="stamp-box">
+
+<div
+id="stamp4"
+class="stamp-circle">
+
+<span>4</span>
+
+</div>
+
+<small
+id="date4">
+
+--
+
+</small>
+
+</div>
+
+<!-- ==================== -->
+<!-- Stamp 5 -->
+<!-- ==================== -->
+
+<div class="stamp-box">
+
+<div
+id="stamp5"
+class="stamp-circle">
+
+<span>5</span>
+
+</div>
+
+<small
+id="date5">
+
+--
+
+</small>
+
+</div>
+
+<!-- ==================== -->
+<!-- Stamp 6 -->
+<!-- ==================== -->
+
+<div class="stamp-box">
+
+<div
+id="stamp6"
+class="stamp-circle">
+
+<span>6</span>
+
+</div>
+
+<small
+id="date6">
+
+--
+
+</small>
+
+</div>
+
+<!-- ==================== -->
+<!-- Reward -->
+<!-- ==================== -->
+
+<div class="stamp-box">
+
+<div
+id="rewardCircle"
+class="stamp-circle reward-circle">
+
+<img
+src="assets/icons/veg-maggi.png"
+alt="Veg Maggi">
+
+</div>
+
+<small>
+
+FREE
+
+</small>
+
+</div>
+
+<!-- ==================== -->
+<!-- Happy Emoji -->
+<!-- ==================== -->
+
+<div class="stamp-box">
+
+<div
+id="happyCircle"
+class="stamp-circle happy-circle">
+
+😊
+
+</div>
+
+<small>
+
+HAPPY
+
+</small>
+
+</div>
+
+</div>
+
+</div>
+<!-- ================================================= -->
+<!-- Hidden Firebase Elements -->
+<!-- ================================================= -->
 
 <span
 id="countdown"
@@ -311,107 +377,111 @@ style="display:none;">
 --
 
 </span>
-<!-- ===================================== -->
-<!-- BOTTOM NAVIGATION -->
-<!-- ===================================== -->
 
 </div>
 
+<!-- ================================================= -->
+<!-- BOTTOM NAVIGATION -->
+<!-- ================================================= -->
+
 <nav class="bottom-nav">
 
-    <a
-    href="card.html"
-    class="active">
+<a
+href="card.html"
+class="active">
 
-        <i class="fa-solid fa-house"></i>
+<i class="fa-solid fa-house"></i>
 
-        <span>
+<span>
 
-            Home
+Home
 
-        </span>
+</span>
 
-    </a>
+</a>
 
-    <a href="qr.html">
+<a
+href="qr.html">
 
-        <i class="fa-solid fa-qrcode"></i>
+<i class="fa-solid fa-qrcode"></i>
 
-        <span>
+<span>
 
-            QR
+QR
 
-        </span>
+</span>
 
-    </a>
+</a>
 
-    <a href="history.html">
+<a
+href="history.html">
 
-        <i class="fa-solid fa-clock-rotate-left"></i>
+<i class="fa-solid fa-clock-rotate-left"></i>
 
-        <span>
+<span>
 
-            History
+History
 
-        </span>
+</span>
 
-    </a>
+</a>
 
-    <a href="feedback.html">
+<a
+href="feedback.html">
 
-        <i class="fa-solid fa-heart"></i>
+<i class="fa-solid fa-heart"></i>
 
-        <span>
+<span>
 
-            Review
+Review
 
-        </span>
+</span>
 
-    </a>
+</a>
 
-    <a href="profile.html">
+<a
+href="profile.html">
 
-        <i class="fa-solid fa-user"></i>
+<i class="fa-solid fa-user"></i>
 
-        <span>
+<span>
 
-            Profile
+Profile
 
-        </span>
+</span>
 
-    </a>
+</a>
 
 </nav>
 
 </div>
 
-<!-- ===================================== -->
+<!-- ================================================= -->
 <!-- FIREBASE -->
-<!-- ===================================== -->
+<!-- ================================================= -->
 
 <script
 type="module"
 src="js/card.js">
 </script>
 
-<!-- ===================================== -->
+<!-- ================================================= -->
 <!-- SERVICE WORKER -->
-<!-- ===================================== -->
+<!-- ================================================= -->
 
 <script>
 
 if("serviceWorker" in navigator){
 
-    window.addEventListener("load",()=>{
+window.addEventListener("load",()=>{
 
-        navigator.serviceWorker.register("./service-worker.js");
+navigator.serviceWorker.register("./service-worker.js");
 
-    });
+});
 
 }
 
 </script>
 
 </body>
-
 </html>
