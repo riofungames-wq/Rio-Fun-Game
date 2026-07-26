@@ -1,8 +1,9 @@
-// =====================================================
+// ======================================================
 // RIO MAGGI POINT
 // card.js
-// PART 1
-// =====================================================
+// FINAL VERSION
+// PART 1 / 4
+// ======================================================
 
 import { auth, db } from "./firebase-config.js";
 
@@ -16,9 +17,12 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
-// ==========================================
-// ELEMENTS
-// ==========================================
+// ======================================================
+// HTML ELEMENTS
+// ======================================================
+
+const loyaltyCard =
+document.getElementById("loyaltyCard");
 
 const customerPhoto =
 document.getElementById("customerPhoto");
@@ -29,14 +33,45 @@ document.getElementById("customerName");
 const memberId =
 document.getElementById("memberId");
 
+const mobileNumber =
+document.getElementById("mobileNumber");
+
 const playGameBtn =
 document.getElementById("playGameBtn");
 
-const loyaltyCard =
-document.getElementById("loyaltyCard");
+
+// ------------------------------------------------------
+// Stamp Circles
+// ------------------------------------------------------
+
+const stamp1 =
+document.getElementById("stamp1");
+
+const stamp2 =
+document.getElementById("stamp2");
+
+const stamp3 =
+document.getElementById("stamp3");
+
+const stamp4 =
+document.getElementById("stamp4");
+
+const stamp5 =
+document.getElementById("stamp5");
+
+const stamp6 =
+document.getElementById("stamp6");
+
+const rewardCircle =
+document.getElementById("rewardCircle");
+
+const happyCircle =
+document.getElementById("happyCircle");
 
 
+// ------------------------------------------------------
 // Stamp Dates
+// ------------------------------------------------------
 
 const date1 =
 document.getElementById("date1");
@@ -57,36 +92,9 @@ const date6 =
 document.getElementById("date6");
 
 
-// Stamp Circles
-
-const stamp1 =
-document.getElementById("stamp1");
-
-const stamp2 =
-document.getElementById("stamp2");
-
-const stamp3 =
-document.getElementById("stamp3");
-
-const stamp4 =
-document.getElementById("stamp4");
-
-const stamp5 =
-document.getElementById("stamp5");
-
-const stamp6 =
-document.getElementById("stamp6");
-
-
-// Happy Emoji
-
-const happyCircle =
-document.getElementById("happyCircle");
-
-
-// ==========================================
-// LOGIN CHECK
-// ==========================================
+// ======================================================
+// CHECK LOGIN
+// ======================================================
 
 onAuthStateChanged(auth, async(user)=>{
 
@@ -100,24 +108,22 @@ onAuthStateChanged(auth, async(user)=>{
 
     try{
 
-        const customerRef =
+        const ref =
         doc(db,"customers",user.uid);
 
-        const customerSnap =
-        await getDoc(customerRef);
+        const snap =
+        await getDoc(ref);
 
-        if(!customerSnap.exists()){
+        if(!snap.exists()){
 
-            alert("Customer data not found.");
-
-            window.location.href="signup.html";
+            alert("Customer record not found.");
 
             return;
 
         }
 
         const customer =
-        customerSnap.data();
+        snap.data();
 
         loadCustomer(customer);
 
@@ -132,223 +138,253 @@ onAuthStateChanged(auth, async(user)=>{
     }
 
 });
-// =====================================================
+// ======================================================
 // LOAD CUSTOMER
-// =====================================================
+// ======================================================
 
 function loadCustomer(customer){
 
-    // -----------------------------
+    // -----------------------------------
     // Name
-    // -----------------------------
+    // -----------------------------------
 
     customerName.textContent =
     customer.name || "Customer";
 
-    // -----------------------------
+    // -----------------------------------
     // Member ID
-    // -----------------------------
+    // -----------------------------------
 
     memberId.textContent =
-    customer.memberId || "ID : -----";
+    customer.memberId || "-----";
 
-    // -----------------------------
+    // -----------------------------------
+    // Mobile
+    // -----------------------------------
+
+    if(mobileNumber){
+
+        mobileNumber.textContent =
+        customer.mobile || "";
+
+    }
+
+    // -----------------------------------
     // Avatar
-    // -----------------------------
+    // -----------------------------------
 
-    if(customer.photoURL){
+    if(customer.avatar){
 
         customerPhoto.src =
-        customer.photoURL;
+        customer.avatar;
+
+    }else{
+
+        if(customer.gender==="female"){
+
+            customerPhoto.src =
+            "assets/avatars/female-01.png";
+
+        }else{
+
+            customerPhoto.src =
+            "assets/avatars/male-01.png";
+
+        }
 
     }
 
-    // -----------------------------
-    // Gender Theme
-    // -----------------------------
+    // -----------------------------------
+    // Theme
+    // -----------------------------------
 
-    if(customer.gender){
+    loyaltyCard.classList.remove(
+        "theme-male",
+        "theme-female"
+    );
 
-        const gender =
-        customer.gender.toLowerCase();
+    if(customer.gender==="female"){
 
-        loyaltyCard.classList.remove(
-            "male-theme",
-            "female-theme"
+        loyaltyCard.classList.add(
+            "theme-female"
         );
 
-        if(gender==="female"){
+    }else{
 
-            loyaltyCard.classList.add(
-                "female-theme"
-            );
-
-        }
-
-        else{
-
-            loyaltyCard.classList.add(
-                "male-theme"
-            );
-
-        }
+        loyaltyCard.classList.add(
+            "theme-male"
+        );
 
     }
 
-    // -----------------------------
-    // Stamp Count
-    // -----------------------------
+    // -----------------------------------
+    // Stamp Progress
+    // -----------------------------------
 
-    loadStampProgress(customer);
+    loadStampProgress(
+        customer.stamps || 0
+    );
+
+    // -----------------------------------
+    // Reward
+    // -----------------------------------
+
+    updateReward(customer);
 
 }
+// ======================================================
+// LOAD STAMP PROGRESS
+// ======================================================
 
+function loadStampProgress(stamps){
 
-// =====================================================
-// LOAD STAMPS
-// =====================================================
-
-function loadStampProgress(customer){
-
-    const stamps =
-    customer.stamps || 0;
-
-    const dates =
-    customer.stampDates || [];
-
-    const circles=[
-
+    const circles = [
         stamp1,
         stamp2,
         stamp3,
         stamp4,
         stamp5,
         stamp6
-
     ];
 
-    const labels=[
+    // Reset
 
-        date1,
-        date2,
-        date3,
-        date4,
-        date5,
-        date6
+    circles.forEach(circle => {
 
-    ];
+        if(circle){
 
-    for(let i=0;i<6;i++){
+            circle.classList.remove("active");
 
-        circles[i].classList.remove("active");
+        }
 
-        labels[i].textContent="";
+    });
 
-        if(i<stamps){
+    // Fill Active Stamp
+
+    for(let i=0; i<stamps && i<6; i++){
+
+        if(circles[i]){
 
             circles[i].classList.add("active");
 
         }
 
-        if(dates[i]){
+    }
 
-            labels[i].textContent=
-            formatDate(dates[i]);
+    // -----------------------------------
+    // Reward Circle (7th)
+    // -----------------------------------
+
+    if(rewardCircle){
+
+        rewardCircle.classList.remove("active");
+
+        if(stamps >= 6){
+
+            rewardCircle.classList.add("active");
 
         }
 
     }
+
+    // -----------------------------------
+    // Happy Emoji (8th)
+    // -----------------------------------
 
     updateHappyEmoji(stamps);
 
 }
-// =====================================================
-// FORMAT DATE
-// =====================================================
-
-function formatDate(value){
-
-    try{
-
-        if(!value) return "";
-
-        // Firestore Timestamp
-
-        if(value.toDate){
-
-            const d=value.toDate();
-
-            return d.toLocaleDateString("en-IN",{
-
-                day:"2-digit",
-                month:"short"
-
-            });
-
-        }
-
-        // JS Date
-
-        const d=new Date(value);
-
-        return d.toLocaleDateString("en-IN",{
-
-            day:"2-digit",
-            month:"short"
-
-        });
-
-    }
-
-    catch{
-
-        return "";
-
-    }
-
-}
 
 
-// =====================================================
+// ======================================================
 // HAPPY EMOJI
-// =====================================================
+// ======================================================
 
 function updateHappyEmoji(stamps){
 
-    const emojiList=[
+    if(!happyCircle) return;
+
+    const emoji = [
 
         "🙂",
         "😊",
         "😄",
+        "😁",
         "🤩",
         "🥳",
-        "😍",
         "🎉"
 
     ];
 
-    let index=Math.min(stamps,6);
+    let index = Math.min(stamps,6);
 
-    happyCircle.textContent=emojiList[index];
+    happyCircle.textContent = emoji[index];
+
+    if(stamps >= 6){
+
+        happyCircle.classList.add("celebrate");
+
+    }else{
+
+        happyCircle.classList.remove("celebrate");
+
+    }
+
+}
+// ======================================================
+// REWARD STATUS
+// ======================================================
+
+function updateReward(customer){
+
+    if(!rewardCircle) return;
+
+    rewardCircle.classList.remove("unlocked");
+
+    if(customer.rewardUnlocked===true){
+
+        rewardCircle.classList.add("unlocked");
+
+    }
 
 }
 
 
-// =====================================================
-// PLAY GAME
-// =====================================================
+// ======================================================
+// STAMP DATE SUPPORT
+// (Future Admin Panel Integration)
+// ======================================================
 
-playGameBtn.addEventListener("click",()=>{
+function loadStampDates(customer){
 
-    window.location.href="game.html";
+    // Future Version:
+    // Admin Panel stampDates save karega.
+    // Yahaan automatically dates fill hongi.
 
-});
+}
 
 
-// =====================================================
-// FUTURE REWARD LOGIC
-// =====================================================
-// Circle 7 (Veg Maggi) unlock
-// will be controlled from Admin Panel.
-// Firebase reward flag can be added later.
-// =====================================================
+// ======================================================
+// PLAY GAME BUTTON
+// ======================================================
+
+if(playGameBtn){
+
+    playGameBtn.addEventListener("click",()=>{
+
+        window.location.href="game.html";
+
+    });
+
+}
+
+
+// ======================================================
+// DEBUG
+// ======================================================
+
+console.log("================================");
+console.log("RIO MAGGI POINT");
+console.log("Premium Card Loaded Successfully");
+console.log("Firebase Connected");
+console.log("================================");
