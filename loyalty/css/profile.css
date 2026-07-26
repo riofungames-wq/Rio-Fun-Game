@@ -1,296 +1,1073 @@
 /* ======================================
+   RIO MAGGI POINT
+   PREMIUM PROFILE CARD
+   PC + MOBILE RESPONSIVE
+====================================== */
+
+
+/* ======================================
+   GLOBAL
+====================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        "Poppins",
+        Arial,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #071525,
+            #101d32,
+            #071525
+        );
+
+    color: #ffffff;
+
+    padding-bottom: 100px;
+
+}
+
+
+/* ======================================
    PROFILE PAGE
 ====================================== */
 
-body{
+.profile-page {
 
-margin:0;
+    width: 100%;
 
-padding:0;
+    max-width: 1100px;
 
-font-family:Arial,sans-serif;
+    margin: auto;
 
-background:#0f0f0f;
-
-color:#fff;
-
-}
-
-.profile-page{
-
-max-width:420px;
-
-margin:auto;
-
-padding:20px;
-
-padding-bottom:90px;
+    padding:
+        25px
+        20px
+        110px;
 
 }
 
-.profile-page h2{
 
-text-align:center;
+/* ======================================
+   HEADER
+====================================== */
 
-font-size:26px;
+.profile-header {
 
-margin-bottom:20px;
+    display: flex;
 
-}
+    align-items: center;
 
-.profile-card{
+    justify-content: space-between;
 
-background:#1b1b1b;
+    gap: 20px;
 
-border-radius:18px;
-
-padding:25px;
-
-box-shadow:0 0 20px rgba(255,193,7,.15);
-
-text-align:center;
+    margin-bottom: 25px;
 
 }
 
-.profile-preview{
 
-width:130px;
+.profile-header h1 {
 
-height:130px;
+    font-size: 28px;
 
-margin:auto;
-
-border-radius:50%;
-
-overflow:hidden;
-
-border:4px solid gold;
-
-background:#fff;
+    color: #ffffff;
 
 }
 
-.profile-preview img{
 
-width:100%;
+.profile-header p {
 
-height:100%;
+    margin-top: 5px;
 
-object-fit:cover;
+    color: #aebdce;
 
-}
-
-.avatar-choice{
-
-display:flex;
-
-justify-content:center;
-
-gap:30px;
-
-margin-top:20px;
-
-margin-bottom:20px;
+    font-size: 14px;
 
 }
 
-.avatar-choice label{
 
-font-size:17px;
+/* ======================================
+   RIO FUN GAME BUTTON
+====================================== */
 
-cursor:pointer;
+.game-link {
 
-font-weight:bold;
+    display: flex;
 
-}
+    align-items: center;
 
-.avatar-choice input{
+    gap: 8px;
 
-margin-right:8px;
+    text-decoration: none;
 
-accent-color:gold;
+    color: #ffffff;
 
-}
-.upload-btn{
+    background:
+        linear-gradient(
+            135deg,
+            #008cff,
+            #00d9ff
+        );
 
-display:inline-block;
+    padding:
+        10px
+        16px;
 
-margin-top:20px;
+    border-radius: 14px;
 
-padding:12px 20px;
+    font-size: 14px;
 
-background:#ffb300;
+    font-weight: 600;
 
-color:#000;
+    box-shadow:
+        0 0 15px
+        rgba(0, 200, 255, 0.35);
 
-font-weight:bold;
-
-border-radius:10px;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-.upload-btn:hover{
-
-background:#ffc107;
-
-}
-
-.buttons{
-
-margin-top:25px;
-
-display:flex;
-
-justify-content:center;
-
-gap:15px;
-
-flex-wrap:wrap;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 
 }
 
-.buttons button{
 
-padding:12px 22px;
+.game-link:hover {
 
-border:none;
+    transform:
+        translateY(-3px);
 
-border-radius:10px;
-
-font-size:15px;
-
-font-weight:bold;
-
-cursor:pointer;
-
-transition:.3s;
+    box-shadow:
+        0 0 25px
+        rgba(0, 200, 255, 0.65);
 
 }
 
-#saveAvatar{
 
-background:#28a745;
+/* ======================================
+   PREMIUM PROFILE CARD
+====================================== */
 
-color:#fff;
+.profile-card {
 
-}
+    width: 100%;
 
-#saveAvatar:hover{
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15, 31, 52, 0.96),
+            rgba(5, 15, 28, 0.98)
+        );
 
-background:#218838;
+    border:
+        1px solid
+        rgba(0, 217, 255, 0.35);
 
-}
+    border-radius: 28px;
 
-#removeAvatar{
+    padding: 35px;
 
-background:#dc3545;
+    box-shadow:
+        0 20px 60px
+        rgba(0, 0, 0, 0.45),
 
-color:#fff;
-
-}
-
-#removeAvatar:hover{
-
-background:#c82333;
-
-}
-
-/* Bottom Navigation */
-
-.bottom-nav{
-
-position:fixed;
-
-bottom:0;
-
-left:0;
-
-right:0;
-
-height:65px;
-
-background:#111;
-
-display:flex;
-
-justify-content:space-around;
-
-align-items:center;
-
-border-top:1px solid #333;
-
-z-index:999;
+        inset 0 0 40px
+        rgba(0, 217, 255, 0.03);
 
 }
 
-.bottom-nav a{
 
-display:flex;
+/* ======================================
+   CUSTOMER PROFILE
+====================================== */
 
-flex-direction:column;
+.customer-profile {
 
-align-items:center;
+    display: flex;
 
-text-decoration:none;
+    align-items: center;
 
-color:#aaa;
+    gap: 30px;
 
-font-size:12px;
+    padding-bottom: 30px;
 
-}
-
-.bottom-nav a.active{
-
-color:#ffc107;
-
-}
-
-.bottom-nav span{
-
-margin-top:4px;
-
-font-size:11px;
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.1);
 
 }
 
-@media(max-width:480px){
 
-.profile-card{
+/* ======================================
+   AVATAR
+====================================== */
 
-padding:20px;
+.profile-preview {
+
+    width: 145px;
+
+    height: 145px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    padding: 5px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00d9ff,
+            #d4af37
+        );
+
+    box-shadow:
+        0 0 30px
+        rgba(0, 217, 255, 0.3);
+
+}
+
+
+.profile-preview img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    background: #081120;
+
+    display: block;
 
 }
 
-.profile-preview{
 
-width:110px;
+/* ======================================
+   CUSTOMER DETAILS
+====================================== */
 
-height:110px;
+.customer-details h2 {
 
-}
+    font-size: 28px;
 
-.avatar-choice{
+    margin-bottom: 12px;
 
-flex-direction:column;
-
-gap:12px;
-
-}
-
-.buttons{
-
-flex-direction:column;
+    color: #ffffff;
 
 }
 
-.buttons button{
 
-width:100%;
+.customer-details p {
+
+    margin-top: 8px;
+
+    color: #aebdce;
+
+    font-size: 15px;
 
 }
+
+
+.customer-details strong {
+
+    color: #d4af37;
+
+}
+
+
+/* ======================================
+   AVATAR SETTINGS
+====================================== */
+
+.avatar-settings {
+
+    margin-top: 30px;
+
+    padding:
+
+        22px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255, 255, 255, 0.035);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+
+}
+
+
+.avatar-settings h3 {
+
+    margin-bottom: 18px;
+
+    color: #ffffff;
+
+}
+
+
+/* ======================================
+   AVATAR CHOICE
+====================================== */
+
+.avatar-choice {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+
+}
+
+
+.avatar-choice label {
+
+    cursor: pointer;
+
+    padding:
+        10px
+        16px;
+
+    border-radius: 12px;
+
+    background:
+        #101f34;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.1);
+
+    transition:
+        0.25s ease;
+
+}
+
+
+.avatar-choice label:hover {
+
+    border-color:
+        #00d9ff;
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+.avatar-choice input {
+
+    margin-right: 6px;
+
+}
+
+
+/* ======================================
+   UPLOAD BUTTON
+====================================== */
+
+.upload-btn {
+
+    display: inline-block;
+
+    cursor: pointer;
+
+    padding:
+        11px
+        18px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #008cff,
+            #00c8ff
+        );
+
+    color: #ffffff;
+
+    font-weight: 600;
+
+    margin-bottom: 18px;
+
+    transition:
+        0.25s ease;
+
+}
+
+
+.upload-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 0 20px
+        rgba(0, 200, 255, 0.4);
+
+}
+
+
+/* ======================================
+   PROFILE BUTTONS
+====================================== */
+
+.buttons {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+}
+
+
+.buttons button {
+
+    border: none;
+
+    cursor: pointer;
+
+    padding:
+        11px
+        18px;
+
+    border-radius: 12px;
+
+    color: #ffffff;
+
+    font-weight: 600;
+
+    background:
+        #182b43;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.1);
+
+    transition:
+        0.25s ease;
+
+}
+
+
+.buttons button:hover {
+
+    transform:
+        translateY(-2px);
+
+    background:
+        #223d5d;
+
+}
+
+
+/* ======================================
+   STAMP SECTION
+====================================== */
+
+.stamp-section {
+
+    margin-top: 30px;
+
+    padding:
+        28px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(0, 217, 255, 0.04),
+            rgba(212, 175, 55, 0.04)
+        );
+
+    border:
+        1px solid
+        rgba(212, 175, 55, 0.2);
+
+}
+
+
+.stamp-section h3 {
+
+    font-size: 22px;
+
+    color: #d4af37;
+
+}
+
+
+.stamp-subtitle {
+
+    margin-top: 8px;
+
+    color: #b9c6d5;
+
+    font-size: 14px;
+
+}
+
+
+/* ======================================
+   STAMP CONTAINER
+====================================== */
+
+.stamp-container {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 18px;
+
+    margin-top: 30px;
+
+}
+
+
+/* ======================================
+   STAMP CIRCLE
+====================================== */
+
+.stamp-circle {
+
+    width: 65px;
+
+    height: 65px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-direction: column;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    color: #9eabb9;
+
+    border:
+        2px dashed
+        #516174;
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    transition:
+        0.3s ease;
+
+}
+
+
+.stamp-circle:hover {
+
+    transform:
+        scale(1.08);
+
+}
+
+
+/* ======================================
+   FREE MAGGI - 7TH CIRCLE
+====================================== */
+
+.free-maggi {
+
+    color: #ffffff;
+
+    border:
+        2px solid
+        #d4af37;
+
+    background:
+        linear-gradient(
+            135deg,
+            #a77b00,
+            #d4af37
+        );
+
+    box-shadow:
+        0 0 20px
+        rgba(212, 175, 55, 0.35);
+
+}
+
+
+.free-maggi small {
+
+    font-size: 8px;
+
+    margin-top: 2px;
+
+}
+
+
+/* ======================================
+   HAPPY EMOJI - 8TH CIRCLE
+====================================== */
+
+.happy-reward {
+
+    border:
+        2px solid
+        #00d9ff;
+
+    background:
+        rgba(0, 217, 255, 0.08);
+
+    font-size: 28px;
+
+}
+
+
+/* ======================================
+   HAPPY ANIMATION
+====================================== */
+
+.happy-reward.unlocked {
+
+    animation:
+        happyBounce
+        1s
+        infinite;
+
+}
+
+
+@keyframes happyBounce {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-8px)
+            scale(1.12);
+
+        box-shadow:
+            0 0 30px
+            rgba(0, 217, 255, 0.7);
+
+    }
+
+}
+
+
+/* ======================================
+   REWARD STATUS
+====================================== */
+
+.reward-status {
+
+    margin-top: 25px;
+
+    padding:
+        14px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(212, 175, 55, 0.08);
+
+    border:
+        1px solid
+        rgba(212, 175, 55, 0.2);
+
+    color: #d4af37;
+
+    font-weight: 600;
+
+}
+
+
+/* ======================================
+   BOTTOM NAVIGATION
+====================================== */
+
+.bottom-nav {
+
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 18px;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        min(
+            650px,
+            calc(100% - 30px)
+        );
+
+    display: flex;
+
+    justify-content: space-around;
+
+    align-items: center;
+
+    padding:
+        10px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(7, 18, 32, 0.94);
+
+    backdrop-filter:
+        blur(15px);
+
+    border:
+        1px solid
+        rgba(0, 217, 255, 0.2);
+
+    box-shadow:
+        0 10px 35px
+        rgba(0, 0, 0, 0.45);
+
+    z-index: 1000;
+
+}
+
+
+.bottom-nav a {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 3px;
+
+    min-width: 65px;
+
+    padding:
+        8px
+        10px;
+
+    border-radius: 12px;
+
+    color: #9eabb9;
+
+    text-decoration: none;
+
+    font-size: 20px;
+
+    transition:
+        0.25s ease;
+
+}
+
+
+.bottom-nav a span {
+
+    font-size: 10px;
+
+}
+
+
+.bottom-nav a:hover {
+
+    color: #00d9ff;
+
+}
+
+
+.bottom-nav a.active {
+
+    color: #00d9ff;
+
+    background:
+        rgba(0, 217, 255, 0.1);
+
+    box-shadow:
+        0 0 15px
+        rgba(0, 217, 255, 0.15);
+
+}
+
+
+/* ======================================
+   MOBILE
+====================================== */
+
+@media (
+    max-width: 600px
+) {
+
+    .profile-page {
+
+        padding:
+            18px
+            12px
+            100px;
+
+    }
+
+
+    .profile-header {
+
+        align-items:
+            flex-start;
+
+    }
+
+
+    .profile-header h1 {
+
+        font-size: 22px;
+
+    }
+
+
+    .profile-header p {
+
+        font-size: 11px;
+
+    }
+
+
+    .game-link {
+
+        padding:
+            9px;
+
+        border-radius:
+            50%;
+
+        font-size: 20px;
+
+    }
+
+
+    .game-link span {
+
+        display: none;
+
+    }
+
+
+    .profile-card {
+
+        padding:
+            20px
+            15px;
+
+        border-radius:
+            22px;
+
+    }
+
+
+    .customer-profile {
+
+        flex-direction:
+            column;
+
+        text-align:
+            center;
+
+    }
+
+
+    .profile-preview {
+
+        width: 120px;
+
+        height: 120px;
+
+    }
+
+
+    .customer-details h2 {
+
+        font-size: 22px;
+
+    }
+
+
+    .customer-details p {
+
+        font-size: 13px;
+
+    }
+
+
+    .avatar-settings {
+
+        padding:
+            18px
+            12px;
+
+    }
+
+
+    .buttons {
+
+        flex-direction:
+            column;
+
+    }
+
+
+    .buttons button {
+
+        width: 100%;
+
+    }
+
+
+    .stamp-section {
+
+        padding:
+            20px
+            10px;
+
+    }
+
+
+    .stamp-container {
+
+        gap: 8px;
+
+    }
+
+
+    .stamp-circle {
+
+        width: 42px;
+
+        height: 42px;
+
+        font-size: 14px;
+
+    }
+
+
+    .free-maggi {
+
+        font-size: 16px;
+
+    }
+
+
+    .free-maggi small {
+
+        font-size: 6px;
+
+    }
+
+
+    .happy-reward {
+
+        font-size: 20px;
+
+    }
+
+
+    .bottom-nav {
+
+        bottom: 10px;
+
+        width:
+            calc(100% - 20px);
+
+    }
+
+
+    .bottom-nav a {
+
+        min-width:
+            50px;
+
+        padding:
+            7px
+            5px;
+
+        font-size: 18px;
+
+    }
+
+
+    .bottom-nav a span {
+
+        font-size: 9px;
+
+    }
+
+}
+
+
+/* ======================================
+   VERY SMALL MOBILE
+====================================== */
+
+@media (
+    max-width: 380px
+) {
+
+    .stamp-container {
+
+        gap: 5px;
+
+    }
+
+
+    .stamp-circle {
+
+        width: 38px;
+
+        height: 38px;
+
+    }
+
+
+    .bottom-nav a {
+
+        min-width:
+            44px;
+
+    }
 
 }
