@@ -1,342 +1,877 @@
-// ==========================================
+// ======================================
 // RIO MAGGI POINT
-// PROFILE
-// PART 1
-// ==========================================
-
-import { auth, db }
-from "./firebase-config.js";
+// PREMIUM PROFILE
+// PROFILE.JS
+// ======================================
 
 import {
-
-onAuthStateChanged
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    auth,
+    db
+} from "./firebase-config.js";
 
 import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-doc,
-getDoc,
-updateDoc
+import {
+    doc,
+    getDoc,
+    updateDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-}
 
-from
+// ======================================
+// HTML ELEMENTS
+// ======================================
 
-"https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-// ==========================================
-// HTML
-// ==========================================
+const profileCard =
+    document.getElementById("profileCard");
 
 const previewImage =
-document.getElementById("previewImage");
+    document.getElementById("previewImage");
+
+const customerName =
+    document.getElementById("customerName");
+
+const memberId =
+    document.getElementById("memberId");
+
+const customerGender =
+    document.getElementById("customerGender");
 
 const photoInput =
-document.getElementById("photoInput");
+    document.getElementById("photoInput");
 
 const saveAvatar =
-document.getElementById("saveAvatar");
+    document.getElementById("saveAvatar");
 
 const removeAvatar =
-document.getElementById("removeAvatar");
+    document.getElementById("removeAvatar");
 
-const avatarOptions =
-document.querySelectorAll(".avatar-option");
+const rewardStatus =
+    document.getElementById("rewardStatus");
 
-// ==========================================
-// VARIABLES
-// ==========================================
+const stampCircles =
+    document.querySelectorAll(".stamp-circle");
+
+const avatarTypeInputs =
+    document.querySelectorAll(
+        'input[name="avatarType"]'
+    );
+
+
+// ======================================
+// GLOBAL DATA
+// ======================================
 
 let currentUser = null;
 
-let selectedAvatar = "";
+let currentCustomerData = null;
 
-let selectedGender = "male";
+let selectedAvatarType = "male";
 
-// ==========================================
-// LOGIN
-// ==========================================
+let uploadedPhotoData = null;
+
+
+// ======================================
+// DEFAULT AVATARS
+// ======================================
+
+const maleAvatar =
+    "assets/avatars/male.png";
+
+const femaleAvatar =
+    "assets/avatars/female.png";
+
+
+// ======================================
+// AUTH CHECK
+// ======================================
 
 onAuthStateChanged(
+    auth,
+    async (user) => {
 
-auth,
+        if (!user) {
 
-async(user)=>{
+            window.location.href =
+                "login.html";
 
-if(!user){
+            return;
 
-window.location.href="login.html";
+        }
 
-return;
 
-}
+        currentUser = user;
 
-currentUser = user;
 
-loadProfile(user.uid);
+        try {
 
-}
+            await loadCustomerProfile(
+                user.uid
+            );
 
+        }
+
+        catch (error) {
+
+            console.error(
+                "Profile Load Error:",
+                error
+            );
+
+            alert(
+                "Unable to load your profile."
+            );
+
+        }
+
+    }
 );
 
-// ==========================================
-// LOAD PROFILE
-// ==========================================
 
-async function loadProfile(uid){
+// ======================================
+// LOAD CUSTOMER PROFILE
+// ======================================
 
-try{
+async function loadCustomerProfile(
+    userId
+) {
 
-const ref =
+    const customerRef =
+        doc(
+            db,
+            "customers",
+            userId
+        );
 
-doc(
 
-db,
+    const customerSnap =
+        await getDoc(
+            customerRef
+        );
 
-"customers",
 
-uid
+    if (
+        !customerSnap.exists()
+    ) {
 
+        alert(
+            "Customer profile not found."
+        );
+
+        return;
+
+    }
+
+
+    currentCustomerData =
+        customerSnap.data();
+
+
+    // ==================================
+    // CUSTOMER NAME
+    // ==================================
+
+    if (customerName) {
+
+        customerName.textContent =
+            currentCustomerData.name ||
+            "Customer";
+
+    }
+
+
+    // ==================================
+    // MEMBER ID
+    // ==================================
+
+    if (memberId) {
+
+        memberId.textContent =
+            currentCustomerData.memberId ||
+            "RMP000000";
+
+    }
+
+
+    // ==================================
+    // GENDER
+    // ==================================
+
+    const gender =
+        String(
+            currentCustomerData.gender ||
+            "male"
+        )
+        .toLowerCase();
+
+
+    selectedAvatarType =
+        gender === "female"
+            ? "female"
+            : "male";
+
+
+    if (customerGender) {
+
+        customerGender.textContent =
+            selectedAvatarType === "female"
+                ? "Female"
+                : "Male";
+
+    }
+
+
+    // ==================================
+    // SELECT GENDER RADIO
+    // ==================================
+
+    avatarTypeInputs.forEach(
+        (input) => {
+
+            input.checked =
+                input.value ===
+                selectedAvatarType;
+
+        }
+    );
+
+
+    // ==================================
+    // LOAD AVATAR
+    // ==================================
+
+    if (
+        currentCustomerData.avatar
+    ) {
+
+        uploadedPhotoData =
+            currentCustomerData.avatar;
+
+
+        previewImage.src =
+            currentCustomerData.avatar;
+
+    }
+
+    else {
+
+        previewImage.src =
+            selectedAvatarType === "female"
+                ? femaleAvatar
+                : maleAvatar;
+
+    }
+
+
+    // ==================================
+    // LOAD STAMPS
+    // ==================================
+
+    const stamps =
+        Number(
+            currentCustomerData.stamps ||
+            0
+        );
+
+
+    updateStampDisplay(
+        stamps,
+        currentCustomerData.rewardUnlocked === true
+    );
+
+
+    // ==================================
+    // APPLY GENDER THEME
+    // ==================================
+
+    applyGenderTheme(
+        selectedAvatarType
+    );
+
+}
+
+
+// ======================================
+// AVATAR TYPE CHANGE
+// ======================================
+
+avatarTypeInputs.forEach(
+    (input) => {
+
+        input.addEventListener(
+            "change",
+            () => {
+
+                selectedAvatarType =
+                    input.value;
+
+
+                if (
+                    !uploadedPhotoData
+                ) {
+
+                    previewImage.src =
+                        selectedAvatarType ===
+                        "female"
+
+                            ? femaleAvatar
+
+                            : maleAvatar;
+
+                }
+
+
+                if (customerGender) {
+
+                    customerGender.textContent =
+                        selectedAvatarType ===
+                        "female"
+
+                            ? "Female"
+
+                            : "Male";
+
+                }
+
+
+                applyGenderTheme(
+                    selectedAvatarType
+                );
+
+            }
+        );
+
+    }
 );
 
-const snap =
 
-await getDoc(ref);
+// ======================================
+// PHOTO UPLOAD PREVIEW
+// ======================================
 
-if(!snap.exists()) return;
+if (photoInput) {
 
-const data = snap.data();
+    photoInput.addEventListener(
+        "change",
+        (event) => {
 
-// Gender
+            const file =
+                event.target.files[0];
 
-selectedGender =
 
-data.gender || "male";
+            if (!file) {
 
-// Avatar
+                return;
 
-selectedAvatar =
+            }
 
-data.photoURL || "";
 
-if(selectedAvatar!=""){
+            if (
+                !file.type.startsWith(
+                    "image/"
+                )
+            ) {
 
-previewImage.src =
+                alert(
+                    "Please select a valid image."
+                );
 
-selectedAvatar;
+                return;
 
-}
+            }
 
-else{
 
-if(selectedGender==="female"){
+            const reader =
+                new FileReader();
 
-previewImage.src =
 
-"assets/avatars/female.png";
+            reader.onload =
+                () => {
 
-}
+                    uploadedPhotoData =
+                        reader.result;
 
-else{
 
-previewImage.src =
+                    previewImage.src =
+                        uploadedPhotoData;
 
-"assets/avatars/male.png";
+                };
 
-}
 
-}
+            reader.readAsDataURL(
+                file
+            );
 
-}
-
-catch(err){
-
-console.log(err);
-
-}
-
-}
-// ==========================================
-// AVATAR SELECT
-// ==========================================
-
-avatarOptions.forEach((avatar)=>{
-
-avatar.addEventListener("click",()=>{
-
-selectedAvatar =
-avatar.src;
-
-previewImage.src =
-selectedAvatar;
-
-// Gender Detect
-
-if(
-
-selectedAvatar
-.toLowerCase()
-.includes("female")
-
-||
-
-selectedAvatar
-.toLowerCase()
-.includes("girl")
-
-){
-
-selectedGender =
-"female";
+        }
+    );
 
 }
 
-else{
 
-selectedGender =
-"male";
+// ======================================
+// SAVE PROFILE
+// ======================================
+
+if (saveAvatar) {
+
+    saveAvatar.addEventListener(
+        "click",
+        async () => {
+
+            if (!currentUser) {
+
+                alert(
+                    "Please login first."
+                );
+
+                return;
+
+            }
+
+
+            try {
+
+                saveAvatar.disabled =
+                    true;
+
+
+                saveAvatar.textContent =
+                    "💾 Saving...";
+
+
+                const customerRef =
+                    doc(
+                        db,
+                        "customers",
+                        currentUser.uid
+                    );
+
+
+                const updateData = {
+
+                    gender:
+                        selectedAvatarType,
+
+                    updatedAt:
+                        serverTimestamp()
+
+                };
+
+
+                if (
+                    uploadedPhotoData
+                ) {
+
+                    updateData.avatar =
+                        uploadedPhotoData;
+
+                }
+
+
+                await updateDoc(
+                    customerRef,
+                    updateData
+                );
+
+
+                currentCustomerData = {
+
+                    ...currentCustomerData,
+
+                    ...updateData
+
+                };
+
+
+                alert(
+                    "✅ Profile Updated Successfully!"
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Save Profile Error:",
+                    error
+                );
+
+
+                alert(
+                    "Unable to save profile."
+                );
+
+            }
+
+            finally {
+
+                saveAvatar.disabled =
+                    false;
+
+
+                saveAvatar.textContent =
+                    "💾 Save Profile";
+
+            }
+
+        }
+    );
 
 }
 
-});
 
-});
-
-// ==========================================
-// PHOTO UPLOAD
-// ==========================================
-
-photoInput.addEventListener(
-
-"change",
-
-(e)=>{
-
-const file =
-e.target.files[0];
-
-if(!file) return;
-
-const reader =
-new FileReader();
-
-reader.onload=function(){
-
-selectedAvatar =
-reader.result;
-
-previewImage.src =
-reader.result;
-
-};
-
-reader.readAsDataURL(file);
-
-}
-
-);
-
-// ==========================================
+// ======================================
 // REMOVE PHOTO
-// ==========================================
+// ======================================
 
-removeAvatar.addEventListener(
+if (removeAvatar) {
 
-"click",
+    removeAvatar.addEventListener(
+        "click",
+        async () => {
 
-()=>{
+            if (!currentUser) {
 
-selectedAvatar="";
+                return;
 
-if(selectedGender==="female"){
+            }
 
-previewImage.src=
-"assets/avatars/female.png";
+
+            const confirmRemove =
+                confirm(
+                    "Remove your profile photo?"
+                );
+
+
+            if (
+                !confirmRemove
+            ) {
+
+                return;
+
+            }
+
+
+            try {
+
+                const customerRef =
+                    doc(
+                        db,
+                        "customers",
+                        currentUser.uid
+                    );
+
+
+                await updateDoc(
+                    customerRef,
+                    {
+
+                        avatar: null,
+
+                        updatedAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+
+                uploadedPhotoData =
+                    null;
+
+
+                previewImage.src =
+                    selectedAvatarType ===
+                    "female"
+
+                        ? femaleAvatar
+
+                        : maleAvatar;
+
+
+                alert(
+                    "🗑 Profile photo removed."
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Remove Photo Error:",
+                    error
+                );
+
+
+                alert(
+                    "Unable to remove photo."
+                );
+
+            }
+
+        }
+    );
 
 }
 
-else{
 
-previewImage.src=
-"assets/avatars/male.png";
+// ======================================
+// STAMP DISPLAY
+// ======================================
+
+function updateStampDisplay(
+    stamps,
+    rewardUnlocked
+) {
+
+    const safeStamps =
+        Math.max(
+            0,
+            Math.min(
+                7,
+                stamps
+            )
+        );
+
+
+    stampCircles.forEach(
+        (circle) => {
+
+            const stampNumber =
+                Number(
+                    circle.dataset.stamp
+                );
+
+
+            // ==========================
+            // NORMAL STAMPS 1-6
+            // ==========================
+
+            if (
+                stampNumber >= 1 &&
+                stampNumber <= 6
+            ) {
+
+                if (
+                    stampNumber <=
+                    safeStamps
+                ) {
+
+                    circle.classList.add(
+                        "completed"
+                    );
+
+                    circle.innerHTML =
+                        "⭐";
+
+                }
+
+                else {
+
+                    circle.classList.remove(
+                        "completed"
+                    );
+
+                    circle.innerHTML = `
+
+                        <span>
+                            ${stampNumber}
+                        </span>
+
+                    `;
+
+                }
+
+            }
+
+
+            // ==========================
+            // 7TH FREE MAGGI
+            // ==========================
+
+            if (
+                stampNumber === 7
+            ) {
+
+                if (
+                    safeStamps >= 7 ||
+                    rewardUnlocked
+                ) {
+
+                    circle.classList.add(
+                        "completed"
+                    );
+
+                    circle.innerHTML = `
+
+                        🎁
+
+                        <small>
+                            FREE
+                        </small>
+
+                    `;
+
+                }
+
+                else {
+
+                    circle.classList.remove(
+                        "completed"
+                    );
+
+                    circle.innerHTML = `
+
+                        🎁
+
+                        <small>
+                            FREE
+                        </small>
+
+                    `;
+
+                }
+
+            }
+
+
+            // ==========================
+            // 8TH HAPPY EMOJI
+            // ==========================
+
+            if (
+                stampNumber === 8
+            ) {
+
+                if (
+                    safeStamps >= 7 ||
+                    rewardUnlocked
+                ) {
+
+                    circle.classList.add(
+                        "unlocked"
+                    );
+
+                }
+
+                else {
+
+                    circle.classList.remove(
+                        "unlocked"
+                    );
+
+                }
+
+            }
+
+        }
+    );
+
+
+    // ==================================
+    // REWARD STATUS
+    // ==================================
+
+    if (
+        safeStamps >= 7 ||
+        rewardUnlocked
+    ) {
+
+        rewardStatus.textContent =
+            "🎉 Congratulations! Your FREE Veg Maggi reward is unlocked!";
+
+        rewardStatus.classList.add(
+            "unlocked"
+        );
+
+    }
+
+    else {
+
+        const remaining =
+            7 - safeStamps;
+
+
+        rewardStatus.textContent =
+            `⭐ ${remaining} more stamp${
+                remaining === 1
+                    ? ""
+                    : "s"
+            } to unlock your FREE Veg Maggi!`;
+
+        rewardStatus.classList.remove(
+            "unlocked"
+        );
+
+    }
 
 }
 
-}
 
-);
+// ======================================
+// GENDER THEME
+// ======================================
 
-// ==========================================
-// SAVE
-// ==========================================
+function applyGenderTheme(
+    gender
+) {
 
-saveAvatar.addEventListener(
+    if (!profileCard) {
 
-"click",
+        return;
 
-async()=>{
+    }
 
-if(!currentUser) return;
 
-try{
+    profileCard.classList.remove(
+        "boy-theme",
+        "girl-theme"
+    );
 
-await updateDoc(
 
-doc(
+    if (
+        gender === "female"
+    ) {
 
-db,
+        profileCard.classList.add(
+            "girl-theme"
+        );
 
-"customers",
+    }
 
-currentUser.uid
+    else {
 
-),
+        profileCard.classList.add(
+            "boy-theme"
+        );
 
-{
-
-photoURL:selectedAvatar,
-
-gender:selectedGender
-
-}
-
-);
-
-alert(
-
-"Profile Updated Successfully"
-
-);
-
-window.location.href="card.html";
+    }
 
 }
 
-catch(err){
 
-console.log(err);
-
-alert(
-
-"Update Failed"
-
-);
-
-}
-
-});
-
-// ==========================================
-// READY
-// ==========================================
+// ======================================
+// STARTUP
+// ======================================
 
 console.log(
+    "==================================="
+);
 
-"RIO PROFILE READY"
+console.log(
+    "RIO MAGGI POINT"
+);
 
+console.log(
+    "PREMIUM PROFILE READY"
+);
+
+console.log(
+    "FIREBASE PROFILE CONNECTED"
+);
+
+console.log(
+    "==================================="
 );
