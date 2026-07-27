@@ -1,82 +1,183 @@
 // =====================================================
 // RIO MAGGI POINT
 // PREMIUM ADMIN DASHBOARD V3
+// FIXED VERSION
+// PART 1
 // =====================================================
+
 
 import { auth, db } from "./firebase-config.js";
 
-import {
-  collection,
-  getDocs,
-  doc,
-  query,
-  where,
-  updateDoc,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 import {
-  onAuthStateChanged,
-  signOut
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+collection,
+getDocs,
+doc,
+query,
+where,
+updateDoc,
+serverTimestamp
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+
+import {
+
+onAuthStateChanged,
+signOut
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+
 
 // =====================================================
 // ELEMENTS
 // =====================================================
 
-const totalCustomers = document.getElementById("totalCustomers");
-const totalStamps = document.getElementById("totalStamps");
-const totalRewards = document.getElementById("totalRewards");
-const todayScans = document.getElementById("todayScans");
 
-const customerTable = document.getElementById("customerTable");
-const searchCustomer = document.getElementById("searchCustomer");
+const totalCustomers =
+document.getElementById("totalCustomers");
 
-const refreshBtn = document.getElementById("refreshBtn");
-const exportBtn = document.getElementById("exportBtn");
-const rewardBtn = document.getElementById("rewardBtn");
-const settingsBtn = document.getElementById("settingsBtn");
 
-const giveStampBtn = document.getElementById("giveStampBtn");
-const cancelScanBtn = document.getElementById("cancelScanBtn");
+const totalStamps =
+document.getElementById("totalStamps");
 
-const startScannerBtn = document.getElementById("startScannerBtn");
-const stopScannerBtn = document.getElementById("stopScannerBtn");
 
-const scannerStatus = document.getElementById("scannerStatus");
-const lastRefresh = document.getElementById("lastRefresh");
+const totalRewards =
+document.getElementById("totalRewards");
 
-const scanCustomerPhoto = document.getElementById("scanCustomerPhoto");
-const scanCustomerName = document.getElementById("scanCustomerName");
-const scanMemberId = document.getElementById("scanMemberId");
-const scanStampCount = document.getElementById("scanStampCount");
-const todayStatus = document.getElementById("todayStatus");
 
-const logoutBtn = document.getElementById("logoutBtn");
+const todayScans =
+document.getElementById("todayScans");
+
+
+const customerTable =
+document.getElementById("customerTable");
+
+
+const searchCustomer =
+document.getElementById("searchCustomer");
+
+
+
+const refreshBtn =
+document.getElementById("refreshBtn");
+
+
+const exportBtn =
+document.getElementById("exportBtn");
+
+
+const rewardBtn =
+document.getElementById("rewardBtn");
+
+
+const settingsBtn =
+document.getElementById("settingsBtn");
+
+
+
+const giveStampBtn =
+document.getElementById("giveStampBtn");
+
+
+const cancelScanBtn =
+document.getElementById("cancelScanBtn");
+
+
+
+const startScannerBtn =
+document.getElementById("startScannerBtn");
+
+
+const stopScannerBtn =
+document.getElementById("stopScannerBtn");
+
+
+
+const scannerStatus =
+document.getElementById("scannerStatus");
+
+
+const lastRefresh =
+document.getElementById("lastRefresh");
+
+
+
+const scanCustomerPhoto =
+document.getElementById("scanCustomerPhoto");
+
+
+const scanCustomerName =
+document.getElementById("scanCustomerName");
+
+
+const scanMemberId =
+document.getElementById("scanMemberId");
+
+
+const scanStampCount =
+document.getElementById("scanStampCount");
+
+
+const todayStatus =
+document.getElementById("todayStatus");
+
+
+
+const logoutBtn =
+document.getElementById("logoutBtn");
+
+
 
 // =====================================================
 // VARIABLES
 // =====================================================
 
-let customers = [];
-let currentCustomer = null;
-let todayScanCount = 0;
 
-let html5QrCode = null;
-let scannerRunning = false;
+let customers=[];
+
+
+let currentCustomer=null;
+
+
+let todayScanCount=0;
+
+
+let html5QrCode=null;
+
+
+let scannerRunning=false;
+
+
 
 // =====================================================
 // AUTH
 // =====================================================
 
-onAuthStateChanged(auth, async (user) => {
 
-  if (!user) {
-    location.href = "admin-login.html";
-    return;
-  }
+onAuthStateChanged(auth,async(user)=>{
 
-  await loadDashboard();
+
+if(!user){
+
+
+location.href="admin-login.html";
+
+
+return;
+
+
+}
+
+
+await loadDashboard();
+
 
 });
 // =====================================================
@@ -85,25 +186,63 @@ onAuthStateChanged(auth, async (user) => {
 
 async function loadDashboard(){
 
+try{
+
+
 customerTable.innerHTML="";
+
 
 customers=[];
 
+
 let stampCount=0;
+
 let rewardCount=0;
+
 todayScanCount=0;
 
-const snapshot=await getDocs(collection(db,"customers"));
+
+
+const uniqueCustomers = new Set();
+
+
+
+const snapshot =
+
+await getDocs(collection(db,"customers"));
+
+
 
 snapshot.forEach((document)=>{
 
+
+// duplicate protection
+
+if(uniqueCustomers.has(document.id)){
+
+return;
+
+}
+
+
+uniqueCustomers.add(document.id);
+
+
+
 const customer=document.data();
+
 
 customer.uid=document.id;
 
+
+
 customers.push(customer);
 
-stampCount+=customer.stamps||0;
+
+
+stampCount += customer.stamps || 0;
+
+
 
 if(customer.rewardUnlocked){
 
@@ -111,176 +250,374 @@ rewardCount++;
 
 }
 
+
+
 createCustomerRow(customer);
+
+
 
 });
 
-totalCustomers.textContent=customers.length;
-totalStamps.textContent=stampCount;
-totalRewards.textContent=rewardCount;
-todayScans.textContent=todayScanCount;
+
+
+totalCustomers.textContent=
+
+customers.length;
+
+
+
+totalStamps.textContent=
+
+stampCount;
+
+
+
+totalRewards.textContent=
+
+rewardCount;
+
+
+
+todayScans.textContent=
+
+todayScanCount;
+
+
 
 lastRefresh.textContent=
+
 new Date().toLocaleString();
 
+
+
 }
+
+catch(error){
+
+
+console.error(
+
+"Dashboard Load Error:",
+
+error
+
+);
+
+
+}
+
+}
+
+
 
 // =====================================================
 // CUSTOMER TABLE
 // =====================================================
 
+
 function createCustomerRow(customer){
+
 
 const tr=document.createElement("tr");
 
-const avatar=
+
+
+const avatar =
+
 customer.gender==="female"
-?"assets/avatars/female.png"
-:"assets/avatars/male.png";
+
+?
+
+"assets/avatars/female.png"
+
+:
+
+"assets/avatars/male.png";
+
+
 
 tr.innerHTML=`
 
 <td>
 
 <img
+
 src="${avatar}"
-style="width:45px;height:45px;border-radius:50%;object-fit:cover;">
+
+style="width:45px;height:45px;border-radius:50%;object-fit:cover;"
+
+>
 
 </td>
 
-<td>${customer.name||"-"}</td>
-
-<td>${customer.memberId||"-"}</td>
-
-<td>${customer.mobile||"-"}</td>
-
-<td>${customer.stamps||0}/6</td>
 
 <td>
 
-${customer.rewardUnlocked?"✅ Ready":"❌ Locked"}
+${customer.name || "-"}
 
 </td>
 
+
 <td>
+
+${customer.memberId || "-"}
+
+</td>
+
+
+<td>
+
+${customer.mobile || "-"}
+
+</td>
+
+
+<td>
+
+${customer.stamps || 0}/6
+
+</td>
+
+
+<td>
+
+${customer.rewardUnlocked
+
+?
+
+"✅ Ready"
+
+:
+
+"❌ Locked"
+
+}
+
+</td>
+
+
+<td>
+
 
 <button
-onclick="selectCustomer('${customer.uid}')">
+
+onclick="selectCustomer('${customer.uid}')"
+
+>
 
 View
 
 </button>
 
+
 </td>
 
 `;
 
+
+
 customerTable.appendChild(tr);
+
 
 }
 
+
+
 // =====================================================
-// SEARCH
+// SEARCH CUSTOMER
 // =====================================================
+
 
 searchCustomer?.addEventListener("keyup",(e)=>{
 
-const keyword=e.target.value.toLowerCase();
+
+const keyword =
+
+e.target.value.toLowerCase();
+
+
 
 customerTable.innerHTML="";
+
+
 
 customers
 
 .filter(customer=>
 
+
 (customer.name||"")
+
 .toLowerCase()
+
 .includes(keyword)
 
+
+
 ||
+
+
 
 (customer.memberId||"")
+
 .toLowerCase()
+
 .includes(keyword)
+
+
 
 ||
 
+
+
 (customer.mobile||"")
+
 .includes(keyword)
+
 
 )
 
 .forEach(createCustomerRow);
 
-});
 
+
+});
 // =====================================================
 // SELECT CUSTOMER
 // =====================================================
 
+
 window.selectCustomer=function(uid){
 
-currentCustomer=
+
+currentCustomer =
+
 customers.find(c=>c.uid===uid);
 
-if(!currentCustomer) return;
+
+
+if(!currentCustomer){
+
+return;
+
+}
+
+
 
 showCustomer(currentCustomer);
 
+
+
 };
+
+
 
 // =====================================================
 // SHOW CUSTOMER
 // =====================================================
 
+
 function showCustomer(customer){
 
-scanCustomerPhoto.src=
+
+scanCustomerPhoto.src =
 
 customer.gender==="female"
 
-?"assets/avatars/female.png"
+?
 
-:"assets/avatars/male.png";
+"assets/avatars/female.png"
 
-scanCustomerName.textContent=
-customer.name||"-";
+:
 
-scanMemberId.textContent=
-customer.memberId||"-";
+"assets/avatars/male.png";
 
-scanStampCount.textContent=
-`${customer.stamps||0}/6`;
 
-todayStatus.textContent=
+
+scanCustomerName.textContent =
+
+customer.name || "-";
+
+
+
+scanMemberId.textContent =
+
+customer.memberId || "-";
+
+
+
+scanStampCount.textContent =
+
+`${customer.stamps || 0}/6`;
+
+
+
+todayStatus.textContent =
+
 "Ready To Give Stamp";
+
+
 
 todayStatus.className="success";
 
+
+
 giveStampBtn.disabled=false;
 
+
+
 }
+
+
+
 // =====================================================
-// CAMERA + QR SCANNER
+// CAMERA QR SCANNER
 // =====================================================
+
 
 async function startScanner(){
 
-if(scannerRunning) return;
+
+if(scannerRunning){
+
+return;
+
+}
+
+
 
 scannerRunning=true;
 
-scannerStatus.textContent="🟡 Opening Camera...";
 
-document.getElementById("cameraOverlay").style.display="none";
 
-html5QrCode=new Html5Qrcode("qr-reader");
+scannerStatus.textContent=
+
+"🟡 Opening Camera...";
+
+
+
+document.getElementById("cameraOverlay")
+
+.style.display="none";
+
+
+
+html5QrCode =
+
+new Html5Qrcode("qr-reader");
+
+
 
 try{
 
+
 await html5QrCode.start(
 
-{ facingMode:"environment" },
+{
+
+facingMode:"environment"
+
+},
 
 {
 
@@ -296,255 +633,577 @@ onScanSuccess,
 
 );
 
-scannerStatus.textContent="🟢 Scanner Running";
+
+
+scannerStatus.textContent=
+
+"🟢 Scanner Running";
+
+
 
 startScannerBtn.disabled=true;
 
+
 stopScannerBtn.disabled=false;
 
-}catch(err){
 
-console.error(err);
 
-scannerStatus.textContent="🔴 Camera Error";
+}
+
+catch(error){
+
+
+console.error(error);
+
+
+
+scannerStatus.textContent=
+
+"🔴 Camera Error";
+
+
 
 scannerRunning=false;
 
-document.getElementById("cameraOverlay").style.display="flex";
+
+
+document.getElementById("cameraOverlay")
+
+.style.display="flex";
+
+
 
 }
 
+
 }
+
+
 
 // =====================================================
+// STOP SCANNER
+// =====================================================
+
 
 async function stopScanner(){
 
-if(!scannerRunning) return;
 
-try{
+if(!scannerRunning){
 
-await html5QrCode.stop();
-
-}catch(e){}
-
-scannerRunning=false;
-
-scannerStatus.textContent="⚪ Camera Stopped";
-
-document.getElementById("cameraOverlay").style.display="flex";
-
-startScannerBtn.disabled=false;
-
-stopScannerBtn.disabled=true;
+return;
 
 }
 
+
+
+try{
+
+
+await html5QrCode.stop();
+
+
+
+}
+
+catch(error){
+
+
+
+console.log(error);
+
+
+
+}
+
+
+
+scannerRunning=false;
+
+
+
+scannerStatus.textContent=
+
+"⚪ Camera Stopped";
+
+
+
+document.getElementById("cameraOverlay")
+
+.style.display="flex";
+
+
+
+startScannerBtn.disabled=false;
+
+
+stopScannerBtn.disabled=true;
+
+
+
+}
+
+
+
 // =====================================================
-// BUTTONS
+// SCANNER BUTTONS
 // =====================================================
 
-startScannerBtn?.addEventListener("click",startScanner);
 
-stopScannerBtn?.addEventListener("click",stopScanner);
+startScannerBtn?.addEventListener(
+
+"click",
+
+startScanner
+
+);
+
+
+
+stopScannerBtn?.addEventListener(
+
+"click",
+
+stopScanner
+
+);
+
+
 
 // =====================================================
 // QR SUCCESS
 // =====================================================
 
+
 async function onScanSuccess(decodedText){
+
 
 await stopScanner();
 
+
+
 if(!decodedText.startsWith("RIO-MAGGI::")){
+
 
 alert("Invalid Rio QR");
 
+
 return;
+
 
 }
 
-const memberId=
 
-decodedText.replace("RIO-MAGGI::","");
 
-const q=query(
+const memberId =
 
-collection(db,"customers"),
+decodedText.replace(
 
-where("memberId","==",memberId)
+"RIO-MAGGI::",
+
+""
 
 );
 
-const snapshot=
+
+
+const q = query(
+
+collection(db,"customers"),
+
+where(
+
+"memberId",
+
+"==",
+
+memberId
+
+)
+
+);
+
+
+
+const snapshot =
 
 await getDocs(q);
 
+
+
 if(snapshot.empty){
+
 
 alert("Customer Not Found");
 
+
 return;
 
+
 }
+
+
 
 snapshot.forEach((document)=>{
 
+
 currentCustomer=document.data();
+
 
 currentCustomer.uid=document.id;
 
+
+
 });
+
+
 
 showCustomer(currentCustomer);
 
-}
 
+
+}
 // =====================================================
 // GIVE STAMP
 // =====================================================
 
-giveStampBtn?.addEventListener("click",async()=>{
 
-if(!currentCustomer) return;
+giveStampBtn?.addEventListener(
+
+"click",
+
+async()=>{
+
+
+if(!currentCustomer){
+
+return;
+
+}
+
+
 
 try{
 
-let stamp=currentCustomer.stamps||0;
 
-if(stamp<6){
+let stamp =
+
+currentCustomer.stamps || 0;
+
+
+
+if(stamp < 6){
 
 stamp++;
 
 }
 
-const rewardUnlocked=(stamp>=6);
+
+
+const rewardUnlocked =
+
+stamp >= 6;
+
+
 
 await updateDoc(
 
-doc(db,"customers",currentCustomer.uid),
+doc(
+
+db,
+
+"customers",
+
+currentCustomer.uid
+
+),
 
 {
 
+
 stamps:stamp,
 
-rewardUnlocked,
+
+rewardUnlocked:rewardUnlocked,
+
 
 lastStampAt:serverTimestamp(),
 
+
 updatedAt:serverTimestamp()
+
 
 }
 
 );
 
+
+
 currentCustomer.stamps=stamp;
 
-currentCustomer.rewardUnlocked=rewardUnlocked;
+
+currentCustomer.rewardUnlocked=
+
+rewardUnlocked;
+
+
 
 showCustomer(currentCustomer);
 
+
+
 await loadDashboard();
 
-alert("✅ Stamp Added Successfully");
 
-}catch(err){
 
-console.error(err);
+alert(
 
-alert("❌ Failed To Give Stamp");
+"✅ Stamp Added Successfully"
+
+);
+
+
 
 }
 
-});
+catch(error){
+
+
+console.error(error);
+
+
+alert(
+
+"❌ Failed To Give Stamp"
+
+);
+
+
+}
+
+
+}
+
+);
+
+
+
 // =====================================================
 // RESET CUSTOMER
 // =====================================================
 
-cancelScanBtn?.addEventListener("click",()=>{
+
+cancelScanBtn?.addEventListener(
+
+"click",
+
+()=>{
+
 
 currentCustomer=null;
 
-scanCustomerPhoto.src="assets/avatars/male.png";
 
-scanCustomerName.textContent="Waiting For Scan...";
 
-scanMemberId.textContent="RIO-000000000";
+scanCustomerPhoto.src=
 
-scanStampCount.textContent="0/6";
+"assets/avatars/male.png";
 
-todayStatus.textContent="Waiting";
 
-todayStatus.className="pending";
+
+scanCustomerName.textContent=
+
+"Waiting For Scan...";
+
+
+
+scanMemberId.textContent=
+
+"RIO-000000000";
+
+
+
+scanStampCount.textContent=
+
+"0/6";
+
+
+
+todayStatus.textContent=
+
+"Waiting";
+
+
+
+todayStatus.className=
+
+"pending";
+
+
 
 giveStampBtn.disabled=true;
 
-});
+
+
+}
+
+);
+
+
 
 // =====================================================
 // REFRESH
 // =====================================================
 
-refreshBtn?.addEventListener("click",async()=>{
+
+refreshBtn?.addEventListener(
+
+"click",
+
+async()=>{
+
 
 await loadDashboard();
 
-});
+
+
+}
+
+);
+
+
 
 // =====================================================
 // EXPORT
 // =====================================================
 
-exportBtn?.addEventListener("click",()=>{
 
-location.href="admin-export.html";
+exportBtn?.addEventListener(
 
-});
+"click",
+
+()=>{
+
+
+location.href=
+
+"admin-export.html";
+
+
+}
+
+);
+
+
 
 // =====================================================
-// REWARD
+// REWARD MANAGER
 // =====================================================
 
-rewardBtn?.addEventListener("click",()=>{
 
-location.href="admin-rewards.html";
+rewardBtn?.addEventListener(
 
-});
+"click",
+
+()=>{
+
+
+location.href=
+
+"admin-rewards.html";
+
+
+}
+
+);
+
+
 
 // =====================================================
 // REPORT
 // =====================================================
 
-document.getElementById("reportMenu")
-?.addEventListener("click",()=>{
 
-location.href="admin-reports.html";
+document
 
-});
+.getElementById("reportMenu")
+
+?.addEventListener(
+
+"click",
+
+()=>{
+
+
+location.href=
+
+"admin-reports.html";
+
+
+}
+
+);
+
+
 
 // =====================================================
 // SETTINGS
 // =====================================================
 
-settingsBtn?.addEventListener("click",()=>{
 
-location.href="admin-settings.html";
+settingsBtn?.addEventListener(
 
-});
+"click",
 
-document.getElementById("settingMenu")
-?.addEventListener("click",()=>{
+()=>{
 
-location.href="admin-settings.html";
 
-});
+location.href=
+
+"admin-settings.html";
+
+
+}
+
+);
+
+
+
+document
+
+.getElementById("settingMenu")
+
+?.addEventListener(
+
+"click",
+
+()=>{
+
+
+location.href=
+
+"admin-settings.html";
+
+
+}
+
+);
+
+
 
 // =====================================================
 // NAVIGATION
 // =====================================================
 
-document.getElementById("dashboardMenu")
-?.addEventListener("click",()=>{
+
+document
+
+.getElementById("dashboardMenu")
+
+?.addEventListener(
+
+"click",
+
+()=>{
+
 
 window.scrollTo({
 
@@ -554,34 +1213,77 @@ behavior:"smooth"
 
 });
 
-});
 
-document.getElementById("customersMenu")
-?.addEventListener("click",()=>{
+}
 
-location.href="admin-customers.html";
+);
 
-});
 
-document.getElementById("stampMenu")
-?.addEventListener("click",()=>{
 
-document.querySelector(".scanner-section")
+document
+
+.getElementById("customersMenu")
+
+?.addEventListener(
+
+"click",
+
+()=>{
+
+
+location.href=
+
+"admin-customers.html";
+
+
+}
+
+);
+
+
+
+document
+
+.getElementById("stampMenu")
+
+?.addEventListener(
+
+"click",
+
+()=>{
+
+
+document
+
+.querySelector(".scanner-section")
+
 ?.scrollIntoView({
 
 behavior:"smooth"
 
 });
 
-});
+
+}
+
+);
+
+
 
 // =====================================================
 // LOGOUT
 // =====================================================
 
-logoutBtn?.addEventListener("click",async()=>{
+
+logoutBtn?.addEventListener(
+
+"click",
+
+async()=>{
+
 
 try{
+
 
 if(scannerRunning){
 
@@ -589,24 +1291,47 @@ await stopScanner();
 
 }
 
-}catch(e){}
+
+}
+
+catch(error){
+
+
+console.log(error);
+
+
+}
+
+
 
 await signOut(auth);
 
-location.href="admin-login.html";
 
-});
+
+location.href=
+
+"admin-login.html";
+
+
+}
+
+);
+
+
 
 // =====================================================
-// INIT
+// READY
 // =====================================================
 
-loadDashboard();
 
-// =====================================================
+console.log("==============================");
 
-console.log("================================");
 console.log("🍜 Rio Maggi Point");
-console.log("Premium Admin Dashboard V3");
-console.log("Camera Ready");
-console.log("================================");
+
+console.log("Premium Admin Dashboard V3 Fixed");
+
+console.log("Firebase Ready");
+
+console.log("Scanner Ready");
+
+console.log("==============================");
