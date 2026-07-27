@@ -1,361 +1,282 @@
-// ==========================================
+// =====================================================
 // RIO MAGGI POINT
-// HISTORY PAGE
+// HISTORY.JS
+// PREMIUM VERSION
 // PART 1
-// ==========================================
+// =====================================================
 
-import { auth, db }
-from "./firebase-config.js";
-
-import {
-
-onAuthStateChanged
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { auth, db } from "./firebase-config.js";
 
 import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-doc,
-getDoc
+import {
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-}
+// =====================================================
+// ELEMENTS
+// =====================================================
 
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+const historyPhoto =
+document.getElementById("historyPhoto");
 
-// ==========================================
-// HTML
-// ==========================================
+const historyName =
+document.getElementById("historyName");
 
-const profileCard =
-document.getElementById("profileCard");
+const historyMember =
+document.getElementById("historyMember");
 
-const customerPhoto =
-document.getElementById("customerPhoto");
+const historyStampCount =
+document.getElementById("historyStampCount");
 
-const customerName =
-document.getElementById("customerName");
+const rewardStatus =
+document.getElementById("rewardStatus");
 
-const memberId =
-document.getElementById("memberId");
+const totalVisits =
+document.getElementById("totalVisits");
 
-const totalStamp =
-document.getElementById("totalStamp");
+const totalRewardCount =
+document.getElementById("totalRewardCount");
 
-const rewardCount =
-document.getElementById("rewardCount");
+const memberSince =
+document.getElementById("memberSince");
 
-const historyContainer =
-document.getElementById("historyContainer");
+const historyTimeline =
+document.getElementById("historyTimeline");
 
-const rewardContainer =
-document.getElementById("rewardContainer");
+// =====================================================
+// AUTH CHECK
+// =====================================================
 
-// ==========================================
-// LOGIN
-// ==========================================
+onAuthStateChanged(auth, async(user)=>{
 
-onAuthStateChanged(
+    if(!user){
 
-auth,
+        location.href="login.html";
 
-async(user)=>{
+        return;
 
-if(!user){
+    }
 
-window.location.href="login.html";
+    try{
 
-return;
+        const customerRef =
+        doc(db,"customers",user.uid);
 
-}
+        const customerSnap =
+        await getDoc(customerRef);
 
-loadHistory(user.uid);
+        if(!customerSnap.exists()){
 
-}
+            alert("Customer Not Found");
 
-);
+            return;
 
-// ==========================================
+        }
+
+        const customer =
+        customerSnap.data();
+
+        loadHistory(customer);
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Unable To Load History");
+
+    }
+
+});
+
+// =====================================================
 // LOAD HISTORY
-// ==========================================
+// =====================================================
 
-async function loadHistory(uid){
+function loadHistory(customer){
 
-try{
+    historyName.textContent =
+    customer.name || "Customer";
 
-const ref=
+    historyMember.textContent =
+    customer.memberId || "RIO-000000";
 
-doc(db,"customers",uid);
+    historyStampCount.textContent =
+    `${customer.stamps || 0}/6`;
 
-const snap=
+    historyPhoto.src =
+    customer.photoURL ||
+    "assets/avatars/default.png";
 
-await getDoc(ref);
+    totalVisits.textContent =
+    customer.stamps || 0;
 
-if(!snap.exists()) return;
+    totalRewardCount.textContent =
+    customer.rewardUnlocked ? "1" : "0";
 
-const data=snap.data();
+    if(customer.createdAt){
 
-// =====================
-// PROFILE
-// =====================
+        memberSince.textContent =
+        new Date(
+            customer.createdAt.seconds * 1000
+        ).toLocaleDateString();
 
-customerName.textContent=
+    }
 
-data.name || "Customer";
+    rewardStatus.textContent =
+    customer.rewardUnlocked
+    ?
 
-memberId.textContent=
+    "🎉 Free Veg Maggi Unlocked"
 
-"ID : " +
+    :
 
-(data.memberId || "------");
+    "🔒 Locked";
 
-// =====================
-// THEME
-// =====================
+    createTimeline(customer);
 
-profileCard.classList.remove(
+}
+// =====================================================
+// CREATE TIMELINE
+// =====================================================
 
-"theme-male",
+function createTimeline(customer){
 
-"theme-female"
+    historyTimeline.innerHTML = "";
 
-);
+    const stamps = customer.stamps || 0;
 
-if(data.gender==="female"){
+    // No Stamp Yet
 
-profileCard.classList.add(
+    if(stamps === 0){
 
-"theme-female"
+        historyTimeline.innerHTML = `
 
-);
+        <div class="timeline-item">
 
-}else{
+            <div class="timeline-icon">
 
-profileCard.classList.add(
+                🍜
 
-"theme-male"
+            </div>
 
-);
+            <div class="timeline-content">
+
+                <h4>
+
+                Welcome To Rio Maggi Point
+
+                </h4>
+
+                <p>
+
+                No Stamp Collected Yet
+
+                </p>
+
+            </div>
+
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+    // Stamp Entries
+
+    for(let i=1; i<=stamps; i++){
+
+        const item = document.createElement("div");
+
+        item.className = "timeline-item";
+
+        item.innerHTML = `
+
+        <div class="timeline-icon">
+
+            ⭐
+
+        </div>
+
+        <div class="timeline-content">
+
+            <h4>
+
+            Stamp ${i} Collected
+
+            </h4>
+
+            <p>
+
+            Thank You For Visiting Rio Maggi Point
+
+            </p>
+
+        </div>
+
+        `;
+
+        historyTimeline.appendChild(item);
+
+    }
+
+    // Reward Entry
+
+    if(customer.rewardUnlocked){
+
+        const reward = document.createElement("div");
+
+        reward.className = "timeline-item reward";
+
+        reward.innerHTML = `
+
+        <div class="timeline-icon">
+
+            🎁
+
+        </div>
+
+        <div class="timeline-content">
+
+            <h4>
+
+            Free Veg Maggi Unlocked
+
+            </h4>
+
+            <p>
+
+            Congratulations!
+
+            Your Reward Is Ready.
+
+            </p>
+
+        </div>
+
+        `;
+
+        historyTimeline.appendChild(reward);
+
+    }
 
 }
 
-// =====================
-// PHOTO
-// =====================
-
-if(data.photoURL){
-
-customerPhoto.src=
-
-data.photoURL;
-
-}else{
-
-customerPhoto.src=
-
-data.gender==="female"
-
-?
-
-"assets/avatars/female.png"
-
-:
-
-"assets/avatars/male.png";
-
-}
-
-// =====================
-// SUMMARY
-// =====================
-
-totalStamp.textContent=
-
-data.totalStamp || 0;
-
-rewardCount.textContent=
-
-data.totalReward || 0;
-   // ==========================================
-// ACTIVITY TIMELINE
-// ==========================================
-
-historyContainer.innerHTML = "";
-
-for(let i=1;i<=6;i++){
-
-const stampDate = data["stamp"+i];
-
-if(stampDate){
-
-historyContainer.innerHTML += `
-
-<div class="history-item">
-
-<div class="history-icon">
-
-⭐
-
-</div>
-
-<div class="history-info">
-
-<h3>
-
-Stamp ${i} Collected
-
-</h3>
-
-<p>
-
-You earned Stamp ${i}
-at Rio Maggi Point.
-
-</p>
-
-<div class="history-date">
-
-${stampDate}
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-}
-
-}
-
-// Empty State
-
-if(historyContainer.innerHTML===""){
-
-historyContainer.innerHTML = `
-
-<div class="history-item">
-
-<div class="history-icon">
-
-🕒
-
-</div>
-
-<div class="history-info">
-
-<h3>
-
-No Stamp Yet
-
-</h3>
-
-<p>
-
-Visit Rio Maggi Point
-to start collecting stamps.
-
-</p>
-
-</div>
-
-</div>
-
-`;
-
-}
-
-// ==========================================
-// REWARD HISTORY
-// ==========================================
-
-rewardContainer.innerHTML="";
-
-if(Number(data.totalReward||0)>0){
-
-rewardContainer.innerHTML += `
-
-<div class="reward-item">
-
-<div class="reward-icon">
-
-🎁
-
-</div>
-
-<div class="reward-info">
-
-<h3>
-
-Free Veg Maggi Claimed
-
-</h3>
-
-<p>
-
-Congratulations!
-You successfully redeemed
-your loyalty reward.
-
-</p>
-
-</div>
-
-</div>
-
-`;
-
-}else{
-
-rewardContainer.innerHTML = `
-
-<div class="reward-item">
-
-<div class="reward-icon">
-
-🎁
-
-</div>
-
-<div class="reward-info">
-
-<h3>
-
-No Reward Yet
-
-</h3>
-
-<p>
-
-Collect 6 stamps to unlock
-your FREE Veg Maggi.
-
-</p>
-
-</div>
-
-</div>
-
-`;
-
-}
-
-}catch(err){
-
-console.error(err);
-
-}
-
-}
-
-// ==========================================
+// =====================================================
 // READY
-// ==========================================
+// =====================================================
 
-console.log(
+console.log("================================");
 
-"RIO HISTORY READY"
+console.log("Rio Maggi Point");
 
-);
+console.log("History Page Ready");
+
+console.log("================================");
