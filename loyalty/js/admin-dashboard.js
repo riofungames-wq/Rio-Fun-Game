@@ -556,7 +556,7 @@ await loadDashboard();
 
 exportBtn?.addEventListener("click",()=>{
 
-alert("📄 Export Feature Coming Soon");
+location.href="admin-export.html";
 
 });
 
