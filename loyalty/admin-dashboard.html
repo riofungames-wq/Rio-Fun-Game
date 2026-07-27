@@ -9,11 +9,19 @@
 name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>Rio Maggi Point • Premium Admin</title>
+<title>Rio Maggi Point • Premium Admin Dashboard</title>
 
 <meta
-name="#D4AF37"
+name="theme-color"
 content="#111111">
+
+<link
+rel="manifest"
+href="manifest.json">
+
+<link
+rel="icon"
+href="favicon.ico">
 
 <link
 rel="stylesheet"
@@ -52,7 +60,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 <img
 src="assets/logo/logo.png"
-alt="Rio">
+alt="Rio Maggi Point Logo">
 
 <div>
 
@@ -122,7 +130,7 @@ Settings
 
 </a>
 
-<a>
+<a id="logoutBtn">
 
 <i class="fa-solid fa-right-from-bracket"></i>
 
@@ -155,7 +163,6 @@ Rio Maggi Point Premium Dashboard
 </p>
 
 </header>
-
 <!-- ========================================= -->
 <!-- LIVE QR SCANNER -->
 <!-- ========================================= -->
@@ -302,7 +309,7 @@ class="secondary-btn">
 
 <i class="fa-solid fa-rotate"></i>
 
-Restart
+Restart Scanner
 
 </button>
 
@@ -313,6 +320,7 @@ Restart
 </div>
 
 </section>
+
 <!-- ========================================= -->
 <!-- DASHBOARD STATS -->
 <!-- ========================================= -->
@@ -323,11 +331,7 @@ Restart
 
 <h3>Total Customers</h3>
 
-<strong id="totalCustomers">
-
-0
-
-</strong>
+<strong id="totalCustomers">0</strong>
 
 </div>
 
@@ -335,11 +339,7 @@ Restart
 
 <h3>Total Stamps</h3>
 
-<strong id="totalStamps">
-
-0
-
-</strong>
+<strong id="totalStamps">0</strong>
 
 </div>
 
@@ -347,28 +347,19 @@ Restart
 
 <h3>Rewards Unlocked</h3>
 
-<strong id="totalRewards">
-
-0
-
-</strong>
+<strong id="totalRewards">0</strong>
 
 </div>
 
 <div class="stat-card">
 
-<h3>Today's Scan</h3>
+<h3>Today's Scans</h3>
 
-<strong id="todayScans">
-
-0
-
-</strong>
+<strong id="todayScans">0</strong>
 
 </div>
 
 </section>
-
 <!-- ========================================= -->
 <!-- CUSTOMER LIST -->
 <!-- ========================================= -->
@@ -392,7 +383,7 @@ Customer List
 <input
 type="text"
 id="searchCustomer"
-placeholder="Search Customer...">
+placeholder="Search customer by Name, Member ID or Mobile">
 
 </div>
 
@@ -412,6 +403,8 @@ placeholder="Search Customer...">
 
 <th>Member ID</th>
 
+<th>Mobile</th>
+
 <th>Stamps</th>
 
 <th>Reward</th>
@@ -423,6 +416,8 @@ placeholder="Search Customer...">
 </thead>
 
 <tbody id="customerTable">
+
+<!-- Firebase Data -->
 
 </tbody>
 
@@ -486,11 +481,7 @@ System Status
 
 <div class="status-item">
 
-<span>
-
-Firebase
-
-</span>
+<span>Firebase</span>
 
 <strong class="online">
 
@@ -502,11 +493,7 @@ Firebase
 
 <div class="status-item">
 
-<span>
-
-Admin
-
-</span>
+<span>Admin</span>
 
 <strong class="online">
 
@@ -518,11 +505,7 @@ Admin
 
 <div class="status-item">
 
-<span>
-
-Scanner
-
-</span>
+<span>Scanner</span>
 
 <strong id="scannerStatus">
 
@@ -534,11 +517,7 @@ Scanner
 
 <div class="status-item">
 
-<span>
-
-Last Refresh
-
-</span>
+<span>Last Refresh</span>
 
 <strong id="lastRefresh">
 
@@ -553,15 +532,14 @@ Last Refresh
 </main>
 
 </div>
+<!-- ========================================= -->
+<!-- HTML5 QR Scanner -->
+<!-- ========================================= -->
+
+<script src="https://unpkg.com/html5-qrcode"></script>
 
 <!-- ========================================= -->
-<!-- QR SCANNER LIBRARY -->
-<!-- ========================================= -->
-
-<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"> </script>
-
-<!-- ========================================= -->
-<!-- ADMIN JS -->
+<!-- Firebase Admin Dashboard -->
 <!-- ========================================= -->
 
 <script
@@ -569,4 +547,5 @@ type="module"
 src="js/admin-dashboard.js"></script>
 
 </body>
+
 </html>
