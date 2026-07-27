@@ -1,182 +1,276 @@
-// ======================================
-// RIO LOYALTY CLUB
-// LOGIN
+// =====================================================
+// RIO MAGGI POINT
+// LOGIN.JS
 // PART 1
-// ======================================
+// =====================================================
 
-// ---------- Elements ----------
+import { auth, db } from "./firebase-config.js";
 
-const loginForm = document.getElementById("loginForm");
+import {
+    signInWithEmailAndPassword,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-const email = document.getElementById("email");
+import {
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-const password = document.getElementById("password");
+// =====================================================
+// ELEMENTS
+// =====================================================
 
-const rememberMe = document.getElementById("rememberMe");
+const loginForm =
+document.getElementById("loginForm");
 
-const togglePassword = document.getElementById("togglePassword");
+const email =
+document.getElementById("email");
 
-// ======================================
-// Show / Hide Password
-// ======================================
+const password =
+document.getElementById("password");
 
-togglePassword.addEventListener("click",()=>{
+const loginBtn =
+document.getElementById("loginBtn");
 
-if(password.type==="password"){
+// =====================================================
+// AUTO LOGIN
+// =====================================================
 
-password.type="text";
+onAuthStateChanged(auth, async(user)=>{
 
-togglePassword.innerHTML=
-'<i class="fa-solid fa-eye-slash"></i>';
+    if(!user) return;
 
-}else{
+    try{
 
-password.type="password";
+        const customerRef =
+        doc(db,"customers",user.uid);
 
-togglePassword.innerHTML=
-'<i class="fa-solid fa-eye"></i>';
+        const customerSnap =
+        await getDoc(customerRef);
 
-}
+        if(customerSnap.exists()){
 
-});
+            window.location.href =
+            "card.html";
 
-// ======================================
-// Remember Me
-// ======================================
+        }
 
-window.addEventListener("load",()=>{
+    }
 
-const savedEmail=localStorage.getItem("rioRememberEmail");
+    catch(error){
 
-if(savedEmail){
+        console.error(error);
 
-email.value=savedEmail;
-
-rememberMe.checked=true;
-
-}
-
-});
-// ======================================
-// PART 2
-// LOGIN VALIDATION
-// ======================================
-
-loginForm.addEventListener("submit",(event)=>{
-
-event.preventDefault();
-
-// ---------- Validation ----------
-
-const userEmail=email.value.trim();
-
-const userPassword=password.value.trim();
-
-if(userEmail===""){
-
-alert("Please enter your email.");
-
-return;
-
-}
-
-if(userPassword===""){
-
-alert("Please enter your password.");
-
-return;
-
-}
-
-// ---------- Remember Me ----------
-
-if(rememberMe.checked){
-
-localStorage.setItem(
-
-"rioRememberEmail",
-
-userEmail
-
-);
-
-}else{
-
-localStorage.removeItem(
-
-"rioRememberEmail"
-
-);
-
-}
-
-// ---------- Send Data To Firebase ----------
-
-window.loginData={
-
-email:userEmail,
-
-password:userPassword
-
-};
-
-// Trigger Firebase Login
-
-document.dispatchEvent(
-
-new CustomEvent("login-ready")
-
-);
-
-});
-// ======================================
-// PART 3
-// FORGOT PASSWORD + AUTO LOGIN
-// ======================================
-
-// ---------- Forgot Password ----------
-
-const forgotPassword = document.getElementById("forgotPassword");
-
-forgotPassword.addEventListener("click",(event)=>{
-
-event.preventDefault();
-
-alert("Forgot Password feature will be added in the next update.");
+    }
 
 });
 
-// ======================================
-// AUTO LOGIN CHECK
-// ======================================
+// =====================================================
+// LOGIN
+// =====================================================
 
-window.addEventListener("load",()=>{
+loginForm.addEventListener("submit", async(e)=>{
 
-const loggedIn = sessionStorage.getItem("rioLoggedIn");
+    e.preventDefault();
 
-if(loggedIn==="true"){
+    const userEmail =
+    email.value.trim();
 
-window.location.href="dashboard.html";
+    const userPassword =
+    password.value;
 
-}
+    if(!userEmail || !userPassword){
+
+        alert("Please Fill All Fields");
+
+        return;
+
+    }
+
+    loginBtn.disabled = true;
+
+    loginBtn.innerHTML = "Signing In...";
+      try{
+
+        const credential =
+
+        await signInWithEmailAndPassword(
+
+            auth,
+
+            userEmail,
+
+            userPassword
+
+        );
+
+        const uid = credential.user.uid;
+
+        const customerRef =
+
+        doc(db,"customers",uid);
+
+        const customerSnap =
+
+        await getDoc(customerRef);
+
+        if(!customerSnap.exists()){
+
+            alert("Customer Record Not Found");
+
+            loginBtn.disabled = false;
+
+            loginBtn.innerHTML = "Login";
+
+            return;
+
+        }
+
+        const customer =
+
+        customerSnap.data();
+
+        // =====================================
+        // OPTIONAL ACCOUNT CHECK
+        // =====================================
+
+        if(customer.status === "blocked"){
+
+            alert("Your Account Has Been Blocked.");
+
+            loginBtn.disabled = false;
+
+            loginBtn.innerHTML = "Login";
+
+            return;
+
+        }
+
+        // =====================================
+        // SUCCESS
+        // =====================================
+
+        alert(
+
+            `Welcome ${customer.name}!`
+
+        );
+
+        window.location.href =
+
+        "card.html";
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        let message =
+
+        "Login Failed";
+
+        switch(error.code){
+
+            case "auth/invalid-credential":
+
+                message =
+
+                "Invalid Email Or Password";
+
+                break;
+
+            case "auth/user-disabled":
+
+                message =
+
+                "Account Disabled";
+
+                break;
+
+            case "auth/too-many-requests":
+
+                message =
+
+                "Too Many Attempts. Try Again Later.";
+
+                break;
+
+        }
+
+        alert(message);
+          finally{
+
+        loginBtn.disabled = false;
+
+        loginBtn.innerHTML = "Login";
+
+    }
 
 });
 
-// ======================================
-// LOGIN SUCCESS
-// (Called by login-firebase.js)
-// ======================================
+// =====================================================
+// PASSWORD SHOW / HIDE
+// =====================================================
 
-window.loginSuccess=function(){
+const togglePassword =
+document.getElementById("togglePassword");
 
-sessionStorage.setItem(
+if(togglePassword){
 
-"rioLoggedIn",
+    togglePassword.addEventListener("click",()=>{
 
-"true"
+        if(password.type==="password"){
 
-);
+            password.type="text";
 
-window.location.href="dashboard.html";
+            togglePassword.classList.remove("fa-eye");
 
-};
+            togglePassword.classList.add("fa-eye-slash");
+
+        }
+
+        else{
+
+            password.type="password";
+
+            togglePassword.classList.remove("fa-eye-slash");
+
+            togglePassword.classList.add("fa-eye");
+
+        }
+
+    });
+
+}
+
+// =====================================================
+// FORGOT PASSWORD
+// =====================================================
+
+const forgotPassword =
+document.getElementById("forgotPassword");
+
+if(forgotPassword){
+
+    forgotPassword.addEventListener("click",(e)=>{
+
+        e.preventDefault();
+
+        window.location.href="forgot-password.html";
+
+    });
+
+}
+
+// =====================================================
+// READY
+// =====================================================
+
+console.log("================================");
+
+console.log("🍜 Rio Maggi Point");
+
+console.log("Login Ready");
+
+console.log("================================");
