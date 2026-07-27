@@ -9,7 +9,7 @@
 name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>Rio Maggi Point • Premium Admin Dashboard</title>
+<title>Rio Maggi Point • Premium Admin Dashboard V2</title>
 
 <meta
 name="theme-color"
@@ -50,13 +50,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 <div class="admin-layout">
 
-<!-- ========================================= -->
+<!-- ========================= -->
 <!-- SIDEBAR -->
-<!-- ========================================= -->
+<!-- ========================= -->
 
 <aside class="sidebar">
 
-<div class="sidebar-logo">
+<div class="sidebar-header">
+
+<div class="logo-wrapper">
 
 <img
 src="assets/logo/logo.png"
@@ -66,19 +68,21 @@ alt="Rio Logo">
 
 <h2>RIO MAGGI</h2>
 
-<p>Premium Admin Panel</p>
+<p>Premium Admin Dashboard</p>
 
 </div>
 
 </div>
 
-<nav>
+</div>
+
+<nav class="sidebar-menu">
 
 <a id="dashboardMenu" class="active">
 
-<i class="fa-solid fa-chart-line"></i>
+<i class="fa-solid fa-house"></i>
 
-Dashboard
+<span>Dashboard</span>
 
 </a>
 
@@ -86,7 +90,7 @@ Dashboard
 
 <i class="fa-solid fa-camera"></i>
 
-QR Scanner
+<span>QR Scanner</span>
 
 </a>
 
@@ -94,7 +98,7 @@ QR Scanner
 
 <i class="fa-solid fa-users"></i>
 
-Customers
+<span>Customers</span>
 
 </a>
 
@@ -102,23 +106,23 @@ Customers
 
 <i class="fa-solid fa-star"></i>
 
-Stamp Manager
+<span>Stamp Manager</span>
 
 </a>
 
-<a id="rewardMenu">
+<a id="rewardsMenu">
 
 <i class="fa-solid fa-gift"></i>
 
-Rewards
+<span>Rewards</span>
 
 </a>
 
-<a id="reportMenu">
+<a id="reportsMenu">
 
 <i class="fa-solid fa-chart-column"></i>
 
-Reports
+<span>Reports</span>
 
 </a>
 
@@ -126,29 +130,37 @@ Reports
 
 <i class="fa-solid fa-gear"></i>
 
-Settings
-
-</a>
-
-<a id="logoutBtn">
-
-<i class="fa-solid fa-right-from-bracket"></i>
-
-Logout
+<span>Settings</span>
 
 </a>
 
 </nav>
 
+<div class="sidebar-footer">
+
+<button
+id="logoutBtn"
+class="logout-btn">
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+Logout
+
+</button>
+
+</div>
+
 </aside>
 
-<!-- ========================================= -->
-<!-- MAIN -->
-<!-- ========================================= -->
+<!-- ========================= -->
+<!-- MAIN CONTENT -->
+<!-- ========================= -->
 
 <main class="main-content">
 
 <header class="topbar">
+
+<div>
 
 <h1>
 
@@ -158,14 +170,40 @@ Welcome Admin 👋
 
 <p>
 
-Rio Maggi Point Premium Dashboard
+Rio Maggi Point Loyalty Management System
 
 </p>
 
+</div>
+
+<div class="admin-profile">
+
+<img
+src="assets/avatars/male.png"
+id="adminAvatar">
+
+<div>
+
+<strong id="adminName">
+
+Administrator
+
+</strong>
+
+<small>
+
+Online
+
+</small>
+
+</div>
+
+</div>
+
 </header>
-<!-- ========================================= -->
+<!-- ================================================= -->
 <!-- LIVE QR SCANNER -->
-<!-- ========================================= -->
+<!-- ================================================= -->
 
 <section class="dashboard-section">
 
@@ -173,19 +211,48 @@ Rio Maggi Point Premium Dashboard
 
 <div class="scanner-header">
 
+<div>
+
 <h2>
 
 <i class="fa-solid fa-camera"></i>
 
-Live QR Scanner
+QR Scanner
 
 </h2>
 
-<span class="live-status">
+<p>
 
-● LIVE
+Scan customer loyalty QR
 
-</span>
+</p>
+
+</div>
+
+<div class="scanner-control">
+
+<button
+id="startScannerBtn"
+class="scanner-start">
+
+<i class="fa-solid fa-play"></i>
+
+Start Scanner
+
+</button>
+
+<button
+id="stopScannerBtn"
+class="scanner-stop"
+disabled>
+
+<i class="fa-solid fa-stop"></i>
+
+Stop Scanner
+
+</button>
+
+</div>
 
 </div>
 
@@ -193,36 +260,105 @@ Live QR Scanner
 
 <div id="qr-reader"></div>
 
-</div>
+<div
+id="cameraOverlay"
+class="camera-overlay">
 
-<div class="scanner-result">
+<i class="fa-solid fa-camera"></i>
 
 <h3>
 
-Customer Preview
+Camera Off
 
 </h3>
 
-<div class="customer-preview">
+<p>
 
-<div class="preview-avatar">
+Click Start Scanner
 
-<img
-id="scanCustomerPhoto"
-src="assets/avatars/male.png"
-alt="Customer">
+</p>
 
 </div>
 
-<div class="preview-info">
+</div>
 
-<h4 id="scanCustomerName">
+<div class="scanner-status">
+
+<div>
+
+<strong>
+
+Scanner Status
+
+</strong>
+
+<p id="scannerStatus">
+
+Camera Idle
+
+</p>
+
+</div>
+
+<div>
+
+<strong>
+
+Last Scan
+
+</strong>
+
+<p id="lastScanTime">
+
+--
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================================================= -->
+<!-- CUSTOMER PREVIEW -->
+<!-- ================================================= -->
+
+<section class="customer-card">
+
+<div class="customer-header">
+
+<h2>
+
+Customer Preview
+
+</h2>
+
+</div>
+
+<div class="customer-preview">
+
+<div class="customer-photo">
+
+<img
+id="scanCustomerPhoto"
+src="assets/avatars/male.png">
+
+</div>
+
+<div class="customer-details">
+
+<h3
+id="scanCustomerName">
 
 Waiting For Scan...
 
-</h4>
+</h3>
 
-<p id="scanMemberId">
+<p
+id="scanMemberId">
 
 RIO-000000000
 
@@ -232,17 +368,18 @@ RIO-000000000
 
 </div>
 
-<div class="stamp-status">
+<div class="stamp-grid">
 
-<div class="status-row">
+<div class="stamp-box">
 
 <span>
 
-Current Stamps
+Current Stamp
 
 </span>
 
-<strong id="scanStampCount">
+<strong
+id="scanStampCount">
 
 0 / 6
 
@@ -250,19 +387,18 @@ Current Stamps
 
 </div>
 
-<div class="status-row">
+<div class="stamp-box">
 
 <span>
 
-Today's Status
+Today Status
 
 </span>
 
 <strong
-id="todayStatus"
-class="pending">
+id="todayStatus">
 
-Waiting For Scan
+Waiting
 
 </strong>
 
@@ -270,100 +406,125 @@ Waiting For Scan
 
 </div>
 
-<div class="scanner-actions">
+<div class="customer-buttons">
 
 <button
 id="giveStampBtn"
-class="primary-btn"
 disabled>
 
-<i class="fa-solid fa-star"></i>
-
-Give Stamp
+⭐ Give Stamp
 
 </button>
 
 <button
-id="cancelScanBtn"
-class="secondary-btn">
+id="cancelScanBtn">
 
-<i class="fa-solid fa-rotate"></i>
-
-Restart Scanner
+🔄 Reset
 
 </button>
-
-</div>
-
-</div>
 
 </div>
 
 </section>
-
-<!-- ========================================= -->
+<!-- ================================================= -->
 <!-- DASHBOARD STATS -->
-<!-- ========================================= -->
+<!-- ================================================= -->
 
 <section class="stats-grid">
 
 <div class="stat-card">
 
+<i class="fa-solid fa-users"></i>
+
 <h3>Total Customers</h3>
 
-<strong id="totalCustomers">0</strong>
+<strong id="totalCustomers">
+
+0
+
+</strong>
 
 </div>
 
 <div class="stat-card">
+
+<i class="fa-solid fa-star"></i>
 
 <h3>Total Stamps</h3>
 
-<strong id="totalStamps">0</strong>
+<strong id="totalStamps">
+
+0
+
+</strong>
 
 </div>
 
 <div class="stat-card">
+
+<i class="fa-solid fa-gift"></i>
 
 <h3>Rewards Unlocked</h3>
 
-<strong id="totalRewards">0</strong>
+<strong id="totalRewards">
+
+0
+
+</strong>
 
 </div>
 
 <div class="stat-card">
 
-<h3>Today's Scans</h3>
+<i class="fa-solid fa-camera"></i>
 
-<strong id="todayScans">0</strong>
+<h3>Today's Scan</h3>
+
+<strong id="todayScans">
+
+0
+
+</strong>
 
 </div>
 
 </section>
-<!-- ========================================= -->
+
+<!-- ================================================= -->
 <!-- CUSTOMER LIST -->
-<!-- ========================================= -->
+<!-- ================================================= -->
 
-<section class="customer-section">
+<section class="customer-table-card">
 
-<div class="section-header">
+<div class="table-header">
 
 <h2>
 
 <i class="fa-solid fa-users"></i>
 
-Customer List
+Registered Customers
 
 </h2>
 
-<div class="search-box">
-
-<i class="fa-solid fa-magnifying-glass"></i>
+<div class="table-actions">
 
 <input
+
 type="text"
+
 id="searchCustomer"
-placeholder="Search by Name, Member ID or Mobile">
+
+placeholder="Search Name / Mobile / Member ID">
+
+<button
+
+id="refreshBtn">
+
+<i class="fa-solid fa-rotate"></i>
+
+Refresh
+
+</button>
 
 </div>
 
@@ -385,9 +546,9 @@ placeholder="Search by Name, Member ID or Mobile">
 
 <th>Mobile</th>
 
-<th>Stamps</th>
+<th>Stamp</th>
 
-<th>Reward</th>
+<th>Status</th>
 
 <th>Action</th>
 
@@ -397,7 +558,7 @@ placeholder="Search by Name, Member ID or Mobile">
 
 <tbody id="customerTable">
 
-<!-- Firebase Customers -->
+<!-- Firebase Data -->
 
 </tbody>
 
@@ -407,19 +568,11 @@ placeholder="Search by Name, Member ID or Mobile">
 
 </section>
 
-<!-- ========================================= -->
-<!-- QUICK ACTIONS -->
-<!-- ========================================= -->
+<!-- ================================================= -->
+<!-- QUICK ACTION -->
+<!-- ================================================= -->
 
-<section class="quick-actions">
-
-<button id="refreshBtn">
-
-<i class="fa-solid fa-rotate"></i>
-
-Refresh
-
-</button>
+<section class="quick-action-grid">
 
 <button id="exportBtn">
 
@@ -433,7 +586,7 @@ Export
 
 <i class="fa-solid fa-gift"></i>
 
-Rewards
+Reward Manager
 
 </button>
 
@@ -445,18 +598,30 @@ Settings
 
 </button>
 
-</section>
-<!-- ========================================= -->
-<!-- SYSTEM STATUS -->
-<!-- ========================================= -->
+<button id="reportBtn">
 
-<section class="system-status">
+<i class="fa-solid fa-chart-column"></i>
+
+Reports
+
+</button>
+
+</section>
+<!-- ================================================= -->
+<!-- SYSTEM STATUS -->
+<!-- ================================================= -->
+
+<section class="system-status-card">
 
 <h2>
+
+<i class="fa-solid fa-circle-info"></i>
 
 System Status
 
 </h2>
+
+<div class="status-grid">
 
 <div class="status-item">
 
@@ -472,7 +637,7 @@ System Status
 
 <div class="status-item">
 
-<span>Admin Authentication</span>
+<span>Authentication</span>
 
 <strong class="online">
 
@@ -488,7 +653,7 @@ System Status
 
 <strong id="scannerStatus">
 
-🟡 Starting...
+⚪ Camera Idle
 
 </strong>
 
@@ -506,21 +671,37 @@ System Status
 
 </div>
 
+</div>
+
 </section>
+
+<!-- ================================================= -->
+<!-- FOOTER -->
+<!-- ================================================= -->
+
+<footer class="admin-footer">
+
+<p>
+
+© 2026 Rio Maggi Point • Premium Loyalty Dashboard
+
+</p>
+
+</footer>
 
 </main>
 
 </div>
 
-<!-- ========================================= -->
+<!-- ================================================= -->
 <!-- HTML5 QR Scanner -->
-<!-- ========================================= -->
+<!-- ================================================= -->
 
 <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
-<!-- ========================================= -->
-<!-- Admin Dashboard JS -->
-<!-- ========================================= -->
+<!-- ================================================= -->
+<!-- Firebase Dashboard Logic -->
+<!-- ================================================= -->
 
 <script
 type="module"
