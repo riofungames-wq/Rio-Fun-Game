@@ -577,7 +577,7 @@ location.href="admin-rewards.html";
 document.getElementById("reportMenu")
 ?.addEventListener("click",()=>{
 
-alert("📊 Reports Coming Soon");
+document.getElementById("reportMenu") ?.addEventListener("click",()=>{  location.href="admin-reports.html";  });
 
 });
 
