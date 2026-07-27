@@ -1,7 +1,7 @@
 // =====================================================
 // RIO MAGGI POINT
 // PREMIUM ADMIN DASHBOARD
-// FINAL VERSION v4
+// FINAL VERSION v5
 // PART 1
 // =====================================================
 
@@ -21,6 +21,13 @@ import {
     onAuthStateChanged,
     signOut
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+// =====================================================
+// HTML5 QR
+// =====================================================
+
+const Html5Qrcode =
+window.Html5Qrcode;
 
 // =====================================================
 // ELEMENTS
@@ -74,6 +81,23 @@ document.getElementById("scanStampCount");
 const todayStatus =
 document.getElementById("todayStatus");
 
+// Sidebar
+
+const scannerMenu =
+document.getElementById("scannerMenu");
+
+const exportBtn =
+document.getElementById("exportBtn");
+
+const rewardBtn =
+document.getElementById("rewardBtn");
+
+const settingsBtn =
+document.getElementById("settingsBtn");
+
+const logoutBtn =
+document.getElementById("logoutBtn");
+
 // =====================================================
 // VARIABLES
 // =====================================================
@@ -118,7 +142,6 @@ async function loadDashboard() {
     customers = [];
 
     let stampCount = 0;
-
     let rewardCount = 0;
 
     todayScanCount = 0;
@@ -147,11 +170,8 @@ async function loadDashboard() {
     });
 
     totalCustomers.textContent = customers.length;
-
     totalStamps.textContent = stampCount;
-
     totalRewards.textContent = rewardCount;
-
     todayScans.textContent = todayScanCount;
 
     lastRefresh.textContent =
@@ -160,21 +180,27 @@ async function loadDashboard() {
 }
 
 // =====================================================
-// CUSTOMER TABLE
+// CREATE TABLE
 // =====================================================
 
 function createCustomerRow(customer) {
 
     const tr = document.createElement("tr");
 
-    const avatar = customer.gender === "female"
+    const avatar =
+
+        customer.gender === "female"
+
         ? "assets/avatars/female.png"
+
         : "assets/avatars/male.png";
 
     tr.innerHTML = `
 
     <td>
+
         <img src="${avatar}" class="table-avatar">
+
     </td>
 
     <td>${customer.name || "-"}</td>
@@ -188,11 +214,17 @@ function createCustomerRow(customer) {
     <td>
 
         ${
+
             customer.rewardUnlocked
 
-            ? '<span class="reward-ready">✅ Ready</span>'
+            ?
 
-            : '<span class="reward-lock">❌ Locked</span>'
+            '<span class="reward-ready">✅ Ready</span>'
+
+            :
+
+            '<span class="reward-lock">❌ Locked</span>'
+
         }
 
     </td>
@@ -200,7 +232,9 @@ function createCustomerRow(customer) {
     <td>
 
         <button
+
         class="action-btn"
+
         onclick="selectCustomer('${customer.uid}')">
 
         View
@@ -233,18 +267,23 @@ searchCustomer.addEventListener("keyup", (e) => {
         return (
 
             (customer.name || "")
+
             .toLowerCase()
+
             .includes(keyword)
 
             ||
 
             (customer.memberId || "")
+
             .toLowerCase()
+
             .includes(keyword)
 
             ||
 
             (customer.mobile || "")
+
             .includes(keyword)
 
         );
@@ -262,6 +301,7 @@ searchCustomer.addEventListener("keyup", (e) => {
 window.selectCustomer = function(uid){
 
     currentCustomer =
+
     customers.find(c => c.uid === uid);
 
     if(!currentCustomer) return;
@@ -277,9 +317,16 @@ window.selectCustomer = function(uid){
 function showCustomer(customer){
 
     scanCustomerPhoto.src =
+
     customer.gender === "female"
-        ? "assets/avatars/female.png"
-        : "assets/avatars/male.png";
+
+    ?
+
+    "assets/avatars/female.png"
+
+    :
+
+    "assets/avatars/male.png";
 
     scanCustomerName.textContent =
     customer.name;
@@ -300,18 +347,28 @@ function showCustomer(customer){
 
 }
 // =====================================================
-// START SCANNER
+// START QR SCANNER
 // =====================================================
 
 async function startScanner() {
 
     if (scannerRunning) return;
 
+    if (!window.Html5Qrcode) {
+
+        scannerStatus.textContent = "🔴 QR Library Missing";
+
+        console.error("Html5Qrcode library not loaded");
+
+        return;
+
+    }
+
     scannerRunning = true;
 
     scannerStatus.textContent = "🟡 Starting Camera...";
 
-    html5QrCode = new Html5Qrcode("qr-reader");
+    html5QrCode = new window.Html5Qrcode("qr-reader");
 
     try {
 
@@ -487,7 +544,7 @@ giveStampBtn.addEventListener("click", async () => {
 
         }
 
-        const rewardUnlocked = (stamp >= 6);
+        const rewardUnlocked = stamp >= 6;
 
         await updateDoc(
 
@@ -540,10 +597,57 @@ refreshBtn.addEventListener("click", async () => {
 });
 
 // =====================================================
-// LOGOUT
+// SIDEBAR
 // =====================================================
 
-const logoutBtn = document.getElementById("logoutBtn");
+if (scannerMenu) {
+
+    scannerMenu.addEventListener("click", () => {
+
+        document.querySelector(".dashboard-section")
+            ?.scrollIntoView({
+
+                behavior: "smooth"
+
+            });
+
+    });
+
+}
+
+if (exportBtn) {
+
+    exportBtn.addEventListener("click", () => {
+
+        alert("📄 Export Feature Coming Soon");
+
+    });
+
+}
+
+if (rewardBtn) {
+
+    rewardBtn.addEventListener("click", () => {
+
+        location.href = "reward.html";
+
+    });
+
+}
+
+if (settingsBtn) {
+
+    settingsBtn.addEventListener("click", () => {
+
+        alert("⚙️ Settings Coming Soon");
+
+    });
+
+}
+
+// =====================================================
+// LOGOUT
+// =====================================================
 
 if (logoutBtn) {
 
@@ -570,15 +674,11 @@ if (logoutBtn) {
 }
 
 // =====================================================
-// ===================================================== // SIDEBAR MENU // =====================================================  const scannerMenu = document.getElementById("scannerMenu"); const exportBtn = document.getElementById("exportBtn"); const rewardBtn = document.getElementById("rewardBtn"); const settingsBtn = document.getElementById("settingsBtn");  if (scannerMenu) {      scannerMenu.addEventListener("click", () => {          document.querySelector(".dashboard-section")             ?.scrollIntoView({                 behavior: "smooth"             });      });  }  if (exportBtn) {      exportBtn.addEventListener("click", () => {          alert("📄 Export Feature Coming Soon");      });  }  if (rewardBtn) {      rewardBtn.addEventListener("click", () => {          location.href = "reward.html";      });  }  if (settingsBtn) {      settingsBtn.addEventListener("click", () => {          alert("⚙️ Settings Coming Soon");      });  }
+// READY
 // =====================================================
 
 console.log("================================");
-
 console.log("🍜 Rio Maggi Point");
-
 console.log("Premium Admin Dashboard Ready");
-
 console.log("QR Scanner Ready");
-
 console.log("================================");
