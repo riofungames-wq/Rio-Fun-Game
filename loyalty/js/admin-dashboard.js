@@ -1,6 +1,7 @@
 // =====================================================
 // RIO MAGGI POINT
-// PREMIUM ADMIN DASHBOARD v3
+// PREMIUM ADMIN DASHBOARD
+// FINAL VERSION
 // PART 1
 // =====================================================
 
@@ -21,6 +22,14 @@ import {
     onAuthStateChanged,
     signOut
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+// =====================================================
+// HTML5 QR
+// =====================================================
+
+import {
+    Html5Qrcode
+} from "https://unpkg.com/html5-qrcode/html5-qrcode.min.js";
 
 // =====================================================
 // ELEMENTS
@@ -44,12 +53,6 @@ document.getElementById("customerTable");
 const searchCustomer =
 document.getElementById("searchCustomer");
 
-const lastRefresh =
-document.getElementById("lastRefresh");
-
-const scannerStatus =
-document.getElementById("scannerStatus");
-
 const refreshBtn =
 document.getElementById("refreshBtn");
 
@@ -58,6 +61,12 @@ document.getElementById("giveStampBtn");
 
 const cancelScanBtn =
 document.getElementById("cancelScanBtn");
+
+const scannerStatus =
+document.getElementById("scannerStatus");
+
+const lastRefresh =
+document.getElementById("lastRefresh");
 
 const scanCustomerPhoto =
 document.getElementById("scanCustomerPhoto");
@@ -75,20 +84,24 @@ const todayStatus =
 document.getElementById("todayStatus");
 
 // =====================================================
+// VARIABLES
+// =====================================================
 
 let customers = [];
 
 let currentCustomer = null;
 
-let qrScanner = null;
-
 let todayScanCount = 0;
+
+let html5QrCode = null;
+
+let scannerRunning = false;
 
 // =====================================================
 // AUTH
 // =====================================================
 
-onAuthStateChanged(auth, async(user)=>{
+onAuthStateChanged(auth, async (user)=>{
 
     if(!user){
 
@@ -100,6 +113,8 @@ onAuthStateChanged(auth, async(user)=>{
 
     await loadDashboard();
 
+    await loadTodayScanCount();
+
     startScanner();
 
 });
@@ -110,13 +125,13 @@ onAuthStateChanged(auth, async(user)=>{
 
 async function loadDashboard(){
 
-    customerTable.innerHTML="";
-
     customers=[];
 
-    let stampCount=0;
+    customerTable.innerHTML="";
 
-    let rewardCount=0;
+    let stampTotal=0;
+
+    let rewardTotal=0;
 
     const snapshot=
     await getDocs(collection(db,"customers"));
@@ -129,11 +144,11 @@ async function loadDashboard(){
 
         customers.push(customer);
 
-        stampCount+=customer.stamps||0;
+        stampTotal += customer.stamps || 0;
 
         if(customer.rewardUnlocked){
 
-            rewardCount++;
+            rewardTotal++;
 
         }
 
@@ -145,10 +160,10 @@ async function loadDashboard(){
     customers.length;
 
     totalStamps.textContent=
-    stampCount;
+    stampTotal;
 
     totalRewards.textContent=
-    rewardCount;
+    rewardTotal;
 
     todayScans.textContent=
     todayScanCount;
@@ -163,47 +178,43 @@ async function loadDashboard(){
 
 function createCustomerRow(customer){
 
-    const tr=document.createElement("tr");
+    const tr = document.createElement("tr");
 
-    tr.innerHTML=`
+    tr.innerHTML = `
 
     <td>
-
         <img
-        src="${customer.photoURL || 'assets/avatars/default.png'}"
+        src="${customer.photoURL || "assets/avatars/default.png"}"
         class="table-avatar">
-
     </td>
 
-    <td>${customer.name}</td>
+    <td>${customer.name || "-"}</td>
 
-    <td>${customer.memberId}</td>
+    <td>${customer.memberId || "-"}</td>
 
     <td>${customer.stamps || 0}/6</td>
 
     <td>
 
-    ${
-        customer.rewardUnlocked
+        ${
+            customer.rewardUnlocked
 
-        ?
+            ?
 
-        '<span class="reward-ready">✅ Ready</span>'
+            '<span class="reward-ready">✅ Ready</span>'
 
-        :
+            :
 
-        '<span class="reward-lock">❌ Locked</span>'
+            '<span class="reward-lock">❌ Locked</span>'
 
-    }
+        }
 
     </td>
 
     <td>
 
         <button
-
         class="action-btn"
-
         onclick="selectCustomer('${customer.uid}')">
 
         View
@@ -219,16 +230,15 @@ function createCustomerRow(customer){
 }
 
 // =====================================================
-// SEARCH CUSTOMER
+// SEARCH
 // =====================================================
 
 searchCustomer.addEventListener("keyup",(e)=>{
 
-    const keyword=e.target.value
-    .toLowerCase()
-    .trim();
+    const keyword =
+    e.target.value.toLowerCase().trim();
 
-    customerTable.innerHTML="";
+    customerTable.innerHTML = "";
 
     customers
 
@@ -237,23 +247,18 @@ searchCustomer.addEventListener("keyup",(e)=>{
         return(
 
             (customer.name || "")
-
             .toLowerCase()
-
             .includes(keyword)
 
             ||
 
             (customer.memberId || "")
-
             .toLowerCase()
-
             .includes(keyword)
 
             ||
 
             (customer.mobile || "")
-
             .includes(keyword)
 
         );
@@ -268,9 +273,9 @@ searchCustomer.addEventListener("keyup",(e)=>{
 // SELECT CUSTOMER
 // =====================================================
 
-window.selectCustomer=function(uid){
+window.selectCustomer = function(uid){
 
-    currentCustomer=
+    currentCustomer =
 
     customers.find(c=>c.uid===uid);
 
@@ -286,66 +291,69 @@ window.selectCustomer=function(uid){
 
 function showCustomer(customer){
 
-    scanCustomerPhoto.src=
-
+    scanCustomerPhoto.src =
     customer.photoURL ||
-
     "assets/avatars/default.png";
 
-    scanCustomerName.textContent=
+    scanCustomerName.textContent =
+    customer.name || "-";
 
-    customer.name;
+    scanMemberId.textContent =
+    customer.memberId || "-";
 
-    scanMemberId.textContent=
-
-    customer.memberId;
-
-    scanStampCount.textContent=
-
+    scanStampCount.textContent =
     `${customer.stamps || 0}/6`;
 
-    todayStatus.textContent=
-
+    todayStatus.textContent =
     "Ready To Give Stamp";
 
-    todayStatus.className=
+    todayStatus.className =
+    "status success";
 
-    "success";
-
-    giveStampBtn.disabled=false;
+    giveStampBtn.disabled = false;
 
 }
 
 // =====================================================
-// START QR SCANNER
+// LOAD TODAY COUNT
+// =====================================================
+
+async function loadTodayScanCount(){
+
+    todayScanCount = 0;
+
+    todayScans.textContent =
+    todayScanCount;
+
+}
+
+// =====================================================
+// START QR
 // =====================================================
 
 async function startScanner(){
 
-    if(qrScanner) return;
+    if(scannerRunning) return;
 
-    qrScanner=new Html5Qrcode("qr-reader");
+    html5QrCode =
+    new Html5Qrcode("qr-reader");
 
-    scannerStatus.textContent=
+    scannerRunning = true;
 
+    scannerStatus.textContent =
     "🟢 Camera Starting...";
 
     try{
 
-        await qrScanner.start(
+        await html5QrCode.start(
 
             {
-
                 facingMode:"environment"
-
             },
 
             {
-
                 fps:10,
-
                 qrbox:260
-
             },
 
             onScanSuccess,
@@ -354,8 +362,7 @@ async function startScanner(){
 
         );
 
-        scannerStatus.textContent=
-
+        scannerStatus.textContent =
         "🟢 Scanner Ready";
 
     }
@@ -364,9 +371,10 @@ async function startScanner(){
 
         console.error(error);
 
-        scannerStatus.textContent=
-
+        scannerStatus.textContent =
         "🔴 Camera Error";
+
+        scannerRunning = false;
 
     }
 
@@ -379,23 +387,17 @@ async function onScanSuccess(decodedText){
 
     try{
 
-        // Stop Scanner
+        await html5QrCode.stop();
 
-        await qrScanner.stop();
+        html5QrCode = null;
 
-        qrScanner = null;
+        scannerRunning = false;
 
         scannerStatus.textContent =
         "🟢 QR Detected";
 
-        // ============================
-        // VALIDATE QR
-        // ============================
-
         if(
-
             !decodedText.startsWith("RIO-MAGGI::")
-
         ){
 
             alert("❌ Invalid Rio Maggi QR");
@@ -406,42 +408,25 @@ async function onScanSuccess(decodedText){
 
         }
 
-        // ============================
-        // MEMBER ID
-        // ============================
-
         const memberId =
-
         decodedText.replace(
-
             "RIO-MAGGI::",
-
             ""
-
         );
-
-        // ============================
-        // FIND CUSTOMER
-        // ============================
 
         const q = query(
 
             collection(db,"customers"),
 
             where(
-
                 "memberId",
-
                 "==",
-
                 memberId
-
             )
 
         );
 
         const snapshot =
-
         await getDocs(q);
 
         if(snapshot.empty){
@@ -457,18 +442,12 @@ async function onScanSuccess(decodedText){
         snapshot.forEach((document)=>{
 
             currentCustomer =
-
             document.data();
 
             currentCustomer.uid =
-
             document.id;
 
         });
-
-        // ============================
-        // SHOW PREVIEW
-        // ============================
 
         showCustomer(currentCustomer);
 
@@ -487,22 +466,6 @@ async function onScanSuccess(decodedText){
 }
 
 // =====================================================
-// CANCEL
-// =====================================================
-
-cancelScanBtn.addEventListener(
-
-"click",
-
-()=>{
-
-    clearCustomerPreview();
-
-    startScanner();
-
-});
-
-// =====================================================
 // CLEAR PREVIEW
 // =====================================================
 
@@ -511,65 +474,80 @@ function clearCustomerPreview(){
     currentCustomer = null;
 
     scanCustomerPhoto.src =
-
     "assets/avatars/default.png";
 
     scanCustomerName.textContent =
-
     "Waiting For Scan...";
 
     scanMemberId.textContent =
-
     "RIO-000000000";
 
     scanStampCount.textContent =
-
     "0 / 6";
 
     todayStatus.textContent =
-
     "Not Scanned";
 
     todayStatus.className =
-
-    "pending";
+    "status pending";
 
     giveStampBtn.disabled = true;
 
 }
+
+// =====================================================
+// CANCEL
+// =====================================================
+
+cancelScanBtn.addEventListener("click",()=>{
+
+    clearCustomerPreview();
+
+    startScanner();
+
+});
+
 // =====================================================
 // GIVE STAMP
 // =====================================================
 
-giveStampBtn.addEventListener("click", async () => {
+giveStampBtn.addEventListener("click",async()=>{
 
-    if (!currentCustomer) return;
+    if(!currentCustomer) return;
 
-    try {
+    try{
 
-        let stamp = currentCustomer.stamps || 0;
+        let stamp =
+        currentCustomer.stamps || 0;
 
-        if (stamp < 6) {
+        if(stamp < 6){
 
             stamp++;
 
         }
 
-        const rewardUnlocked = (stamp >= 6);
+        const rewardUnlocked =
+        stamp >= 6;
 
         await updateDoc(
 
-            doc(db, "customers", currentCustomer.uid),
+            doc(
+                db,
+                "customers",
+                currentCustomer.uid
+            ),
 
             {
 
-                stamps: stamp,
+                stamps:stamp,
 
-                rewardUnlocked: rewardUnlocked,
+                rewardUnlocked,
 
-                lastStampAt: serverTimestamp(),
+                lastStampAt:
+                serverTimestamp(),
 
-                updatedAt: serverTimestamp()
+                updatedAt:
+                serverTimestamp()
 
             }
 
@@ -587,7 +565,7 @@ giveStampBtn.addEventListener("click", async () => {
 
     }
 
-    catch (error) {
+    catch(error){
 
         console.error(error);
 
@@ -601,38 +579,50 @@ giveStampBtn.addEventListener("click", async () => {
 // REFRESH
 // =====================================================
 
-refreshBtn.addEventListener("click", async () => {
+refreshBtn.addEventListener(
+
+"click",
+
+async()=>{
 
     await loadDashboard();
 
-});
+}
+
+);
 
 // =====================================================
 // LOGOUT
 // =====================================================
 
-document.querySelectorAll(".sidebar nav a")
-.forEach(item => {
+document
+.querySelectorAll(".sidebar nav a")
+.forEach(item=>{
 
-    if (item.textContent.includes("Logout")) {
+    if(item.textContent.includes("Logout")){
 
-        item.addEventListener("click", async () => {
+        item.addEventListener(
 
-            if (qrScanner) {
+        "click",
 
-                try {
+        async()=>{
 
-                    await qrScanner.stop();
+            if(html5QrCode){
+
+                try{
+
+                    await html5QrCode.stop();
 
                 }
 
-                catch (e) {}
+                catch(e){}
 
             }
 
             await signOut(auth);
 
-            location.href = "admin-login.html";
+            location.href =
+            "admin-login.html";
 
         });
 
