@@ -60,13 +60,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 <img
 src="assets/logo/logo.png"
-alt="Rio Maggi Point Logo">
+alt="Rio Logo">
 
 <div>
 
 <h2>RIO MAGGI</h2>
 
-<p>Premium Admin</p>
+<p>Premium Admin Panel</p>
 
 </div>
 
@@ -74,7 +74,7 @@ alt="Rio Maggi Point Logo">
 
 <nav>
 
-<a class="active">
+<a id="dashboardMenu" class="active">
 
 <i class="fa-solid fa-chart-line"></i>
 
@@ -82,7 +82,7 @@ Dashboard
 
 </a>
 
-<a id="scannerMenu" class="active">
+<a id="scannerMenu">
 
 <i class="fa-solid fa-camera"></i>
 
@@ -90,7 +90,7 @@ QR Scanner
 
 </a>
 
-<a>
+<a id="customersMenu">
 
 <i class="fa-solid fa-users"></i>
 
@@ -98,7 +98,7 @@ Customers
 
 </a>
 
-<a>
+<a id="stampMenu">
 
 <i class="fa-solid fa-star"></i>
 
@@ -106,7 +106,7 @@ Stamp Manager
 
 </a>
 
-<a>
+<a id="rewardMenu">
 
 <i class="fa-solid fa-gift"></i>
 
@@ -114,7 +114,7 @@ Rewards
 
 </a>
 
-<a>
+<a id="reportMenu">
 
 <i class="fa-solid fa-chart-column"></i>
 
@@ -122,7 +122,7 @@ Reports
 
 </a>
 
-<a>
+<a id="settingsMenu">
 
 <i class="fa-solid fa-gear"></i>
 
@@ -143,7 +143,7 @@ Logout
 </aside>
 
 <!-- ========================================= -->
-<!-- MAIN CONTENT -->
+<!-- MAIN -->
 <!-- ========================================= -->
 
 <main class="main-content">
@@ -191,27 +191,7 @@ Live QR Scanner
 
 <div class="scanner-box">
 
-<div id="qr-reader">
-
-<div class="camera-placeholder">
-
-<i class="fa-solid fa-camera-retro"></i>
-
-<p>
-
-Opening Camera...
-
-</p>
-
-<small>
-
-Waiting For Customer QR
-
-</small>
-
-</div>
-
-</div>
+<div id="qr-reader"></div>
 
 </div>
 
@@ -282,7 +262,7 @@ Today's Status
 id="todayStatus"
 class="pending">
 
-Not Scanned
+Waiting For Scan
 
 </strong>
 
@@ -383,7 +363,7 @@ Customer List
 <input
 type="text"
 id="searchCustomer"
-placeholder="Search customer by Name, Member ID or Mobile">
+placeholder="Search by Name, Member ID or Mobile">
 
 </div>
 
@@ -417,7 +397,7 @@ placeholder="Search customer by Name, Member ID or Mobile">
 
 <tbody id="customerTable">
 
-<!-- Firebase Data -->
+<!-- Firebase Customers -->
 
 </tbody>
 
@@ -466,7 +446,6 @@ Settings
 </button>
 
 </section>
-
 <!-- ========================================= -->
 <!-- SYSTEM STATUS -->
 <!-- ========================================= -->
@@ -493,7 +472,7 @@ System Status
 
 <div class="status-item">
 
-<span>Admin</span>
+<span>Admin Authentication</span>
 
 <strong class="online">
 
@@ -505,11 +484,11 @@ System Status
 
 <div class="status-item">
 
-<span>Scanner</span>
+<span>QR Scanner</span>
 
 <strong id="scannerStatus">
 
-🟡 Ready
+🟡 Starting...
 
 </strong>
 
@@ -532,14 +511,15 @@ System Status
 </main>
 
 </div>
+
 <!-- ========================================= -->
 <!-- HTML5 QR Scanner -->
 <!-- ========================================= -->
 
-<script src="https://unpkg.com/html5-qrcode"></script>
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
 <!-- ========================================= -->
-<!-- Firebase Admin Dashboard -->
+<!-- Admin Dashboard JS -->
 <!-- ========================================= -->
 
 <script
