@@ -1,1 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Rio Maggi Point • Reward Manager
+
+</title>
+
+<meta
+name="theme-color"
+content="#111111">
+
+<link
+rel="manifest"
+href="manifest.json">
+
+<link
+rel="stylesheet"
+href="css/admin-rewards.css">
+
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="reward-app">
+
+<!-- ===================================== -->
+<!-- HEADER -->
+<!-- ===================================== -->
+
+<header class="reward-header">
+
+<div class="logo-box">
+
+<img
+src="assets/logo/logo.png"
+alt="Rio Logo">
+
+<div>
+
+<h2>
+
+Reward Manager
+
+</h2>
+
+<p>
+
+Rio Maggi Point Admin
+
+</p>
+
+</div>
+
+</div>
+
+<button
+id="backDashboard">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Dashboard
+
+</button>
+
+</header>
+
+<!-- ===================================== -->
+<!-- DASHBOARD STATS -->
+<!-- ===================================== -->
+
+<section class="reward-stats">
+
+<div class="reward-card">
+
+<h4>
+
+Total Rewards
+
+</h4>
+
+<strong id="rewardTotal">
+
+0
+
+</strong>
+
+</div>
+
+<div class="reward-card">
+
+<h4>
+
+Ready To Claim
+
+</h4>
+
+<strong id="rewardReady">
+
+0
+
+</strong>
+
+</div>
+
+<div class="reward-card">
+
+<h4>
+
+Claimed
+
+</h4>
+
+<strong id="rewardClaimed">
+
+0
+
+</strong>
+
+</div>
+
+</section>
+  <!-- ===================================== -->
+<!-- SEARCH -->
+<!-- ===================================== -->
+
+<section class="search-section">
+
+<div class="search-box">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input
+type="text"
+id="searchRewardCustomer"
+placeholder="Search Customer Name / Member ID / Mobile">
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- REWARD TABLE -->
+<!-- ===================================== -->
+
+<section class="reward-table-card">
+
+<div class="table-title">
+
+<h2>
+
+<i class="fa-solid fa-gift"></i>
+
+Customer Rewards
+
+</h2>
+
+</div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Photo</th>
+
+<th>Name</th>
+
+<th>Member ID</th>
+
+<th>Mobile</th>
+
+<th>Stamps</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="rewardTable">
+
+<!-- Firebase Data -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- CUSTOMER PREVIEW -->
+<!-- ===================================== -->
+
+<section class="reward-preview">
+
+<div class="preview-card">
+
+<h2>
+
+Selected Customer
+
+</h2>
+
+<div class="preview-user">
+
+<img
+id="previewPhoto"
+src="assets/avatars/male.png"
+alt="Customer">
+
+<div>
+
+<h3 id="previewName">
+
+Waiting...
+
+</h3>
+
+<p id="previewMember">
+
+RIO-000000000
+
+</p>
+
+</div>
+
+</div>
+
+<div class="preview-stamps">
+
+<strong id="previewStamp">
+
+0 / 6
+
+</strong>
+
+</div>
+
+<button
+id="redeemRewardBtn"
+disabled>
+
+🎁 Redeem Reward
+
+</button>
+
+</div>
+
+</section>
+  <!-- ===================================== -->
+<!-- REWARD HISTORY -->
+<!-- ===================================== -->
+
+<section class="history-section">
+
+<div class="history-card">
+
+<h2>
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+Recent Reward Activity
+
+</h2>
+
+<div class="history-table">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Date</th>
+
+<th>Customer</th>
+
+<th>Member ID</th>
+
+<th>Reward</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="rewardHistoryTable">
+
+<!-- Reward History From Firebase -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- QUICK ACTIONS -->
+<!-- ===================================== -->
+
+<section class="reward-actions">
+
+<button id="refreshRewardBtn">
+
+<i class="fa-solid fa-rotate"></i>
+
+Refresh
+
+</button>
+
+<button id="exportRewardBtn">
+
+<i class="fa-solid fa-file-export"></i>
+
+Export Rewards
+
+</button>
+
+<button id="pendingRewardBtn">
+
+<i class="fa-solid fa-hourglass-half"></i>
+
+Pending Rewards
+
+</button>
+
+<button id="claimedRewardBtn">
+
+<i class="fa-solid fa-circle-check"></i>
+
+Claimed Rewards
+
+</button>
+
+</section>
+  <!-- ===================================== -->
+<!-- SYSTEM STATUS -->
+<!-- ===================================== -->
+
+<section class="system-status">
+
+<div class="status-card">
+
+<h2>
+
+System Status
+
+</h2>
+
+<div class="status-row">
+
+<span>
+
+Firebase
+
+</span>
+
+<strong class="online">
+
+🟢 Connected
+
+</strong>
+
+</div>
+
+<div class="status-row">
+
+<span>
+
+Reward Manager
+
+</span>
+
+<strong class="online">
+
+🟢 Active
+
+</strong>
+
+</div>
+
+<div class="status-row">
+
+<span>
+
+Last Refresh
+
+</span>
+
+<strong id="lastRewardRefresh">
+
+--
+
+</strong>
+
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<!-- ===================================== -->
+<!-- FIREBASE -->
+<!-- ===================================== -->
+
+<script
+type="module"
+src="js/admin-rewards.js">
+
+</script>
+
+</body>
+
+</html>
