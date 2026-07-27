@@ -613,8 +613,6 @@ behavior:"smooth"
 
 });
 
-});
-
 document.getElementById("customersMenu")
 ?.addEventListener("click",()=>{
 
