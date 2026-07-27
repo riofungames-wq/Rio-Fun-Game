@@ -293,7 +293,7 @@ function showCustomer(customer){
 
     scanCustomerPhoto.src =
     customer.photoURL ||
-    "assets/avatars/default.png";
+    "assets/avatars/male.png";
 
     scanCustomerName.textContent =
     customer.name || "-";
