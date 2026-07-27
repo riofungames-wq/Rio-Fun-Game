@@ -1,16 +1,397 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Customers</title>
+
+<title>Admin Customers | Rio Maggi Point</title>
+
+<link rel="manifest" href="manifest.json">
+
+<link rel="stylesheet"
+href="css/admin-customers.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+
 </head>
 
 <body>
 
-<h1>👥 Admin Customers Page Working</h1>
+<div class="page">
 
-<a href="admin-dashboard.html">⬅ Back To Dashboard</a>
+<!-- HEADER -->
+
+<header class="topbar">
+
+<div class="left">
+
+<a href="admin-dashboard.html" class="backBtn">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+</a>
+
+<h1>
+
+<i class="fa-solid fa-users"></i>
+
+Customer Manager
+
+</h1>
+
+</div>
+
+<div class="right">
+
+<button id="refreshBtn">
+
+<i class="fa-solid fa-rotate"></i>
+
+Refresh
+
+</button>
+
+</div>
+
+</header>
+
+<!-- SEARCH -->
+
+<section class="searchBox">
+
+<input
+id="searchCustomer"
+type="text"
+placeholder="Search Name / Member ID / Mobile">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+</section>
+
+<!-- STATS -->
+
+<section class="statsGrid">
+
+<div class="card">
+
+<h2 id="totalCustomers">0</h2>
+
+<p>Total Customers</p>
+
+</div>
+
+<div class="card">
+
+<h2 id="rewardReady">0</h2>
+
+<p>Reward Ready</p>
+
+</div>
+
+<div class="card">
+
+<h2 id="todayJoined">0</h2>
+
+<p>Today Joined</p>
+
+</div>
+
+</section>
+
+<!-- TABLE -->
+
+<section class="tableCard">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Photo</th>
+
+<th>Name</th>
+
+<th>Member ID</th>
+
+<th>Mobile</th>
+
+<th>Stamp</th>
+
+<th>Reward</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="customerTable">
+
+</tbody>
+
+</table>
+
+</section>
+
+</div>
+
+<script type="module"
+src="js/admin-customers.js"></script>
 
 </body>
 </html>
+:root{
+
+--bg:#f6f7fb;
+--card:#ffffff;
+--primary:#ff6b00;
+--primary2:#ff8f33;
+--text:#1d2939;
+--muted:#667085;
+--border:#e4e7ec;
+--success:#12b76a;
+
+}
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+
+}
+
+body{
+
+background:var(--bg);
+color:var(--text);
+
+}
+
+.page{
+
+max-width:1200px;
+margin:auto;
+padding:20px;
+
+}
+
+/* ===================== */
+
+.topbar{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+
+}
+
+.left{
+
+display:flex;
+align-items:center;
+gap:15px;
+
+}
+
+.backBtn{
+
+width:46px;
+height:46px;
+border-radius:14px;
+background:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+text-decoration:none;
+color:#333;
+box-shadow:0 8px 18px rgba(0,0,0,.08);
+
+}
+
+.topbar h1{
+
+font-size:26px;
+font-weight:700;
+
+}
+
+#refreshBtn{
+
+border:none;
+padding:12px 22px;
+border-radius:14px;
+cursor:pointer;
+font-weight:700;
+color:#fff;
+background:linear-gradient(135deg,var(--primary),var(--primary2));
+
+}
+
+/* ===================== */
+
+.searchBox{
+
+position:relative;
+margin-bottom:22px;
+
+}
+
+.searchBox input{
+
+width:100%;
+height:56px;
+padding-left:55px;
+border-radius:18px;
+border:1px solid var(--border);
+outline:none;
+font-size:16px;
+background:#fff;
+
+}
+
+.searchBox i{
+
+position:absolute;
+left:20px;
+top:19px;
+color:#999;
+
+}
+
+/* ===================== */
+
+.statsGrid{
+
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
+margin-bottom:22px;
+
+}
+
+.card{
+
+background:#fff;
+padding:22px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.06);
+text-align:center;
+
+}
+
+.card h2{
+
+font-size:32px;
+margin-bottom:8px;
+color:var(--primary);
+
+}
+
+.card p{
+
+color:var(--muted);
+
+}
+
+/* ===================== */
+
+.tableCard{
+
+background:#fff;
+border-radius:22px;
+overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,.06);
+
+}
+
+table{
+
+width:100%;
+border-collapse:collapse;
+
+}
+
+thead{
+
+background:#fff4eb;
+
+}
+
+th{
+
+padding:18px;
+text-align:left;
+
+}
+
+td{
+
+padding:16px;
+border-top:1px solid #eee;
+
+}
+
+td img{
+
+width:48px;
+height:48px;
+border-radius:50%;
+object-fit:cover;
+
+}
+
+.actionBtn{
+
+border:none;
+padding:10px 16px;
+border-radius:12px;
+background:var(--primary);
+color:#fff;
+cursor:pointer;
+
+}
+
+/* ===================== */
+
+@media(max-width:768px){
+
+.page{
+
+padding:14px;
+
+}
+
+.topbar{
+
+flex-direction:column;
+align-items:flex-start;
+gap:14px;
+
+}
+
+.statsGrid{
+
+grid-template-columns:1fr;
+
+}
+
+.tableCard{
+
+overflow:auto;
+
+}
+
+table{
+
+min-width:850px;
+
+}
+
+}
