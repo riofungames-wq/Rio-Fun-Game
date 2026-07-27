@@ -184,7 +184,7 @@ function createCustomerRow(customer){
 
     <td>
         <img
-        src="${customer.photoURL || "assets/avatars/default.png"}"
+        src="${customer.photoURL || "assets/avatars/assets/avatars/default.png"}"
         class="table-avatar">
     </td>
 
