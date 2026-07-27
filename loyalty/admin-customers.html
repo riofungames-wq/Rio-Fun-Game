@@ -4,35 +4,50 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Admin Customers | Rio Maggi Point</title>
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>
+Rio Maggi Point | Customer Manager
+</title>
 
 <link rel="manifest" href="manifest.json">
 
-<link rel="stylesheet"
+<link
+rel="icon"
+href="favicon.ico">
+
+<link
+rel="stylesheet"
 href="css/admin-customers.css">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 
 <body>
 
-<div class="page">
-
+<!-- ========================= -->
 <!-- HEADER -->
+<!-- ========================= -->
 
-<header class="topbar">
+<header class="topBar">
 
-<div class="left">
+<div class="leftHeader">
 
-<a href="admin-dashboard.html" class="backBtn">
+<a
+href="admin-dashboard.html"
+class="backBtn">
 
 <i class="fa-solid fa-arrow-left"></i>
 
 </a>
+
+<div>
 
 <h1>
 
@@ -42,9 +57,17 @@ Customer Manager
 
 </h1>
 
+<p>
+
+Rio Maggi Point Admin Panel
+
+</p>
+
 </div>
 
-<div class="right">
+</div>
+
+<div class="rightHeader">
 
 <button id="refreshBtn">
 
@@ -58,50 +81,83 @@ Refresh
 
 </header>
 
+<!-- ========================= -->
 <!-- SEARCH -->
+<!-- ========================= -->
 
-<section class="searchBox">
+<section class="searchCard">
+
+<div class="searchBox">
+
+<i class="fa-solid fa-magnifying-glass"></i>
 
 <input
 id="searchCustomer"
 type="text"
-placeholder="Search Name / Member ID / Mobile">
+placeholder="Search Customer Name / Member ID / Mobile">
 
-<i class="fa-solid fa-magnifying-glass"></i>
+</div>
 
 </section>
 
+<!-- ========================= -->
 <!-- STATS -->
+<!-- ========================= -->
 
 <section class="statsGrid">
 
-<div class="card">
+<div class="statCard">
 
-<h2 id="totalCustomers">0</h2>
+<h2 id="totalCustomers">
 
-<p>Total Customers</p>
+0
+
+</h2>
+
+<p>
+
+Total Customers
+
+</p>
 
 </div>
 
-<div class="card">
+<div class="statCard">
 
-<h2 id="rewardReady">0</h2>
+<h2 id="rewardReady">
 
-<p>Reward Ready</p>
+0
+
+</h2>
+
+<p>
+
+Reward Ready
+
+</p>
 
 </div>
 
-<div class="card">
+<div class="statCard">
 
-<h2 id="todayJoined">0</h2>
+<h2 id="todayJoined">
 
-<p>Today Joined</p>
+0
+
+</h2>
+
+<p>
+
+Today's Customers
+
+</p>
 
 </div>
 
 </section>
-
-<!-- TABLE -->
+<!-- ========================= -->
+<!-- CUSTOMER TABLE -->
+<!-- ========================= -->
 
 <section class="tableCard">
 
@@ -131,536 +187,172 @@ placeholder="Search Name / Member ID / Mobile">
 
 <tbody id="customerTable">
 
+<tr>
+
+<td colspan="7">
+
+Loading Customers...
+
+</td>
+
+</tr>
+
 </tbody>
 
 </table>
 
 </section>
 
-</div>
+<!-- ========================= -->
+<!-- CUSTOMER POPUP -->
+<!-- ========================= -->
 
-<script type="module"
-src="js/admin-customers.js"></script>
+<div
+id="customerModal"
+class="modal">
 
-</body>
-</html>
-:root{
+<div class="modalCard">
 
---bg:#f6f7fb;
---card:#ffffff;
---primary:#ff6b00;
---primary2:#ff8f33;
---text:#1d2939;
---muted:#667085;
---border:#e4e7ec;
---success:#12b76a;
+<div class="modalHeader">
 
-}
+<h2>
 
-*{
+Customer Details
 
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins,sans-serif;
+</h2>
 
-}
+<button id="closeModal">
 
-body{
-
-background:var(--bg);
-color:var(--text);
-
-}
-
-.page{
-
-max-width:1200px;
-margin:auto;
-padding:20px;
-
-}
-
-/* ===================== */
-
-.topbar{
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
-
-}
-
-.left{
-
-display:flex;
-align-items:center;
-gap:15px;
-
-}
-
-.backBtn{
-
-width:46px;
-height:46px;
-border-radius:14px;
-background:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
-text-decoration:none;
-color:#333;
-box-shadow:0 8px 18px rgba(0,0,0,.08);
-
-}
-
-.topbar h1{
-
-font-size:26px;
-font-weight:700;
-
-}
-
-#refreshBtn{
-
-border:none;
-padding:12px 22px;
-border-radius:14px;
-cursor:pointer;
-font-weight:700;
-color:#fff;
-background:linear-gradient(135deg,var(--primary),var(--primary2));
-
-}
-
-/* ===================== */
-
-.searchBox{
-
-position:relative;
-margin-bottom:22px;
-
-}
-
-.searchBox input{
-
-width:100%;
-height:56px;
-padding-left:55px;
-border-radius:18px;
-border:1px solid var(--border);
-outline:none;
-font-size:16px;
-background:#fff;
-
-}
-
-.searchBox i{
-
-position:absolute;
-left:20px;
-top:19px;
-color:#999;
-
-}
-
-/* ===================== */
-
-.statsGrid{
-
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:18px;
-margin-bottom:22px;
-
-}
-
-.card{
-
-background:#fff;
-padding:22px;
-border-radius:20px;
-box-shadow:0 10px 25px rgba(0,0,0,.06);
-text-align:center;
-
-}
-
-.card h2{
-
-font-size:32px;
-margin-bottom:8px;
-color:var(--primary);
-
-}
-
-.card p{
-
-color:var(--muted);
-
-}
-
-/* ===================== */
-
-.tableCard{
-
-background:#fff;
-border-radius:22px;
-overflow:hidden;
-box-shadow:0 10px 25px rgba(0,0,0,.06);
-
-}
-
-table{
-
-width:100%;
-border-collapse:collapse;
-
-}
-
-thead{
-
-background:#fff4eb;
-
-}
-
-th{
-
-padding:18px;
-text-align:left;
-
-}
-
-td{
-
-padding:16px;
-border-top:1px solid #eee;
-
-}
-
-td img{
-
-width:48px;
-height:48px;
-border-radius:50%;
-object-fit:cover;
-
-}
-
-.actionBtn{
-
-border:none;
-padding:10px 16px;
-border-radius:12px;
-background:var(--primary);
-color:#fff;
-cursor:pointer;
-
-}
-
-/* ===================== */
-
-@media(max-width:768px){
-
-.page{
-
-padding:14px;
-
-}
-
-.topbar{
-
-flex-direction:column;
-align-items:flex-start;
-gap:14px;
-
-}
-
-.statsGrid{
-
-grid-template-columns:1fr;
-
-}
-
-.tableCard{
-
-overflow:auto;
-
-}
-
-table{
-
-min-width:850px;
-
-}
-
-}
-// =====================================================
-// RIO MAGGI POINT
-// ADMIN CUSTOMERS
-// PART 3
-// =====================================================
-
-import { auth, db } from "./firebase-config.js";
-
-import {
-collection,
-getDocs,
-query,
-orderBy
-}
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-import {
-onAuthStateChanged
-}
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-// =====================================================
-// ELEMENTS
-// =====================================================
-
-const customerTable =
-document.getElementById("customerTable");
-
-const searchCustomer =
-document.getElementById("searchCustomer");
-
-const refreshBtn =
-document.getElementById("refreshBtn");
-
-const totalCustomers =
-document.getElementById("totalCustomers");
-
-const rewardReady =
-document.getElementById("rewardReady");
-
-const todayJoined =
-document.getElementById("todayJoined");
-
-// =====================================================
-
-let customers=[];
-
-// =====================================================
-// AUTH
-// =====================================================
-
-onAuthStateChanged(auth,async(user)=>{
-
-if(!user){
-
-location.href="admin-login.html";
-
-return;
-
-}
-
-await loadCustomers();
-
-});
-
-// =====================================================
-// LOAD
-// =====================================================
-
-async function loadCustomers(){
-
-customerTable.innerHTML="";
-
-customers=[];
-
-let rewardCount=0;
-
-const q=query(
-
-collection(db,"customers"),
-
-orderBy("createdAt","desc")
-
-);
-
-const snapshot=
-await getDocs(q);
-
-snapshot.forEach((doc)=>{
-
-const customer=doc.data();
-
-customer.uid=doc.id;
-
-customers.push(customer);
-
-if(customer.rewardUnlocked){
-
-rewardCount++;
-
-}
-
-createRow(customer);
-
-});
-
-totalCustomers.textContent=
-customers.length;
-
-rewardReady.textContent=
-rewardCount;
-
-todayJoined.textContent=
-customers.length;
-
-}
-
-// =====================================================
-// TABLE
-// =====================================================
-
-function createRow(customer){
-
-const tr=document.createElement("tr");
-
-const avatar=
-
-customer.gender==="female"
-
-?"assets/avatars/female.png"
-
-:"assets/avatars/male.png";
-
-tr.innerHTML=`
-
-<td>
-
-<img
-src="${avatar}">
-
-</td>
-
-<td>${customer.name||"-"}</td>
-
-<td>${customer.memberId||"-"}</td>
-
-<td>${customer.mobile||"-"}</td>
-
-<td>${customer.stamps||0}/6</td>
-
-<td>
-
-${customer.rewardUnlocked?"✅ Ready":"❌ Locked"}
-
-</td>
-
-<td>
-
-<button
-class="actionBtn"
-onclick="viewCustomer('${customer.uid}')">
-
-View
+<i class="fa-solid fa-xmark"></i>
 
 </button>
 
-</td>
+</div>
 
-`;
+<div class="modalBody">
 
-customerTable.appendChild(tr);
+<div class="profileBox">
 
-}
-// =====================================================
-// SEARCH
-// =====================================================
+<img
+id="modalPhoto"
+src="assets/avatars/male.png">
 
-searchCustomer?.addEventListener("keyup",(e)=>{
+<h3 id="modalName">
 
-const keyword=e.target.value.toLowerCase();
+Customer Name
 
-customerTable.innerHTML="";
+</h3>
 
-customers
-.filter(customer=>
+<p id="modalMember">
 
-(customer.name||"")
-.toLowerCase()
-.includes(keyword)
+RIO-000000
 
-||
+</p>
 
-(customer.memberId||"")
-.toLowerCase()
-.includes(keyword)
+</div>
 
-||
+<div class="detailRow">
 
-(customer.mobile||"")
-.includes(keyword)
+<span>📱 Mobile</span>
 
-)
-.forEach(createRow);
+<strong id="modalMobile">
 
-});
+-
 
-// =====================================================
-// REFRESH
-// =====================================================
+</strong>
 
-refreshBtn?.addEventListener("click",async()=>{
+</div>
 
-refreshBtn.disabled=true;
+<div class="detailRow">
 
-refreshBtn.innerHTML="Loading...";
+<span>⭐ Stamps</span>
 
-await loadCustomers();
+<strong id="modalStamp">
 
-refreshBtn.disabled=false;
+0 / 6
 
-refreshBtn.innerHTML='<i class="fa-solid fa-rotate"></i> Refresh';
+</strong>
 
-});
+</div>
 
-// =====================================================
-// VIEW CUSTOMER
-// =====================================================
+<div class="detailRow">
 
-window.viewCustomer=function(uid){
+<span>🎁 Reward</span>
 
-const customer=
-customers.find(c=>c.uid===uid);
+<strong id="modalReward">
 
-if(!customer){
+Locked
 
-alert("Customer Not Found");
+</strong>
 
-return;
+</div>
 
-}
+<div class="actionGrid">
 
-localStorage.setItem(
+<button
+id="giveStampBtn">
 
-"selectedCustomer",
+➕
 
-JSON.stringify(customer)
+Give Stamp
 
-);
+</button>
 
-location.href="profile.html";
+<button
+id="removeStampBtn">
 
-};
+➖
 
-// =====================================================
-// AUTO REFRESH
-// =====================================================
+Remove Stamp
 
-setInterval(async()=>{
+</button>
 
-await loadCustomers();
+<button
+id="unlockRewardBtn">
 
-},30000);
+🎁
 
-// =====================================================
+Unlock Reward
 
-console.log("================================");
-console.log("👥 Customer Manager Loaded");
-console.log("================================");
+</button>
 
+<button
+id="deleteCustomerBtn">
+
+🗑
+
+Delete Customer
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- FOOTER -->
+<!-- ========================= -->
+
+<footer class="footer">
+
+Rio Maggi Point Admin Panel
+
+</footer>
+
+<!-- ========================= -->
+<!-- SCRIPT -->
+<!-- ========================= -->
+
+<script
+type="module"
+src="js/admin-customers.js">
+
+</script>
+
+</body>
+
+</html>
