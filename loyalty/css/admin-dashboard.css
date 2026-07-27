@@ -294,7 +294,7 @@ gap:10px;
 
 .live-status{
 
-background:#22c55e;
+background:linear-gradient( 180deg, #16a34a, #15803d );
 
 padding:6px 14px;
 
@@ -382,7 +382,7 @@ font-size:13px;
 
 .scanner-result{
 
-background:#151920;
+background:linear-gradient( 180deg, #202936, #161c24 );
 
 border-radius:18px;
 
@@ -881,7 +881,7 @@ border:none;
 
 border-radius:18px;
 
-background:#1c232d;
+background:linear-gradient( 180deg, #242d39, #1a212b );
 
 color:#fff;
 
@@ -911,7 +911,7 @@ transform:translateY(-3px);
 
 .system-status{
 
-background:#1b2028;
+background:linear-gradient( 180deg, #222c39, #171e27 );
 
 border-radius:24px;
 
