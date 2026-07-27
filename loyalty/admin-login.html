@@ -1,161 +1,273 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<title>Rio Loyalty Club | Admin Login</title>
+<title>
+Rio Maggi Point | Admin Login
+</title>
 
 <meta name="theme-color" content="#D4AF37">
 
 <link rel="manifest" href="manifest.json">
 
+<link rel="icon" href="favicon.ico">
+
+
 <!-- Google Font -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
 
-<!-- Font Awesome -->
+
+<!-- Icons -->
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-<!-- CSS -->
 
-<link rel="stylesheet" href="css/style.css">
+<!-- Admin Login CSS -->
 
-<link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet"
+href="css/admin-login.css">
+
 
 </head>
 
+
 <body>
 
-<div class="login-page">
+
+<div class="login-wrapper">
+
 
 <div class="login-card">
 
-<div class="logo-box">
+
+<div class="brand-section">
+
 
 <img
 src="assets/logo/logo.png"
-alt="Rio Logo">
+class="logo"
+alt="Rio Maggi Point">
 
-<h1>Admin Panel</h1>
+
+<h1>
+
+Rio Maggi Point
+
+</h1>
+
+
+<h2>
+
+Admin Panel
+
+</h2>
+
 
 <p>
 
-Authorized Access Only
+Secure Management System
 
 </p>
 
+
 </div>
+
 
 <form id="adminLoginForm">
 
-<div class="form-group">
+
+<div class="input-group">
+
 
 <label>
+
+<i class="fa-solid fa-envelope"></i>
 
 Admin Email
 
 </label>
 
+
 <input
+
 type="email"
+
 id="adminEmail"
-class="input-box"
+
 placeholder="Enter Admin Email"
-required>
+
+required
+
+>
+
 
 </div>
 
-<div class="form-group">
+
+
+<div class="input-group">
+
 
 <label>
+
+<i class="fa-solid fa-lock"></i>
 
 Password
 
 </label>
 
-<div class="password-box">
+
+<div class="password-wrapper">
+
 
 <input
+
 type="password"
+
 id="adminPassword"
-class="input-box"
+
 placeholder="Enter Password"
-required>
+
+required
+
+>
+
 
 <button
+
 type="button"
-class="toggle-password"
-id="togglePassword">
+
+id="togglePassword"
+
+class="eye-btn"
+
+>
 
 <i class="fa-solid fa-eye"></i>
 
 </button>
 
-</div>
-
-</div>
-<div id="loginError" class="error-box" style="display:none;">
-
-Invalid Email or Password
 
 </div>
 
-<div class="button-area">
+
+</div>
+
+
+<div id="loginError"
+class="error-message">
+
+</div>
+
 
 <button
+
 type="submit"
-class="login-btn"
-id="loginBtn">
 
-<i class="fa-solid fa-lock"></i>
+class="login-button"
 
-&nbsp;
+id="loginBtn"
 
-Admin Login
+>
+
+
+<i class="fa-solid fa-right-to-bracket"></i>
+
+Login Dashboard
+
 
 </button>
 
-</div>
 
 </form>
+<!-- =====================================
+BOTTOM AREA
+===================================== -->
 
-<div class="signup-link">
 
-<p>
+<div class="bottom-links">
 
-← Back to
 
 <a href="login.html">
+
+<i class="fa-solid fa-user"></i>
 
 Customer Login
 
 </a>
 
+
+</div>
+
+
+<div class="security-box">
+
+
+<i class="fa-solid fa-shield-halved"></i>
+
+
+<p>
+
+Only authorized Rio Maggi Point administrators can access this panel.
+
 </p>
 
-</div>
 
 </div>
 
+
+
 </div>
+
+
+</div>
+
+
+
+<footer class="login-footer">
+
+
+<p>
+
+🍜 Rio Maggi Point
+
+</p>
+
+
+<p>
+
+Premium Loyalty Management System
+
+</p>
+
+
+</footer>
+
+
 
 <!-- =====================================
 JAVASCRIPT
 ===================================== -->
 
-<script src="js/admin-login.js"></script>
 
-<script type="module" src="js/admin-login-firebase.js"></script>
+<script type="module" src="js/admin-login.js"></script>
+
+
 
 </body>
 
