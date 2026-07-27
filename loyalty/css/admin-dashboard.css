@@ -81,7 +81,7 @@ min-height:100vh;
 SIDEBAR
 ===================================================== */
 
-.sidebar{
+.sidebar{  position:fixed;  left:0;  top:0;  width:280px;  height:100vh;  display:flex;  flex-direction:column;  background:#181d25;  border-right:1px solid rgba(255,255,255,.08);  overflow:hidden;  z-index:999;  }
 
 width:280px;
 
@@ -246,7 +246,7 @@ color:#fff;
 SIDEBAR FOOTER
 ===================================================== */
 
-.sidebar-footer{
+.sidebar-footer{  padding:20px;  margin-top:auto;  border-top:1px solid rgba(255,255,255,.08);  background:#181d25;  }
 
 padding:20px;
 
