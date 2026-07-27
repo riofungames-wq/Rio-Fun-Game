@@ -1,691 +1,897 @@
-/* ==========================================================
+/* =====================================================
    RIO MAGGI POINT
-   FINAL PREMIUM CARD CSS
-   PART 1 / 5
-========================================================== */
+   PREMIUM LOYALTY CARD
+   CARD.CSS
+   PART 1
+===================================================== */
 
 :root{
 
-    --gold:#D4AF37;
-    --gold-dark:#B8860B;
+    --bg:#0f1115;
 
-    --green:#233C2C;
-    --green-dark:#16261C;
+    --card:#1b1f27;
 
-    --cream:#FFF8E7;
+    --gold:#d4af37;
 
-    --rose:#D88FA8;
-    --rose-dark:#B96D89;
+    --gold-light:#f7d774;
 
-    --white:#FFFFFF;
+    --white:#ffffff;
 
-    --black:#111111;
+    --text:#e8e8e8;
 
-    --gray:#BEBEBE;
+    --muted:#9da3ae;
 
-    --radius:28px;
+    --line:#2c313b;
+
+    --green:#22c55e;
+
+    --shadow:0 18px 45px rgba(0,0,0,.45);
 
 }
-
-/* ================= RESET ================= */
 
 *{
 
-margin:0;
-padding:0;
-box-sizing:border-box;
+    margin:0;
 
-font-family:"Poppins",sans-serif;
+    padding:0;
 
-}
-
-html{
-
-scroll-behavior:smooth;
+    box-sizing:border-box;
 
 }
 
 body{
 
-background:
-linear-gradient(
-180deg,
-#1A1A1A,
-#111111
-);
+    font-family:"Poppins",sans-serif;
 
-min-height:100vh;
+    background:
+    radial-gradient(circle at top,#30384b 0%,#0f1115 65%);
 
-display:flex;
-justify-content:center;
+    color:var(--white);
 
-color:#fff;
-
-overflow-x:hidden;
+    min-height:100vh;
 
 }
-
-/* ================= PAGE ================= */
 
 .page{
 
-width:100%;
+    width:100%;
 
-max-width:430px;
+    max-width:430px;
 
-padding:16px;
+    margin:auto;
 
-padding-bottom:95px;
+    padding:18px 14px 95px;
 
 }
-
-/* ================= CARD ================= */
 
 .loyalty-card{
 
-position:relative;
+    position:relative;
 
-overflow:hidden;
+    background:linear-gradient(180deg,#1d212b,#161a21);
 
-border-radius:var(--radius);
+    border:1px solid rgba(212,175,55,.25);
 
-background:
-linear-gradient(
-145deg,
-#203626,
-#16261C
-);
+    border-radius:30px;
 
-border:2px solid var(--gold);
+    overflow:hidden;
 
-box-shadow:
-
-0 15px 45px rgba(0,0,0,.45),
-
-0 0 20px rgba(212,175,55,.15);
+    box-shadow:var(--shadow);
 
 }
 
-/* ================= FEMALE ================= */
+/* ======================================
+   PREMIUM EFFECT
+====================================== */
 
-.loyalty-card.theme-female{
+.premium-glow{
 
-background:
-linear-gradient(
-145deg,
-#2A1D23,
-#1C1217
-);
+    position:absolute;
 
-border-color:var(--rose);
+    width:320px;
 
-}
+    height:320px;
 
-/* ================= PREMIUM GLOW ================= */
+    background:rgba(212,175,55,.12);
 
-.card-glow{
+    border-radius:50%;
 
-position:absolute;
+    top:-160px;
 
-width:280px;
-height:280px;
+    right:-120px;
 
-top:-120px;
-right:-100px;
-
-pointer-events:none;
-
-background:
-radial-gradient(
-
-circle,
-
-rgba(212,175,55,.18),
-
-transparent 70%
-
-);
+    filter:blur(70px);
 
 }
 
-.theme-female .card-glow{
+.premium-shine{
 
-background:
-radial-gradient(
+    position:absolute;
 
-circle,
+    inset:0;
 
-rgba(216,143,168,.20),
+    background:
 
-transparent 70%
+    linear-gradient(
 
-);
+    120deg,
 
-}
+    transparent 35%,
 
-/* ================= SHINE ================= */
+    rgba(255,255,255,.08) 50%,
 
-.card-shine{
+    transparent 65%
 
-position:absolute;
+    );
 
-top:-80px;
-left:-180px;
-
-width:120px;
-height:850px;
-
-background:
-
-linear-gradient(
-
-90deg,
-
-transparent,
-
-rgba(255,255,255,.12),
-
-transparent
-
-);
-
-transform:rotate(25deg);
-
-animation:cardShine 8s linear infinite;
-
-pointer-events:none;
+    pointer-events:none;
 
 }
 
-@keyframes cardShine{
-
-from{
-
-transform:
-
-translateX(-260px)
-
-rotate(25deg);
-
-}
-
-to{
-
-transform:
-
-translateX(720px)
-
-rotate(25deg);
-
-}
-
-}
-/* ==========================================================
+/* ======================================
    HEADER
-========================================================== */
+====================================== */
 
 .card-header{
 
-display:flex;
-
-justify-content:space-between;
-
-align-items:flex-start;
-
-padding:22px;
+    padding:24px 22px 14px;
 
 }
 
-/* ================= BRAND ================= */
+.brand-left{
 
-.brand-section{
+    display:flex;
 
-display:flex;
+    align-items:center;
 
-align-items:center;
-
-gap:12px;
+    gap:16px;
 
 }
 
 .brand-logo{
 
-width:56px;
+    width:72px;
 
-height:56px;
+    height:72px;
 
-object-fit:contain;
-
-transition:.30s;
-
-}
-
-.brand-logo:hover{
-
-transform:rotate(-6deg) scale(1.05);
+    object-fit:contain;
 
 }
 
 .brand-text h2{
 
-font-size:1rem;
+    font-size:22px;
 
-font-weight:800;
+    font-weight:800;
 
-letter-spacing:.8px;
-
-color:#FFD54F;
+    letter-spacing:.6px;
 
 }
 
 .brand-text p{
 
-margin-top:4px;
+    color:var(--gold-light);
 
-font-size:.72rem;
+    font-size:13px;
 
-color:#F6E6B4;
-
-}
-
-.theme-female .brand-text h2{
-
-color:#FFD6E5;
+    margin-top:3px;
 
 }
 
-.theme-female .brand-text p{
+/* Divider */
 
-color:#FFE5EF;
+.premium-divider{
 
-}
+    width:100%;
 
-/* ==========================================================
-   OWNER SECTION
-========================================================== */
+    height:1px;
 
-.owner-section{
+    background:linear-gradient(
 
-display:flex;
+    90deg,
 
-flex-direction:column;
+    transparent,
 
-align-items:flex-end;
+    rgba(212,175,55,.5),
 
-}
+    transparent
 
-.owner-name{
-
-font-size:.95rem;
-
-font-weight:700;
-
-color:#FFD54F;
+    );
 
 }
-
-.theme-female .owner-name{
-
-color:#FFD6E5;
-
-}
-
-.owner-mobile{
-
-margin-top:5px;
-
-font-size:.78rem;
-
-color:#ECECEC;
-
-}
-
-/* ==========================================================
-   PLAY BUTTON
-========================================================== */
-
-.play-btn{
-
-margin-top:12px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-gap:8px;
-
-padding:10px 18px;
-
-border:none;
-
-border-radius:14px;
-
-background:
-
-linear-gradient(
-
-135deg,
-
-#FFD54F,
-
-#C79A17
-
-);
-
-color:#111;
-
-font-size:.82rem;
-
-font-weight:700;
-
-cursor:pointer;
-
-transition:.25s;
-
-box-shadow:
-
-0 8px 18px rgba(0,0,0,.25);
-
-}
-
-.play-btn:hover{
-
-transform:translateY(-2px);
-
-filter:brightness(1.05);
-
-}
-
-.play-btn:active{
-
-transform:scale(.97);
-
-}
-
-.theme-female .play-btn{
-
-background:
-
-linear-gradient(
-
-135deg,
-
-#FFD6E5,
-
-#D88FA8
-
-);
-
-color:#fff;
-
-}
-
-/* ==========================================================
-   CUSTOMER
-========================================================== */
+/* ======================================
+   CUSTOMER SECTION
+====================================== */
 
 .customer-section{
 
-display:flex;
+    padding:28px 22px;
 
-align-items:center;
-
-gap:18px;
-
-padding:0 22px 20px;
+    text-align:center;
 
 }
 
-/* Avatar */
+.avatar-area{
 
-.avatar-wrapper{
+    position:relative;
 
-position:relative;
+    width:128px;
 
-width:92px;
+    height:128px;
 
-height:92px;
-
-flex-shrink:0;
+    margin:auto;
 
 }
 
 .avatar-ring{
 
-position:absolute;
+    position:absolute;
 
-inset:-4px;
+    inset:0;
 
-border-radius:50%;
+    border-radius:50%;
 
-background:
+    border:3px solid var(--gold);
 
-linear-gradient(
-
-135deg,
-
-#FFD54F,
-
-#B8860B
-
-);
-
-animation:ringRotate 8s linear infinite;
-
-}
-
-.theme-female .avatar-ring{
-
-background:
-
-linear-gradient(
-
-135deg,
-
-#FFD6E5,
-
-#D88FA8
-
-);
+    box-shadow:
+    0 0 20px rgba(212,175,55,.45);
 
 }
 
 #customerPhoto{
 
-position:absolute;
+    width:112px;
 
-inset:4px;
+    height:112px;
 
-width:84px;
+    position:absolute;
 
-height:84px;
+    top:8px;
 
-border-radius:50%;
+    left:8px;
 
-object-fit:cover;
+    border-radius:50%;
 
-background:#fff;
+    object-fit:cover;
 
-border:3px solid #fff;
-
-transition:.30s;
+    background:#fff;
 
 }
 
-#customerPhoto:hover{
+.customer-details{
 
-transform:scale(1.04);
-
-}
-
-/* Customer Text */
-
-.customer-info{
-
-flex:1;
+    margin-top:18px;
 
 }
 
-.customer-info h1{
+#customerName{
 
-font-size:1.35rem;
+    font-size:28px;
 
-font-weight:800;
+    font-weight:800;
 
-color:#FFD54F;
+    color:#fff;
 
-margin-bottom:6px;
-
-}
-
-.theme-female .customer-info h1{
-
-color:#FFD6E5;
+    letter-spacing:.4px;
 
 }
 
-.customer-info p{
+.member-title{
 
-font-size:.82rem;
+    margin-top:6px;
 
-color:#E6E6E6;
+    color:var(--gold-light);
 
-letter-spacing:.5px;
+    font-size:13px;
 
-}
+    letter-spacing:2px;
 
-/* ==========================================================
-   DIVIDER
-========================================================== */
-
-.premium-divider{
-
-height:1px;
-
-margin:0 22px 18px;
-
-background:
-
-linear-gradient(
-
-90deg,
-
-transparent,
-
-rgba(255,213,79,.60),
-
-transparent
-
-);
+    font-weight:600;
 
 }
 
-.theme-female .premium-divider{
+.member-id-box{
 
-background:
+    margin:18px auto 0;
 
-linear-gradient(
+    width:fit-content;
 
-90deg,
+    padding:12px 22px;
 
-transparent,
+    border-radius:18px;
 
-rgba(247,183,210,.60),
+    background:rgba(212,175,55,.08);
 
-transparent
-
-);
+    border:1px solid rgba(212,175,55,.35);
 
 }
 
-@keyframes ringRotate{
+.member-id-box span{
 
-from{
+    display:block;
 
-transform:rotate(0deg);
+    font-size:11px;
+
+    color:var(--muted);
+
+    letter-spacing:1.5px;
+
+    margin-bottom:5px;
+
+}
+
+.member-id-box strong{
+
+    color:var(--gold-light);
+
+    font-size:17px;
+
+    font-weight:700;
 
 }
 
-to{
+/* ======================================
+   SHOP CONTACT
+====================================== */
 
-transform:rotate(360deg);
+.shop-contact{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    padding:22px;
 
 }
 
+.contact-btn{
+
+    flex:1;
+
+    height:52px;
+
+    border:none;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    background:linear-gradient(
+    180deg,
+    #262d39,
+    #1a2029);
+
+    color:#fff;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    transition:.25s;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    border:1px solid rgba(212,175,55,.25);
+
 }
-/* ==========================================================
+
+.contact-btn i{
+
+    color:var(--gold-light);
+
+}
+
+.contact-btn:hover{
+
+    transform:translateY(-2px);
+
+    border-color:var(--gold);
+
+    box-shadow:
+    0 8px 18px rgba(212,175,55,.18);
+
+}
+/* ======================================
    STAMP SECTION
-========================================================== */
+====================================== */
 
 .stamp-section{
 
-padding:0 22px 26px;
+    padding:28px 20px;
 
 }
 
-.stamp-title{
+.stamp-heading{
 
-text-align:center;
+    text-align:center;
 
-font-size:.78rem;
+    font-size:16px;
 
-font-weight:600;
+    font-weight:700;
 
-letter-spacing:.4px;
+    color:var(--gold-light);
 
-margin-bottom:18px;
-
-color:#F6E6B4;
+    margin-bottom:26px;
 
 }
-
-.theme-female .stamp-title{
-
-color:#FFD8E6;
-
-}
-
-/* ==========================================================
-   STAMP GRID
-========================================================== */
 
 .stamp-grid{
 
-display:grid;
+    display:grid;
 
-grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(4,1fr);
 
-gap:16px;
-
-justify-items:center;
-
-align-items:start;
+    gap:18px;
 
 }
-
-/* ==========================================================
-   STAMP BOX
-========================================================== */
 
 .stamp-box{
 
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-gap:8px;
-
-width:100%;
+    text-align:center;
 
 }
 
-/* ==========================================================
-   STAMP CIRCLE
-========================================================== */
+.stamp-circle{
+
+    width:72px;
+
+    height:72px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+    180deg,
+    #2d3442,
+    #1a2029);
+
+    border:2px solid rgba(212,175,55,.25);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:22px;
+
+    font-weight:700;
+
+    color:#fff;
+
+    transition:.30s;
+
+}
+
+.stamp-circle.active{
+
+    background:linear-gradient(
+    180deg,
+    #f7d774,
+    #d4af37);
+
+    color:#111;
+
+    transform:scale(1.08);
+
+    border-color:#fff;
+
+    box-shadow:
+    0 0 18px rgba(212,175,55,.45);
+
+}
+
+.stamp-box small{
+
+    display:block;
+
+    margin-top:10px;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+}
+
+/* ======================================
+   REWARD
+====================================== */
+
+.reward-circle{
+
+    background:linear-gradient(
+    180deg,
+    #ffd96a,
+    #d4af37);
+
+    border:2px solid #fff;
+
+    animation:rewardGlow 2.5s infinite;
+
+}
+
+.reward-circle img{
+
+    width:42px;
+
+    height:42px;
+
+    object-fit:contain;
+
+}
+
+@keyframes rewardGlow{
+
+0%{
+
+box-shadow:0 0 0 rgba(212,175,55,.25);
+
+}
+
+50%{
+
+box-shadow:0 0 25px rgba(212,175,55,.65);
+
+}
+
+100%{
+
+box-shadow:0 0 0 rgba(212,175,55,.25);
+
+}
+
+}
+
+/* ======================================
+   HAPPY MASCOT
+====================================== */
+
+.happy-circle{
+
+    overflow:hidden;
+
+    background:linear-gradient(
+    180deg,
+    #ffffff,
+    #ececec);
+
+    animation:mascotFloat 3s ease-in-out infinite;
+
+}
+
+.happy-circle img{
+
+    width:54px;
+
+    height:54px;
+
+    object-fit:contain;
+
+}
+
+@keyframes mascotFloat{
+
+0%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-8px);
+
+}
+
+100%{
+
+transform:translateY(0);
+
+}
+
+}
+
+/* ======================================
+   BOTTOM NAVIGATION
+====================================== */
+
+.bottom-nav{
+
+    position:fixed;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    max-width:430px;
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    height:76px;
+
+    background:#171c24;
+
+    border-top:1px solid rgba(212,175,55,.20);
+
+    z-index:100;
+
+}
+
+.bottom-nav a{
+
+    text-decoration:none;
+
+    color:#9da3ae;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:6px;
+
+    font-size:11px;
+
+    transition:.25s;
+
+}
+
+.bottom-nav a i{
+
+    font-size:20px;
+
+}
+
+.bottom-nav a.active{
+
+    color:var(--gold-light);
+
+}
+
+.bottom-nav a:hover{
+
+    color:#fff;
+
+}
+/* ======================================
+   MALE THEME
+====================================== */
+
+.loyalty-card.male-theme{
+
+background:
+
+linear-gradient(
+180deg,
+#1a2130 0%,
+#111827 100%);
+
+}
+
+/* ======================================
+   FEMALE THEME
+====================================== */
+
+.loyalty-card.female-theme{
+
+background:
+
+linear-gradient(
+180deg,
+#2b1830 0%,
+#1d1324 100%);
+
+}
+
+.female-theme .member-title{
+
+color:#ffb6d5;
+
+}
+
+.female-theme .member-id-box{
+
+border:1px solid rgba(255,182,213,.45);
+
+background:rgba(255,182,213,.08);
+
+}
+
+.female-theme .brand-text p{
+
+color:#ffb6d5;
+
+}
+
+/* ======================================
+   TABLET
+====================================== */
+
+@media(min-width:768px){
+
+.page{
+
+max-width:650px;
+
+padding:28px 24px 110px;
+
+}
+
+.brand-logo{
+
+width:90px;
+
+height:90px;
+
+}
+
+#customerPhoto{
+
+width:130px;
+
+height:130px;
+
+top:9px;
+
+left:9px;
+
+}
+
+.avatar-area{
+
+width:148px;
+
+height:148px;
+
+}
+
+#customerName{
+
+font-size:34px;
+
+}
+
+.member-id-box{
+
+padding:14px 28px;
+
+}
+
+.stamp-grid{
+
+grid-template-columns:repeat(4,1fr);
+
+gap:24px;
+
+}
+
+.stamp-circle{
+
+width:86px;
+
+height:86px;
+
+font-size:28px;
+
+}
+
+.reward-circle img{
+
+width:50px;
+
+height:50px;
+
+}
+
+.happy-circle img{
+
+width:62px;
+
+height:62px;
+
+}
+
+}
+
+/* ======================================
+   DESKTOP
+====================================== */
+
+@media(min-width:1024px){
+
+.page{
+
+max-width:760px;
+
+}
+
+.bottom-nav{
+
+max-width:760px;
+
+}
+
+.card-header{
+
+padding:28px;
+
+}
+
+.customer-section{
+
+padding:34px;
+
+}
+
+.shop-contact{
+
+padding:28px;
+
+}
+
+.stamp-section{
+
+padding:34px;
+
+}
+
+}
+
+/* ======================================
+   SMALL MOBILE
+====================================== */
+
+@media(max-width:390px){
+
+.page{
+
+padding:12px 10px 92px;
+
+}
+
+.brand-logo{
+
+width:60px;
+
+height:60px;
+
+}
+
+.brand-text h2{
+
+font-size:19px;
+
+}
+
+#customerName{
+
+font-size:23px;
+
+}
+
+.member-id-box{
+
+padding:10px 16px;
+
+}
 
 .stamp-circle{
 
@@ -693,834 +899,60 @@ width:62px;
 
 height:62px;
 
-border-radius:50%;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-background:rgba(255,255,255,.05);
-
-border:2px dashed rgba(255,213,79,.55);
-
-transition:.30s;
-
-}
-
-.theme-female .stamp-circle{
-
-border-color:rgba(247,183,210,.55);
-
-}
-
-.stamp-circle span{
-
-font-size:1.15rem;
-
-font-weight:700;
-
-color:#FFD54F;
-
-}
-
-.theme-female .stamp-circle span{
-
-color:#FFD6E5;
-
-}
-
-/* ==========================================================
-   ACTIVE STAMP
-========================================================== */
-
-.stamp-circle.active{
-
-background:
-
-linear-gradient(
-
-135deg,
-
-#FFD54F,
-
-#B8860B
-
-);
-
-border:none;
-
-box-shadow:
-
-0 0 18px rgba(255,213,79,.45);
-
-animation:stampPop .35s ease;
-
-}
-
-.theme-female .stamp-circle.active{
-
-background:
-
-linear-gradient(
-
-135deg,
-
-#FFD6E5,
-
-#D88FA8
-
-);
-
-box-shadow:
-
-0 0 18px rgba(247,183,210,.45);
-
-}
-
-.stamp-circle.active span{
-
-color:#111;
-
-}
-
-@keyframes stampPop{
-
-0%{
-
-transform:scale(.55);
-
-opacity:0;
-
-}
-
-70%{
-
-transform:scale(1.15);
-
-}
-
-100%{
-
-transform:scale(1);
-
-opacity:1;
-
-}
-
-}
-
-/* ==========================================================
-   DATE
-========================================================== */
-
-.stamp-box small{
-
-min-height:14px;
-
-font-size:.60rem;
-
-color:#D5D5D5;
-
-text-align:center;
-
-}
-
-/* ==========================================================
-   REWARD CIRCLE
-========================================================== */
-
-.reward-circle{
-
-border-style:solid;
-
-border-color:#FFD54F;
-
-}
-
-.theme-female .reward-circle{
-
-border-color:#FFD6E5;
+font-size:20px;
 
 }
 
 .reward-circle img{
 
-width:34px;
+width:36px;
 
-height:34px;
-
-object-fit:contain;
+height:36px;
 
 }
 
-.reward-circle.active{
+.happy-circle img{
 
-animation:rewardGlow 1.5s infinite alternate;
+width:46px;
 
-}
-
-@keyframes rewardGlow{
-
-from{
-
-box-shadow:0 0 10px rgba(255,213,79,.35);
+height:46px;
 
 }
 
-to{
+.contact-btn{
 
-box-shadow:0 0 28px rgba(255,213,79,.85);
+font-size:11px;
 
-}
-
-}
-
-/* ==========================================================
-   HAPPY EMOJI
-========================================================== */
-
-.happy-circle{
-
-font-size:1.55rem;
-
-border-style:solid;
-
-border-color:#FFD54F;
-
-animation:happyBounce 2s infinite;
-
-}
-
-.theme-female .happy-circle{
-
-border-color:#FFD6E5;
-
-}
-
-.happy-circle.celebrate{
-
-animation:
-
-happyBounce .7s infinite,
-
-emojiGlow 1.2s infinite alternate;
-
-}
-
-@keyframes happyBounce{
-
-0%,100%{
-
-transform:translateY(0);
-
-}
-
-50%{
-
-transform:translateY(-6px);
-
-}
-
-}
-
-@keyframes emojiGlow{
-
-from{
-
-box-shadow:0 0 8px rgba(255,213,79,.30);
-
-}
-
-to{
-
-box-shadow:0 0 22px rgba(255,213,79,.85);
-
-}
-
-}
-/* ==========================================================
-   RESPONSIVE DESIGN
-========================================================== */
-
-/* ================= MOBILE ================= */
-
-@media (max-width:430px){
-
-.page{
-
-padding:12px;
-padding-bottom:90px;
-
-}
-
-.card-header{
-
-padding:18px;
-
-}
-
-.brand-logo{
-
-width:48px;
 height:48px;
 
 }
 
-.brand-text h2{
-
-font-size:.90rem;
-
-}
-
-.owner-name{
-
-font-size:.85rem;
-
-}
-
-.owner-mobile{
-
-font-size:.70rem;
-
-}
-
-.play-btn{
-
-padding:9px 14px;
-
-font-size:.75rem;
-
-}
-
-.customer-section{
-
-padding:0 18px 18px;
-
-gap:14px;
-
-}
-
-.avatar-wrapper{
-
-width:78px;
-height:78px;
-
-}
-
-#customerPhoto{
-
-width:70px;
-height:70px;
-
-}
-
-.customer-info h1{
-
-font-size:1.15rem;
-
-}
-
-.customer-info p{
-
-font-size:.72rem;
-
-}
-
-.stamp-grid{
-
-gap:12px;
-
-}
-
-.stamp-circle{
-
-width:56px;
-height:56px;
-
-}
-
-.reward-circle img{
-
-width:30px;
-height:30px;
-
-}
-
-}
-
-/* ================= TABLET ================= */
-
-@media (min-width:768px){
-
-.page{
-
-max-width:700px;
-
-}
-
-.loyalty-card{
-
-max-width:650px;
-
-margin:auto;
-
-}
-
-.stamp-grid{
-
-grid-template-columns:repeat(4,90px);
-
-justify-content:center;
-
-gap:24px;
-
-}
-
-}
-
-/* ================= DESKTOP ================= */
-
-@media (min-width:1200px){
-
-.page{
-
-max-width:900px;
-
-}
-
-.loyalty-card{
-
-max-width:760px;
-
-margin:auto;
-
-}
-
-}
-
-/* ==========================================================
-   BOTTOM NAVIGATION
-========================================================== */
-
 .bottom-nav{
-
-position:fixed;
-
-bottom:0;
-
-left:50%;
-
-transform:translateX(-50%);
-
-width:100%;
-
-max-width:430px;
 
 height:72px;
 
-background:#16261C;
-
-border-top:2px solid rgba(255,213,79,.35);
-
-display:flex;
-
-justify-content:space-around;
-
-align-items:center;
-
-z-index:999;
-
-backdrop-filter:blur(18px);
-
-}
-
-.theme-female ~ .bottom-nav{
-
-border-top-color:rgba(247,183,210,.35);
-
-}
-
-.bottom-nav a{
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-gap:5px;
-
-font-size:.70rem;
-
-color:#DDD;
-
-text-decoration:none;
-
-transition:.25s;
-
-}
-
-.bottom-nav a i{
-
-font-size:1.15rem;
-
-}
-
-.bottom-nav a.active{
-
-color:#FFD54F;
-
-}
-
-.bottom-nav a:hover{
-
-transform:translateY(-2px);
-
-}
-
-.theme-female ~ .bottom-nav a.active{
-
-color:#FFD6E5;
-
-}
-
-/* ==========================================================
-   SCROLLBAR
-========================================================== */
-
-::-webkit-scrollbar{
-
-width:8px;
-
-}
-
-::-webkit-scrollbar-track{
-
-background:#111;
-
-}
-
-::-webkit-scrollbar-thumb{
-
-background:#C79A17;
-
-border-radius:20px;
-
-}
-
-::-webkit-scrollbar-thumb:hover{
-
-background:#FFD54F;
-
-}
-
-/* ==========================================================
-   FINAL EFFECTS
-========================================================== */
-
-.loyalty-card{
-
-transition:.35s;
-
-}
-
-.loyalty-card:hover{
-
-transform:translateY(-4px);
-
-box-shadow:
-
-0 18px 45px rgba(0,0,0,.45),
-
-0 0 25px rgba(255,213,79,.20);
-
-}
-
-.theme-female.loyalty-card:hover{
-
-box-shadow:
-
-0 18px 45px rgba(0,0,0,.45),
-
-0 0 25px rgba(247,183,210,.22);
-
-}
-/* ==========================================================
-   FINAL PREMIUM POLISH
-========================================================== */
-
-/* Floating Animation */
-
-.loyalty-card{
-
-animation:cardFloat 5s ease-in-out infinite;
-
-}
-
-@keyframes cardFloat{
-
-0%{
-
-transform:translateY(0px);
-
-}
-
-50%{
-
-transform:translateY(-4px);
-
-}
-
-100%{
-
-transform:translateY(0px);
-
 }
 
 }
 
-/* Premium Glass Reflection */
-
-.loyalty-card::before{
-
-content:"";
-
-position:absolute;
-
-top:-180px;
-
-left:-120px;
-
-width:220px;
-
-height:700px;
-
-background:
-
-linear-gradient(
-
-90deg,
-
-transparent,
-
-rgba(255,255,255,.08),
-
-transparent
-
-);
-
-transform:rotate(22deg);
-
-pointer-events:none;
-
-animation:glassMove 9s linear infinite;
-
-}
-
-@keyframes glassMove{
-
-from{
-
-transform:
-
-translateX(-260px)
-
-rotate(22deg);
-
-}
-
-to{
-
-transform:
-
-translateX(720px)
-
-rotate(22deg);
-
-}
-
-}
-
-/* Loading State */
-
-.loading{
-
-opacity:.55;
-
-pointer-events:none;
-
-filter:grayscale(.3);
-
-}
-
-/* Skeleton */
-
-.skeleton{
-
-background:
-
-linear-gradient(
-
-90deg,
-
-rgba(255,255,255,.05),
-
-rgba(255,255,255,.14),
-
-rgba(255,255,255,.05)
-
-);
-
-background-size:300% 100%;
-
-animation:skeletonLoading 1.4s infinite;
-
-border-radius:10px;
-
-}
-
-@keyframes skeletonLoading{
-
-0%{
-
-background-position:100% 0;
-
-}
-
-100%{
-
-background-position:-100% 0;
-
-}
-
-}
-
-/* Active Stamp Pulse */
-
-.stamp-circle.active{
-
-animation:
-
-stampPop .35s ease,
-
-stampPulse 2s infinite;
-
-}
-
-@keyframes stampPulse{
-
-0%{
-
-box-shadow:0 0 0 0 rgba(255,213,79,.45);
-
-}
-
-70%{
-
-box-shadow:0 0 0 14px rgba(255,213,79,0);
-
-}
-
-100%{
-
-box-shadow:0 0 0 0 rgba(255,213,79,0);
-
-}
-
-}
-
-.theme-female .stamp-circle.active{
-
-animation:
-
-stampPop .35s ease,
-
-femalePulse 2s infinite;
-
-}
-
-@keyframes femalePulse{
-
-0%{
-
-box-shadow:0 0 0 0 rgba(247,183,210,.45);
-
-}
-
-70%{
-
-box-shadow:0 0 0 14px rgba(247,183,210,0);
-
-}
-
-100%{
-
-box-shadow:0 0 0 0 rgba(247,183,210,0);
-
-}
-
-}
-
-/* Reward Unlock */
-
-.reward-circle.unlocked{
-
-animation:
-
-rewardGlow 1.2s infinite alternate,
-
-rewardBounce .8s infinite;
-
-}
-
-@keyframes rewardBounce{
-
-0%,100%{
-
-transform:translateY(0);
-
-}
-
-50%{
-
-transform:translateY(-5px);
-
-}
-
-}
-
-/* Happy Emoji */
-
+/* ======================================
+   PREMIUM SMOOTHNESS
+====================================== */
+
+.loyalty-card,
+.contact-btn,
+.stamp-circle,
+.reward-circle,
 .happy-circle{
+
+transition:all .30s ease;
+
+}
+
+img{
 
 user-select:none;
 
-}
-
-.happy-circle.celebrate{
-
-animation:
-
-happyBounce .6s infinite,
-
-emojiGlow 1.2s infinite alternate;
-
-}
-
-/* Smooth Transition */
-
-*{
-
-transition:
-
-background .25s,
-
-color .25s,
-
-border-color .25s,
-
-box-shadow .25s;
+-webkit-user-drag:none;
 
 }
