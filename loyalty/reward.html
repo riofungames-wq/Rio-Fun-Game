@@ -1,177 +1,315 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rio Maggi Point - Reward</title>
 
-    <!-- PWA Manifest & Favicon Tags -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#263525">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="icon-192.png">
+<meta charset="UTF-8">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-        body {
-            min-height: 100vh;
-            background: #050505;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+<title>
 
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background: #f5d99b;
-            border: 3px solid #d19b4a;
-            border-radius: 18px;
-            padding: 30px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, .45);
-            text-align: center;
-        }
+My Reward
 
-        h1 {
-            color: #c62828;
-            margin-bottom: 10px;
-            font-size: 34px;
-        }
+</title>
 
-        .subtitle {
-            color: #555;
-            margin-bottom: 25px;
-        }
+<meta
+name="theme-color"
+content="#111111">
 
-        .reward-box {
-            background: #2e7d32;
-            color: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
+<link
+rel="manifest"
+href="manifest.json">
 
-        .reward-box h2 {
-            margin-bottom: 10px;
-        }
+<link
+rel="stylesheet"
+href="css/reward.css">
 
-        .card {
-            background: #fff7df;
-            border: 2px solid #d19b4a;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            text-align: left;
-        }
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com">
 
-        .label {
-            font-size: 13px;
-            font-weight: bold;
-            color: #555;
-            margin-bottom: 4px;
-        }
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
 
-        .value {
-            font-size: 18px;
-            font-weight: bold;
-            color: #222;
-        }
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
 
-        button {
-            width: 100%;
-            padding: 14px;
-            background: #263525;
-            color: #ffd54f;
-            border: none;
-            border-radius: 10px;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: .25s;
-        }
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-        button:hover {
-            background: #1c271b;
-        }
-    </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h1>🎉 Congratulations!</h1>
+<div class="page">
 
-    <p class="subtitle">
-        You have unlocked your reward.
-    </p>
+<!-- ================================= -->
+<!-- HEADER -->
+<!-- ================================= -->
 
-    <div class="reward-box">
-        <h2>🍜 FREE VEG MAGGI</h2>
-        <p>Your loyalty reward is ready to claim!</p>
-    </div>
+<header class="reward-header">
 
-    <div class="card">
-        <div class="label">Customer Name</div>
-        <div class="value" id="customerName">Loading...</div>
-    </div>
+<h1>
 
-    <div class="card">
-        <div class="label">Mobile Number</div>
-        <div class="value" id="customerMobile">Loading...</div>
-    </div>
+🎁 My Reward
 
-    <div class="card">
-        <div class="label">Total Stamps</div>
-        <div class="value" id="customerStamps">6 / 6</div>
-    </div>
+</h1>
 
-    <button id="backBtn">
-        Back to Profile
-    </button>
+<p>
+
+Rio Maggi Point Loyalty Reward
+
+</p>
+
+</header>
+
+<!-- ================================= -->
+<!-- CUSTOMER -->
+<!-- ================================= -->
+
+<section class="reward-profile">
+
+<img
+
+id="rewardPhoto"
+
+src="assets/avatars/default.png"
+
+alt="Customer">
+
+<h2 id="rewardName">
+
+Loading...
+
+</h2>
+
+<p id="rewardMemberId">
+
+RIO-000000000
+
+</p>
+
+</section>
+
+<!-- ================================= -->
+<!-- REWARD CARD -->
+<!-- ================================= -->
+
+<section class="reward-card">
+
+<div class="reward-image">
+
+<img
+
+src="assets/icons/veg-maggi.png"
+
+alt="Veg Maggi">
+
 </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const customer = JSON.parse(
-        localStorage.getItem("currentCustomer")
-    );
+<h2>
 
-    if (!customer) {
-        alert("Please Login First!");
-        window.location.href = "login.html";
-        return;
-    }
+FREE VEG MAGGI
 
-    if (customer.stamps < 6 || customer.reward !== true) {
-        alert("Reward is not unlocked yet!");
-        window.location.href = "profile.html";
-        return;
-    }
+</h2>
 
-    document.getElementById("customerName").textContent = customer.name;
-    document.getElementById("customerMobile").textContent = customer.mobile;
-    document.getElementById("customerStamps").textContent = customer.stamps + " / 6";
+<p id="rewardStatus">
 
-    document.getElementById("backBtn").addEventListener("click", () => {
-        window.location.href = "profile.html";
-    });
-});
-</script>
+Reward Locked
 
-<script>
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js");
-    });
-}
-</script>
+</p>
+
+<div class="reward-progress">
+
+<div
+class="progress-bar">
+
+<div
+id="rewardProgressFill"
+class="progress-fill">
+
+</div>
+
+</div>
+
+<p>
+
+<span id="rewardStampCount">
+
+0
+
+</span>
+
+/ 6 Stamps
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ================================= -->
+<!-- CLAIM AREA -->
+<!-- ================================= -->
+
+<section class="claim-section">
+
+<button
+
+id="claimRewardBtn"
+
+class="claim-btn"
+
+disabled>
+
+🎁 Claim Reward
+
+</button>
+
+<p
+id="claimMessage">
+
+Collect 6 stamps to unlock your reward.
+
+</p>
+
+</section>
+<!-- ================================= -->
+<!-- REWARD RULES -->
+<!-- ================================= -->
+
+<section class="reward-rules">
+
+<h2>
+
+Reward Rules
+
+</h2>
+
+<ul>
+
+<li>
+
+⭐ Every Maggi Purchase = 1 Stamp
+
+</li>
+
+<li>
+
+⭐ Collect Total 6 Stamps
+
+</li>
+
+<li>
+
+🎁 Unlock 1 FREE VEG MAGGI
+
+</li>
+
+<li>
+
+📅 Reward Can Be Redeemed At Shop
+
+</li>
+
+<li>
+
+📱 Show This Page To Admin
+
+</li>
+
+</ul>
+
+</section>
+
+<!-- ================================= -->
+<!-- REDEEM STATUS -->
+<!-- ================================= -->
+
+<section class="redeem-status">
+
+<div class="status-card">
+
+<h3>
+
+Reward Status
+
+</h3>
+
+<p id="redeemStatus">
+
+Waiting...
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ================================= -->
+<!-- BOTTOM NAVIGATION -->
+<!-- ================================= -->
+
+<nav class="bottom-nav">
+
+<a href="card.html">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Home</span>
+
+</a>
+
+<a href="qr.html">
+
+<i class="fa-solid fa-qrcode"></i>
+
+<span>QR</span>
+
+</a>
+
+<a href="history.html">
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+<span>History</span>
+
+</a>
+
+<a href="feedback.html">
+
+<i class="fa-solid fa-heart"></i>
+
+<span>Review</span>
+
+</a>
+
+<a href="profile.html">
+
+<i class="fa-solid fa-user"></i>
+
+<span>Profile</span>
+
+</a>
+
+</nav>
+
+</div>
+
+<!-- ================================= -->
+<!-- REWARD JS -->
+<!-- ================================= -->
+
+<script
+type="module"
+src="js/reward.js"></script>
 
 </body>
 </html>
