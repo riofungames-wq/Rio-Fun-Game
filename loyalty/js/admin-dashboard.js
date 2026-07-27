@@ -594,7 +594,7 @@ document.getElementById("settingsMenu") ?.addEventListener("click",()=>{  locati
 document.getElementById("settingMenu")
 ?.addEventListener("click",()=>{
 
-alert("⚙ Settings Coming Soon");
+location.href="admin-settings.html";
 
 });
 
