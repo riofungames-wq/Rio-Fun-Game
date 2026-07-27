@@ -1,35 +1,29 @@
-// ==========================================
+// =====================================================
 // RIO MAGGI POINT
-// QR PAGE
+// PREMIUM QR SYSTEM
 // PART 1
-// ==========================================
+// =====================================================
 
-import { auth, db }
-from "./firebase-config.js";
-
-import {
-
-onAuthStateChanged
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { auth, db } from "./firebase-config.js";
 
 import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-doc,
-getDoc
+import {
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-}
+// =====================================================
+// ELEMENTS
+// =====================================================
 
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+const qrBox =
+document.getElementById("qrcode");
 
-// ==========================================
-// HTML
-// ==========================================
-
-const qrCard =
-document.getElementById("qrCard");
+const qrStatus =
+document.getElementById("qrStatus");
 
 const customerPhoto =
 document.getElementById("customerPhoto");
@@ -40,289 +34,267 @@ document.getElementById("customerName");
 const memberId =
 document.getElementById("memberId");
 
-const qrBox =
-document.getElementById("qrcode");
+const qrCard =
+document.getElementById("qrCard");
 
-const downloadBtn =
+const downloadQR =
 document.getElementById("downloadQR");
 
-const shareBtn =
+const shareQR =
 document.getElementById("shareQR");
 
-// ==========================================
-// LOGIN
-// ==========================================
+let qrCode = null;
 
-onAuthStateChanged(
+let qrValue = "";
 
-auth,
+// =====================================================
+// AUTH
+// =====================================================
 
-async(user)=>{
+onAuthStateChanged(auth, async(user)=>{
 
-if(!user){
+    if(!user){
 
-window.location.href="login.html";
+        location.href="login.html";
 
-return;
+        return;
 
-}
+    }
 
-loadCustomer(user.uid);
+    try{
 
-}
+        const customerRef =
+        doc(db,"customers",user.uid);
 
-);
+        const customerSnap =
+        await getDoc(customerRef);
 
-// ==========================================
+        if(!customerSnap.exists()){
+
+            alert("Customer not found.");
+
+            return;
+
+        }
+
+        const customer =
+        customerSnap.data();
+
+        loadCustomer(customer);
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Unable to load QR.");
+
+    }
+
+});
+
+// =====================================================
 // LOAD CUSTOMER
-// ==========================================
+// =====================================================
 
-async function loadCustomer(uid){
+function loadCustomer(customer){
 
-try{
+    customerName.textContent =
+    customer.name || "Customer";
 
-const ref =
+    memberId.textContent =
+    customer.memberId || "RIO-000000";
 
-doc(db,"customers",uid);
+    if(customer.photoURL){
 
-const snap =
+        customerPhoto.src =
+        customer.photoURL;
 
-await getDoc(ref);
+    }
 
-if(!snap.exists()) return;
+    if(
+        customer.gender &&
+        customer.gender.toLowerCase()=="female"
+    ){
 
-const data =
+        qrCard.classList.remove("theme-male");
 
-snap.data();
+        qrCard.classList.add("theme-female");
 
-// =====================
-// NAME
-// =====================
+    }
 
-customerName.textContent =
-data.name || "Customer";
+    else{
 
-// =====================
-// MEMBER ID
-// =====================
+        qrCard.classList.remove("theme-female");
 
-memberId.textContent =
-"ID : " +
-(data.memberId || "------");
+        qrCard.classList.add("theme-male");
 
-// =====================
-// THEME
-// =====================
+    }
 
-qrCard.classList.remove(
-"theme-male",
-"theme-female"
-);
+    // Permanent QR Format
 
-if(data.gender==="female"){
+    qrValue =
+    `RIO-MAGGI::${customer.memberId}`;
 
-qrCard.classList.add(
-"theme-female"
-);
+    generateQR();
 
-}else{
+}
+// =====================================================
+// GENERATE QR
+// =====================================================
 
-qrCard.classList.add(
-"theme-male"
-);
+function generateQR() {
+
+    qrBox.innerHTML = "";
+
+    qrCode = new QRCode(qrBox, {
+
+        text: qrValue,
+
+        width: 260,
+
+        height: 260,
+
+        colorDark: "#111111",
+
+        colorLight: "#ffffff",
+
+        correctLevel: QRCode.CorrectLevel.H
+
+    });
+
+    qrStatus.textContent =
+    "✅ Permanent Secure QR Ready";
 
 }
 
-// =====================
-// PHOTO
-// =====================
-
-if(data.photoURL){
-
-customerPhoto.src =
-data.photoURL;
-
-}else{
-
-if(data.gender==="female"){
-
-customerPhoto.src =
-"assets/avatars/female.png";
-
-}else{
-
-customerPhoto.src =
-"assets/avatars/male.png";
-
-}
-
-}
-
-// =====================
-// CREATE QR
-// =====================
-
-const qrData =
-JSON.stringify({
-
-type:"customer",
-
-uid:uid,
-
-memberId:
-data.memberId || "",
-
-name:
-data.name || ""
-
-});
-
-qrBox.innerHTML="";
-
-new QRCode(
-
-qrBox,
-
-{
-
-text:qrData,
-
-width:220,
-
-height:220,
-
-correctLevel:
-QRCode.CorrectLevel.H
-
-}
-
-);
-
-}catch(err){
-
-console.log(err);
-
-}
-
-}
-// ==========================================
+// =====================================================
 // DOWNLOAD QR
-// ==========================================
+// =====================================================
 
-downloadBtn.addEventListener(
+downloadQR.addEventListener("click", () => {
 
-"click",
+    const img =
+    qrBox.querySelector("img");
 
-()=>{
+    const canvas =
+    qrBox.querySelector("canvas");
 
-const img =
+    let image = "";
 
-qrBox.querySelector("img");
+    if (img) {
 
-if(!img){
+        image = img.src;
 
-alert("QR Not Ready");
+    }
 
-return;
+    else if (canvas) {
 
-}
+        image = canvas.toDataURL("image/png");
 
-const link =
+    }
 
-document.createElement("a");
+    else {
 
-link.href =
+        alert("QR Not Ready");
 
-img.src;
+        return;
 
-link.download =
+    }
 
-"Rio_Maggi_QR.png";
+    const link =
+    document.createElement("a");
 
-link.click();
+    link.href = image;
 
-}
+    link.download =
+    "Rio-Maggi-QR.png";
 
-// ==========================================
-// SHARE QR
-// ==========================================
-
-);
-
-shareBtn.addEventListener(
-
-"click",
-
-async()=>{
-
-const img =
-
-qrBox.querySelector("img");
-
-if(!img){
-
-alert("QR Not Ready");
-
-return;
-
-}
-
-try{
-
-if(navigator.share){
-
-await navigator.share({
-
-title:
-
-"Rio Maggi Point",
-
-text:
-
-"My Loyalty QR",
-
-url:
-
-img.src
+    link.click();
 
 });
 
-}
+// =====================================================
+// SHARE QR
+// =====================================================
 
-else{
+shareQR.addEventListener("click", async () => {
 
-navigator.clipboard.writeText(
+    const canvas =
+    qrBox.querySelector("canvas");
 
-img.src
+    if (!canvas) {
 
-);
+        alert("QR Not Ready");
 
-alert(
+        return;
 
-"QR Link Copied"
+    }
 
-);
+    try {
 
-}
+        const blob =
+        await new Promise(resolve =>
+            canvas.toBlob(resolve));
 
-}
+        const file =
+        new File(
 
-catch(err){
+            [blob],
 
-console.log(err);
+            "Rio-Maggi-QR.png",
 
-}
+            {
 
-}
+                type: "image/png"
 
-// ==========================================
-// );
+            }
 
-READY
-// ==========================================
+        );
 
-console.log(
+        if (
 
-"RIO QR READY"
+            navigator.canShare &&
 
-);
+            navigator.canShare({
+
+                files: [file]
+
+            })
+
+        ) {
+
+            await navigator.share({
+
+                title: "Rio Maggi Point",
+
+                text: "My Rio Maggi Loyalty QR",
+
+                files: [file]
+
+            });
+
+        }
+
+        else {
+
+            alert("Sharing is not supported on this device.");
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+});
+
+// =====================================================
+// READY
+// =====================================================
+
+console.log("✅ Rio Permanent QR Loaded");
