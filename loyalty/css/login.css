@@ -54,11 +54,11 @@
 
     height:6px;
 
-    background:linear-gradient(
-        90deg,
-        var(--primary),
-        var(--primary-dark)
-    );
+   background:linear-gradient(
+    135deg,
+    var(--gold),
+    var(--gold-dark)
+);
 
 }
 
