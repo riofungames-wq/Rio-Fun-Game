@@ -570,7 +570,7 @@ if (logoutBtn) {
 }
 
 // =====================================================
-// READY
+// ===================================================== // SIDEBAR MENU // =====================================================  const scannerMenu = document.getElementById("scannerMenu"); const exportBtn = document.getElementById("exportBtn"); const rewardBtn = document.getElementById("rewardBtn"); const settingsBtn = document.getElementById("settingsBtn");  if (scannerMenu) {      scannerMenu.addEventListener("click", () => {          document.querySelector(".dashboard-section")             ?.scrollIntoView({                 behavior: "smooth"             });      });  }  if (exportBtn) {      exportBtn.addEventListener("click", () => {          alert("📄 Export Feature Coming Soon");      });  }  if (rewardBtn) {      rewardBtn.addEventListener("click", () => {          location.href = "reward.html";      });  }  if (settingsBtn) {      settingsBtn.addEventListener("click", () => {          alert("⚙️ Settings Coming Soon");      });  }
 // =====================================================
 
 console.log("================================");
