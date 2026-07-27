@@ -1,6 +1,7 @@
 /* =====================================================
    RIO MAGGI POINT
    PREMIUM ADMIN DASHBOARD
+   FINAL CSS v5
    PART 1
 ===================================================== */
 
@@ -44,6 +45,12 @@ box-sizing:border-box;
 
 }
 
+html{
+
+scroll-behavior:smooth;
+
+}
+
 body{
 
 font-family:"Poppins",sans-serif;
@@ -56,7 +63,13 @@ color:var(--white);
 
 overflow-x:hidden;
 
+min-height:100vh;
+
 }
+
+/* ==========================
+LAYOUT
+========================== */
 
 .admin-layout{
 
@@ -74,24 +87,30 @@ SIDEBAR
 
 width:270px;
 
-background:linear-gradient(
+background:
+
+linear-gradient(
 180deg,
-#1a2029,
-#14181f);
+#1b2028,
+#12161d);
 
-border-right:1px solid rgba(212,175,55,.18);
+border-right:
 
-padding:28px 18px;
+1px solid rgba(212,175,55,.15);
 
 position:fixed;
 
-top:0;
-
 left:0;
+
+top:0;
 
 bottom:0;
 
+padding:28px 18px;
+
 overflow-y:auto;
+
+z-index:999;
 
 }
 
@@ -103,15 +122,15 @@ align-items:center;
 
 gap:14px;
 
-margin-bottom:34px;
+margin-bottom:32px;
 
 }
 
 .sidebar-logo img{
 
-width:62px;
+width:60px;
 
-height:62px;
+height:60px;
 
 object-fit:contain;
 
@@ -157,17 +176,42 @@ padding:14px 16px;
 
 border-radius:14px;
 
+cursor:pointer;
+
 text-decoration:none;
 
 color:var(--text);
-
-font-size:15px;
 
 font-weight:600;
 
 transition:.25s;
 
-cursor:pointer;
+}
+
+.sidebar nav a:hover{
+
+background:
+
+rgba(212,175,55,.10);
+
+color:#fff;
+
+}
+
+.sidebar nav a.active{
+
+background:
+
+linear-gradient(
+90deg,
+rgba(212,175,55,.22),
+rgba(212,175,55,.05));
+
+border:
+
+1px solid rgba(212,175,55,.30);
+
+color:#fff;
 
 }
 
@@ -178,27 +222,6 @@ width:24px;
 text-align:center;
 
 font-size:18px;
-
-}
-
-.sidebar nav a:hover{
-
-background:rgba(212,175,55,.12);
-
-color:#fff;
-
-}
-
-.sidebar nav a.active{
-
-background:linear-gradient(
-90deg,
-rgba(212,175,55,.22),
-rgba(212,175,55,.06));
-
-border:1px solid rgba(212,175,55,.35);
-
-color:#fff;
 
 }
 
@@ -240,7 +263,7 @@ color:var(--gold-light);
 
 }
 /* =====================================================
-   QR SCANNER CARD
+   LIVE QR SCANNER
 ===================================================== */
 
 .dashboard-section{
@@ -294,7 +317,7 @@ gap:10px;
 
 .live-status{
 
-background:linear-gradient( 180deg, #16a34a, #15803d );
+background:#22c55e;
 
 padding:6px 14px;
 
@@ -320,31 +343,101 @@ animation:pulse 2s infinite;
 
 }
 
+/* ==========================
+SCANNER
+========================== */
+
 .scanner-box{
 
 border:2px dashed rgba(212,175,55,.30);
 
 border-radius:20px;
 
-height:320px;
+height:340px;
 
-display:flex;
+background:#11151b;
 
-align-items:center;
+overflow:hidden;
 
-justify-content:center;
+margin-bottom:22px;
 
-margin-bottom:24px;
-
-background:#13171e;
+position:relative;
 
 }
 
+/* ===== QR READER ===== */
+
+#qr-reader{
+
+width:100%;
+
+height:100%;
+
+border:none !important;
+
+}
+
+#qr-reader video{
+
+width:100% !important;
+
+height:100% !important;
+
+object-fit:cover !important;
+
+border-radius:18px;
+
+display:block !important;
+
+}
+
+#qr-reader img{
+
+display:none !important;
+
+}
+
+#qr-reader canvas{
+
+display:none !important;
+
+}
+
+#qr-reader__dashboard{
+
+display:none !important;
+
+}
+
+#qr-reader__scan_region{
+
+border:none !important;
+
+}
+
+/* ==========================
+PLACEHOLDER
+========================== */
+
 .camera-placeholder{
 
-text-align:center;
+position:absolute;
+
+inset:0;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+background:#11151b;
 
 color:var(--muted);
+
+z-index:2;
 
 }
 
@@ -362,7 +455,7 @@ margin-bottom:18px;
 
 font-size:18px;
 
-font-weight:600;
+font-weight:700;
 
 color:#fff;
 
@@ -375,14 +468,13 @@ margin-bottom:6px;
 font-size:13px;
 
 }
-
 /* =====================================================
    CUSTOMER PREVIEW
 ===================================================== */
 
 .scanner-result{
 
-background:linear-gradient( 180deg, #202936, #161c24 );
+background:#151920;
 
 border-radius:18px;
 
@@ -400,15 +492,21 @@ align-items:center;
 
 gap:18px;
 
-margin-bottom:18px;
+margin-bottom:20px;
+
+}
+
+.preview-avatar{
+
+flex-shrink:0;
 
 }
 
 .preview-avatar img{
 
-width:74px;
+width:76px;
 
-height:74px;
+height:76px;
 
 border-radius:50%;
 
@@ -417,6 +515,12 @@ border:2px solid var(--gold);
 object-fit:cover;
 
 background:#fff;
+
+}
+
+.preview-info{
+
+flex:1;
 
 }
 
@@ -439,14 +543,14 @@ color:var(--gold-light);
 }
 
 /* =====================================================
-   STATUS
+   STAMP STATUS
 ===================================================== */
 
 .stamp-status{
 
-display:flex;
+display:grid;
 
-justify-content:space-between;
+grid-template-columns:repeat(3,1fr);
 
 gap:18px;
 
@@ -456,15 +560,15 @@ margin:20px 0;
 
 .status-row{
 
-flex:1;
-
 background:#202632;
 
-padding:14px;
+padding:16px;
 
 border-radius:16px;
 
 text-align:center;
+
+border:1px solid rgba(255,255,255,.05);
 
 }
 
@@ -516,7 +620,7 @@ display:flex;
 
 gap:16px;
 
-margin-top:18px;
+margin-top:20px;
 
 }
 
@@ -557,7 +661,7 @@ color:#111;
 
 transform:translateY(-2px);
 
-box-shadow:0 10px 20px rgba(212,175,55,.30);
+box-shadow:0 12px 22px rgba(212,175,55,.35);
 
 }
 
@@ -632,9 +736,9 @@ margin-bottom:10px;
 
 font-size:34px;
 
-color:var(--gold-light);
-
 font-weight:800;
+
+color:var(--gold-light);
 
 }
 /* =====================================================
@@ -654,7 +758,7 @@ padding:24px;
 
 border:1px solid rgba(212,175,55,.15);
 
-margin-bottom:28px;
+margin-bottom:30px;
 
 box-shadow:var(--shadow);
 
@@ -669,6 +773,8 @@ justify-content:space-between;
 align-items:center;
 
 margin-bottom:22px;
+
+gap:20px;
 
 }
 
@@ -685,6 +791,10 @@ align-items:center;
 gap:10px;
 
 }
+
+/* =====================================================
+   SEARCH
+===================================================== */
 
 .search-box{
 
@@ -800,7 +910,7 @@ color:var(--text);
 
 }
 
-tbody td img{
+.table-avatar{
 
 width:46px;
 
@@ -814,17 +924,17 @@ border:2px solid var(--gold);
 
 }
 
-.reward-lock{
+.reward-ready{
 
-color:#ef4444;
+color:#22c55e;
 
 font-weight:700;
 
 }
 
-.reward-ready{
+.reward-lock{
 
-color:#22c55e;
+color:#ef4444;
 
 font-weight:700;
 
@@ -842,6 +952,8 @@ background:linear-gradient(
 180deg,
 #f7d774,
 #d4af37);
+
+color:#111;
 
 font-weight:700;
 
@@ -875,13 +987,13 @@ margin-bottom:30px;
 
 .quick-actions button{
 
-height:62px;
+height:60px;
 
 border:none;
 
 border-radius:18px;
 
-background:linear-gradient( 180deg, #242d39, #1a212b );
+background:#1c232d;
 
 color:#fff;
 
@@ -899,9 +1011,9 @@ border:1px solid rgba(212,175,55,.12);
 
 .quick-actions button:hover{
 
-border-color:var(--gold);
-
 transform:translateY(-3px);
+
+border-color:var(--gold);
 
 }
 
@@ -911,7 +1023,7 @@ transform:translateY(-3px);
 
 .system-status{
 
-background:linear-gradient( 180deg, #222c39, #171e27 );
+background:#1b2028;
 
 border-radius:24px;
 
@@ -923,9 +1035,9 @@ border:1px solid rgba(212,175,55,.15);
 
 .system-status h2{
 
-margin-bottom:20px;
-
 font-size:22px;
+
+margin-bottom:20px;
 
 }
 
@@ -1009,19 +1121,23 @@ grid-template-columns:repeat(2,1fr);
 
 }
 
-.search-box{
-
-width:220px;
-
-}
-
 }
 
 @media(max-width:768px){
 
 .main-content{
 
+margin-left:0;
+
+width:100%;
+
 padding:18px;
+
+}
+
+.sidebar{
+
+display:none;
 
 }
 
@@ -1041,8 +1157,6 @@ grid-template-columns:1fr;
 
 flex-direction:column;
 
-gap:15px;
-
 align-items:flex-start;
 
 }
@@ -1055,7 +1169,7 @@ width:100%;
 
 .stamp-status{
 
-flex-direction:column;
+grid-template-columns:1fr;
 
 }
 
