@@ -1,156 +1,320 @@
-// ======================================
-// RIO LOYALTY CLUB
-// ADMIN LOGIN
+// =====================================================
+// RIO MAGGI POINT
+// PREMIUM ADMIN LOGIN
+// FIREBASE READY
 // PART 1
-// ======================================
+// =====================================================
 
-// ---------- Elements ----------
 
-const adminForm = document.getElementById("adminLoginForm");
+import { auth } from "./firebase-config.js";
 
-const adminEmail = document.getElementById("adminEmail");
 
-const adminPassword = document.getElementById("adminPassword");
+import {
 
-const loginBtn = document.getElementById("loginBtn");
+signInWithEmailAndPassword
 
-const loginError = document.getElementById("loginError");
+}
 
-const togglePassword = document.getElementById("togglePassword");
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-// ======================================
+
+
+// =====================================================
+// ELEMENTS
+// =====================================================
+
+
+const loginForm =
+
+document.getElementById("adminLoginForm");
+
+
+
+const emailInput =
+
+document.getElementById("adminEmail");
+
+
+
+const passwordInput =
+
+document.getElementById("adminPassword");
+
+
+
+const loginBtn =
+
+document.getElementById("loginBtn");
+
+
+
+const togglePassword =
+
+document.getElementById("togglePassword");
+
+
+
+const loginError =
+
+document.getElementById("loginError");
+
+
+
+// =====================================================
 // PASSWORD SHOW / HIDE
-// ======================================
+// =====================================================
 
-togglePassword.addEventListener("click", () => {
 
-    if (adminPassword.type === "password") {
+togglePassword?.addEventListener("click",()=>{
 
-        adminPassword.type = "text";
 
-        togglePassword.innerHTML =
-        '<i class="fa-solid fa-eye-slash"></i>';
+if(passwordInput.type==="password"){
 
-    } else {
 
-        adminPassword.type = "password";
+passwordInput.type="text";
 
-        togglePassword.innerHTML =
-        '<i class="fa-solid fa-eye"></i>';
 
-    }
+togglePassword.innerHTML=
+
+`<i class="fa-solid fa-eye-slash"></i>`;
+
+
+}
+
+else{
+
+
+passwordInput.type="password";
+
+
+togglePassword.innerHTML=
+
+`<i class="fa-solid fa-eye"></i>`;
+
+
+}
+
 
 });
 
-// ======================================
-// RESET ERROR
-// ======================================
 
-function hideError(){
 
-    loginError.style.display = "none";
+// =====================================================
+// ERROR MESSAGE
+// =====================================================
 
-    loginError.textContent = "";
-
-}
-// ======================================
-// PART 2
-// FORM VALIDATION
-// ======================================
-
-adminForm.addEventListener("submit", (event) => {
-
-    event.preventDefault();
-
-    hideError();
-
-    const email = adminEmail.value.trim();
-
-    const password = adminPassword.value.trim();
-
-    if (email === "" || password === "") {
-
-        loginError.style.display = "block";
-
-        loginError.textContent =
-        "Please enter Email and Password.";
-
-        return;
-
-    }
-
-    // Disable Login Button
-
-    loginBtn.disabled = true;
-
-    loginBtn.innerHTML =
-    '<i class="fa-solid fa-spinner fa-spin"></i> Logging In...';
-
-    // Send Data to Firebase
-
-    window.adminLoginData = {
-
-        email: email,
-
-        password: password
-
-    };
-
-    document.dispatchEvent(
-
-        new CustomEvent("admin-login-ready")
-
-    );
-
-});
-
-// ======================================
-// ENABLE LOGIN BUTTON
-// ======================================
-
-function enableLoginButton(){
-
-    loginBtn.disabled = false;
-
-    loginBtn.innerHTML =
-    '<i class="fa-solid fa-lock"></i> Admin Login';
-
-}
-// ======================================
-// PART 3
-// LOGIN RESULT HELPERS
-// ======================================
-
-// Show Error
 
 function showError(message){
 
-    loginError.style.display = "block";
 
-    loginError.textContent = message;
+loginError.textContent=message;
 
-    enableLoginButton();
 
-}
+loginError.style.display="block";
 
-// Login Success
-
-function loginSuccess(){
-
-    loginBtn.innerHTML =
-    '<i class="fa-solid fa-circle-check"></i> Login Successful';
 
 }
 
-// Make Functions Global
-// Firebase File इन्हें Use करेगी
 
-window.showAdminError = showError;
 
-window.enableAdminLoginButton = enableLoginButton;
+function hideError(){
 
-window.adminLoginSuccess = loginSuccess;
 
-// ======================================
-// END OF FILE
-// ======================================
+loginError.textContent="";
+
+
+loginError.style.display="none";
+
+
+}
+
+
+
+// =====================================================
+// LOGIN SUBMIT
+// =====================================================
+
+
+loginForm?.addEventListener("submit",async(e)=>{
+
+
+e.preventDefault();
+
+
+hideError();
+
+
+const email =
+
+emailInput.value.trim();
+
+
+
+const password =
+
+passwordInput.value;
+
+
+
+if(!email || !password){
+
+
+showError(
+
+"Please enter email and password"
+
+);
+
+
+return;
+
+
+}
+
+
+
+loginBtn.disabled=true;
+
+
+loginBtn.innerHTML=
+
+`
+
+<i class="fa-solid fa-spinner fa-spin"></i>
+
+Checking...
+
+`;
+
+
+
+try{
+
+
+await signInWithEmailAndPassword(
+
+auth,
+
+email,
+
+password
+
+);
+
+
+console.log(
+
+"Admin Login Successful"
+
+);
+
+
+
+location.href=
+
+"admin-dashboard.html";
+
+
+
+}
+
+catch(error){
+
+
+console.error(error);
+
+
+
+showError(
+
+"Invalid Email or Password"
+
+);
+
+
+
+loginBtn.disabled=false;
+
+
+
+loginBtn.innerHTML=
+
+`
+
+<i class="fa-solid fa-right-to-bracket"></i>
+
+Login Dashboard
+
+`;
+
+
+
+}
+
+
+});
+// =====================================================
+// AUTH SESSION CHECK
+// =====================================================
+
+
+auth.onAuthStateChanged?.((user)=>{
+
+
+if(user){
+
+
+console.log(
+"Admin Session Active:",
+user.email
+);
+
+
+}
+
+
+});
+
+
+
+// =====================================================
+// ENTER KEY SUPPORT
+// =====================================================
+
+
+passwordInput?.addEventListener(
+
+"keypress",
+
+(e)=>{
+
+
+if(e.key==="Enter"){
+
+
+loginForm.requestSubmit();
+
+
+}
+
+
+}
+
+);
+
+
+
+// =====================================================
+// PAGE READY
+// =====================================================
+
+
+console.log("================================");
+
+console.log("🍜 Rio Maggi Point");
+
+console.log("Premium Admin Login Ready");
+
+console.log("Firebase Authentication Connected");
+
+console.log("================================");
