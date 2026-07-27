@@ -1,1 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Rio Maggi Point | Admin Settings
+</title>
+
+<link rel="manifest" href="manifest.json">
+
+<link rel="icon" href="favicon.ico">
+
+<link
+rel="stylesheet"
+href="css/admin-settings.css">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- ================================= -->
+<!-- HEADER -->
+<!-- ================================= -->
+
+<header class="topBar">
+
+<div class="leftHeader">
+
+<a
+href="admin-dashboard.html"
+class="backBtn">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+</a>
+
+<div>
+
+<h1>
+
+<i class="fa-solid fa-gear"></i>
+
+Admin Settings
+
+</h1>
+
+<p>
+
+Rio Maggi Point Configuration
+
+</p>
+
+</div>
+
+</div>
+
+<button id="saveBtn">
+
+<i class="fa-solid fa-floppy-disk"></i>
+
+Save Settings
+
+</button>
+
+</header>
+
+<!-- ================================= -->
+<!-- SETTINGS -->
+<!-- ================================= -->
+
+<div class="container">
+
+<div class="card">
+
+<h2>
+
+<i class="fa-solid fa-store"></i>
+
+Shop Information
+
+</h2>
+
+<div class="formGroup">
+
+<label>
+
+Shop Name
+
+</label>
+
+<input
+id="shopName"
+type="text"
+placeholder="Rio Maggi Point">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Shop Address
+
+</label>
+
+<textarea
+id="shopAddress"
+rows="3"
+placeholder="Enter Shop Address">
+
+</textarea>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Support Mobile
+
+</label>
+
+<input
+id="shopMobile"
+type="text"
+placeholder="9876543210">
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>
+
+<i class="fa-solid fa-gift"></i>
+
+Reward Settings
+
+</h2>
+
+<div class="formGroup">
+
+<label>
+
+Required Stamps
+
+</label>
+
+<input
+id="requiredStamp"
+type="number"
+value="6">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Reward Name
+
+</label>
+
+<input
+id="rewardName"
+type="text"
+value="FREE VEG MAGGI">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Reward Status
+
+</label>
+
+<select id="rewardStatus">
+
+<option value="enabled">
+
+Enabled
+
+</option>
+
+<option value="disabled">
+
+Disabled
+
+</option>
+
+</select>
+
+</div>
+
+</div>
+  <!-- ================================= -->
+<!-- SCANNER SETTINGS -->
+<!-- ================================= -->
+
+<div class="card">
+
+<h2>
+
+<i class="fa-solid fa-qrcode"></i>
+
+Scanner Settings
+
+</h2>
+
+<div class="formGroup">
+
+<label>
+
+Camera
+
+</label>
+
+<select id="cameraMode">
+
+<option value="environment">
+
+Back Camera
+
+</option>
+
+<option value="user">
+
+Front Camera
+
+</option>
+
+</select>
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Scanner FPS
+
+</label>
+
+<input
+id="scannerFPS"
+type="number"
+value="10">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+QR Box Size
+
+</label>
+
+<input
+id="scannerBox"
+type="number"
+value="250">
+
+</div>
+
+</div>
+
+<!-- ================================= -->
+<!-- THEME -->
+<!-- ================================= -->
+
+<div class="card">
+
+<h2>
+
+<i class="fa-solid fa-palette"></i>
+
+Theme
+
+</h2>
+
+<div class="formGroup">
+
+<label>
+
+Primary Color
+
+</label>
+
+<input
+id="primaryColor"
+type="color"
+value="#ff7b00">
+
+</div>
+
+<div class="formGroup">
+
+<label>
+
+Dark Mode
+
+</label>
+
+<select id="darkMode">
+
+<option value="off">
+
+Off
+
+</option>
+
+<option value="on">
+
+On
+
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<!-- ================================= -->
+<!-- FIREBASE -->
+<!-- ================================= -->
+
+<div class="card">
+
+<h2>
+
+<i class="fa-solid fa-fire"></i>
+
+Firebase Status
+
+</h2>
+
+<div class="statusRow">
+
+<span>Authentication</span>
+
+<strong id="authStatus">
+
+Checking...
+
+</strong>
+
+</div>
+
+<div class="statusRow">
+
+<span>Firestore</span>
+
+<strong id="dbStatus">
+
+Checking...
+
+</strong>
+
+</div>
+
+<div class="statusRow">
+
+<span>Storage</span>
+
+<strong id="storageStatus">
+
+Checking...
+
+</strong>
+
+</div>
+
+</div>
+
+<!-- ================================= -->
+<!-- SYSTEM -->
+<!-- ================================= -->
+
+<div class="card">
+
+<h2>
+
+<i class="fa-solid fa-microchip"></i>
+
+System Information
+
+</h2>
+
+<div class="statusRow">
+
+<span>Version</span>
+
+<strong>
+
+Admin V3
+
+</strong>
+
+</div>
+
+<div class="statusRow">
+
+<span>Project</span>
+
+<strong>
+
+Rio Maggi Point
+
+</strong>
+
+</div>
+
+<div class="statusRow">
+
+<span>Platform</span>
+
+<strong>
+
+GitHub Pages
+
+</strong>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ================================= -->
+<!-- FOOTER -->
+<!-- ================================= -->
+
+<footer class="footer">
+
+Rio Maggi Point Admin Settings
+
+</footer>
+
+<script
+type="module"
+src="js/admin-settings.js">
+
+</script>
+
+</body>
+</html>
