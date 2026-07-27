@@ -11,13 +11,38 @@ content="width=device-width, initial-scale=1.0">
 
 <title>
 
-History | Rio Maggi Point
+Stamp History
 
 </title>
+
+<meta
+name="theme-color"
+content="#111111">
+
+<link
+rel="manifest"
+href="manifest.json">
 
 <link
 rel="stylesheet"
 href="css/history.css">
+
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 
@@ -25,13 +50,15 @@ href="css/history.css">
 
 <div class="page">
 
-<!-- ============================= -->
+<!-- ================================= -->
 <!-- HEADER -->
-<!-- ============================= -->
+<!-- ================================= -->
 
-<header class="top-header">
+<header class="history-header">
 
 <h1>
+
+<i class="fa-solid fa-clock-rotate-left"></i>
 
 Stamp History
 
@@ -39,153 +66,116 @@ Stamp History
 
 <p>
 
-Rio Maggi Point Loyalty Club
+Your Loyalty Journey
 
 </p>
 
 </header>
 
-<!-- ============================= -->
-<!-- PROFILE CARD -->
-<!-- ============================= -->
+<!-- ================================= -->
+<!-- CUSTOMER CARD -->
+<!-- ================================= -->
 
-<div
-class="profile-card theme-male"
-id="profileCard">
+<section class="customer-card">
 
-<div class="profile-left">
-
-<div class="avatar-box">
+<div class="customer-left">
 
 <img
 
-id="customerPhoto"
+id="historyPhoto"
 
-src="assets/avatars/male.png"
+src="assets/avatars/default.png"
 
-alt="Avatar">
-
-</div>
+alt="Customer">
 
 </div>
 
-<div class="profile-right">
+<div class="customer-right">
 
-<h2
-id="customerName">
+<h2 id="historyName">
 
 Loading...
 
 </h2>
 
-<p
-id="memberId">
+<p id="historyMember">
 
-ID : -----
+RIO-000000000
 
 </p>
 
-</div>
+<div class="history-progress">
+
+<span>
+
+Current Stamps
+
+</span>
+
+<strong id="historyStampCount">
+
+0 / 6
+
+</strong>
 
 </div>
 
-<!-- ============================= -->
-<!-- SUMMARY -->
-<!-- ============================= -->
+</div>
 
-<div class="summary-row">
+</section>
 
-<div class="summary-box">
+<!-- ================================= -->
+<!-- TIMELINE -->
+<!-- ================================= -->
 
-<h3>
+<section class="timeline-section">
 
-Total Stamp
+<h2>
 
-</h3>
-
-<h2
-id="totalStamp">
-
-0
+Stamp Timeline
 
 </h2>
-
-</div>
-
-<div class="summary-box">
-
-<h3>
-
-Reward
-
-</h3>
-
-<h2
-id="rewardCount">
-
-0
-
-</h2>
-
-</div>
-
-</div>
-
-<!-- ============================= -->
-<!-- HISTORY TITLE -->
-<!-- ============================= -->
-
-<div class="section-title">
-
-Activity Timeline
-
-</div>
-
-<!-- ============================= -->
-<!-- HISTORY LIST -->
-<!-- ============================= -->
 
 <div
-class="history-list"
-id="historyContainer">
-            <!-- Timeline Items Firebase -->
+id="historyTimeline"
+class="timeline">
+
+<!-- Firebase History -->
 
 </div>
 
-<!-- ============================= -->
+</section>
+<!-- ================================= -->
 <!-- REWARD HISTORY -->
-<!-- ============================= -->
+<!-- ================================= -->
 
-<div class="section-title">
+<section class="reward-section">
 
-Reward History
+<h2>
 
-</div>
+Reward Status
 
-<div
-class="reward-list"
-id="rewardContainer">
+</h2>
 
-<div class="reward-item">
+<div class="reward-card">
 
 <div class="reward-icon">
 
-🎁
+🍜
 
 </div>
 
 <div class="reward-info">
 
-<h3>
+<h3 id="rewardTitle">
 
-No Reward Yet
+Free Veg Maggi
 
 </h3>
 
-<p>
+<p id="rewardStatus">
 
-Complete 6 stamps to unlock
-your first FREE Veg Maggi.
+Locked
 
 </p>
 
@@ -193,39 +183,71 @@ your first FREE Veg Maggi.
 
 </div>
 
+</section>
+
+<!-- ================================= -->
+<!-- STATISTICS -->
+<!-- ================================= -->
+
+<section class="history-stats">
+
+<div class="stat-box">
+
+<h3>Total Visits</h3>
+
+<strong id="totalVisits">
+
+0
+
+</strong>
+
 </div>
 
-<!-- ============================= -->
+<div class="stat-box">
+
+<h3>Total Rewards</h3>
+
+<strong id="totalRewardCount">
+
+0
+
+</strong>
+
+</div>
+
+<div class="stat-box">
+
+<h3>Member Since</h3>
+
+<strong id="memberSince">
+
+--
+
+</strong>
+
+</div>
+
+</section>
+
+<!-- ================================= -->
 <!-- BOTTOM NAVIGATION -->
-<!-- ============================= -->
+<!-- ================================= -->
 
 <nav class="bottom-nav">
 
 <a href="card.html">
 
-<img
-src="assets/icons/home.png"
-alt="Home">
+<i class="fa-solid fa-house"></i>
 
-<span>
-
-Home
-
-</span>
+<span>Home</span>
 
 </a>
 
 <a href="qr.html">
 
-<img
-src="assets/icons/qr.png"
-alt="QR">
+<i class="fa-solid fa-qrcode"></i>
 
-<span>
-
-QR
-
-</span>
+<span>QR</span>
 
 </a>
 
@@ -233,49 +255,35 @@ QR
 href="history.html"
 class="active">
 
-<img
-src="assets/icons/history.png"
-alt="History">
+<i class="fa-solid fa-clock-rotate-left"></i>
 
-<span>
-
-History
-
-</span>
+<span>History</span>
 
 </a>
 
 <a href="feedback.html">
 
-<img
-src="assets/icons/review.png"
-alt="Review">
+<i class="fa-solid fa-heart"></i>
 
-<span>
-
-Review
-
-</span>
+<span>Review</span>
 
 </a>
 
 <a href="profile.html">
 
-<img
-src="assets/icons/profile.png"
-alt="Profile">
+<i class="fa-solid fa-user"></i>
 
-<span>
-
-Profile
-
-</span>
+<span>Profile</span>
 
 </a>
 
 </nav>
 
 </div>
+
+<!-- ================================= -->
+<!-- HISTORY JS -->
+<!-- ================================= -->
 
 <script
 type="module"
@@ -284,5 +292,4 @@ src="js/history.js">
 </script>
 
 </body>
-
 </html>
