@@ -5,25 +5,35 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
+<meta
+name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>Rio Maggi Point • Admin</title>
+<title>Rio Maggi Point • Premium Admin</title>
 
-<link rel="stylesheet"
+<meta
+name="theme-color"
+content="#111111">
+
+<link
+rel="stylesheet"
 href="css/admin-dashboard.css">
 
-<link rel="preconnect"
+<link
+rel="preconnect"
 href="https://fonts.googleapis.com">
 
-<link rel="preconnect"
+<link
+rel="preconnect"
 href="https://fonts.gstatic.com"
 crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
 rel="stylesheet">
 
-<link rel="stylesheet"
+<link
+rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
@@ -32,9 +42,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 <div class="admin-layout">
 
-<!-- ========================= -->
+<!-- ========================================= -->
 <!-- SIDEBAR -->
-<!-- ========================= -->
+<!-- ========================================= -->
 
 <aside class="sidebar">
 
@@ -48,7 +58,7 @@ alt="Rio">
 
 <h2>RIO MAGGI</h2>
 
-<p>Admin Panel</p>
+<p>Premium Admin</p>
 
 </div>
 
@@ -124,9 +134,9 @@ Logout
 
 </aside>
 
-<!-- ========================= -->
-<!-- MAIN -->
-<!-- ========================= -->
+<!-- ========================================= -->
+<!-- MAIN CONTENT -->
+<!-- ========================================= -->
 
 <main class="main-content">
 
@@ -145,9 +155,10 @@ Rio Maggi Point Premium Dashboard
 </p>
 
 </header>
-<!-- ================================= -->
-<!-- QR SCANNER SECTION -->
-<!-- ================================= -->
+
+<!-- ========================================= -->
+<!-- LIVE QR SCANNER -->
+<!-- ========================================= -->
 
 <section class="dashboard-section">
 
@@ -159,7 +170,7 @@ Rio Maggi Point Premium Dashboard
 
 <i class="fa-solid fa-camera"></i>
 
-QR Scanner
+Live QR Scanner
 
 </h2>
 
@@ -181,13 +192,13 @@ QR Scanner
 
 <p>
 
-Camera Preview
+Opening Camera...
 
 </p>
 
 <small>
 
-QR Scanner will appear here
+Waiting For Customer QR
 
 </small>
 
@@ -201,7 +212,7 @@ QR Scanner will appear here
 
 <h3>
 
-Customer Details
+Customer Preview
 
 </h3>
 
@@ -220,7 +231,7 @@ alt="Customer">
 
 <h4 id="scanCustomerName">
 
-Waiting for Scan...
+Waiting For Scan...
 
 </h4>
 
@@ -289,9 +300,9 @@ Give Stamp
 id="cancelScanBtn"
 class="secondary-btn">
 
-<i class="fa-solid fa-xmark"></i>
+<i class="fa-solid fa-rotate"></i>
 
-Cancel
+Restart
 
 </button>
 
@@ -302,10 +313,9 @@ Cancel
 </div>
 
 </section>
-
-<!-- ================================= -->
+<!-- ========================================= -->
 <!-- DASHBOARD STATS -->
-<!-- ================================= -->
+<!-- ========================================= -->
 
 <section class="stats-grid">
 
@@ -335,7 +345,7 @@ Cancel
 
 <div class="stat-card">
 
-<h3>Rewards</h3>
+<h3>Rewards Unlocked</h3>
 
 <strong id="totalRewards">
 
@@ -358,9 +368,10 @@ Cancel
 </div>
 
 </section>
-<!-- ================================= -->
+
+<!-- ========================================= -->
 <!-- CUSTOMER LIST -->
-<!-- ================================= -->
+<!-- ========================================= -->
 
 <section class="customer-section">
 
@@ -413,8 +424,6 @@ placeholder="Search Customer...">
 
 <tbody id="customerTable">
 
-<!-- Firebase Data -->
-
 </tbody>
 
 </table>
@@ -423,9 +432,9 @@ placeholder="Search Customer...">
 
 </section>
 
-<!-- ================================= -->
+<!-- ========================================= -->
 <!-- QUICK ACTIONS -->
-<!-- ================================= -->
+<!-- ========================================= -->
 
 <section class="quick-actions">
 
@@ -463,9 +472,9 @@ Settings
 
 </section>
 
-<!-- ================================= -->
+<!-- ========================================= -->
 <!-- SYSTEM STATUS -->
-<!-- ================================= -->
+<!-- ========================================= -->
 
 <section class="system-status">
 
@@ -545,8 +554,19 @@ Last Refresh
 
 </div>
 
-<script type="module" src="js/admin-dashboard.js"></script>
+<!-- ========================================= -->
+<!-- QR SCANNER LIBRARY -->
+<!-- ========================================= -->
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+<!-- ========================================= -->
+<!-- ADMIN JS -->
+<!-- ========================================= -->
+
+<script
+type="module"
+src="js/admin-dashboard.js"></script>
 
 </body>
-
 </html>
