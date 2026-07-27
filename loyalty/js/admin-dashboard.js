@@ -566,7 +566,7 @@ alert("📄 Export Feature Coming Soon");
 
 rewardBtn?.addEventListener("click",()=>{
 
-location.href="reward.html";
+location.href="admin-rewards.html";
 
 });
 
