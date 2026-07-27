@@ -8,27 +8,19 @@
 import { auth, db } from "./firebase-config.js";
 
 import {
-  collection,
-  getDocs,
-  doc,
-  query,
-  where,
-  updateDoc,
-  getDoc,
-  serverTimestamp
+    collection,
+    getDocs,
+    doc,
+    query,
+    where,
+    updateDoc,
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 import {
-  onAuthStateChanged,
-  signOut
+    onAuthStateChanged,
+    signOut
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-// =====================================================
-// HTML5 QR
-// (Loaded from html)
-// =====================================================
-
-const Html5Qrcode = window.Html5Qrcode;
 
 // =====================================================
 // ELEMENTS
@@ -112,7 +104,7 @@ onAuthStateChanged(auth, async (user) => {
 
     await loadDashboard();
 
-    await startScanner();
+    startScanner();
 
 });
 // =====================================================
@@ -131,7 +123,8 @@ async function loadDashboard() {
 
     todayScanCount = 0;
 
-    const snapshot = await getDocs(collection(db, "customers"));
+    const snapshot =
+    await getDocs(collection(db, "customers"));
 
     snapshot.forEach((document) => {
 
@@ -161,43 +154,46 @@ async function loadDashboard() {
 
     todayScans.textContent = todayScanCount;
 
-    lastRefresh.textContent = new Date().toLocaleString();
+    lastRefresh.textContent =
+    new Date().toLocaleString();
 
 }
 
 // =====================================================
-// CUSTOMER ROW
+// CUSTOMER TABLE
 // =====================================================
 
 function createCustomerRow(customer) {
 
     const tr = document.createElement("tr");
 
+    const avatar = customer.gender === "female"
+        ? "assets/avatars/female.png"
+        : "assets/avatars/male.png";
+
     tr.innerHTML = `
 
     <td>
-
-        <img
-        src="${customer.gender === "female"
-            ? "assets/avatars/female.png"
-            : "assets/avatars/male.png"}"
-        class="table-avatar">
-
+        <img src="${avatar}" class="table-avatar">
     </td>
 
     <td>${customer.name || "-"}</td>
 
     <td>${customer.memberId || "-"}</td>
 
+    <td>${customer.mobile || "-"}</td>
+
     <td>${customer.stamps || 0}/6</td>
 
     <td>
 
-        ${customer.rewardUnlocked
+        ${
+            customer.rewardUnlocked
 
             ? '<span class="reward-ready">✅ Ready</span>'
 
-            : '<span class="reward-lock">❌ Locked</span>'}
+            : '<span class="reward-lock">❌ Locked</span>'
+        }
 
     </td>
 
@@ -226,37 +222,36 @@ function createCustomerRow(customer) {
 searchCustomer.addEventListener("keyup", (e) => {
 
     const keyword =
-
-        e.target.value.toLowerCase().trim();
+    e.target.value.toLowerCase().trim();
 
     customerTable.innerHTML = "";
 
     customers
 
-        .filter(customer => {
+    .filter(customer => {
 
-            return (
+        return (
 
-                (customer.name || "")
-                    .toLowerCase()
-                    .includes(keyword)
+            (customer.name || "")
+            .toLowerCase()
+            .includes(keyword)
 
-                ||
+            ||
 
-                (customer.memberId || "")
-                    .toLowerCase()
-                    .includes(keyword)
+            (customer.memberId || "")
+            .toLowerCase()
+            .includes(keyword)
 
-                ||
+            ||
 
-                (customer.mobile || "")
-                    .includes(keyword)
+            (customer.mobile || "")
+            .includes(keyword)
 
-            );
+        );
 
-        })
+    })
 
-        .forEach(createCustomerRow);
+    .forEach(createCustomerRow);
 
 });
 
@@ -264,13 +259,12 @@ searchCustomer.addEventListener("keyup", (e) => {
 // SELECT CUSTOMER
 // =====================================================
 
-window.selectCustomer = function (uid) {
+window.selectCustomer = function(uid){
 
     currentCustomer =
+    customers.find(c => c.uid === uid);
 
-        customers.find(c => c.uid === uid);
-
-    if (!currentCustomer) return;
+    if(!currentCustomer) return;
 
     showCustomer(currentCustomer);
 
@@ -280,35 +274,27 @@ window.selectCustomer = function (uid) {
 // SHOW CUSTOMER
 // =====================================================
 
-function showCustomer(customer) {
+function showCustomer(customer){
 
     scanCustomerPhoto.src =
-
-        customer.gender === "female"
-
-            ? "assets/avatars/female.png"
-
-            : "assets/avatars/male.png";
+    customer.gender === "female"
+        ? "assets/avatars/female.png"
+        : "assets/avatars/male.png";
 
     scanCustomerName.textContent =
-
-        customer.name;
+    customer.name;
 
     scanMemberId.textContent =
-
-        customer.memberId;
+    customer.memberId;
 
     scanStampCount.textContent =
-
-        `${customer.stamps || 0}/6`;
+    `${customer.stamps || 0}/6`;
 
     todayStatus.textContent =
-
-        "Ready To Give Stamp";
+    "Ready To Give Stamp";
 
     todayStatus.className =
-
-        "success";
+    "success";
 
     giveStampBtn.disabled = false;
 
@@ -386,9 +372,7 @@ async function onScanSuccess(decodedText) {
 
         }
 
-        const memberId =
-
-        decodedText.replace("RIO-MAGGI::", "");
+        const memberId = decodedText.replace("RIO-MAGGI::", "");
 
         const q = query(
 
@@ -426,16 +410,18 @@ async function onScanSuccess(decodedText) {
 
         console.error(error);
 
-        scannerStatus.textContent = "🔴 Scanner Error";
+        alert("Scanner Error");
 
         scannerRunning = false;
+
+        startScanner();
 
     }
 
 }
 
 // =====================================================
-// RESTART
+// RESTART SCANNER
 // =====================================================
 
 cancelScanBtn.addEventListener("click", async () => {
@@ -501,7 +487,7 @@ giveStampBtn.addEventListener("click", async () => {
 
         }
 
-        const rewardUnlocked = stamp >= 6;
+        const rewardUnlocked = (stamp >= 6);
 
         await updateDoc(
 
@@ -557,37 +543,34 @@ refreshBtn.addEventListener("click", async () => {
 // LOGOUT
 // =====================================================
 
-document.querySelectorAll(".sidebar nav a")
-.forEach(item => {
+const logoutBtn = document.getElementById("logoutBtn");
 
-    if (item.textContent.includes("Logout")) {
+if (logoutBtn) {
 
-        item.addEventListener("click", async () => {
+    logoutBtn.addEventListener("click", async () => {
 
-            try {
+        try {
 
-                if (html5QrCode && scannerRunning) {
+            if (html5QrCode && scannerRunning) {
 
-                    await html5QrCode.stop();
-
-                }
+                await html5QrCode.stop();
 
             }
 
-            catch (e) {}
+        }
 
-            await signOut(auth);
+        catch (e) {}
 
-            location.href = "admin-login.html";
+        await signOut(auth);
 
-        });
+        location.href = "admin-login.html";
 
-    }
+    });
 
-});
+}
 
 // =====================================================
-// START
+// READY
 // =====================================================
 
 console.log("================================");
