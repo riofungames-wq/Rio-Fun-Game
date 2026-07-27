@@ -587,7 +587,7 @@ document.getElementById("reportMenu") ?.addEventListener("click",()=>{  location
 
 settingsBtn?.addEventListener("click",()=>{
 
-alert("⚙ Settings Coming Soon");
+document.getElementById("settingsMenu") ?.addEventListener("click",()=>{  location.href="admin-settings.html";  });
 
 });
 
