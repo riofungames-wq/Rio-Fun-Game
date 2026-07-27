@@ -1,127 +1,82 @@
 // =====================================================
 // RIO MAGGI POINT
 // PREMIUM ADMIN DASHBOARD V3
-// PART 1
 // =====================================================
 
 import { auth, db } from "./firebase-config.js";
 
 import {
-collection,
-getDocs,
-doc,
-query,
-where,
-updateDoc,
-serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+  collection,
+  getDocs,
+  doc,
+  query,
+  where,
+  updateDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 import {
-onAuthStateChanged,
-signOut
-}
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 // =====================================================
 // ELEMENTS
 // =====================================================
 
-const totalCustomers =
-document.getElementById("totalCustomers");
+const totalCustomers = document.getElementById("totalCustomers");
+const totalStamps = document.getElementById("totalStamps");
+const totalRewards = document.getElementById("totalRewards");
+const todayScans = document.getElementById("todayScans");
 
-const totalStamps =
-document.getElementById("totalStamps");
+const customerTable = document.getElementById("customerTable");
+const searchCustomer = document.getElementById("searchCustomer");
 
-const totalRewards =
-document.getElementById("totalRewards");
+const refreshBtn = document.getElementById("refreshBtn");
+const exportBtn = document.getElementById("exportBtn");
+const rewardBtn = document.getElementById("rewardBtn");
+const settingsBtn = document.getElementById("settingsBtn");
 
-const todayScans =
-document.getElementById("todayScans");
+const giveStampBtn = document.getElementById("giveStampBtn");
+const cancelScanBtn = document.getElementById("cancelScanBtn");
 
-const customerTable =
-document.getElementById("customerTable");
+const startScannerBtn = document.getElementById("startScannerBtn");
+const stopScannerBtn = document.getElementById("stopScannerBtn");
 
-const searchCustomer =
-document.getElementById("searchCustomer");
+const scannerStatus = document.getElementById("scannerStatus");
+const lastRefresh = document.getElementById("lastRefresh");
 
-const refreshBtn =
-document.getElementById("refreshBtn");
+const scanCustomerPhoto = document.getElementById("scanCustomerPhoto");
+const scanCustomerName = document.getElementById("scanCustomerName");
+const scanMemberId = document.getElementById("scanMemberId");
+const scanStampCount = document.getElementById("scanStampCount");
+const todayStatus = document.getElementById("todayStatus");
 
-const exportBtn =
-document.getElementById("exportBtn");
-
-const rewardBtn =
-document.getElementById("rewardBtn");
-
-const settingsBtn =
-document.getElementById("settingsBtn");
-
-const giveStampBtn =
-document.getElementById("giveStampBtn");
-
-const cancelScanBtn =
-document.getElementById("cancelScanBtn");
-
-const startScannerBtn =
-document.getElementById("startScannerBtn");
-
-const stopScannerBtn =
-document.getElementById("stopScannerBtn");
-
-const scannerStatus =
-document.getElementById("scannerStatus");
-
-const lastRefresh =
-document.getElementById("lastRefresh");
-
-const scanCustomerPhoto =
-document.getElementById("scanCustomerPhoto");
-
-const scanCustomerName =
-document.getElementById("scanCustomerName");
-
-const scanMemberId =
-document.getElementById("scanMemberId");
-
-const scanStampCount =
-document.getElementById("scanStampCount");
-
-const todayStatus =
-document.getElementById("todayStatus");
-
-const logoutBtn =
-document.getElementById("logoutBtn");
+const logoutBtn = document.getElementById("logoutBtn");
 
 // =====================================================
 // VARIABLES
 // =====================================================
 
 let customers = [];
-
 let currentCustomer = null;
-
 let todayScanCount = 0;
 
 let html5QrCode = null;
-
 let scannerRunning = false;
 
 // =====================================================
 // AUTH
 // =====================================================
 
-onAuthStateChanged(auth, async (user)=>{
+onAuthStateChanged(auth, async (user) => {
 
-if(!user){
+  if (!user) {
+    location.href = "admin-login.html";
+    return;
+  }
 
-location.href="admin-login.html";
-
-return;
-
-}
-
-await loadDashboard();
+  await loadDashboard();
 
 });
 // =====================================================
@@ -135,13 +90,10 @@ customerTable.innerHTML="";
 customers=[];
 
 let stampCount=0;
-
 let rewardCount=0;
-
 todayScanCount=0;
 
-const snapshot=
-await getDocs(collection(db,"customers"));
+const snapshot=await getDocs(collection(db,"customers"));
 
 snapshot.forEach((document)=>{
 
@@ -164,11 +116,8 @@ createCustomerRow(customer);
 });
 
 totalCustomers.textContent=customers.length;
-
 totalStamps.textContent=stampCount;
-
 totalRewards.textContent=rewardCount;
-
 todayScans.textContent=todayScanCount;
 
 lastRefresh.textContent=
@@ -195,7 +144,7 @@ tr.innerHTML=`
 
 <img
 src="${avatar}"
-style="width:45px;height:45px;border-radius:50%;">
+style="width:45px;height:45px;border-radius:50%;object-fit:cover;">
 
 </td>
 
@@ -209,11 +158,7 @@ style="width:45px;height:45px;border-radius:50%;">
 
 <td>
 
-${
-customer.rewardUnlocked
-? "✅ Ready"
-: "❌ Locked"
-}
+${customer.rewardUnlocked?"✅ Ready":"❌ Locked"}
 
 </td>
 
@@ -299,19 +244,15 @@ customer.gender==="female"
 :"assets/avatars/male.png";
 
 scanCustomerName.textContent=
-
-customer.name;
+customer.name||"-";
 
 scanMemberId.textContent=
-
-customer.memberId;
+customer.memberId||"-";
 
 scanStampCount.textContent=
-
 `${customer.stamps||0}/6`;
 
 todayStatus.textContent=
-
 "Ready To Give Stamp";
 
 todayStatus.className="success";
@@ -458,11 +399,12 @@ currentCustomer.uid=document.id;
 showCustomer(currentCustomer);
 
 }
+
 // =====================================================
 // GIVE STAMP
 // =====================================================
 
-giveStampBtn?.addEventListener("click", async ()=>{
+giveStampBtn?.addEventListener("click",async()=>{
 
 if(!currentCustomer) return;
 
@@ -486,7 +428,7 @@ doc(db,"customers",currentCustomer.uid),
 
 stamps:stamp,
 
-rewardUnlocked:rewardUnlocked,
+rewardUnlocked,
 
 lastStampAt:serverTimestamp(),
 
@@ -496,8 +438,6 @@ updatedAt:serverTimestamp()
 
 );
 
-alert("✅ Stamp Added Successfully");
-
 currentCustomer.stamps=stamp;
 
 currentCustomer.rewardUnlocked=rewardUnlocked;
@@ -505,6 +445,8 @@ currentCustomer.rewardUnlocked=rewardUnlocked;
 showCustomer(currentCustomer);
 
 await loadDashboard();
+
+alert("✅ Stamp Added Successfully");
 
 }catch(err){
 
@@ -515,7 +457,6 @@ alert("❌ Failed To Give Stamp");
 }
 
 });
-
 // =====================================================
 // RESET CUSTOMER
 // =====================================================
@@ -577,7 +518,7 @@ location.href="admin-rewards.html";
 document.getElementById("reportMenu")
 ?.addEventListener("click",()=>{
 
-document.getElementById("reportMenu") ?.addEventListener("click",()=>{  location.href="admin-reports.html";  });
+location.href="admin-reports.html";
 
 });
 
@@ -587,7 +528,7 @@ document.getElementById("reportMenu") ?.addEventListener("click",()=>{  location
 
 settingsBtn?.addEventListener("click",()=>{
 
-document.getElementById("settingsMenu") ?.addEventListener("click",()=>{  location.href="admin-settings.html";  });
+location.href="admin-settings.html";
 
 });
 
@@ -613,15 +554,12 @@ behavior:"smooth"
 
 });
 
+});
+
 document.getElementById("customersMenu")
 ?.addEventListener("click",()=>{
 
-document.querySelector(".customer-section")
-?.scrollIntoView({
-
-behavior:"smooth"
-
-});
+location.href="admin-customers.html";
 
 });
 
@@ -660,13 +598,15 @@ location.href="admin-login.html";
 });
 
 // =====================================================
+// INIT
+// =====================================================
+
+loadDashboard();
+
+// =====================================================
 
 console.log("================================");
-
 console.log("🍜 Rio Maggi Point");
-
 console.log("Premium Admin Dashboard V3");
-
 console.log("Camera Ready");
-
 console.log("================================");
