@@ -1,214 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rio Maggi Point - Feedback</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
+<title>
 
-body {
-    background: #050505;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-}
+Customer Feedback
 
-.container {
-    width: 100%;
-    max-width: 550px;
-    background: #f5d99b;
-    border: 3px solid #d19b4a;
-    border-radius: 18px;
-    padding: 30px;
-    box-shadow: 0 15px 40px rgba(0,0,0,.45);
-}
+</title>
 
-h1 {
-    text-align: center;
-    color: #222;
-    margin-bottom: 10px;
-}
+<meta
+name="theme-color"
+content="#111111">
 
-.subtitle {
-    text-align: center;
-    color: #555;
-    margin-bottom: 25px;
-}
+<link
+rel="manifest"
+href="manifest.json">
 
-.card {
-    background: #fff7df;
-    border: 2px solid #d19b4a;
-    border-radius: 12px;
-    padding: 18px;
-    margin-bottom: 18px;
-}
+<link
+rel="stylesheet"
+href="css/feedback.css">
 
-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 8px;
-    color: #222;
-}
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com">
 
-select,
-textarea {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #d19b4a;
-    border-radius: 10px;
-    font-size: 15px;
-    outline: none;
-    margin-top: 5px;
-}
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
 
-textarea {
-    resize: vertical;
-    min-height: 120px;
-}
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
 
-.bannerAd {
-    height: 90px;
-    border: 2px dashed #999;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #ffffff;
-    margin: 20px 0;
-    font-weight: bold;
-    color: #777;
-}
-
-button {
-    width: 100%;
-    padding: 14px;
-    background: #263525;
-    color: #ffd54f;
-    border: none;
-    border-radius: 10px;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .25s;
-}
-
-button:hover {
-    background: #1c271b;
-}
-</style>
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 
 <body>
 
-<div class="container">
+<div class="page">
 
-<h1>⭐ Customer Feedback</h1>
+<!-- ================================= -->
+<!-- HEADER -->
+<!-- ================================= -->
 
-<p class="subtitle">
-Tell us how your Rio Maggi Point experience was.
+<header class="feedback-header">
+
+<h1>
+
+<i class="fa-solid fa-heart"></i>
+
+Customer Feedback
+
+</h1>
+
+<p>
+
+Tell Us About Your Experience
+
 </p>
 
-<div class="card">
-    <label for="rating">Rate Your Experience</label>
-    <select id="rating" required>
-        <option value="">Select Rating</option>
-        <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
-        <option value="4">⭐⭐⭐⭐ Very Good</option>
-        <option value="3">⭐⭐⭐ Good</option>
-        <option value="2">⭐⭐ Average</option>
-        <option value="1">⭐ Poor</option>
-    </select>
+</header>
+
+<!-- ================================= -->
+<!-- CUSTOMER INFO -->
+<!-- ================================= -->
+
+<section class="customer-card">
+
+<img
+id="feedbackPhoto"
+src="assets/avatars/default.png"
+alt="Customer">
+
+<h2 id="feedbackName">
+
+Loading...
+
+</h2>
+
+<p id="feedbackMember">
+
+RIO-000000000
+
+</p>
+
+</section>
+
+<!-- ================================= -->
+<!-- STAR RATING -->
+<!-- ================================= -->
+
+<section class="rating-section">
+
+<h2>
+
+Rate Your Experience
+
+</h2>
+
+<div class="star-rating">
+
+<i class="fa-regular fa-star star" data-rate="1"></i>
+
+<i class="fa-regular fa-star star" data-rate="2"></i>
+
+<i class="fa-regular fa-star star" data-rate="3"></i>
+
+<i class="fa-regular fa-star star" data-rate="4"></i>
+
+<i class="fa-regular fa-star star" data-rate="5"></i>
+
 </div>
 
-<div class="card">
-    <label for="experience">How was your Maggi?</label>
-    <select id="experience" required>
-        <option value="">Select Option</option>
-        <option>😍 It was Amazing!</option>
-        <option>😊 Very Good</option>
-        <option>🙂 Good</option>
-        <option>😐 Average</option>
-        <option>😔 Needs Improvement</option>
-        <option>🔥 I'll Definitely Visit Again</option>
-    </select>
+<p id="ratingText">
+
+Tap A Star
+
+</p>
+
+</section>
+
+<!-- ================================= -->
+<!-- EMOJI -->
+<!-- ================================= -->
+
+<section class="emoji-section">
+
+<h2>
+
+How Do You Feel?
+
+</h2>
+
+<div class="emoji-list">
+
+<button class="emoji-btn">😍</button>
+
+<button class="emoji-btn">😊</button>
+
+<button class="emoji-btn">😋</button>
+
+<button class="emoji-btn">🤩</button>
+
+<button class="emoji-btn">🥰</button>
+
 </div>
 
-<div class="card">
-    <label for="comment">Your Feedback</label>
-    <textarea
-        id="comment"
-        placeholder="Write your valuable feedback here..."
-        maxlength="300"
-    ></textarea>
+</section>
+<!-- ================================= -->
+<!-- REVIEW -->
+<!-- ================================= -->
+
+<section class="review-section">
+
+<h2>
+
+Write Your Review
+
+</h2>
+
+<textarea
+
+id="reviewText"
+
+placeholder="Tell us about your Maggi experience today..."
+
+maxlength="300">
+
+</textarea>
+
+<div class="char-count">
+
+<span id="charCount">
+
+0
+
+</span>
+
+/300
+
 </div>
 
-<div class="bannerAd">
-    Google AdSense Banner (Responsive)
-</div>
+</section>
 
-<button id="submitBtn">
-    Submit Feedback
+<!-- ================================= -->
+<!-- SUBMIT -->
+<!-- ================================= -->
+
+<section class="submit-section">
+
+<button
+id="submitFeedback"
+class="submit-btn">
+
+<i class="fa-solid fa-paper-plane"></i>
+
+Submit Feedback
+
 </button>
 
+</section>
+
+<!-- ================================= -->
+<!-- THANK YOU -->
+<!-- ================================= -->
+
+<section
+id="thankYouBox"
+class="thankyou-box"
+style="display:none;">
+
+<h2>
+
+🎉 Thank You!
+
+</h2>
+
+<p>
+
+Your feedback has been submitted successfully.
+
+</p>
+
+</section>
+
+<!-- ================================= -->
+<!-- BOTTOM NAVIGATION -->
+<!-- ================================= -->
+
+<nav class="bottom-nav">
+
+<a href="card.html">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Home</span>
+
+</a>
+
+<a href="qr.html">
+
+<i class="fa-solid fa-qrcode"></i>
+
+<span>QR</span>
+
+</a>
+
+<a href="history.html">
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+<span>History</span>
+
+</a>
+
+<a
+href="feedback.html"
+class="active">
+
+<i class="fa-solid fa-heart"></i>
+
+<span>Review</span>
+
+</a>
+
+<a href="profile.html">
+
+<i class="fa-solid fa-user"></i>
+
+<span>Profile</span>
+
+</a>
+
+</nav>
+
 </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
+<!-- ================================= -->
+<!-- FEEDBACK JS -->
+<!-- ================================= -->
 
-    const customer = JSON.parse(
-        localStorage.getItem("currentCustomer")
-    );
-
-    if (!customer) {
-        alert("Please Login First!");
-        window.location.href = "login.html";
-        return;
-    }
-
-    document.getElementById("submitBtn").addEventListener("click", () => {
-
-        const rating = document.getElementById("rating").value;
-        const experience = document.getElementById("experience").value;
-        const comment = document.getElementById("comment").value.trim();
-
-        if (rating === "" || experience === "") {
-            alert("Please complete the feedback form.");
-            return;
-        }
-
-        let feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
-
-        feedbacks.push({
-            customerId: customer.id,
-            name: customer.name,
-            mobile: customer.mobile,
-            rating: rating,
-            experience: experience,
-            comment: comment,
-            date: new Date().toLocaleString()
-        });
-
-        localStorage.setItem("feedbacks", JSON.stringify(feedbacks));
-
-        alert("🎉 Thank you for your valuable feedback!");
-
-        window.location.href = "profile.html";
-
-    });
-
-});
-</script>
+<script
+type="module"
+src="js/feedback.js"></script>
 
 </body>
 </html>
