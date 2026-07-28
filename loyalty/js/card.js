@@ -129,7 +129,7 @@ data.name || "Customer";
 if(memberId){
 
 memberId.innerText =
-data.id || "RIO-000000";
+data.memberId || "RIO-000000";
 
 }
 
