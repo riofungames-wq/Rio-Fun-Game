@@ -1,14 +1,14 @@
 import { auth, db } from "./firebase-config.js";
 
 import {
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
 
 import {
-    doc,
-    getDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+doc,
+getDoc
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
 
 
@@ -18,42 +18,440 @@ import {
 
 
 const customerName =
-document.getElementById("customerName");
-
-
-const customerPhoto =
-document.getElementById("customerPhoto");
+document.getElementById(
+"customerName"
+);
 
 
 const memberId =
-document.getElementById("memberId");
+document.getElementById(
+"memberId"
+);
 
 
-
-const loyaltyCard =
-document.getElementById("loyaltyCard");
+const customerPhoto =
+document.getElementById(
+"customerPhoto"
+);
 
 
 
 // ===============================
-// AUTH CHECK
+// DEFAULT DATA
 // ===============================
 
 
-onAuthStateChanged(auth, async (user)=>{
+function setDefaultUser(){
 
 
-    if(!user){
+if(customerName){
 
-        window.location.href="login.html";
+customerName.innerText =
+"Customer";
 
-        return;
-
-    }
-
+}
 
 
-    await loadCustomerData(user.uid);
+if(memberId){
+
+memberId.innerText =
+"RIO-000000";
+
+}
+
+
+if(customerPhoto){
+
+customerPhoto.src =
+"assets/avatars/default.png";
+
+}
+
+
+}
+
+
+
+
+
+// ===============================
+// LOAD CUSTOMER
+// ===============================
+
+
+onAuthStateChanged(
+auth,
+async(user)=>{
+
+
+if(!user){
+
+
+window.location.href =
+"login.html";
+
+
+return;
+
+
+}
+
+
+
+try{
+
+
+const userRef =
+doc(
+db,
+"customers",
+user.uid
+);
+
+
+
+const userSnap =
+await getDoc(
+userRef
+);
+
+
+
+if(userSnap.exists()){
+
+
+const data =
+userSnap.data();
+
+
+
+if(customerName){
+
+customerName.innerText =
+data.name || "Customer";
+
+}
+
+
+
+if(memberId){
+
+memberId.innerText =
+data.id || "RIO-000000";
+
+}
+
+
+
+
+if(customerPhoto){
+
+
+if(data.photoURL){
+
+
+customerPhoto.src =
+data.photoURL;
+
+
+}
+
+else{
+
+
+customerPhoto.src =
+"assets/avatars/default.png";
+
+
+}
+
+
+}
+
+
+
+
+}
+
+
+
+else{
+
+
+setDefaultUser();
+
+
+}
+
+
+
+}
+
+catch(error){
+
+
+console.error(
+"Customer Load Error:",
+error
+);
+
+
+setDefaultUser();
+
+
+}
+
+
+
+});
+
+// ===============================
+// STAMP SYSTEM
+// ===============================
+
+
+const stamps = [
+"stamp1",
+"stamp2",
+"stamp3",
+"stamp4",
+"stamp5",
+"stamp6"
+];
+
+
+
+function updateStamps(count){
+
+
+stamps.forEach(
+(id,index)=>{
+
+
+const stamp =
+document.getElementById(id);
+
+
+
+if(!stamp) return;
+
+
+
+if(index < count){
+
+
+stamp.classList.add(
+"active"
+);
+
+
+}
+
+
+else{
+
+
+stamp.classList.remove(
+"active"
+);
+
+
+}
+
+
+});
+
+
+}
+
+
+
+
+
+// ===============================
+// COUNTDOWN SYSTEM
+// ===============================
+
+
+const countdownDays =
+document.getElementById(
+"countdownDays"
+);
+
+
+
+function updateCountdown(startDate){
+
+
+
+if(!countdownDays)
+return;
+
+
+
+const now =
+new Date();
+
+
+
+const start =
+new Date(startDate);
+
+
+
+const resetDate =
+new Date(start);
+
+
+
+resetDate.setDate(
+resetDate.getDate()+40
+);
+
+
+
+const difference =
+resetDate - now;
+
+
+
+if(difference <= 0){
+
+
+
+countdownDays.innerText =
+"0 DAYS";
+
+
+
+return;
+
+
+
+}
+
+
+
+const days =
+Math.ceil(
+difference /
+(1000*60*60*24)
+);
+
+
+
+countdownDays.innerText =
+days + " DAYS";
+
+
+
+}
+
+
+
+
+
+// ===============================
+// LOAD STAMP DATA
+// ===============================
+
+
+async function loadStampData(uid){
+
+
+try{
+
+
+const userRef =
+doc(
+db,
+"customers",
+uid
+);
+
+
+
+const snap =
+await getDoc(
+userRef
+);
+
+
+
+if(!snap.exists())
+return;
+
+
+
+const data =
+snap.data();
+
+
+
+const stampCount =
+data.stamps || 0;
+
+
+
+updateStamps(
+stampCount
+);
+
+
+
+
+
+// Countdown
+
+if(data.cycleStart){
+
+
+updateCountdown(
+data.cycleStart
+);
+
+
+}
+
+
+
+}
+
+
+
+catch(error){
+
+
+console.error(
+"Stamp Error:",
+error
+);
+
+
+}
+
+
+
+}
+
+// ===============================
+// CONNECT STAMP DATA WITH USER
+// ===============================
+
+
+onAuthStateChanged(
+auth,
+async(user)=>{
+
+
+if(!user)
+return;
+
+
+
+loadStampData(
+user.uid
+);
 
 
 
@@ -62,547 +460,69 @@ onAuthStateChanged(auth, async (user)=>{
 
 
 
+
 // ===============================
-// LOAD CUSTOMER DATA
-// ===============================
-
-
-async function loadCustomerData(uid){
-
-
-    try{
-
-
-        const userRef =
-        doc(db,"customers",uid);
-
-
-
-        const userSnap =
-        await getDoc(userRef);
-
-
-
-        if(!userSnap.exists()){
-
-
-            console.log(
-                "Customer data not found"
-            );
-
-
-            return;
-
-
-        }
-
-
-
-        const customer =
-        userSnap.data();
-
-
-
-        updateCustomerUI(customer);
-
-
-
-    }
-
-    catch(error){
-
-
-        console.error(
-            "Card Load Error:",
-            error
-        );
-
-
-    }
-
-
-
-}
-// ===============================
-// UPDATE CUSTOMER UI
+// REWARD CIRCLE
 // ===============================
 
 
-function updateCustomerUI(customer){
-
-
-
-    // NAME
-
-
-    if(customerName){
-
-
-        customerName.textContent =
-        customer.name || "Customer";
-
-
-    }
-
-
-
-
-
-    // ID
-
-
-    if(memberId){
-
-
-        memberId.textContent =
-
-        customer.id ||
-
-        customer.uid ||
-
-        "RIO-000000";
-
-
-    }
-
-
-
-
-
-
-
-    // AVATAR
-
-
-    if(customerPhoto){
-
-
-
-        if(customer.photoURL){
-
-
-            customerPhoto.src =
-            customer.photoURL;
-
-
-        }
-
-        else if(customer.avatar){
-
-
-            customerPhoto.src =
-            customer.avatar;
-
-
-        }
-
-        else{
-
-
-            customerPhoto.src =
-            "assets/avatars/default.png";
-
-
-        }
-
-
-
-    }
-
-
-
-
-
-
-
-
-    // GENDER THEME
-
-
-    if(loyaltyCard){
-
-
-
-        loyaltyCard.classList.remove(
-
-            "male-theme",
-
-            "female-theme"
-
-        );
-
-
-
-
-        if(customer.gender === "female"){
-
-
-
-            loyaltyCard.classList.add(
-
-                "female-theme"
-
-            );
-
-
-        }
-
-        else{
-
-
-            loyaltyCard.classList.add(
-
-                "male-theme"
-
-            );
-
-
-        }
-
-
-
-    }
-
-
-
-
-
-
-
-    // LOAD STAMPS
-
-
-    loadStamps(customer);
-
-
-
-}
-// ===============================
-// STAMP SYSTEM
-// ===============================
-
-
-function loadStamps(customer){
-
-
-
-    const stamps = customer.stamps || 0;
-
-
-
-    const stampDates =
-    customer.stampDates || [];
-
-
-
-
-
-    // FIRST 6 STAMPS
-
-
-    for(let i = 1; i <= 6; i++){
-
-
-
-        const stamp =
-        document.getElementById(
-            "stamp" + i
-        );
-
-
-
-        const date =
-        document.getElementById(
-            "date" + i
-        );
-
-
-
-
-
-        if(stamp){
-
-
-
-            if(i <= stamps){
-
-
-
-                stamp.classList.add(
-                    "active"
-                );
-
-
-
-                // Male default crown
-
-                if(customer.gender === "female"){
-
-
-                    stamp.innerHTML =
-                    "💖";
-
-
-                }
-
-                else{
-
-
-                    stamp.innerHTML =
-                    "👑";
-
-
-                }
-
-
-
-            }
-
-            else{
-
-
-                stamp.classList.remove(
-                    "active"
-                );
-
-
-                stamp.innerHTML =
-                i;
-
-
-            }
-
-
-
-        }
-
-
-
-
-
-
-        if(date){
-
-
-
-            if(stampDates[i-1]){
-
-
-                date.textContent =
-                formatDate(
-                    stampDates[i-1]
-                );
-
-
-            }
-
-            else{
-
-
-                date.textContent =
-                "--";
-
-
-            }
-
-
-
-        }
-
-
-
-    }
-
-
-
-
-
-
-
-
-    // ===============================
-    // FREE VEG MAGGI STAMP
-    // ===============================
-
-
-
-    const rewardStamp =
-    document.querySelector(
-        ".reward-stamp"
-    );
-
-
-
-    if(rewardStamp){
-
-
-
-        if(stamps >= 6){
-
-
-
-            rewardStamp.classList.add(
-                "active"
-            );
-
-
-
-        }
-
-
-
-    }
-
-
-
-
-
-
-
-
-    // ===============================
-    // HAPPY MASCOT
-    // ===============================
-
-
-
-    const mascot =
-    document.getElementById(
-        "happyMascot"
-    );
-
-
-
-    if(mascot){
-
-
-
-        if(customer.gender === "female"){
-
-
-
-            mascot.src =
-            "assets/mascot/rio-happy-female.png";
-
-
-
-        }
-
-        else{
-
-
-            mascot.src =
-            "assets/mascot/rio-happy.png";
-
-
-        }
-
-
-
-    }
-
-
-
-}
-
-
-
-
-
-
-// ===============================
-// DATE FORMAT
-// ===============================
-
-
-function formatDate(date){
-
-
-    try{
-
-
-        const d =
-        new Date(date);
-
-
-
-        return (
-
-            d.getDate()
-            +
-            "/"
-            +
-            (d.getMonth()+1)
-            +
-            "/"
-            +
-            d.getFullYear()
-
-        );
-
-
-    }
-
-    catch{
-
-
-        return "--";
-
-
-    }
-
-
-
-}
-// ===============================
-// REWARD UNLOCK MESSAGE
-// ===============================
-
-
-const rewardMessage =
+const rewardCircle =
 document.querySelector(
-    ".reward-message"
+".reward-circle"
 );
 
 
 
-if(rewardMessage){
+function updateReward(stampCount){
 
 
 
-    const currentStampCount =
-    document.querySelectorAll(
-        ".stamp-circle.active"
-    ).length;
+if(!rewardCircle)
+return;
 
 
 
-    if(currentStampCount >= 6){
+if(stampCount >= 6){
+
+
+rewardCircle.innerHTML =
+
+`
+<div class="reward-text">
+FREE<br>
+VEG<br>
+MAGGI
+</div>
+`;
+
+
+rewardCircle.classList.add(
+"stamp-active"
+);
 
 
 
-        rewardMessage.innerHTML =
+}
 
-        `🏆 Congratulations! 
-        Your FREE VEG MAGGI is Unlocked`;
-
+else{
 
 
-    }
+rewardCircle.innerHTML =
 
-    else{
-
-
-
-        rewardMessage.innerHTML =
-
-        `Collect ${6-currentStampCount} more Stamps • 
-        Unlock 1 FREE Veg Maggi`;
+`
+<div class="reward-text">
+${stampCount}/6
+</div>
+`;
 
 
+rewardCircle.classList.remove(
+"stamp-active"
+);
 
-    }
 
+
+}
 
 
 }
@@ -613,119 +533,272 @@ if(rewardMessage){
 
 
 // ===============================
-// CLICK FREE GAME
+// SHOP CONTACT BUTTONS
 // ===============================
 
 
-const gameButton =
+const callBtn =
 document.getElementById(
-    "gameLink"
+"callBtn"
 );
 
 
 
-if(gameButton){
+const whatsappBtn =
+document.getElementById(
+"whatsappBtn"
+);
 
-
-
-    gameButton.addEventListener(
-        "click",
-        ()=>{
-
-
-            console.log(
-                "Opening Rio Free Game"
-            );
-
-
-        }
-    );
-
-
-
-}
-
-
-
-
-
-
-// ===============================
-// MAP BUTTON
-// ===============================
 
 
 const mapBtn =
 document.getElementById(
-    "mapBtn"
+"mapBtn"
 );
+
+
+
+
+// Change these later with your shop details
+
+const SHOP_PHONE =
+"YOUR_SHOP_NUMBER";
+
+
+
+const WHATSAPP_NUMBER =
+"YOUR_WHATSAPP_NUMBER";
+
+
+
+const SHOP_LOCATION =
+"YOUR_GOOGLE_MAP_LINK";
+
+
+
+
+if(callBtn){
+
+
+callBtn.onclick = ()=>{
+
+
+window.location.href =
+"tel:" + SHOP_PHONE;
+
+
+};
+
+
+}
+
+
+
+if(whatsappBtn){
+
+
+whatsappBtn.onclick = ()=>{
+
+
+window.open(
+
+"https://wa.me/" + WHATSAPP_NUMBER,
+
+"_blank"
+
+);
+
+
+};
+
+
+}
 
 
 
 if(mapBtn){
 
 
-
-    mapBtn.addEventListener(
-        "click",
-        ()=>{
+mapBtn.onclick = ()=>{
 
 
-            window.open(
+window.open(
 
-            "https://maps.google.com",
+SHOP_LOCATION,
 
-            "_blank"
+"_blank"
 
-            );
+);
 
 
-        }
-    );
+};
 
 
 }
 
-
-
-
-
-
 // ===============================
-// PROFILE AVATAR SUPPORT
+// FINAL CUSTOMER UPDATE
 // ===============================
 
 
-const profileBtn =
-document.querySelector(
-    'a[href="profile.html"]'
+async function refreshCustomerData(uid){
+
+
+try{
+
+
+const userRef =
+doc(
+db,
+"customers",
+uid
 );
 
 
 
-if(profileBtn){
+const snap =
+await getDoc(
+userRef
+);
 
 
 
-    profileBtn.addEventListener(
-        "click",
-        ()=>{
+if(!snap.exists())
+return;
 
 
-            console.log(
-                "Opening Profile"
-            );
+
+const data =
+snap.data();
 
 
-        }
-    );
+
+const stampCount =
+data.stamps || 0;
+
+
+
+// Update stamps
+
+updateStamps(
+stampCount
+);
+
+
+
+// Update reward
+
+updateReward(
+stampCount
+);
+
+
+
+// Update countdown
+
+if(data.cycleStart){
+
+updateCountdown(
+data.cycleStart
+);
+
+}
+
 
 
 }
+
+
+catch(error){
+
+
+console.error(
+"Refresh Error:",
+error
+);
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+// ===============================
+// AUTO REFRESH
+// ===============================
+
+
+onAuthStateChanged(
+auth,
+(user)=>{
+
+
+if(user){
+
+
+refreshCustomerData(
+user.uid
+);
+
+
+}
+
+
+});
+
+
+
+
+
+
+// ===============================
+// RESET MESSAGE
+// ===============================
+
+
+function checkResetStatus(){
+
+
+const daysText =
+document.getElementById(
+"countdownDays"
+);
+
+
+
+if(
+daysText &&
+daysText.innerText === "0 DAYS"
+){
+
+
+daysText.innerText =
+"NEW CYCLE STARTED";
+
+
+}
+
+
+}
+
+
+
+setInterval(
+checkResetStatus,
+60000
+);
+
+
 
 
 
 
 console.log(
-"Rio Maggi Point Card Loaded Successfully"
+"Rio Maggi Point Premium Card Loaded"
 );
