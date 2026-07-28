@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+/<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -7,12 +7,10 @@
 
 <meta
 name="viewport"
-content="width=device-width, initial-scale=1.0">
+content="width=device-width,initial-scale=1.0">
 
 <title>
-
-Customer Feedback
-
+Rio Maggi Point • Review
 </title>
 
 <meta
@@ -48,68 +46,110 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 <body>
 
+
 <div class="page">
 
-<!-- ================================= -->
-<!-- HEADER -->
-<!-- ================================= -->
 
-<header class="feedback-header">
+<div class="feedback-card">
+
+
+<div class="card-glow"></div>
+
+<div class="card-shine"></div>
+
+
+<!-- ================= HEADER ================= -->
+
+
+<div class="feedback-header">
+
 
 <h1>
 
-<i class="fa-solid fa-heart"></i>
-
-Customer Feedback
+RIO MAGGI POINT
 
 </h1>
 
+
 <p>
 
-Tell Us About Your Experience
+Premium Customer Review
 
 </p>
 
-</header>
 
-<!-- ================================= -->
-<!-- CUSTOMER INFO -->
-<!-- ================================= -->
+</div>
 
-<section class="customer-card">
+
+
+<!-- ================= CUSTOMER ================= -->
+
+
+<div class="customer-section">
+
+
+<div class="avatar-frame">
+
 
 <img
+
 id="feedbackPhoto"
-src="assets/avatars/default.png"
+
+src="assets/avatars/male.png"
+
 alt="Customer">
 
-<h2 id="feedbackName">
+
+</div>
+
+
+
+<div
+
+id="feedbackName"
+
+class="customer-name">
 
 Loading...
 
-</h2>
+</div>
 
-<p id="feedbackMember">
 
-RIO-000000000
 
-</p>
+<div class="customer-id">
 
-</section>
+ID :
 
-<!-- ================================= -->
-<!-- STAR RATING -->
-<!-- ================================= -->
+<span id="feedbackMember">
 
-<section class="rating-section">
+RIO-000000
+
+</span>
+
+
+</div>
+
+
+
+</div>
+
+
+
+<!-- ================= RATING ================= -->
+
+
+<div class="rating-box">
+
 
 <h2>
 
-Rate Your Experience
+How Was Your Maggi?
 
 </h2>
 
+
 <div class="star-rating">
+
 
 <i class="fa-regular fa-star star" data-rate="1"></i>
 
@@ -121,7 +161,9 @@ Rate Your Experience
 
 <i class="fa-regular fa-star star" data-rate="5"></i>
 
+
 </div>
+
 
 <p id="ratingText">
 
@@ -129,13 +171,14 @@ Tap A Star
 
 </p>
 
-</section>
 
-<!-- ================================= -->
-<!-- EMOJI -->
-<!-- ================================= -->
+</div>
 
-<section class="emoji-section">
+<!-- ================= EMOJI FEELING ================= -->
+
+
+<div class="emoji-box">
+
 
 <h2>
 
@@ -143,26 +186,57 @@ How Do You Feel?
 
 </h2>
 
+
 <div class="emoji-list">
 
-<button class="emoji-btn">😍</button>
 
-<button class="emoji-btn">😊</button>
+<button class="emoji-btn">
 
-<button class="emoji-btn">😋</button>
+😍
 
-<button class="emoji-btn">🤩</button>
+</button>
 
-<button class="emoji-btn">🥰</button>
+
+<button class="emoji-btn">
+
+😊
+
+</button>
+
+
+<button class="emoji-btn">
+
+😋
+
+</button>
+
+
+<button class="emoji-btn">
+
+🤩
+
+</button>
+
+
+<button class="emoji-btn">
+
+🥰
+
+</button>
+
 
 </div>
 
-</section>
-<!-- ================================= -->
-<!-- REVIEW -->
-<!-- ================================= -->
 
-<section class="review-section">
+</div>
+
+
+
+<!-- ================= REVIEW BOX ================= -->
+
+
+<div class="review-box">
+
 
 <h2>
 
@@ -170,17 +244,21 @@ Write Your Review
 
 </h2>
 
+
 <textarea
 
 id="reviewText"
 
-placeholder="Tell us about your Maggi experience today..."
+maxlength="300"
 
-maxlength="300">
+placeholder="Tell us about your Maggi experience today...">
 
 </textarea>
 
-<div class="char-count">
+
+
+<div class="character-count">
+
 
 <span id="charCount">
 
@@ -190,36 +268,51 @@ maxlength="300">
 
 /300
 
+
 </div>
 
-</section>
 
-<!-- ================================= -->
-<!-- SUBMIT -->
-<!-- ================================= -->
+</div>
 
-<section class="submit-section">
+
+
+<!-- ================= SUBMIT ================= -->
+
+
+<div class="submit-box">
+
 
 <button
+
 id="submitFeedback"
+
 class="submit-btn">
+
 
 <i class="fa-solid fa-paper-plane"></i>
 
+
 Submit Feedback
+
 
 </button>
 
-</section>
 
-<!-- ================================= -->
-<!-- THANK YOU -->
-<!-- ================================= -->
+</div>
 
-<section
+
+
+<!-- ================= THANK YOU ================= -->
+
+
+<div
+
 id="thankYouBox"
+
 class="thankyou-box"
+
 style="display:none;">
+
 
 <h2>
 
@@ -227,73 +320,156 @@ style="display:none;">
 
 </h2>
 
+
 <p>
 
 Your feedback has been submitted successfully.
 
 </p>
 
-</section>
-
-<!-- ================================= -->
-<!-- BOTTOM NAVIGATION -->
-<!-- ================================= -->
-
-<nav class="bottom-nav">
-
-<a href="card.html">
-
-<i class="fa-solid fa-house"></i>
-
-<span>Home</span>
-
-</a>
-
-<a href="qr.html">
-
-<i class="fa-solid fa-qrcode"></i>
-
-<span>QR</span>
-
-</a>
-
-<a href="history.html">
-
-<i class="fa-solid fa-clock-rotate-left"></i>
-
-<span>History</span>
-
-</a>
-
-<a
-href="feedback.html"
-class="active">
-
-<i class="fa-solid fa-heart"></i>
-
-<span>Review</span>
-
-</a>
-
-<a href="profile.html">
-
-<i class="fa-solid fa-user"></i>
-
-<span>Profile</span>
-
-</a>
-
-</nav>
 
 </div>
 
-<!-- ================================= -->
-<!-- FEEDBACK JS -->
-<!-- ================================= -->
+<!-- ================= BOTTOM NAVIGATION ================= -->
+
+
+<nav class="bottom-nav">
+
+
+<a href="card.html">
+
+
+<i class="fa-solid fa-house"></i>
+
+
+<span>
+
+Home
+
+</span>
+
+
+</a>
+
+
+
+<a href="qr.html">
+
+
+<i class="fa-solid fa-qrcode"></i>
+
+
+<span>
+
+QR
+
+</span>
+
+
+</a>
+
+
+
+<a href="history.html">
+
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+
+<span>
+
+History
+
+</span>
+
+
+</a>
+
+
+
+<a
+
+href="feedback.html"
+
+class="active">
+
+
+<i class="fa-solid fa-heart"></i>
+
+
+<span>
+
+Review
+
+</span>
+
+
+</a>
+
+
+
+<a href="profile.html">
+
+
+<i class="fa-solid fa-user"></i>
+
+
+<span>
+
+Profile
+
+</span>
+
+
+</a>
+
+
+
+</nav>
+
+
+
+</div>
+
+</div>
+
+
+
+<!-- ================= FEEDBACK JS ================= -->
+
 
 <script
+
 type="module"
-src="js/feedback.js"></script>
+
+src="js/feedback.js">
+
+</script>
+
+
+
+<script>
+
+
+if("serviceWorker" in navigator){
+
+
+window.addEventListener("load",()=>{
+
+
+navigator.serviceWorker.register("./service-worker.js");
+
+
+});
+
+
+}
+
+
+</script>
+
+
 
 </body>
+
 </html>
