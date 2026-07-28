@@ -5,490 +5,345 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<title>Rio Maggi Point | Premium Loyalty</title>
+<title>
+Rio Maggi Point | Loyalty Card
+</title>
 
-<meta name="theme-color" content="#111111">
+<meta name="theme-color"
+content="#111111">
 
-<link rel="manifest" href="manifest.json">
+<link rel="manifest"
+href="manifest.json">
 
-<link rel="icon" href="assets/logo/favicon.png">
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
 
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
+<link rel="stylesheet"
+href="css/style.css">
 
-<link rel="stylesheet" href="css/style.css">
-
-<link rel="stylesheet" href="css/card.css">
-
+<link rel="stylesheet"
+href="css/card.css">
 
 </head>
 
-
 <body>
 
+<div class="page">
 
-<div class="dashboard">
+<div id="loyaltyCard"
+class="premium-card male-theme">
 
+<div class="card-glow"></div>
 
-<!-- PREMIUM CARD -->
+<div class="card-shine"></div>
 
-<div id="loyaltyCard" class="premium-card male-theme">
+<!-- ========================= -->
+<!-- HEADER -->
+<!-- ========================= -->
 
+<div class="card-header">
 
-<!-- BRAND -->
+<h1 class="brand-title">
 
-<div class="brand-section">
-
-
-<img 
-src="assets/logo/bowl-logo.png"
-class="bowl-logo"
-alt="Rio Maggi Point">
-
-
-<h1>
 RIO MAGGI POINT
+
 </h1>
 
+<div class="brand-subtitle">
 
-<p>
 Premium Loyalty Club
-</p>
-
 
 </div>
-    <!-- CUSTOMER SECTION -->
+
+</div>
+
+<!-- ========================= -->
+<!-- CUSTOMER -->
+<!-- ========================= -->
 
 <div class="customer-section">
 
+<div class="avatar-wrapper">
 
-    <!-- AVATAR -->
+<div class="avatar-crown">
 
-    <div class="avatar-wrapper">
-
-
-        <div class="crown-icon">
-            👑
-        </div>
-
-
-        <div class="avatar-glow">
-
-
-            <img
-            id="customerPhoto"
-            src="assets/avatars/default.png"
-            alt="Customer Avatar">
-
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- CUSTOMER DETAILS -->
-
-
-    <div class="customer-details">
-
-
-        <h2 id="customerName">
-            Loading...
-        </h2>
-
-
-        <p class="loyalty-member">
-            PREMIUM MEMBER
-        </p>
-
-
-        <div class="customer-id">
-
-            ID :
-            <span id="memberId">
-                RIO-000000000
-            </span>
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- GAME LINK -->
-
-
-    <a 
-    href="https://riofungames-wq.github.io/Rio-Fun-Game/"
-    class="game-link"
-    id="gameLink">
-
-
-        🎮 CLICK FREE GAME
-
-
-    </a>
-
+👑
 
 </div>
-    <!-- STAMP SECTION -->
+
+<div class="avatar-ring">
+
+<img
+id="customerPhoto"
+src="assets/avatars/default.png"
+alt="Customer">
+
+</div>
+
+</div>
+
+<div class="customer-details">
+
+<h2 id="customerName">
+
+Loading...
+
+</h2>
+
+<div class="customer-id">
+
+ID :
+<span id="memberId">
+
+RIO-000000000
+
+</span>
+
+</div>
+
+<div class="premium-badge">
+
+PREMIUM MEMBER
+
+</div>
+
+<button
+id="gameLink"
+class="game-btn">
+
+<i class="fa-solid fa-gamepad"></i>
+
+CLICK FREE GAME
+
+</button>
+
+</div>
+
+</div>
+<!-- ========================= -->
+<!-- STAMP SECTION -->
+<!-- ========================= -->
 
 <div class="stamp-section">
 
+<div class="stamp-title">
 
-    <div class="stamp-title">
-
-        Collect 6 Stamps • Win 1 FREE Veg Maggi
-
-    </div>
-
-
-
-    <div class="stamp-row">
-
-
-
-        <!-- STAMP 1 -->
-
-        <div class="stamp-item">
-
-            <div class="stamp-circle" id="stamp1">
-
-                👑
-
-            </div>
-
-            <small id="date1">
-                --
-            </small>
-
-        </div>
-
-
-
-        <!-- STAMP 2 -->
-
-        <div class="stamp-item">
-
-            <div class="stamp-circle" id="stamp2">
-
-                👑
-
-            </div>
-
-            <small id="date2">
-                --
-            </small>
-
-        </div>
-
-
-
-        <!-- STAMP 3 -->
-
-        <div class="stamp-item">
-
-            <div class="stamp-circle" id="stamp3">
-
-                👑
-
-            </div>
-
-            <small id="date3">
-                --
-            </small>
-
-        </div>
-
-
-
-        <!-- STAMP 4 -->
-
-        <div class="stamp-item">
-
-            <div class="stamp-circle" id="stamp4">
-
-                👑
-
-            </div>
-
-            <small id="date4">
-                --
-            </small>
-
-        </div>
-
-
-
-        <!-- STAMP 5 -->
-
-        <div class="stamp-item">
-
-            <div class="stamp-circle" id="stamp5">
-
-                👑
-
-            </div>
-
-            <small id="date5">
-                --
-            </small>
-
-        </div>
-
-
-
-        <!-- STAMP 6 -->
-
-        <div class="stamp-item">
-
-            <div class="stamp-circle" id="stamp6">
-
-                👑
-
-            </div>
-
-            <small id="date6">
-                --
-            </small>
-
-        </div>
-
-
-
-
-        <!-- FREE VEG MAGGI -->
-
-
-        <div class="stamp-item">
-
-            <div class="stamp-circle reward-stamp">
-
-
-                🍜
-
-                <span>
-                    FREE<br>
-                    VEG<br>
-                    MAGGI
-                </span>
-
-
-            </div>
-
-
-        </div>
-
-
-
-
-
-        <!-- HAPPY MASCOT -->
-
-
-        <div class="stamp-item">
-
-
-            <div class="stamp-circle happy-stamp">
-
-
-                <img
-                src="assets/mascot/rio-happy.png"
-                alt="Rio Happy">
-
-
-            </div>
-
-
-        </div>
-
-
-
-    </div>
-
-
-</div>
-    <!-- REWARD MESSAGE -->
-
-<div class="reward-message">
-
-    <span>
-        🏆 Collect 6 Stamps • Win 1 FREE Veg Maggi
-    </span>
+Collect 6 Stamps • Win 1 FREE VEG MAGGI
 
 </div>
 
+<div class="stamp-row">
 
+<div class="stamp-circle" id="stamp1">
+<span>1</span>
+</div>
 
-<!-- SHOP ACTIONS -->
+<div class="stamp-circle" id="stamp2">
+<span>2</span>
+</div>
 
-<div class="shop-actions">
+<div class="stamp-circle" id="stamp3">
+<span>3</span>
+</div>
 
+<div class="stamp-circle" id="stamp4">
+<span>4</span>
+</div>
 
-    <a href="tel:+91XXXXXXXXXX"
-    class="shop-btn">
+<div class="stamp-circle" id="stamp5">
+<span>5</span>
+</div>
 
-        <i class="fa-solid fa-phone"></i>
+<div class="stamp-circle" id="stamp6">
+<span>6</span>
+</div>
 
-        Call
+<div class="stamp-circle reward-circle">
 
-    </a>
+<div class="reward-text">
 
+FREE
 
+<br>
 
-    <a href="https://wa.me/"
-    class="shop-btn">
+VEG
 
-        <i class="fa-brands fa-whatsapp"></i>
+<br>
 
-        WhatsApp
-
-    </a>
-
-
-
-    <a href="#"
-    id="mapBtn"
-    class="shop-btn">
-
-        <i class="fa-solid fa-location-dot"></i>
-
-        Map
-
-    </a>
-
+MAGGI
 
 </div>
 
+</div>
 
+<div class="stamp-circle mascot-circle">
+
+<img
+id="happyMascot"
+src="assets/mascot/rio-male.png"
+alt="Happy Rio">
 
 </div>
-<!-- PREMIUM CARD END -->
 
+</div>
 
+<!-- ========================= -->
+<!-- COUNTDOWN -->
+<!-- ========================= -->
 
+<div class="countdown-box">
+
+<div class="countdown-title">
+
+STAMP RESET IN
+
+</div>
+
+<div
+id="countdownDays"
+class="countdown-days">
+
+40 DAYS
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- QUICK ACTION -->
+<!-- ========================= -->
+
+<div class="quick-action">
+
+<button
+id="callBtn"
+class="quick-btn">
+
+<i class="fa-solid fa-phone"></i>
+
+Call
+
+</button>
+
+<button
+id="whatsappBtn"
+class="quick-btn">
+
+<i class="fa-brands fa-whatsapp"></i>
+
+WhatsApp
+
+</button>
+
+<button
+id="mapBtn"
+class="quick-btn">
+
+<i class="fa-solid fa-location-dot"></i>
+
+Map
+
+</button>
+
+</div>
+<!-- ========================= -->
 <!-- BOTTOM NAVIGATION -->
-
+<!-- ========================= -->
 
 <nav class="bottom-nav">
 
-
-<a href="card.html" class="nav-active">
+<a
+href="card.html"
+class="active">
 
 <i class="fa-solid fa-house"></i>
 
-<span>
-Home
-</span>
+<span>Home</span>
 
 </a>
 
-
-
-<a href="qr.html">
+<a
+href="qr.html">
 
 <i class="fa-solid fa-qrcode"></i>
 
-<span>
-QR
-</span>
+<span>QR</span>
 
 </a>
 
-
-
-<a href="history.html">
+<a
+href="history.html">
 
 <i class="fa-solid fa-clock-rotate-left"></i>
 
-<span>
-History
-</span>
+<span>History</span>
 
 </a>
 
-
-
-<a href="feedback.html">
+<a
+href="feedback.html">
 
 <i class="fa-solid fa-heart"></i>
 
-<span>
-Review
-</span>
+<span>Review</span>
 
 </a>
 
-
-
-<a href="profile.html">
+<a
+href="profile.html">
 
 <i class="fa-solid fa-user"></i>
 
-<span>
-Profile
-</span>
+<span>Profile</span>
 
 </a>
 
-
 </nav>
 
+</div>
+</div>
 
-
-
-
-<!-- FIREBASE CARD SCRIPT -->
-
+<!-- ========================= -->
+<!-- FIREBASE -->
+<!-- ========================= -->
 
 <script
 type="module"
 src="js/card.js">
 </script>
 
-
-
-
+<!-- ========================= -->
 <!-- SERVICE WORKER -->
-
+<!-- ========================= -->
 
 <script>
 
+if ("serviceWorker" in navigator) {
 
-if("serviceWorker" in navigator){
+window.addEventListener("load", () => {
 
-
-window.addEventListener("load",()=>{
-
-
-navigator.serviceWorker.register(
-"./service-worker.js"
-);
-
+navigator.serviceWorker.register("./service-worker.js");
 
 });
 
-
 }
 
-
 </script>
-
-
 
 </body>
 
