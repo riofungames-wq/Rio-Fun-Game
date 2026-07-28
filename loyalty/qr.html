@@ -5,106 +5,83 @@
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>
-
 My QR • Rio Maggi Point
-
 </title>
 
-<meta
-name="theme-color"
-content="#111111">
+<meta name="theme-color" content="#111111">
 
-<link
-rel="manifest"
-href="manifest.json">
+<link rel="manifest" href="manifest.json">
 
-<link
-rel="icon"
-href="favicon.ico">
+<link rel="icon" href="favicon.ico">
 
-<link
-rel="stylesheet"
-href="css/qr.css">
+<link rel="stylesheet" href="css/qr.css">
 
-<link
-rel="preconnect"
-href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-<link
-rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 
+
 <body>
+
 
 <div class="page">
 
-<div
-id="qrCard"
-class="qr-card theme-male">
 
-<!-- ========================= -->
+<div id="qrCard" class="qr-card">
+
+
 <!-- HEADER -->
-<!-- ========================= -->
 
 <div class="qr-header">
 
-<div class="brand">
 
-<img
-src="assets/logo/bowl-logo.png"
-class="brand-logo"
-alt="Rio">
+<div class="brand-text">
 
-<div>
 
-<h2>
-
+<h1>
 RIO MAGGI POINT
+</h1>
 
-</h2>
 
 <p>
-
 Premium Loyalty Member
-
 </p>
 
-</div>
 
 </div>
 
+
 </div>
 
-<!-- ========================= -->
+
+
 <!-- CUSTOMER -->
-<!-- ========================= -->
+
 
 <div class="profile-section">
 
+
 <div class="avatar-box">
+
 
 <img
 id="customerPhoto"
 src="assets/avatars/male.png"
 alt="Customer">
 
+
 </div>
+
+
 
 <div
 id="customerName"
@@ -114,26 +91,32 @@ Loading...
 
 </div>
 
+
+
 <div
 id="memberId"
 class="member-id">
 
-RIO-000000000
+RIO-000000
 
 </div>
 
+
 </div>
 
-<!-- ========================= -->
-<!-- QR -->
-<!-- ========================= -->
+<!-- QR SECTION -->
+
 
 <div class="qr-wrapper">
 
+
 <div
-id="qrcode">
+id="qrcode"
+class="qr-box">
 
 </div>
+
+
 
 <p
 id="qrStatus"
@@ -143,168 +126,222 @@ Generating Secure QR...
 
 </p>
 
+
+
 <div class="scan-text">
 
 Show this QR only at
 
 <strong>
-
 Rio Maggi Point
-
 </strong>
 
-</div>
 
 </div>
 
-<!-- ========================= -->
-<!-- INFO -->
-<!-- ========================= -->
+
+</div>
+
+
+
+
+
+<!-- INFO BOX -->
+
 
 <div class="info-box">
 
+
 <h3>
-
 Secure Permanent QR
-
 </h3>
+
 
 <p>
 
 This QR is permanently linked
 to your Rio Membership.
 
-Never share it publicly.
-
 Only show it while collecting
 your loyalty stamp.
 
 </p>
 
+
 </div>
 
-<!-- ========================= -->
-<!-- BUTTONS -->
-<!-- ========================= -->
+
+
+
+
+<!-- ACTION BUTTONS -->
+
 
 <div class="button-row">
+
 
 <button
 id="downloadQR"
 class="primary-btn">
 
+
 <i class="fa-solid fa-download"></i>
 
 Download
 
+
 </button>
+
+
+
 
 <button
 id="shareQR"
 class="primary-btn">
 
+
 <i class="fa-solid fa-share-nodes"></i>
 
 Share
 
+
 </button>
 
-</div>
-    <!-- ========================= -->
-    <!-- BOTTOM NAVIGATION -->
-    <!-- ========================= -->
 
 </div>
+
+
+<!-- BOTTOM NAVIGATION -->
+
 
 <nav class="bottom-nav">
 
-    <a href="card.html">
 
-        <img
-        src="assets/icons/home.png"
-        alt="Home">
+<a href="card.html">
 
-        <span>Home</span>
+<i class="fa-solid fa-house"></i>
 
-    </a>
+<span>
+Home
+</span>
 
-    <a
-    href="qr.html"
-    class="active">
+</a>
 
-        <img
-        src="assets/icons/qr.png"
-        alt="QR">
 
-        <span>QR</span>
 
-    </a>
 
-    <a href="history.html">
+<a href="qr.html" class="active">
 
-        <img
-        src="assets/icons/history.png"
-        alt="History">
+<i class="fa-solid fa-qrcode"></i>
 
-        <span>History</span>
+<span>
+QR
+</span>
 
-    </a>
+</a>
 
-    <a href="feedback.html">
 
-        <img
-        src="assets/icons/review.png"
-        alt="Review">
 
-        <span>Review</span>
 
-    </a>
+<a href="history.html">
 
-    <a href="profile.html">
+<i class="fa-solid fa-clock-rotate-left"></i>
 
-        <img
-        src="assets/icons/profile.png"
-        alt="Profile">
+<span>
+History
+</span>
 
-        <span>Profile</span>
+</a>
 
-    </a>
+
+
+
+<a href="feedback.html">
+
+<i class="fa-solid fa-star"></i>
+
+<span>
+Review
+</span>
+
+</a>
+
+
+
+
+<a href="profile.html">
+
+<i class="fa-solid fa-user"></i>
+
+<span>
+Profile
+</span>
+
+</a>
+
 
 </nav>
 
+
 </div>
 
-<!-- ===================================== -->
-<!-- QR LIBRARY -->
-<!-- ===================================== -->
+
+</div>
+
+
+
+
+
+<!-- QR GENERATOR LIBRARY -->
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-<!-- ===================================== -->
-<!-- QR PAGE -->
-<!-- ===================================== -->
+
+
+
+
+<!-- QR JAVASCRIPT -->
+
 
 <script
 type="module"
-src="js/qr.js"></script>
+src="js/qr.js">
+</script>
 
-<!-- ===================================== -->
+
+
+
+
 <!-- SERVICE WORKER -->
-<!-- ===================================== -->
+
 
 <script>
 
+
 if ("serviceWorker" in navigator) {
 
-    window.addEventListener("load", () => {
 
-        navigator.serviceWorker.register("./service-worker.js");
+window.addEventListener(
+"load",
+()=>{
 
-    });
+
+navigator.serviceWorker.register(
+"./service-worker.js"
+);
+
+
+});
+
 
 }
 
+
 </script>
 
+
+
 </body>
+
 </html>
