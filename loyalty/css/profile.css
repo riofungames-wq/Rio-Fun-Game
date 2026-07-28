@@ -1,1448 +1,672 @@
-/* ======================================
+
+/* ==========================================
    RIO MAGGI POINT
-   PREMIUM PROFILE CARD
-   PC + MOBILE RESPONSIVE
-====================================== */
+   PROFILE CSS
+   PREMIUM DARK GOLD THEME
+   PART 1
+========================================== */
 
 
-/* ======================================
-   GLOBAL
-====================================== */
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+/* =========================
+GLOBAL
+========================= */
 
 
-body {
+*{
 
-    min-height: 100vh;
+margin:0;
 
-    font-family:
-        "Poppins",
-        Arial,
-        sans-serif;
+padding:0;
 
-    background:
-        linear-gradient(
-            135deg,
-            #071525,
-            #101d32,
-            #071525
-        );
+box-sizing:border-box;
 
-    color: #ffffff;
-
-    padding-bottom: 100px;
+font-family:Poppins,sans-serif;
 
 }
 
 
-/* ======================================
-   PROFILE PAGE
-====================================== */
 
-.profile-page {
+body{
 
-    width: 100%;
+background:#0d0d0d;
 
-    max-width: 1100px;
+min-height:100vh;
 
-    margin: auto;
+display:flex;
 
-    padding:
-        25px
-        20px
-        110px;
+justify-content:center;
 
-}
+align-items:center;
 
+padding:20px;
 
-/* ======================================
-   HEADER
-====================================== */
-
-.profile-header {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 20px;
-
-    margin-bottom: 25px;
+color:#ffffff;
 
 }
 
 
-.profile-header h1 {
-
-    font-size: 28px;
-
-    color: #ffffff;
-
-}
 
 
-.profile-header p {
+.page{
 
-    margin-top: 5px;
+width:100%;
 
-    color: #aebdce;
+display:flex;
 
-    font-size: 14px;
+justify-content:center;
+
+flex-direction:column;
+
+align-items:center;
 
 }
 
 
-/* ======================================
-   RIO FUN GAME BUTTON
-====================================== */
-
-.game-link {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    text-decoration: none;
-
-    color: #ffffff;
-
-    background:
-        linear-gradient(
-            135deg,
-            #008cff,
-            #00d9ff
-        );
-
-    padding:
-        10px
-        16px;
-
-    border-radius: 14px;
-
-    font-size: 14px;
-
-    font-weight: 600;
-
-    box-shadow:
-        0 0 15px
-        rgba(0, 200, 255, 0.35);
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-
-}
 
 
-.game-link:hover {
+/* =========================
+MAIN CARD
+========================= */
 
-    transform:
-        translateY(-3px);
 
-    box-shadow:
-        0 0 25px
-        rgba(0, 200, 255, 0.65);
+.profile-card-main{
+
+position:relative;
+
+width:340px;
+
+background:
+
+linear-gradient(
+
+135deg,
+
+#151515,
+
+#1d1a14,
+
+#111111
+
+);
+
+border-radius:24px;
+
+padding:18px;
+
+overflow:hidden;
+
+border:2px solid #d4af37;
+
+box-shadow:
+
+0 10px 35px rgba(0,0,0,.5),
+
+0 0 18px rgba(212,175,55,.35);
 
 }
 
 
-/* ======================================
-   PREMIUM PROFILE CARD
-====================================== */
 
-.profile-card {
 
-    width: 100%;
+.card-glow{
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(15, 31, 52, 0.96),
-            rgba(5, 15, 28, 0.98)
-        );
+position:absolute;
 
-    border:
-        1px solid
-        rgba(0, 217, 255, 0.35);
+width:200px;
 
-    border-radius: 28px;
+height:200px;
 
-    padding: 35px;
+background:
 
-    box-shadow:
-        0 20px 60px
-        rgba(0, 0, 0, 0.45),
+radial-gradient(
 
-        inset 0 0 40px
-        rgba(0, 217, 255, 0.03);
+circle,
+
+rgba(212,175,55,.25),
+
+transparent
+
+);
+
+top:-80px;
+
+right:-70px;
 
 }
 
 
-/* ======================================
-   CUSTOMER PROFILE
-====================================== */
-
-.customer-profile {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 30px;
-
-    padding-bottom: 30px;
-
-    border-bottom:
-        1px solid
-        rgba(255, 255, 255, 0.1);
-
-}
 
 
-/* ======================================
-   AVATAR
-====================================== */
+/* =========================
+HEADER
+========================= */
 
-.profile-preview {
 
-    width: 145px;
+.profile-header{
 
-    height: 145px;
+text-align:center;
 
-    flex-shrink: 0;
+position:relative;
 
-    border-radius: 50%;
+z-index:2;
 
-    padding: 5px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #00d9ff,
-            #d4af37
-        );
-
-    box-shadow:
-        0 0 30px
-        rgba(0, 217, 255, 0.3);
+margin-bottom:18px;
 
 }
 
 
-.profile-preview img {
 
-    width: 100%;
 
-    height: 100%;
+.profile-header h1{
 
-    object-fit: cover;
+font-size:22px;
 
-    border-radius: 50%;
+font-weight:800;
 
-    background: #081120;
-
-    display: block;
+letter-spacing:.5px;
 
 }
 
 
-/* ======================================
-   CUSTOMER DETAILS
-====================================== */
 
-.customer-details h2 {
+.profile-header h1 i{
 
-    font-size: 28px;
+color:#d4af37;
 
-    margin-bottom: 12px;
-
-    color: #ffffff;
+margin-right:6px;
 
 }
 
 
-.customer-details p {
 
-    margin-top: 8px;
 
-    color: #aebdce;
+.profile-header p{
 
-    font-size: 15px;
+font-size:11px;
+
+color:#ffd86a;
+
+margin-top:5px;
+
+}
+
+/* =========================
+PROFILE USER
+========================= */
+
+
+.profile-user{
+
+text-align:center;
+
+position:relative;
+
+z-index:2;
+
+margin-bottom:18px;
 
 }
 
 
-.customer-details strong {
-
-    color: #d4af37;
-
-}
 
 
-/* ======================================
-   AVATAR SETTINGS
-====================================== */
+.profile-photo{
 
-.avatar-settings {
+width:90px;
 
-    margin-top: 30px;
+height:90px;
 
-    padding:
+margin:auto;
 
-        22px;
+border-radius:22px;
 
-    border-radius: 18px;
+overflow:hidden;
 
-    background:
-        rgba(255, 255, 255, 0.035);
+border:2px solid #d4af37;
 
-    border:
-        1px solid
-        rgba(255, 255, 255, 0.08);
+background:#222;
+
+box-shadow:
+
+0 0 15px rgba(212,175,55,.35);
 
 }
 
 
-.avatar-settings h3 {
-
-    margin-bottom: 18px;
-
-    color: #ffffff;
-
-}
 
 
-/* ======================================
-   AVATAR CHOICE
-====================================== */
+.profile-photo img{
 
-.avatar-choice {
+width:100%;
 
-    display: flex;
+height:100%;
 
-    flex-wrap: wrap;
-
-    gap: 15px;
-
-    margin-bottom: 18px;
+object-fit:cover;
 
 }
 
 
-.avatar-choice label {
 
-    cursor: pointer;
 
-    padding:
-        10px
-        16px;
+.profile-user h2{
 
-    border-radius: 12px;
+margin-top:12px;
 
-    background:
-        #101f34;
+font-size:18px;
 
-    border:
-        1px solid
-        rgba(255, 255, 255, 0.1);
-
-    transition:
-        0.25s ease;
+font-weight:800;
 
 }
 
 
-.avatar-choice label:hover {
-
-    border-color:
-        #00d9ff;
-
-    transform:
-        translateY(-2px);
-
-}
 
 
-.avatar-choice input {
+.member-id{
 
-    margin-right: 6px;
+margin-top:5px;
+
+font-size:12px;
+
+color:#ffd86a;
 
 }
 
 
-/* ======================================
-   UPLOAD BUTTON
-====================================== */
 
-.upload-btn {
+.member-id i{
 
-    display: inline-block;
-
-    cursor: pointer;
-
-    padding:
-        11px
-        18px;
-
-    border-radius: 12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #008cff,
-            #00c8ff
-        );
-
-    color: #ffffff;
-
-    font-weight: 600;
-
-    margin-bottom: 18px;
-
-    transition:
-        0.25s ease;
+margin-right:5px;
 
 }
 
 
-.upload-btn:hover {
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 0 20px
-        rgba(0, 200, 255, 0.4);
-
-}
 
 
-/* ======================================
-   PROFILE BUTTONS
-====================================== */
+.premium-badge{
 
-.buttons {
+display:inline-flex;
 
-    display: flex;
+align-items:center;
 
-    flex-wrap: wrap;
+gap:5px;
 
-    gap: 12px;
+margin-top:10px;
 
-}
+padding:6px 14px;
 
+border-radius:20px;
 
-.buttons button {
+background:#d4af37;
 
-    border: none;
+color:#111;
 
-    cursor: pointer;
+font-size:11px;
 
-    padding:
-        11px
-        18px;
-
-    border-radius: 12px;
-
-    color: #ffffff;
-
-    font-weight: 600;
-
-    background:
-        #182b43;
-
-    border:
-        1px solid
-        rgba(255, 255, 255, 0.1);
-
-    transition:
-        0.25s ease;
+font-weight:800;
 
 }
 
 
-.buttons button:hover {
-
-    transform:
-        translateY(-2px);
-
-    background:
-        #223d5d;
-
-}
 
 
-/* ======================================
-   STAMP SECTION
-====================================== */
+/* =========================
+DETAIL CARDS
+========================= */
 
-.stamp-section {
 
-    margin-top: 30px;
+.profile-details{
 
-    padding:
-        28px;
+display:flex;
 
-    border-radius: 20px;
+flex-direction:column;
 
-    text-align: center;
+gap:10px;
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(0, 217, 255, 0.04),
-            rgba(212, 175, 55, 0.04)
-        );
-
-    border:
-        1px solid
-        rgba(212, 175, 55, 0.2);
+margin-bottom:18px;
 
 }
 
 
-.stamp-section h3 {
-
-    font-size: 22px;
-
-    color: #d4af37;
-
-}
 
 
-.stamp-subtitle {
+.detail-card{
 
-    margin-top: 8px;
+display:flex;
 
-    color: #b9c6d5;
+align-items:center;
 
-    font-size: 14px;
+gap:12px;
 
-}
+background:
 
+rgba(255,255,255,.06);
 
-/* ======================================
-   STAMP CONTAINER
-====================================== */
+border:1px solid rgba(212,175,55,.25);
 
-.stamp-container {
+border-radius:14px;
 
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    flex-wrap: wrap;
-
-    gap: 18px;
-
-    margin-top: 30px;
+padding:12px;
 
 }
 
 
-/* ======================================
-   STAMP CIRCLE
-====================================== */
 
-.stamp-circle {
 
-    width: 65px;
+.detail-icon{
 
-    height: 65px;
+width:35px;
 
-    border-radius: 50%;
+height:35px;
 
-    display: flex;
+border-radius:50%;
 
-    align-items: center;
+display:flex;
 
-    justify-content: center;
+align-items:center;
 
-    flex-direction: column;
+justify-content:center;
 
-    font-size: 20px;
+background:#222;
 
-    font-weight: 700;
-
-    color: #9eabb9;
-
-    border:
-        2px dashed
-        #516174;
-
-    background:
-        rgba(255, 255, 255, 0.025);
-
-    transition:
-        0.3s ease;
+font-size:18px;
 
 }
 
 
-.stamp-circle:hover {
-
-    transform:
-        scale(1.08);
-
-}
 
 
-/* ======================================
-   FREE MAGGI - 7TH CIRCLE
-====================================== */
+.detail-card span{
 
-.free-maggi {
+display:block;
 
-    color: #ffffff;
+font-size:11px;
 
-    border:
-        2px solid
-        #d4af37;
-
-    background:
-        linear-gradient(
-            135deg,
-            #a77b00,
-            #d4af37
-        );
-
-    box-shadow:
-        0 0 20px
-        rgba(212, 175, 55, 0.35);
+color:#aaa;
 
 }
 
 
-.free-maggi small {
 
-    font-size: 8px;
+.detail-card strong{
 
-    margin-top: 2px;
+display:block;
+
+font-size:13px;
+
+color:#ffffff;
+
+margin-top:2px;
+
+word-break:break-word;
+
+}
+
+/* =========================
+LOYALTY SUMMARY
+========================= */
+
+
+.loyalty-summary{
+
+margin-bottom:18px;
+
+position:relative;
+
+z-index:2;
 
 }
 
 
-/* ======================================
-   HAPPY EMOJI - 8TH CIRCLE
-====================================== */
 
-.happy-reward {
+.loyalty-summary h2{
 
-    border:
-        2px solid
-        #00d9ff;
+font-size:16px;
 
-    background:
-        rgba(0, 217, 255, 0.08);
+text-align:center;
 
-    font-size: 28px;
+margin-bottom:12px;
+
+color:#ffd86a;
 
 }
 
 
-/* ======================================
-   HAPPY ANIMATION
-====================================== */
 
-.happy-reward.unlocked {
+.summary-card{
 
-    animation:
-        happyBounce
-        1s
-        infinite;
+background:
 
-}
+rgba(255,255,255,.06);
 
+border-radius:16px;
 
-@keyframes happyBounce {
+padding:12px;
 
-    0%,
-    100% {
-
-        transform:
-            translateY(0)
-            scale(1);
-
-    }
-
-    50% {
-
-        transform:
-            translateY(-8px)
-            scale(1.12);
-
-        box-shadow:
-            0 0 30px
-            rgba(0, 217, 255, 0.7);
-
-    }
+border:1px solid rgba(212,175,55,.25);
 
 }
 
 
-/* ======================================
-   REWARD STATUS
-====================================== */
 
-.reward-status {
+.summary-item{
 
-    margin-top: 25px;
+display:flex;
 
-    padding:
-        14px;
+justify-content:space-between;
 
-    border-radius: 12px;
+align-items:center;
 
-    background:
-        rgba(212, 175, 55, 0.08);
+padding:10px 5px;
 
-    border:
-        1px solid
-        rgba(212, 175, 55, 0.2);
+border-bottom:1px solid rgba(255,255,255,.08);
 
-    color: #d4af37;
-
-    font-weight: 600;
+font-size:12px;
 
 }
 
 
-/* ======================================
-   BOTTOM NAVIGATION
-====================================== */
 
-.bottom-nav {
+.summary-item:last-child{
 
-    position: fixed;
-
-    left: 50%;
-
-    bottom: 18px;
-
-    transform:
-        translateX(-50%);
-
-    width:
-        min(
-            650px,
-            calc(100% - 30px)
-        );
-
-    display: flex;
-
-    justify-content: space-around;
-
-    align-items: center;
-
-    padding:
-        10px;
-
-    border-radius: 20px;
-
-    background:
-        rgba(7, 18, 32, 0.94);
-
-    backdrop-filter:
-        blur(15px);
-
-    border:
-        1px solid
-        rgba(0, 217, 255, 0.2);
-
-    box-shadow:
-        0 10px 35px
-        rgba(0, 0, 0, 0.45);
-
-    z-index: 1000;
+border-bottom:none;
 
 }
 
 
-.bottom-nav a {
 
-    display: flex;
+.summary-item span{
 
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 3px;
-
-    min-width: 65px;
-
-    padding:
-        8px
-        10px;
-
-    border-radius: 12px;
-
-    color: #9eabb9;
-
-    text-decoration: none;
-
-    font-size: 20px;
-
-    transition:
-        0.25s ease;
+color:#ccc;
 
 }
 
 
-.bottom-nav a span {
 
-    font-size: 10px;
+.summary-item strong{
 
-}
+color:#ffd86a;
 
-
-.bottom-nav a:hover {
-
-    color: #00d9ff;
+font-size:13px;
 
 }
 
 
-.bottom-nav a.active {
 
-    color: #00d9ff;
+/* =========================
+ACTION BUTTONS
+========================= */
 
-    background:
-        rgba(0, 217, 255, 0.1);
 
-    box-shadow:
-        0 0 15px
-        rgba(0, 217, 255, 0.15);
+.profile-actions{
+
+display:flex;
+
+gap:10px;
+
+margin-bottom:18px;
+
+position:relative;
+
+z-index:2;
 
 }
 
 
-/* ======================================
-   MOBILE
-====================================== */
 
-@media (
-    max-width: 600px
-) {
+.profile-actions button{
 
-    .profile-page {
+flex:1;
 
-        padding:
-            18px
-            12px
-            100px;
+height:42px;
 
-    }
+border:none;
 
+border-radius:12px;
 
-    .profile-header {
+font-size:13px;
 
-        align-items:
-            flex-start;
+font-weight:700;
 
-    }
+cursor:pointer;
 
-
-    .profile-header h1 {
-
-        font-size: 22px;
-
-    }
-
-
-    .profile-header p {
-
-        font-size: 11px;
-
-    }
-
-
-    .game-link {
-
-        padding:
-            9px;
-
-        border-radius:
-            50%;
-
-        font-size: 20px;
-
-    }
-
-
-    .game-link span {
-
-        display: none;
-
-    }
-
-
-    .profile-card {
-
-        padding:
-            20px
-            15px;
-
-        border-radius:
-            22px;
-
-    }
-
-
-    .customer-profile {
-
-        flex-direction:
-            column;
-
-        text-align:
-            center;
-
-    }
-
-
-    .profile-preview {
-
-        width: 120px;
-
-        height: 120px;
-
-    }
-
-
-    .customer-details h2 {
-
-        font-size: 22px;
-
-    }
-
-
-    .customer-details p {
-
-        font-size: 13px;
-
-    }
-
-
-    .avatar-settings {
-
-        padding:
-            18px
-            12px;
-
-    }
-
-
-    .buttons {
-
-        flex-direction:
-            column;
-
-    }
-
-
-    .buttons button {
-
-        width: 100%;
-
-    }
-
-
-    .stamp-section {
-
-        padding:
-            20px
-            10px;
-
-    }
-
-
-    .stamp-container {
-
-        gap: 8px;
-
-    }
-
-
-    .stamp-circle {
-
-        width: 42px;
-
-        height: 42px;
-
-        font-size: 14px;
-
-    }
-
-
-    .free-maggi {
-
-        font-size: 16px;
-
-    }
-
-
-    .free-maggi small {
-
-        font-size: 6px;
-
-    }
-
-
-    .happy-reward {
-
-        font-size: 20px;
-
-    }
-
-
-    .bottom-nav {
-
-        bottom: 10px;
-
-        width:
-            calc(100% - 20px);
-
-    }
-
-
-    .bottom-nav a {
-
-        min-width:
-            50px;
-
-        padding:
-            7px
-            5px;
-
-        font-size: 18px;
-
-    }
-
-
-    .bottom-nav a span {
-
-        font-size: 9px;
-
-    }
+transition:.25s;
 
 }
 
 
-/* ======================================
-   VERY SMALL MOBILE
-====================================== */
 
-@media (
-    max-width: 380px
-) {
+.primary-btn{
 
-    .stamp-container {
+background:#d4af37;
 
-        gap: 5px;
-
-    }
-
-
-    .stamp-circle {
-
-        width: 38px;
-
-        height: 38px;
-
-    }
-
-
-    .bottom-nav a {
-
-        min-width:
-            44px;
-
-    }
-
-}
-/* ======================================
-   GENDER THEMES
-====================================== */
-
-
-/* ======================================
-   BOY THEME
-   NAVY + CYAN + GOLD
-====================================== */
-
-.profile-card.boy-theme {
-
-    border-color:
-        rgba(0, 217, 255, 0.45);
-
-    box-shadow:
-        0 20px 60px
-        rgba(0, 0, 0, 0.45),
-
-        0 0 35px
-        rgba(0, 217, 255, 0.08);
+color:#111;
 
 }
 
 
-.profile-card.boy-theme
-.profile-preview {
 
-    background:
-        linear-gradient(
-            135deg,
-            #00d9ff,
-            #d4af37
-        );
+.logout-btn{
+
+background:#b3261e;
+
+color:#fff;
 
 }
 
 
-.profile-card.boy-theme
-.customer-details strong {
 
-    color:
-        #00d9ff;
+.profile-actions button:hover{
 
-}
-
-
-.profile-card.boy-theme
-.stamp-section h3 {
-
-    color:
-        #00d9ff;
+transform:translateY(-2px);
 
 }
 
 
-.profile-card.boy-theme
-.stamp-circle.completed {
-
-    color:
-        #ffffff;
-
-    border:
-        2px solid
-        #00d9ff;
-
-    background:
-        linear-gradient(
-            135deg,
-            #0077aa,
-            #00d9ff
-        );
-
-    box-shadow:
-        0 0 18px
-        rgba(0, 217, 255, 0.55);
-
-}
 
 
-/* ======================================
-   GIRL THEME
-   BURGUNDY + ROSE + GOLD
-====================================== */
+/* =========================
+BOTTOM NAVIGATION
+========================= */
 
-.profile-card.girl-theme {
 
-    border-color:
-        rgba(255, 92, 154, 0.45);
+.bottom-nav{
 
-    box-shadow:
-        0 20px 60px
-        rgba(0, 0, 0, 0.45),
+width:340px;
 
-        0 0 35px
-        rgba(255, 92, 154, 0.08);
+display:flex;
+
+justify-content:space-between;
+
+padding-top:8px;
+
+position:relative;
+
+z-index:2;
 
 }
 
 
-.profile-card.girl-theme
-.profile-preview {
 
-    background:
-        linear-gradient(
-            135deg,
-            #ff5c9a,
-            #d4af37
-        );
+.bottom-nav a{
 
-}
+text-decoration:none;
 
+color:#ffffff;
 
-.profile-card.girl-theme
-.customer-details strong {
+display:flex;
 
-    color:
-        #ff5c9a;
+flex-direction:column;
 
-}
+align-items:center;
 
+gap:4px;
 
-.profile-card.girl-theme
-.stamp-section h3 {
+font-size:10px;
 
-    color:
-        #ff5c9a;
+opacity:.75;
 
 }
 
 
-.profile-card.girl-theme
-.stamp-circle.completed {
 
-    color:
-        #ffffff;
+.bottom-nav a i{
 
-    border:
-        2px solid
-        #ff5c9a;
-
-    background:
-        linear-gradient(
-            135deg,
-            #a52d61,
-            #ff5c9a
-        );
-
-    box-shadow:
-        0 0 18px
-        rgba(255, 92, 154, 0.55);
+font-size:18px;
 
 }
 
 
-/* ======================================
-   COMPLETED STAMP ANIMATION
-====================================== */
 
-.stamp-circle.completed {
+.bottom-nav a.active{
 
-    animation:
-        stampPop
-        0.45s
-        ease;
+color:#ffd86a;
+
+opacity:1;
 
 }
 
 
-@keyframes stampPop {
 
-    0% {
 
-        transform:
-            scale(0.7);
+/* =========================
+RESPONSIVE
+========================= */
 
-        opacity:
-            0.5;
 
-    }
+@media(max-width:480px){
 
-    70% {
 
-        transform:
-            scale(1.12);
+.profile-card-main{
 
-        opacity:
-            1;
-
-    }
-
-    100% {
-
-        transform:
-            scale(1);
-
-    }
+width:340px;
 
 }
 
 
-/* ======================================
-   7TH FREE MAGGI UNLOCKED
-====================================== */
 
-.stamp-circle.free-maggi.completed {
+.bottom-nav{
 
-    border:
-        2px solid
-        #d4af37;
-
-    background:
-        linear-gradient(
-            135deg,
-            #a77b00,
-            #ffd84d
-        );
-
-    color:
-        #ffffff;
-
-    box-shadow:
-        0 0 25px
-        rgba(212, 175, 55, 0.7);
-
-    animation:
-        rewardGlow
-        1.5s
-        infinite;
+width:340px;
 
 }
 
 
-@keyframes rewardGlow {
+}
 
-    0%,
-    100% {
 
-        transform:
-            scale(1);
 
-        box-shadow:
-            0 0 12px
-            rgba(212, 175, 55, 0.4);
+@media(min-width:900px){
 
-    }
 
-    50% {
+.profile-card-main{
 
-        transform:
-            scale(1.1);
-
-        box-shadow:
-            0 0 30px
-            rgba(212, 175, 55, 0.9);
-
-    }
+transform:scale(1.12);
 
 }
 
 
-/* ======================================
-   8TH HAPPY EMOJI
-====================================== */
-
-.stamp-circle.happy-reward.unlocked {
-
-    border:
-        2px solid
-        #00d9ff;
-
-    background:
-        rgba(0, 217, 255, 0.12);
-
-    animation:
-        happyCelebration
-        1s
-        infinite;
 
 }
 
 
-@keyframes happyCelebration {
 
-    0%,
-    100% {
-
-        transform:
-            translateY(0)
-            rotate(0deg)
-            scale(1);
-
-    }
-
-    25% {
-
-        transform:
-            translateY(-7px)
-            rotate(-8deg)
-            scale(1.1);
-
-    }
-
-    50% {
-
-        transform:
-            translateY(0)
-            rotate(0deg)
-            scale(1.15);
-
-    }
-
-    75% {
-
-        transform:
-            translateY(-7px)
-            rotate(8deg)
-            scale(1.1);
-
-    }
-
-}
-
-
-/* ======================================
-   REWARD STATUS UNLOCKED
-====================================== */
-
-.reward-status.unlocked {
-
-    color:
-        #ffffff;
-
-    border-color:
-        #d4af37;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(212, 175, 55, 0.18),
-            rgba(255, 215, 70, 0.08)
-        );
-
-    box-shadow:
-        0 0 20px
-        rgba(212, 175, 55, 0.18);
-
-    animation:
-        statusGlow
-        2s
-        infinite;
-
-}
-
-
-@keyframes statusGlow {
-
-    0%,
-    100% {
-
-        box-shadow:
-            0 0 10px
-            rgba(212, 175, 55, 0.15);
-
-    }
-
-    50% {
-
-        box-shadow:
-            0 0 25px
-            rgba(212, 175, 55, 0.4);
-
-    }
-
-}
