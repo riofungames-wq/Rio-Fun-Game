@@ -1,6 +1,7 @@
 /* =========================================
    RIO MAGGI POINT
-   PREMIUM QR PAGE
+   QR PAGE
+   FINAL CSS
    PART 1
 ========================================= */
 
@@ -11,9 +12,18 @@ box-sizing:border-box;
 font-family:'Poppins',sans-serif;
 }
 
+html{
+width:100%;
+height:100%;
+}
+
 body{
 
 background:#111111;
+
+color:#ffffff;
+
+width:100%;
 
 min-height:100vh;
 
@@ -21,17 +31,19 @@ display:flex;
 
 justify-content:center;
 
-align-items:center;
+align-items:flex-start;
 
 padding:20px;
 
-color:#ffffff;
+overflow-x:hidden;
 
 }
 
 .page{
 
 width:100%;
+
+max-width:420px;
 
 display:flex;
 
@@ -41,6 +53,8 @@ align-items:center;
 
 flex-direction:column;
 
+min-height:100vh;
+
 }
 
 /* =========================================
@@ -49,10 +63,17 @@ QR CARD
 
 .qr-card{
 
+position:relative;
+
 width:340px;
 
-background:
+min-height:720px;
 
+display:flex;
+
+flex-direction:column;
+
+background:
 linear-gradient(
 145deg,
 #181818,
@@ -73,8 +94,6 @@ box-shadow:
 
 overflow:hidden;
 
-position:relative;
-
 }
 
 /* =========================================
@@ -87,53 +106,31 @@ text-align:center;
 
 margin-bottom:18px;
 
-}
+position:relative;
 
-.brand{
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-gap:10px;
+z-index:2;
 
 }
 
-.brand-logo{
+.brand-text h1{
 
-width:42px;
-
-height:42px;
-
-object-fit:contain;
-
-}
-
-.brand h2{
-
-font-size:21px;
+font-size:22px;
 
 font-weight:800;
 
-color:#ffd86a;
-
 letter-spacing:.8px;
+
+color:#ffd86a;
 
 }
 
-.brand p{
+.brand-text p{
+
+margin-top:4px;
 
 font-size:11px;
 
-font-weight:500;
-
-color:#ffffff;
-
-opacity:.8;
-
-margin-top:2px;
+opacity:.85;
 
 }
 
@@ -146,6 +143,10 @@ PROFILE
 text-align:center;
 
 margin-bottom:20px;
+
+position:relative;
+
+z-index:2;
 
 }
 
@@ -163,7 +164,7 @@ overflow:hidden;
 
 border:3px solid #d4af37;
 
-box-shadow:0 0 15px rgba(212,175,55,.4);
+box-shadow:0 0 15px rgba(212,175,55,.40);
 
 }
 
@@ -199,8 +200,6 @@ font-weight:600;
 
 color:#ffd86a;
 
-letter-spacing:.5px;
-
 }
 /* =========================================
 QR AREA
@@ -225,13 +224,9 @@ justify-content:center;
 margin-bottom:18px;
 
 box-shadow:
-
 0 8px 18px rgba(0,0,0,.25);
 
 }
-
-
-
 
 #qrcode{
 
@@ -251,9 +246,6 @@ overflow:hidden;
 
 }
 
-
-
-
 #qrcode img{
 
 width:210px !important;
@@ -266,9 +258,6 @@ border-radius:10px;
 
 }
 
-
-
-
 .qr-status{
 
 margin-top:14px;
@@ -280,9 +269,6 @@ font-weight:700;
 color:#222;
 
 }
-
-
-
 
 .scan-text{
 
@@ -300,17 +286,11 @@ line-height:18px;
 
 }
 
-
-
-
 .scan-text strong{
 
 color:#c89200;
 
 }
-
-
-
 
 /* =========================================
 INFO BOX
@@ -332,9 +312,6 @@ margin-bottom:18px;
 
 }
 
-
-
-
 .info-box h3{
 
 font-size:14px;
@@ -347,9 +324,6 @@ margin-bottom:8px;
 
 }
 
-
-
-
 .info-box p{
 
 font-size:11px;
@@ -361,15 +335,63 @@ color:#ffffff;
 opacity:.85;
 
 }
+
+/* =========================================
+BUTTON AREA
+========================================= */
+
+.button-row{
+
+display:flex;
+
+gap:10px;
+
+margin-top:auto;
+
+margin-bottom:16px;
+
+}
+
+.primary-btn{
+
+flex:1;
+
+height:44px;
+
+border:none;
+
+border-radius:12px;
+
+background:#d4af37;
+
+color:#111111;
+
+font-size:13px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.primary-btn:hover{
+
+transform:translateY(-2px);
+
+}
 /* =========================================
 BOTTOM NAVIGATION
 ========================================= */
 
 .bottom-nav{
 
-width:340px;
+margin-top:auto;
 
-margin-top:20px;
+padding-top:16px;
+
+border-top:1px solid rgba(255,255,255,.10);
 
 display:flex;
 
@@ -381,41 +403,39 @@ align-items:center;
 
 .bottom-nav a{
 
+text-decoration:none;
+
 display:flex;
 
 flex-direction:column;
 
 align-items:center;
 
-justify-content:center;
-
-text-decoration:none;
-
-color:#ffffff;
+gap:5px;
 
 font-size:10px;
 
 font-weight:600;
 
-gap:4px;
+color:#ffffff;
 
-opacity:.75;
+opacity:.72;
 
 transition:.25s;
 
 }
 
-.bottom-nav a.active{
+.bottom-nav a i{
 
-opacity:1;
-
-color:#ffd86a;
+font-size:18px;
 
 }
 
-.bottom-nav i{
+.bottom-nav a.active{
 
-font-size:18px;
+color:#ffd86a;
+
+opacity:1;
 
 }
 
@@ -429,8 +449,7 @@ opacity:1;
 
 
 /* =========================================
-DOWNLOAD / SHARE BUTTONS
-(HIDE)
+HIDE DOWNLOAD / SHARE
 ========================================= */
 
 .button-row{
@@ -462,11 +481,7 @@ RESPONSIVE
 
 width:340px;
 
-}
-
-.bottom-nav{
-
-width:340px;
+min-height:720px;
 
 }
 
@@ -487,7 +502,6 @@ height:190px !important;
 }
 
 }
-
 
 @media(min-width:900px){
 
