@@ -1,6 +1,7 @@
 // =====================================================
 // RIO MAGGI POINT
 // CUSTOMER LOGIN
+// VERSION 5.0
 // PART 1 / 4
 // =====================================================
 
@@ -17,23 +18,22 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // =====================================================
-// DOM
+// DOM ELEMENTS
 // =====================================================
 
-const loginForm =
-document.getElementById("loginForm");
+const loginForm = document.getElementById("loginForm");
 
-const email =
-document.getElementById("email");
+const emailInput = document.getElementById("email");
 
-const password =
-document.getElementById("password");
+const passwordInput = document.getElementById("password");
 
-const loginBtn =
-document.getElementById("loginBtn");
+const loginBtn = document.getElementById("loginBtn");
 
-const togglePassword =
-document.getElementById("togglePassword");
+const togglePassword = document.getElementById("togglePassword");
+
+const forgotPassword = document.getElementById("forgotPassword");
+
+const rememberMe = document.getElementById("rememberMe");
 
 // =====================================================
 // AUTO LOGIN
@@ -45,11 +45,9 @@ onAuthStateChanged(auth, async (user) => {
 
     try {
 
-        const customerRef =
-        doc(db, "customers", user.uid);
+        const customerRef = doc(db, "customers", user.uid);
 
-        const customerSnap =
-        await getDoc(customerRef);
+        const customerSnap = await getDoc(customerRef);
 
         if (customerSnap.exists()) {
 
@@ -57,15 +55,37 @@ onAuthStateChanged(auth, async (user) => {
 
         }
 
-    }
+    } catch (error) {
 
-    catch (error) {
-
-        console.error(error);
+        console.error("Auto Login Error :", error);
 
     }
 
 });
+
+// =====================================================
+// HELPER FUNCTIONS
+// =====================================================
+
+function disableLoginButton() {
+
+    loginBtn.disabled = true;
+
+    loginBtn.innerHTML =
+        `<i class="fa-solid fa-spinner fa-spin"></i> Signing In...`;
+
+}
+
+function enableLoginButton() {
+
+    loginBtn.disabled = false;
+
+    loginBtn.innerHTML =
+        `<i class="fa-solid fa-right-to-bracket"></i> Login`;
+
+}
+
+console.log("Rio Login JS Loaded");
 // =====================================================
 // LOGIN
 // =====================================================
@@ -74,13 +94,11 @@ loginForm.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
-    const userEmail =
-        email.value.trim();
+    const email = emailInput.value.trim();
 
-    const userPassword =
-        password.value.trim();
+    const password = passwordInput.value;
 
-    if (!userEmail || !userPassword) {
+    if (!email || !password) {
 
         alert("Please enter Email and Password.");
 
@@ -88,58 +106,86 @@ loginForm.addEventListener("submit", async (e) => {
 
     }
 
-    loginBtn.disabled = true;
-
-    loginBtn.innerHTML =
-        '<i class="fa-solid fa-spinner fa-spin"></i> Signing In...';
+    disableLoginButton();
 
     try {
 
-        // Firebase Login
-        const credential =
-            await signInWithEmailAndPassword(
-                auth,
-                userEmail,
-                userPassword
-            );
+        // Firebase Authentication Login
 
-        const uid =
-            credential.user.uid;
+        const credential = await signInWithEmailAndPassword(
 
-        // Customer Data
-        const customerRef =
-            doc(db, "customers", uid);
+            auth,
 
-        const customerSnap =
-            await getDoc(customerRef);
+            email,
+
+            password
+
+        );
+
+        const user = credential.user;
+
+        // Read Customer Document
+
+        const customerRef = doc(
+
+            db,
+
+            "customers",
+
+            user.uid
+
+        );
+
+        const customerSnap = await getDoc(customerRef);
 
         if (!customerSnap.exists()) {
 
             alert("Customer record not found.");
 
-            loginBtn.disabled = false;
-            loginBtn.innerHTML = "Login";
+            enableLoginButton();
 
             return;
 
         }
 
-        const customer =
-            customerSnap.data();
+        const customer = customerSnap.data();
 
-        // Blocked Account
+        // Account Status Check
+
         if (customer.status === "blocked") {
 
             alert("Your account has been blocked.");
 
-            loginBtn.disabled = false;
-            loginBtn.innerHTML = "Login";
+            enableLoginButton();
 
             return;
 
         }
 
+        // Optional Remember Me
+
+        if (rememberMe.checked) {
+
+            localStorage.setItem(
+
+                "rioRememberEmail",
+
+                email
+
+            );
+
+        } else {
+
+            localStorage.removeItem(
+
+                "rioRememberEmail"
+
+            );
+
+        }
+
         // Success
+
         alert(`Welcome ${customer.name}!`);
 
         window.location.href = "card.html";
@@ -148,7 +194,7 @@ loginForm.addEventListener("submit", async (e) => {
 
     catch (error) {
 
-        console.error(error);
+        console.error("Login Error :", error);
 
         let message = "Login Failed";
 
@@ -159,7 +205,7 @@ loginForm.addEventListener("submit", async (e) => {
                 break;
 
             case "auth/user-disabled":
-                message = "Your account has been disabled";
+                message = "This account has been disabled";
                 break;
 
             case "auth/too-many-requests":
@@ -170,6 +216,10 @@ loginForm.addEventListener("submit", async (e) => {
                 message = "No Internet Connection";
                 break;
 
+            case "auth/invalid-email":
+                message = "Invalid Email Address";
+                break;
+
         }
 
         alert(message);
@@ -178,10 +228,7 @@ loginForm.addEventListener("submit", async (e) => {
 
     finally {
 
-        loginBtn.disabled = false;
-
-        loginBtn.innerHTML =
-            '<i class="fa-solid fa-right-to-bracket"></i> Login';
+        enableLoginButton();
 
     }
 
@@ -194,16 +241,16 @@ if (togglePassword) {
 
     togglePassword.addEventListener("click", () => {
 
-        if (password.type === "password") {
+        if (passwordInput.type === "password") {
 
-            password.type = "text";
+            passwordInput.type = "text";
 
             togglePassword.innerHTML =
                 '<i class="fa-solid fa-eye-slash"></i>';
 
         } else {
 
-            password.type = "password";
+            passwordInput.type = "password";
 
             togglePassword.innerHTML =
                 '<i class="fa-solid fa-eye"></i>';
@@ -218,9 +265,6 @@ if (togglePassword) {
 // FORGOT PASSWORD
 // =====================================================
 
-const forgotPassword =
-document.getElementById("forgotPassword");
-
 if (forgotPassword) {
 
     forgotPassword.addEventListener("click", (e) => {
@@ -228,7 +272,7 @@ if (forgotPassword) {
         e.preventDefault();
 
         window.location.href =
-        "forgot-password.html";
+            "forgot-password.html";
 
     });
 
@@ -238,7 +282,7 @@ if (forgotPassword) {
 // ENTER KEY SUPPORT
 // =====================================================
 
-[email, password].forEach(input => {
+[emailInput, passwordInput].forEach(input => {
 
     input?.addEventListener("keypress", (e) => {
 
@@ -249,6 +293,25 @@ if (forgotPassword) {
         }
 
     });
+
+});
+
+// =====================================================
+// REMEMBER EMAIL
+// =====================================================
+
+window.addEventListener("load", () => {
+
+    const savedEmail =
+        localStorage.getItem("rioRememberEmail");
+
+    if (savedEmail) {
+
+        emailInput.value = savedEmail;
+
+        rememberMe.checked = true;
+
+    }
 
 });
 // =====================================================
@@ -271,8 +334,6 @@ window.addEventListener("focus", async () => {
 
             alert("Customer record no longer exists.");
 
-            return;
-
         }
 
     }
@@ -286,12 +347,35 @@ window.addEventListener("focus", async () => {
 });
 
 // =====================================================
+// CONNECTION CHECK
+// =====================================================
+
+window.addEventListener("online", () => {
+
+    console.log("Internet Connected");
+
+});
+
+window.addEventListener("offline", () => {
+
+    alert("No Internet Connection");
+
+});
+
+// =====================================================
 // READY
 // =====================================================
 
 console.log("====================================");
+
 console.log("🍜 Rio Maggi Point");
+
 console.log("Customer Login Ready");
+
 console.log("Firebase Authentication Connected");
+
 console.log("Firestore Connected");
+
+console.log("Version 5.0");
+
 console.log("====================================");
