@@ -5,36 +5,43 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1.0">
 
 <title>
-Rio Maggi Point | Loyalty Card
+
+Rio Maggi Point
+
 </title>
 
-<meta name="theme-color"
+<meta
+name="theme-color"
 content="#111111">
 
-<link rel="manifest"
+<link
+rel="manifest"
 href="manifest.json">
 
-<link rel="preconnect"
+<link
+rel="preconnect"
 href="https://fonts.googleapis.com">
 
-<link rel="preconnect"
+<link
+rel="preconnect"
 href="https://fonts.gstatic.com"
 crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
 rel="stylesheet">
 
-<link rel="stylesheet"
+<link
+rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-<link rel="stylesheet"
-href="css/style.css">
-
-<link rel="stylesheet"
+<link
+rel="stylesheet"
 href="css/card.css">
 
 </head>
@@ -43,16 +50,13 @@ href="css/card.css">
 
 <div class="page">
 
-<div id="loyaltyCard"
-class="premium-card male-theme">
+<div class="premium-card">
 
 <div class="card-glow"></div>
 
 <div class="card-shine"></div>
 
-<!-- ========================= -->
-<!-- HEADER -->
-<!-- ========================= -->
+<!-- ================= HEADER ================= -->
 
 <div class="card-header">
 
@@ -70,21 +74,11 @@ Premium Loyalty Club
 
 </div>
 
-<!-- ========================= -->
-<!-- CUSTOMER -->
-<!-- ========================= -->
+<!-- ================= CUSTOMER ================= -->
 
 <div class="customer-section">
 
-<div class="avatar-wrapper">
-
-<div class="avatar-crown">
-
-👑
-
-</div>
-
-<div class="avatar-ring">
+<div class="avatar-frame">
 
 <img
 id="customerPhoto"
@@ -93,36 +87,34 @@ alt="Customer">
 
 </div>
 
-</div>
-
-<div class="customer-details">
-
-<h2 id="customerName">
+<div class="customer-name"
+id="customerName">
 
 Loading...
 
-</h2>
+</div>
 
 <div class="customer-id">
 
-ID :
+RIO ID :
+
 <span id="memberId">
 
-RIO-000000000
+RIO-000000
 
 </span>
 
 </div>
 
-<div class="premium-badge">
+<div class="premium-member">
 
 PREMIUM MEMBER
 
 </div>
 
 <button
-id="gameLink"
-class="game-btn">
+class="game-button"
+id="gameLink">
 
 <i class="fa-solid fa-gamepad"></i>
 
@@ -132,18 +124,16 @@ CLICK FREE GAME
 
 </div>
 
-</div>
-<!-- ========================= -->
-<!-- STAMP SECTION -->
-<!-- ========================= -->
-
-<div class="stamp-section">
+<!-- ================= STAMP TITLE ================= -->
 
 <div class="stamp-title">
 
 Collect 6 Stamps • Win 1 FREE VEG MAGGI
 
 </div>
+<!-- ================= STAMP ROW ================= -->
+
+<div class="stamp-section">
 
 <div class="stamp-row">
 
@@ -171,42 +161,27 @@ Collect 6 Stamps • Win 1 FREE VEG MAGGI
 <span>6</span>
 </div>
 
-<div class="stamp-circle reward-circle">
+<div class="stamp-circle reward-circle" id="rewardCircle">
 
-<div class="reward-text">
+<div class="reward-label">
 
-FREE
-
-<br>
-
-VEG
-
-<br>
-
+FREE<br>
+VEG<br>
 MAGGI
 
 </div>
 
 </div>
 
-<div class="stamp-circle mascot-circle">
-
-<img
-id="happyMascot"
-src="assets/mascot/rio-male.png"
-alt="Happy Rio">
-
 </div>
 
 </div>
 
-<!-- ========================= -->
-<!-- COUNTDOWN -->
-<!-- ========================= -->
+<!-- ================= COUNTDOWN ================= -->
 
 <div class="countdown-box">
 
-<div class="countdown-title">
+<div class="countdown-text">
 
 STAMP RESET IN
 
@@ -222,17 +197,12 @@ class="countdown-days">
 
 </div>
 
-</div>
+<!-- ================= QUICK BUTTONS ================= -->
 
-<!-- ========================= -->
-<!-- QUICK ACTION -->
-<!-- ========================= -->
-
-<div class="quick-action">
+<div class="quick-buttons">
 
 <button
-id="callBtn"
-class="quick-btn">
+id="callBtn">
 
 <i class="fa-solid fa-phone"></i>
 
@@ -241,8 +211,7 @@ Call
 </button>
 
 <button
-id="whatsappBtn"
-class="quick-btn">
+id="whatsappBtn">
 
 <i class="fa-brands fa-whatsapp"></i>
 
@@ -251,8 +220,7 @@ WhatsApp
 </button>
 
 <button
-id="mapBtn"
-class="quick-btn">
+id="mapBtn">
 
 <i class="fa-solid fa-location-dot"></i>
 
@@ -261,15 +229,11 @@ Map
 </button>
 
 </div>
-<!-- ========================= -->
-<!-- BOTTOM NAVIGATION -->
-<!-- ========================= -->
+<!-- ================= BOTTOM NAVIGATION ================= -->
 
 <nav class="bottom-nav">
 
-<a
-href="card.html"
-class="active">
+<a href="card.html" class="active">
 
 <i class="fa-solid fa-house"></i>
 
@@ -277,8 +241,7 @@ class="active">
 
 </a>
 
-<a
-href="qr.html">
+<a href="qr.html">
 
 <i class="fa-solid fa-qrcode"></i>
 
@@ -286,8 +249,7 @@ href="qr.html">
 
 </a>
 
-<a
-href="history.html">
+<a href="history.html">
 
 <i class="fa-solid fa-clock-rotate-left"></i>
 
@@ -295,17 +257,15 @@ href="history.html">
 
 </a>
 
-<a
-href="feedback.html">
+<a href="feedback.html">
 
-<i class="fa-solid fa-heart"></i>
+<i class="fa-solid fa-star"></i>
 
 <span>Review</span>
 
 </a>
 
-<a
-href="profile.html">
+<a href="profile.html">
 
 <i class="fa-solid fa-user"></i>
 
@@ -316,20 +276,15 @@ href="profile.html">
 </nav>
 
 </div>
+
 </div>
 
-<!-- ========================= -->
-<!-- FIREBASE -->
-<!-- ========================= -->
+<!-- ================= JS ================= -->
 
 <script
 type="module"
 src="js/card.js">
 </script>
-
-<!-- ========================= -->
-<!-- SERVICE WORKER -->
-<!-- ========================= -->
 
 <script>
 
