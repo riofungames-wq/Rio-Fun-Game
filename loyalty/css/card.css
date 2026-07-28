@@ -1,710 +1,1278 @@
-/* ==========================================
-   RIO MAGGI POINT
-   PREMIUM ATM CARD
-========================================== */
+:root{
+
+    --gold:#d4af37;
+    --gold-light:#f8df8b;
+    --black:#111111;
+    --dark:#1c1c1c;
+    --white:#ffffff;
+
+}
+
+
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:'Poppins',sans-serif;
+
 }
+
+
 
 body{
 
-background:#0f0f0f;
+    min-height:100vh;
 
-display:flex;
+    background:
 
-justify-content:center;
+    radial-gradient(
+        circle at top,
+        #2b2b2b,
+        #080808
+    );
 
-align-items:flex-start;
+    display:flex;
 
-min-height:100vh;
+    justify-content:center;
 
-padding:20px 12px 110px;
+    align-items:flex-start;
 
-color:#fff;
-
-}
-
-.page{
-
-width:100%;
-
-max-width:430px;
+    padding:20px 12px 90px;
 
 }
 
-/* ==========================
-ATM CARD
-========================== */
+
+
+
+
+.dashboard{
+
+    width:100%;
+
+    max-width:430px;
+
+}
+
+
+
+
+
+/* PREMIUM CARD */
+
 
 .premium-card{
 
-position:relative;
+    width:100%;
 
-width:100%;
+    background:
 
-aspect-ratio:1.586;
+    linear-gradient(
+        145deg,
+        #171717,
+        #050505
+    );
 
-border-radius:22px;
+    border-radius:28px;
 
-overflow:hidden;
+    padding:22px 18px;
 
-padding:18px;
+    position:relative;
 
-background:linear-gradient(
-135deg,
-#101010,
-#1d1d1d,
-#101010
-);
+    overflow:hidden;
 
-border:2px solid #d4af37;
+    border:
 
-box-shadow:
-0 12px 35px rgba(0,0,0,.45),
-0 0 18px rgba(212,175,55,.18);
+    1px solid rgba(212,175,55,.6);
+
+
+    box-shadow:
+
+    0 25px 60px rgba(0,0,0,.7),
+
+    inset 0 0 30px rgba(212,175,55,.08);
+
 
 }
 
-/* Male Theme */
+
+
+
+
+/* PREMIUM GOLD GLOW */
+
+
+.premium-card::before{
+
+
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+
+    height:220px;
+
+    top:-80px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+
+    background:
+
+    radial-gradient(
+        circle,
+        rgba(212,175,55,.35),
+        transparent 70%
+    );
+
+
+    filter:blur(20px);
+
+
+}
+
+
+
+
+
+/* MALE THEME */
+
 
 .male-theme{
 
-background:linear-gradient(
-135deg,
-#0b0b0b,
-#202020,
-#111111
-);
+    --theme-main:#d4af37;
+
+    --theme-soft:#f8df8b;
 
 }
 
-/* Female Theme */
+
+
+/* FEMALE THEME */
 
 .female-theme{
 
-background:linear-gradient(
-135deg,
-#3a1420,
-#5b1f31,
-#34131c
-);
+    --theme-main:#d98ca3;
+
+    --theme-soft:#ffd1dc;
+
+}
+/* ============================= */
+/* BRAND SECTION */
+/* ============================= */
+
+
+.brand-section{
+
+    text-align:center;
+
+    position:relative;
+
+    z-index:2;
+
+    margin-bottom:18px;
 
 }
 
-/* Glow */
 
-.card-glow{
-
-position:absolute;
-
-inset:0;
-
-background:radial-gradient(
-circle at top right,
-rgba(212,175,55,.22),
-transparent 60%
-);
-
-pointer-events:none;
-
-}
-
-.card-shine{
-
-position:absolute;
-
-top:-30%;
-
-left:-50%;
-
-width:60%;
-
-height:180%;
-
-background:rgba(255,255,255,.05);
-
-transform:rotate(25deg);
-
-pointer-events:none;
-
-}
-
-/* ==========================
-TOP
-========================== */
-
-.card-top{
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-gap:4px;
-
-margin-bottom:14px;
-
-}
 
 .bowl-logo{
 
-width:54px;
+    width:75px;
 
-height:54px;
+    height:75px;
 
-object-fit:contain;
+    object-fit:contain;
 
-}
+    filter:
 
-.card-top h2{
+    drop-shadow(
+        0 0 12px rgba(212,175,55,.8)
+    );
 
-font-size:18px;
+    animation:
 
-font-weight:800;
-
-letter-spacing:1px;
-
-color:#fff;
-
-}
-/* ==========================
-PROFILE
-========================== */
-
-.profile-row{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:14px;
+    logoFloat 3s ease-in-out infinite;
 
 }
 
-.profile-left{
 
-display:flex;
 
-align-items:center;
 
-gap:12px;
+@keyframes logoFloat{
 
-}
 
-.profile-photo{
+    0%,
+    100%{
 
-width:62px;
+        transform:translateY(0);
 
-height:62px;
+    }
 
-border-radius:14px;
 
-overflow:hidden;
+    50%{
 
-border:2px solid #d4af37;
+        transform:translateY(-5px);
 
-background:#1b1b1b;
-
-flex-shrink:0;
+    }
 
 }
 
-.profile-photo img{
 
-width:100%;
 
-height:100%;
 
-object-fit:cover;
+.brand-section h1{
 
-}
 
-.profile-info{
+    margin-top:8px;
 
-display:flex;
+    font-size:24px;
 
-flex-direction:column;
+    letter-spacing:1px;
 
-gap:4px;
+    font-weight:800;
 
-}
 
-.profile-info h2{
+    color:
 
-font-size:18px;
+    var(--theme-soft);
 
-font-weight:800;
 
-letter-spacing:.6px;
+    text-shadow:
 
-background:linear-gradient(
-90deg,
-#fff6c7,
-#ffd54f,
-#fff6c7
-);
-
--webkit-background-clip:text;
-
--webkit-text-fill-color:transparent;
+    0 0 12px rgba(212,175,55,.7);
 
 }
 
-.profile-info p{
 
-font-size:11px;
 
-color:#e7e7e7;
 
-letter-spacing:1px;
+.brand-section p{
 
-}
 
-.gold-strip{
+    margin-top:4px;
 
-display:inline-flex;
+    font-size:12px;
 
-align-items:center;
+    color:#d6d6d6;
 
-justify-content:center;
-
-padding:4px 10px;
-
-border-radius:30px;
-
-background:linear-gradient(
-90deg,
-#b8860b,
-#ffd54f,
-#b8860b
-);
-
-color:#111;
-
-font-size:10px;
-
-font-weight:700;
-
-letter-spacing:.8px;
-
-width:max-content;
+    letter-spacing:1px;
 
 }
 
-/* ==========================
-PLAY BUTTON
-========================== */
 
-.profile-right{
 
-display:flex;
 
-align-items:flex-start;
 
-}
+/* ============================= */
+/* CLICK FREE GAME */
+/* ============================= */
 
-.play-btn,
-#playGameBtn{
 
-border:none;
+.game-link{
 
-outline:none;
 
-cursor:pointer;
+    display:block;
 
-padding:6px 12px;
 
-border-radius:999px;
+    text-align:center;
 
-background:linear-gradient(
-90deg,
-#b8860b,
-#ffd54f
-);
 
-color:#111;
+    margin:12px auto 18px;
 
-font-size:10px;
 
-font-weight:700;
+    width:max-content;
 
-display:flex;
 
-align-items:center;
+    padding:8px 18px;
 
-gap:6px;
 
-box-shadow:0 4px 10px rgba(212,175,55,.35);
+    border-radius:30px;
 
-transition:.25s;
 
-}
+    text-decoration:none;
 
-.play-btn:hover,
-#playGameBtn:hover{
 
-transform:translateY(-2px);
+    font-size:13px;
 
-box-shadow:0 8px 18px rgba(212,175,55,.45);
 
-}
-/* ==========================
-REWARD STRIP
-========================== */
+    font-weight:700;
 
-.reward-strip{
 
-width:100%;
+    color:#111;
 
-display:flex;
 
-justify-content:center;
+    background:
 
-margin-bottom:14px;
+
+    linear-gradient(
+
+        135deg,
+
+        var(--theme-soft),
+
+        var(--theme-main)
+
+    );
+
+
+    box-shadow:
+
+
+    0 0 18px rgba(212,175,55,.5);
+
+
+    transition:.3s;
+
 
 }
 
-.reward-strip span{
 
-display:inline-block;
 
-padding:6px 16px;
 
-border-radius:999px;
+.game-link:hover{
 
-background:linear-gradient(
-90deg,
-#b8860b,
-#ffd54f,
-#b8860b
-);
 
-color:#111;
+    transform:scale(1.05);
 
-font-size:10px;
 
-font-weight:700;
+}
+/* ============================= */
+/* CUSTOMER SECTION */
+/* ============================= */
 
-letter-spacing:.5px;
 
-text-align:center;
+.customer-section{
 
-box-shadow:0 4px 10px rgba(212,175,55,.35);
+    position:relative;
+
+    z-index:2;
+
+    text-align:center;
+
+    margin-top:8px;
 
 }
 
-/* ==========================
-STAMP SECTION
-========================== */
+
+
+/* AVATAR */
+
+
+.avatar-wrapper{
+
+    position:relative;
+
+    width:110px;
+
+    height:110px;
+
+    margin:0 auto 12px;
+
+}
+
+
+
+.crown-icon{
+
+    position:absolute;
+
+    top:-22px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    font-size:28px;
+
+    filter:
+
+    drop-shadow(
+        0 0 8px gold
+    );
+
+    z-index:5;
+
+}
+
+
+
+
+.avatar-glow{
+
+    width:100%;
+
+    height:100%;
+
+    padding:4px;
+
+    border-radius:50%;
+
+
+    background:
+
+    linear-gradient(
+
+        135deg,
+
+        var(--theme-soft),
+
+        var(--theme-main)
+
+    );
+
+
+    box-shadow:
+
+
+    0 0 15px var(--theme-main),
+
+    0 0 35px rgba(212,175,55,.5);
+
+
+    animation:
+
+    avatarGlow 3s infinite;
+
+}
+
+
+
+.avatar-glow img{
+
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+
+    border:3px solid #111;
+
+}
+
+
+
+
+@keyframes avatarGlow{
+
+
+    0%{
+
+        box-shadow:
+
+        0 0 12px var(--theme-main);
+
+    }
+
+
+    50%{
+
+        box-shadow:
+
+        0 0 30px var(--theme-main);
+
+    }
+
+
+    100%{
+
+        box-shadow:
+
+        0 0 12px var(--theme-main);
+
+    }
+
+}
+
+
+
+
+
+/* CUSTOMER NAME */
+
+
+.customer-details h2{
+
+
+    color:white;
+
+
+    font-size:22px;
+
+
+    font-weight:800;
+
+
+    letter-spacing:.5px;
+
+
+    margin-top:5px;
+
+
+    text-shadow:
+
+    0 0 10px rgba(255,255,255,.25);
+
+
+}
+
+
+
+
+
+/* PREMIUM MEMBER */
+
+
+.loyalty-member{
+
+
+    display:inline-block;
+
+
+    margin-top:5px;
+
+
+    padding:5px 16px;
+
+
+    border-radius:20px;
+
+
+    background:
+
+
+    linear-gradient(
+
+        135deg,
+
+        var(--theme-soft),
+
+        var(--theme-main)
+
+    );
+
+
+    color:#111;
+
+
+    font-size:12px;
+
+
+    font-weight:700;
+
+
+    letter-spacing:1px;
+
+
+}
+
+
+
+
+
+/* ID */
+
+
+.customer-id{
+
+
+    margin-top:8px;
+
+
+    font-size:13px;
+
+
+    font-weight:600;
+
+
+    color:#eee;
+
+
+}
+
+
+
+.customer-id span{
+
+
+    color:var(--theme-soft);
+
+
+    font-weight:800;
+
+
+}
+/* ============================= */
+/* STAMP SECTION */
+/* ============================= */
+
 
 .stamp-section{
 
-width:100%;
+    position:relative;
+
+    z-index:2;
+
+    margin-top:22px;
 
 }
+
+
+
+.stamp-title{
+
+
+    text-align:center;
+
+
+    font-size:12px;
+
+
+    font-weight:700;
+
+
+    color:#111;
+
+
+    background:
+
+
+    linear-gradient(
+
+        135deg,
+
+        var(--theme-soft),
+
+        var(--theme-main)
+
+    );
+
+
+    border-radius:20px;
+
+
+    padding:8px 10px;
+
+
+    margin-bottom:18px;
+
+
+    white-space:nowrap;
+
+
+    overflow:hidden;
+
+
+}
+
+
+
+
+/* ONE LINE STAMP ROW */
+
 
 .stamp-row{
 
-display:grid;
 
-grid-template-columns:repeat(8,1fr);
+    display:flex;
 
-gap:6px;
 
-align-items:start;
+    justify-content:space-between;
+
+
+    align-items:flex-start;
+
+
+    width:100%;
+
+
+    gap:4px;
+
+
+}
+
+
+
+
+
+.stamp-item{
+
+
+    flex:1;
+
+
+    min-width:0;
+
+
+    text-align:center;
+
 
 }
 
-.stamp-box{
 
-display:flex;
 
-flex-direction:column;
 
-align-items:center;
-
-gap:4px;
-
-}
 
 .stamp-circle{
 
-width:34px;
 
-height:34px;
+    width:38px;
 
-border-radius:50%;
 
-border:2px solid #d4af37;
+    height:38px;
 
-background:#181818;
 
-display:flex;
+    margin:auto;
 
-align-items:center;
 
-justify-content:center;
+    border-radius:50%;
 
-font-size:13px;
 
-font-weight:700;
+    display:flex;
 
-color:#ffd54f;
 
-transition:.3s;
+    justify-content:center;
+
+
+    align-items:center;
+
+
+    font-size:17px;
+
+
+    font-weight:800;
+
+
+    color:#111;
+
+
+    background:
+
+
+    linear-gradient(
+
+        145deg,
+
+        #f8df8b,
+
+        #d4af37
+
+    );
+
+
+    box-shadow:
+
+
+    0 0 12px rgba(212,175,55,.6);
+
 
 }
+
+
+
+
+
+/* ACTIVE STAMP */
+
 
 .stamp-circle.active{
 
-background:#d4af37;
 
-color:#111;
+    background:
 
-}
 
-.stamp-box small{
+    linear-gradient(
 
-font-size:8px;
+        145deg,
 
-color:#d8d8d8;
+        #fff1a8,
 
-text-align:center;
+        #d4af37
 
-line-height:1.1;
+    );
 
-}
 
-/* Reward Slot */
+    transform:scale(1.05);
 
-.reward-slot img{
-
-width:30px;
-
-height:30px;
-
-object-fit:contain;
-
-}
-
-/* Mascot */
-
-.mascot-slot img{
-
-width:30px;
-
-height:30px;
-
-object-fit:contain;
-
-animation:happyBounce 1.6s infinite ease-in-out;
-
-}
-
-@keyframes happyBounce{
-
-0%{transform:translateY(0);}
-25%{transform:translateY(-2px);}
-50%{transform:translateY(0);}
-75%{transform:translateY(-2px);}
-100%{transform:translateY(0);}
-
-}
-
-/* ==========================
-RESPONSIVE
-========================== */
-
-@media(max-width:390px){
-
-.stamp-circle{
-
-width:30px;
-height:30px;
-font-size:11px;
-
-}
-
-.reward-slot img,
-.mascot-slot img{
-
-width:26px;
-height:26px;
-
-}
-
-.reward-strip span{
-
-font-size:9px;
-
-padding:5px 10px;
-
-}
-
-}
-/* ==========================
-FEMALE PREMIUM THEME
-========================== */
-
-.female-theme{
-
-background:linear-gradient(
-135deg,
-#210914,
-#541b35,
-#1b080f
-);
-
-border-color:#f4c2d7;
 
 }
 
 
-.female-theme .gold-strip,
-.female-theme .reward-strip span{
 
-background:linear-gradient(
-90deg,
-#b76e79,
-#ffd1dc,
-#b76e79
-);
+
+
+/* DATE */
+
+
+.stamp-item small{
+
+
+    display:block;
+
+
+    margin-top:5px;
+
+
+    font-size:8px;
+
+
+    color:#ddd;
+
+
+    white-space:nowrap;
+
 
 }
 
 
-/* ==========================
-MALE STAMP
-========================== */
 
-.male-theme .stamp-circle.active{
 
-background:linear-gradient(
-135deg,
-#d4af37,
-#fff0a8
-);
 
-color:#111;
+/* FREE VEG MAGGI 7TH */
+
+
+.reward-stamp{
+
+
+    position:relative;
+
+
+    font-size:12px;
+
+
+    line-height:10px;
+
+
+    flex-direction:column;
+
 
 }
 
 
-/* ==========================
-FEMALE STAMP
-========================== */
 
-.female-theme .stamp-circle.active{
+.reward-stamp span{
 
-background:linear-gradient(
-135deg,
-#ff5c8a,
-#ffd1dc
-);
 
-color:#5b1027;
+    font-size:6px;
+
+
+    font-weight:800;
+
+
+    margin-top:1px;
+
+
+    text-align:center;
+
 
 }
 
 
-/* ==========================
-BOTTOM NAVIGATION
-========================== */
+
+
+
+/* HAPPY MASCOT 8TH */
+
+
+.happy-stamp{
+
+
+    overflow:hidden;
+
+
+}
+
+
+
+.happy-stamp img{
+
+
+    width:100%;
+
+
+    height:100%;
+
+
+    object-fit:cover;
+
+
+    border-radius:50%;
+
+
+    animation:
+
+
+    happyMove 2s ease-in-out infinite;
+
+
+}
+
+
+
+
+@keyframes happyMove{
+
+
+    0%,100%{
+
+        transform:translateY(0);
+
+    }
+
+
+    50%{
+
+        transform:translateY(-3px);
+
+    }
+
+
+}
+
+
+
+
+
+/* MOBILE ADJUSTMENT */
+
+
+@media(max-width:380px){
+
+
+    .stamp-circle{
+
+
+        width:34px;
+
+        height:34px;
+
+        font-size:15px;
+
+    }
+
+
+    .stamp-title{
+
+
+        font-size:11px;
+
+    }
+
+
+}
+/* ============================= */
+/* REWARD MESSAGE */
+/* ============================= */
+
+
+.reward-message{
+
+    position:relative;
+
+    z-index:2;
+
+    margin-top:18px;
+
+    text-align:center;
+
+
+}
+
+
+
+.reward-message span{
+
+
+    display:inline-block;
+
+
+    background:
+
+
+    linear-gradient(
+
+        135deg,
+
+        var(--theme-soft),
+
+        var(--theme-main)
+
+    );
+
+
+    color:#111;
+
+
+    font-size:12px;
+
+
+    font-weight:800;
+
+
+    padding:8px 14px;
+
+
+    border-radius:18px;
+
+
+    box-shadow:
+
+
+    0 0 15px rgba(212,175,55,.45);
+
+
+}
+
+
+
+
+
+/* ============================= */
+/* SHOP ACTION BUTTONS */
+/* ============================= */
+
+
+.shop-actions{
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    gap:10px;
+
+
+    margin-top:18px;
+
+
+}
+
+
+
+
+
+.shop-btn{
+
+
+    flex:1;
+
+
+    max-width:110px;
+
+
+    text-decoration:none;
+
+
+    color:white;
+
+
+    background:#202020;
+
+
+    border:1px solid rgba(212,175,55,.5);
+
+
+    padding:10px 5px;
+
+
+    border-radius:15px;
+
+
+    text-align:center;
+
+
+    font-size:11px;
+
+
+    font-weight:600;
+
+
+}
+
+
+
+.shop-btn i{
+
+
+    display:block;
+
+
+    font-size:18px;
+
+
+    color:var(--theme-soft);
+
+
+    margin-bottom:4px;
+
+
+}
+
+
+
+
+
+/* ============================= */
+/* BOTTOM NAVIGATION */
+/* ============================= */
+
 
 .bottom-nav{
 
-position:fixed;
 
-bottom:0;
+    position:fixed;
 
-left:50%;
 
-transform:translateX(-50%);
+    bottom:0;
 
-width:100%;
 
-max-width:430px;
+    left:50%;
 
-height:70px;
 
-background:#111;
+    transform:translateX(-50%);
 
-border-top:1px solid rgba(212,175,55,.4);
 
-display:flex;
+    width:100%;
 
-justify-content:space-around;
 
-align-items:center;
+    max-width:430px;
 
-z-index:999;
 
-box-shadow:
-0 -5px 20px rgba(0,0,0,.4);
+    height:72px;
+
+
+    background:#111;
+
+
+    border-top:
+
+
+    1px solid rgba(212,175,55,.5);
+
+
+    display:flex;
+
+
+    justify-content:space-around;
+
+
+    align-items:center;
+
+
+    z-index:1000;
+
 
 }
+
+
+
 
 
 .bottom-nav a{
 
-text-decoration:none;
 
-color:#aaa;
+    color:#aaa;
 
-display:flex;
 
-flex-direction:column;
+    text-decoration:none;
 
-align-items:center;
 
-gap:4px;
+    display:flex;
 
-font-size:11px;
 
-font-weight:600;
+    flex-direction:column;
+
+
+    align-items:center;
+
+
+    gap:5px;
+
+
+    font-size:11px;
+
+
+    font-weight:600;
+
 
 }
+
+
+
 
 
 .bottom-nav a i{
 
-font-size:20px;
+
+    font-size:20px;
+
 
 }
 
 
-.bottom-nav a.active{
 
-color:#ffd54f;
+
+
+.bottom-nav .nav-active{
+
+
+    color:var(--theme-soft);
+
 
 }
 
 
-/* ==========================
-TABLET / DESKTOP
-========================== */
 
-@media(min-width:768px){
+.bottom-nav .nav-active i{
 
-.page{
 
-max-width:430px;
+    filter:
 
-margin:auto;
+    drop-shadow(
+
+    0 0 8px var(--theme-main)
+
+    );
+
+
+}
+
+
+
+
+
+/* ============================= */
+/* TABLET */
+/* ============================= */
+
+
+@media(min-width:600px){
+
+
+.dashboard{
+
+
+    max-width:500px;
+
 
 }
 
 
 .premium-card{
 
-margin-top:40px;
+
+    padding:28px;
+
 
 }
 
@@ -712,47 +1280,302 @@ margin-top:40px;
 }
 
 
-/* ==========================
-SMALL MOBILE
-========================== */
 
-@media(max-width:350px){
+
+
+/* ============================= */
+/* LAPTOP / PC */
+/* ============================= */
+
+
+@media(min-width:1000px){
+
+
+.dashboard{
+
+
+    max-width:520px;
+
+
+}
+
+
+body{
+
+
+    align-items:center;
+
+
+}
+
+
+}
+/* ============================= */
+/* FEMALE PREMIUM THEME */
+/* ============================= */
+
+
+.female-theme{
+
+
+    background:
+
+
+    linear-gradient(
+
+        145deg,
+
+        #2a1018,
+
+        #12070b
+
+    );
+
+
+    border-color:
+
+    rgba(255,190,210,.7);
+
+
+}
+
+
+
+
+
+.female-theme::before{
+
+
+    background:
+
+
+    radial-gradient(
+
+        circle,
+
+        rgba(255,190,210,.35),
+
+        transparent 70%
+
+    );
+
+
+}
+
+
+
+
+
+.female-theme .brand-section h1{
+
+
+    color:#ffd1dc;
+
+
+    text-shadow:
+
+
+    0 0 15px rgba(255,190,210,.8);
+
+
+}
+
+
+
+
+
+.female-theme .stamp-circle{
+
+
+    background:
+
+
+    linear-gradient(
+
+        145deg,
+
+        #ffd1dc,
+
+        #d98ca3
+
+    );
+
+
+}
+
+
+
+
+
+/* ============================= */
+/* TEXT SAFETY */
+/* ============================= */
+
+
+.brand-section h1,
+
+.customer-details h2,
+
+.reward-message span,
+
+.stamp-title{
+
+
+    overflow:hidden;
+
+
+    text-overflow:ellipsis;
+
+
+    white-space:nowrap;
+
+
+}
+
+
+
+
+
+/* ============================= */
+/* SMALL PHONE OPTIMIZATION */
+/* ============================= */
+
+
+@media(max-width:360px){
+
+
+
+.dashboard{
+
+    padding:0;
+
+}
+
+
 
 .premium-card{
 
-padding:14px;
+    padding:18px 12px;
 
-border-radius:18px;
-
-}
-
-
-.card-top h2{
-
-font-size:15px;
+    border-radius:22px;
 
 }
 
 
-.profile-info h2{
 
-font-size:15px;
+.bowl-logo{
 
-}
+    width:65px;
 
-
-.play-btn,
-#playGameBtn{
-
-font-size:8px;
-
-padding:5px 8px;
-
-}
+    height:65px;
 
 }
 
 
-/* ==========================
-END
-========================== */
+
+.brand-section h1{
+
+    font-size:21px;
+
+}
+
+
+
+.customer-details h2{
+
+    font-size:19px;
+
+}
+
+
+
+.avatar-wrapper{
+
+    width:95px;
+
+    height:95px;
+
+}
+
+
+
+.game-link{
+
+    font-size:11px;
+
+    padding:7px 14px;
+
+}
+
+
+
+.shop-btn{
+
+    font-size:10px;
+
+}
+
+
+
+.bottom-nav{
+
+    height:65px;
+
+}
+
+
+
+}
+
+
+
+
+
+/* ============================= */
+/* SMOOTH CARD ENTRY */
+/* ============================= */
+
+
+.premium-card{
+
+
+    animation:
+
+    cardEnter .7s ease;
+
+
+}
+
+
+
+@keyframes cardEnter{
+
+
+from{
+
+
+    opacity:0;
+
+    transform:
+
+    translateY(20px);
+
+
+}
+
+
+
+to{
+
+
+    opacity:1;
+
+    transform:
+
+    translateY(0);
+
+
+}
+
+
+}
