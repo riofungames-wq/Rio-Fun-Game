@@ -1,4 +1,3 @@
-
 // =====================================================
 // RIO MAGGI POINT
 // PROFILE.JS
@@ -11,36 +10,32 @@
 // FIREBASE IMPORT
 // ============================
 
-
 import { auth, db } from "./firebase-config.js";
 
 
 import {
 
-onAuthStateChanged
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-
-
-
-import {
-
-doc,
-
-getDoc,
-
+onAuthStateChanged,
 signOut
 
 }
 
 from
 
-"https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
+
+
+import {
+
+doc,
+getDoc
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
 
@@ -156,51 +151,129 @@ document.getElementById(
 
 
 // ============================
-// DEFAULT PROFILE
+// DEFAULT DATA
 // ============================
 
 
 function setDefaultProfile(){
 
 
-if(profileName)
 
-profileName.textContent =
-"Customer";
-
-
-
-if(profileMemberId)
-
-profileMemberId.textContent =
-"RIO-000000";
-
-
-
-if(profilePhoto)
+if(profilePhoto){
 
 profilePhoto.src =
+
 "assets/avatars/default.png";
 
+}
 
 
-if(profileStampCount)
+
+if(profileName){
+
+profileName.textContent =
+
+"Customer";
+
+}
+
+
+
+if(profileMemberId){
+
+profileMemberId.textContent =
+
+"RIO-000000";
+
+}
+
+
+
+if(profileMobile){
+
+profileMobile.textContent =
+
+"--";
+
+}
+
+
+
+if(profileEmail){
+
+profileEmail.textContent =
+
+"--";
+
+}
+
+
+
+if(profileDOB){
+
+profileDOB.textContent =
+
+"--";
+
+}
+
+
+
+if(profileAge){
+
+profileAge.textContent =
+
+"--";
+
+}
+
+
+
+if(profileCategory){
+
+profileCategory.textContent =
+
+"PREMIUM MEMBER";
+
+}
+
+
+
+if(profileStampCount){
 
 profileStampCount.textContent =
+
 "0 / 6";
 
+}
 
 
-if(profileReward)
+
+if(profileReward){
 
 profileReward.textContent =
+
 "Locked";
+
+}
+
+
+
+if(profileMemberSince){
+
+profileMemberSince.textContent =
+
+"--";
+
+}
 
 
 }
 
+
+
 // ============================
-// LOAD CUSTOMER PROFILE
+// LOAD PROFILE DATA
 // ============================
 
 
@@ -226,25 +299,21 @@ user.uid
 
 const customerSnap =
 
-await getDoc(
-
-customerRef
-
-);
+await getDoc(customerRef);
 
 
 
 if(!customerSnap.exists()){
 
 
-setDefaultProfile();
+console.log(
 
-
-alert(
-
-"Customer Data Not Found"
+"Customer Document Not Found"
 
 );
+
+
+setDefaultProfile();
 
 
 return;
@@ -260,9 +329,56 @@ customerSnap.data();
 
 
 
+console.log(
+
+"Customer Data:",
+
+data
+
+);
+
+
+
+updateProfileUI(data);
+
+
+
+}
+
+
+catch(error){
+
+
+console.error(
+
+"Profile Loading Error:",
+
+error
+
+);
+
+
+setDefaultProfile();
+
+
+}
+
+
+
+}
+
+// =====================================================
+// UPDATE PROFILE UI
+// PART 2
+// =====================================================
+
+
+function updateProfileUI(data){
+
+
 
 // ============================
-// BASIC INFORMATION
+// BASIC INFO
 // ============================
 
 
@@ -278,6 +394,7 @@ data.name ||
 
 
 
+
 if(profileMemberId){
 
 profileMemberId.textContent =
@@ -287,6 +404,7 @@ data.memberId ||
 "RIO-000000";
 
 }
+
 
 
 
@@ -326,7 +444,10 @@ data.mobile ||
 
 "--";
 
+
 }
+
+
 
 
 
@@ -338,13 +459,15 @@ data.email ||
 
 "--";
 
+
 }
 
 
 
 
+
 // ============================
-// EXTRA DETAILS
+// PERSONAL DETAILS
 // ============================
 
 
@@ -356,7 +479,10 @@ data.dob ||
 
 "--";
 
+
 }
+
+
 
 
 
@@ -368,23 +494,49 @@ data.age ||
 
 "--";
 
+
 }
+
+
 
 
 
 if(profileCategory){
 
+
+if(data.category){
+
+
 profileCategory.textContent =
 
-data.gender ?
+data.category.toUpperCase();
 
-data.gender.toUpperCase()
 
-:
+}
+
+else if(data.gender){
+
+
+profileCategory.textContent =
+
+data.gender.toUpperCase();
+
+
+}
+
+else{
+
+
+profileCategory.textContent =
 
 "PREMIUM MEMBER";
 
+
 }
+
+
+}
+
 
 
 
@@ -396,26 +548,28 @@ data.gender.toUpperCase()
 
 const stamps =
 
-data.stamps ||
+Number(data.stamps || 0);
 
-0;
+
 
 
 
 if(profileStampCount){
 
+
 profileStampCount.textContent =
 
-stamps +
+`${stamps} / 6`;
 
-" / 6";
 
 }
 
 
 
 
+
 if(profileReward){
+
 
 
 if(
@@ -429,7 +583,7 @@ stamps >= 6
 
 profileReward.textContent =
 
-"FREE VEG MAGGI UNLOCKED";
+"🎉 FREE VEG MAGGI UNLOCKED";
 
 
 }
@@ -439,13 +593,15 @@ else{
 
 profileReward.textContent =
 
-"Locked";
+"🔒 Locked";
 
 
 }
 
 
+
 }
+
 
 
 
@@ -457,18 +613,60 @@ profileReward.textContent =
 if(profileMemberSince){
 
 
+
 if(data.createdAt){
 
 
-const date =
 
-data.createdAt.toDate();
+try{
+
+
+if(data.createdAt.toDate){
 
 
 
 profileMemberSince.textContent =
 
-date.toLocaleDateString();
+data.createdAt
+
+.toDate()
+
+.toLocaleDateString();
+
+
+
+}
+
+else{
+
+
+
+profileMemberSince.textContent =
+
+new Date(data.createdAt)
+
+.toLocaleDateString();
+
+
+
+}
+
+
+
+}
+
+catch(error){
+
+
+
+profileMemberSince.textContent =
+
+"--";
+
+
+
+}
+
 
 
 }
@@ -484,13 +682,16 @@ profileMemberSince.textContent =
 }
 
 
+
 }
+
+
 
 
 
 console.log(
 
-"Profile Loaded Successfully"
+"Profile UI Updated Successfully"
 
 );
 
@@ -500,30 +701,10 @@ console.log(
 
 
 
-catch(error){
 
-
-console.error(
-
-"Profile Load Error:",
-
-error
-
-);
-
-
-
-setDefaultProfile();
-
-
-}
-
-
-}
-
-// ============================
+// =====================================================
 // AUTH CONNECTION
-// ============================
+// =====================================================
 
 
 onAuthStateChanged(
@@ -536,9 +717,10 @@ async(user)=>{
 if(user){
 
 
+
 console.log(
 
-"PROFILE LOGIN UID:",
+"PROFILE USER UID:",
 
 user.uid
 
@@ -552,9 +734,8 @@ await loadProfileData(user);
 
 }
 
-
-
 else{
+
 
 
 window.location.href =
@@ -568,13 +749,10 @@ window.location.href =
 
 });
 
-
-
-
-
-// ============================
+// =====================================================
 // LOGOUT
-// ============================
+// PART 3
+// =====================================================
 
 
 if(logoutBtn){
@@ -622,6 +800,7 @@ alert(
 );
 
 
+
 }
 
 
@@ -637,9 +816,9 @@ alert(
 
 
 
-// ============================
+// =====================================================
 // EDIT PROFILE
-// ============================
+// =====================================================
 
 
 if(editProfileBtn){
@@ -659,6 +838,7 @@ alert(
 );
 
 
+
 }
 
 );
@@ -670,9 +850,9 @@ alert(
 
 
 
-// ============================
+// =====================================================
 // PAGE READY
-// ============================
+// =====================================================
 
 
 console.log(
@@ -689,13 +869,11 @@ console.log(
 );
 
 
-
 console.log(
 
-"Premium Profile Page Ready"
+"Premium Profile System Ready"
 
 );
-
 
 
 console.log(
