@@ -1,78 +1,86 @@
+// ============================
+// FIREBASE IMPORT
+// ============================
 
 import { auth, db } from "./firebase-config.js";
 
 import {
-onAuthStateChanged
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
 
 import {
-doc,
-getDoc
+    doc,
+    getDoc
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
 
 
+
 // ============================
-// ELEMENTS
+// HTML ELEMENTS
 // ============================
 
 
 const customerName =
-document.getElementById(
-"customerName"
-);
+document.getElementById("customerName");
 
 
 const memberId =
-document.getElementById(
-"memberId"
-);
+document.getElementById("memberId");
 
 
 const customerPhoto =
-document.getElementById(
-"customerPhoto"
-);
+document.getElementById("customerPhoto");
+
+
+
+const countdownDays =
+document.getElementById("countdownDays");
+
+
+
+const rewardCircle =
+document.getElementById("rewardCircle");
 
 
 
 
 // ============================
-// DEFAULT USER
+// DEFAULT DATA
 // ============================
 
 
 function setDefaultData(){
 
 
-if(customerName){
+    if(customerName){
 
-customerName.innerText =
-"Customer";
+        customerName.innerText =
+        "Customer";
+
+    }
+
+
+
+    if(memberId){
+
+        memberId.innerText =
+        "RIO-000000";
+
+    }
+
+
+
+    if(customerPhoto){
+
+        customerPhoto.src =
+        "assets/avatars/male.png";
+
+    }
+
 
 }
-
-
-if(memberId){
-
-memberId.innerText =
-"RIO-000000";
-
-}
-
-
-if(customerPhoto){
-
-customerPhoto.src =
-"assets/avatars/male.png";
-
-}
-
-
-}
-
-
 
 // ============================
 // LOAD CUSTOMER DATA
@@ -87,16 +95,16 @@ try{
 
 const userRef =
 doc(
-db,
-"customers",
-user.uid
+    db,
+    "customers",
+    user.uid
 );
 
 
 
 const userSnap =
 await getDoc(
-userRef
+    userRef
 );
 
 
@@ -156,7 +164,6 @@ customerPhoto.src =
 
 }
 
-
 else{
 
 
@@ -173,7 +180,7 @@ catch(error){
 
 
 console.error(
-"Card Load Error:",
+"Customer Load Error:",
 error
 );
 
@@ -186,42 +193,8 @@ setDefaultData();
 
 
 }
-
-
-
-
 // ============================
-// AUTH CHECK
-// ============================
-
-
-onAuthStateChanged(
-auth,
-(user)=>{
-
-
-if(user){
-
-
-loadCustomerData(user);
-
-
-}
-
-else{
-
-
-window.location.href =
-"login.html";
-
-
-}
-
-
-});
-
-// ============================
-// STAMP ELEMENTS
+// STAMP SYSTEM
 // ============================
 
 
@@ -238,16 +211,10 @@ const stampIds = [
 
 
 
-const rewardCircle =
-document.getElementById(
-"rewardCircle"
-);
-
-
 
 
 // ============================
-// UPDATE STAMPS
+// UPDATE STAMP DISPLAY
 // ============================
 
 
@@ -289,7 +256,6 @@ stamp.classList.remove(
 }
 
 
-
 });
 
 
@@ -300,7 +266,7 @@ stamp.classList.remove(
 
 
 // ============================
-// UPDATE REWARD
+// UPDATE REWARD CIRCLE
 // ============================
 
 
@@ -328,11 +294,9 @@ MAGGI
 `;
 
 
-
 rewardCircle.classList.add(
 "active"
 );
-
 
 
 }
@@ -351,11 +315,9 @@ ${count}/6
 `;
 
 
-
 rewardCircle.classList.remove(
 "active"
 );
-
 
 
 }
@@ -380,16 +342,16 @@ try{
 
 const userRef =
 doc(
-db,
-"customers",
-user.uid
+    db,
+    "customers",
+    user.uid
 );
 
 
 
 const userSnap =
 await getDoc(
-userRef
+    userRef
 );
 
 
@@ -429,7 +391,7 @@ catch(error){
 
 
 console.error(
-"Stamp Loading Error:",
+"Stamp Load Error:",
 error
 );
 
@@ -441,20 +403,7 @@ error
 }
 
 // ============================
-// COUNTDOWN ELEMENT
-// ============================
-
-
-const countdownDays =
-document.getElementById(
-"countdownDays"
-);
-
-
-
-
-// ============================
-// UPDATE COUNTDOWN
+// COUNTDOWN SYSTEM
 // ============================
 
 
@@ -468,7 +417,7 @@ return;
 
 
 
-const start =
+const startDate =
 new Date(
 cycleStart
 );
@@ -477,7 +426,7 @@ cycleStart
 
 const resetDate =
 new Date(
-start
+startDate
 );
 
 
@@ -493,12 +442,12 @@ new Date();
 
 
 
-const remaining =
+const difference =
 resetDate - today;
 
 
 
-if(remaining <= 0){
+if(difference <= 0){
 
 
 countdownDays.innerText =
@@ -512,16 +461,16 @@ return;
 
 
 
-const days =
+const remainingDays =
 Math.ceil(
-remaining /
+difference /
 (1000 * 60 * 60 * 24)
 );
 
 
 
 countdownDays.innerText =
-days + " DAYS";
+remainingDays + " DAYS";
 
 
 
@@ -531,25 +480,13 @@ days + " DAYS";
 
 
 
+
 // ============================
-// CONNECT USER DATA
+// LOAD RESET DATE
 // ============================
 
 
-onAuthStateChanged(
-auth,
-async(user)=>{
-
-
-if(!user)
-return;
-
-
-
-await loadStampData(
-user
-);
-
+async function loadCountdownData(user){
 
 
 try{
@@ -557,16 +494,16 @@ try{
 
 const userRef =
 doc(
-db,
-"customers",
-user.uid
+    db,
+    "customers",
+    user.uid
 );
 
 
 
 const userSnap =
 await getDoc(
-userRef
+    userRef
 );
 
 
@@ -590,6 +527,7 @@ data.cycleStart
 }
 
 
+
 }
 
 
@@ -600,7 +538,7 @@ catch(error){
 
 
 console.error(
-"Countdown Error:",
+"Countdown Load Error:",
 error
 );
 
@@ -609,36 +547,30 @@ error
 
 
 
-});
+}
 
 // ============================
-// SHOP CONTACT BUTTONS
+// CONTACT BUTTONS
 // ============================
 
 
 const callBtn =
-document.getElementById(
-"callBtn"
-);
+document.getElementById("callBtn");
 
 
 const whatsappBtn =
-document.getElementById(
-"whatsappBtn"
-);
+document.getElementById("whatsappBtn");
 
 
 const mapBtn =
-document.getElementById(
-"mapBtn"
-);
+document.getElementById("mapBtn");
 
 
 
 
 // ============================
 // SHOP DETAILS
-// बाद में अपना नंबर और लिंक डालना
+// बाद में अपना data डालेंगे
 // ============================
 
 
@@ -657,7 +589,10 @@ const MAP_LINK =
 
 
 
-// Call
+// ============================
+// CALL BUTTON
+// ============================
+
 
 if(callBtn){
 
@@ -679,7 +614,12 @@ window.location.href =
 
 
 
-// WhatsApp
+
+
+// ============================
+// WHATSAPP BUTTON
+// ============================
+
 
 if(whatsappBtn){
 
@@ -708,7 +648,11 @@ WHATSAPP_NUMBER,
 
 
 
-// Map
+
+// ============================
+// MAP BUTTON
+// ============================
+
 
 if(mapBtn){
 
@@ -732,16 +676,55 @@ MAP_LINK,
 
 }
 
-
-
-
-
-
 // ============================
-// FINAL LOAD MESSAGE
+// FINAL AUTH CONNECTION
 // ============================
+
+
+onAuthStateChanged(
+auth,
+async(user)=>{
+
+
+if(user){
+
+
+
+await loadCustomerData(
+user
+);
+
+
+
+await loadStampData(
+user
+);
+
+
+
+await loadCountdownData(
+user
+);
+
 
 
 console.log(
 "Rio Maggi Point Premium Card Loaded Successfully"
 );
+
+
+
+}
+
+else{
+
+
+window.location.href =
+"login.html";
+
+
+}
+
+
+
+});
