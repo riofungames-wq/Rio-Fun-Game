@@ -1,5 +1,5 @@
 // ======================================
-// RIO LOYALTY CLUB
+// RIO MAGGI POINT
 // MULTI STEP SIGNUP
 // PART 1
 // ======================================
@@ -7,7 +7,6 @@
 // ---------- Elements ----------
 
 const steps = document.querySelectorAll(".signup-step");
-
 const nextButtons = document.querySelectorAll(".next-btn");
 const backButtons = document.querySelectorAll(".back-btn");
 
@@ -16,12 +15,9 @@ const stepNumber = document.getElementById("stepNumber");
 
 const form = document.getElementById("signupForm");
 
-// ---------- Current Step ----------
+// ---------- Variables ----------
 
 let currentStep = 0;
-
-// ---------- User Data ----------
-
 let selectedGender = "";
 let selectedAvatar = "";
 
@@ -29,314 +25,317 @@ let selectedAvatar = "";
 
 function showStep(index){
 
-steps.forEach(step=>{
+    steps.forEach(step=>{
+        step.classList.remove("active");
+    });
 
-step.classList.remove("active");
+    steps[index].classList.add("active");
 
-});
+    stepNumber.textContent=index+1;
 
-steps[index].classList.add("active");
-
-// Progress
-
-stepNumber.textContent=index+1;
-
-const percent=((index+1)/steps.length)*100;
-
-progressFill.style.width=percent+"%";
+    const percent=((index+1)/steps.length)*100;
+    progressFill.style.width=percent+"%";
 
 }
 
-// Initial
-
 showStep(currentStep);
-// ======================================
-// PART 2
-// NEXT & BACK BUTTONS
-// ======================================
 
-// ---------- Next ----------
+// ======================================
+// NEXT BUTTON
+// ======================================
 
 nextButtons.forEach(button=>{
 
-button.addEventListener("click",()=>{
+    button.addEventListener("click",()=>{
 
-// STEP 1 VALIDATION
+        // STEP 1
 
-if(currentStep===0){
+        if(currentStep===0){
 
-const name=document.getElementById("name").value.trim();
+            const name=document.getElementById("name").value.trim();
+            const mobile=document.getElementById("mobile").value.trim();
+            const email=document.getElementById("email").value.trim();
+            const password=document.getElementById("password").value;
+            const confirm=document.getElementById("confirmPassword").value;
 
-const mobile=document.getElementById("mobile").value.trim();
+            if(
+                name===""||
+                mobile===""||
+                email===""||
+                password===""||
+                confirm===""){
 
-const email=document.getElementById("email").value.trim();
+                alert("Please fill all required fields.");
+                return;
 
-const password=document.getElementById("password").value;
+            }
 
-const confirm=document.getElementById("confirmPassword").value;
+            if(password!==confirm){
 
-if(
-name===""||
-mobile===""||
-email===""||
-password===""||
-confirm===""){
+                alert("Passwords do not match.");
+                return;
 
-alert("Please fill all required fields.");
+            }
 
-return;
+        }
 
-}
+        // STEP 2
 
-if(password!==confirm){
+        if(currentStep===1){
 
-alert("Passwords do not match.");
+            if(selectedGender===""){
 
-return;
+                alert("Please select your gender.");
+                return;
 
-}
+            }
 
-}
+        }
 
-// STEP 2 VALIDATION
+        if(currentStep<steps.length-1){
 
-if(currentStep===1){
+            currentStep++;
+            showStep(currentStep);
 
-if(selectedGender===""){
+        }
 
-alert("Please select your gender.");
+        if(currentStep===3){
 
-return;
+            updateReview();
 
-}
+        }
 
-}
-
-// GO NEXT
-
-if(currentStep<steps.length-1){
-
-currentStep++;
-
-showStep(currentStep);
-
-}
-
-// UPDATE REVIEW
-
-if(currentStep===3){
-
-updateReview();
-
-}
+    });
 
 });
 
-});
-
-// ---------- Back ----------
+// ======================================
+// BACK BUTTON
+// ======================================
 
 backButtons.forEach(button=>{
 
-button.addEventListener("click",()=>{
+    button.addEventListener("click",()=>{
 
-if(currentStep>0){
+        if(currentStep>0){
 
-currentStep--;
+            currentStep--;
+            showStep(currentStep);
 
-showStep(currentStep);
+        }
 
-}
+    });
 
 });
 
-});
 // ======================================
-// PART 3
-// GENDER + AVATAR + PHOTO UPLOAD
+// GENDER SELECT
 // ======================================
-
-// ---------- Gender Selection ----------
 
 document.querySelectorAll(".gender-card").forEach(card=>{
 
-card.addEventListener("click",()=>{
+    card.addEventListener("click",()=>{
 
-document.querySelectorAll(".gender-card").forEach(c=>{
+        document.querySelectorAll(".gender-card").forEach(c=>{
 
-c.classList.remove("active");
+            c.classList.remove("active");
+
+        });
+
+        card.classList.add("active");
+
+        selectedGender=card.dataset.gender;
+
+        loadAvatars(selectedGender);
+
+    });
 
 });
-
-card.classList.add("active");
-
-selectedGender=card.dataset.gender;
-
-loadAvatars(selectedGender);
-
-});
-
-});
+// ======================================
+// PART 2
+// AVATAR SYSTEM (FIXED)
+// ======================================
 
 // ---------- Avatar Loader ----------
 
 function loadAvatars(gender){
 
-const avatarGrid=document.getElementById("avatarGrid");
+    const avatarGrid=document.getElementById("avatarGrid");
 
-avatarGrid.innerHTML="";
+    avatarGrid.innerHTML="";
 
-for(let i=1;i<=8;i++){
+    let avatarPath="assets/avatars/male.png";
 
-const number=String(i).padStart(2,"0");
+    if(gender==="female"){
 
-const imagePath=`assets/avatars/${gender}-${number}.png`;
+        avatarPath="assets/avatars/female.png";
 
-const avatar=document.createElement("div");
+    }
 
-avatar.className="avatar-item";
+    // Main Avatar
 
-avatar.innerHTML=`
-<img src="${imagePath}" alt="Avatar">
-`;
+    const avatar=document.createElement("div");
 
-avatar.addEventListener("click",()=>{
+    avatar.className="avatar-item active";
 
-document.querySelectorAll(".avatar-item").forEach(item=>{
+    avatar.innerHTML=`
+        <img src="${avatarPath}" alt="Avatar">
+    `;
 
-item.classList.remove("active");
+    selectedAvatar=avatarPath;
 
-});
+    document.getElementById("previewImage").src=avatarPath;
+    document.getElementById("finalPreview").src=avatarPath;
 
-avatar.classList.add("active");
+    avatar.addEventListener("click",()=>{
 
-selectedAvatar=imagePath;
+        selectedAvatar=avatarPath;
 
-document.getElementById("previewImage").src=imagePath;
+        document.getElementById("previewImage").src=avatarPath;
+        document.getElementById("finalPreview").src=avatarPath;
 
-document.getElementById("finalPreview").src=imagePath;
+    });
 
-});
+    avatarGrid.appendChild(avatar);
 
-avatarGrid.appendChild(avatar);
+    // Upload Button
 
-}
+    const upload=document.createElement("div");
 
-// Upload Card
+    upload.className="avatar-item";
 
-const upload=document.createElement("div");
+    upload.innerHTML=`
+        <div style="
+            width:100%;
+            height:100%;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:30px;
+        ">
+            <i class="fa-solid fa-camera"></i>
+        </div>
+    `;
 
-upload.className="avatar-item";
+    upload.addEventListener("click",()=>{
 
-upload.innerHTML=`
-<div style="
-width:100%;
-height:100%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:32px;
-">
-<i class="fa-solid fa-camera"></i>
-</div>
-`;
+        document.getElementById("photoInput").click();
 
-upload.addEventListener("click",()=>{
+    });
 
-document.getElementById("photoInput").click();
-
-});
-
-avatarGrid.appendChild(upload);
+    avatarGrid.appendChild(upload);
 
 }
 
-// ---------- Upload Photo ----------
+// ======================================
+// PHOTO UPLOAD
+// ======================================
 
 document.getElementById("photoInput").addEventListener("change",(event)=>{
 
-const file=event.target.files[0];
+    const file=event.target.files[0];
 
-if(!file) return;
+    if(!file) return;
 
-const reader=new FileReader();
+    const reader=new FileReader();
 
-reader.onload=function(e){
+    reader.onload=function(e){
 
-selectedAvatar=e.target.result;
+        selectedAvatar=e.target.result;
 
-document.getElementById("previewImage").src=selectedAvatar;
+        document.getElementById("previewImage").src=selectedAvatar;
+        document.getElementById("finalPreview").src=selectedAvatar;
 
-document.getElementById("finalPreview").src=selectedAvatar;
+    };
 
-};
-
-reader.readAsDataURL(file);
+    reader.readAsDataURL(file);
 
 });
 // ======================================
-// PART 4
-// REVIEW + SUBMIT
+// PART 3
+// REVIEW + FIREBASE SUBMIT
 // ======================================
 
 // ---------- Review ----------
 
 function updateReview(){
 
-document.getElementById("reviewName").textContent =
-document.getElementById("name").value.trim();
+    document.getElementById("reviewName").textContent =
+    document.getElementById("name").value.trim();
 
-document.getElementById("reviewMobile").textContent =
-document.getElementById("mobile").value.trim();
+    document.getElementById("reviewMobile").textContent =
+    document.getElementById("mobile").value.trim();
 
-document.getElementById("reviewEmail").textContent =
-document.getElementById("email").value.trim();
+    document.getElementById("reviewEmail").textContent =
+    document.getElementById("email").value.trim();
 
-document.getElementById("reviewGender").textContent =
-selectedGender || "-";
+    document.getElementById("reviewGender").textContent =
+    selectedGender || "-";
+
+    if(selectedAvatar){
+
+        document.getElementById("finalPreview").src =
+        selectedAvatar;
+
+    }
 
 }
 
-// ---------- Submit ----------
+// ======================================
+// SUBMIT
+// ======================================
 
 form.addEventListener("submit",(event)=>{
 
-event.preventDefault();
+    event.preventDefault();
 
-const agree=document.getElementById("agreeTerms");
+    const agree =
+    document.getElementById("agreeTerms");
 
-if(!agree.checked){
+    if(!agree.checked){
 
-alert("Please accept the terms before creating your account.");
+        alert(
+        "Please accept the Terms & Conditions."
+        );
 
-return;
+        return;
 
-}
+    }
 
-// Firebase file इस data को use करेगी
+    window.signupData={
 
-window.signupData={
+        name:
+        document.getElementById("name")
+        .value.trim(),
 
-name:document.getElementById("name").value.trim(),
+        mobile:
+        document.getElementById("mobile")
+        .value.trim(),
 
-mobile:document.getElementById("mobile").value.trim(),
+        email:
+        document.getElementById("email")
+        .value.trim(),
 
-email:document.getElementById("email").value.trim(),
+        password:
+        document.getElementById("password")
+        .value,
 
-password:document.getElementById("password").value,
+        gender:selectedGender,
 
-gender:selectedGender,
+        avatar:selectedAvatar
 
-avatar:selectedAvatar
+    };
 
-};
+    document.dispatchEvent(
 
-// Trigger Firebase
+        new CustomEvent("signup-ready")
 
-document.dispatchEvent(
-
-new CustomEvent("signup-ready")
-
-);
+    );
 
 });
+
+// ======================================
+
+console.log(
+"🍜 Rio Maggi Point Signup Ready"
+);
