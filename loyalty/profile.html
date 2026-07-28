@@ -1,68 +1,113 @@
+
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
+
 <meta charset="UTF-8">
+
 
 <meta
 name="viewport"
 content="width=device-width, initial-scale=1.0">
 
+
+
 <title>
 
-My Profile
+Rio Maggi Point • Profile
 
 </title>
+
+
 
 <meta
 name="theme-color"
 content="#111111">
 
+
+
 <link
 rel="manifest"
 href="manifest.json">
+
+
 
 <link
 rel="stylesheet"
 href="css/profile.css">
 
+
+
 <link
 rel="preconnect"
 href="https://fonts.googleapis.com">
+
+
 
 <link
 rel="preconnect"
 href="https://fonts.gstatic.com"
 crossorigin>
 
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
+
 
 <link
+
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+
+rel="stylesheet">
+
+
+
+<link
+
 rel="stylesheet"
+
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
 
 </head>
 
+
+
 <body>
+
+
 
 <div class="page">
 
-<!-- =============================== -->
-<!-- PROFILE HEADER -->
-<!-- =============================== -->
+
+
+<div class="profile-card-main">
+
+
+
+<div class="card-glow"></div>
+
+
+
+<!-- ================= HEADER ================= -->
+
 
 <header class="profile-header">
 
+
 <h1>
+
 
 <i class="fa-solid fa-user"></i>
 
+
 My Profile
 
+
 </h1>
+
+
 
 <p>
 
@@ -70,15 +115,17 @@ Rio Maggi Point Premium Member
 
 </p>
 
+
 </header>
 
-<!-- =============================== -->
-<!-- PROFILE CARD -->
-<!-- =============================== -->
+<!-- ================= PROFILE USER ================= -->
 
-<section class="profile-card">
+
+<section class="profile-user">
+
 
 <div class="profile-photo">
+
 
 <img
 
@@ -88,7 +135,10 @@ src="assets/avatars/default.png"
 
 alt="Customer">
 
+
 </div>
+
+
 
 <h2 id="profileName">
 
@@ -96,27 +146,68 @@ Loading...
 
 </h2>
 
-<p id="profileMemberId">
 
-RIO-000000000
+
+<p class="member-id">
+
+<i class="fa-solid fa-id-card"></i>
+
+<span id="profileMemberId">
+
+RIO-000000
+
+</span>
+
 
 </p>
 
+
+
+<div class="premium-badge">
+
+
+<i class="fa-solid fa-crown"></i>
+
+
+PREMIUM MEMBER
+
+
+</div>
+
+
+
 </section>
 
-<!-- =============================== -->
-<!-- PROFILE DETAILS -->
-<!-- =============================== -->
+
+
+
+
+<!-- ================= PROFILE DETAILS ================= -->
+
 
 <section class="profile-details">
 
-<div class="detail-row">
+
+
+<div class="detail-card">
+
+
+<div class="detail-icon">
+
+📱
+
+</div>
+
+
+<div>
+
 
 <span>
 
-📱 Mobile
+Mobile
 
 </span>
+
 
 <strong id="profileMobile">
 
@@ -124,15 +215,35 @@ RIO-000000000
 
 </strong>
 
+
 </div>
 
-<div class="detail-row">
+
+</div>
+
+
+
+
+
+<div class="detail-card">
+
+
+<div class="detail-icon">
+
+📧
+
+</div>
+
+
+<div>
+
 
 <span>
 
-📧 Email
+Email
 
 </span>
+
 
 <strong id="profileEmail">
 
@@ -140,15 +251,35 @@ RIO-000000000
 
 </strong>
 
+
 </div>
 
-<div class="detail-row">
+
+</div>
+
+
+
+
+
+<div class="detail-card">
+
+
+<div class="detail-icon">
+
+🎂
+
+</div>
+
+
+<div>
+
 
 <span>
 
-🎂 Date Of Birth
+Date Of Birth
 
 </span>
+
 
 <strong id="profileDOB">
 
@@ -156,15 +287,35 @@ RIO-000000000
 
 </strong>
 
+
 </div>
 
-<div class="detail-row">
+
+</div>
+
+
+
+
+
+<div class="detail-card">
+
+
+<div class="detail-icon">
+
+🎈
+
+</div>
+
+
+<div>
+
 
 <span>
 
-🎈 Age
+Age
 
 </span>
+
 
 <strong id="profileAge">
 
@@ -172,15 +323,35 @@ RIO-000000000
 
 </strong>
 
+
 </div>
 
-<div class="detail-row">
+
+</div>
+
+
+
+
+
+<div class="detail-card">
+
+
+<div class="detail-icon">
+
+👤
+
+</div>
+
+
+<div>
+
 
 <span>
 
-👤 Category
+Category
 
 </span>
+
 
 <strong id="profileCategory">
 
@@ -188,14 +359,21 @@ RIO-000000000
 
 </strong>
 
+
 </div>
 
+
+</div>
+
+
+
 </section>
-<!-- =============================== -->
-<!-- LOYALTY SUMMARY -->
-<!-- =============================== -->
+
+<!-- ================= LOYALTY SUMMARY ================= -->
+
 
 <section class="loyalty-summary">
+
 
 <h2>
 
@@ -203,9 +381,14 @@ Loyalty Summary
 
 </h2>
 
-<div class="summary-box">
+
+
+<div class="summary-card">
+
+
 
 <div class="summary-item">
+
 
 <span>
 
@@ -213,15 +396,21 @@ Loyalty Summary
 
 </span>
 
+
 <strong id="profileStampCount">
 
 0 / 6
 
 </strong>
 
+
 </div>
 
+
+
+
 <div class="summary-item">
+
 
 <span>
 
@@ -229,15 +418,21 @@ Loyalty Summary
 
 </span>
 
+
 <strong id="profileReward">
 
 Locked
 
 </strong>
 
+
 </div>
 
+
+
+
 <div class="summary-item">
+
 
 <span>
 
@@ -245,105 +440,208 @@ Locked
 
 </span>
 
+
 <strong id="profileMemberSince">
 
 --
 
 </strong>
 
-</div>
 
 </div>
+
+
+
+</div>
+
 
 </section>
 
-<!-- =============================== -->
-<!-- ACTION BUTTONS -->
-<!-- =============================== -->
+
+
+
+
+<!-- ================= ACTION BUTTONS ================= -->
+
 
 <section class="profile-actions">
 
+
+
 <button
+
 id="editProfileBtn"
+
 class="primary-btn">
+
 
 <i class="fa-solid fa-pen"></i>
 
+
 Edit Profile
+
 
 </button>
 
+
+
+
+
 <button
+
 id="logoutBtn"
-class="secondary-btn">
+
+class="logout-btn">
+
 
 <i class="fa-solid fa-right-from-bracket"></i>
 
+
 Logout
+
 
 </button>
 
+
+
 </section>
 
-<!-- =============================== -->
-<!-- BOTTOM NAVIGATION -->
-<!-- =============================== -->
+
+
+
+
+
+<!-- ================= BOTTOM NAV ================= -->
+
 
 <nav class="bottom-nav">
 
+
+
 <a href="card.html">
+
 
 <i class="fa-solid fa-house"></i>
 
-<span>Home</span>
+
+<span>
+
+Home
+
+</span>
+
 
 </a>
+
+
+
+
 
 <a href="qr.html">
 
+
 <i class="fa-solid fa-qrcode"></i>
 
-<span>QR</span>
+
+<span>
+
+QR
+
+</span>
+
 
 </a>
+
+
+
+
 
 <a href="history.html">
 
+
 <i class="fa-solid fa-clock-rotate-left"></i>
 
-<span>History</span>
+
+<span>
+
+History
+
+</span>
+
 
 </a>
+
+
+
+
 
 <a href="feedback.html">
 
+
 <i class="fa-solid fa-heart"></i>
 
-<span>Review</span>
+
+<span>
+
+Review
+
+</span>
+
 
 </a>
 
+
+
+
+
 <a
+
 href="profile.html"
+
 class="active">
+
 
 <i class="fa-solid fa-user"></i>
 
-<span>Profile</span>
+
+<span>
+
+Profile
+
+</span>
+
 
 </a>
 
+
+
 </nav>
+
+
 
 </div>
 
-<!-- =============================== -->
-<!-- PROFILE JS -->
-<!-- =============================== -->
+
+</div>
+
+
+
+
+
+<!-- ================= PROFILE JS ================= -->
+
 
 <script
+
 type="module"
-src="js/profile.js"></script>
+
+src="js/profile.js">
+
+</script>
+
+
 
 </body>
+
+
 </html>
