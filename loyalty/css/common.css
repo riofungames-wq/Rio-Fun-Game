@@ -1,1 +1,291 @@
+/* ==========================================
+   RIO MAGGI POINT
+   COMMON APP LAYOUT
+   FIXED NAVIGATION SYSTEM
+========================================== */
 
+
+/* =========================
+GLOBAL RESET
+========================= */
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+
+}
+
+
+/* =========================
+BODY COMMON
+========================= */
+
+body{
+
+background:#111111;
+
+min-height:100vh;
+
+color:#ffffff;
+
+display:flex;
+
+justify-content:center;
+
+align-items:flex-start;
+
+padding:20px;
+
+overflow-x:hidden;
+
+}
+
+
+
+/* =========================
+MAIN PAGE WRAPPER
+========================= */
+
+.page{
+
+width:100%;
+
+max-width:340px;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+padding-bottom:90px;
+
+}
+
+
+
+/* =========================
+COMMON CARD SIZE
+========================= */
+
+
+.app-card{
+
+width:340px;
+
+min-height:560px;
+
+border-radius:28px;
+
+padding:20px;
+
+background:
+
+linear-gradient(
+145deg,
+#181818,
+#101010
+);
+
+
+border:2px solid #d4af37;
+
+
+box-shadow:
+
+0 12px 35px rgba(0,0,0,.55),
+
+0 0 18px rgba(212,175,55,.30);
+
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+
+
+/* =========================
+FIXED BOTTOM NAVIGATION
+========================= */
+
+
+.bottom-nav{
+
+position:fixed;
+
+bottom:15px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+
+width:340px;
+
+
+height:65px;
+
+
+background:
+
+rgba(17,17,17,.95);
+
+
+border:
+
+1px solid rgba(212,175,55,.35);
+
+
+border-radius:22px;
+
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+
+z-index:9999;
+
+
+box-shadow:
+
+0 5px 20px rgba(0,0,0,.5);
+
+
+backdrop-filter:blur(10px);
+
+
+}
+
+
+
+/* =========================
+NAV LINKS
+========================= */
+
+
+.bottom-nav a{
+
+text-decoration:none;
+
+color:#ffffff;
+
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+
+gap:4px;
+
+
+font-size:10px;
+
+font-weight:600;
+
+
+opacity:.65;
+
+
+transition:.25s;
+
+
+}
+
+
+
+.bottom-nav i{
+
+font-size:18px;
+
+}
+
+
+
+
+.bottom-nav a.active{
+
+color:#ffd86a;
+
+opacity:1;
+
+}
+
+
+
+
+.bottom-nav a:hover{
+
+transform:translateY(-3px);
+
+opacity:1;
+
+}
+
+
+
+/* =========================
+MOBILE
+========================= */
+
+
+@media(max-width:480px){
+
+
+body{
+
+padding:15px;
+
+}
+
+
+.page{
+
+max-width:340px;
+
+}
+
+
+.bottom-nav{
+
+width:340px;
+
+}
+
+
+.app-card{
+
+width:340px;
+
+}
+
+
+}
+
+
+
+/* =========================
+DESKTOP
+========================= */
+
+
+@media(min-width:900px){
+
+
+.app-card{
+
+transform:scale(1.08);
+
+}
+
+
+}
