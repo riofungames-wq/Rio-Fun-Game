@@ -7,11 +7,11 @@
 
 <meta
 name="viewport"
-content="width=device-width, initial-scale=1.0">
+content="width=device-width,initial-scale=1.0">
 
 <title>
 
-Stamp History
+Rio Maggi Point • History
 
 </title>
 
@@ -50,114 +50,111 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 <div class="page">
 
-<!-- ================================= -->
-<!-- HEADER -->
-<!-- ================================= -->
+<div class="history-card">
 
-<header class="history-header">
+<div class="card-glow"></div>
+
+<div class="card-shine"></div>
+
+<!-- ================= HEADER ================= -->
+
+<div class="history-header">
 
 <h1>
 
-<i class="fa-solid fa-clock-rotate-left"></i>
-
-Stamp History
+RIO MAGGI POINT
 
 </h1>
 
 <p>
 
-Your Loyalty Journey
+Premium Loyalty History
 
 </p>
 
-</header>
+</div>
 
-<!-- ================================= -->
-<!-- CUSTOMER CARD -->
-<!-- ================================= -->
+<!-- ================= CUSTOMER ================= -->
 
-<section class="customer-card">
+<div class="customer-section">
 
-<div class="customer-left">
+<div class="avatar-frame">
 
 <img
-
 id="historyPhoto"
-
-src="assets/avatars/default.png"
-
+src="assets/avatars/male.png"
 alt="Customer">
 
 </div>
 
-<div class="customer-right">
-
-<h2 id="historyName">
+<div
+class="customer-name"
+id="historyName">
 
 Loading...
 
-</h2>
+</div>
 
-<p id="historyMember">
+<div
+class="customer-id">
 
-RIO-000000000
+ID :
 
-</p>
+<span id="historyMember">
 
-<div class="history-progress">
-
-<span>
-
-Current Stamps
+RIO-000000
 
 </span>
 
-<strong id="historyStampCount">
+</div>
+
+</div>
+
+<!-- ================= CURRENT STATUS ================= -->
+
+<div class="status-box">
+
+<div class="status-title">
+
+CURRENT STAMPS
+
+</div>
+
+<div
+class="status-value"
+id="historyStampCount">
 
 0 / 6
 
-</strong>
-
 </div>
 
 </div>
+<!-- ================= TIMELINE ================= -->
 
-</section>
+<div class="section-title">
 
-<!-- ================================= -->
-<!-- TIMELINE -->
-<!-- ================================= -->
+STAMP TIMELINE
 
-<section class="timeline-section">
-
-<h2>
-
-Stamp Timeline
-
-</h2>
+</div>
 
 <div
 id="historyTimeline"
-class="timeline">
+class="timeline-list">
 
 <!-- Firebase History -->
 
 </div>
 
-</section>
-<!-- ================================= -->
-<!-- REWARD HISTORY -->
-<!-- ================================= -->
 
-<section class="reward-section">
+<!-- ================= REWARD ================= -->
 
-<h2>
+<div class="section-title">
 
-Reward Status
+REWARD STATUS
 
-</h2>
+</div>
 
-<div class="reward-card">
+<div class="reward-box">
 
 <div class="reward-icon">
 
@@ -165,11 +162,11 @@ Reward Status
 
 </div>
 
-<div class="reward-info">
+<div class="reward-details">
 
 <h3 id="rewardTitle">
 
-Free Veg Maggi
+FREE VEG MAGGI
 
 </h3>
 
@@ -183,55 +180,74 @@ Locked
 
 </div>
 
-</section>
 
-<!-- ================================= -->
-<!-- STATISTICS -->
-<!-- ================================= -->
+<!-- ================= STATS ================= -->
 
-<section class="history-stats">
+<div class="section-title">
 
-<div class="stat-box">
-
-<h3>Total Visits</h3>
-
-<strong id="totalVisits">
-
-0
-
-</strong>
+YOUR STATISTICS
 
 </div>
 
-<div class="stat-box">
+<div class="stats-grid">
 
-<h3>Total Rewards</h3>
+<div class="stat-card">
 
-<strong id="totalRewardCount">
+<div class="stat-label">
 
-0
-
-</strong>
+Total Visits
 
 </div>
 
-<div class="stat-box">
+<div
+class="stat-value"
+id="totalVisits">
 
-<h3>Member Since</h3>
+0
 
-<strong id="memberSince">
+</div>
+
+</div>
+
+
+<div class="stat-card">
+
+<div class="stat-label">
+
+Rewards
+
+</div>
+
+<div
+class="stat-value"
+id="totalRewardCount">
+
+0
+
+</div>
+
+</div>
+
+
+<div class="stat-card">
+
+<div class="stat-label">
+
+Member Since
+
+</div>
+
+<div
+class="stat-value"
+id="memberSince">
 
 --
 
-</strong>
+</div>
 
 </div>
 
-</section>
-
-<!-- ================================= -->
-<!-- BOTTOM NAVIGATION -->
-<!-- ================================= -->
+</div><!-- ================= BOTTOM NAVIGATION ================= -->
 
 <nav class="bottom-nav">
 
@@ -263,7 +279,7 @@ class="active">
 
 <a href="feedback.html">
 
-<i class="fa-solid fa-heart"></i>
+<i class="fa-solid fa-star"></i>
 
 <span>Review</span>
 
@@ -281,15 +297,29 @@ class="active">
 
 </div>
 
-<!-- ================================= -->
-<!-- HISTORY JS -->
-<!-- ================================= -->
+</div>
+
+<!-- ================= JS ================= -->
 
 <script
 type="module"
 src="js/history.js">
+</script>
+
+<script>
+
+if("serviceWorker" in navigator){
+
+window.addEventListener("load",()=>{
+
+navigator.serviceWorker.register("./service-worker.js");
+
+});
+
+}
 
 </script>
 
 </body>
+
 </html>
