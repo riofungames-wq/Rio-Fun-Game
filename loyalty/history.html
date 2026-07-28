@@ -5,60 +5,58 @@
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>
-
 Rio Maggi Point • History
-
 </title>
 
-<meta
-name="theme-color"
-content="#111111">
 
-<link
-rel="manifest"
-href="manifest.json">
+<meta name="theme-color" content="#111111">
 
-<link
-rel="stylesheet"
-href="css/history.css">
 
-<link
-rel="preconnect"
-href="https://fonts.googleapis.com">
+<link rel="manifest" href="manifest.json">
 
-<link
-rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
 
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
+<link rel="stylesheet" href="css/history.css">
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
 
 </head>
 
+
 <body>
+
 
 <div class="page">
 
+
 <div class="history-card">
+
 
 <div class="card-glow"></div>
 
+
 <div class="card-shine"></div>
 
-<!-- ================= HEADER ================= -->
+
+
+<!-- HEADER -->
+
 
 <div class="history-header">
+
 
 <h1>
 
@@ -66,37 +64,55 @@ RIO MAGGI POINT
 
 </h1>
 
+
 <p>
 
 Premium Loyalty History
 
 </p>
 
+
 </div>
 
-<!-- ================= CUSTOMER ================= -->
 
-<div class="customer-section">
+
+
+
+<!-- CUSTOMER PROFILE -->
+
+
+<section class="customer-section">
+
 
 <div class="avatar-frame">
 
+
 <img
+
 id="historyPhoto"
+
 src="assets/avatars/male.png"
+
 alt="Customer">
+
 
 </div>
 
-<div
+
+
+<h2
+
 class="customer-name"
+
 id="historyName">
 
 Loading...
 
-</div>
+</h2>
 
-<div
-class="customer-id">
+
+
+<p class="customer-id">
 
 ID :
 
@@ -106,13 +122,21 @@ RIO-000000
 
 </span>
 
-</div>
+</p>
 
-</div>
 
-<!-- ================= CURRENT STATUS ================= -->
 
-<div class="status-box">
+</section>
+
+
+
+
+
+<!-- CURRENT STAMP STATUS -->
+
+
+<section class="status-box">
+
 
 <div class="status-title">
 
@@ -120,16 +144,31 @@ CURRENT STAMPS
 
 </div>
 
+
+
 <div
+
 class="status-value"
+
 id="historyStampCount">
 
 0 / 6
 
 </div>
 
-</div>
-<!-- ================= TIMELINE ================= -->
+
+
+</section>
+
+
+
+
+
+<!-- TIMELINE -->
+
+
+<section>
+
 
 <div class="section-title">
 
@@ -137,16 +176,25 @@ STAMP TIMELINE
 
 </div>
 
+
+
 <div
+
 id="historyTimeline"
+
 class="timeline-list">
 
-<!-- Firebase History -->
 
 </div>
 
 
-<!-- ================= REWARD ================= -->
+</section>
+
+<!-- ================= REWARD STATUS ================= -->
+
+
+<section>
+
 
 <div class="section-title">
 
@@ -154,7 +202,15 @@ REWARD STATUS
 
 </div>
 
-<div class="reward-box">
+
+
+<div
+
+class="reward-box"
+
+id="rewardBox">
+
+
 
 <div class="reward-icon">
 
@@ -162,7 +218,10 @@ REWARD STATUS
 
 </div>
 
+
+
 <div class="reward-details">
+
 
 <h3 id="rewardTitle">
 
@@ -170,18 +229,32 @@ FREE VEG MAGGI
 
 </h3>
 
+
 <p id="rewardStatus">
 
-Locked
+🔒 Locked
 
 </p>
 
-</div>
 
 </div>
 
 
-<!-- ================= STATS ================= -->
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- ================= STATISTICS ================= -->
+
+
+<section>
+
 
 <div class="section-title">
 
@@ -189,9 +262,14 @@ YOUR STATISTICS
 
 </div>
 
+
+
 <div class="stats-grid">
 
+
+
 <div class="stat-card">
+
 
 <div class="stat-label">
 
@@ -199,37 +277,51 @@ Total Visits
 
 </div>
 
+
 <div
+
 class="stat-value"
+
 id="totalVisits">
 
 0
 
 </div>
 
+
 </div>
+
+
 
 
 <div class="stat-card">
 
+
 <div class="stat-label">
 
-Rewards
+Rewards Earned
 
 </div>
 
+
 <div
+
 class="stat-value"
+
 id="totalRewardCount">
 
 0
 
 </div>
 
+
 </div>
 
 
+
+
 <div class="stat-card">
+
 
 <div class="stat-label">
 
@@ -237,88 +329,197 @@ Member Since
 
 </div>
 
+
 <div
+
 class="stat-value"
+
 id="memberSince">
 
 --
 
 </div>
 
+
 </div>
 
-</div><!-- ================= BOTTOM NAVIGATION ================= -->
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!-- ================= BOTTOM NAVIGATION ================= -->
+
 
 <nav class="bottom-nav">
 
+
+
 <a href="card.html">
+
 
 <i class="fa-solid fa-house"></i>
 
-<span>Home</span>
+
+<span>
+
+Home
+
+</span>
+
 
 </a>
+
+
+
+
 
 <a href="qr.html">
 
+
 <i class="fa-solid fa-qrcode"></i>
 
-<span>QR</span>
+
+<span>
+
+QR
+
+</span>
+
 
 </a>
 
+
+
+
+
 <a
+
 href="history.html"
+
 class="active">
+
 
 <i class="fa-solid fa-clock-rotate-left"></i>
 
-<span>History</span>
+
+<span>
+
+History
+
+</span>
+
 
 </a>
+
+
+
+
 
 <a href="feedback.html">
 
+
 <i class="fa-solid fa-star"></i>
 
-<span>Review</span>
+
+<span>
+
+Review
+
+</span>
+
 
 </a>
+
+
+
+
 
 <a href="profile.html">
 
+
 <i class="fa-solid fa-user"></i>
 
-<span>Profile</span>
+
+<span>
+
+Profile
+
+</span>
+
 
 </a>
 
+
+
+
 </nav>
 
-</div>
+
+
 
 </div>
 
-<!-- ================= JS ================= -->
+
+</div>
+
+
+
+
+
+<!-- HISTORY SCRIPT -->
+
 
 <script
+
 type="module"
+
 src="js/history.js">
+
 </script>
+
+
+
+
 
 <script>
 
+
 if("serviceWorker" in navigator){
 
-window.addEventListener("load",()=>{
 
-navigator.serviceWorker.register("./service-worker.js");
+window.addEventListener(
 
-});
+"load",
+
+()=>{
+
+
+navigator.serviceWorker.register(
+
+"./service-worker.js"
+
+);
+
 
 }
 
+);
+
+
+}
+
+
 </script>
+
+
 
 </body>
 
