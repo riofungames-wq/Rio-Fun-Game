@@ -1,883 +1,274 @@
 // =====================================================
 // RIO MAGGI POINT
 // PROFILE.JS
-// PREMIUM CUSTOMER PROFILE SYSTEM
+// PREMIUM VERSION
 // PART 1
 // =====================================================
 
-
-// ============================
-// FIREBASE IMPORT
-// ============================
-
 import { auth, db } from "./firebase-config.js";
 
+import {
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 import {
-
-onAuthStateChanged,
-signOut
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-
-
-import {
-
-doc,
-getDoc
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-
-
-
-// ============================
-// HTML ELEMENTS
-// ============================
-
-
-const profilePhoto =
-
-document.getElementById(
-"profilePhoto"
-);
-
-
-
-const profileName =
-
-document.getElementById(
-"profileName"
-);
-
-
-
-const profileMemberId =
-
-document.getElementById(
-"profileMemberId"
-);
-
-
-
-const profileMobile =
-
-document.getElementById(
-"profileMobile"
-);
-
-
-
-const profileEmail =
-
-document.getElementById(
-"profileEmail"
-);
-
-
-
-const profileDOB =
-
-document.getElementById(
-"profileDOB"
-);
-
-
-
-const profileAge =
-
-document.getElementById(
-"profileAge"
-);
-
-
-
-const profileCategory =
-
-document.getElementById(
-"profileCategory"
-);
-
-
-
-const profileStampCount =
-
-document.getElementById(
-"profileStampCount"
-);
-
-
-
-const profileReward =
-
-document.getElementById(
-"profileReward"
-);
-
-
-
-const profileMemberSince =
-
-document.getElementById(
-"profileMemberSince"
-);
-
-
-
-const logoutBtn =
-
-document.getElementById(
-"logoutBtn"
-);
-
-
-
-const editProfileBtn =
-
-document.getElementById(
-"editProfileBtn"
-);
-
-
-
-
-// ============================
-// DEFAULT DATA
-// ============================
-
-
-function setDefaultProfile(){
-
-
-
-if(profilePhoto){
-
-profilePhoto.src =
-
-"assets/avatars/default.png";
-
-}
-
-
-
-if(profileName){
-
-profileName.textContent =
-
-"Customer";
-
-}
-
-
-
-if(profileMemberId){
-
-profileMemberId.textContent =
-
-"RIO-000000";
-
-}
-
-
-
-if(profileMobile){
-
-profileMobile.textContent =
-
-"--";
-
-}
-
-
-
-if(profileEmail){
-
-profileEmail.textContent =
-
-"--";
-
-}
-
-
-
-if(profileDOB){
-
-profileDOB.textContent =
-
-"--";
-
-}
-
-
-
-if(profileAge){
-
-profileAge.textContent =
-
-"--";
-
-}
-
-
-
-if(profileCategory){
-
-profileCategory.textContent =
-
-"PREMIUM MEMBER";
-
-}
-
-
-
-if(profileStampCount){
-
-profileStampCount.textContent =
-
-"0 / 6";
-
-}
-
-
-
-if(profileReward){
-
-profileReward.textContent =
-
-"Locked";
-
-}
-
-
-
-if(profileMemberSince){
-
-profileMemberSince.textContent =
-
-"--";
-
-}
-
-
-}
-
-
-
-// ============================
-// LOAD PROFILE DATA
-// ============================
-
-
-async function loadProfileData(user){
-
-
-try{
-
-
-const customerRef =
-
-doc(
-
-db,
-
-"customers",
-
-user.uid
-
-);
-
-
-
-const customerSnap =
-
-await getDoc(customerRef);
-
-
-
-if(!customerSnap.exists()){
-
-
-console.log(
-
-"Customer Document Not Found"
-
-);
-
-
-setDefaultProfile();
-
-
-return;
-
-
-}
-
-
-
-const data =
-
-customerSnap.data();
-
-
-
-console.log(
-
-"Customer Data:",
-
-data
-
-);
-
-
-
-updateProfileUI(data);
-
-
-
-}
-
-
-catch(error){
-
-
-console.error(
-
-"Profile Loading Error:",
-
-error
-
-);
-
-
-setDefaultProfile();
-
-
-}
-
-
-
-}
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // =====================================================
-// UPDATE PROFILE UI
+// ELEMENTS
+// =====================================================
+
+const profilePhoto =
+document.getElementById("profilePhoto");
+
+const profileName =
+document.getElementById("profileName");
+
+const profileMemberId =
+document.getElementById("profileMemberId");
+
+const profileMobile =
+document.getElementById("profileMobile");
+
+const profileEmail =
+document.getElementById("profileEmail");
+
+const profileDOB =
+document.getElementById("profileDOB");
+
+const profileAge =
+document.getElementById("profileAge");
+
+const profileCategory =
+document.getElementById("profileCategory");
+
+const profileStampCount =
+document.getElementById("profileStampCount");
+
+const profileReward =
+document.getElementById("profileReward");
+
+const profileMemberSince =
+document.getElementById("profileMemberSince");
+
+const logoutBtn =
+document.getElementById("logoutBtn");
+
+const editProfileBtn =
+document.getElementById("editProfileBtn");
+
+// =====================================================
+// VARIABLES
+// =====================================================
+
+let currentCustomer = null;
+
+// =====================================================
+// AUTH
+// =====================================================
+
+onAuthStateChanged(auth, async(user)=>{
+
+    if(!user){
+
+        location.href="login.html";
+
+        return;
+
+    }
+
+    try{
+
+        const customerRef =
+        doc(db,"customers",user.uid);
+
+        const customerSnap =
+        await getDoc(customerRef);
+
+        if(!customerSnap.exists()){
+
+            alert("Customer Not Found");
+
+            return;
+
+        }
+
+        currentCustomer =
+        customerSnap.data();
+
+        currentCustomer.uid =
+        user.uid;
+
+        loadProfile(currentCustomer);
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        alert("Unable To Load Profile");
+
+    }
+
+});
+// =====================================================
+// LOAD PROFILE
 // PART 2
 // =====================================================
 
+function loadProfile(customer){
 
-function updateProfileUI(data){
+    profilePhoto.src =
+    customer.photoURL ||
+    customer.avatar ||
+    "assets/avatars/default.png";
 
+    profileName.textContent =
+    customer.name || "Customer";
 
+    profileMemberId.textContent =
+    customer.memberId || "RIO-000000";
 
-// ============================
-// BASIC INFO
-// ============================
+    profileMobile.textContent =
+    customer.mobile || "--";
 
+    profileEmail.textContent =
+    customer.email || "--";
 
-if(profileName){
+    profileDOB.textContent =
+    customer.dob || "--";
 
-profileName.textContent =
+    profileAge.textContent =
+    customer.age || "--";
 
-data.name ||
+    profileCategory.textContent =
+    customer.gender
+    ? customer.gender.toUpperCase()
+    : "PREMIUM MEMBER";
 
-"Customer";
+    const stamps =
+    Number(customer.stamps || 0);
 
-}
+    profileStampCount.textContent =
+    `${stamps} / 6`;
 
+    if(
+        customer.rewardUnlocked === true ||
+        stamps >= 6
+    ){
 
+        profileReward.textContent =
+        "FREE VEG MAGGI UNLOCKED";
 
+    }
 
-if(profileMemberId){
+    else{
 
-profileMemberId.textContent =
+        profileReward.textContent =
+        "Locked";
 
-data.memberId ||
+    }
 
-"RIO-000000";
+    if(customer.createdAt){
 
-}
+        try{
 
+            const date =
+            customer.createdAt.toDate
+            ? customer.createdAt.toDate()
+            : new Date(customer.createdAt.seconds * 1000);
 
+            profileMemberSince.textContent =
+            date.toLocaleDateString();
 
+        }
 
+        catch{
 
-// ============================
-// PHOTO
-// ============================
+            profileMemberSince.textContent =
+            "--";
 
+        }
 
-if(profilePhoto){
+    }
 
+    else{
 
-profilePhoto.src =
+        profileMemberSince.textContent =
+        "--";
 
-data.photoURL ||
-
-data.avatar ||
-
-"assets/avatars/default.png";
-
-
-}
-
-
-
-
-// ============================
-// CONTACT DETAILS
-// ============================
-
-
-if(profileMobile){
-
-profileMobile.textContent =
-
-data.mobile ||
-
-"--";
-
-
-}
-
-
-
-
-
-if(profileEmail){
-
-profileEmail.textContent =
-
-data.email ||
-
-"--";
-
+    }
 
 }
-
-
-
-
-
-// ============================
-// PERSONAL DETAILS
-// ============================
-
-
-if(profileDOB){
-
-profileDOB.textContent =
-
-data.dob ||
-
-"--";
-
-
-}
-
-
-
-
-
-if(profileAge){
-
-profileAge.textContent =
-
-data.age ||
-
-"--";
-
-
-}
-
-
-
-
-
-if(profileCategory){
-
-
-if(data.category){
-
-
-profileCategory.textContent =
-
-data.category.toUpperCase();
-
-
-}
-
-else if(data.gender){
-
-
-profileCategory.textContent =
-
-data.gender.toUpperCase();
-
-
-}
-
-else{
-
-
-profileCategory.textContent =
-
-"PREMIUM MEMBER";
-
-
-}
-
-
-}
-
-
-
-
-
-// ============================
-// LOYALTY DATA
-// ============================
-
-
-const stamps =
-
-Number(data.stamps || 0);
-
-
-
-
-
-if(profileStampCount){
-
-
-profileStampCount.textContent =
-
-`${stamps} / 6`;
-
-
-}
-
-
-
-
-
-if(profileReward){
-
-
-
-if(
-
-data.rewardUnlocked === true ||
-
-stamps >= 6
-
-){
-
-
-profileReward.textContent =
-
-"🎉 FREE VEG MAGGI UNLOCKED";
-
-
-}
-
-else{
-
-
-profileReward.textContent =
-
-"🔒 Locked";
-
-
-}
-
-
-
-}
-
-
-
-
-// ============================
-// MEMBER SINCE
-// ============================
-
-
-if(profileMemberSince){
-
-
-
-if(data.createdAt){
-
-
-
-try{
-
-
-if(data.createdAt.toDate){
-
-
-
-profileMemberSince.textContent =
-
-data.createdAt
-
-.toDate()
-
-.toLocaleDateString();
-
-
-
-}
-
-else{
-
-
-
-profileMemberSince.textContent =
-
-new Date(data.createdAt)
-
-.toLocaleDateString();
-
-
-
-}
-
-
-
-}
-
-catch(error){
-
-
-
-profileMemberSince.textContent =
-
-"--";
-
-
-
-}
-
-
-
-}
-
-else{
-
-
-profileMemberSince.textContent =
-
-"--";
-
-
-}
-
-
-
-}
-
-
-
-
-
-console.log(
-
-"Profile UI Updated Successfully"
-
-);
-
-
-
-}
-
-
-
-
 // =====================================================
-// AUTH CONNECTION
-// =====================================================
-
-
-onAuthStateChanged(
-
-auth,
-
-async(user)=>{
-
-
-if(user){
-
-
-
-console.log(
-
-"PROFILE USER UID:",
-
-user.uid
-
-);
-
-
-
-await loadProfileData(user);
-
-
-
-}
-
-else{
-
-
-
-window.location.href =
-
-"login.html";
-
-
-}
-
-
-
-});
-
-// =====================================================
-// LOGOUT
+// BUTTON EVENTS
 // PART 3
 // =====================================================
 
 
-if(logoutBtn){
-
-
-logoutBtn.addEventListener(
-
-"click",
-
-async()=>{
-
-
-try{
-
-
-await signOut(auth);
-
-
-
-window.location.href =
-
-"login.html";
-
-
-
-}
-
-catch(error){
-
-
-console.error(
-
-"Logout Error:",
-
-error
-
-);
-
-
-
-alert(
-
-"Logout Failed"
-
-);
-
-
-
-}
-
-
-
-}
-
-);
-
-
-}
-
-
-
-
-
-// =====================================================
+// ============================
 // EDIT PROFILE
-// =====================================================
-
+// ============================
 
 if(editProfileBtn){
 
+    editProfileBtn.addEventListener("click",()=>{
 
-editProfileBtn.addEventListener(
+        alert("Edit Profile feature will be available soon.");
 
-"click",
-
-()=>{
-
-
-alert(
-
-"Edit Profile Feature Coming Soon"
-
-);
-
-
-
-}
-
-);
-
+    });
 
 }
 
 
+// ============================
+// LOGOUT
+// ============================
 
+if(logoutBtn){
+
+    logoutBtn.addEventListener("click",async()=>{
+
+        const confirmLogout =
+
+        confirm("Do you want to logout?");
+
+        if(!confirmLogout){
+
+            return;
+
+        }
+
+        try{
+
+            await signOut(auth);
+
+            location.href="login.html";
+
+        }
+
+        catch(error){
+
+            console.error(error);
+
+            alert("Logout Failed");
+
+        }
+
+    });
+
+}
 
 
 // =====================================================
-// PAGE READY
+// READY
 // =====================================================
 
-
-console.log(
-
-"================================"
-
-);
-
-
-console.log(
-
-"🍜 Rio Maggi Point"
-
-);
-
-
-console.log(
-
-"Premium Profile System Ready"
-
-);
-
-
-console.log(
-
-"================================"
-
-);
+console.log("================================");
+console.log("🍜 Rio Maggi Point");
+console.log("Profile Page Ready");
+console.log("================================");
