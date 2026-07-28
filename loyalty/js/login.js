@@ -1,7 +1,7 @@
 // =====================================================
 // RIO MAGGI POINT
-// LOGIN.JS
-// PART 1
+// CUSTOMER LOGIN
+// PART 1 / 4
 // =====================================================
 
 import { auth, db } from "./firebase-config.js";
@@ -17,7 +17,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // =====================================================
-// ELEMENTS
+// DOM
 // =====================================================
 
 const loginForm =
@@ -32,56 +32,57 @@ document.getElementById("password");
 const loginBtn =
 document.getElementById("loginBtn");
 
+const togglePassword =
+document.getElementById("togglePassword");
+
 // =====================================================
 // AUTO LOGIN
 // =====================================================
 
-onAuthStateChanged(auth, async(user)=>{
+onAuthStateChanged(auth, async (user) => {
 
-    if(!user) return;
+    if (!user) return;
 
-    try{
+    try {
 
         const customerRef =
-        doc(db,"customers",user.uid);
+        doc(db, "customers", user.uid);
 
         const customerSnap =
         await getDoc(customerRef);
 
-        if(customerSnap.exists()){
+        if (customerSnap.exists()) {
 
-            window.location.href =
-            "card.html";
+            window.location.href = "card.html";
 
         }
 
     }
 
-    catch(error){
+    catch (error) {
 
         console.error(error);
 
     }
 
 });
-
 // =====================================================
 // LOGIN
 // =====================================================
 
-loginForm.addEventListener("submit", async(e)=>{
+loginForm.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
     const userEmail =
-    email.value.trim();
+        email.value.trim();
 
     const userPassword =
-    password.value;
+        password.value.trim();
 
-    if(!userEmail || !userPassword){
+    if (!userEmail || !userPassword) {
 
-        alert("Please Fill All Fields");
+        alert("Please enter Email and Password.");
 
         return;
 
@@ -89,37 +90,34 @@ loginForm.addEventListener("submit", async(e)=>{
 
     loginBtn.disabled = true;
 
-    loginBtn.innerHTML = "Signing In...";
-      try{
+    loginBtn.innerHTML =
+        '<i class="fa-solid fa-spinner fa-spin"></i> Signing In...';
 
+    try {
+
+        // Firebase Login
         const credential =
+            await signInWithEmailAndPassword(
+                auth,
+                userEmail,
+                userPassword
+            );
 
-        await signInWithEmailAndPassword(
+        const uid =
+            credential.user.uid;
 
-            auth,
-
-            userEmail,
-
-            userPassword
-
-        );
-
-        const uid = credential.user.uid;
-
+        // Customer Data
         const customerRef =
-
-        doc(db,"customers",uid);
+            doc(db, "customers", uid);
 
         const customerSnap =
+            await getDoc(customerRef);
 
-        await getDoc(customerRef);
+        if (!customerSnap.exists()) {
 
-        if(!customerSnap.exists()){
-
-            alert("Customer Record Not Found");
+            alert("Customer record not found.");
 
             loginBtn.disabled = false;
-
             loginBtn.innerHTML = "Login";
 
             return;
@@ -127,116 +125,88 @@ loginForm.addEventListener("submit", async(e)=>{
         }
 
         const customer =
+            customerSnap.data();
 
-        customerSnap.data();
+        // Blocked Account
+        if (customer.status === "blocked") {
 
-        // =====================================
-        // OPTIONAL ACCOUNT CHECK
-        // =====================================
-
-        if(customer.status === "blocked"){
-
-            alert("Your Account Has Been Blocked.");
+            alert("Your account has been blocked.");
 
             loginBtn.disabled = false;
-
             loginBtn.innerHTML = "Login";
 
             return;
 
         }
 
-        // =====================================
-        // SUCCESS
-        // =====================================
+        // Success
+        alert(`Welcome ${customer.name}!`);
 
-        alert(
-
-            `Welcome ${customer.name}!`
-
-        );
-
-        window.location.href =
-
-        "card.html";
+        window.location.href = "card.html";
 
     }
 
-    catch(error){
+    catch (error) {
 
         console.error(error);
 
-        let message =
+        let message = "Login Failed";
 
-        "Login Failed";
-
-        switch(error.code){
+        switch (error.code) {
 
             case "auth/invalid-credential":
-
-                message =
-
-                "Invalid Email Or Password";
-
+                message = "Invalid Email or Password";
                 break;
 
             case "auth/user-disabled":
-
-                message =
-
-                "Account Disabled";
-
+                message = "Your account has been disabled";
                 break;
 
             case "auth/too-many-requests":
+                message = "Too many attempts. Try again later.";
+                break;
 
-                message =
-
-                "Too Many Attempts. Try Again Later.";
-
+            case "auth/network-request-failed":
+                message = "No Internet Connection";
                 break;
 
         }
 
         alert(message);
-          finally{
+
+    }
+
+    finally {
 
         loginBtn.disabled = false;
 
-        loginBtn.innerHTML = "Login";
+        loginBtn.innerHTML =
+            '<i class="fa-solid fa-right-to-bracket"></i> Login';
 
     }
 
 });
-
 // =====================================================
 // PASSWORD SHOW / HIDE
 // =====================================================
 
-const togglePassword =
-document.getElementById("togglePassword");
+if (togglePassword) {
 
-if(togglePassword){
+    togglePassword.addEventListener("click", () => {
 
-    togglePassword.addEventListener("click",()=>{
+        if (password.type === "password") {
 
-        if(password.type==="password"){
+            password.type = "text";
 
-            password.type="text";
+            togglePassword.innerHTML =
+                '<i class="fa-solid fa-eye-slash"></i>';
 
-            togglePassword.classList.remove("fa-eye");
+        } else {
 
-            togglePassword.classList.add("fa-eye-slash");
+            password.type = "password";
 
-        }
-
-        else{
-
-            password.type="password";
-
-            togglePassword.classList.remove("fa-eye-slash");
-
-            togglePassword.classList.add("fa-eye");
+            togglePassword.innerHTML =
+                '<i class="fa-solid fa-eye"></i>';
 
         }
 
@@ -251,26 +221,77 @@ if(togglePassword){
 const forgotPassword =
 document.getElementById("forgotPassword");
 
-if(forgotPassword){
+if (forgotPassword) {
 
-    forgotPassword.addEventListener("click",(e)=>{
+    forgotPassword.addEventListener("click", (e) => {
 
         e.preventDefault();
 
-        window.location.href="forgot-password.html";
+        window.location.href =
+        "forgot-password.html";
 
     });
 
 }
 
 // =====================================================
+// ENTER KEY SUPPORT
+// =====================================================
+
+[email, password].forEach(input => {
+
+    input?.addEventListener("keypress", (e) => {
+
+        if (e.key === "Enter") {
+
+            loginForm.requestSubmit();
+
+        }
+
+    });
+
+});
+// =====================================================
+// WINDOW FOCUS CHECK
+// =====================================================
+
+window.addEventListener("focus", async () => {
+
+    if (!auth.currentUser) return;
+
+    try {
+
+        const customerRef =
+            doc(db, "customers", auth.currentUser.uid);
+
+        const customerSnap =
+            await getDoc(customerRef);
+
+        if (!customerSnap.exists()) {
+
+            alert("Customer record no longer exists.");
+
+            return;
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+});
+
+// =====================================================
 // READY
 // =====================================================
 
-console.log("================================");
-
+console.log("====================================");
 console.log("🍜 Rio Maggi Point");
-
-console.log("Login Ready");
-
-console.log("================================");
+console.log("Customer Login Ready");
+console.log("Firebase Authentication Connected");
+console.log("Firestore Connected");
+console.log("====================================");
