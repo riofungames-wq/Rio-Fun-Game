@@ -1,24 +1,27 @@
-// =====================================================
+// =======================================================
 // RIO MAGGI POINT
-// CARD.JS
-// PREMIUM VERSION
+// PREMIUM LOYALTY CARD
 // PART 1
-// =====================================================
+// =======================================================
 
 import { auth, db } from "./firebase-config.js";
 
 import {
-    onAuthStateChanged
+onAuthStateChanged,
+signOut
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 import {
-    doc,
-    getDoc
+doc,
+getDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-// =====================================================
-// ELEMENTS
-// =====================================================
+// =======================================================
+// DOM
+// =======================================================
+
+const loyaltyCard =
+document.getElementById("loyaltyCard");
 
 const customerPhoto =
 document.getElementById("customerPhoto");
@@ -29,22 +32,8 @@ document.getElementById("customerName");
 const memberId =
 document.getElementById("memberId");
 
-const happyCircle =
-document.getElementById("happyCircle");
-
-const rewardCircle =
-document.querySelector(".reward-circle");
-
-const stampCircles = [
-
-document.getElementById("stamp1"),
-document.getElementById("stamp2"),
-document.getElementById("stamp3"),
-document.getElementById("stamp4"),
-document.getElementById("stamp5"),
-document.getElementById("stamp6")
-
-];
+const playGameBtn =
+document.getElementById("playGameBtn");
 
 const callShopBtn =
 document.getElementById("callShopBtn");
@@ -55,267 +44,323 @@ document.getElementById("whatsappBtn");
 const mapBtn =
 document.getElementById("mapBtn");
 
-// =====================================================
-// SHOP INFO
-// =====================================================
-
-const SHOP_PHONE = "8871689650";
-
-const SHOP_WHATSAPP = "918871689650";
-
-const SHOP_MAP =
-"https://www.google.com/maps/place/Rio+Aqua+Decor+Aquarium+Shop";
-// =====================================================
-// AUTH CHECK
-// =====================================================
+// =======================================================
+// AUTO LOGIN CHECK
+// =======================================================
 
 onAuthStateChanged(auth, async(user)=>{
 
-    if(!user){
+if(!user){
 
-        window.location.href="login.html";
+window.location.href="login.html";
 
-        return;
+return;
 
-    }
+}
 
-    try{
+try{
 
-        const customerRef =
-        doc(db,"customers",user.uid);
+const customerRef =
+doc(db,"customers",user.uid);
 
-        const customerSnap =
-        await getDoc(customerRef);
+const customerSnap =
+await getDoc(customerRef);
 
-        if(!customerSnap.exists()){
+if(!customerSnap.exists()){
 
-            alert("Customer not found.");
+alert("Customer record not found.");
 
-            return;
+window.location.href="login.html";
 
-        }
+return;
 
-        const customer =
-        customerSnap.data();
+}
 
-        loadCustomer(customer);
+window.customer =
+customerSnap.data();
 
-    }
+loadCustomer(window.customer);
 
-    catch(error){
+}
 
-        console.error(error);
+catch(error){
 
-        alert("Unable to load customer.");
+console.error(error);
 
-    }
+alert("Unable to load customer.");
+
+}
 
 });
-
-// =====================================================
+// =======================================================
 // LOAD CUSTOMER
-// =====================================================
+// PART 2
+// =======================================================
 
 function loadCustomer(customer){
 
-    // Customer Name
+// -----------------------------
+// Name
+// -----------------------------
 
-    customerName.textContent =
-    customer.name || "Customer";
+customerName.textContent =
+customer.name || "Customer";
 
-    // Member ID
+// -----------------------------
+// Member ID
+// -----------------------------
 
-    memberId.textContent =
-    customer.memberId || "RIO-000000";
+memberId.textContent =
+customer.memberId || "RIO-000000";
 
-    // Avatar
+// -----------------------------
+// Theme
+// -----------------------------
 
-    if(customer.photoURL){
+loyaltyCard.classList.remove(
+"male-theme",
+"female-theme"
+);
 
-        customerPhoto.src =
-        customer.photoURL;
+if(customer.gender === "female"){
 
-    }
+loyaltyCard.classList.add("female-theme");
 
-    // Theme
+}else{
 
-    applyTheme(customer.gender);
-
-    // Stamp
-
-    updateStamps(customer.stamps || 0);
-
-    // Reward
-
-    updateReward(customer.rewardUnlocked);
-
-    // Happy Mascot
-
-    updateHappyMascot(customer.gender);
+loyaltyCard.classList.add("male-theme");
 
 }
 
-// =====================================================
-// APPLY THEME
-// =====================================================
+// -----------------------------
+// Profile Photo
+// -----------------------------
 
-function applyTheme(gender){
+if(customer.photoURL){
 
-    const card =
-    document.getElementById("loyaltyCard");
-
-    if(!card) return;
-
-    card.classList.remove(
-        "male-theme",
-        "female-theme"
-    );
-
-    if(
-        gender &&
-        gender.toLowerCase()=="female"
-    ){
-
-        card.classList.add(
-        "female-theme");
-
-    }
-
-    else{
-
-        card.classList.add(
-        "male-theme");
-
-    }
+customerPhoto.src =
+customer.photoURL;
 
 }
-// =====================================================
-// STAMP UPDATE
-// =====================================================
+else if(customer.avatar){
 
-function updateStamps(stamps){
+customerPhoto.src =
+customer.avatar;
 
-    stampCircles.forEach((circle,index)=>{
+}
+else{
 
-        circle.classList.remove("active");
-
-        if(index < stamps){
-
-            circle.classList.add("active");
-
-            circle.innerHTML="✔";
-
-        }
-
-        else{
-
-            circle.innerHTML=`<span>${index+1}</span>`;
-
-        }
-
-    });
+customerPhoto.src =
+"assets/avatars/default.png";
 
 }
 
-// =====================================================
-// REWARD
-// =====================================================
+// -----------------------------
+// Play Button
+// -----------------------------
 
-function updateReward(unlocked){
+playGameBtn.onclick = ()=>{
 
-    if(!rewardCircle) return;
+window.open(
 
-    if(unlocked){
+"https://riofungames-wq.github.io/Rio-Fun-Game/",
 
-        rewardCircle.classList.add("active");
+"_blank"
 
-    }
+);
 
-    else{
+};
 
-        rewardCircle.classList.remove("active");
+// -----------------------------
+// Load Stamps
+// -----------------------------
 
-    }
+loadStamps(customer);
+
+}
+// =======================================================
+// STAMP SYSTEM
+// PART 3
+// =======================================================
+
+function loadStamps(customer){
+
+const totalStamps =
+Number(customer.stamps || 0);
+
+for(let i=1;i<=6;i++){
+
+const stamp =
+document.getElementById("stamp"+i);
+
+const date =
+document.getElementById("date"+i);
+
+if(!stamp) continue;
+
+stamp.classList.remove("active");
+
+if(totalStamps >= i){
+
+stamp.classList.add("active");
+
+if(customer.gender === "female"){
+
+stamp.innerHTML = "<span>💖</span>";
+
+}else{
+
+stamp.innerHTML = "<span>👑</span>";
 
 }
 
-// =====================================================
-// HAPPY MASCOT
-// =====================================================
+if(date){
 
-function updateHappyMascot(gender){
+const stampDate =
+customer["stampDate"+i];
 
-    const img =
-    happyCircle.querySelector("img");
-
-    if(!img) return;
-
-    if(
-        gender &&
-        gender.toLowerCase()=="female"
-    ){
-
-        img.src=
-        "assets/mascot/rio-female.png";
-
-    }
-
-    else{
-
-        img.src=
-        "assets/mascot/rio-male.png";
-
-    }
+date.textContent =
+stampDate || "--";
 
 }
 
-// =====================================================
-// CALL BUTTON
-// =====================================================
+}else{
 
-callShopBtn.addEventListener("click",()=>{
+stamp.innerHTML =
+`<span>${i}</span>`;
 
-    window.location.href=
-    `tel:${SHOP_PHONE}`;
+if(date){
+
+date.textContent="--";
+
+}
+
+}
+
+}
+
+// ----------------------------------
+// 7th Reward
+// ----------------------------------
+
+const rewardCircle =
+document.querySelector(".reward-circle");
+
+if(rewardCircle){
+
+if(totalStamps >= 6){
+
+rewardCircle.style.boxShadow =
+"0 0 18px rgba(255,215,0,.9)";
+
+}else{
+
+rewardCircle.style.boxShadow =
+"none";
+
+}
+
+}
+
+// ----------------------------------
+// 8th Mascot
+// ----------------------------------
+
+const mascot =
+document.getElementById("happyCircle");
+
+if(mascot){
+
+mascot.classList.add("happy-animation");
+
+}
+
+}
+// =======================================================
+// QUICK ACTIONS + LOGOUT
+// PART 4
+// =======================================================
+
+// -----------------------------
+// Call Button
+// -----------------------------
+
+callShopBtn?.addEventListener("click",()=>{
+
+window.location.href="tel:+918871689650";
 
 });
 
-// =====================================================
-// WHATSAPP
-// =====================================================
+// -----------------------------
+// WhatsApp Button
+// -----------------------------
 
-whatsappBtn.addEventListener("click",()=>{
+whatsappBtn?.addEventListener("click",()=>{
 
-    window.open(
+window.open(
 
-    `https://wa.me/${SHOP_WHATSAPP}`,
+"https://wa.me/918871689650",
 
-    "_blank"
+"_blank"
 
-    );
-
-});
-
-// =====================================================
-// GOOGLE MAP
-// =====================================================
-
-mapBtn.addEventListener("click",()=>{
-
-    window.open(
-
-    SHOP_MAP,
-
-    "_blank"
-
-    );
+);
 
 });
 
-// =====================================================
-// CONSOLE
-// =====================================================
+// -----------------------------
+// Google Map
+// -----------------------------
 
-console.log("RIO MAGGI POINT");
+mapBtn?.addEventListener("click",()=>{
 
-console.log("Premium Loyalty Card Loaded");
+window.open(
+
+"https://maps.google.com",
+
+"_blank"
+
+);
+
+});
+
+// -----------------------------
+// Logout
+// -----------------------------
+
+const logoutBtn =
+document.getElementById("logoutBtn");
+
+logoutBtn?.addEventListener("click",async()=>{
+
+const ok =
+confirm("Logout from Rio Maggi Point ?");
+
+if(!ok) return;
+
+try{
+
+await signOut(auth);
+
+window.location.href="login.html";
+
+}
+
+catch(error){
+
+console.error(error);
+
+alert("Logout Failed");
+
+}
+
+});
+
+// =======================================================
+// READY
+// =======================================================
+
+console.log("====================================");
+console.log("🍜 Rio Maggi Point");
+console.log("Premium ATM Loyalty Card Ready");
+console.log("Firebase Connected");
+console.log("====================================");
