@@ -5,44 +5,40 @@
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
+<meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>Rio Maggi Point</title>
+<title>
+Rio Maggi Point | Loyalty Card
+</title>
 
-<meta
-name="theme-color"
-content="#111111">
+<meta name="theme-color"
+content="#1b1b1b">
 
-<link
-rel="manifest"
+<link rel="manifest"
 href="manifest.json">
 
-<link
-rel="stylesheet"
-href="css/style.css">
+<link rel="icon"
+href="assets/logo/favicon.png">
 
-<link
-rel="stylesheet"
-href="css/card.css">
-
-<link
-rel="preconnect"
+<link rel="preconnect"
 href="https://fonts.googleapis.com">
 
-<link
-rel="preconnect"
+<link rel="preconnect"
 href="https://fonts.gstatic.com"
 crossorigin>
 
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
 rel="stylesheet">
 
-<link
-rel="stylesheet"
+<link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<link rel="stylesheet"
+href="css/style.css">
+
+<link rel="stylesheet"
+href="css/card.css">
 
 </head>
 
@@ -52,378 +48,330 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 <div
 id="loyaltyCard"
-class="loyalty-card male-theme">
+class="atm-card male-theme">
 
-<!-- Premium Glow -->
+<!-- Premium Background -->
 
-<div class="premium-glow"></div>
+<div class="card-glow"></div>
 
-<div class="premium-shine"></div>
+<div class="card-shine"></div>
 
-<!-- =============================== -->
-<!-- HEADER -->
-<!-- =============================== -->
+<!-- ========================= -->
+<!-- TOP LOGO -->
+<!-- ========================= -->
 
-<div class="card-header">
-
-<div class="brand-left">
+<div class="card-top">
 
 <img
 src="assets/logo/bowl-logo.png"
-class="brand-logo"
-alt="Rio">
-
-<div class="brand-text">
+class="bowl-logo"
+alt="Rio Bowl">
 
 <h2>
-
-RIO MAGGI POINT
-
+Rio Maggi Point
 </h2>
 
-<p>
-
-Premium Loyalty Club
-
-</p>
-
 </div>
 
-</div>
+<!-- ========================= -->
+<!-- CUSTOMER SECTION -->
+<!-- ========================= -->
 
-</div>
+<div class="customer-row">
 
-<!-- =============================== -->
-<!-- CUSTOMER -->
-<!-- =============================== -->
-
-<div class="customer-section">
-
-<div class="avatar-area">
-
-<div class="avatar-ring"></div>
+<div class="customer-photo">
 
 <img
 id="customerPhoto"
-src="assets/avatars/male.png"
+src="assets/avatars/default.png"
 alt="Customer">
 
 </div>
 
-<div class="customer-details">
+<div class="customer-info">
 
-<h1
+<h3
 id="customerName">
 
 Loading...
 
-</h1>
+</h3>
 
-<p class="member-title">
-
-PREMIUM MEMBER
-
-</p>
-
-<div class="member-id-box">
-
-<span>
-
-MEMBER ID
-
-</span>
-
-<strong
+<p
 id="memberId">
 
 RIO-000000000
 
-</strong>
+</p>
+
+</div>
+
+<button
+id="playGameBtn"
+class="play-btn">
+
+<i class="fa-solid fa-play"></i>
+
+</button>
+
+</div>
+<!-- ========================= -->
+<!-- STAMP AREA -->
+<!-- ========================= -->
+
+<div class="stamp-title">
+
+Collect 6 Stamps • Get 1 FREE Veg Maggi
+
+</div>
+
+<div class="stamp-grid">
+
+<div class="stamp-item">
+
+<div class="stamp-circle" id="stamp1">
+
+<span>1</span>
+
+</div>
+
+<small id="date1">--</small>
+
+</div>
+
+<div class="stamp-item">
+
+<div class="stamp-circle" id="stamp2">
+
+<span>2</span>
+
+</div>
+
+<small id="date2">--</small>
+
+</div>
+
+<div class="stamp-item">
+
+<div class="stamp-circle" id="stamp3">
+
+<span>3</span>
+
+</div>
+
+<small id="date3">--</small>
+
+</div>
+
+<div class="stamp-item">
+
+<div class="stamp-circle" id="stamp4">
+
+<span>4</span>
+
+</div>
+
+<small id="date4">--</small>
+
+</div>
+
+<div class="stamp-item">
+
+<div class="stamp-circle" id="stamp5">
+
+<span>5</span>
+
+</div>
+
+<small id="date5">--</small>
+
+</div>
+
+<div class="stamp-item">
+
+<div class="stamp-circle" id="stamp6">
+
+<span>6</span>
+
+</div>
+
+<small id="date6">--</small>
+
+</div>
+
+<!-- FREE VEG MAGGI -->
+
+<div class="stamp-item reward-item">
+
+<div class="reward-circle">
+
+<img
+src="assets/icons/veg-maggi.png"
+alt="Free Veg Maggi">
+
+</div>
+
+<small>
+
+FREE
+
+</small>
+
+</div>
+
+<!-- HAPPY MASCOT -->
+
+<div class="stamp-item mascot-item">
+
+<div class="mascot-circle">
+
+<img
+id="happyMascot"
+src="assets/mascot/rio-male.png"
+alt="Happy Rio">
+
+</div>
+
+<small>
+
+HAPPY
+
+</small>
 
 </div>
 
 </div>
 
+<!-- ========================= -->
+<!-- PREMIUM MESSAGE -->
+<!-- ========================= -->
+
+<div class="premium-message">
+
+<i class="fa-solid fa-gift"></i>
+
+Complete all 6 stamps to unlock your
+
+<b>FREE VEG MAGGI</b>
+
 </div>
+<!-- ========================= -->
+<!-- QUICK ACTIONS -->
+<!-- ========================= -->
 
-<div class="premium-divider"></div>
-
-<!-- =============================== -->
-<!-- SHOP CONTACT -->
-<!-- =============================== -->
-
-<div class="shop-contact">
+<div class="quick-actions">
 
 <button
 id="callShopBtn"
-class="contact-btn">
+class="action-btn">
 
 <i class="fa-solid fa-phone"></i>
 
-CALL
+<span>Call</span>
 
 </button>
 
 <button
 id="whatsappBtn"
-class="contact-btn">
+class="action-btn">
 
 <i class="fa-brands fa-whatsapp"></i>
 
-WHATSAPP
+<span>WhatsApp</span>
 
 </button>
 
 <button
 id="mapBtn"
-class="contact-btn">
+class="action-btn">
 
 <i class="fa-solid fa-location-dot"></i>
 
-MAP
+<span>Map</span>
 
 </button>
 
 </div>
 
-<div class="premium-divider"></div>
-<!-- ===================================== -->
-<!-- STAMP SECTION -->
-<!-- ===================================== -->
-
-<div class="stamp-section">
-
-    <div class="stamp-heading">
-
-        Collect 6 Stamps & Unlock Your Free Veg Maggi
-
-    </div>
-
-    <div class="stamp-grid">
-
-        <!-- Stamp 1 -->
-
-        <div class="stamp-box">
-
-            <div class="stamp-circle" id="stamp1">
-
-                <span>1</span>
-
-            </div>
-
-            <small id="date1">--</small>
-
-        </div>
-
-        <!-- Stamp 2 -->
-
-        <div class="stamp-box">
-
-            <div class="stamp-circle" id="stamp2">
-
-                <span>2</span>
-
-            </div>
-
-            <small id="date2">--</small>
-
-        </div>
-
-        <!-- Stamp 3 -->
-
-        <div class="stamp-box">
-
-            <div class="stamp-circle" id="stamp3">
-
-                <span>3</span>
-
-            </div>
-
-            <small id="date3">--</small>
-
-        </div>
-
-        <!-- Stamp 4 -->
-
-        <div class="stamp-box">
-
-            <div class="stamp-circle" id="stamp4">
-
-                <span>4</span>
-
-            </div>
-
-            <small id="date4">--</small>
-
-        </div>
-
-        <!-- Stamp 5 -->
-
-        <div class="stamp-box">
-
-            <div class="stamp-circle" id="stamp5">
-
-                <span>5</span>
-
-            </div>
-
-            <small id="date5">--</small>
-
-        </div>
-
-        <!-- Stamp 6 -->
-
-        <div class="stamp-box">
-
-            <div class="stamp-circle" id="stamp6">
-
-                <span>6</span>
-
-            </div>
-
-            <small id="date6">--</small>
-
-        </div>
-
-        <!-- Reward -->
-
-        <div class="stamp-box reward-box">
-
-            <div class="stamp-circle reward-circle">
-
-                <img
-
-                    src="assets/icons/veg-maggi.png"
-
-                    alt="Reward">
-
-            </div>
-
-            <small>
-
-                FREE VEG MAGGI
-
-            </small>
-
-        </div>
-
-        <!-- Happy Mascot -->
-
-        <div class="stamp-box happy-box">
-
-            <div
-
-                class="stamp-circle happy-circle"
-
-                id="happyCircle">
-
-                <img
-
-                    src="assets/mascot/rio-male.png"
-
-                    alt="Mascot">
-
-            </div>
-
-            <small>
-
-                HAPPY
-
-            </small>
-
-        </div>
-
-    </div>
-
 </div>
+<!-- END ATM CARD -->
 
-<!-- Hidden Countdown -->
-
-<span
-
-id="countdown"
-
-style="display:none;">
-
---
-
-</span>
-<!-- ===================================== -->
+<!-- ========================= -->
 <!-- BOTTOM NAVIGATION -->
-<!-- ===================================== -->
-
-</div>
+<!-- ========================= -->
 
 <nav class="bottom-nav">
 
-    <a
-        href="card.html"
-        class="active">
+<a
+href="card.html"
+class="active">
 
-        <i class="fa-solid fa-house"></i>
+<i class="fa-solid fa-house"></i>
 
-        <span>Home</span>
+<span>Home</span>
 
-    </a>
+</a>
 
-    <a href="qr.html">
+<a
+href="qr.html">
 
-        <i class="fa-solid fa-qrcode"></i>
+<i class="fa-solid fa-qrcode"></i>
 
-        <span>QR</span>
+<span>QR</span>
 
-    </a>
+</a>
 
-    <a href="history.html">
+<a
+href="history.html">
 
-        <i class="fa-solid fa-clock-rotate-left"></i>
+<i class="fa-solid fa-clock-rotate-left"></i>
 
-        <span>History</span>
+<span>History</span>
 
-    </a>
+</a>
 
-    <a href="feedback.html">
+<a
+href="feedback.html">
 
-        <i class="fa-solid fa-heart"></i>
+<i class="fa-solid fa-heart"></i>
 
-        <span>Review</span>
+<span>Review</span>
 
-    </a>
+</a>
 
-    <a href="profile.html">
+<a
+href="profile.html">
 
-        <i class="fa-solid fa-user"></i>
+<i class="fa-solid fa-user"></i>
 
-        <span>Profile</span>
+<span>Profile</span>
 
-    </a>
+</a>
 
 </nav>
 
-</div>
-
-<!-- ===================================== -->
+<!-- ========================= -->
 <!-- FIREBASE -->
-<!-- ===================================== -->
+<!-- ========================= -->
 
 <script
 type="module"
 src="js/card.js">
 </script>
 
-<!-- ===================================== -->
+<!-- ========================= -->
 <!-- SERVICE WORKER -->
-<!-- ===================================== -->
+<!-- ========================= -->
 
 <script>
 
 if ("serviceWorker" in navigator) {
 
-    window.addEventListener("load", () => {
+window.addEventListener("load", () => {
 
-        navigator.serviceWorker.register("./service-worker.js");
+navigator.serviceWorker.register("./service-worker.js");
 
-    });
+});
 
 }
 
