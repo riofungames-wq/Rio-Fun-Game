@@ -1,3 +1,4 @@
+
 import { auth, db } from "./firebase-config.js";
 
 import {
@@ -12,9 +13,9 @@ getDoc
 
 
 
-// ===============================
+// ============================
 // ELEMENTS
-// ===============================
+// ============================
 
 
 const customerName =
@@ -36,12 +37,13 @@ document.getElementById(
 
 
 
-// ===============================
-// DEFAULT DATA
-// ===============================
+
+// ============================
+// DEFAULT USER
+// ============================
 
 
-function setDefaultUser(){
+function setDefaultData(){
 
 
 if(customerName){
@@ -63,7 +65,7 @@ memberId.innerText =
 if(customerPhoto){
 
 customerPhoto.src =
-"assets/avatars/default.png";
+"assets/avatars/male.png";
 
 }
 
@@ -72,30 +74,12 @@ customerPhoto.src =
 
 
 
+// ============================
+// LOAD CUSTOMER DATA
+// ============================
 
 
-// ===============================
-// LOAD CUSTOMER
-// ===============================
-
-
-onAuthStateChanged(
-auth,
-async(user)=>{
-
-
-if(!user){
-
-
-window.location.href =
-"login.html";
-
-
-return;
-
-
-}
-
+async function loadCustomerData(user){
 
 
 try{
@@ -160,7 +144,7 @@ else{
 
 
 customerPhoto.src =
-"assets/avatars/default.png";
+"assets/avatars/male.png";
 
 
 }
@@ -170,15 +154,13 @@ customerPhoto.src =
 
 
 
-
 }
-
 
 
 else{
 
 
-setDefaultUser();
+setDefaultData();
 
 
 }
@@ -191,40 +173,88 @@ catch(error){
 
 
 console.error(
-"Customer Load Error:",
+"Card Load Error:",
 error
 );
 
 
-setDefaultUser();
+setDefaultData();
 
 
 }
 
 
 
+}
+
+
+
+
+// ============================
+// AUTH CHECK
+// ============================
+
+
+onAuthStateChanged(
+auth,
+(user)=>{
+
+
+if(user){
+
+
+loadCustomerData(user);
+
+
+}
+
+else{
+
+
+window.location.href =
+"login.html";
+
+
+}
+
+
 });
 
-// ===============================
-// STAMP SYSTEM
-// ===============================
+// ============================
+// STAMP ELEMENTS
+// ============================
 
 
-const stamps = [
+const stampIds = [
+
 "stamp1",
 "stamp2",
 "stamp3",
 "stamp4",
 "stamp5",
 "stamp6"
+
 ];
 
 
 
-function updateStamps(count){
+const rewardCircle =
+document.getElementById(
+"rewardCircle"
+);
 
 
-stamps.forEach(
+
+
+// ============================
+// UPDATE STAMPS
+// ============================
+
+
+function updateStampDisplay(count){
+
+
+stampIds.forEach(
 (id,index)=>{
 
 
@@ -233,7 +263,8 @@ document.getElementById(id);
 
 
 
-if(!stamp) return;
+if(!stamp)
+return;
 
 
 
@@ -247,7 +278,6 @@ stamp.classList.add(
 
 }
 
-
 else{
 
 
@@ -259,6 +289,7 @@ stamp.classList.remove(
 }
 
 
+
 });
 
 
@@ -268,9 +299,150 @@ stamp.classList.remove(
 
 
 
-// ===============================
-// COUNTDOWN SYSTEM
-// ===============================
+// ============================
+// UPDATE REWARD
+// ============================
+
+
+function updateRewardDisplay(count){
+
+
+if(!rewardCircle)
+return;
+
+
+
+if(count >= 6){
+
+
+rewardCircle.innerHTML = `
+
+<div class="reward-label">
+
+FREE<br>
+VEG<br>
+MAGGI
+
+</div>
+
+`;
+
+
+
+rewardCircle.classList.add(
+"active"
+);
+
+
+
+}
+
+else{
+
+
+rewardCircle.innerHTML = `
+
+<div class="reward-label">
+
+${count}/6
+
+</div>
+
+`;
+
+
+
+rewardCircle.classList.remove(
+"active"
+);
+
+
+
+}
+
+
+}
+
+
+
+
+
+// ============================
+// LOAD STAMP DATA
+// ============================
+
+
+async function loadStampData(user){
+
+
+try{
+
+
+const userRef =
+doc(
+db,
+"customers",
+user.uid
+);
+
+
+
+const userSnap =
+await getDoc(
+userRef
+);
+
+
+
+if(userSnap.exists()){
+
+
+const data =
+userSnap.data();
+
+
+
+const stampCount =
+data.stamps || 0;
+
+
+
+updateStampDisplay(
+stampCount
+);
+
+
+
+updateRewardDisplay(
+stampCount
+);
+
+
+
+}
+
+
+
+}
+
+catch(error){
+
+
+console.error(
+"Stamp Loading Error:",
+error
+);
+
+
+}
+
+
+
+}
+
+// ============================
+// COUNTDOWN ELEMENT
+// ============================
 
 
 const countdownDays =
@@ -280,8 +452,15 @@ document.getElementById(
 
 
 
-function updateCountdown(startDate){
 
+// ============================
+// UPDATE COUNTDOWN
+// ============================
+
+
+function updateResetCountdown(
+cycleStart
+){
 
 
 if(!countdownDays)
@@ -289,43 +468,44 @@ return;
 
 
 
-const now =
-new Date();
-
-
-
 const start =
-new Date(startDate);
-
-
-
-const resetDate =
-new Date(start);
-
-
-
-resetDate.setDate(
-resetDate.getDate()+40
+new Date(
+cycleStart
 );
 
 
 
-const difference =
-resetDate - now;
+const resetDate =
+new Date(
+start
+);
 
 
 
-if(difference <= 0){
+resetDate.setDate(
+resetDate.getDate() + 40
+);
 
+
+
+const today =
+new Date();
+
+
+
+const remaining =
+resetDate - today;
+
+
+
+if(remaining <= 0){
 
 
 countdownDays.innerText =
 "0 DAYS";
 
 
-
 return;
-
 
 
 }
@@ -334,8 +514,8 @@ return;
 
 const days =
 Math.ceil(
-difference /
-(1000*60*60*24)
+remaining /
+(1000 * 60 * 60 * 24)
 );
 
 
@@ -351,92 +531,9 @@ days + " DAYS";
 
 
 
-// ===============================
-// LOAD STAMP DATA
-// ===============================
-
-
-async function loadStampData(uid){
-
-
-try{
-
-
-const userRef =
-doc(
-db,
-"customers",
-uid
-);
-
-
-
-const snap =
-await getDoc(
-userRef
-);
-
-
-
-if(!snap.exists())
-return;
-
-
-
-const data =
-snap.data();
-
-
-
-const stampCount =
-data.stamps || 0;
-
-
-
-updateStamps(
-stampCount
-);
-
-
-
-
-
-// Countdown
-
-if(data.cycleStart){
-
-
-updateCountdown(
-data.cycleStart
-);
-
-
-}
-
-
-
-}
-
-
-
-catch(error){
-
-
-console.error(
-"Stamp Error:",
-error
-);
-
-
-}
-
-
-
-}
-
-// ===============================
-// CONNECT STAMP DATA WITH USER
-// ===============================
+// ============================
+// CONNECT USER DATA
+// ============================
 
 
 onAuthStateChanged(
@@ -449,92 +546,74 @@ return;
 
 
 
-loadStampData(
+await loadStampData(
+user
+);
+
+
+
+try{
+
+
+const userRef =
+doc(
+db,
+"customers",
 user.uid
 );
 
 
 
+const userSnap =
+await getDoc(
+userRef
+);
+
+
+
+if(userSnap.exists()){
+
+
+const data =
+userSnap.data();
+
+
+
+if(data.cycleStart){
+
+
+updateResetCountdown(
+data.cycleStart
+);
+
+
+}
+
+
+}
+
+
+
+}
+
+catch(error){
+
+
+console.error(
+"Countdown Error:",
+error
+);
+
+
+}
+
+
+
 });
 
-
-
-
-
-// ===============================
-// REWARD CIRCLE
-// ===============================
-
-
-const rewardCircle =
-document.querySelector(
-".reward-circle"
-);
-
-
-
-function updateReward(stampCount){
-
-
-
-if(!rewardCircle)
-return;
-
-
-
-if(stampCount >= 6){
-
-
-rewardCircle.innerHTML =
-
-`
-<div class="reward-text">
-FREE<br>
-VEG<br>
-MAGGI
-</div>
-`;
-
-
-rewardCircle.classList.add(
-"stamp-active"
-);
-
-
-
-}
-
-else{
-
-
-rewardCircle.innerHTML =
-
-`
-<div class="reward-text">
-${stampCount}/6
-</div>
-`;
-
-
-rewardCircle.classList.remove(
-"stamp-active"
-);
-
-
-
-}
-
-
-}
-
-
-
-
-
-
-// ===============================
+// ============================
 // SHOP CONTACT BUTTONS
-// ===============================
+// ============================
 
 
 const callBtn =
@@ -543,12 +622,10 @@ document.getElementById(
 );
 
 
-
 const whatsappBtn =
 document.getElementById(
 "whatsappBtn"
 );
-
 
 
 const mapBtn =
@@ -559,246 +636,112 @@ document.getElementById(
 
 
 
-// Change these later with your shop details
+// ============================
+// SHOP DETAILS
+// बाद में अपना नंबर और लिंक डालना
+// ============================
+
 
 const SHOP_PHONE =
-"YOUR_SHOP_NUMBER";
-
+"YOUR_PHONE_NUMBER";
 
 
 const WHATSAPP_NUMBER =
 "YOUR_WHATSAPP_NUMBER";
 
 
-
-const SHOP_LOCATION =
+const MAP_LINK =
 "YOUR_GOOGLE_MAP_LINK";
 
 
 
 
+
+// Call
+
 if(callBtn){
 
 
-callBtn.onclick = ()=>{
+callBtn.addEventListener(
+"click",
+()=>{
 
 
 window.location.href =
 "tel:" + SHOP_PHONE;
 
 
-};
+});
 
 
 }
 
 
+
+
+// WhatsApp
 
 if(whatsappBtn){
 
 
-whatsappBtn.onclick = ()=>{
+whatsappBtn.addEventListener(
+"click",
+()=>{
 
 
 window.open(
 
-"https://wa.me/" + WHATSAPP_NUMBER,
+"https://wa.me/" +
+WHATSAPP_NUMBER,
 
 "_blank"
 
 );
-
-
-};
-
-
-}
-
-
-
-if(mapBtn){
-
-
-mapBtn.onclick = ()=>{
-
-
-window.open(
-
-SHOP_LOCATION,
-
-"_blank"
-
-);
-
-
-};
-
-
-}
-
-// ===============================
-// FINAL CUSTOMER UPDATE
-// ===============================
-
-
-async function refreshCustomerData(uid){
-
-
-try{
-
-
-const userRef =
-doc(
-db,
-"customers",
-uid
-);
-
-
-
-const snap =
-await getDoc(
-userRef
-);
-
-
-
-if(!snap.exists())
-return;
-
-
-
-const data =
-snap.data();
-
-
-
-const stampCount =
-data.stamps || 0;
-
-
-
-// Update stamps
-
-updateStamps(
-stampCount
-);
-
-
-
-// Update reward
-
-updateReward(
-stampCount
-);
-
-
-
-// Update countdown
-
-if(data.cycleStart){
-
-updateCountdown(
-data.cycleStart
-);
-
-}
-
-
-
-}
-
-
-catch(error){
-
-
-console.error(
-"Refresh Error:",
-error
-);
-
-
-}
-
-
-}
-
-
-
-
-
-
-
-// ===============================
-// AUTO REFRESH
-// ===============================
-
-
-onAuthStateChanged(
-auth,
-(user)=>{
-
-
-if(user){
-
-
-refreshCustomerData(
-user.uid
-);
-
-
-}
 
 
 });
 
 
+}
 
 
 
 
-// ===============================
-// RESET MESSAGE
-// ===============================
+
+// Map
+
+if(mapBtn){
 
 
-function checkResetStatus(){
+mapBtn.addEventListener(
+"click",
+()=>{
 
 
-const daysText =
-document.getElementById(
-"countdownDays"
+window.open(
+
+MAP_LINK,
+
+"_blank"
+
 );
 
 
-
-if(
-daysText &&
-daysText.innerText === "0 DAYS"
-){
-
-
-daysText.innerText =
-"NEW CYCLE STARTED";
-
-
-}
+});
 
 
 }
 
 
 
-setInterval(
-checkResetStatus,
-60000
-);
 
 
 
-
+// ============================
+// FINAL LOAD MESSAGE
+// ============================
 
 
 console.log(
-"Rio Maggi Point Premium Card Loaded"
+"Rio Maggi Point Premium Card Loaded Successfully"
 );
