@@ -1,18 +1,26 @@
+/* ===========================
+   RIO MAGGI POINT PREMIUM CARD
+=========================== */
+
 :root{
 
---bg:#0d0d0d;
+--bg:#0b0b0b;
 
---card:#161616;
+--card:#171717;
 
 --gold:#d4af37;
 
---gold2:#f5d67b;
+--gold-light:#f7de8b;
 
---text:#ffffff;
+--white:#ffffff;
 
---muted:#cfcfcf;
+--text:#ececec;
 
---border:rgba(212,175,55,.45);
+--muted:#bdbdbd;
+
+--border:rgba(212,175,55,.35);
+
+--shadow:rgba(0,0,0,.55);
 
 }
 
@@ -30,15 +38,15 @@ font-family:"Poppins",sans-serif;
 
 body{
 
-background:#0a0a0a;
+background:#080808;
 
-color:var(--text);
+color:var(--white);
 
 display:flex;
 
 justify-content:center;
 
-padding:20px;
+padding:18px;
 
 }
 
@@ -48,15 +56,18 @@ width:100%;
 
 max-width:430px;
 
+padding-bottom:90px;
+
 }
 
 .premium-card{
 
 position:relative;
 
-width:100%;
-
-background:linear-gradient(180deg,#1b1b1b,#111);
+background:linear-gradient(
+180deg,
+#1c1c1c,
+#121212);
 
 border:2px solid var(--gold);
 
@@ -67,18 +78,22 @@ padding:22px;
 overflow:hidden;
 
 box-shadow:
-0 0 18px rgba(212,175,55,.25),
-0 18px 45px rgba(0,0,0,.55);
+
+0 0 18px rgba(212,175,55,.18),
+
+0 20px 50px var(--shadow);
 
 }
+
+/* Gold Glow */
 
 .card-glow{
 
 position:absolute;
 
-top:-80px;
-
 right:-80px;
+
+top:-80px;
 
 width:220px;
 
@@ -86,15 +101,25 @@ height:220px;
 
 border-radius:50%;
 
-background:radial-gradient(circle,rgba(212,175,55,.22),transparent 70%);
+background:radial-gradient(
+
+circle,
+
+rgba(212,175,55,.22),
+
+transparent 70%
+
+);
 
 }
+
+/* Shine */
 
 .card-shine{
 
 position:absolute;
 
-left:-45%;
+left:-40%;
 
 top:-25%;
 
@@ -104,58 +129,76 @@ height:180%;
 
 transform:rotate(25deg);
 
-background:linear-gradient(
+background:
+
+linear-gradient(
+
 to right,
+
 transparent,
+
 rgba(255,255,255,.08),
-transparent);
+
+transparent
+
+);
 
 pointer-events:none;
 
 }
 
+/* ================= HEADER ================= */
+
 .card-header{
 
 text-align:center;
 
-margin-bottom:18px;
+margin-bottom:20px;
 
 }
 
 .brand-title{
 
-font-size:28px;
+font-size:30px;
 
 font-weight:800;
 
 letter-spacing:1px;
 
-background:linear-gradient(90deg,#fff7d6,var(--gold),#fff7d6);
+background:
+
+linear-gradient(
+
+90deg,
+
+#fff6d4,
+
+var(--gold),
+
+#fff6d4);
 
 -webkit-background-clip:text;
 
 -webkit-text-fill-color:transparent;
 
-text-shadow:0 0 10px rgba(212,175,55,.25);
-
 }
 
 .brand-subtitle{
 
-font-size:12px;
-
-font-weight:500;
-
-color:#d8c17b;
-
 margin-top:4px;
 
-letter-spacing:.6px;
+font-size:11px;
+
+font-weight:600;
+
+color:#d8c27a;
+
+letter-spacing:.8px;
 
 }
-/* ========================= */
-/* CUSTOMER SECTION */
-/* ========================= */
+/* ===========================
+   CUSTOMER SECTION
+=========================== */
 
 .customer-section{
 
@@ -167,37 +210,11 @@ align-items:center;
 
 justify-content:center;
 
-margin-top:6px;
-
 margin-bottom:22px;
 
 }
 
-.avatar-wrapper{
-
-position:relative;
-
-margin-bottom:14px;
-
-}
-
-.avatar-crown{
-
-position:absolute;
-
-top:-20px;
-
-left:50%;
-
-transform:translateX(-50%);
-
-font-size:24px;
-
-z-index:3;
-
-}
-
-.avatar-ring{
+.avatar-frame{
 
 width:120px;
 
@@ -207,10 +224,14 @@ border-radius:50%;
 
 padding:4px;
 
-background:linear-gradient(135deg,var(--gold2),var(--gold));
+background:linear-gradient(
+135deg,
+#f7de8b,
+#d4af37);
 
 box-shadow:
-0 0 18px rgba(212,175,55,.55);
+
+0 0 18px rgba(212,175,55,.45);
 
 display:flex;
 
@@ -218,9 +239,11 @@ align-items:center;
 
 justify-content:center;
 
+margin-bottom:14px;
+
 }
 
-.avatar-ring img{
+.avatar-frame img{
 
 width:100%;
 
@@ -234,25 +257,27 @@ background:#222;
 
 }
 
-.customer-details{
+/* Customer Name */
 
-text-align:center;
+.customer-name{
 
-width:100%;
+font-family:"Georgia",serif;
 
-}
-
-.customer-details h2{
-
-font-size:22px;
+font-size:24px;
 
 font-weight:700;
 
+letter-spacing:.5px;
+
+color:#ffffff;
+
+text-align:center;
+
 margin-bottom:6px;
 
-color:#fff;
-
 }
+
+/* Rio ID */
 
 .customer-id{
 
@@ -260,47 +285,58 @@ font-size:14px;
 
 font-weight:600;
 
-color:#d8c17b;
+color:#e7cb74;
 
-margin-bottom:8px;
+margin-bottom:10px;
 
 }
 
-.premium-badge{
+/* Premium Badge */
 
-display:inline-block;
+.premium-member{
 
-padding:5px 14px;
+padding:6px 18px;
 
 border-radius:999px;
 
-background:rgba(212,175,55,.15);
+background:rgba(212,175,55,.12);
 
 border:1px solid rgba(212,175,55,.45);
-
-color:var(--gold2);
 
 font-size:11px;
 
 font-weight:700;
 
-letter-spacing:.8px;
+letter-spacing:1px;
 
-margin-bottom:12px;
+color:#f7de8b;
+
+margin-bottom:14px;
 
 }
 
-.game-btn{
+/* Click Free Game */
+
+.game-button{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+gap:8px;
+
+padding:10px 18px;
 
 border:none;
 
-cursor:pointer;
-
-padding:9px 16px;
-
 border-radius:999px;
 
-background:linear-gradient(135deg,var(--gold2),var(--gold));
+background:linear-gradient(
+135deg,
+#f7de8b,
+#d4af37);
 
 color:#111;
 
@@ -308,68 +344,81 @@ font-size:13px;
 
 font-weight:700;
 
-display:inline-flex;
-
-align-items:center;
-
-gap:8px;
+cursor:pointer;
 
 transition:.25s;
 
 }
 
-.game-btn:hover{
+.game-button:hover{
 
 transform:translateY(-2px);
 
-box-shadow:0 8px 18px rgba(212,175,55,.35);
+box-shadow:
+
+0 8px 18px rgba(212,175,55,.35);
 
 }
-/* ========================= */
-/* STAMP SECTION */
-/* ========================= */
+/* ===========================
+   STAMP SECTION
+=========================== */
+
+.stamp-title{
+
+width:100%;
+
+text-align:center;
+
+padding:9px 12px;
+
+border-radius:14px;
+
+background:linear-gradient(
+90deg,
+#d4af37,
+#f7de8b,
+#d4af37);
+
+color:#111;
+
+font-size:11px;
+
+font-weight:700;
+
+letter-spacing:.3px;
+
+white-space:nowrap;
+
+overflow:hidden;
+
+text-overflow:ellipsis;
+
+margin-bottom:18px;
+
+box-shadow:
+0 5px 14px rgba(212,175,55,.30);
+
+}
+
+
+/* Stamp Row */
 
 .stamp-section{
 
 width:100%;
 
-margin-top:10px;
+display:flex;
+
+justify-content:center;
+
+margin-bottom:20px;
 
 }
-
-
-
-.stamp-title{
-
-text-align:center;
-
-font-size:13px;
-
-font-weight:700;
-
-color:#111;
-
-background:linear-gradient(
-90deg,
-#c99a2e,
-#f5d67b,
-#c99a2e
-);
-
-padding:8px 10px;
-
-border-radius:12px;
-
-margin-bottom:18px;
-
-box-shadow:
-0 5px 15px rgba(212,175,55,.25);
-
-}
-
 
 
 .stamp-row{
+
+width:100%;
 
 display:flex;
 
@@ -377,21 +426,20 @@ justify-content:space-between;
 
 align-items:center;
 
-gap:6px;
-
-width:100%;
+gap:4px;
 
 }
 
 
+/* Stamp Circle */
 
 .stamp-circle{
 
-width:42px;
+width:46px;
 
-height:42px;
+height:46px;
 
-min-width:42px;
+min-width:46px;
 
 border-radius:50%;
 
@@ -403,7 +451,7 @@ justify-content:center;
 
 background:#242424;
 
-border:2px solid rgba(212,175,55,.55);
+border:2px solid rgba(212,175,55,.45);
 
 color:#d8c17b;
 
@@ -411,148 +459,104 @@ font-size:15px;
 
 font-weight:700;
 
+transition:.25s;
+
 box-shadow:
-inset 0 0 10px rgba(255,255,255,.05);
+inset 0 0 8px rgba(255,255,255,.05);
 
 }
 
 
+/* Active Stamp */
 
 .stamp-circle.active{
 
 background:linear-gradient(
 135deg,
-#f5d67b,
-#c99a2e
-);
+#f7de8b,
+#d4af37);
 
 color:#111;
 
-box-shadow:
+border:none;
 
-0 0 16px rgba(212,175,55,.55);
+box-shadow:
+0 0 16px rgba(212,175,55,.45);
 
 }
 
 
-
-
-
-/* FREE VEG MAGGI CIRCLE */
+/* Reward Circle */
 
 .reward-circle{
 
 background:linear-gradient(
 135deg,
-#fff0a8,
-#d4af37
-);
+#fff0b8,
+#d4af37);
 
 color:#111;
 
-font-size:9px;
-
-text-align:center;
-
-line-height:10px;
-
-}
-
-
-
-
-
-.reward-text{
+font-size:8px;
 
 font-weight:800;
 
-}
-
-
-
-
-/* HAPPY MASCOT */
-
-.mascot-circle{
-
-overflow:hidden;
-
-padding:0;
-
-}
-
-
-
-.mascot-circle img{
-
-width:100%;
-
-height:100%;
-
-object-fit:cover;
-
-border-radius:50%;
-
-}
-
-
-
-
-
-
-/* ========================= */
-/* COUNTDOWN */
-/* ========================= */
-
-
-.countdown-box{
-
-margin-top:20px;
-
-padding:10px;
+line-height:10px;
 
 text-align:center;
 
-border-radius:14px;
-
-background:rgba(212,175,55,.12);
-
-border:1px solid rgba(212,175,55,.35);
+padding:4px;
 
 }
 
 
+/* Countdown */
 
-.countdown-title{
+.countdown-box{
+
+margin-top:10px;
+
+padding:12px;
+
+border-radius:16px;
+
+background:rgba(212,175,55,.10);
+
+border:1px solid rgba(212,175,55,.35);
+
+text-align:center;
+
+}
+
+
+.countdown-text{
 
 font-size:11px;
+
+font-weight:600;
 
 letter-spacing:1px;
 
 color:#d8c17b;
 
-font-weight:600;
-
 }
-
 
 
 .countdown-days{
 
-font-size:20px;
+margin-top:4px;
+
+font-size:21px;
 
 font-weight:800;
 
-color:#fff;
+color:#ffffff;
 
-margin-top:3px;
+}/* ===========================
+   QUICK BUTTONS
+=========================== */
 
-}
-/* ========================= */
-/* QUICK ACTION BUTTONS */
-/* ========================= */
-
-.quick-action{
+.quick-buttons{
 
 display:flex;
 
@@ -564,21 +568,17 @@ margin-top:20px;
 
 }
 
-
-
-.quick-btn{
+.quick-buttons button{
 
 flex:1;
 
-border:none;
-
-padding:10px 5px;
+padding:10px 6px;
 
 border-radius:14px;
 
-background:rgba(255,255,255,.05);
-
 border:1px solid rgba(212,175,55,.35);
+
+background:#1c1c1c;
 
 color:#fff;
 
@@ -586,54 +586,61 @@ font-size:11px;
 
 font-weight:600;
 
+cursor:pointer;
+
 display:flex;
 
 flex-direction:column;
 
 align-items:center;
 
+justify-content:center;
+
 gap:5px;
 
-cursor:pointer;
+transition:.25s;
+
+}
+
+.quick-buttons button i{
+
+font-size:17px;
+
+color:#f7de8b;
+
+}
+
+.quick-buttons button:hover{
+
+background:#242424;
+
+transform:translateY(-2px);
 
 }
 
 
 
-.quick-btn i{
-
-font-size:16px;
-
-color:var(--gold2);
-
-}
-
-
-
-
-
-/* ========================= */
-/* BOTTOM NAVIGATION */
-/* ========================= */
-
+/* ===========================
+   BOTTOM NAVIGATION
+=========================== */
 
 .bottom-nav{
 
 position:fixed;
 
-bottom:12px;
-
 left:50%;
+
+bottom:10px;
 
 transform:translateX(-50%);
 
-width:calc(100% - 24px);
+width:calc(100% - 20px);
 
 max-width:430px;
 
-height:65px;
+height:68px;
 
-background:#151515;
+background:#111;
 
 border:1px solid rgba(212,175,55,.35);
 
@@ -641,27 +648,22 @@ border-radius:22px;
 
 display:flex;
 
-align-items:center;
-
 justify-content:space-around;
 
+align-items:center;
+
 box-shadow:
+0 10px 35px rgba(0,0,0,.55);
 
-0 10px 35px rgba(0,0,0,.65);
-
-z-index:100;
+z-index:999;
 
 }
-
-
 
 .bottom-nav a{
 
 text-decoration:none;
 
-color:#999;
-
-font-size:10px;
+color:#888;
 
 display:flex;
 
@@ -669,11 +671,15 @@ flex-direction:column;
 
 align-items:center;
 
+justify-content:center;
+
 gap:5px;
 
+font-size:10px;
+
+transition:.25s;
+
 }
-
-
 
 .bottom-nav a i{
 
@@ -681,42 +687,39 @@ font-size:18px;
 
 }
 
-
-
 .bottom-nav a.active{
 
-color:var(--gold2);
+color:#f7de8b;
+
+}
+
+.bottom-nav a:hover{
+
+color:#fff;
 
 }
 
 
 
+/* ===========================
+   MOBILE
+=========================== */
 
-/* ========================= */
-/* RESPONSIVE */
-/* ========================= */
-
-
-@media(max-width:380px){
-
-
-.premium-card{
-
-padding:16px;
-
-border-radius:22px;
-
-}
-
+@media(max-width:390px){
 
 .brand-title{
 
-font-size:23px;
+font-size:26px;
 
 }
 
+.customer-name{
 
-.avatar-ring{
+font-size:20px;
+
+}
+
+.avatar-frame{
 
 width:105px;
 
@@ -724,84 +727,100 @@ height:105px;
 
 }
 
-
 .stamp-circle{
 
-width:36px;
+width:40px;
 
-height:36px;
+height:40px;
 
-min-width:36px;
+min-width:40px;
 
 font-size:13px;
 
 }
 
-
 .reward-circle{
 
-font-size:8px;
+font-size:7px;
+
+line-height:9px;
+
+}
+
+.game-button{
+
+font-size:12px;
+
+padding:9px 14px;
+
+}
+
+.stamp-title{
+
+font-size:10px;
+
+}
 
 }
 
 
-.game-btn{
 
-font-size:11px;
-
-padding:8px 12px;
-
-}
-
-
-}
-
-
-
-
+/* ===========================
+   TABLET
+=========================== */
 
 @media(min-width:768px){
 
-
 .page{
 
-max-width:460px;
+max-width:470px;
 
 }
-
-
-.premium-card{
-
-padding:28px;
-
-}
-
 
 .brand-title{
 
-font-size:32px;
+font-size:34px;
 
 }
 
+.avatar-frame{
 
-.avatar-ring{
+width:130px;
 
-width:135px;
-
-height:135px;
+height:130px;
 
 }
 
+.customer-name{
+
+font-size:26px;
+
+}
 
 .stamp-circle{
 
-width:48px;
+width:50px;
 
-height:48px;
+height:50px;
 
-min-width:48px;
+min-width:50px;
 
 }
 
+}
+
+
+
+/* ===========================
+   DESKTOP
+=========================== */
+
+@media(min-width:1200px){
+
+.page{
+
+max-width:480px;
+
+}
 
 }
