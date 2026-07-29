@@ -72,7 +72,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 
 
-<!-- ================= HEADER ================= -->
+
+<!-- HEADER -->
 
 
 <header class="profile-header">
@@ -100,7 +101,7 @@ Rio Maggi Point Premium Member
 
 
 
-<!-- ================= PROFILE USER ================= -->
+<!-- PROFILE USER -->
 
 
 <section class="profile-user">
@@ -169,11 +170,11 @@ PREMIUM MEMBER
 
 
 
-<!-- ================= PROFILE DETAILS ================= -->
+
+<!-- PROFILE DETAILS -->
 
 
 <section class="profile-details">
-
 
 
 <div class="detail-card">
@@ -261,7 +262,7 @@ Email
 <div>
 
 
-span>
+<span>
 
 Date Of Birth
 
@@ -279,11 +280,6 @@ Date Of Birth
 
 
 </div>
-
-
-
-
-
 <div class="detail-card">
 
 
@@ -355,6 +351,12 @@ Category
 
 
 </section>
+
+
+
+
+
+
 <!-- ================= LOYALTY SUMMARY ================= -->
 
 
@@ -449,6 +451,9 @@ Locked
 
 
 
+
+
+
 <!-- ================= EDIT PROFILE MODAL ================= -->
 
 
@@ -456,7 +461,9 @@ Locked
 
 id="editModal"
 
-class="edit-modal">
+class="edit-modal"
+
+style="display:none;">
 
 
 
@@ -492,8 +499,87 @@ placeholder="Enter Name">
 
 
 
-<div class="edit-buttons">
+<label>
 
+Date Of Birth
+
+</label>
+
+
+<input
+
+type="date"
+
+id="editDOB">
+
+
+
+
+
+<label>
+
+Age
+
+</label>
+
+
+<input
+
+type="number"
+
+id="editAge"
+
+placeholder="Enter Age">
+
+
+
+
+
+<label>
+
+Gender
+
+</label>
+
+
+<select id="editGender">
+
+
+<option value="">
+
+Select Gender
+
+</option>
+
+
+<option value="male">
+
+Male
+
+</option>
+
+
+<option value="female">
+
+Female
+
+</option>
+
+
+<option value="other">
+
+Other
+
+</option>
+
+
+</select>
+
+
+
+
+
+<div class="edit-buttons">
 
 
 <button
@@ -532,7 +618,6 @@ Cancel
 </div>
 
 
-
 </div>
 
 
@@ -547,7 +632,6 @@ Cancel
 
 
 <section class="profile-actions">
-
 
 
 <button
@@ -569,7 +653,6 @@ Edit Profile
 
 
 
-
 <button
 
 id="logoutBtn"
@@ -586,14 +669,8 @@ Logout
 </button>
 
 
-
 </section>
-
-
-
-
-
-<!-- ================= BOTTOM NAV ================= -->
+<!-- ================= BOTTOM NAVIGATION ================= -->
 
 
 <nav class="bottom-nav">
@@ -697,7 +774,12 @@ Profile
 
 
 </nav>
+
+
+
+
 </div>
+
 
 </div>
 
@@ -718,7 +800,7 @@ src="js/profile.js">
 
 
 
-
 </body>
+
 
 </html>
