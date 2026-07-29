@@ -1,26 +1,32 @@
-/* =========================================
-   RIO MAGGI POINT
-   PREMIUM MENU
-   PART 1
-========================================= */
-
 :root{
 
---bg:#0b0b0b;
+--bg:#f6e6bc;
+--surface:#fffaf0;
+--card:#fffdf7;
+--primary:#d8891c;
+--primary-dark:#b66b08;
+--secondary:#ffbe33;
+--accent:#ff8f1f;
 
---card:#181818;
+--text:#2d2418;
+--text-light:#6f624f;
 
---gold:#d4af37;
+--border:#e7c983;
 
---gold-light:#f7de8b;
+--success:#1b8f4d;
+--danger:#d94141;
 
---text:#ffffff;
+--shadow-sm:0 6px 16px rgba(0,0,0,.08);
+--shadow-md:0 12px 28px rgba(0,0,0,.12);
+--shadow-lg:0 20px 45px rgba(0,0,0,.18);
 
---muted:#bdbdbd;
+--radius-xs:10px;
+--radius-sm:14px;
+--radius-md:20px;
+--radius-lg:28px;
+--radius-xl:36px;
 
---border:rgba(212,175,55,.30);
-
---shadow:rgba(0,0,0,.45);
+--transition:.30s ease;
 
 }
 
@@ -29,7 +35,6 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:"Poppins",sans-serif;
 
 }
 
@@ -41,484 +46,320 @@ scroll-behavior:smooth;
 
 body{
 
+font-family:'Poppins',sans-serif;
 background:
-linear-gradient(
-180deg,
-#080808,
-#101010);
-
+radial-gradient(circle at top,#fff8e5 0%,#f7e5b7 45%,#ecd39d 100%);
 color:var(--text);
-
+min-height:100vh;
 overflow-x:hidden;
 
-min-height:100vh;
+}
+
+img{
+
+max-width:100%;
+display:block;
 
 }
 
-/* ==========================
-PAGE
-========================== */
+a{
 
-.page{
+text-decoration:none;
+color:inherit;
 
-width:100%;
+}
 
-max-width:430px;
+button{
 
+font-family:inherit;
+cursor:pointer;
+border:none;
+outline:none;
+
+}
+
+.container{
+
+width:min(1200px,94%);
 margin:auto;
-
-padding:18px 16px 110px;
+padding:28px 0 70px;
 
 }
 
-/* ==========================
-CONTAINER
-========================== */
+/* ---------- HEADER ---------- */
 
-.menu-container{
+.top-bar{
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:18px;
+margin-bottom:28px;
+
+}
+
+.logo{
+
+display:flex;
+align-items:center;
+gap:16px;
+
+}
+
+.logo-circle{
+
+width:66px;
+height:66px;
+border-radius:50%;
+background:
+linear-gradient(135deg,#ffd451,#ff9f15);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:30px;
+color:#fff;
+box-shadow:var(--shadow-md);
+
+}
+
+.logo-text h1{
+
+font-size:30px;
+font-weight:800;
+line-height:1.1;
+
+}
+
+.logo-text p{
+
+margin-top:4px;
+font-size:14px;
+color:var(--text-light);
+
+}
+
+.back-btn{
+
+display:inline-flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+
+padding:12px 22px;
+
+border-radius:16px;
+
+background:#fff;
+
+border:2px solid var(--border);
+
+font-weight:600;
+
+transition:var(--transition);
+
+box-shadow:var(--shadow-sm);
+
+}
+
+.back-btn:hover{
+
+background:#fff5df;
+transform:translateY(-3px);
+
+}
+.hero{
 
 position:relative;
-
-background:
-linear-gradient(
-180deg,
-#191919,
-#111111);
-
-border:1px solid rgba(212,175,55,.28);
-
-border-radius:28px;
-
-padding:22px;
-
 overflow:hidden;
 
-box-shadow:
+background:
+linear-gradient(135deg,#fffef9,#fff2d6);
 
-0 12px 35px rgba(0,0,0,.45),
+border:2px solid var(--border);
 
-0 0 18px rgba(212,175,55,.10);
+border-radius:var(--radius-lg);
+
+padding:38px;
+
+margin-bottom:34px;
+
+box-shadow:var(--shadow-md);
 
 }
 
-/* Gold Glow */
-
-.menu-container::before{
+.hero::before{
 
 content:"";
 
 position:absolute;
 
-top:-100px;
+top:-110px;
+right:-110px;
 
-right:-100px;
+width:280px;
+height:280px;
+
+border-radius:50%;
+
+background:rgba(255,191,52,.18);
+
+}
+
+.hero::after{
+
+content:"";
+
+position:absolute;
+
+bottom:-90px;
+left:-90px;
 
 width:220px;
-
 height:220px;
 
 border-radius:50%;
 
-background:
-
-radial-gradient(
-
-circle,
-
-rgba(212,175,55,.18),
-
-transparent 72%
-
-);
-
-pointer-events:none;
+background:rgba(216,137,28,.10);
 
 }
 
-/* ==========================
-HEADER
-========================== */
+.hero>*{
 
-.menu-header{
+position:relative;
+z-index:2;
+
+}
+
+.hero h2{
+
+font-size:40px;
+font-weight:800;
+margin-bottom:12px;
+
+}
+
+.hero p{
+
+max-width:720px;
+
+font-size:16px;
+
+line-height:1.9;
+
+color:var(--text-light);
+
+}
+
+/* ---------- CATEGORY ---------- */
+
+.category{
+
+margin-top:38px;
+
+}
+
+.category-title{
 
 display:flex;
-
 align-items:center;
+gap:14px;
 
-gap:16px;
-
-margin-bottom:24px;
+margin-bottom:22px;
 
 }
 
-.back-button{
+.category-title i{
 
-width:46px;
-
-height:46px;
+width:50px;
+height:50px;
 
 border-radius:50%;
 
 display:flex;
-
 align-items:center;
-
 justify-content:center;
 
-text-decoration:none;
-
-background:#222;
-
-border:1px solid rgba(212,175,55,.25);
-
-color:#f7de8b;
-
-font-size:18px;
-
-transition:.25s;
-
-}
-
-.back-button:hover{
-
-transform:translateY(-2px);
-
-background:#2c2c2c;
-
-}
-
-.header-content{
-
-flex:1;
-
-}
-
-.header-content h1{
-
-font-size:26px;
-
-font-weight:800;
-
 background:
+linear-gradient(135deg,#ffd14c,#ff9d11);
 
-linear-gradient(
-
-90deg,
-
-#fff5cf,
-
-#d4af37,
-
-#fff5cf
-
-);
-
--webkit-background-clip:text;
-
--webkit-text-fill-color:transparent;
-
-}
-
-.header-content p{
-
-margin-top:5px;
-
-font-size:13px;
-
-color:#cfcfcf;
-
-}
-
-/* ==========================
-WELCOME
-========================== */
-
-.welcome-banner{
-
-margin-bottom:24px;
-
-padding:18px;
-
-border-radius:22px;
-
-background:
-
-linear-gradient(
-
-135deg,
-
-rgba(212,175,55,.15),
-
-rgba(255,255,255,.03)
-
-);
-
-border:1px solid rgba(212,175,55,.25);
-
-text-align:center;
-
-}
-
-.welcome-banner h2{
-
-font-size:21px;
-
-margin-bottom:8px;
-
-font-weight:700;
-
-}
-
-.welcome-banner p{
-
-font-size:13px;
-
-line-height:1.6;
-
-color:#d3d3d3;
-
-}
-/* =========================================
-   RIO MAGGI POINT
-   PREMIUM MENU
-   PART 2
-========================================= */
-
-/* ==========================
-CATEGORY TABS
-========================== */
-
-.menu-tabs{
-
-display:flex;
-
-gap:10px;
-
-overflow-x:auto;
-
-padding-bottom:10px;
-
-margin-bottom:24px;
-
-scrollbar-width:none;
-
-}
-
-.menu-tabs::-webkit-scrollbar{
-
-display:none;
-
-}
-
-.menu-tab{
-
-flex:0 0 auto;
-
-padding:11px 18px;
-
-border:none;
-
-border-radius:999px;
-
-background:#232323;
-
-color:#ffffff;
-
-font-size:13px;
-
-font-weight:600;
-
-cursor:pointer;
-
-transition:.30s;
-
-border:1px solid rgba(212,175,55,.25);
-
-}
-
-.menu-tab.active{
-
-background:
-linear-gradient(
-135deg,
-#f7de8b,
-#d4af37);
-
-color:#111111;
-
-font-weight:700;
-
-box-shadow:
-0 8px 18px rgba(212,175,55,.35);
-
-}
-
-.menu-tab:hover{
-
-transform:translateY(-2px);
-
-}
-
-/* ==========================
-MENU CATEGORY
-========================== */
-
-.menu-category{
-
-margin-bottom:20px;
-
-border-radius:24px;
-
-background:#151515;
-
-border:1px solid rgba(212,175,55,.18);
-
-overflow:hidden;
-
-transition:.35s;
-
-}
-
-.category-header{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:18px 20px;
-
-cursor:pointer;
-
-background:
-linear-gradient(
-90deg,
-rgba(212,175,55,.12),
-transparent);
-
-}
-
-.category-header h2{
+color:#fff;
 
 font-size:20px;
 
-font-weight:700;
-
-color:#f7de8b;
+box-shadow:var(--shadow-sm);
 
 }
 
-.category-header i{
+.category-title h3{
 
-font-size:18px;
-
-color:#f7de8b;
-
-transition:.35s;
+font-size:28px;
+font-weight:800;
 
 }
 
-.menu-category.active .category-header i{
+/* ---------- GRID ---------- */
 
-transform:rotate(180deg);
+.menu-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(280px,1fr));
+
+gap:22px;
 
 }
 
-.category-body{
+/* ---------- CARD ---------- */
 
-padding:18px;
-
-display:block;
-
-}
-
-/* ==========================
-MENU CARD
-========================== */
-
-.menu-card{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-gap:18px;
-
-padding:18px;
-
-margin-bottom:18px;
-
-border-radius:22px;
-
-background:
-linear-gradient(
-145deg,
-#1f1f1f,
-#171717);
-
-border:1px solid rgba(212,175,55,.20);
-
-transition:.35s;
+.item{
 
 position:relative;
+
+background:var(--card);
+
+border:2px solid var(--border);
+
+border-radius:24px;
+
+padding:22px;
+
+transition:var(--transition);
+
+box-shadow:var(--shadow-sm);
 
 overflow:hidden;
 
 }
 
-.menu-card:last-child{
-
-margin-bottom:0;
-
-}
-
-.menu-card::before{
+.item::before{
 
 content:"";
 
 position:absolute;
 
-top:-50px;
+left:0;
+top:0;
 
-right:-50px;
-
-width:140px;
-
-height:140px;
-
-border-radius:50%;
+width:100%;
+height:6px;
 
 background:
-radial-gradient(
-circle,
-rgba(212,175,55,.15),
-transparent);
+linear-gradient(90deg,
+#ffcb44,
+#ff9d18);
 
 }
 
-.menu-card:hover{
+.item:hover{
 
-transform:translateY(-4px);
+transform:translateY(-8px);
 
-border-color:#d4af37;
-
-box-shadow:
-0 10px 30px rgba(212,175,55,.18);
+box-shadow:var(--shadow-lg);
 
 }
 
-.menu-left{
-
-flex:1;
-
-z-index:2;
-
-}
-
-.menu-left h3{
+.item h4{
 
 font-size:20px;
 
@@ -528,484 +369,368 @@ margin-bottom:8px;
 
 }
 
-.menu-left p{
+.item small{
 
-font-size:13px;
+display:block;
 
-color:#bdbdbd;
+font-size:14px;
+
+color:var(--text-light);
+
+margin-bottom:18px;
+
+line-height:1.7;
+
+}
+.badge{
+
+display:inline-flex;
+align-items:center;
+gap:8px;
+
+padding:8px 14px;
 
 margin-bottom:16px;
 
-line-height:1.5;
+border-radius:999px;
+
+background:#fff1cb;
+
+color:#8b5d00;
+
+font-size:12px;
+
+font-weight:700;
+
+letter-spacing:.3px;
+
+box-shadow:var(--shadow-sm);
 
 }
-
-.menu-right{
-
-width:100px;
-
-height:100px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-z-index:2;
-
-}
-
-.menu-right img{
-
-width:100%;
-
-height:100%;
-
-object-fit:contain;
-
-transition:.35s;
-
-}
-
-.menu-card:hover .menu-right img{
-
-transform:scale(1.08) rotate(-4deg);
-
-}
-
-/* ==========================
-PRICE ROW
-========================== */
 
 .price-row{
 
 display:flex;
-
+align-items:center;
 justify-content:space-between;
 
-gap:14px;
+padding:12px 0;
+
+border-top:1px dashed #dcc089;
 
 }
 
-.price-box{
+.price-row:first-of-type{
 
-flex:1;
-
-padding:12px;
-
-border-radius:16px;
-
-background:
-rgba(255,255,255,.04);
-
-border:1px solid rgba(212,175,55,.22);
-
-text-align:center;
+border-top:none;
+padding-top:0;
 
 }
 
-.price-box span{
+.size{
 
-display:block;
-
-font-size:11px;
+font-size:15px;
 
 font-weight:600;
 
-color:#d8c17b;
-
-margin-bottom:6px;
-
-letter-spacing:.5px;
+color:var(--text-light);
 
 }
 
-.price-box strong{
+.price{
 
-font-size:18px;
+font-size:20px;
 
 font-weight:800;
 
-color:#ffffff;
+color:var(--primary-dark);
 
 }
 
-.single-price{
+/* ---------- PREMIUM HOVER ---------- */
 
-max-width:140px;
+.item:hover .price{
 
-}
-/* =========================================
-   RIO MAGGI POINT
-   PREMIUM MENU
-   PART 3
-========================================= */
-
-/* ==========================
-COMING SOON
-========================== */
-
-.coming-soon{
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-height:140px;
-
-border-radius:20px;
-
-background:
-rgba(255,255,255,.04);
-
-border:2px dashed rgba(212,175,55,.35);
-
-color:#f7de8b;
-
-font-size:18px;
-
-font-weight:700;
-
-letter-spacing:.5px;
+color:var(--accent);
 
 }
 
-/* ==========================
-BOTTOM NAVIGATION
-========================== */
+.item:hover h4{
 
-.bottom-nav{
-
-position:fixed;
-
-left:50%;
-
-bottom:10px;
-
-transform:translateX(-50%);
-
-width:calc(100% - 20px);
-
-max-width:430px;
-
-height:70px;
-
-display:flex;
-
-justify-content:space-around;
-
-align-items:center;
-
-background:#111111;
-
-border:1px solid rgba(212,175,55,.28);
-
-border-radius:22px;
-
-box-shadow:
-
-0 12px 35px rgba(0,0,0,.50);
-
-z-index:999;
+color:var(--primary-dark);
 
 }
 
-.bottom-nav a{
+.item:hover .badge{
 
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-justify-content:center;
-
-gap:5px;
-
-text-decoration:none;
-
-color:#8e8e8e;
-
-font-size:11px;
-
-font-weight:600;
-
-transition:.30s;
-
-flex:1;
+background:#ffe7a6;
 
 }
 
-.bottom-nav a i{
-
-font-size:19px;
-
-}
-
-.bottom-nav a.active{
-
-color:#f7de8b;
-
-}
-
-.bottom-nav a:hover{
-
-color:#ffffff;
-
-transform:translateY(-2px);
-
-}
-
-/* ==========================
-PREMIUM ANIMATIONS
-========================== */
-
-@keyframes floatImage{
-
-0%{
-
-transform:translateY(0px);
-
-}
-
-50%{
-
-transform:translateY(-8px);
-
-}
-
-100%{
-
-transform:translateY(0px);
-
-}
-
-}
-
-.menu-right img{
-
-animation:floatImage 4s ease-in-out infinite;
-
-}
-
-@keyframes goldShine{
-
-0%{
-
-left:-120%;
-
-}
-
-100%{
-
-left:130%;
-
-}
-
-}
-
-.menu-card::after{
-
-content:"";
-
-position:absolute;
-
-top:0;
-
-left:-120%;
-
-width:60%;
-
-height:100%;
-
-background:
-
-linear-gradient(
-
-90deg,
-
-transparent,
-
-rgba(255,255,255,.12),
-
-transparent
-
-);
-
-transform:skewX(-20deg);
-
-animation:goldShine 6s infinite;
-
-pointer-events:none;
-
-}
-
-/* ==========================
-SCROLLBAR
-========================== */
+/* ---------- SCROLLBAR ---------- */
 
 ::-webkit-scrollbar{
 
-width:6px;
-
-height:6px;
-
-}
-
-::-webkit-scrollbar-thumb{
-
-background:#d4af37;
-
-border-radius:10px;
+width:10px;
 
 }
 
 ::-webkit-scrollbar-track{
 
-background:#1b1b1b;
+background:#f4e7c2;
 
 }
 
-/* ==========================
-TABLET
-========================== */
+::-webkit-scrollbar-thumb{
 
-@media(min-width:768px){
+background:linear-gradient(
+180deg,
+#ffcf4c,
+#d8891c
+);
 
-.page{
-
-max-width:760px;
-
-}
-
-.menu-dashboard{
-
-display:grid;
-
-grid-template-columns:1fr 1fr;
-
-gap:20px;
+border-radius:999px;
 
 }
 
-.menu-card{
+::-webkit-scrollbar-thumb:hover{
 
-min-height:180px;
-
-}
-
-.bottom-nav{
-
-max-width:760px;
+background:linear-gradient(
+180deg,
+#ffc02a,
+#bf6d06
+);
 
 }
 
-}
+/* ---------- TEXT SELECTION ---------- */
 
-/* ==========================
-DESKTOP
-========================== */
+::selection{
 
-@media(min-width:1200px){
-
-.page{
-
-max-width:1180px;
+background:#ffcc4d;
+color:#2d2418;
 
 }
 
-.menu-dashboard{
+::-moz-selection{
 
-grid-template-columns:repeat(3,1fr);
+background:#ffcc4d;
+color:#2d2418;
 
-gap:24px;
+}
+/* ---------- TABLET ---------- */
+
+@media (max-width:992px){
+
+.container{
+
+width:min(94%,100%);
+padding:24px 0 60px;
 
 }
 
-.bottom-nav{
+.hero{
 
-max-width:900px;
+padding:30px;
 
 }
 
-.menu-header h1{
+.hero h2{
 
 font-size:34px;
 
 }
 
-.menu-left h3{
+.hero p{
+
+font-size:15px;
+
+}
+
+.category-title h3{
+
+font-size:24px;
+
+}
+
+.menu-grid{
+
+grid-template-columns:
+repeat(auto-fit,minmax(250px,1fr));
+
+gap:18px;
+
+}
+
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width:768px){
+
+.top-bar{
+
+flex-direction:column;
+align-items:flex-start;
+
+}
+
+.logo{
+
+width:100%;
+
+}
+
+.logo-circle{
+
+width:58px;
+height:58px;
+font-size:26px;
+
+}
+
+.logo-text h1{
+
+font-size:24px;
+
+}
+
+.logo-text p{
+
+font-size:13px;
+
+}
+
+.back-btn{
+
+width:100%;
+justify-content:center;
+
+}
+
+.hero{
+
+padding:24px;
+
+border-radius:22px;
+
+}
+
+.hero h2{
+
+font-size:28px;
+line-height:1.2;
+
+}
+
+.hero p{
+
+font-size:14px;
+line-height:1.8;
+
+}
+
+.category{
+
+margin-top:32px;
+
+}
+
+.category-title{
+
+margin-bottom:18px;
+
+}
+
+.category-title i{
+
+width:44px;
+height:44px;
+font-size:17px;
+
+}
+
+.category-title h3{
 
 font-size:22px;
 
 }
 
-.menu-right{
+.item{
 
-width:120px;
-
-height:120px;
+padding:18px;
 
 }
 
-}
-
-/* ==========================
-MOBILE
-========================== */
-
-@media(max-width:480px){
-
-.page{
-
-padding:16px 14px 100px;
-
-}
-
-.header-content h1{
-
-font-size:23px;
-
-}
-
-.welcome-banner h2{
+.item h4{
 
 font-size:18px;
 
 }
 
-.category-header h2{
+.price{
 
 font-size:18px;
 
 }
 
-.menu-card{
+}
 
-flex-direction:column-reverse;
+/* ---------- SMALL MOBILE ---------- */
 
-text-align:center;
+@media (max-width:480px){
+
+.container{
+
+width:92%;
 
 }
 
-.menu-right{
+.hero{
 
-width:90px;
+padding:20px;
 
-height:90px;
+}
+
+.hero h2{
+
+font-size:24px;
+
+}
+
+.hero p{
+
+font-size:13px;
+
+}
+
+.menu-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.badge{
+
+font-size:11px;
+
+padding:7px 12px;
 
 }
 
 .price-row{
 
-gap:10px;
+padding:10px 0;
 
 }
 
-.price-box strong{
+.size{
+
+font-size:14px;
+
+}
+
+.price{
 
 font-size:17px;
 
