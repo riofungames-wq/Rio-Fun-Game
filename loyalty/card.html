@@ -7,171 +7,104 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
 <title>
 Rio Maggi Point
 </title>
 
-
 <meta name="theme-color" content="#111111">
 
-
 <link rel="manifest" href="manifest.json">
-
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-
 <link
 href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
 rel="stylesheet">
-
 
 <link
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-
 <link
 rel="stylesheet"
 href="css/card.css">
 
-
 </head>
-
 
 <body>
 
-
 <div class="page">
 
-
 <div class="premium-card">
-
 
 <div class="card-glow"></div>
 
 <div class="card-shine"></div>
 
-
-
 <!-- HEADER -->
-
 
 <div class="card-header">
 
-
 <h1 class="brand-title">
-
 RIO MAGGI POINT
-
 </h1>
 
-
-
 <div class="brand-subtitle">
-
 Premium Loyalty Club
-
 </div>
 
-
 </div>
-
-
-
-
 
 <!-- CUSTOMER SECTION -->
 
-
 <div class="customer-section">
-
-
 
 <div class="avatar-frame">
 
-
 <img
-
 id="customerPhoto"
-
 src="assets/avatars/male.png"
-
-alt="Customer"
-
-
->
-
+alt="Customer">
 
 </div>
 
-
-
-
 <div
-
 class="customer-name"
-
 id="customerName">
-
 
 Loading...
 
-
 </div>
 
-
-
-
 <div class="customer-id">
-
 
 ID :
 
 <span id="memberId">
-
 RIO-000000
-
 </span>
 
-
 </div>
-
-
-
 
 <div class="premium-member">
-
 PREMIUM MEMBER
-
 </div>
 
-
-
-
 <button
-
 class="game-button"
-
 id="gameLink">
-
 
 <i class="fa-solid fa-gamepad"></i>
 
-
 CLICK FREE GAME
-
 
 </button>
 
-
 </div>
-  
-<!-- STAMP TITLE -->
 
+<!-- STAMP TITLE -->
 
 <div class="stamp-title">
 
@@ -179,89 +112,39 @@ Collect 6 Stamps • Win 1 FREE VEG MAGGI
 
 </div>
 
-
-
-
 <!-- STAMP SECTION -->
-
 
 <div class="stamp-section">
 
-
 <div class="stamp-row">
 
-
-
 <div class="stamp-circle" id="stamp1">
-
-<span>
-1
-</span>
-
+<span>1</span>
 </div>
-
-
-
 
 <div class="stamp-circle" id="stamp2">
-
-<span>
-2
-</span>
-
+<span>2</span>
 </div>
-
-
-
 
 <div class="stamp-circle" id="stamp3">
-
-<span>
-3
-</span>
-
+<span>3</span>
 </div>
-
-
-
 
 <div class="stamp-circle" id="stamp4">
-
-<span>
-4
-</span>
-
+<span>4</span>
 </div>
-
-
-
 
 <div class="stamp-circle" id="stamp5">
-
-<span>
-5
-</span>
-
+<span>5</span>
 </div>
-
-
-
 
 <div class="stamp-circle" id="stamp6">
-
-<span>
-6
-</span>
-
+<span>6</span>
 </div>
-
-
-
 
 <div
 class="stamp-circle reward-circle"
 id="rewardCircle">
-
 
 <div class="reward-label">
 
@@ -271,212 +154,119 @@ VEG
 <br>
 MAGGI
 
+</div>
 
 </div>
 
+</div>
 
 </div>
 
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<!-- COUNTDOWN -->
-
+<!-- CONTINUE IN PART 2 -->
+  <!-- COUNTDOWN -->
 
 <div class="countdown-box">
 
+    <div class="countdown-text">
+        STAMP RESET IN
+    </div>
 
-<div class="countdown-text">
+    <div
+        id="countdownDays"
+        class="countdown-days">
 
-STAMP RESET IN
+        40 DAYS
 
-</div>
-
-
-
-<div
-
-id="countdownDays"
-
-class="countdown-days">
-
-
-40 DAYS
-
+    </div>
 
 </div>
 
-
-
-</div>
-  <!-- QUICK BUTTONS -->
-
+<!-- QUICK BUTTONS -->
 
 <div class="quick-buttons">
 
+    <button id="callBtn">
+        <i class="fa-solid fa-phone"></i>
+        Call
+    </button>
 
-<button id="callBtn">
+    <button id="whatsappBtn">
+        <i class="fa-brands fa-whatsapp"></i>
+        WhatsApp
+    </button>
 
-<i class="fa-solid fa-phone"></i>
-
-Call
-
-</button>
-
-
-
-
-<button id="whatsappBtn">
-
-<i class="fa-brands fa-whatsapp"></i>
-
-WhatsApp
-
-</button>
-
-
-
-
-<button id="mapBtn">
-
-<i class="fa-solid fa-location-dot"></i>
-
-Map
-
-</button>
-
+    <button id="mapBtn">
+        <i class="fa-solid fa-location-dot"></i>
+        Map
+    </button>
 
 </div>
-
-
-
-
 
 <!-- BOTTOM NAVIGATION -->
 
-
 <nav class="bottom-nav">
 
+    <a href="card.html" class="active">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
 
-<a href="card.html" class="active">
+    <a href="qr.html">
+        <i class="fa-solid fa-qrcode"></i>
+        <span>QR</span>
+    </a>
 
-<i class="fa-solid fa-house"></i>
+    <a href="history.html">
+        <i class="fa-solid fa-clock-rotate-left"></i>
+        <span>History</span>
+    </a>
 
-<span>
-Home
-</span>
+    <!-- NEW MENU BUTTON -->
 
-</a>
+    <a href="menu.html">
+        <i class="fa-solid fa-bowl-food"></i>
+        <span>Menu</span>
+    </a>
 
+    <a href="feedback.html">
+        <i class="fa-solid fa-star"></i>
+        <span>Review</span>
+    </a>
 
-
-
-<a href="qr.html">
-
-<i class="fa-solid fa-qrcode"></i>
-
-<span>
-QR
-</span>
-
-</a>
-
-
-
-
-<a href="history.html">
-
-<i class="fa-solid fa-clock-rotate-left"></i>
-
-<span>
-History
-</span>
-
-</a>
-
-
-
-
-<a href="feedback.html">
-
-<i class="fa-solid fa-star"></i>
-
-<span>
-Review
-</span>
-
-</a>
-
-
-
-
-<a href="profile.html">
-
-<i class="fa-solid fa-user"></i>
-
-<span>
-Profile
-</span>
-
-</a>
-
-
+    <a href="profile.html">
+        <i class="fa-solid fa-user"></i>
+        <span>Profile</span>
+    </a>
 
 </nav>
 
-
 </div>
 
 </div>
 
-
-
-
-
-<!-- CARD JAVASCRIPT -->
-
+<!-- CONTINUE IN PART 3 -->
+  <!-- CARD JAVASCRIPT -->
 
 <script
 type="module"
 src="js/card.js">
 </script>
 
-
-
-
-
 <!-- SERVICE WORKER -->
-
 
 <script>
 
-
 if ("serviceWorker" in navigator) {
 
+    window.addEventListener("load", () => {
 
-window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js");
 
-
-navigator.serviceWorker.register("./service-worker.js");
-
-
-});
-
+    });
 
 }
 
-
 </script>
-
-
 
 </body>
 
