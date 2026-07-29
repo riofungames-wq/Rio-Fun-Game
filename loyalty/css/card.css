@@ -56,7 +56,7 @@ width:100%;
 
 max-width:430px;
 
-padding-bottom:90px;
+padding-bottom:100px;   /* पहले 90px था */
 
 }
 
@@ -230,7 +230,6 @@ background:linear-gradient(
 #d4af37);
 
 box-shadow:
-
 0 0 18px rgba(212,175,55,.45);
 
 display:flex;
@@ -257,8 +256,6 @@ background:#222;
 
 }
 
-/* Customer Name */
-
 .customer-name{
 
 font-family:"Georgia",serif;
@@ -277,8 +274,6 @@ margin-bottom:6px;
 
 }
 
-/* Rio ID */
-
 .customer-id{
 
 font-size:14px;
@@ -290,8 +285,6 @@ color:#e7cb74;
 margin-bottom:10px;
 
 }
-
-/* Premium Badge */
 
 .premium-member{
 
@@ -314,8 +307,6 @@ color:#f7de8b;
 margin-bottom:14px;
 
 }
-
-/* Click Free Game */
 
 .game-button{
 
@@ -355,10 +346,10 @@ transition:.25s;
 transform:translateY(-2px);
 
 box-shadow:
-
 0 8px 18px rgba(212,175,55,.35);
 
 }
+
 /* ===========================
    STAMP SECTION
 =========================== */
@@ -400,9 +391,6 @@ box-shadow:
 
 }
 
-
-/* Stamp Row */
-
 .stamp-section{
 
 width:100%;
@@ -414,7 +402,6 @@ justify-content:center;
 margin-bottom:20px;
 
 }
-
 
 .stamp-row{
 
@@ -429,9 +416,6 @@ align-items:center;
 gap:4px;
 
 }
-
-
-/* Stamp Circle */
 
 .stamp-circle{
 
@@ -466,9 +450,6 @@ inset 0 0 8px rgba(255,255,255,.05);
 
 }
 
-
-/* Active Stamp */
-
 .stamp-circle.active{
 
 background:linear-gradient(
@@ -484,9 +465,6 @@ box-shadow:
 0 0 16px rgba(212,175,55,.45);
 
 }
-
-
-/* Reward Circle */
 
 .reward-circle{
 
@@ -515,7 +493,9 @@ padding:2px;
 
 }
 
-/* Countdown */
+/* ===========================
+   COUNTDOWN
+=========================== */
 
 .countdown-box{
 
@@ -533,7 +513,6 @@ text-align:center;
 
 }
 
-
 .countdown-text{
 
 font-size:11px;
@@ -546,7 +525,6 @@ color:#d8c17b;
 
 }
 
-
 .countdown-days{
 
 margin-top:4px;
@@ -557,7 +535,9 @@ font-weight:800;
 
 color:#ffffff;
 
-}/* ===========================
+}
+
+/* ===========================
    QUICK BUTTONS
 =========================== */
 
@@ -623,8 +603,7 @@ transform:translateY(-2px);
 
 }
 
-
-
+/* CONTINUE IN PART 3 */
 /* ===========================
    BOTTOM NAVIGATION
 =========================== */
@@ -643,7 +622,9 @@ width:calc(100% - 20px);
 
 max-width:430px;
 
-height:68px;
+height:72px;
+
+padding:0 8px;
 
 background:#111;
 
@@ -653,7 +634,7 @@ border-radius:22px;
 
 display:flex;
 
-justify-content:space-around;
+justify-content:space-between;
 
 align-items:center;
 
@@ -665,6 +646,8 @@ z-index:999;
 }
 
 .bottom-nav a{
+
+flex:1;
 
 text-decoration:none;
 
@@ -678,9 +661,13 @@ align-items:center;
 
 justify-content:center;
 
-gap:5px;
+gap:4px;
+
+height:100%;
 
 font-size:10px;
+
+font-weight:500;
 
 transition:.25s;
 
@@ -690,6 +677,8 @@ transition:.25s;
 
 font-size:18px;
 
+transition:.25s;
+
 }
 
 .bottom-nav a.active{
@@ -698,19 +687,31 @@ color:#f7de8b;
 
 }
 
-.bottom-nav a:hover{
+.bottom-nav a.active i{
 
-color:#fff;
+transform:translateY(-2px);
 
 }
 
+.bottom-nav a:hover{
 
+color:#ffffff;
+
+}
+
+.bottom-nav a span{
+
+white-space:nowrap;
+
+line-height:1;
+
+}
 
 /* ===========================
    MOBILE
 =========================== */
 
-@media(max-width:390px){
+@media (max-width:390px){
 
 .brand-title{
 
@@ -766,15 +767,35 @@ font-size:10px;
 
 }
 
+.bottom-nav{
+
+height:68px;
+
+padding:0 4px;
+
 }
 
+.bottom-nav a{
 
+font-size:9px;
+
+gap:3px;
+
+}
+
+.bottom-nav a i{
+
+font-size:16px;
+
+}
+
+}
 
 /* ===========================
    TABLET
 =========================== */
 
-@media(min-width:768px){
+@media (min-width:768px){
 
 .page{
 
@@ -814,13 +835,11 @@ min-width:50px;
 
 }
 
-
-
 /* ===========================
    DESKTOP
 =========================== */
 
-@media(min-width:1200px){
+@media (min-width:1200px){
 
 .page{
 
