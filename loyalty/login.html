@@ -15,23 +15,30 @@
 
 <link rel="icon" href="assets/logo/logo.png">
 
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
+
 <style>
 
 *{
+
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Poppins',sans-serif;
+
 }
+
 
 body{
 
@@ -52,6 +59,7 @@ overflow:hidden;
 
 }
 
+
 body::before{
 
 content:"";
@@ -66,11 +74,13 @@ border-radius:50%;
 background:rgba(255,255,255,.18);
 
 top:-250px;
+
 right:-250px;
 
 filter:blur(40px);
 
 }
+
 
 body::after{
 
@@ -86,17 +96,21 @@ border-radius:50%;
 background:rgba(212,175,55,.18);
 
 left:-180px;
+
 bottom:-180px;
 
 filter:blur(40px);
 
 }
 
+
+
 .login-card{
 
 position:relative;
 
 width:100%;
+
 max-width:430px;
 
 background:#fff;
@@ -113,6 +127,8 @@ z-index:5;
 
 }
 
+
+
 .logo{
 
 display:flex;
@@ -123,6 +139,7 @@ margin-bottom:18px;
 
 }
 
+
 .logo img{
 
 width:95px;
@@ -132,6 +149,8 @@ height:95px;
 object-fit:contain;
 
 }
+
+
 
 .title{
 
@@ -147,6 +166,8 @@ margin-bottom:8px;
 
 }
 
+
+
 .subtitle{
 
 text-align:center;
@@ -159,11 +180,15 @@ margin-bottom:35px;
 
 }
 
+
+
 .form-group{
 
 margin-bottom:22px;
 
 }
+
+
 
 .form-group label{
 
@@ -179,17 +204,21 @@ color:#5d4b25;
 
 }
 
+
+
 .input-box{
 
 position:relative;
 
 }
 
+
 .input-box i{
 
 position:absolute;
 
 left:16px;
+
 top:50%;
 
 transform:translateY(-50%);
@@ -199,6 +228,8 @@ color:#C89B3C;
 font-size:18px;
 
 }
+
+
 
 .input-box input{
 
@@ -211,6 +242,7 @@ border:2px solid #ead7a3;
 border-radius:15px;
 
 padding-left:50px;
+
 padding-right:50px;
 
 font-size:15px;
@@ -221,6 +253,7 @@ transition:.25s;
 
 }
 
+
 .input-box input:focus{
 
 border-color:#C89B3C;
@@ -229,11 +262,13 @@ box-shadow:0 0 0 4px rgba(200,155,60,.15);
 
 }
 
+
 .password-toggle{
 
 position:absolute;
 
 right:16px;
+
 top:50%;
 
 transform:translateY(-50%);
@@ -245,39 +280,14 @@ color:#777;
 font-size:18px;
 
 }
-  .remember-row{
+  .forgot-box{
 
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
+text-align:right;
 
 margin-bottom:28px;
 
-font-size:14px;
-
 }
 
-.remember-row label{
-
-display:flex;
-
-align-items:center;
-
-gap:8px;
-
-cursor:pointer;
-
-color:#555;
-
-}
-
-.remember-row input{
-
-accent-color:#C89B3C;
-
-}
 
 .forgot{
 
@@ -289,11 +299,14 @@ font-weight:600;
 
 }
 
+
 .forgot:hover{
 
 text-decoration:underline;
 
 }
+
+
 
 .login-btn{
 
@@ -305,7 +318,9 @@ border:none;
 
 border-radius:16px;
 
-background:linear-gradient(135deg,#d4af37,#b8860b);
+background:
+
+linear-gradient(135deg,#d4af37,#b8860b);
 
 color:#fff;
 
@@ -317,15 +332,21 @@ cursor:pointer;
 
 transition:.25s;
 
-box-shadow:0 10px 25px rgba(184,134,11,.35);
+box-shadow:
+
+0 10px 25px rgba(184,134,11,.35);
 
 }
+
+
 
 .login-btn:hover{
 
 transform:translateY(-2px);
 
 }
+
+
 
 .login-btn:disabled{
 
@@ -334,6 +355,8 @@ opacity:.7;
 cursor:not-allowed;
 
 }
+
+
 
 .signup{
 
@@ -347,6 +370,8 @@ color:#666;
 
 }
 
+
+
 .signup a{
 
 color:#b8860b;
@@ -357,11 +382,15 @@ text-decoration:none;
 
 }
 
+
+
 .signup a:hover{
 
 text-decoration:underline;
 
 }
+
+
 
 .footer{
 
@@ -375,7 +404,10 @@ color:#999;
 
 }
 
+
+
 @media(max-width:480px){
+
 
 .login-card{
 
@@ -385,11 +417,13 @@ border-radius:22px;
 
 }
 
+
 .title{
 
 font-size:26px;
 
 }
+
 
 .subtitle{
 
@@ -397,23 +431,34 @@ font-size:13px;
 
 }
 
+
 }
+
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <div class="login-card">
 
+
 <div class="logo">
 
+
 <img
+
 src="assets/logo/logo.png"
+
 alt="Rio Logo">
 
+
 </div>
+
+
 
 <h1 class="title">
 
@@ -421,114 +466,167 @@ Rio Maggi Point
 
 </h1>
 
+
+
 <p class="subtitle">
 
 Customer Loyalty Login
 
 </p>
 
+
+
+
 <form id="loginForm">
-  <!-- =========================
-EMAIL
-========================= -->
+
+
+<!-- EMAIL -->
+
 
 <div class="form-group">
 
-<label>Email Address</label>
-
-<div class="input-box">
-
-<i class="fa-solid fa-envelope"></i>
-
-<input
-type="email"
-id="email"
-placeholder="Enter your email"
-autocomplete="email"
-required>
-
-</div>
-
-</div>
-
-<!-- =========================
-PASSWORD
-========================= -->
-
-<div class="form-group">
-
-<label>Password</label>
-
-<div class="input-box">
-
-<i class="fa-solid fa-lock"></i>
-
-<input
-type="password"
-id="password"
-placeholder="Enter your password"
-autocomplete="current-password"
-required>
-
-<span
-class="password-toggle"
-id="togglePassword">
-
-<i class="fa-solid fa-eye"></i>
-
-</span>
-
-</div>
-
-</div>
-
-<!-- =========================
-REMEMBER
-========================= -->
-
-<div class="remember-row">
 
 <label>
 
-<input
-type="checkbox"
-id="rememberMe">
-
-Remember Me
+Email Address
 
 </label>
 
+
+
+<div class="input-box">
+
+
+<i class="fa-solid fa-envelope"></i>
+
+
+<input
+
+type="email"
+
+id="email"
+
+placeholder="Enter your email"
+
+autocomplete="email"
+
+required>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- PASSWORD -->
+
+
+<div class="form-group">
+
+
+<label>
+
+Password
+
+</label>
+
+
+
+<div class="input-box">
+
+
+<i class="fa-solid fa-lock"></i>
+
+
+<input
+
+type="password"
+
+id="password"
+
+placeholder="Enter your password"
+
+autocomplete="current-password"
+
+required>
+
+
+
+<span
+
+class="password-toggle"
+
+id="togglePassword">
+
+
+<i class="fa-solid fa-eye"></i>
+
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- FORGOT PASSWORD -->
+
+
+<div class="forgot-box">
+
+
 <a
+
 href="#"
+
 id="forgotPassword"
+
 class="forgot">
+
 
 Forgot Password?
 
 </a>
 
+
 </div>
 
-<!-- =========================
-LOGIN BUTTON
-========================= -->
+
+
+
+
+<!-- LOGIN BUTTON -->
+
 
 <button
+
 type="submit"
+
 id="loginBtn"
+
 class="login-btn">
+
 
 <i class="fa-solid fa-right-to-bracket"></i>
 
+
 &nbsp;
+
 
 Login
 
-</button>
 
-<!-- =========================
-SIGNUP
-========================= -->
+</button>
+  <!-- SIGNUP -->
 
 <div class="signup">
 
@@ -542,6 +640,10 @@ Create Account
 
 </div>
 
+
+
+<!-- FOOTER -->
+
 <div class="footer">
 
 © 2026 Rio Maggi Point
@@ -552,15 +654,31 @@ Premium Digital Loyalty Card
 
 </div>
 
+
+
 </form>
 
-</div>
-  <!-- =========================
-JAVASCRIPT
-========================= -->
 
-<script type="module" src="js/login.js"></script>
+</div>
+
+
+
+
+<!-- LOGIN JAVASCRIPT -->
+
+<script
+
+type="module"
+
+src="js/login.js">
+
+</script>
+
+
 
 </body>
 
 </html>
+
+
+
