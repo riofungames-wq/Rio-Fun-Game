@@ -4,75 +4,300 @@
    PART 1
 ========================================= */
 
+:root{
+
+--bg:#0b0b0b;
+
+--card:#181818;
+
+--gold:#d4af37;
+
+--gold-light:#f7de8b;
+
+--text:#ffffff;
+
+--muted:#bdbdbd;
+
+--border:rgba(212,175,55,.30);
+
+--shadow:rgba(0,0,0,.45);
+
+}
+
 *{
+
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+font-family:"Poppins",sans-serif;
+
 }
 
 html{
-width:100%;
-height:100%;
+
 scroll-behavior:smooth;
+
 }
 
 body{
 
-background:#111111;
-color:#ffffff;
-min-height:100vh;
+background:
+linear-gradient(
+180deg,
+#080808,
+#101010);
+
+color:var(--text);
+
 overflow-x:hidden;
 
+min-height:100vh;
+
 }
+
+/* ==========================
+PAGE
+========================== */
 
 .page{
 
 width:100%;
+
 max-width:430px;
+
 margin:auto;
-padding:20px 16px 100px;
+
+padding:18px 16px 110px;
 
 }
 
-/* ===========================
+/* ==========================
+CONTAINER
+========================== */
+
+.menu-container{
+
+position:relative;
+
+background:
+linear-gradient(
+180deg,
+#191919,
+#111111);
+
+border:1px solid rgba(212,175,55,.28);
+
+border-radius:28px;
+
+padding:22px;
+
+overflow:hidden;
+
+box-shadow:
+
+0 12px 35px rgba(0,0,0,.45),
+
+0 0 18px rgba(212,175,55,.10);
+
+}
+
+/* Gold Glow */
+
+.menu-container::before{
+
+content:"";
+
+position:absolute;
+
+top:-100px;
+
+right:-100px;
+
+width:220px;
+
+height:220px;
+
+border-radius:50%;
+
+background:
+
+radial-gradient(
+
+circle,
+
+rgba(212,175,55,.18),
+
+transparent 72%
+
+);
+
+pointer-events:none;
+
+}
+
+/* ==========================
 HEADER
-=========================== */
+========================== */
 
 .menu-header{
 
-text-align:center;
-margin-bottom:25px;
+display:flex;
+
+align-items:center;
+
+gap:16px;
+
+margin-bottom:24px;
 
 }
 
-.menu-header h1{
+.back-button{
 
-font-size:28px;
+width:46px;
+
+height:46px;
+
+border-radius:50%;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+text-decoration:none;
+
+background:#222;
+
+border:1px solid rgba(212,175,55,.25);
+
+color:#f7de8b;
+
+font-size:18px;
+
+transition:.25s;
+
+}
+
+.back-button:hover{
+
+transform:translateY(-2px);
+
+background:#2c2c2c;
+
+}
+
+.header-content{
+
+flex:1;
+
+}
+
+.header-content h1{
+
+font-size:26px;
+
 font-weight:800;
-color:#ffd86a;
-letter-spacing:.5px;
+
+background:
+
+linear-gradient(
+
+90deg,
+
+#fff5cf,
+
+#d4af37,
+
+#fff5cf
+
+);
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
 
 }
 
-.menu-header p{
+.header-content p{
 
-margin-top:6px;
+margin-top:5px;
+
 font-size:13px;
-color:#bbbbbb;
+
+color:#cfcfcf;
 
 }
 
-/* ===========================
+/* ==========================
+WELCOME
+========================== */
+
+.welcome-banner{
+
+margin-bottom:24px;
+
+padding:18px;
+
+border-radius:22px;
+
+background:
+
+linear-gradient(
+
+135deg,
+
+rgba(212,175,55,.15),
+
+rgba(255,255,255,.03)
+
+);
+
+border:1px solid rgba(212,175,55,.25);
+
+text-align:center;
+
+}
+
+.welcome-banner h2{
+
+font-size:21px;
+
+margin-bottom:8px;
+
+font-weight:700;
+
+}
+
+.welcome-banner p{
+
+font-size:13px;
+
+line-height:1.6;
+
+color:#d3d3d3;
+
+}
+/* =========================================
+   RIO MAGGI POINT
+   PREMIUM MENU
+   PART 2
+========================================= */
+
+/* ==========================
 CATEGORY TABS
-=========================== */
+========================== */
 
 .menu-tabs{
 
 display:flex;
+
 gap:10px;
+
 overflow-x:auto;
-padding-bottom:8px;
+
+padding-bottom:10px;
+
 margin-bottom:24px;
 
 scrollbar-width:none;
@@ -80,45 +305,51 @@ scrollbar-width:none;
 }
 
 .menu-tabs::-webkit-scrollbar{
+
 display:none;
+
 }
 
 .menu-tab{
 
 flex:0 0 auto;
 
-padding:10px 18px;
+padding:11px 18px;
 
-border-radius:30px;
+border:none;
 
-border:1px solid rgba(212,175,55,.35);
+border-radius:999px;
 
-background:#1c1c1c;
+background:#232323;
 
 color:#ffffff;
 
 font-size:13px;
+
 font-weight:600;
 
 cursor:pointer;
 
-transition:.25s;
+transition:.30s;
+
+border:1px solid rgba(212,175,55,.25);
 
 }
 
 .menu-tab.active{
 
-background:linear-gradient(
+background:
+linear-gradient(
 135deg,
-#d4af37,
-#f7de8b
-);
+#f7de8b,
+#d4af37);
 
 color:#111111;
-border:none;
+
+font-weight:700;
 
 box-shadow:
-0 6px 15px rgba(212,175,55,.35);
+0 8px 18px rgba(212,175,55,.35);
 
 }
 
@@ -127,69 +358,144 @@ box-shadow:
 transform:translateY(-2px);
 
 }
-/* =========================================
-   PREMIUM MENU CARDS
-   PART 2
-========================================= */
+
+/* ==========================
+MENU CATEGORY
+========================== */
 
 .menu-category{
 
-display:none;
-animation:fadeUp .35s ease;
+margin-bottom:20px;
+
+border-radius:24px;
+
+background:#151515;
+
+border:1px solid rgba(212,175,55,.18);
+
+overflow:hidden;
+
+transition:.35s;
 
 }
 
-.menu-category.active{
+.category-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:18px 20px;
+
+cursor:pointer;
+
+background:
+linear-gradient(
+90deg,
+rgba(212,175,55,.12),
+transparent);
+
+}
+
+.category-header h2{
+
+font-size:20px;
+
+font-weight:700;
+
+color:#f7de8b;
+
+}
+
+.category-header i{
+
+font-size:18px;
+
+color:#f7de8b;
+
+transition:.35s;
+
+}
+
+.menu-category.active .category-header i{
+
+transform:rotate(180deg);
+
+}
+
+.category-body{
+
+padding:18px;
 
 display:block;
 
 }
 
-.category-title{
-
-font-size:22px;
-font-weight:800;
-color:#ffd86a;
-margin-bottom:18px;
-text-align:center;
-
-}
-
-.menu-list{
-
-display:flex;
-flex-direction:column;
-gap:16px;
-
-}
+/* ==========================
+MENU CARD
+========================== */
 
 .menu-card{
 
-position:relative;
-
 display:flex;
-align-items:center;
+
 justify-content:space-between;
 
-padding:16px;
+align-items:center;
+
+gap:18px;
+
+padding:18px;
+
+margin-bottom:18px;
 
 border-radius:22px;
 
 background:
 linear-gradient(
 145deg,
-#191919,
-#242018
-);
+#1f1f1f,
+#171717);
 
-border:1px solid rgba(212,175,55,.28);
+border:1px solid rgba(212,175,55,.20);
+
+transition:.35s;
+
+position:relative;
 
 overflow:hidden;
 
-transition:.30s;
+}
 
-box-shadow:
-0 10px 25px rgba(0,0,0,.35);
+.menu-card:last-child{
+
+margin-bottom:0;
+
+}
+
+.menu-card::before{
+
+content:"";
+
+position:absolute;
+
+top:-50px;
+
+right:-50px;
+
+width:140px;
+
+height:140px;
+
+border-radius:50%;
+
+background:
+radial-gradient(
+circle,
+rgba(212,175,55,.15),
+transparent);
 
 }
 
@@ -200,109 +506,51 @@ transform:translateY(-4px);
 border-color:#d4af37;
 
 box-shadow:
-0 0 18px rgba(212,175,55,.30),
-0 14px 35px rgba(0,0,0,.45);
-
-}
-
-.menu-card::before{
-
-content:"";
-
-position:absolute;
-
-top:-40px;
-right:-40px;
-
-width:120px;
-height:120px;
-
-background:
-radial-gradient(
-circle,
-rgba(212,175,55,.18),
-transparent
-);
-
-border-radius:50%;
+0 10px 30px rgba(212,175,55,.18);
 
 }
 
 .menu-left{
 
-display:flex;
-flex-direction:column;
-gap:8px;
+flex:1;
+
 z-index:2;
 
 }
 
-.menu-name{
+.menu-left h3{
 
-font-size:18px;
+font-size:20px;
+
 font-weight:700;
-color:#ffffff;
+
+margin-bottom:8px;
 
 }
 
-.menu-desc{
+.menu-left p{
 
-font-size:12px;
+font-size:13px;
+
 color:#bdbdbd;
 
-}
+margin-bottom:16px;
 
-.price-box{
-
-display:flex;
-gap:18px;
-margin-top:8px;
-
-}
-
-.price-item{
-
-display:flex;
-flex-direction:column;
-align-items:center;
-
-min-width:60px;
-
-padding:8px 10px;
-
-border-radius:12px;
-
-background:rgba(255,255,255,.05);
-
-border:1px solid rgba(212,175,55,.20);
-
-}
-
-.price-item span{
-
-font-size:10px;
-color:#ffd86a;
-font-weight:600;
-margin-bottom:4px;
-
-}
-
-.price-item strong{
-
-font-size:15px;
-font-weight:800;
-color:#ffffff;
+line-height:1.5;
 
 }
 
 .menu-right{
 
-width:90px;
-height:90px;
+width:100px;
+
+height:100px;
 
 display:flex;
-justify-content:center;
+
 align-items:center;
+
+justify-content:center;
 
 z-index:2;
 
@@ -311,7 +559,9 @@ z-index:2;
 .menu-right img{
 
 width:100%;
+
 height:100%;
+
 object-fit:contain;
 
 transition:.35s;
@@ -320,264 +570,445 @@ transition:.35s;
 
 .menu-card:hover .menu-right img{
 
-transform:scale(1.08) rotate(-5deg);
+transform:scale(1.08) rotate(-4deg);
 
 }
 
-@keyframes fadeUp{
+/* ==========================
+PRICE ROW
+========================== */
 
-from{
+.price-row{
 
-opacity:0;
-transform:translateY(20px);
+display:flex;
+
+justify-content:space-between;
+
+gap:14px;
+
+}
+
+.price-box{
+
+flex:1;
+
+padding:12px;
+
+border-radius:16px;
+
+background:
+rgba(255,255,255,.04);
+
+border:1px solid rgba(212,175,55,.22);
+
+text-align:center;
 
 }
 
-to{
+.price-box span{
 
-opacity:1;
-transform:translateY(0);
+display:block;
+
+font-size:11px;
+
+font-weight:600;
+
+color:#d8c17b;
+
+margin-bottom:6px;
+
+letter-spacing:.5px;
 
 }
+
+.price-box strong{
+
+font-size:18px;
+
+font-weight:800;
+
+color:#ffffff;
+
+}
+
+.single-price{
+
+max-width:140px;
 
 }
 /* =========================================
-   PREMIUM EFFECTS
+   RIO MAGGI POINT
+   PREMIUM MENU
    PART 3
 ========================================= */
 
-.menu-card.gold{
-
-border:2px solid #d4af37;
-
-background:
-linear-gradient(
-145deg,
-#201b12,
-#171717
-);
-
-}
-
-.menu-card.gold::after{
-
-content:"";
-
-position:absolute;
-
-inset:0;
-
-background:
-linear-gradient(
-120deg,
-transparent,
-rgba(255,255,255,.08),
-transparent
-);
-
-transform:translateX(-120%);
-
-animation:shine 5s infinite;
-
-pointer-events:none;
-
-}
-
-@keyframes shine{
-
-0%{
-transform:translateX(-120%);
-}
-
-100%{
-transform:translateX(180%);
-}
-
-}
-
-/* ===========================
-COMING SOON CARD
-=========================== */
+/* ==========================
+COMING SOON
+========================== */
 
 .coming-soon{
 
 display:flex;
-justify-content:center;
+
 align-items:center;
 
-height:130px;
+justify-content:center;
 
-border-radius:22px;
+height:140px;
+
+border-radius:20px;
 
 background:
-rgba(255,255,255,.05);
+rgba(255,255,255,.04);
 
-border:1px dashed rgba(212,175,55,.35);
+border:2px dashed rgba(212,175,55,.35);
 
-color:#ffd86a;
+color:#f7de8b;
 
-font-size:16px;
+font-size:18px;
+
 font-weight:700;
 
 letter-spacing:.5px;
 
 }
 
-/* ===========================
+/* ==========================
+BOTTOM NAVIGATION
+========================== */
+
+.bottom-nav{
+
+position:fixed;
+
+left:50%;
+
+bottom:10px;
+
+transform:translateX(-50%);
+
+width:calc(100% - 20px);
+
+max-width:430px;
+
+height:70px;
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+background:#111111;
+
+border:1px solid rgba(212,175,55,.28);
+
+border-radius:22px;
+
+box-shadow:
+
+0 12px 35px rgba(0,0,0,.50);
+
+z-index:999;
+
+}
+
+.bottom-nav a{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+gap:5px;
+
+text-decoration:none;
+
+color:#8e8e8e;
+
+font-size:11px;
+
+font-weight:600;
+
+transition:.30s;
+
+flex:1;
+
+}
+
+.bottom-nav a i{
+
+font-size:19px;
+
+}
+
+.bottom-nav a.active{
+
+color:#f7de8b;
+
+}
+
+.bottom-nav a:hover{
+
+color:#ffffff;
+
+transform:translateY(-2px);
+
+}
+
+/* ==========================
+PREMIUM ANIMATIONS
+========================== */
+
+@keyframes floatImage{
+
+0%{
+
+transform:translateY(0px);
+
+}
+
+50%{
+
+transform:translateY(-8px);
+
+}
+
+100%{
+
+transform:translateY(0px);
+
+}
+
+}
+
+.menu-right img{
+
+animation:floatImage 4s ease-in-out infinite;
+
+}
+
+@keyframes goldShine{
+
+0%{
+
+left:-120%;
+
+}
+
+100%{
+
+left:130%;
+
+}
+
+}
+
+.menu-card::after{
+
+content:"";
+
+position:absolute;
+
+top:0;
+
+left:-120%;
+
+width:60%;
+
+height:100%;
+
+background:
+
+linear-gradient(
+
+90deg,
+
+transparent,
+
+rgba(255,255,255,.12),
+
+transparent
+
+);
+
+transform:skewX(-20deg);
+
+animation:goldShine 6s infinite;
+
+pointer-events:none;
+
+}
+
+/* ==========================
 SCROLLBAR
-=========================== */
+========================== */
 
 ::-webkit-scrollbar{
 
 width:6px;
+
+height:6px;
 
 }
 
 ::-webkit-scrollbar-thumb{
 
 background:#d4af37;
+
 border-radius:10px;
 
 }
 
 ::-webkit-scrollbar-track{
 
-background:#1a1a1a;
+background:#1b1b1b;
 
 }
 
-/* ===========================
-RESPONSIVE
-=========================== */
-
-@media(max-width:480px){
-
-.page{
-
-padding:18px 14px 100px;
-
-}
-
-.menu-header h1{
-
-font-size:24px;
-
-}
-
-.category-title{
-
-font-size:20px;
-
-}
-
-.menu-card{
-
-padding:14px;
-
-}
-
-.menu-name{
-
-font-size:16px;
-
-}
-
-.menu-desc{
-
-font-size:11px;
-
-}
-
-.price-box{
-
-gap:12px;
-
-}
-
-.price-item{
-
-min-width:55px;
-
-padding:7px;
-
-}
-
-.price-item strong{
-
-font-size:14px;
-
-}
-
-.menu-right{
-
-width:75px;
-height:75px;
-
-}
-
-}
+/* ==========================
+TABLET
+========================== */
 
 @media(min-width:768px){
 
 .page{
 
-max-width:700px;
+max-width:760px;
 
 }
 
-.menu-list{
+.menu-dashboard{
 
 display:grid;
+
 grid-template-columns:1fr 1fr;
-gap:18px;
+
+gap:20px;
 
 }
 
 .menu-card{
 
-min-height:165px;
+min-height:180px;
+
+}
+
+.bottom-nav{
+
+max-width:760px;
 
 }
 
 }
+
+/* ==========================
+DESKTOP
+========================== */
 
 @media(min-width:1200px){
 
 .page{
 
+max-width:1180px;
+
+}
+
+.menu-dashboard{
+
+grid-template-columns:repeat(3,1fr);
+
+gap:24px;
+
+}
+
+.bottom-nav{
+
 max-width:900px;
 
 }
 
-.menu-list{
+.menu-header h1{
 
-grid-template-columns:1fr 1fr;
-
-gap:22px;
+font-size:34px;
 
 }
 
-.menu-card{
+.menu-left h3{
 
-padding:20px;
-
-}
-
-.menu-name{
-
-font-size:20px;
+font-size:22px;
 
 }
 
 .menu-right{
 
-width:110px;
-height:110px;
+width:120px;
+
+height:120px;
 
 }
 
 }
 
-/* =========================================
-END
-========================================= */
+/* ==========================
+MOBILE
+========================== */
+
+@media(max-width:480px){
+
+.page{
+
+padding:16px 14px 100px;
+
+}
+
+.header-content h1{
+
+font-size:23px;
+
+}
+
+.welcome-banner h2{
+
+font-size:18px;
+
+}
+
+.category-header h2{
+
+font-size:18px;
+
+}
+
+.menu-card{
+
+flex-direction:column-reverse;
+
+text-align:center;
+
+}
+
+.menu-right{
+
+width:90px;
+
+height:90px;
+
+}
+
+.price-row{
+
+gap:10px;
+
+}
+
+.price-box strong{
+
+font-size:17px;
+
+}
+
+}
