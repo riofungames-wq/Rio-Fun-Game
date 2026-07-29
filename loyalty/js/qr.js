@@ -1,7 +1,7 @@
 // =====================================
 // RIO MAGGI POINT
 // QR.JS
-// PREMIUM QR SYSTEM
+// FINAL PREMIUM VERSION
 // PART 1
 // =====================================
 
@@ -9,6 +9,7 @@
 // ============================
 // FIREBASE IMPORT
 // ============================
+
 
 import { auth, db } from "./firebase-config.js";
 
@@ -40,13 +41,13 @@ from
 
 
 
+
 // ============================
-// HTML ELEMENTS
+// ELEMENTS
 // ============================
 
 
-const customerName =
-
+const customerName = 
 document.getElementById(
 "customerName"
 );
@@ -54,7 +55,6 @@ document.getElementById(
 
 
 const memberId =
-
 document.getElementById(
 "memberId"
 );
@@ -62,7 +62,6 @@ document.getElementById(
 
 
 const customerPhoto =
-
 document.getElementById(
 "customerPhoto"
 );
@@ -70,7 +69,6 @@ document.getElementById(
 
 
 const qrBox =
-
 document.getElementById(
 "qrcode"
 );
@@ -78,10 +76,10 @@ document.getElementById(
 
 
 const qrStatus =
-
 document.getElementById(
 "qrStatus"
 );
+
 
 
 
@@ -120,11 +118,16 @@ customerPhoto.src =
 }
 
 
+
 }
 
-// =====================================
-// LOAD CUSTOMER DATA
-// =====================================
+
+
+
+
+// ============================
+// LOAD CUSTOMER
+// ============================
 
 
 async function loadCustomerData(user){
@@ -147,17 +150,13 @@ user.uid
 
 
 
-const customerSnap =
+const snapshot =
 
-await getDoc(
-
-customerRef
-
-);
+await getDoc(customerRef);
 
 
 
-if(!customerSnap.exists()){
+if(!snapshot.exists()){
 
 
 setDefaultData();
@@ -166,7 +165,7 @@ setDefaultData();
 if(qrStatus){
 
 qrStatus.textContent =
-"Customer Not Found";
+"Customer Data Not Found";
 
 }
 
@@ -178,88 +177,60 @@ return null;
 
 
 
-const data =
-
-customerSnap.data();
+const customer = snapshot.data();
 
 
 
 
-// ============================
-// CUSTOMER NAME
-// ============================
+
+// NAME
 
 
 if(customerName){
 
-
 customerName.textContent =
 
-data.name ||
+customer.name ||
 
 "Customer";
-
 
 }
 
 
 
 
-// ============================
+
 // MEMBER ID
-// ============================
 
 
 if(memberId){
 
-
 memberId.textContent =
 
-data.memberId ||
+customer.memberId ||
 
 "RIO-000000";
-
 
 }
 
 
 
 
-// ============================
+
 // PHOTO
-// ============================
 
 
 if(customerPhoto){
 
-
 customerPhoto.src =
 
-data.photoURL ||
+customer.photoURL ||
 
-data.avatar ||
+customer.avatar ||
 
 "assets/avatars/male.png";
 
-
 }
-
-
-
-
-// ============================
-// QR STATUS CLEAR
-// ============================
-
-
-if(qrStatus){
-
-
-qrStatus.textContent = "";
-
-
-}
-
 
 
 
@@ -271,8 +242,9 @@ uid:user.uid,
 
 memberId:
 
-data.memberId || "RIO-000000"
+customer.memberId ||
 
+"RIO-000000"
 
 
 };
@@ -282,18 +254,16 @@ data.memberId || "RIO-000000"
 }
 
 
-
 catch(error){
 
 
 console.error(
 
-"QR Customer Load Error:",
+"QR LOAD ERROR",
 
 error
 
 );
-
 
 
 if(qrStatus){
@@ -304,17 +274,17 @@ qrStatus.textContent =
 }
 
 
-
 return null;
 
 
 }
 
 
-}
 
+}
 // =====================================
 // QR GENERATE
+// PART 2
 // =====================================
 
 
@@ -329,8 +299,14 @@ return;
 
 
 
+// OLD QR REMOVE
+
 qrBox.innerHTML = "";
 
+
+
+
+// QR DATA
 
 
 const qrData = {
@@ -341,9 +317,11 @@ type:
 "RIO_MAGGI_LOYALTY",
 
 
+
 uid:
 
 customer.uid,
+
 
 
 memberId:
@@ -351,20 +329,29 @@ memberId:
 customer.memberId
 
 
+
 };
 
 
 
 
+
+// CREATE QR
+
+
 new QRCode(
+
 
 qrBox,
 
+
 {
+
 
 text:
 
 JSON.stringify(qrData),
+
 
 
 width:
@@ -372,9 +359,23 @@ width:
 220,
 
 
+
 height:
 
 220,
+
+
+
+colorDark:
+
+"#111111",
+
+
+
+colorLight:
+
+"#ffffff",
+
 
 
 correctLevel:
@@ -382,7 +383,213 @@ correctLevel:
 QRCode.CorrectLevel.H
 
 
+
 }
+
+
+
+);
+
+
+
+
+
+if(qrStatus){
+
+
+qrStatus.textContent =
+
+"QR Ready To Scan";
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+// =====================================
+// DOWNLOAD QR
+// =====================================
+
+
+const downloadQR =
+
+document.getElementById(
+
+"downloadQR"
+
+);
+
+
+
+
+
+if(downloadQR){
+
+
+downloadQR.addEventListener(
+
+"click",()=>{
+
+
+
+const canvas =
+
+qrBox.querySelector(
+
+"canvas"
+
+);
+
+
+
+if(!canvas){
+
+alert(
+
+"QR Not Ready"
+
+);
+
+return;
+
+}
+
+
+
+
+const link =
+
+document.createElement(
+
+"a"
+
+);
+
+
+
+link.download =
+
+"Rio-Maggi-QR.png";
+
+
+
+link.href =
+
+canvas.toDataURL();
+
+
+
+link.click();
+
+
+
+});
+
+
+}
+
+
+
+
+
+
+// =====================================
+// SHARE QR
+// =====================================
+
+
+const shareQR =
+
+document.getElementById(
+
+"shareQR"
+
+);
+
+
+
+
+
+if(shareQR){
+
+
+shareQR.addEventListener(
+
+"click",async()=>{
+
+
+
+const canvas =
+
+qrBox.querySelector(
+
+"canvas"
+
+);
+
+
+
+if(!canvas){
+
+alert(
+
+"QR Not Ready"
+
+);
+
+return;
+
+}
+
+
+
+
+const image =
+
+canvas.toDataURL();
+
+
+
+if(navigator.share){
+
+
+
+navigator.share({
+
+title:
+
+"Rio Maggi Point Loyalty QR",
+
+
+text:
+
+"Scan my Rio Maggi Loyalty QR",
+
+
+url:
+
+image
+
+
+});
+
+
+
+}
+
+else{
+
+
+alert(
+
+"Share not supported"
 
 );
 
@@ -392,8 +599,13 @@ QRCode.CorrectLevel.H
 
 
 
+});
+
+
+}
 // =====================================
 // AUTH CONNECTION
+// PART 3
 // =====================================
 
 
@@ -402,6 +614,10 @@ onAuthStateChanged(
 auth,
 
 async(user)=>{
+
+
+
+// USER NOT LOGIN
 
 
 if(!user){
@@ -420,10 +636,20 @@ return;
 
 
 
+
+// LOAD CUSTOMER DATA
+
+
 const customer =
 
 await loadCustomerData(user);
 
+
+
+
+
+
+// GENERATE QR
 
 
 if(customer){
@@ -438,33 +664,31 @@ generateQR(customer);
 
 
 console.log(
-
 "================================"
-
 );
 
 
 console.log(
-
 "🍜 Rio Maggi Point"
-
 );
 
 
 console.log(
-
 "Premium QR Loaded Successfully"
-
 );
 
 
 console.log(
-
 "================================"
-
 );
 
 
 
 });
 
+
+
+
+// =====================================
+// END QR.JS
+// =====================================
