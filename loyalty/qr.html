@@ -4,7 +4,9 @@
 
 <head>
 
+
 <meta charset="UTF-8">
+
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -20,7 +22,12 @@ Rio Maggi Point • QR
 <link rel="manifest" href="manifest.json">
 
 
+<!-- COMMON LAYOUT -->
+
 <link rel="stylesheet" href="css/common.css">
+
+
+<!-- QR PAGE DESIGN -->
 
 <link rel="stylesheet" href="css/qr.css">
 
@@ -28,7 +35,9 @@ Rio Maggi Point • QR
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
+
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 
 
 <link
@@ -54,6 +63,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 <body>
 
 
+
 <div class="page">
 
 
@@ -64,7 +74,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 <div class="card-glow"></div>
 
+
 <div class="card-shine"></div>
+
 
 
 
@@ -81,6 +93,7 @@ RIO MAGGI POINT
 </h1>
 
 
+
 <p>
 
 Premium Loyalty QR
@@ -94,7 +107,7 @@ Premium Loyalty QR
 
 
 
-<!-- ================= CUSTOMER ================= -->
+<!-- ================= CUSTOMER SECTION ================= -->
 
 
 <section class="customer-section">
@@ -125,7 +138,9 @@ class="customer-name"
 
 id="customerName">
 
+
 Loading...
+
 
 </div>
 
@@ -151,17 +166,10 @@ RIO-000000
 
 </section>
 
-
-
-
-
-
 <!-- ================= QR AREA ================= -->
 
 
-
 <section class="qr-container">
-
 
 
 <div id="qrcode">
@@ -170,9 +178,13 @@ RIO-000000
 </div>
 
 
-
 </section>
-  
+
+
+
+
+
+
 <!-- ================= QR STATUS ================= -->
 
 
@@ -181,7 +193,9 @@ RIO-000000
 
 <div class="qr-status-title">
 
+
 QR STATUS
+
 
 </div>
 
@@ -196,11 +210,13 @@ class="qr-status-value">
 
 Ready To Scan
 
+
 </div>
 
 
 
 </section>
+
 
 
 
@@ -222,11 +238,13 @@ Ready To Scan
 
 
 
+
 <h2>
 
 Rio Maggi Loyalty QR
 
 </h2>
+
 
 
 
@@ -238,62 +256,18 @@ Show this QR during your visit to collect stamps and enjoy rewards.
 
 
 
-</section>
-
-
-
-
-
-
-<!-- ================= QR ACTIONS ================= -->
-
-
-<section class="qr-actions">
-
-
-<button
-
-class="qr-primary-btn"
-
-id="downloadQR">
-
-
-<i class="fa-solid fa-download"></i>
-
-Save QR
-
-</button>
-
-
-
-
-
-<button
-
-class="qr-secondary-btn"
-
-id="shareQR">
-
-
-<i class="fa-solid fa-share-nodes"></i>
-
-Share
-
-</button>
-
-
 
 </section>
 
-
-
-
-
-<!-- Fixed Navigation Space -->
+<!-- ================= FIXED NAVIGATION SPACE ================= -->
 
 
 <div class="nav-space"></div>
-  
+
+
+
+
+
 <!-- ================= BOTTOM NAVIGATION ================= -->
 
 
@@ -410,6 +384,23 @@ Profile
 
 
 
+
+
+<!-- ================= QR CODE LIBRARY ================= -->
+
+
+<script
+
+src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
+
+</script>
+
+
+
+
+
+
+
 <!-- ================= QR JAVASCRIPT ================= -->
 
 
@@ -421,18 +412,6 @@ src="js/qr.js">
 
 </script>
 
-
-
-
-
-<!-- QR CODE LIBRARY -->
-
-
-<script
-
-src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
-
-</script>
 
 
 
@@ -465,8 +444,9 @@ navigator.serviceWorker.register("./service-worker.js");
 
 
 
+
+
 </body>
 
 
 </html>
-
