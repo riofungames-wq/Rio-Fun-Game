@@ -2,1130 +2,1225 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rio Maggi Point | Menu</title>
-
-<meta name="theme-color" content="#f5d99b">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>Rio Maggi Point | Premium Menu</title>
 
 <link rel="manifest" href="manifest.json">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="theme-color" content="#111111">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/menu.css">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-:root{
-
---bg:#f6e6bc;
---card:#fff9ec;
---primary:#c67d16;
---secondary:#ffb21d;
---dark:#2e2418;
---text:#5d4c36;
---border:#e5c886;
---white:#ffffff;
---shadow:0 12px 30px rgba(0,0,0,.12);
-
-}
-
-body{
-
-background:
-radial-gradient(circle at top,#fff6df 0%,#f8e5b4 45%,#efd59d 100%);
-color:var(--dark);
-min-height:100vh;
-
-}
-
-.container{
-
-width:min(1200px,94%);
-margin:auto;
-padding:28px 0 80px;
-
-}
-
-.top-bar{
-
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:15px;
-margin-bottom:28px;
-
-}
-
-.logo{
-
-display:flex;
-align-items:center;
-gap:14px;
-
-}
-
-.logo-circle{
-
-width:62px;
-height:62px;
-border-radius:50%;
-background:linear-gradient(135deg,#ffce4a,#ff9f0a);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:28px;
-color:#fff;
-box-shadow:0 8px 20px rgba(0,0,0,.15);
-
-}
-
-.logo-text h1{
-
-font-size:28px;
-font-weight:800;
-line-height:1.1;
-
-}
-
-.logo-text p{
-
-font-size:14px;
-color:#7a6546;
-
-}
-
-.back-btn{
-
-text-decoration:none;
-background:#fff;
-color:#8a5d09;
-padding:12px 20px;
-border-radius:14px;
-font-weight:600;
-border:2px solid var(--border);
-transition:.25s;
-
-}
-
-.back-btn:hover{
-
-background:#fff3d8;
-transform:translateY(-2px);
-
-}
-
-.hero{
-
-background:
-linear-gradient(135deg,#fffef9,#fff3d8);
-
-border:2px solid var(--border);
-border-radius:28px;
-padding:34px;
-box-shadow:var(--shadow);
-margin-bottom:30px;
-position:relative;
-overflow:hidden;
-
-}
-
-.hero::before{
-
-content:"";
-position:absolute;
-width:260px;
-height:260px;
-border-radius:50%;
-background:rgba(255,185,30,.15);
-right:-90px;
-top:-90px;
-
-}
-
-.hero h2{
-
-font-size:38px;
-font-weight:800;
-margin-bottom:10px;
-
-}
-
-.hero p{
-
-font-size:16px;
-color:#6b5a45;
-line-height:1.8;
-max-width:700px;
-
-}
-
-.category{
-
-margin-top:34px;
-
-}
-
-.category-title{
-
-display:flex;
-align-items:center;
-gap:12px;
-margin-bottom:18px;
-
-}
-
-.category-title i{
-
-width:46px;
-height:46px;
-display:flex;
-align-items:center;
-justify-content:center;
-background:linear-gradient(135deg,#ffcc46,#ff9e16);
-border-radius:50%;
-color:#fff;
-font-size:18px;
-
-}
-
-.category-title h3{
-
-font-size:27px;
-font-weight:800;
-
-}
-
-.menu-grid{
-
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(270px,1fr));
-gap:20px;
-
-}
-
-.item{
-
-background:var(--card);
-border:2px solid var(--border);
-border-radius:22px;
-padding:22px;
-box-shadow:var(--shadow);
-transition:.25s;
-
-}
-
-.item:hover{
-
-transform:translateY(-6px);
-
-}
-
-.item h4{
-
-font-size:20px;
-margin-bottom:8px;
-font-weight:700;
-
-}
-
-.item small{
-
-display:block;
-color:#8a775b;
-margin-bottom:18px;
-
-}
-
-.price-row{
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:10px 0;
-border-top:1px dashed #d9c08b;
-
-}
-
-.price-row:first-of-type{
-
-border-top:none;
-padding-top:0;
-
-}
-
-.size{
-
-font-weight:600;
-color:#6d5b43;
-
-}
-
-.price{
-
-font-size:19px;
-font-weight:800;
-color:#c76f00;
-
-}
-
-.badge{
-
-display:inline-flex;
-align-items:center;
-gap:6px;
-padding:7px 12px;
-background:#fff0c7;
-border-radius:30px;
-font-size:12px;
-font-weight:700;
-margin-bottom:14px;
-color:#8b5d00;
-
-}
-
-@media(max-width:768px){
-
-.hero{
-
-padding:24px;
-
-}
-
-.hero h2{
-
-font-size:30px;
-
-}
-
-.logo-text h1{
-
-font-size:23px;
-
-}
-
-.category-title h3{
-
-font-size:22px;
-
-}
-
-}
-
-@media(max-width:520px){
-
-.top-bar{
-
-flex-direction:column;
-align-items:flex-start;
-
-}
-
-.back-btn{
-
-width:100%;
-text-align:center;
-
-}
-
-.hero h2{
-
-font-size:26px;
-
-}
-
-}
-
-</style>
 </head>
+
 
 <body>
 
-<div class="container">
 
-<div class="top-bar">
+<div class="menu-page">
 
-<div class="logo">
 
-<div class="logo-circle">
-🍜
-</div>
+<!-- HEADER -->
 
-<div class="logo-text">
-<h1>Rio Maggi Point</h1>
-<p>Premium Food Menu</p>
-</div>
+<header class="menu-header">
 
-</div>
+<div class="brand">
 
-<a href="index.html" class="back-btn">
-<i class="fa-solid fa-arrow-left"></i>
-&nbsp;
-Back
-</a>
-
-</div>
-
-<section class="hero">
-
-<h2>Our Delicious Menu</h2>
+<h1>
+<span>Rio</span> Maggi Point
+</h1>
 
 <p>
-Freshly prepared every day using quality ingredients.
-Choose your favourite Maggi, Burger, Momos, Soup,
-Sweet Corn or Snacks and enjoy the magic of Rio Maggi Point.
+Premium Food Menu
 </p>
 
-</section>
+</div>
 
-<section class="category">
 
-<div class="category-title">
+<div class="gold-line"></div>
 
+</header>
+
+
+
+
+<!-- CATEGORY TABS -->
+
+<section class="category-wrapper">
+
+<div class="category-tabs">
+
+
+<button class="category-btn active" data-category="everyday">
 <i class="fa-solid fa-bowl-food"></i>
+Everyday Magic Maggi
+</button>
 
-<h3>1. Everyday Magic Maggi</h3>
 
-</div>
-
-<div class="menu-grid">
-
-<div class="item">
-
-<span class="badge">
-⭐ Most Popular
-</span>
-
-<h4>Classic Maggi</h4>
-
-<small>Simple & Delicious</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹30</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹50</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Veg Maggi</h4>
-
-<small>Loaded with Fresh Vegetables</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹40</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹70</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Garlic Maggi</h4>
-
-<small>Rich Garlic Flavour</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹40</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹70</span>
-</div>
-
-</div>
-<div class="item">
-
-<h4>Masala Magic Maggi</h4>
-
-<small>Extra Masala Special</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹40</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹70</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Green Chilli Maggi</h4>
-
-<small>Spicy Green Chilli Twist</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹40</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹70</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Corn Magic Maggi</h4>
-
-<small>Sweet Corn Loaded</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹50</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹80</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Paneer Magic Maggi</h4>
-
-<small>Fresh Paneer Cubes</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹60</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹100</span>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="category">
-
-<div class="category-title">
-
+<button class="category-btn" data-category="cheese">
 <i class="fa-solid fa-cheese"></i>
+Cheese Magic Maggi
+</button>
 
-<h3>2. Cheese Magic Maggi</h3>
 
-</div>
+<button class="category-btn" data-category="cheeseButter">
+<i class="fa-solid fa-fire"></i>
+Cheese Butter Magic Maggi
+</button>
 
-<div class="menu-grid">
 
-<div class="item">
+<button class="category-btn" data-category="ufo">
+<i class="fa-solid fa-burger"></i>
+UFO Burger
+</button>
 
-<span class="badge">
-🧀 Cheese Special
-</span>
 
-<h4>Cheese Classic Maggi</h4>
+<button class="category-btn" data-category="momos">
+<i class="fa-solid fa-drumstick-bite"></i>
+Delicious Momos
+</button>
 
-<small>Classic Maggi with Cheese</small>
 
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹50</span>
-</div>
+<button class="category-btn" data-category="soups">
+<i class="fa-solid fa-mug-hot"></i>
+Hot Soups
+</button>
 
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹80</span>
-</div>
 
-</div>
+<button class="category-btn" data-category="corn">
+<i class="fa-solid fa-seedling"></i>
+Crispy Sweet Corn
+</button>
 
-<div class="item">
 
-<h4>Cheese Veg Maggi</h4>
+<button class="category-btn" data-category="bhel">
+<i class="fa-solid fa-cookie-bite"></i>
+Chips Bhel
+</button>
 
-<small>Veggies + Cheese</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹60</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹90</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Cheese Garlic Maggi</h4>
-
-<small>Garlic & Cheese Combo</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹60</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹90</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Cheese Masala Maggi</h4>
-
-<small>Extra Masala + Cheese</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹60</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹90</span>
-</div>
-
-</div>
-<div class="item">
-
-<h4>Cheese Green Chilli Maggi</h4>
-
-<small>Spicy Green Chilli with Cheese</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹60</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹90</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Cheese Corn Maggi</h4>
-
-<small>Sweet Corn & Cheese</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹70</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹100</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<span class="badge">
-🔥 Best Seller
-</span>
-
-<h4>Cheese Paneer Maggi</h4>
-
-<small>Paneer Loaded with Cheese</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹80</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹120</span>
-</div>
-
-</div>
 
 </div>
 
 </section>
 
-<section class="category">
+
+
+
+
+<!-- MENU CONTENT -->
+
+
+<main class="menu-container">
+
+
+
+<!-- EVERYDAY MAGIC MAGGI -->
+
+
+<section class="menu-category active" id="everyday">
+
 
 <div class="category-title">
+
+<h2>
+Everyday Magic Maggi
+</h2>
+
+<p>
+Classic Rio Maggi Special
+</p>
+
+</div>
+
+
+
+<div class="food-grid">
+
+
+
+<div class="food-card">
+
+
+<div class="food-image">
+
+<img src="images/menu/maggi-classic.jpg"
+alt="Classic Maggi">
+
+</div>
+
+
+<div class="food-info">
+
+<h3>
+Classic Veg Maggi
+</h3>
+
+
+<p>
+Simple and tasty everyday favourite
+</p>
+
+
+<div class="price-box">
+
+<span>
+Half ₹
+</span>
+
+<strong>
+Full ₹
+</strong>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="food-card">
+
+
+<div class="food-image">
+
+<img src="images/menu/maggi-special.jpg"
+alt="Special Maggi">
+
+</div>
+
+
+<div class="food-info">
+
+
+<h3>
+Rio Special Maggi
+</h3>
+
+
+<p>
+Premium masala flavour with vegetables
+</p>
+
+
+<div class="price-box">
+
+<span>
+Half ₹
+</span>
+
+<strong>
+Full ₹
+</strong>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+</section>
+<!-- CHEESE MAGIC MAGGI -->
+
+
+<section class="menu-category" id="cheese">
+
+
+<div class="category-title">
+
+<h2>
+Cheese Magic Maggi
+</h2>
+
+<p>
+Cheesy creamy Maggi experience
+</p>
+
+</div>
+
+
+
+<div class="food-grid">
+
+
+
+<div class="food-card">
+
+
+<div class="food-image">
+
+<img src="images/menu/cheese-maggi.jpg"
+alt="Cheese Maggi">
+
+</div>
+
+
+<div class="food-info">
+
+
+<h3>
+Cheese Maggi
+</h3>
+
+
+<p>
+Loaded with delicious cheese flavour
+</p>
+
+
+<div class="price-box">
+
+<span>
+Half ₹
+</span>
+
+<strong>
+Full ₹
+</strong>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="food-card">
+
+
+<div class="food-image">
+
+<img src="images/menu/cheese-corn-maggi.jpg"
+alt="Cheese Corn Maggi">
+
+</div>
+
+
+<div class="food-info">
+
+
+<h3>
+Cheese Corn Maggi
+</h3>
+
+
+<p>
+Cheese with sweet corn topping
+</p>
+
+
+<div class="price-box">
+
+<span>
+Half ₹
+</span>
+
+<strong>
+Full ₹
+</strong>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- CHEESE BUTTER MAGIC MAGGI -->
+
+
+<section class="menu-category" id="cheeseButter">
+
+
+<div class="category-title">
+
+<h2>
+Cheese Butter Magic Maggi
+</h2>
+
+
+<p>
+Rich butter and cheese special
+</p>
+
+
+</div>
+
+
+
+
+<div class="food-grid">
+
+
+
+<div class="food-card">
+
+
+<div class="food-image">
+
+<img src="images/menu/cheese-butter-maggi.jpg"
+alt="Cheese Butter Maggi">
+
+</div>
+
+
+
+<div class="food-info">
+
+
+<h3>
+Cheese Butter Maggi
+</h3>
+
+
+<p>
+Extra buttery cheesy Maggi
+</p>
+
+
+<div class="price-box">
+
+<span>
+Half ₹
+</span>
+
+
+<strong>
+Full ₹
+</strong>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="food-card">
+
+
+<div class="food-image">
+
+<img src="images/menu/butter-special-maggi.jpg"
+alt="Butter Special Maggi">
+
+</div>
+
+
+<div class="food-info">
+
+
+<h3>
+Butter Special Maggi
+</h3>
+
+
+<p>
+Smooth butter taste with spices
+</p>
+
+
+<div class="price-box">
+
+<span>
+Half ₹
+</span>
+
+
+<strong>
+Full ₹
+</strong>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- UFO BURGER -->
+
+
+<section class="menu-category" id="ufo">
+
+
+<div class="category-title">
+
+<h2>
+UFO Burger
+</h2>
+
+
+<p>
+Crispy Rio UFO style burger
+</p>
+
+
+</div>
+
+
+
+
+<div class="food-grid">
+
+
+
+<div class="food-card">
+
+
+<div class="food-image">
+
+<img src="images/menu/ufo-burger.jpg"
+alt="UFO Burger">
+
+</div>
+
+
+<div class="food-info">
+
+
+<h3>
+Veg UFO Burger
+</h3>
+
+
+<p>
+Crispy burger with special filling
+</p>
+
+
+<div class="price-box">
+
+
+<span>
+Half ₹
+</span>
+
+
+<strong>
+Full ₹
+</strong>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="food-card">
+
+
+<div class="food-image">
+
+<img src="images/menu/cheese-ufo.jpg"
+alt="Cheese UFO Burger">
+
+</div>
+
+
+<div class="food-info">
+
+
+<h3>
+Cheese UFO Burger
+</h3>
+
+
+<p>
+Cheesy crispy burger special
+</p>
+
+
+<div class="price-box">
+
+
+<span>
+Half ₹
+</span>
+
+
+<strong>
+Full ₹
+</strong>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- DELICIOUS MOMOS -->
+
+
+<section class="menu-category" id="momos">
+
+
+<div class="category-title">
+
+
+<h2>
+Delicious Momos
+</h2>
+
+
+<p>
+Fresh steamed and crispy momos
+</p>
+
+
+</div>
+
+
+
+
+<div class="food-grid">
+
+
+
+<div class="food-card">
+
+
+<div class="food-image">
+
+<img src="images/menu/veg-momos.jpg"
+alt="Veg Momos">
+
+</div>
+
+
+<div class="food-info">
+
+
+<h3>
+Veg Momos
+</h3>
+
+
+<p>
+Soft tasty veg filling momos
+</p>
+
+
+<div class="price-box">
+
+
+<span>
+Half ₹
+</span>
+
+
+<strong>
+Full ₹
+</strong>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="food-card">
+
+
+<div class="food-image">
+
+<img src="images/menu/fried-momos.jpg"
+alt="Fried Momos">
+
+</div>
+
+
+<div class="food-info">
+
+
+<h3>
+Fried Momos
+</h3>
+
+
+<p>
+Crispy golden fried momos
+</p>
+
+
+<div class="price-box">
+
+
+<span>
+Half ₹
+</span>
+
+
+<strong>
+Full ₹
+</strong>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+</section>
+<!-- HOT SOUPS -->
+
+
+<section class="menu-category" id="soups">
+
+
+<div class="category-title">
+
+
+<h2>
+Hot Soups
+</h2>
+
+
+<p>
+Warm and delicious soup collection
+</p>
+
+
+</div>
+
+
+
+
+<div class="food-grid">
+
+
+
+<div class="food-card">
+
+
+<div class="food-image">
+
+<img src="images/menu/tomato-soup.jpg"
+alt="Tomato Soup">
+
+</div>
+
+
+<div class="food-info">
+
+
+<h3>
+Tomato Soup
+</h3>
+
+
+<p>
+Fresh hot tomato flavour
+</p>
+
+
+<div class="price-box">
+
+
+<span>
+Half ₹
+</span>
+
+
+<strong>
+Full ₹
+</strong>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="food-card">
+
+
+<div class="food-image">
+
+<img src="images/menu/manchow-soup.jpg"
+alt="Manchow Soup">
+
+</div>
+
+
+<div class="food-info">
+
+
+<h3>
+Manchow Soup
+</h3>
+
+
+<p>
+Spicy Chinese style soup
+</p>
+
+
+<div class="price-box">
+
+
+<span>
+Half ₹
+</span>
+
+
+<strong>
+Full ₹
+</strong>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- CRISPY SWEET CORN -->
+
+
+<section class="menu-category" id="corn">
+
+
+<div class="category-title">
+
+
+<h2>
+Crispy Sweet Corn
+</h2>
+
+
+<p>
+Crunchy sweet corn specials
+</p>
+
+
+</div>
+
+
+
+
+<div class="food-grid">
+
+
+
+<div class="food-card">
+
+
+<div class="food-image">
+
+<img src="images/menu/crispy-corn.jpg"
+alt="Crispy Sweet Corn">
+
+</div>
+
+
+<div class="food-info">
+
+
+<h3>
+Crispy Sweet Corn
+</h3>
+
+
+<p>
+Golden crispy corn with spices
+</p>
+
+
+<div class="price-box">
+
+
+<span>
+Half ₹
+</span>
+
+
+<strong>
+Full ₹
+</strong>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="food-card">
+
+
+<div class="food-image">
+
+<img src="images/menu/cheese-corn.jpg"
+alt="Cheese Corn">
+
+</div>
+
+
+<div class="food-info">
+
+
+<h3>
+Cheese Sweet Corn
+</h3>
+
+
+<p>
+Corn with creamy cheese topping
+</p>
+
+
+<div class="price-box">
+
+
+<span>
+Half ₹
+</span>
+
+
+<strong>
+Full ₹
+</strong>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- CHIPS BHEL -->
+
+
+<section class="menu-category" id="bhel">
+
+
+<div class="category-title">
+
+
+<h2>
+Chips Bhel
+</h2>
+
+
+<p>
+Crispy spicy snack special
+</p>
+
+
+</div>
+
+
+
+
+<div class="food-grid">
+
+
+
+<div class="food-card">
+
+
+<div class="food-image">
+
+<img src="images/menu/chips-bhel.jpg"
+alt="Chips Bhel">
+
+</div>
+
+
+<div class="food-info">
+
+
+<h3>
+Classic Chips Bhel
+</h3>
+
+
+<p>
+Crunchy chips mixed with flavours
+</p>
+
+
+<div class="price-box">
+
+
+<span>
+Half ₹
+</span>
+
+
+<strong>
+Full ₹
+</strong>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+</main>
+
+
+
+
+
+
+
+
+<!-- BOTTOM NAVIGATION -->
+
+
+<nav class="bottom-nav">
+
+
+<a href="card.html">
+
+<i class="fa-solid fa-house"></i>
+
+<span>
+Home
+</span>
+
+</a>
+
+
+
+<a href="qr.html">
+
+<i class="fa-solid fa-qrcode"></i>
+
+<span>
+QR
+</span>
+
+</a>
+
+
+
+<a href="history.html">
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+<span>
+History
+</span>
+
+</a>
+
+
+
+<a href="menu.html" class="active">
+
+<i class="fa-solid fa-utensils"></i>
+
+<span>
+Menu
+</span>
+
+</a>
+
+
+
+<a href="review.html">
 
 <i class="fa-solid fa-star"></i>
 
-<h3>3. Cheese Butter Magic Maggi</h3>
-
-</div>
-
-<div class="menu-grid">
-
-<div class="item">
-
-<span class="badge">
-🧈 Premium
+<span>
+Review
 </span>
 
-<h4>Cheese Butter Classic Maggi</h4>
+</a>
 
-<small>Butter & Cheese Classic</small>
 
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹60</span>
-</div>
 
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹90</span>
-</div>
+<a href="profile.html">
 
-</div>
+<i class="fa-solid fa-user"></i>
 
-<div class="item">
-
-<h4>Cheese Butter Veg Maggi</h4>
-
-<small>Vegetables, Butter & Cheese</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹70</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹100</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Cheese Butter Garlic Maggi</h4>
-
-<small>Garlic Butter Cheese Delight</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹70</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹100</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Cheese Butter Masala Maggi</h4>
-
-<small>Masala with Butter & Cheese</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹70</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹100</span>
-</div>
-
-</div>
-<div class="item">
-
-<h4>Cheese Butter Green Chilli Maggi</h4>
-
-<small>Butter, Cheese & Green Chilli</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹70</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹100</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Cheese Butter Corn Maggi</h4>
-
-<small>Sweet Corn with Butter & Cheese</small>
-
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹80</span>
-</div>
-
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹110</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<span class="badge">
-👑 Chef's Choice
+<span>
+Profile
 </span>
 
-<h4>Cheese Butter Paneer Maggi</h4>
+</a>
 
-<small>Paneer Loaded with Butter & Cheese</small>
 
-<div class="price-row">
-<span class="size">Half</span>
-<span class="price">₹90</span>
-</div>
+</nav>
 
-<div class="price-row">
-<span class="size">Full</span>
-<span class="price">₹130</span>
-</div>
+
+
+
 
 </div>
 
-</div>
 
-</section>
 
-<section class="category">
 
-<div class="category-title">
+<script type="module" src="js/menu.js"></script>
 
-<i class="fa-solid fa-burger"></i>
-
-<h3>4. UFO Burger</h3>
-
-</div>
-
-<div class="menu-grid">
-
-<div class="item">
-
-<span class="badge">
-🚀 New Arrival
-</span>
-
-<h4>Classic UFO Burger</h4>
-
-<small>Crispy Veg Patty with Fresh Veggies</small>
-
-<div class="price-row">
-<span class="size">Regular</span>
-<span class="price">₹80</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Cheese UFO Burger</h4>
-
-<small>Loaded with Melted Cheese</small>
-
-<div class="price-row">
-<span class="size">Regular</span>
-<span class="price">₹100</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Paneer UFO Burger</h4>
-
-<small>Fresh Paneer Filling</small>
-
-<div class="price-row">
-<span class="size">Regular</span>
-<span class="price">₹120</span>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="category">
-
-<div class="category-title">
-
-<i class="fa-solid fa-drumstick-bite"></i>
-
-<h3>5. Delicious Momos</h3>
-
-</div>
-
-<div class="menu-grid">
-
-<div class="item">
-
-<h4>Veg Momos</h4>
-
-<small>Steamed Veg Momos</small>
-
-<div class="price-row">
-<span class="size">6 Pieces</span>
-<span class="price">₹60</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Fried Veg Momos</h4>
-
-<small>Golden Crispy Fried Momos</small>
-
-<div class="price-row">
-<span class="size">6 Pieces</span>
-<span class="price">₹80</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Cheese Momos</h4>
-
-<small>Cheese Filled Momos</small>
-
-<div class="price-row">
-<span class="size">6 Pieces</span>
-<span class="price">₹90</span>
-</div>
-
-</div>
-
-</div>
-
-</section>
-<section class="category">
-
-<div class="category-title">
-
-<i class="fa-solid fa-mug-hot"></i>
-
-<h3>6. Hot Soups</h3>
-
-</div>
-
-<div class="menu-grid">
-
-<div class="item">
-
-<span class="badge">
-🔥 Hot & Fresh
-</span>
-
-<h4>Veg Soup</h4>
-
-<small>Fresh Mixed Vegetable Soup</small>
-
-<div class="price-row">
-<span class="size">Regular</span>
-<span class="price">₹50</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Sweet Corn Soup</h4>
-
-<small>Classic Sweet Corn Soup</small>
-
-<div class="price-row">
-<span class="size">Regular</span>
-<span class="price">₹60</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Hot & Sour Soup</h4>
-
-<small>Spicy Indo-Chinese Favourite</small>
-
-<div class="price-row">
-<span class="size">Regular</span>
-<span class="price">₹70</span>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="category">
-
-<div class="category-title">
-
-<i class="fa-solid fa-seedling"></i>
-
-<h3>7. Crispy Sweet Corn</h3>
-
-</div>
-
-<div class="menu-grid">
-
-<div class="item">
-
-<span class="badge">
-🌽 Crunchy
-</span>
-
-<h4>Salted Crispy Sweet Corn</h4>
-
-<small>Lightly Seasoned Crispy Corn</small>
-
-<div class="price-row">
-<span class="size">Regular</span>
-<span class="price">₹70</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Masala Crispy Sweet Corn</h4>
-
-<small>Indian Masala Flavour</small>
-
-<div class="price-row">
-<span class="size">Regular</span>
-<span class="price">₹80</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Cheese Crispy Sweet Corn</h4>
-
-<small>Loaded with Cheese Seasoning</small>
-
-<div class="price-row">
-<span class="size">Regular</span>
-<span class="price">₹90</span>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="category">
-
-<div class="category-title">
-
-<i class="fa-solid fa-bowl-rice"></i>
-
-<h3>8. Chips Bhel</h3>
-
-</div>
-
-<div class="menu-grid">
-
-<div class="item">
-
-<span class="badge">
-🥔 Signature Snack
-</span>
-
-<h4>Classic Chips Bhel</h4>
-
-<small>Crunchy Chips with Fresh Veggies & Spices</small>
-
-<div class="price-row">
-<span class="size">Regular</span>
-<span class="price">₹50</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Cheese Chips Bhel</h4>
-
-<small>Classic Chips Bhel with Cheese</small>
-
-<div class="price-row">
-<span class="size">Regular</span>
-<span class="price">₹70</span>
-</div>
-
-</div>
-
-<div class="item">
-
-<h4>Special Chips Bhel</h4>
-
-<small>Loaded with Premium Toppings</small>
-
-<div class="price-row">
-<span class="size">Regular</span>
-<span class="price">₹90</span>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-</div>
 
 </body>
+
 </html>
