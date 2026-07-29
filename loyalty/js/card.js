@@ -75,6 +75,7 @@ document.getElementById("gameLink");
 
 
 
+
 // ============================
 // DEFAULT DATA
 // ============================
@@ -111,6 +112,7 @@ customerPhoto.src =
 
 
 }
+
 
 
 
@@ -157,7 +159,6 @@ return;
 
 
 }
-
 
 
 
@@ -219,7 +220,6 @@ data.avatar ||
 
 
 
-
 }
 
 
@@ -273,7 +273,7 @@ const stampIds = [
 
 
 // ============================
-// UPDATE STAMP DISPLAY
+// UPDATE STAMPS
 // ============================
 
 
@@ -322,32 +322,19 @@ stamp.classList.remove("active");
 
 
 
+
 // ============================
-// UPDATE REWARD DISPLAY
+// UPDATE REWARD
 // ============================
 
 
 function updateRewardDisplay(stampCount){
 
 
-if(!rewardCircle) return;
 
+if(!rewardCircle){
 
-
-
-if(stampCount >= 6){
-
-
-rewardCircle.classList.add("active");
-
-
-}
-
-else{
-
-
-rewardCircle.classList.remove("active");
-
+return;
 
 }
 
@@ -373,6 +360,26 @@ MAGGI
 </div>
 
 `;
+
+
+
+
+
+if(stampCount >= 6){
+
+
+rewardCircle.classList.add("active");
+
+
+}
+
+else{
+
+
+rewardCircle.classList.remove("active");
+
+
+}
 
 
 
@@ -480,14 +487,14 @@ error
 
 }
 // =====================================
-// COUNTDOWN + BUTTONS + AUTH
+// GAME REDIRECT + COUNTDOWN + AUTH
 // PART 3
 // =====================================
 
 
 
 // ============================
-// REAL FREE GAME WEBSITE
+// CLICK FREE GAME
 // ============================
 
 
@@ -503,7 +510,8 @@ gameLink.addEventListener(
 
 window.location.href =
 
-"https://riofungames-wq.github.io/Rio-Fun-Game/loyalty/";
+"https://riofungames-wq.github.io/Rio-Fun-Game/";
+
 
 
 }
@@ -557,7 +565,7 @@ new Date();
 
 
 
-const diff =
+const difference =
 
 resetDate - now;
 
@@ -565,7 +573,7 @@ resetDate - now;
 
 
 
-if(diff <= 0){
+if(difference <= 0){
 
 
 countdownDays.textContent =
@@ -581,11 +589,12 @@ return;
 
 
 
+
 const days =
 
 Math.ceil(
 
-diff/(1000*60*60*24)
+difference / (1000*60*60*24)
 
 );
 
@@ -681,7 +690,6 @@ error
 );
 
 
-
 }
 
 
@@ -695,7 +703,7 @@ error
 
 
 // ============================
-// CONTACT BUTTONS
+// CALL BUTTON
 // ============================
 
 
@@ -718,6 +726,12 @@ window.location.href =
 
 
 
+
+
+
+// ============================
+// WHATSAPP BUTTON
+// ============================
 
 
 document.getElementById("whatsappBtn")?.addEventListener(
@@ -743,6 +757,12 @@ window.open(
 
 
 
+
+
+
+// ============================
+// MAP BUTTON
+// ============================
 
 
 document.getElementById("mapBtn")?.addEventListener(
@@ -772,7 +792,7 @@ window.open(
 
 
 // ============================
-// AUTH CONNECTION
+// AUTH START
 // ============================
 
 
