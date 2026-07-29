@@ -1,1 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Rio Maggi Point | Menu</title>
+
+<meta name="theme-color" content="#111111">
+
+<link rel="manifest" href="manifest.json">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<link rel="stylesheet" href="css/menu.css">
+
+</head>
+
+<body>
+
+<div class="menu-page">
+
+<div class="menu-card">
+
+<div class="gold-glow"></div>
+
+<!-- HEADER -->
+
+<div class="menu-header">
+
+<a href="card.html" class="back-btn">
+<i class="fa-solid fa-arrow-left"></i>
+</a>
+
+<h1>
+<i class="fa-solid fa-utensils"></i>
+RIO MAGGI POINT
+</h1>
+
+<p>Premium Food Menu</p>
+
+</div>
+
+<!-- CATEGORY TABS -->
+
+<div class="category-tabs">
+
+<button class="tab active" data-target="classic">
+Classic
+</button>
+
+<button class="tab" data-target="cheese">
+Cheese
+</button>
+
+<button class="tab" data-target="butter">
+Butter Cheese
+</button>
+
+<button class="tab" data-target="vegcheese">
+Veg Cheese
+</button>
+
+<button class="tab" data-target="burger">
+Burger
+</button>
+
+<button class="tab" data-target="drinks">
+Drinks
+</button>
+
+</div>
+
+<!-- MENU CONTENT -->
+
+<div class="menu-content">
+
+<!-- CLASSIC MAGGI -->
+
+<div class="menu-section active" id="classic">
+
+<div class="food-card">
+
+<div class="food-image">
+
+<img src="assets/menu/classic-maggi.png"
+alt="Classic Maggi"
+id="foodPreview">
+
+</div>
+
+<div class="food-info">
+
+<h2>Classic Maggi</h2>
+
+<p>
+Freshly Cooked Premium Classic Maggi
+</p>
+
+<div class="price-table">
+
+<div class="price-head">
+
+<span>Half</span>
+
+<span>Full</span>
+
+</div>
+
+<div class="price-value">
+
+<span>₹40</span>
+
+<span>₹70</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+        <!-- =============================
+             VEG MAGGI
+        ============================== -->
+        <section class="menu-section" id="veg">
+
+            <div class="menu-card">
+
+                <div class="menu-image">
+                    <img src="assets/menu/veg-maggi.png" alt="Veg Maggi">
+                </div>
+
+                <div class="menu-info">
+
+                    <h2>Veg Maggi</h2>
+
+                    <p class="menu-desc">
+                        Classic Rio Special Veg Maggi
+                    </p>
+
+                    <div class="price-row">
+
+                        <div class="price-box">
+                            <span>Half</span>
+                            <strong>₹35</strong>
+                        </div>
+
+                        <div class="price-box">
+                            <span>Full</span>
+                            <strong>₹50</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =============================
+             CHEESE MAGGI
+        ============================== -->
+        <section class="menu-section" id="cheese">
+
+            <div class="menu-card">
+
+                <div class="menu-image">
+                    <img src="assets/menu/cheese-maggi.png" alt="Cheese Maggi">
+                </div>
+
+                <div class="menu-info">
+
+                    <h2>Cheese Maggi</h2>
+
+                    <p class="menu-desc">
+                        Loaded with Premium Cheese
+                    </p>
+
+                    <div class="price-row">
+
+                        <div class="price-box">
+                            <span>Half</span>
+                            <strong>₹45</strong>
+                        </div>
+
+                        <div class="price-box">
+                            <span>Full</span>
+                            <strong>₹65</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =============================
+             BUTTER CHEESE MAGGI
+        ============================== -->
+        <section class="menu-section" id="butter">
+
+            <div class="menu-card">
+
+                <div class="menu-image">
+                    <img src="assets/menu/butter-cheese.png" alt="Butter Cheese Maggi">
+                </div>
+
+                <div class="menu-info">
+
+                    <h2>Butter Cheese Maggi</h2>
+
+                    <p class="menu-desc">
+                        Butter + Cheese Special
+                    </p>
+
+                    <div class="price-row">
+
+                        <div class="price-box">
+                            <span>Half</span>
+                            <strong>₹55</strong>
+                        </div>
+
+                        <div class="price-box">
+                            <span>Full</span>
+                            <strong>₹80</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+        <!-- ===============================
+     MENU CONTENT
+================================ -->
+
+<main class="menu-content">
+
+    <!-- CATEGORY -->
+    <section class="menu-category active" id="veg-maggi">
+
+        <div class="menu-card">
+
+            <div class="menu-image">
+                <img src="assets/menu/veg-maggi.png" alt="Veg Maggi">
+            </div>
+
+            <div class="menu-info">
+
+                <h2>Veg Maggi</h2>
+
+                <div class="price-row">
+                    <span class="label">Half</span>
+                    <span class="price">₹40</span>
+
+                    <span class="divider"></span>
+
+                    <span class="label">Full</span>
+                    <span class="price">₹70</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CHEESE MAGGI -->
+
+    <section class="menu-category" id="cheese-maggi">
+
+        <div class="menu-card">
+
+            <div class="menu-image">
+                <img src="assets/menu/cheese-maggi.png" alt="Cheese Maggi">
+            </div>
+
+            <div class="menu-info">
+
+                <h2>Cheese Maggi</h2>
+
+                <div class="price-row">
+                    <span class="label">Half</span>
+                    <span class="price">₹60</span>
+
+                    <span class="divider"></span>
+
+                    <span class="label">Full</span>
+                    <span class="price">₹90</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- BUTTER CHEESE MAGGI -->
+
+    <section class="menu-category" id="butter-cheese">
+
+        <div class="menu-card">
+
+            <div class="menu-image">
+                <img src="assets/menu/butter-cheese.png" alt="Butter Cheese Maggi">
+            </div>
+
+            <div class="menu-info">
+
+                <h2>Butter Cheese Maggi</h2>
+
+                <div class="price-row">
+                    <span class="label">Half</span>
+                    <span class="price">₹70</span>
+
+                    <span class="divider"></span>
+
+                    <span class="label">Full</span>
+                    <span class="price">₹100</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PLAIN MAGGI -->
+
+    <section class="menu-category" id="plain-maggi">
+
+        <div class="menu-card">
+
+            <div class="menu-image">
+                <img src="assets/menu/plain-maggi.png" alt="Plain Maggi">
+            </div>
+
+            <div class="menu-info">
+
+                <h2>Plain Maggi</h2>
+
+                <div class="price-row">
+                    <span class="label">Half</span>
+                    <span class="price">₹35</span>
+
+                    <span class="divider"></span>
+
+                    <span class="label">Full</span>
+                    <span class="price">₹60</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- BURGER -->
+
+    <section class="menu-category" id="burger">
+
+        <div class="menu-card">
+
+            <div class="menu-image">
+                <img src="assets/menu/burger.png" alt="Burger">
+            </div>
+
+            <div class="menu-info">
+
+                <h2>Burger</h2>
+
+                <div class="price-row">
+                    <span class="label">Price</span>
+                    <span class="price">₹60</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+// =======================================
+// RIO MAGGI POINT
+// MENU PAGE
+// PART 4
+// CATEGORY SWITCH
+// =======================================
+
+const tabs = document.querySelectorAll(".menu-tab");
+const categories = document.querySelectorAll(".menu-category");
+
+tabs.forEach(tab => {
+
+    tab.addEventListener("click", () => {
+
+        const target = tab.dataset.target;
+
+        // Active Tab
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+
+        // Active Category
+        categories.forEach(section => {
+
+            section.classList.remove("active");
+
+            if(section.id === target){
+
+                section.classList.add("active");
+
+            }
+
+        });
+
+    });
+
+});
