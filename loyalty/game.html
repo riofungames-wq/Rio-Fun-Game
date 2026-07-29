@@ -1,1 +1,545 @@
+<!DOCTYPE html>
 
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>
+Rio Maggi Point • Free Game
+</title>
+
+
+<meta name="theme-color" content="#111111">
+
+
+<link rel="manifest" href="manifest.json">
+
+
+<link rel="stylesheet" href="css/common.css">
+
+
+<link rel="stylesheet" href="css/game.css">
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+
+<link
+
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+
+rel="stylesheet">
+
+
+
+<link
+
+rel="stylesheet"
+
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+
+</head>
+
+
+
+<body>
+
+
+
+<div class="page">
+
+
+
+<div class="game-card app-card">
+
+
+
+<div class="card-glow"></div>
+
+
+<div class="card-shine"></div>
+
+
+
+
+<!-- ================= HEADER ================= -->
+
+
+<header class="game-header">
+
+
+<h1>
+
+RIO MAGGI POINT
+
+</h1>
+
+
+<p>
+
+FREE GAME ZONE
+
+</p>
+
+
+</header>
+
+
+
+
+
+
+<!-- ================= CUSTOMER ================= -->
+
+
+<section class="customer-section">
+
+
+
+<div class="avatar-frame">
+
+
+<img
+
+id="gamePhoto"
+
+src="assets/avatars/male.png"
+
+alt="Customer">
+
+
+</div>
+
+
+
+
+
+<div
+
+class="customer-name"
+
+id="gameName">
+
+Loading...
+
+</div>
+
+
+
+
+
+<div class="customer-id">
+
+
+ID :
+
+<span id="gameMember">
+
+
+RIO-000000
+
+
+</span>
+
+
+</div>
+
+
+
+</section>
+
+<!-- ================= GAME AREA ================= -->
+
+
+<section class="game-area">
+
+
+
+<div class="game-title">
+
+
+🍜 Catch The Maggi
+
+
+</div>
+
+
+
+
+
+<div class="game-instruction">
+
+
+Tap the Maggi before time ends!
+
+
+</div>
+
+
+
+
+
+<div
+
+id="gameBoard"
+
+class="game-board">
+
+
+
+<button
+
+id="maggiItem"
+
+class="maggi-item">
+
+
+🍜
+
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ================= SCORE ================= -->
+
+
+<section class="score-box">
+
+
+
+<div class="score-item">
+
+
+<div class="score-label">
+
+Score
+
+</div>
+
+
+<div
+
+id="score"
+
+class="score-value">
+
+0
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="score-item">
+
+
+<div class="score-label">
+
+Time
+
+</div>
+
+
+<div
+
+id="gameTime"
+
+class="score-value">
+
+30
+
+</div>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- ================= GAME BUTTON ================= -->
+
+
+<section class="game-action">
+
+
+
+<button
+
+id="startGame"
+
+class="game-start-btn">
+
+
+
+<i class="fa-solid fa-play"></i>
+
+
+START GAME
+
+
+</button>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- ================= RESULT ================= -->
+
+
+<section
+
+id="resultBox"
+
+class="result-box"
+
+style="display:none;">
+
+
+
+<h2>
+
+
+🎉 Game Complete
+
+
+</h2>
+
+
+
+
+<p id="resultText">
+
+
+Your Score
+
+
+</p>
+
+
+
+</section>
+
+<!-- ================= FIXED NAVIGATION SPACE ================= -->
+
+
+<div class="nav-space"></div>
+
+
+
+
+
+<!-- ================= BOTTOM NAVIGATION ================= -->
+
+
+<nav class="bottom-nav">
+
+
+
+<a href="card.html" class="active">
+
+
+<i class="fa-solid fa-house"></i>
+
+
+<span>
+
+Home
+
+</span>
+
+
+</a>
+
+
+
+
+
+<a href="qr.html">
+
+
+<i class="fa-solid fa-qrcode"></i>
+
+
+<span>
+
+QR
+
+</span>
+
+
+</a>
+
+
+
+
+
+<a href="history.html">
+
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+
+<span>
+
+History
+
+</span>
+
+
+</a>
+
+
+
+
+
+<a href="feedback.html">
+
+
+<i class="fa-solid fa-heart"></i>
+
+
+<span>
+
+Review
+
+</span>
+
+
+</a>
+
+
+
+
+
+<a href="profile.html">
+
+
+<i class="fa-solid fa-user"></i>
+
+
+<span>
+
+Profile
+
+</span>
+
+
+</a>
+
+
+
+
+</nav>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- ================= GAME JAVASCRIPT ================= -->
+
+
+<script
+
+type="module"
+
+src="js/game.js">
+
+</script>
+
+
+
+
+
+
+
+
+<!-- ================= SERVICE WORKER ================= -->
+
+
+<script>
+
+
+if("serviceWorker" in navigator){
+
+
+window.addEventListener("load",()=>{
+
+
+navigator.serviceWorker.register("./service-worker.js");
+
+
+});
+
+
+}
+
+
+
+</script>
+
+
+
+
+
+</body>
+
+
+</html>
