@@ -1,47 +1,179 @@
-/* ==========================================
+ /* =========================================
    RIO MAGGI POINT
-   PROFILE CSS
+   PROFILE PAGE
+   FINAL PREMIUM LAYOUT
    PART 1
-   (COMMON LAYOUT VERSION)
-========================================== */
+========================================= */
 
 
-/* =========================
-PROFILE CARD
-========================= */
+*{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+font-family:'Poppins',sans-serif;
+
+}
+
+
+
+html{
+
+width:100%;
+
+height:100%;
+
+}
+
+
+
+body{
+
+background:#111111;
+
+color:#ffffff;
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:flex-start;
+
+padding:20px;
+
+overflow-x:hidden;
+
+}
+
+
+
+
+.page{
+
+width:100%;
+
+max-width:420px;
+
+min-height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+}
+
+
+
+/* =========================================
+MAIN PROFILE CARD
+========================================= */
+
 
 .profile-card-main{
 
 position:relative;
 
-width:100%;
+width:340px;
 
-min-height:560px;
+min-height:720px;
 
 display:flex;
 
 flex-direction:column;
 
-justify-content:flex-start;
+background:
+
+linear-gradient(
+
+135deg,
+
+#151515,
+
+#1d1a14,
+
+#111111
+
+);
+
+
+border-radius:28px;
+
+
+padding:22px;
+
+
+border:2px solid #d4af37;
+
+
+box-shadow:
+
+0 15px 40px rgba(0,0,0,.60),
+
+0 0 20px rgba(212,175,55,.35);
+
+
+overflow:hidden;
 
 }
 
 
-/* =========================
+
+.card-glow{
+
+position:absolute;
+
+width:220px;
+
+height:220px;
+
+
+background:
+
+radial-gradient(
+
+circle,
+
+rgba(212,175,55,.25),
+
+transparent
+
+);
+
+
+top:-80px;
+
+right:-70px;
+
+}
+
+
+/* =========================================
 HEADER
-========================= */
+========================================= */
+
 
 .profile-header{
 
 text-align:center;
 
-margin-bottom:20px;
-
 position:relative;
 
 z-index:2;
 
+margin-bottom:20px;
+
 }
+
+
 
 .profile-header h1{
 
@@ -51,9 +183,9 @@ font-weight:800;
 
 letter-spacing:.5px;
 
-color:#ffffff;
-
 }
+
+
 
 .profile-header h1 i{
 
@@ -63,40 +195,41 @@ margin-right:6px;
 
 }
 
-.profile-header p{
 
-margin-top:6px;
+
+.profile-header p{
 
 font-size:11px;
 
 color:#ffd86a;
 
-opacity:.9;
+margin-top:5px;
 
 }
-
-
-/* =========================
+/* =========================================
 PROFILE USER
-========================= */
+========================================= */
+
 
 .profile-user{
 
 text-align:center;
 
-margin-bottom:22px;
-
 position:relative;
 
 z-index:2;
 
+margin-bottom:20px;
+
 }
+
+
 
 .profile-photo{
 
-width:92px;
+width:90px;
 
-height:92px;
+height:90px;
 
 margin:auto;
 
@@ -110,9 +243,11 @@ background:#222;
 
 box-shadow:
 
-0 0 16px rgba(212,175,55,.35);
+0 0 15px rgba(212,175,55,.35);
 
 }
+
+
 
 .profile-photo img{
 
@@ -124,6 +259,8 @@ object-fit:cover;
 
 }
 
+
+
 .profile-user h2{
 
 margin-top:12px;
@@ -132,21 +269,21 @@ font-size:18px;
 
 font-weight:800;
 
-color:#ffffff;
-
 }
+
+
 
 .member-id{
 
-margin-top:6px;
+margin-top:5px;
 
 font-size:12px;
-
-font-weight:600;
 
 color:#ffd86a;
 
 }
+
+
 
 .member-id i{
 
@@ -154,13 +291,20 @@ margin-right:5px;
 
 }
 
+
+
+/* =========================================
+PREMIUM BADGE
+========================================= */
+
+
 .premium-badge{
 
 display:inline-flex;
 
 align-items:center;
 
-gap:6px;
+gap:5px;
 
 margin-top:10px;
 
@@ -177,9 +321,13 @@ font-size:11px;
 font-weight:800;
 
 }
-/* =========================
+
+
+
+/* =========================================
 DETAIL CARDS
-========================= */
+========================================= */
+
 
 .profile-details{
 
@@ -189,9 +337,11 @@ flex-direction:column;
 
 gap:10px;
 
-margin-bottom:20px;
+margin-bottom:18px;
 
 }
+
+
 
 .detail-card{
 
@@ -201,37 +351,47 @@ align-items:center;
 
 gap:12px;
 
+
+background:
+
+rgba(255,255,255,.06);
+
+
+border:
+
+1px solid rgba(212,175,55,.25);
+
+
+border-radius:16px;
+
+
 padding:12px;
-
-border-radius:14px;
-
-background:rgba(255,255,255,.06);
-
-border:1px solid rgba(212,175,55,.25);
 
 }
 
+
+
 .detail-icon{
 
-width:38px;
+width:35px;
 
-height:38px;
+height:35px;
 
 border-radius:50%;
 
 display:flex;
 
-justify-content:center;
-
 align-items:center;
+
+justify-content:center;
 
 background:#222;
 
 font-size:18px;
 
-flex-shrink:0;
-
 }
+
+
 
 .detail-card span{
 
@@ -239,62 +399,79 @@ display:block;
 
 font-size:11px;
 
-color:#bbbbbb;
+color:#aaa;
 
 }
+
+
 
 .detail-card strong{
 
 display:block;
 
-margin-top:2px;
-
 font-size:13px;
 
-font-weight:600;
-
 color:#ffffff;
+
+margin-top:2px;
 
 word-break:break-word;
 
 }
 
 
-/* =========================
+
+/* =========================================
 LOYALTY SUMMARY
-========================= */
+========================================= */
+
 
 .loyalty-summary{
 
-margin-bottom:20px;
+margin-bottom:18px;
+
+position:relative;
+
+z-index:2;
 
 }
+
+
 
 .loyalty-summary h2{
 
-text-align:center;
-
 font-size:16px;
 
-font-weight:700;
-
-color:#ffd86a;
+text-align:center;
 
 margin-bottom:12px;
 
+color:#ffd86a;
+
 }
+
+
 
 .summary-card{
 
-padding:12px;
+background:
+
+rgba(255,255,255,.06);
+
 
 border-radius:16px;
 
-background:rgba(255,255,255,.06);
 
-border:1px solid rgba(212,175,55,.25);
+padding:12px;
+
+
+border:
+
+1px solid rgba(212,175,55,.25);
 
 }
+
+
 
 .summary-item{
 
@@ -304,11 +481,17 @@ justify-content:space-between;
 
 align-items:center;
 
-padding:10px 4px;
+padding:10px 5px;
 
-border-bottom:1px solid rgba(255,255,255,.08);
+border-bottom:
+
+1px solid rgba(255,255,255,.08);
+
+font-size:12px;
 
 }
+
+
 
 .summary-item:last-child{
 
@@ -316,28 +499,27 @@ border-bottom:none;
 
 }
 
+
+
 .summary-item span{
 
-font-size:12px;
-
-color:#cccccc;
+color:#ccc;
 
 }
+
+
 
 .summary-item strong{
 
-font-size:13px;
-
-font-weight:700;
-
 color:#ffd86a;
 
+font-size:13px;
+
 }
+/* =========================================
+ACTION BUTTONS
+========================================= */
 
-
-/* =========================
-BUTTONS
-========================= */
 
 .profile-actions{
 
@@ -345,19 +527,25 @@ display:flex;
 
 gap:10px;
 
-margin-top:auto;
+margin-bottom:18px;
+
+position:relative;
+
+z-index:2;
 
 }
+
+
 
 .profile-actions button{
 
 flex:1;
 
-height:44px;
+height:45px;
 
 border:none;
 
-border-radius:12px;
+border-radius:14px;
 
 font-size:13px;
 
@@ -369,6 +557,8 @@ transition:.25s;
 
 }
 
+
+
 .primary-btn{
 
 background:#d4af37;
@@ -376,6 +566,8 @@ background:#d4af37;
 color:#111111;
 
 }
+
+
 
 .logout-btn{
 
@@ -385,6 +577,8 @@ color:#ffffff;
 
 }
 
+
+
 .profile-actions button:hover{
 
 transform:translateY(-2px);
@@ -392,50 +586,41 @@ transform:translateY(-2px);
 }
 
 
-/* =========================
-SPACE FOR FIXED NAV
-========================= */
-
-.nav-space{
-
-height:80px;
-
-}
-/* =========================
+/* =========================================
 BOTTOM NAVIGATION
-========================= */
+========================================= */
+
 
 .bottom-nav{
 
-position:fixed;
+margin-top:auto;
 
-left:50%;
+padding-top:16px;
 
-bottom:0;
+border-top:
 
-transform:translateX(-50%);
+1px solid rgba(255,255,255,.10);
 
-width:340px;
-
-height:72px;
-
-background:#151515;
-
-border-top:2px solid #d4af37;
 
 display:flex;
 
-justify-content:space-around;
+justify-content:space-between;
 
 align-items:center;
 
-z-index:999;
+position:relative;
 
-box-shadow:0 -8px 20px rgba(0,0,0,.35);
+z-index:5;
 
 }
 
+
+
 .bottom-nav a{
+
+text-decoration:none;
+
+color:#ffffff;
 
 display:flex;
 
@@ -443,29 +628,27 @@ flex-direction:column;
 
 align-items:center;
 
-justify-content:center;
-
-gap:4px;
-
-text-decoration:none;
+gap:5px;
 
 font-size:10px;
 
 font-weight:600;
 
-color:#ffffff;
-
-opacity:.70;
+opacity:.72;
 
 transition:.25s;
 
 }
+
+
 
 .bottom-nav a i{
 
 font-size:18px;
 
 }
+
+
 
 .bottom-nav a.active{
 
@@ -475,57 +658,64 @@ opacity:1;
 
 }
 
-.bottom-nav a:hover{
 
-opacity:1;
+
+.bottom-nav a:hover{
 
 transform:translateY(-2px);
 
+opacity:1;
+
 }
 
 
-/* =========================
+
+/* =========================================
 RESPONSIVE
-========================= */
+========================================= */
+
 
 @media(max-width:480px){
 
+
 .profile-card-main{
 
-width:100%;
+width:340px;
+
+min-height:720px;
 
 }
 
-.bottom-nav{
-
-width:100%;
-
-max-width:340px;
 
 }
 
-}
+
 
 @media(min-width:900px){
 
+
 .profile-card-main{
 
-transform:scale(1.05);
+transform:scale(1.08);
 
 }
 
+
 }
 
 
-/* =========================
+/* =========================================
 SCROLLBAR
-========================= */
+========================================= */
+
 
 ::-webkit-scrollbar{
 
 width:6px;
 
 }
+
+
 
 ::-webkit-scrollbar-thumb{
 
@@ -535,8 +725,15 @@ border-radius:10px;
 
 }
 
+
+
 ::-webkit-scrollbar-track{
 
 background:#1a1a1a;
 
 }
+
+
+/* =========================================
+END
+========================================= */
