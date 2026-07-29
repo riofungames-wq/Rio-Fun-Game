@@ -24,11 +24,9 @@ from
 "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 
-
 import {
 
 doc,
-
 getDoc
 
 }
@@ -47,50 +45,32 @@ from
 
 const customerName =
 
-document.getElementById(
-"customerName"
-);
-
+document.getElementById("customerName");
 
 
 const memberId =
 
-document.getElementById(
-"memberId"
-);
-
+document.getElementById("memberId");
 
 
 const customerPhoto =
 
-document.getElementById(
-"customerPhoto"
-);
-
+document.getElementById("customerPhoto");
 
 
 const countdownDays =
 
-document.getElementById(
-"countdownDays"
-);
-
+document.getElementById("countdownDays");
 
 
 const rewardCircle =
 
-document.getElementById(
-"rewardCircle"
-);
-
+document.getElementById("rewardCircle");
 
 
 const gameLink =
 
-document.getElementById(
-"gameLink"
-);
-
+document.getElementById("gameLink");
 
 
 
@@ -135,7 +115,6 @@ customerPhoto.src =
 
 
 
-
 // ============================
 // LOAD CUSTOMER DATA
 // ============================
@@ -163,11 +142,7 @@ user.uid
 
 const customerSnap =
 
-await getDoc(
-
-customerRef
-
-);
+await getDoc(customerRef);
 
 
 
@@ -261,6 +236,7 @@ error
 );
 
 
+
 setDefaultData();
 
 
@@ -269,7 +245,6 @@ setDefaultData();
 
 
 }
-
 // =====================================
 // STAMP SYSTEM
 // PART 2
@@ -278,7 +253,6 @@ setDefaultData();
 
 
 const stampIds = [
-
 
 "stamp1",
 
@@ -292,9 +266,7 @@ const stampIds = [
 
 "stamp6"
 
-
 ];
-
 
 
 
@@ -318,7 +290,6 @@ document.getElementById(id);
 
 
 if(!stamp) return;
-
 
 
 
@@ -364,12 +335,10 @@ if(!rewardCircle) return;
 
 
 
-
 if(stampCount >= 6){
 
 
 rewardCircle.classList.add("active");
-
 
 
 }
@@ -384,9 +353,8 @@ rewardCircle.classList.remove("active");
 
 
 
+
 rewardCircle.innerHTML =
-
-
 
 `
 
@@ -443,11 +411,7 @@ user.uid
 
 const customerSnap =
 
-await getDoc(
-
-customerRef
-
-);
+await getDoc(customerRef);
 
 
 
@@ -509,12 +473,12 @@ error
 );
 
 
-}
-
-
 
 }
 
+
+
+}
 // =====================================
 // COUNTDOWN + BUTTONS + AUTH
 // PART 3
@@ -523,7 +487,7 @@ error
 
 
 // ============================
-// FREE GAME BUTTON
+// REAL FREE GAME WEBSITE
 // ============================
 
 
@@ -537,7 +501,9 @@ gameLink.addEventListener(
 ()=>{
 
 
-window.location.href = "game.html";
+window.location.href =
+
+"https://riofungames-wq.github.io/Rio-Fun-Game/loyalty/";
 
 
 }
@@ -546,7 +512,6 @@ window.location.href = "game.html";
 
 
 }
-
 
 
 
@@ -562,6 +527,7 @@ function updateResetCountdown(cycleStart){
 
 
 if(!countdownDays) return;
+
 
 
 
@@ -591,7 +557,7 @@ new Date();
 
 
 
-const difference =
+const diff =
 
 resetDate - now;
 
@@ -599,7 +565,7 @@ resetDate - now;
 
 
 
-if(difference <= 0){
+if(diff <= 0){
 
 
 countdownDays.textContent =
@@ -615,14 +581,11 @@ return;
 
 
 
-
 const days =
 
 Math.ceil(
 
-difference /
-
-(1000*60*60*24)
+diff/(1000*60*60*24)
 
 );
 
@@ -666,11 +629,7 @@ user.uid
 
 const customerSnap =
 
-await getDoc(
-
-customerRef
-
-);
+await getDoc(customerRef);
 
 
 
@@ -722,6 +681,7 @@ error
 );
 
 
+
 }
 
 
@@ -759,6 +719,7 @@ window.location.href =
 
 
 
+
 document.getElementById("whatsappBtn")?.addEventListener(
 
 "click",
@@ -783,6 +744,7 @@ window.open(
 
 
 
+
 document.getElementById("mapBtn")?.addEventListener(
 
 "click",
@@ -802,7 +764,6 @@ window.open(
 }
 
 );
-
 
 
 
@@ -867,7 +828,28 @@ await loadCountdownData(user);
 
 console.log(
 
-"🍜 Rio Maggi Point Card Loaded Successfully"
+"================================"
+
+);
+
+
+console.log(
+
+"🍜 Rio Maggi Point"
+
+);
+
+
+console.log(
+
+"Premium Card Loaded Successfully"
+
+);
+
+
+console.log(
+
+"================================"
 
 );
 
