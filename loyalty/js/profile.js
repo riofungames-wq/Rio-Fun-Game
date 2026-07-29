@@ -1,7 +1,7 @@
 // =====================================================
 // RIO MAGGI POINT
 // PROFILE.JS
-// FINAL FIXED VERSION
+// FINAL EDIT PROFILE VERSION
 // PART 1 / 3
 // =====================================================
 
@@ -22,7 +22,6 @@ from
 "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 
-
 import {
 
 doc,
@@ -40,96 +39,97 @@ from
 
 
 
+
 // =====================================================
 // ELEMENTS
 // =====================================================
 
 
 const profilePhoto =
-
 document.getElementById("profilePhoto");
 
 
 const profileName =
-
 document.getElementById("profileName");
 
 
 const profileMemberId =
-
 document.getElementById("profileMemberId");
 
 
 const profileMobile =
-
 document.getElementById("profileMobile");
 
 
 const profileEmail =
-
 document.getElementById("profileEmail");
 
 
 const profileDOB =
-
 document.getElementById("profileDOB");
 
 
 const profileAge =
-
 document.getElementById("profileAge");
 
 
 const profileCategory =
-
 document.getElementById("profileCategory");
 
 
 const profileStampCount =
-
 document.getElementById("profileStampCount");
 
 
 const profileReward =
-
 document.getElementById("profileReward");
 
 
 const profileMemberSince =
-
 document.getElementById("profileMemberSince");
 
 
 
-const editProfileBtn =
 
+
+// BUTTONS
+
+
+const editProfileBtn =
 document.getElementById("editProfileBtn");
 
 
-const logoutBtn =
-
-document.getElementById("logoutBtn");
-
-
-
-const editModal =
-
-document.getElementById("editModal");
-
-
-const editName =
-
-document.getElementById("editName");
-
-
 const saveProfileBtn =
-
 document.getElementById("saveProfileBtn");
 
 
 const closeEditBtn =
-
 document.getElementById("closeEditBtn");
+
+
+const editModal =
+document.getElementById("editModal");
+
+
+const editName =
+document.getElementById("editName");
+
+
+const editDOB =
+document.getElementById("editDOB");
+
+
+const editAge =
+document.getElementById("editAge");
+
+
+const editGender =
+document.getElementById("editGender");
+
+
+const logoutBtn =
+document.getElementById("logoutBtn");
+
 
 
 
@@ -143,13 +143,9 @@ document.getElementById("closeEditBtn");
 let currentCustomer = null;
 
 let currentUID = null;
-
-
-
-
-
 // =====================================================
-// AUTH CHECK
+// AUTH + LOAD CUSTOMER
+// PART 2 / 3
 // =====================================================
 
 
@@ -219,7 +215,6 @@ return;
 
 
 
-
 currentCustomer =
 
 customerSnap.data();
@@ -262,9 +257,16 @@ alert(
 }
 
 );
+
+
+
+
+
+
+
+
 // =====================================================
 // LOAD PROFILE DATA
-// PART 2 / 3
 // =====================================================
 
 
@@ -405,11 +407,7 @@ customer.createdAt.toDate
 
 ? customer.createdAt.toDate()
 
-: new Date(
-
-customer.createdAt.seconds * 1000
-
-);
+: new Date(customer.createdAt.seconds * 1000);
 
 
 
@@ -447,7 +445,6 @@ profileMemberSince.textContent =
 
 
 
-
 }
 
 
@@ -456,8 +453,9 @@ profileMemberSince.textContent =
 
 
 
+
 // =====================================================
-// OPEN EDIT PROFILE
+// OPEN EDIT MODAL
 // =====================================================
 
 
@@ -471,13 +469,29 @@ editProfileBtn.addEventListener(
 ()=>{
 
 
-if(!editModal) return;
-
-
-
 editName.value =
 
 currentCustomer.name || "";
+
+
+
+editDOB.value =
+
+currentCustomer.dob || "";
+
+
+
+editAge.value =
+
+currentCustomer.age || "";
+
+
+
+editGender.value =
+
+currentCustomer.gender || "";
+
+
 
 
 
@@ -494,49 +508,9 @@ editModal.style.display =
 
 
 }
-
-
-
-
-
-
-
 // =====================================================
-// CLOSE EDIT PROFILE
-// =====================================================
-
-
-if(closeEditBtn){
-
-
-closeEditBtn.addEventListener(
-
-"click",
-
-()=>{
-
-
-editModal.style.display =
-
-"none";
-
-
-}
-
-);
-
-
-}
-
-
-
-
-
-
-
-// =====================================================
-// SAVE PROFILE NAME
-// FIRESTORE UPDATE
+// SAVE EDIT PROFILE
+// PART 3 / 3
 // =====================================================
 
 
@@ -550,16 +524,29 @@ saveProfileBtn.addEventListener(
 async()=>{
 
 
-
-const newName =
+const updatedName =
 
 editName.value.trim();
 
 
+const updatedDOB =
+
+editDOB.value;
+
+
+const updatedAge =
+
+editAge.value;
+
+
+const updatedGender =
+
+editGender.value;
 
 
 
-if(!newName){
+
+if(!updatedName){
 
 
 alert(
@@ -577,11 +564,18 @@ return;
 
 
 
-
 try{
 
 
 saveProfileBtn.disabled = true;
+
+
+
+saveProfileBtn.innerHTML =
+
+"Saving...";
+
+
 
 
 
@@ -608,7 +602,14 @@ customerRef,
 {
 
 
-name:newName
+name: updatedName,
+
+dob: updatedDOB,
+
+age: updatedAge,
+
+gender: updatedGender
+
 
 
 }
@@ -619,13 +620,37 @@ name:newName
 
 
 
+// Update local data
+
+
 currentCustomer.name =
 
-newName;
+updatedName;
+
+
+currentCustomer.dob =
+
+updatedDOB;
+
+
+currentCustomer.age =
+
+updatedAge;
+
+
+currentCustomer.gender =
+
+updatedGender;
+
+
+
 
 
 
 loadProfile(currentCustomer);
+
+
+
 
 
 
@@ -654,7 +679,7 @@ catch(error){
 
 console.error(
 
-"Update Error:",
+"Profile Update Error:",
 
 error
 
@@ -680,6 +705,11 @@ finally{
 saveProfileBtn.disabled = false;
 
 
+saveProfileBtn.innerHTML =
+
+`<i class="fa-solid fa-check"></i> Save`;
+
+
 
 }
 
@@ -692,16 +722,50 @@ saveProfileBtn.disabled = false;
 
 
 }
+
+
+
+
+
+
+
 // =====================================================
-// LOGOUT + FINAL CHECKS
-// PART 3 / 3
+// CLOSE EDIT MODAL
 // =====================================================
 
 
+if(closeEditBtn){
 
-// ============================
+
+closeEditBtn.addEventListener(
+
+"click",
+
+()=>{
+
+
+editModal.style.display =
+
+"none";
+
+
+}
+
+);
+
+
+
+}
+
+
+
+
+
+
+
+// =====================================================
 // LOGOUT
-// ============================
+// =====================================================
 
 
 if(logoutBtn){
@@ -726,13 +790,11 @@ confirm(
 
 
 
-
 if(!confirmLogout){
 
 return;
 
 }
-
 
 
 
@@ -792,9 +854,10 @@ alert(
 
 
 
-// ============================
+
+// =====================================================
 // CLOSE MODAL OUTSIDE CLICK
-// ============================
+// =====================================================
 
 
 if(editModal){
@@ -832,10 +895,6 @@ editModal.style.display =
 
 
 
-// ============================
-// READY LOG
-// ============================
-
 
 console.log(
 
@@ -853,21 +912,14 @@ console.log(
 
 console.log(
 
-"Profile Page Ready"
+"Profile Edit System Active"
 
 );
 
 
 console.log(
 
-"Edit Profile Enabled"
-
-);
-
-
-console.log(
-
-"Firestore Update Connected"
+"Name DOB Age Gender Update Ready"
 
 );
 
