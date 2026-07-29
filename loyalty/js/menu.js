@@ -1,266 +1,393 @@
-// ======================================================
+
+
+
 // Rio Maggi Point
-// menu.js
-// Part 1
-// ======================================================
+// Premium Menu System
 
-document.addEventListener("DOMContentLoaded", () => {
 
-const categories = document.querySelectorAll(".category");
-const cards = document.querySelectorAll(".item");
-const badges = document.querySelectorAll(".badge");
 
-let observer = new IntersectionObserver(
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
 
-(entries)=>{
 
-entries.forEach(entry=>{
 
-if(entry.isIntersecting){
-
-entry.target.classList.add("show");
-
-}
-
-});
-
-},
-
-{
-threshold:0.15
-}
-
+const categoryCards =
+document.querySelectorAll(
+".category-card"
 );
 
-cards.forEach(card=>{
 
-card.classList.add("hidden");
-observer.observe(card);
 
-});
-
-categories.forEach(section=>{
-
-observer.observe(section);
-
-});
-
-// ===============================
-// Ripple Effect
-// ===============================
-
-cards.forEach(card=>{
-
-card.addEventListener("click",(e)=>{
-
-const ripple=document.createElement("span");
-
-const rect=card.getBoundingClientRect();
-
-const size=Math.max(rect.width,rect.height);
-
-ripple.style.width=size+"px";
-ripple.style.height=size+"px";
-
-ripple.style.left=(e.clientX-rect.left-size/2)+"px";
-ripple.style.top=(e.clientY-rect.top-size/2)+"px";
-
-ripple.className="ripple";
-
-card.appendChild(ripple);
-
-setTimeout(()=>{
-
-ripple.remove();
-
-},600);
-
-});
-
-});
-
-// ===============================
-// Badge Animation
-// ===============================
-
-let badgeIndex=0;
-
-setInterval(()=>{
-
-badges.forEach(b=>b.classList.remove("badge-pop"));
-
-if(badges.length){
-
-badges[badgeIndex].classList.add("badge-pop");
-
-badgeIndex++;
-
-if(badgeIndex>=badges.length){
-
-badgeIndex=0;
-
-}
-
-}
-
-},1800);
-    // ===============================
-// Smooth Hover Sound (Optional)
-// ===============================
-
-const menuCards = document.querySelectorAll(".item");
-
-menuCards.forEach(card=>{
-
-card.addEventListener("mouseenter",()=>{
-
-card.style.transform="translateY(-8px) scale(1.02)";
-
-});
-
-card.addEventListener("mouseleave",()=>{
-
-card.style.transform="";
-
-});
-
-});
-
-// ===============================
-// Category Highlight While Scroll
-// ===============================
-
-const categoryTitles=document.querySelectorAll(".category-title");
-
-const sectionObserver=new IntersectionObserver(
-
-(entries)=>{
-
-entries.forEach(entry=>{
-
-const title=entry.target.querySelector(".category-title");
-
-if(!title) return;
-
-if(entry.isIntersecting){
-
-title.classList.add("active-category");
-
-}else{
-
-title.classList.remove("active-category");
-
-}
-
-});
-
-},
-
-{
-threshold:0.35
-}
-
+const foodSections =
+document.querySelectorAll(
+".food-section"
 );
 
-categories.forEach(section=>{
 
-sectionObserver.observe(section);
+
+
+
+
+categoryCards.forEach(
+(card)=>{
+
+
+
+card.addEventListener(
+"click",
+()=>{
+
+
+
+const target =
+card.getAttribute(
+"data-target"
+);
+
+
+
+
+
+
+// REMOVE ACTIVE CATEGORY
+
+
+categoryCards.forEach(
+(item)=>{
+
+item.classList.remove(
+"active"
+);
 
 });
 
-// ===============================
-// Back Button Effect
-// ===============================
 
-const backButton=document.querySelector(".back-btn");
 
-if(backButton){
 
-backButton.addEventListener("click",()=>{
 
-backButton.classList.add("clicked");
+
+// ADD ACTIVE CATEGORY
+
+
+card.classList.add(
+"active"
+);
+
+
+
+
+
+
+
+
+// HIDE ALL FOOD SECTION
+
+
+foodSections.forEach(
+(section)=>{
+
+
+section.classList.remove(
+"active"
+);
+
 
 });
 
+
+
+
+
+
+
+
+// SHOW SELECTED SECTION
+
+
+const selectedSection =
+document.getElementById(
+target
+);
+
+
+
+
+if(selectedSection){
+
+
+
+selectedSection.classList.add(
+"active"
+);
+
+
+
+
+
+
+// Restart animation
+
+
+selectedSection.style.animation =
+"none";
+
+
+
+selectedSection.offsetHeight;
+
+
+
+selectedSection.style.animation =
+"sectionOpen .5s ease";
+
+
+
 }
 
-// ===============================
-// Current Year
-// ===============================
 
-const year=document.querySelector("#currentYear");
 
-if(year){
 
-year.textContent=new Date().getFullYear();
+
+});
+
+
+
+});
+
+
+
+
+
+
+});
+
+
+
+
+
+// SMOOTH SCROLL TO FOOD SECTION
+
+
+const foodContainer =
+document.querySelector(
+".food-container"
+);
+
+
+
+categoryCards.forEach(
+(card)=>{
+
+
+card.addEventListener(
+"click",
+()=>{
+
+
+setTimeout(
+()=>{
+
+
+if(foodContainer){
+
+
+foodContainer.scrollIntoView({
+
+behavior:"smooth",
+
+block:"start"
+
+});
+
 
 }
-    // ===============================
-// Keyboard Accessibility
-// ===============================
 
-menuCards.forEach(card=>{
 
-card.setAttribute("tabindex","0");
+},
+150
+);
 
-card.addEventListener("keydown",(e)=>{
 
-if(e.key==="Enter" || e.key===" "){
+
+});
+
+
+});
+
+
+
+
+
+
+
+
+// RESTART FOOD ANIMATION
+
+
+function restartFoodAnimation(){
+
+
+
+const animationElements =
+document.querySelectorAll(
+".food-animation"
+);
+
+
+
+animationElements.forEach(
+(element)=>{
+
+
+
+element.style.animation =
+"none";
+
+
+
+element.offsetHeight;
+
+
+
+element.style.animation =
+"";
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+// RUN WHEN CATEGORY CHANGES
+
+
+categoryCards.forEach(
+(card)=>{
+
+
+card.addEventListener(
+"click",
+()=>{
+
+
+restartFoodAnimation();
+
+
+});
+
+
+});
+
+
+
+
+
+
+
+// DEFAULT ACTIVE SECTION CHECK
+
+
+window.addEventListener(
+"load",
+()=>{
+
+
+
+const firstCategory =
+document.querySelector(
+".category-card.active"
+);
+
+
+
+const firstSection =
+document.querySelector(
+".food-section.active"
+);
+
+
+
+
+if(firstCategory && firstSection){
+
+
+firstCategory.classList.add(
+"active"
+);
+
+
+firstSection.classList.add(
+"active"
+);
+
+
+
+}
+
+
+
+});
+
+
+
+
+
+
+
+// PREVENT EMPTY LINK JUMP
+
+
+document
+.querySelectorAll(
+".bottom-nav a"
+)
+.forEach(
+(link)=>{
+
+
+link.addEventListener(
+"click",
+(e)=>{
+
+
+const href =
+link.getAttribute(
+"href"
+);
+
+
+
+if(href === "menu.html"){
+
 
 e.preventDefault();
 
-card.click();
 
 }
 
-});
+
 
 });
 
-// ===============================
-// Image Lazy Animation
-// ===============================
-
-const images=document.querySelectorAll("img");
-
-const imageObserver=new IntersectionObserver(
-
-(entries)=>{
-
-entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-
-entry.target.classList.add("image-visible");
-imageObserver.unobserve(entry.target);
-
-}
 
 });
 
-},
 
-{
-threshold:0.20
-}
 
+
+
+console.log(
+"Rio Maggi Point Menu Loaded"
 );
 
-images.forEach(img=>{
 
-imageObserver.observe(img);
 
-});
 
-// ===============================
-// Page Loaded
-// ===============================
-
-document.body.classList.add("page-loaded");
-
-// ===============================
-// End
-// ===============================
-
-});
-    
