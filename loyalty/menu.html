@@ -5,8 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Rio Maggi Point | Premium Menu</title>
 
@@ -14,21 +13,15 @@ content="width=device-width, initial-scale=1.0">
 
 <link rel="manifest" href="manifest.json">
 
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-<link rel="stylesheet"
-href="css/menu.css">
+<link rel="stylesheet" href="css/menu.css">
 
 </head>
 
@@ -38,182 +31,522 @@ href="css/menu.css">
 
 <div class="menu-container">
 
-<!-- =========================
-HEADER
-========================= -->
+<!-- HEADER -->
 
 <header class="menu-header">
 
-<a href="card.html"
-class="back-button">
-
+<a href="card.html" class="back-button">
 <i class="fa-solid fa-arrow-left"></i>
-
 </a>
 
 <div class="header-content">
 
 <h1>
-
 <i class="fa-solid fa-utensils"></i>
-
 RIO MAGGI POINT
-
 </h1>
 
-<p>
-
-Premium Digital Food Menu
-
-</p>
+<p>Premium Digital Food Menu</p>
 
 </div>
 
 </header>
 
-<!-- =========================
-WELCOME
-========================= -->
+<!-- WELCOME -->
 
 <section class="welcome-banner">
 
-<div class="welcome-text">
+<h2>🍜 Freshly Cooked. Made With Love.</h2>
+
+<p>
+Choose your favourite Maggi and enjoy the premium taste.
+</p>
+
+</section>
+
+<!-- CATEGORY BAR -->
+
+<nav class="menu-tabs">
+
+<button class="menu-tab active" data-category="everyday">
+🍜 Everyday
+</button>
+
+<button class="menu-tab" data-category="cheese">
+🧀 Cheese
+</button>
+
+<button class="menu-tab" data-category="butter">
+🧈 Butter Cheese
+</button>
+
+<button class="menu-tab" data-category="vegcheese">
+🥬 Veg Cheese
+</button>
+
+<button class="menu-tab" data-category="burger">
+🍔 Burger
+</button>
+
+<button class="menu-tab" data-category="drinks">
+🥤 Drinks
+</button>
+
+</nav>
+
+<!-- MENU START -->
+
+<main class="menu-dashboard">
+
+<section
+class="menu-category active"
+id="everyday">
+
+<div class="category-header">
 
 <h2>
 
-🍜 Freshly Cooked.
-Made With Love.
+🍜 Everyday Maggi
 
 </h2>
 
-<p>
+<i class="fa-solid fa-chevron-down"></i>
 
-Tap any category below to explore
-our premium menu.
+</div>
 
-</p>
+<div class="category-body">
+
+<!-- CARD -->
+
+<div class="menu-card">
+
+<div class="menu-left">
+
+<h3>Classic Maggi</h3>
+
+<p>Freshly Cooked Premium Classic Maggi</p>
+
+<div class="price-row">
+
+<div class="price-box">
+
+<span>HALF</span>
+
+<strong>₹40</strong>
+
+</div>
+
+<div class="price-box">
+
+<span>FULL</span>
+
+<strong>₹70</strong>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="menu-right">
+
+<img
+src="assets/menu/classic-maggi.png"
+alt="Classic Maggi">
+
+</div>
+
+</div>
+<!-- VEG MAGGI -->
+
+<div class="menu-card">
+
+<div class="menu-left">
+
+<h3>Veg Maggi</h3>
+
+<p>Fresh Veg Loaded Maggi</p>
+
+<div class="price-row">
+
+<div class="price-box">
+
+<span>HALF</span>
+
+<strong>₹35</strong>
+
+</div>
+
+<div class="price-box">
+
+<span>FULL</span>
+
+<strong>₹50</strong>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="menu-right">
+
+<img
+src="assets/menu/veg-maggi.png"
+alt="Veg Maggi">
+
+</div>
+
+</div>
 
 </div>
 
 </section>
 
 <!-- =========================
-CATEGORY BAR
+CHEESE MAGGI
 ========================= -->
 
-<nav class="category-bar">
+<section
+class="menu-category"
+id="cheese">
 
-<button
-class="menu-tab active"
-data-category="everyday">
+<div class="category-header">
 
-🍜 Everyday
+<h2>
 
-</button>
+🧀 Cheese Maggi
 
-<button
-class="menu-tab"
-data-category="cheese">
+</h2>
 
-🧀 Cheese
+<i class="fa-solid fa-chevron-down"></i>
 
-</button>
+</div>
 
-<button
-class="menu-tab"
-data-category="butter">
+<div class="category-body">
 
-🧈 Butter
+<div class="menu-card">
 
-</button>
+<div class="menu-left">
 
-<button
-class="menu-tab"
-data-category="burger">
+<h3>Cheese Maggi</h3>
+
+<p>Loaded With Premium Cheese</p>
+
+<div class="price-row">
+
+<div class="price-box">
+
+<span>HALF</span>
+
+<strong>₹45</strong>
+
+</div>
+
+<div class="price-box">
+
+<span>FULL</span>
+
+<strong>₹65</strong>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="menu-right">
+
+<img
+src="assets/menu/cheese-maggi.png"
+alt="Cheese Maggi">
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- =========================
+BUTTER CHEESE MAGGI
+========================= -->
+
+<section
+class="menu-category"
+id="butter">
+
+<div class="category-header">
+
+<h2>
+
+🧈 Butter Cheese Maggi
+
+</h2>
+
+<i class="fa-solid fa-chevron-down"></i>
+
+</div>
+
+<div class="category-body">
+
+<div class="menu-card">
+
+<div class="menu-left">
+
+<h3>Butter Cheese Maggi</h3>
+
+<p>Butter + Cheese Special</p>
+
+<div class="price-row">
+
+<div class="price-box">
+
+<span>HALF</span>
+
+<strong>₹55</strong>
+
+</div>
+
+<div class="price-box">
+
+<span>FULL</span>
+
+<strong>₹80</strong>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="menu-right">
+
+<img
+src="assets/menu/butter-cheese.png"
+alt="Butter Cheese Maggi">
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- =========================
+VEG CHEESE MAGGI
+========================= -->
+
+<section
+class="menu-category"
+id="vegcheese">
+
+<div class="category-header">
+
+<h2>
+
+🥬 Veg Cheese Maggi
+
+</h2>
+
+<i class="fa-solid fa-chevron-down"></i>
+
+</div>
+
+<div class="category-body">
+
+<div class="menu-card">
+
+<div class="menu-left">
+
+<h3>Veg Cheese Maggi</h3>
+
+<p>Fresh Veg + Premium Cheese</p>
+
+<div class="price-row">
+
+<div class="price-box">
+
+<span>HALF</span>
+
+<strong>₹60</strong>
+
+</div>
+
+<div class="price-box">
+
+<span>FULL</span>
+
+<strong>₹90</strong>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="menu-right">
+
+<img
+src="assets/menu/veg-cheese.png"
+alt="Veg Cheese Maggi">
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+<!-- =========================
+BURGER
+========================= -->
+
+<section
+class="menu-category"
+id="burger">
+
+<div class="category-header">
+
+<h2>
 
 🍔 Burger
 
-</button>
+</h2>
 
-<button
-class="menu-tab"
-data-category="momos">
+<i class="fa-solid fa-chevron-down"></i>
 
-🥟 Momos
+</div>
 
-</button>
+<div class="category-body">
 
-<button
-class="menu-tab"
-data-category="soup">
+<div class="menu-card">
 
-🍲 Soup
+<div class="menu-left">
 
-</button>
+<h3>Veg Burger</h3>
 
-<button
-class="menu-tab"
-data-category="corn">
+<p>Crispy & Fresh Veg Burger</p>
 
-🌽 Corn
+<div class="price-row">
 
-</button>
+<div class="price-box single-price">
 
-<button
-class="menu-tab"
-data-category="bhel">
+<span>PRICE</span>
 
-🥣 Bhel
+<strong>₹60</strong>
 
-</button>
+</div>
 
-</nav>
+</div>
+
+</div>
+
+<div class="menu-right">
+
+<img
+src="assets/menu/burger.png"
+alt="Veg Burger">
+
+</div>
+
+</div>
+
+</div>
+
+</section>
 
 <!-- =========================
-MENU CONTENT
+DRINKS
 ========================= -->
 
-<main id="menuContent">
+<section
+class="menu-category"
+id="drinks">
 
-<!-- JavaScript will render all
-categories and menu cards here -->
+<div class="category-header">
+
+<h2>
+
+🥤 Drinks
+
+</h2>
+
+<i class="fa-solid fa-chevron-down"></i>
+
+</div>
+
+<div class="category-body">
+
+<div class="coming-soon">
+
+🍹 Drinks Menu Coming Soon
+
+</div>
+
+</div>
+
+</section>
 
 </main>
-<!-- =========================================
-     BOTTOM NAVIGATION
-========================================= -->
+
+<!-- =========================
+BOTTOM NAVIGATION
+========================= -->
 
 <nav class="bottom-nav">
 
-    <a href="card.html">
-        <i class="fa-solid fa-house"></i>
-        <span>Home</span>
-    </a>
+<a href="card.html">
 
-    <a href="qr.html">
-        <i class="fa-solid fa-qrcode"></i>
-        <span>QR</span>
-    </a>
+<i class="fa-solid fa-house"></i>
 
-    <a href="history.html">
-        <i class="fa-solid fa-clock-rotate-left"></i>
-        <span>History</span>
-    </a>
+<span>Home</span>
 
-    <a href="menu.html" class="active">
-        <i class="fa-solid fa-bowl-food"></i>
-        <span>Menu</span>
-    </a>
+</a>
 
-    <a href="feedback.html">
-        <i class="fa-solid fa-star"></i>
-        <span>Review</span>
-    </a>
+<a href="qr.html">
 
-    <a href="profile.html">
-        <i class="fa-solid fa-user"></i>
-        <span>Profile</span>
-    </a>
+<i class="fa-solid fa-qrcode"></i>
+
+<span>QR</span>
+
+</a>
+
+<a href="history.html">
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+<span>History</span>
+
+</a>
+
+<a
+href="menu.html"
+class="active">
+
+<i class="fa-solid fa-bowl-food"></i>
+
+<span>Menu</span>
+
+</a>
+
+<a href="feedback.html">
+
+<i class="fa-solid fa-star"></i>
+
+<span>Review</span>
+
+</a>
+
+<a href="profile.html">
+
+<i class="fa-solid fa-user"></i>
+
+<span>Profile</span>
+
+</a>
 
 </nav>
 
@@ -221,62 +554,19 @@ categories and menu cards here -->
 
 </div>
 
-<!-- =========================
-MENU SCRIPT
-========================= -->
-
 <script
 type="module"
-src="js/menu.js">
-</script>
-<!-- =========================
-PAGE LOADER
-========================= -->
-
-<div class="page-loader" id="pageLoader">
-
-    <div class="loader-ring"></div>
-
-    <p>Loading Menu...</p>
-
-</div>
-
-<!-- =========================
-OPTIONAL BACK TO TOP
-========================= -->
-
-<button
-id="backToTop"
-class="back-to-top"
-aria-label="Back To Top">
-
-    <i class="fa-solid fa-arrow-up"></i>
-
-</button>
-
-<!-- =========================
-MENU JAVASCRIPT
-========================= -->
-
-<script
-type="module"
-src="js/menu.js">
-</script>
-
-<!-- =========================
-SERVICE WORKER
-========================= -->
+src="js/menu.js"></script>
 
 <script>
 
 if ("serviceWorker" in navigator) {
 
-    window.addEventListener("load", () => {
+window.addEventListener("load", () => {
 
-        navigator.serviceWorker
-            .register("./service-worker.js");
+navigator.serviceWorker.register("./service-worker.js");
 
-    });
+});
 
 }
 
