@@ -1,1 +1,710 @@
+/* =====================================
+   RIO MAGGI POINT
+   FREE GAME CSS
+   PART 1
+===================================== */
 
+
+*{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+font-family:'Poppins',sans-serif;
+
+}
+
+
+
+body{
+
+background:#111111;
+
+color:#ffffff;
+
+min-height:100vh;
+
+}
+
+
+
+.game-card{
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+
+
+
+
+/* =========================
+GAME HEADER
+========================= */
+
+
+.game-header{
+
+text-align:center;
+
+margin-bottom:20px;
+
+position:relative;
+
+z-index:2;
+
+}
+
+
+
+.game-header h1{
+
+font-size:22px;
+
+font-weight:800;
+
+color:#ffd86a;
+
+letter-spacing:1px;
+
+}
+
+
+
+.game-header p{
+
+font-size:12px;
+
+opacity:.8;
+
+margin-top:5px;
+
+}
+
+
+
+
+
+/* =========================
+CUSTOMER SECTION
+========================= */
+
+
+.customer-section{
+
+text-align:center;
+
+margin-bottom:20px;
+
+position:relative;
+
+z-index:2;
+
+}
+
+
+
+.avatar-frame{
+
+width:90px;
+
+height:90px;
+
+margin:auto;
+
+border-radius:50%;
+
+overflow:hidden;
+
+border:3px solid #d4af37;
+
+box-shadow:
+
+0 0 18px rgba(212,175,55,.35);
+
+}
+
+
+
+.avatar-frame img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+}
+
+
+
+.customer-name{
+
+font-size:18px;
+
+font-weight:700;
+
+margin-top:10px;
+
+}
+
+
+
+.customer-id{
+
+font-size:12px;
+
+margin-top:5px;
+
+color:#ffd86a;
+
+}
+/* =====================================
+   RIO MAGGI POINT
+   FREE GAME CSS
+   PART 2
+===================================== */
+
+
+/* =========================
+GAME AREA
+========================= */
+
+
+.game-area{
+
+background:
+
+rgba(255,255,255,.06);
+
+border:
+
+1px solid rgba(212,175,55,.25);
+
+border-radius:18px;
+
+padding:16px;
+
+text-align:center;
+
+margin-bottom:16px;
+
+}
+
+
+
+
+.game-title{
+
+font-size:20px;
+
+font-weight:800;
+
+color:#ffd86a;
+
+margin-bottom:8px;
+
+}
+
+
+
+
+.game-instruction{
+
+font-size:12px;
+
+opacity:.8;
+
+margin-bottom:15px;
+
+}
+
+
+
+
+
+
+
+/* =========================
+GAME BOARD
+========================= */
+
+
+.game-board{
+
+height:230px;
+
+background:#0b0b0b;
+
+border-radius:18px;
+
+border:
+
+1px solid rgba(212,175,55,.25);
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+
+
+
+
+
+
+/* =========================
+MAGGI ITEM
+========================= */
+
+
+.maggi-item{
+
+position:absolute;
+
+left:50%;
+
+top:50%;
+
+transform:
+
+translate(-50%,-50%);
+
+width:70px;
+
+height:70px;
+
+border:none;
+
+border-radius:50%;
+
+background:#222222;
+
+font-size:38px;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+
+
+.maggi-item:hover{
+
+transform:
+
+translate(-50%,-50%) scale(1.15);
+
+}
+
+
+
+
+
+
+
+
+/* =========================
+SCORE BOX
+========================= */
+
+
+.score-box{
+
+display:flex;
+
+justify-content:space-between;
+
+gap:12px;
+
+margin-bottom:18px;
+
+}
+
+
+
+
+
+.score-item{
+
+flex:1;
+
+background:
+
+rgba(255,255,255,.06);
+
+border:
+
+1px solid rgba(212,175,55,.25);
+
+border-radius:15px;
+
+padding:14px;
+
+text-align:center;
+
+}
+
+
+
+
+
+.score-label{
+
+font-size:12px;
+
+opacity:.7;
+
+}
+
+
+
+
+
+.score-value{
+
+font-size:24px;
+
+font-weight:800;
+
+color:#ffd86a;
+
+margin-top:5px;
+
+}
+
+
+
+
+
+
+
+
+/* =========================
+START BUTTON
+========================= */
+
+
+.game-action{
+
+margin-bottom:18px;
+
+}
+
+
+
+
+
+.game-start-btn{
+
+width:100%;
+
+height:48px;
+
+border:none;
+
+border-radius:15px;
+
+background:#d4af37;
+
+color:#111111;
+
+font-size:15px;
+
+font-weight:800;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+
+
+
+
+.game-start-btn i{
+
+margin-right:8px;
+
+}
+
+
+
+
+
+.game-start-btn:hover{
+
+transform:
+
+translateY(-3px);
+
+
+box-shadow:
+
+0 8px 20px rgba(212,175,55,.35);
+
+}
+/* =====================================
+   RIO MAGGI POINT
+   FREE GAME CSS
+   PART 3
+===================================== */
+
+
+
+/* =========================
+RESULT BOX
+========================= */
+
+
+.result-box{
+
+background:
+
+rgba(212,175,55,.12);
+
+border:
+
+1px solid #d4af37;
+
+border-radius:18px;
+
+padding:18px;
+
+text-align:center;
+
+margin-bottom:18px;
+
+}
+
+
+
+
+
+.result-box h2{
+
+font-size:20px;
+
+font-weight:800;
+
+color:#ffd86a;
+
+margin-bottom:8px;
+
+}
+
+
+
+
+
+.result-box p{
+
+font-size:13px;
+
+opacity:.85;
+
+}
+
+
+
+
+
+
+
+/* =========================
+MAGGI POP ANIMATION
+========================= */
+
+
+@keyframes maggiPop{
+
+
+0%{
+
+transform:
+
+translate(-50%,-50%)
+
+scale(.8);
+
+}
+
+
+50%{
+
+transform:
+
+translate(-50%,-50%)
+
+scale(1.25);
+
+}
+
+
+100%{
+
+transform:
+
+translate(-50%,-50%)
+
+scale(1);
+
+}
+
+
+}
+
+
+
+
+
+
+.maggi-item.active{
+
+animation:
+
+maggiPop .4s ease;
+
+}
+
+
+
+
+
+
+
+/* =========================
+WIN EFFECT
+========================= */
+
+
+.win-effect{
+
+animation:
+
+winPulse 1s infinite;
+
+}
+
+
+
+
+@keyframes winPulse{
+
+
+0%{
+
+box-shadow:
+
+0 0 0 rgba(212,175,55,0);
+
+}
+
+
+50%{
+
+box-shadow:
+
+0 0 25px rgba(212,175,55,.8);
+
+}
+
+
+100%{
+
+box-shadow:
+
+0 0 0 rgba(212,175,55,0);
+
+}
+
+
+}
+
+
+
+
+
+
+
+/* =========================
+MOBILE RESPONSIVE
+========================= */
+
+
+@media(max-width:480px){
+
+
+
+.game-card{
+
+width:340px;
+
+}
+
+
+
+.game-board{
+
+height:220px;
+
+}
+
+
+
+
+.maggi-item{
+
+width:65px;
+
+height:65px;
+
+font-size:34px;
+
+}
+
+
+
+.score-value{
+
+font-size:22px;
+
+}
+
+
+
+}
+
+
+
+
+
+
+/* =========================
+DESKTOP
+========================= */
+
+
+@media(min-width:900px){
+
+
+
+.game-card{
+
+transform:
+
+scale(1.08);
+
+}
+
+
+
+}
