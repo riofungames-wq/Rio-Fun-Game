@@ -1,7 +1,7 @@
 // =====================================
 // RIO MAGGI POINT
 // PREMIUM CARD JS
-// FINAL VERSION
+// COMPLETE FIX VERSION
 // PART 1
 // =====================================
 
@@ -75,6 +75,90 @@ document.getElementById("gameLink");
 
 
 
+// ============================
+// AVATAR SYSTEM
+// ============================
+
+
+function getAvatar(data){
+
+
+if(data.photoURL){
+
+return data.photoURL;
+
+}
+
+
+
+if(data.avatar){
+
+return data.avatar;
+
+}
+
+
+
+
+if(data.gender){
+
+
+const gender =
+
+data.gender.toLowerCase();
+
+
+
+if(
+
+gender === "female" ||
+
+gender === "girl" ||
+
+gender === "woman"
+
+){
+
+
+return "assets/avatars/female.png";
+
+
+}
+
+
+
+if(
+
+gender === "male" ||
+
+gender === "boy" ||
+
+gender === "man"
+
+){
+
+
+return "assets/avatars/male.png";
+
+
+}
+
+
+}
+
+
+
+
+return "assets/avatars/male.png";
+
+
+}
+
+
+
+
+
+
 
 // ============================
 // DEFAULT DATA
@@ -84,27 +168,33 @@ document.getElementById("gameLink");
 function setDefaultData(){
 
 
+
 if(customerName){
 
 customerName.textContent =
+
 "Customer";
 
 }
 
 
 
+
 if(memberId){
 
 memberId.textContent =
+
 "RIO-000000";
 
 }
 
 
 
+
 if(customerPhoto){
 
 customerPhoto.src =
+
 "assets/avatars/male.png";
 
 }
@@ -142,6 +232,7 @@ user.uid
 
 
 
+
 const customerSnap =
 
 await getDoc(customerRef);
@@ -163,6 +254,7 @@ return;
 
 
 
+
 const data =
 
 customerSnap.data();
@@ -176,9 +268,7 @@ if(customerName){
 
 customerName.textContent =
 
-data.name ||
-
-"Customer";
+data.name || "Customer";
 
 
 }
@@ -192,9 +282,7 @@ if(memberId){
 
 memberId.textContent =
 
-data.memberId ||
-
-"RIO-000000";
+data.memberId || "RIO-000000";
 
 
 }
@@ -208,15 +296,22 @@ if(customerPhoto){
 
 customerPhoto.src =
 
-data.photoURL ||
-
-data.avatar ||
-
-"assets/avatars/male.png";
+getAvatar(data);
 
 
 }
 
+
+
+
+
+console.log(
+
+"Customer Data Loaded",
+
+data
+
+);
 
 
 
@@ -229,7 +324,7 @@ catch(error){
 
 console.error(
 
-"Customer Load Error:",
+"Customer Load Error",
 
 error
 
@@ -245,6 +340,7 @@ setDefaultData();
 
 
 }
+
 // =====================================
 // STAMP SYSTEM
 // PART 2
@@ -273,14 +369,16 @@ const stampIds = [
 
 
 // ============================
-// UPDATE STAMPS
+// UPDATE STAMP DISPLAY
 // ============================
 
 
 function updateStampDisplay(stampCount){
 
 
+
 stampIds.forEach((id,index)=>{
+
 
 
 const stamp =
@@ -289,7 +387,9 @@ document.getElementById(id);
 
 
 
+
 if(!stamp) return;
+
 
 
 
@@ -297,7 +397,9 @@ if(!stamp) return;
 if(index < stampCount){
 
 
+
 stamp.classList.add("active");
+
 
 
 }
@@ -305,7 +407,9 @@ stamp.classList.add("active");
 else{
 
 
+
 stamp.classList.remove("active");
+
 
 
 }
@@ -315,6 +419,7 @@ stamp.classList.remove("active");
 });
 
 
+
 }
 
 
@@ -324,7 +429,7 @@ stamp.classList.remove("active");
 
 
 // ============================
-// UPDATE REWARD
+// UPDATE REWARD DISPLAY
 // ============================
 
 
@@ -368,7 +473,9 @@ MAGGI
 if(stampCount >= 6){
 
 
+
 rewardCircle.classList.add("active");
+
 
 
 }
@@ -376,7 +483,9 @@ rewardCircle.classList.add("active");
 else{
 
 
+
 rewardCircle.classList.remove("active");
+
 
 
 }
@@ -399,7 +508,9 @@ rewardCircle.classList.remove("active");
 async function loadStampData(user){
 
 
+
 try{
+
 
 
 const customerRef =
@@ -416,6 +527,7 @@ user.uid
 
 
 
+
 const customerSnap =
 
 await getDoc(customerRef);
@@ -424,7 +536,11 @@ await getDoc(customerRef);
 
 
 
-if(!customerSnap.exists()) return;
+if(!customerSnap.exists()){
+
+return;
+
+}
 
 
 
@@ -464,11 +580,14 @@ stampCount
 
 
 
+
+
 }
 
 
 
 catch(error){
+
 
 
 console.error(
@@ -486,19 +605,20 @@ error
 
 
 }
-// =====================================
-// GAME REDIRECT + COUNTDOWN + AUTH
-// PART 3
-// =====================================
+
+
+
+
 
 
 
 // ============================
-// CLICK FREE GAME
+// GAME BUTTON
 // ============================
 
 
 if(gameLink){
+
 
 
 gameLink.addEventListener(
@@ -506,6 +626,7 @@ gameLink.addEventListener(
 "click",
 
 ()=>{
+
 
 
 window.location.href =
@@ -519,6 +640,7 @@ window.location.href =
 );
 
 
+
 }
 
 
@@ -527,14 +649,20 @@ window.location.href =
 
 
 // ============================
-// COUNTDOWN
+// COUNTDOWN SYSTEM
 // ============================
 
 
 function updateResetCountdown(cycleStart){
 
 
-if(!countdownDays) return;
+
+if(!countdownDays){
+
+return;
+
+}
+
 
 
 
@@ -545,9 +673,11 @@ new Date(cycleStart);
 
 
 
+
 const resetDate =
 
 new Date(startDate);
+
 
 
 
@@ -559,9 +689,11 @@ resetDate.getDate()+40
 
 
 
+
 const now =
 
 new Date();
+
 
 
 
@@ -576,15 +708,17 @@ resetDate - now;
 if(difference <= 0){
 
 
+
 countdownDays.textContent =
 
 "0 DAYS";
 
-
 return;
 
 
+
 }
+
 
 
 
@@ -594,7 +728,9 @@ const days =
 
 Math.ceil(
 
-difference / (1000*60*60*24)
+difference /
+
+(1000*60*60*24)
 
 );
 
@@ -610,16 +746,19 @@ days + " DAYS";
 
 }
 
-
-
-
+// =====================================
+// COUNTDOWN LOAD
+// PART 3
+// =====================================
 
 
 
 async function loadCountdownData(user){
 
 
+
 try{
+
 
 
 const customerRef =
@@ -636,6 +775,7 @@ user.uid
 
 
 
+
 const customerSnap =
 
 await getDoc(customerRef);
@@ -644,7 +784,11 @@ await getDoc(customerRef);
 
 
 
-if(!customerSnap.exists()) return;
+if(!customerSnap.exists()){
+
+return;
+
+}
 
 
 
@@ -661,11 +805,13 @@ customerSnap.data();
 if(data.cycleStart){
 
 
+
 updateResetCountdown(
 
 data.cycleStart
 
 );
+
 
 
 }
@@ -681,6 +827,7 @@ data.cycleStart
 catch(error){
 
 
+
 console.error(
 
 "Countdown Error:",
@@ -690,21 +837,26 @@ error
 );
 
 
-}
-
-
 
 }
 
 
 
+}
 
 
 
 
-// ============================
+
+
+
+// =====================================
+// QUICK BUTTONS
+// =====================================
+
+
+
 // CALL BUTTON
-// ============================
 
 
 document.getElementById("callBtn")?.addEventListener(
@@ -714,9 +866,11 @@ document.getElementById("callBtn")?.addEventListener(
 ()=>{
 
 
+
 window.location.href =
 
 "tel:YOUR_PHONE_NUMBER";
+
 
 
 }
@@ -728,10 +882,7 @@ window.location.href =
 
 
 
-
-// ============================
 // WHATSAPP BUTTON
-// ============================
 
 
 document.getElementById("whatsappBtn")?.addEventListener(
@@ -739,6 +890,7 @@ document.getElementById("whatsappBtn")?.addEventListener(
 "click",
 
 ()=>{
+
 
 
 window.open(
@@ -750,6 +902,7 @@ window.open(
 );
 
 
+
 }
 
 );
@@ -759,10 +912,7 @@ window.open(
 
 
 
-
-// ============================
 // MAP BUTTON
-// ============================
 
 
 document.getElementById("mapBtn")?.addEventListener(
@@ -770,6 +920,7 @@ document.getElementById("mapBtn")?.addEventListener(
 "click",
 
 ()=>{
+
 
 
 window.open(
@@ -781,6 +932,7 @@ window.open(
 );
 
 
+
 }
 
 );
@@ -791,9 +943,10 @@ window.open(
 
 
 
-// ============================
+// =====================================
 // AUTH START
-// ============================
+// =====================================
+
 
 
 onAuthStateChanged(
@@ -803,15 +956,17 @@ auth,
 async(user)=>{
 
 
+
 if(!user){
+
 
 
 window.location.href =
 
 "login.html";
 
-
 return;
+
 
 
 }
@@ -832,6 +987,7 @@ user.uid
 
 
 
+
 await loadCustomerData(user);
 
 
@@ -846,11 +1002,14 @@ await loadCountdownData(user);
 
 
 
+
+
 console.log(
 
 "================================"
 
 );
+
 
 
 console.log(
@@ -860,6 +1019,7 @@ console.log(
 );
 
 
+
 console.log(
 
 "Premium Card Loaded Successfully"
@@ -867,11 +1027,14 @@ console.log(
 );
 
 
+
 console.log(
 
 "================================"
 
 );
+
+
 
 
 
