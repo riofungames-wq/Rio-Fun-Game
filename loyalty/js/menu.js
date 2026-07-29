@@ -1,72 +1,114 @@
-// =====================================
+// =======================================
 // RIO MAGGI POINT
 // PREMIUM MENU
 // menu.js
 // PART 1
-// =====================================
+// =======================================
 
 // ============================
-// CATEGORY BUTTONS
+// SELECT ELEMENTS
 // ============================
 
-const tabButtons = document.querySelectorAll(".menu-tab");
 const categories = document.querySelectorAll(".menu-category");
+const tabs = document.querySelectorAll(".menu-tab");
 
 // ============================
-// CHANGE CATEGORY
+// OPEN / CLOSE CATEGORY
 // ============================
 
-function showCategory(categoryId) {
+categories.forEach(category => {
 
-    categories.forEach(section => {
-        section.classList.remove("active");
+    const header = category.querySelector(".category-header");
+
+    if (!header) return;
+
+    header.addEventListener("click", () => {
+
+        const isOpen = category.classList.contains("active");
+
+        categories.forEach(item => {
+
+            item.classList.remove("active");
+
+        });
+
+        if (!isOpen) {
+
+            category.classList.add("active");
+
+        }
+
     });
 
-    tabButtons.forEach(btn => {
-        btn.classList.remove("active");
-    });
-
-    document.getElementById(categoryId)?.classList.add("active");
-
-    document
-        .querySelector(`[data-category="${categoryId}"]`)
-        ?.classList.add("active");
-}
+});
 
 // ============================
 // TAB CLICK
 // ============================
 
-tabButtons.forEach(button => {
+tabs.forEach(tab => {
 
-    button.addEventListener("click", () => {
+    tab.addEventListener("click", () => {
 
-        const category = button.dataset.category;
+        tabs.forEach(btn => {
 
-        showCategory(category);
+            btn.classList.remove("active");
+
+        });
+
+        tab.classList.add("active");
+
+        const target = tab.dataset.category;
+
+        categories.forEach(section => {
+
+            section.classList.remove("active");
+
+            if (section.id === target) {
+
+                section.classList.add("active");
+
+                section.scrollIntoView({
+
+                    behavior: "smooth",
+                    block: "start"
+
+                });
+
+            }
+
+        });
 
     });
 
 });
 
 // ============================
-// DEFAULT CATEGORY
+// DEFAULT
 // ============================
 
 window.addEventListener("DOMContentLoaded", () => {
 
-    showCategory("maggi");
+    const firstTab = document.querySelector(".menu-tab.active");
+
+    if (firstTab) {
+
+        const target = firstTab.dataset.category;
+
+        document.getElementById(target)?.classList.add("active");
+
+    }
 
 });
-// =====================================
+// =======================================
 // RIO MAGGI POINT
 // PREMIUM MENU
 // menu.js
 // PART 2
-// =====================================
+// =======================================
 
 // ============================
-// CARD ANIMATION
+// CARD HOVER EFFECT
 // ============================
 
 const menuCards = document.querySelectorAll(".menu-card");
@@ -75,13 +117,13 @@ menuCards.forEach(card => {
 
     card.addEventListener("mouseenter", () => {
 
-        card.style.transform = "translateY(-6px) scale(1.02)";
+        card.style.transform = "translateY(-6px)";
 
     });
 
     card.addEventListener("mouseleave", () => {
 
-        card.style.transform = "translateY(0px) scale(1)";
+        card.style.transform = "";
 
     });
 
@@ -91,20 +133,20 @@ menuCards.forEach(card => {
 // IMAGE POP EFFECT
 // ============================
 
-const foodImages = document.querySelectorAll(".menu-right img");
+const menuImages = document.querySelectorAll(".menu-right img");
 
-foodImages.forEach(img => {
+menuImages.forEach(img => {
 
     img.addEventListener("mouseenter", () => {
 
-        img.style.transform = "scale(1.12) rotate(-3deg)";
+        img.style.transform = "scale(1.08) rotate(-4deg)";
         img.style.transition = ".35s ease";
 
     });
 
     img.addEventListener("mouseleave", () => {
 
-        img.style.transform = "scale(1) rotate(0deg)";
+        img.style.transform = "";
 
     });
 
@@ -124,14 +166,14 @@ menuCards.forEach(card => {
 
             card.classList.remove("selected");
 
-        }, 350);
+        }, 250);
 
     });
 
 });
 
 // ============================
-// SCROLL ANIMATION
+// FADE-IN ON SCROLL
 // ============================
 
 const observer = new IntersectionObserver((entries) => {
@@ -157,23 +199,16 @@ menuCards.forEach(card => {
     observer.observe(card);
 
 });
-// =====================================
-// RIO MAGGI POINT
-// PREMIUM MENU
-// menu.js
-// PART 3 (FINAL)
-// =====================================
-
 
 // ============================
-// ACTIVE TAB AUTO SCROLL
+// TAB AUTO SCROLL
 // ============================
 
-tabButtons.forEach(button => {
+tabs.forEach(tab => {
 
-    button.addEventListener("click", () => {
+    tab.addEventListener("click", () => {
 
-        button.scrollIntoView({
+        tab.scrollIntoView({
 
             behavior: "smooth",
             inline: "center",
@@ -184,13 +219,18 @@ tabButtons.forEach(button => {
     });
 
 });
-
+// =======================================
+// RIO MAGGI POINT
+// PREMIUM MENU
+// menu.js
+// PART 3 (FINAL)
+// =======================================
 
 // ============================
 // MOBILE VIBRATION
 // ============================
 
-function vibrateDevice() {
+function vibrate() {
 
     if ("vibrate" in navigator) {
 
@@ -200,21 +240,20 @@ function vibrateDevice() {
 
 }
 
-tabButtons.forEach(btn => {
+tabs.forEach(tab => {
 
-    btn.addEventListener("click", vibrateDevice);
+    tab.addEventListener("click", vibrate);
 
 });
 
 menuCards.forEach(card => {
 
-    card.addEventListener("click", vibrateDevice);
+    card.addEventListener("click", vibrate);
 
 });
 
-
 // ============================
-// MENU LOADING EFFECT
+// PAGE LOADED
 // ============================
 
 window.addEventListener("load", () => {
@@ -223,44 +262,8 @@ window.addEventListener("load", () => {
 
 });
 
-
 // ============================
-// FADE-IN ANIMATION
-// ============================
-
-const fadeElements = document.querySelectorAll(
-
-    ".menu-card,.menu-header,.menu-tabs"
-
-);
-
-const fadeObserver = new IntersectionObserver((entries) => {
-
-    entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-
-            entry.target.classList.add("fade-in");
-
-        }
-
-    });
-
-}, {
-
-    threshold: 0.10
-
-});
-
-fadeElements.forEach(el => {
-
-    fadeObserver.observe(el);
-
-});
-
-
-// ============================
-// PREMIUM GOLD SHINE
+// PREMIUM SHINE LOOP
 // ============================
 
 setInterval(() => {
@@ -279,12 +282,45 @@ setInterval(() => {
 
 }, 8000);
 
+// ============================
+// REVEAL ANIMATION
+// ============================
+
+const revealItems = document.querySelectorAll(
+
+    ".menu-header,.welcome-banner,.menu-category"
+
+);
+
+const revealObserver = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+            entry.target.classList.add("show");
+
+        }
+
+    });
+
+}, {
+
+    threshold: 0.10
+
+});
+
+revealItems.forEach(item => {
+
+    revealObserver.observe(item);
+
+});
 
 // ============================
-// READY
+// CONSOLE
 // ============================
 
 console.log("==================================");
 console.log("🍜 Rio Maggi Point");
-console.log("Premium Menu Loaded Successfully");
+console.log("Premium Menu Ready");
 console.log("==================================");
