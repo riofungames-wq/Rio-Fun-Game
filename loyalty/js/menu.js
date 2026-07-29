@@ -1,15 +1,10 @@
-
-
-
 // Rio Maggi Point
 // Premium Menu System
-
 
 
 document.addEventListener(
 "DOMContentLoaded",
 ()=>{
-
 
 
 const categoryCards =
@@ -26,18 +21,28 @@ document.querySelectorAll(
 
 
 
+const foodContainer =
+document.querySelector(
+".food-container"
+);
 
+
+
+
+
+
+
+
+// CATEGORY SWITCH SYSTEM
 
 
 categoryCards.forEach(
 (card)=>{
 
 
-
 card.addEventListener(
 "click",
 ()=>{
-
 
 
 const target =
@@ -49,8 +54,7 @@ card.getAttribute(
 
 
 
-
-// REMOVE ACTIVE CATEGORY
+// REMOVE ACTIVE FROM ALL CATEGORY
 
 
 categoryCards.forEach(
@@ -66,8 +70,7 @@ item.classList.remove(
 
 
 
-
-// ADD ACTIVE CATEGORY
+// ADD ACTIVE TO CLICKED CATEGORY
 
 
 card.classList.add(
@@ -80,8 +83,7 @@ card.classList.add(
 
 
 
-
-// HIDE ALL FOOD SECTION
+// HIDE ALL FOOD SECTIONS
 
 
 foodSections.forEach(
@@ -102,13 +104,14 @@ section.classList.remove(
 
 
 
-// SHOW SELECTED SECTION
+// SHOW SELECTED FOOD SECTION
 
 
 const selectedSection =
 document.getElementById(
 target
 );
+
 
 
 
@@ -125,8 +128,7 @@ selectedSection.classList.add(
 
 
 
-
-// Restart animation
+// Restart section animation
 
 
 selectedSection.style.animation =
@@ -149,40 +151,9 @@ selectedSection.style.animation =
 
 
 
-});
 
 
-
-});
-
-
-
-
-
-
-});
-
-
-
-
-
-// SMOOTH SCROLL TO FOOD SECTION
-
-
-const foodContainer =
-document.querySelector(
-".food-container"
-);
-
-
-
-categoryCards.forEach(
-(card)=>{
-
-
-card.addEventListener(
-"click",
-()=>{
+// Smooth scroll
 
 
 setTimeout(
@@ -210,19 +181,34 @@ block:"start"
 
 
 
-});
+
+
+
+
+// Restart food icon animation
+
+
+restartFoodAnimation();
+
+
+
+
 
 
 });
 
 
+});
 
 
 
 
 
 
-// RESTART FOOD ANIMATION
+
+
+
+// FOOD ANIMATION RESET FUNCTION
 
 
 function restartFoodAnimation(){
@@ -233,6 +219,8 @@ const animationElements =
 document.querySelectorAll(
 ".food-animation"
 );
+
+
 
 
 
@@ -266,39 +254,9 @@ element.style.animation =
 
 
 
-// RUN WHEN CATEGORY CHANGES
 
 
-categoryCards.forEach(
-(card)=>{
-
-
-card.addEventListener(
-"click",
-()=>{
-
-
-restartFoodAnimation();
-
-
-});
-
-
-});
-
-
-
-
-
-
-
-// DEFAULT ACTIVE SECTION CHECK
-
-
-window.addEventListener(
-"load",
-()=>{
-
+// DEFAULT LOAD CHECK
 
 
 const firstCategory =
@@ -312,6 +270,8 @@ const firstSection =
 document.querySelector(
 ".food-section.active"
 );
+
+
 
 
 
@@ -331,25 +291,25 @@ firstSection.classList.add(
 
 
 }
-
-
-
-});
-
+  
 
 
 
 
 
+// BOTTOM NAVIGATION ACTIVE CONTROL
 
-// PREVENT EMPTY LINK JUMP
 
-
-document
-.querySelectorAll(
+const bottomLinks =
+document.querySelectorAll(
 ".bottom-nav a"
-)
-.forEach(
+);
+
+
+
+
+
+bottomLinks.forEach(
 (link)=>{
 
 
@@ -365,10 +325,32 @@ link.getAttribute(
 
 
 
+
 if(href === "menu.html"){
 
 
 e.preventDefault();
+
+
+
+bottomLinks.forEach(
+(item)=>{
+
+
+item.classList.remove(
+"active"
+);
+
+
+});
+
+
+
+
+link.classList.add(
+"active"
+);
+
 
 
 }
@@ -384,10 +366,63 @@ e.preventDefault();
 
 
 
+
+
+
+
+// CATEGORY CARD TOUCH EFFECT
+
+
+categoryCards.forEach(
+(card)=>{
+
+
+card.addEventListener(
+"touchstart",
+()=>{
+
+
+card.style.transform =
+"scale(0.96)";
+
+
+
+});
+
+
+
+
+
+card.addEventListener(
+"touchend",
+()=>{
+
+
+card.style.transform =
+"";
+
+
+});
+
+
+});
+
+
+
+
+
+
+
+
+// CHECK MENU LOADED
+
+
 console.log(
-"Rio Maggi Point Menu Loaded"
+"Rio Maggi Point Menu Loaded Successfully"
 );
 
 
 
 
+
+});
