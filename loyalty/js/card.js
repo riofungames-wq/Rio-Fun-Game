@@ -1,6 +1,7 @@
 // =====================================
 // RIO MAGGI POINT
-// PREMIUM CARD
+// PREMIUM CARD JS
+// FINAL VERSION
 // PART 1
 // =====================================
 
@@ -11,345 +12,724 @@
 
 import { auth, db } from "./firebase-config.js";
 
-import {
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 import {
-    doc,
-    getDoc
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+onAuthStateChanged
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+
+
+import {
+
+doc,
+
+getDoc
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+
 
 
 // ============================
 // HTML ELEMENTS
 // ============================
 
+
 const customerName =
-document.getElementById("customerName");
+
+document.getElementById(
+"customerName"
+);
+
+
 
 const memberId =
-document.getElementById("memberId");
+
+document.getElementById(
+"memberId"
+);
+
+
 
 const customerPhoto =
-document.getElementById("customerPhoto");
+
+document.getElementById(
+"customerPhoto"
+);
+
+
 
 const countdownDays =
-document.getElementById("countdownDays");
+
+document.getElementById(
+"countdownDays"
+);
+
+
 
 const rewardCircle =
-document.getElementById("rewardCircle");
+
+document.getElementById(
+"rewardCircle"
+);
+
+
+
+const gameLink =
+
+document.getElementById(
+"gameLink"
+);
+
+
+
 
 
 // ============================
 // DEFAULT DATA
 // ============================
 
-function setDefaultData() {
 
-    customerName.textContent = "Customer";
+function setDefaultData(){
 
-    memberId.textContent = "RIO-000000";
 
-    customerPhoto.src = "assets/avatars/male.png";
+if(customerName){
+
+customerName.textContent =
+"Customer";
+
+}
+
+
+
+if(memberId){
+
+memberId.textContent =
+"RIO-000000";
 
 }
 
 
-// ============================
-// LOAD CUSTOMER
-// ============================
 
-async function loadCustomerData(user) {
+if(customerPhoto){
 
-    try {
-
-        const customerRef =
-        doc(db, "customers", user.uid);
-
-        const customerSnap =
-        await getDoc(customerRef);
-
-        if (!customerSnap.exists()) {
-
-            setDefaultData();
-            return;
-
-        }
-
-        const data =
-        customerSnap.data();
-
-        customerName.textContent =
-        data.name || "Customer";
-
-        memberId.textContent =
-        data.memberId || "RIO-000000";
-
-        if (data.avatar) {
-
-            customerPhoto.src = data.avatar;
-
-        } else {
-
-            customerPhoto.src =
-            "assets/avatars/male.png";
-
-        }
-
-    }
-
-    catch (error) {
-
-        console.error("Customer Load Error:", error);
-
-        setDefaultData();
-
-    }
+customerPhoto.src =
+"assets/avatars/male.png";
 
 }
+
+
+
+}
+
+
+
+
+
+// ============================
+// LOAD CUSTOMER DATA
+// ============================
+
+
+async function loadCustomerData(user){
+
+
+try{
+
+
+const customerRef =
+
+doc(
+
+db,
+
+"customers",
+
+user.uid
+
+);
+
+
+
+const customerSnap =
+
+await getDoc(
+
+customerRef
+
+);
+
+
+
+
+
+if(!customerSnap.exists()){
+
+
+setDefaultData();
+
+return;
+
+
+}
+
+
+
+
+
+const data =
+
+customerSnap.data();
+
+
+
+
+
+if(customerName){
+
+
+customerName.textContent =
+
+data.name ||
+
+"Customer";
+
+
+}
+
+
+
+
+
+if(memberId){
+
+
+memberId.textContent =
+
+data.memberId ||
+
+"RIO-000000";
+
+
+}
+
+
+
+
+
+if(customerPhoto){
+
+
+customerPhoto.src =
+
+data.photoURL ||
+
+data.avatar ||
+
+"assets/avatars/male.png";
+
+
+}
+
+
+
+
+
+}
+
+
+
+catch(error){
+
+
+console.error(
+
+"Customer Load Error:",
+
+error
+
+);
+
+
+setDefaultData();
+
+
+}
+
+
+
+}
+
 // =====================================
 // STAMP SYSTEM
 // PART 2
 // =====================================
 
 
-// Stamp IDs
 
 const stampIds = [
 
+
 "stamp1",
+
 "stamp2",
+
 "stamp3",
+
 "stamp4",
+
 "stamp5",
+
 "stamp6"
+
 
 ];
 
 
 
 
+
+
 // ============================
-// UPDATE STAMPS
+// UPDATE STAMP DISPLAY
 // ============================
+
 
 function updateStampDisplay(stampCount){
 
-    stampIds.forEach((id,index)=>{
 
-        const stamp =
-        document.getElementById(id);
+stampIds.forEach((id,index)=>{
 
-        if(!stamp) return;
 
-        if(index < stampCount){
+const stamp =
 
-            stamp.classList.add("active");
+document.getElementById(id);
 
-        }
 
-        else{
 
-            stamp.classList.remove("active");
+if(!stamp) return;
 
-        }
 
-    });
+
+
+
+if(index < stampCount){
+
+
+stamp.classList.add("active");
+
+
+}
+
+else{
+
+
+stamp.classList.remove("active");
+
+
+}
+
+
+
+});
+
 
 }
 
 
 
 
+
+
 // ============================
-// UPDATE REWARD
+// UPDATE REWARD DISPLAY
 // ============================
+
 
 function updateRewardDisplay(stampCount){
 
-    if(!rewardCircle) return;
 
-    if(stampCount >= 6){
+if(!rewardCircle) return;
 
-        rewardCircle.classList.add("active");
 
-        rewardCircle.innerHTML =
 
-        `
 
-        <div class="reward-label">
 
-        FREE<br>
+if(stampCount >= 6){
 
-        VEG<br>
 
-        MAGGI
+rewardCircle.classList.add("active");
 
-        </div>
 
-        `;
 
-    }
+}
 
-    else{
+else{
 
-        rewardCircle.classList.remove("active");
 
-        rewardCircle.innerHTML =
+rewardCircle.classList.remove("active");
 
-        `
 
-        <div class="reward-label">
+}
 
-        FREE<br>
 
-        VEG<br>
 
-        MAGGI
+rewardCircle.innerHTML =
 
-        </div>
 
-        `;
 
-    }
+`
+
+<div class="reward-label">
+
+FREE
+
+<br>
+
+VEG
+
+<br>
+
+MAGGI
+
+</div>
+
+`;
+
+
 
 }
 
 
 
 
+
+
+
 // ============================
-// LOAD STAMPS
+// LOAD STAMP DATA
 // ============================
+
 
 async function loadStampData(user){
 
-    try{
 
-        const customerRef =
+try{
 
-        doc(db,"customers",user.uid);
 
-        const customerSnap =
+const customerRef =
 
-        await getDoc(customerRef);
+doc(
 
-        if(!customerSnap.exists()) return;
+db,
 
-        const data =
+"customers",
 
-        customerSnap.data();
+user.uid
 
-        const stampCount =
+);
 
-        data.stamps || 0;
 
-        updateStampDisplay(stampCount);
 
-        updateRewardDisplay(stampCount);
+const customerSnap =
 
-    }
+await getDoc(
 
-    catch(error){
+customerRef
 
-        console.error(
+);
 
-        "Stamp Load Error:",
 
-        error
 
-        );
 
-    }
+
+if(!customerSnap.exists()) return;
+
+
+
+
+
+const data =
+
+customerSnap.data();
+
+
+
+
+
+const stampCount =
+
+Number(data.stamps || 0);
+
+
+
+
+
+updateStampDisplay(
+
+stampCount
+
+);
+
+
+
+
+
+updateRewardDisplay(
+
+stampCount
+
+);
+
+
 
 }
+
+
+
+catch(error){
+
+
+console.error(
+
+"Stamp Load Error:",
+
+error
+
+);
+
+
+}
+
+
+
+}
+
 // =====================================
 // COUNTDOWN + BUTTONS + AUTH
 // PART 3
 // =====================================
 
 
+
+// ============================
+// FREE GAME BUTTON
+// ============================
+
+
+if(gameLink){
+
+
+gameLink.addEventListener(
+
+"click",
+
+()=>{
+
+
+window.location.href = "game.html";
+
+
+}
+
+);
+
+
+}
+
+
+
+
+
+
+
 // ============================
 // COUNTDOWN
 // ============================
 
+
 function updateResetCountdown(cycleStart){
 
-    if(!countdownDays) return;
 
-    const startDate = new Date(cycleStart);
+if(!countdownDays) return;
 
-    const resetDate = new Date(startDate);
 
-    resetDate.setDate(resetDate.getDate()+40);
 
-    const now = new Date();
+const startDate =
 
-    const diff = resetDate - now;
+new Date(cycleStart);
 
-    if(diff<=0){
 
-        countdownDays.textContent="0 DAYS";
 
-        return;
+const resetDate =
 
-    }
+new Date(startDate);
 
-    const days = Math.ceil(
 
-        diff/(1000*60*60*24)
 
-    );
+resetDate.setDate(
 
-    countdownDays.textContent=
+resetDate.getDate()+40
 
-    days+" DAYS";
+);
+
+
+
+const now =
+
+new Date();
+
+
+
+const difference =
+
+resetDate - now;
+
+
+
+
+
+if(difference <= 0){
+
+
+countdownDays.textContent =
+
+"0 DAYS";
+
+
+return;
+
 
 }
+
+
+
+
+
+const days =
+
+Math.ceil(
+
+difference /
+
+(1000*60*60*24)
+
+);
+
+
+
+
+
+countdownDays.textContent =
+
+days + " DAYS";
+
+
+
+}
+
+
+
 
 
 
 
 async function loadCountdownData(user){
 
-    try{
 
-        const customerRef=
+try{
 
-        doc(db,"customers",user.uid);
 
-        const customerSnap=
+const customerRef =
 
-        await getDoc(customerRef);
+doc(
 
-        if(!customerSnap.exists()) return;
+db,
 
-        const data=
+"customers",
 
-        customerSnap.data();
+user.uid
 
-        if(data.cycleStart){
+);
 
-            updateResetCountdown(data.cycleStart);
 
-        }
 
-    }
+const customerSnap =
 
-    catch(error){
+await getDoc(
 
-        console.error(
+customerRef
 
-        "Countdown Error:",
+);
 
-        error
 
-        );
 
-    }
+
+
+if(!customerSnap.exists()) return;
+
+
+
+
+
+const data =
+
+customerSnap.data();
+
+
+
+
+
+if(data.cycleStart){
+
+
+updateResetCountdown(
+
+data.cycleStart
+
+);
+
 
 }
+
+
+
+
+
+}
+
+
+
+catch(error){
+
+
+console.error(
+
+"Countdown Error:",
+
+error
+
+);
+
+
+}
+
+
+
+}
+
+
+
 
 
 
@@ -358,17 +738,24 @@ async function loadCountdownData(user){
 // CONTACT BUTTONS
 // ============================
 
+
 document.getElementById("callBtn")?.addEventListener(
 
 "click",
 
 ()=>{
 
-window.location.href="tel:YOUR_PHONE_NUMBER";
+
+window.location.href =
+
+"tel:YOUR_PHONE_NUMBER";
+
 
 }
 
 );
+
+
 
 
 
@@ -378,6 +765,7 @@ document.getElementById("whatsappBtn")?.addEventListener(
 
 ()=>{
 
+
 window.open(
 
 "https://wa.me/YOUR_WHATSAPP_NUMBER",
@@ -386,9 +774,12 @@ window.open(
 
 );
 
+
 }
 
 );
+
+
 
 
 
@@ -398,6 +789,7 @@ document.getElementById("mapBtn")?.addEventListener(
 
 ()=>{
 
+
 window.open(
 
 "YOUR_GOOGLE_MAP_LINK",
@@ -406,6 +798,7 @@ window.open(
 
 );
 
+
 }
 
 );
@@ -413,9 +806,14 @@ window.open(
 
 
 
+
+
+
+
 // ============================
-// AUTH
+// AUTH CONNECTION
 // ============================
+
 
 onAuthStateChanged(
 
@@ -423,23 +821,57 @@ auth,
 
 async(user)=>{
 
+
 if(!user){
 
-window.location.href="login.html";
+
+window.location.href =
+
+"login.html";
+
 
 return;
 
+
 }
 
-console.log("LOGIN UID:",user.uid);
+
+
+
+
+console.log(
+
+"LOGIN UID:",
+
+user.uid
+
+);
+
+
+
+
 
 await loadCustomerData(user);
 
+
+
 await loadStampData(user);
+
+
 
 await loadCountdownData(user);
 
-console.log("Rio Maggi Point Card Loaded Successfully");
+
+
+
+
+console.log(
+
+"🍜 Rio Maggi Point Card Loaded Successfully"
+
+);
+
+
 
 }
 
