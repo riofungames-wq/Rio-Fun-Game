@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -7,27 +8,47 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>
-My QR • Rio Maggi Point
+Rio Maggi Point • QR
 </title>
+
 
 <meta name="theme-color" content="#111111">
 
+
 <link rel="manifest" href="manifest.json">
 
-<link rel="icon" href="favicon.ico">
+
+<link rel="stylesheet" href="css/common.css">
 
 <link rel="stylesheet" href="css/qr.css">
+
+
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link
+
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+
+rel="stylesheet">
+
+
+
+<link
+
+rel="stylesheet"
+
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
 
 </head>
+
 
 
 <body>
@@ -36,46 +57,59 @@ My QR • Rio Maggi Point
 <div class="page">
 
 
-<div id="qrCard" class="qr-card">
+
+<div class="qr-card app-card">
 
 
-<!-- HEADER -->
 
-<div class="qr-header">
+<div class="card-glow"></div>
+
+<div class="card-shine"></div>
 
 
-<div class="brand-text">
+
+<!-- ================= HEADER ================= -->
+
+
+<header class="qr-header">
 
 
 <h1>
+
 RIO MAGGI POINT
+
 </h1>
 
 
 <p>
-Premium Loyalty Member
+
+Premium Loyalty QR
+
 </p>
 
 
-</div>
-
-
-</div>
+</header>
 
 
 
-<!-- CUSTOMER -->
 
 
-<div class="profile-section">
+<!-- ================= CUSTOMER ================= -->
 
 
-<div class="avatar-box">
+<section class="customer-section">
+
+
+
+<div class="avatar-frame">
 
 
 <img
+
 id="customerPhoto"
+
 src="assets/avatars/male.png"
+
 alt="Customer">
 
 
@@ -83,9 +117,13 @@ alt="Customer">
 
 
 
+
+
 <div
-id="customerName"
-class="customer-name">
+
+class="customer-name"
+
+id="customerName">
 
 Loading...
 
@@ -93,125 +131,170 @@ Loading...
 
 
 
-<div
-id="memberId"
-class="member-id">
+
+
+<div class="customer-id">
+
+
+ID :
+
+<span id="memberId">
 
 RIO-000000
 
-</div>
+</span>
 
 
 </div>
 
-<!-- QR SECTION -->
 
 
-<div class="qr-wrapper">
+</section>
+
+
+
+
+
+
+<!-- ================= QR AREA ================= -->
+
+
+
+<section class="qr-container">
+
+
+
+<div id="qrcode">
+
+
+</div>
+
+
+
+</section>
+  
+<!-- ================= QR STATUS ================= -->
+
+
+<section class="qr-status-box">
+
+
+<div class="qr-status-title">
+
+QR STATUS
+
+</div>
+
 
 
 <div
-id="qrcode"
-class="qr-box">
 
-</div>
-
-
-
-<p
 id="qrStatus"
-class="qr-status">
 
-Generating Secure QR...
-
-</p>
+class="qr-status-value">
 
 
-
-<div class="scan-text">
-
-Show this QR only at
-
-<strong>
-Rio Maggi Point
-</strong>
-
-
-</div>
-
+Ready To Scan
 
 </div>
 
 
 
+</section>
 
 
-<!-- INFO BOX -->
 
 
-<div class="info-box">
+
+<!-- ================= QR INFORMATION ================= -->
 
 
-<h3>
-Secure Permanent QR
-</h3>
+<section class="qr-info-box">
+
+
+<div class="qr-main-icon">
+
+
+<i class="fa-solid fa-qrcode"></i>
+
+
+</div>
+
+
+
+<h2>
+
+Rio Maggi Loyalty QR
+
+</h2>
+
 
 
 <p>
 
-This QR is permanently linked
-to your Rio Membership.
-
-Only show it while collecting
-your loyalty stamp.
+Show this QR during your visit to collect stamps and enjoy rewards.
 
 </p>
 
 
-</div>
+
+</section>
 
 
 
 
 
-<!-- ACTION BUTTONS -->
+
+<!-- ================= QR ACTIONS ================= -->
 
 
-<div class="button-row">
+<section class="qr-actions">
 
 
 <button
-id="downloadQR"
-class="primary-btn">
+
+class="qr-primary-btn"
+
+id="downloadQR">
 
 
 <i class="fa-solid fa-download"></i>
 
-Download
-
+Save QR
 
 </button>
 
 
 
 
+
 <button
-id="shareQR"
-class="primary-btn">
+
+class="qr-secondary-btn"
+
+id="shareQR">
 
 
 <i class="fa-solid fa-share-nodes"></i>
 
 Share
 
-
 </button>
 
 
-</div>
+
+</section>
 
 
-<!-- BOTTOM NAVIGATION -->
+
+
+
+<!-- Fixed Navigation Space -->
+
+
+<div class="nav-space"></div>
+  
+<!-- ================= BOTTOM NAVIGATION ================= -->
 
 
 <nav class="bottom-nav">
@@ -219,117 +302,156 @@ Share
 
 <a href="card.html">
 
+
 <i class="fa-solid fa-house"></i>
 
+
 <span>
+
 Home
+
 </span>
+
 
 </a>
 
 
 
 
-<a href="qr.html" class="active">
+
+<a
+
+href="qr.html"
+
+class="active">
+
 
 <i class="fa-solid fa-qrcode"></i>
 
+
 <span>
+
 QR
+
 </span>
 
+
 </a>
+
 
 
 
 
 <a href="history.html">
 
+
 <i class="fa-solid fa-clock-rotate-left"></i>
 
+
 <span>
+
 History
+
 </span>
 
+
 </a>
+
 
 
 
 
 <a href="feedback.html">
 
-<i class="fa-solid fa-star"></i>
+
+<i class="fa-solid fa-heart"></i>
+
 
 <span>
+
 Review
+
 </span>
 
+
 </a>
+
 
 
 
 
 <a href="profile.html">
 
+
 <i class="fa-solid fa-user"></i>
 
+
 <span>
+
 Profile
+
 </span>
 
+
 </a>
+
 
 
 </nav>
 
 
-</div>
-
 
 </div>
 
 
-
-
-
-<!-- QR GENERATOR LIBRARY -->
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</div>
 
 
 
 
 
-<!-- QR JAVASCRIPT -->
+<!-- ================= QR JAVASCRIPT ================= -->
 
 
 <script
+
 type="module"
+
 src="js/qr.js">
+
 </script>
 
 
 
 
 
-<!-- SERVICE WORKER -->
+<!-- QR CODE LIBRARY -->
+
+
+<script
+
+src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
+
+</script>
+
+
+
+
+
+
+<!-- ================= SERVICE WORKER ================= -->
 
 
 <script>
 
 
-if ("serviceWorker" in navigator) {
+if("serviceWorker" in navigator){
 
 
-window.addEventListener(
-"load",
-()=>{
+window.addEventListener("load",()=>{
 
 
-navigator.serviceWorker.register(
-"./service-worker.js"
-);
+navigator.serviceWorker.register("./service-worker.js");
 
 
 });
@@ -338,10 +460,13 @@ navigator.serviceWorker.register(
 }
 
 
+
 </script>
 
 
 
 </body>
 
+
 </html>
+
