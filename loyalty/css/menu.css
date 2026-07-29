@@ -1460,6 +1460,358 @@ user-select:none;
 
 
 }
+/* =====================================
+   PREMIUM FOOD IMAGE ANIMATION POLISH
+   ===================================== */
+
+
+
+.category-image,
+.food-image-large{
+
+    overflow:hidden;
+
+}
+
+
+
+
+
+.category-image img,
+.food-image-large img{
+
+    opacity:0;
+
+    animation:
+    imageReveal .8s ease forwards;
+
+}
+
+
+
+
+@keyframes imageReveal{
+
+
+    0%{
+
+        opacity:0;
+
+        transform:
+
+        translateY(30px)
+        scale(.85);
+
+
+    }
+
+
+    100%{
+
+
+        opacity:1;
+
+        transform:
+
+        translateY(0)
+        scale(1);
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+/* PREMIUM FLOATING FOOD EFFECT */
+
+
+.food-image-large img{
+
+
+    animation:
+
+    imageReveal .8s ease forwards,
+    premiumFloat 4s ease-in-out infinite .8s;
+
+
+}
+
+
+
+
+
+
+@keyframes premiumFloat{
+
+
+    0%,100%{
+
+
+        transform:
+
+        translateY(0);
+
+
+    }
+
+
+
+    50%{
+
+
+        transform:
+
+        translateY(-14px);
+
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+/* CATEGORY IMAGE FLOAT */
+
+
+.category-image img{
+
+
+    animation:
+
+    imageReveal .8s ease forwards,
+    categoryFloat 3.5s ease-in-out infinite .8s;
+
+
+}
+
+
+
+
+
+@keyframes categoryFloat{
+
+
+    0%,100%{
+
+
+        transform:
+
+        translateY(0);
+
+
+    }
+
+
+
+    50%{
+
+
+        transform:
+
+        translateY(-8px);
+
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* GOLD LIGHT SWEEP */
+
+
+.category-card::after{
+
+
+    content:"";
+
+
+    position:absolute;
+
+
+    top:0;
+
+
+    left:-120%;
+
+
+    width:80%;
+
+
+    height:100%;
+
+
+    background:
+
+    linear-gradient(
+
+    120deg,
+
+    transparent,
+
+    rgba(247,222,139,.18),
+
+    transparent
+
+    );
+
+
+    transition:.8s;
+
+
+}
+
+
+
+
+
+.category-card:hover::after{
+
+
+    left:130%;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* PREMIUM IMAGE SHADOW */
+
+
+.category-image img,
+.food-image-large img{
+
+
+    filter:
+
+    drop-shadow(
+
+    0 15px 25px
+
+    rgba(0,0,0,.75)
+
+    );
+
+
+}
+
+
+
+
+
+
+
+
+
+/* IMAGE HOVER */
+
+
+.food-image-large img:hover{
+
+
+    transform:
+
+    scale(1.08);
+
+
+}
+
+
+
+
+
+
+.category-image img:hover{
+
+
+    transform:
+
+    scale(1.12);
+
+
+}
+
+
+
+
+
+
+
+
+
+/* MOBILE IMAGE OPTIMIZATION */
+
+
+@media(max-width:600px){
+
+
+.food-image-large{
+
+
+    height:190px;
+
+
+}
+
+
+
+.food-image-large img{
+
+
+    max-width:200px;
+
+
+}
+
+
+
+.category-image{
+
+
+    height:90px;
+
+
+}
+
+
+
+.category-image img{
+
+
+    max-width:100px;
+
+
+}
+
+
+
+}
 
 
 
