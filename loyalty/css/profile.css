@@ -1,699 +1,1390 @@
 /* =========================================
    RIO MAGGI POINT
-   PROFILE.CSS
-   FINAL FIXED VERSION
-   PART 1 / 3
+   PREMIUM CUSTOMER PROFILE
+   PROFILE.CSS - PART 1 OF 3
 ========================================= */
 
 
 /* =========================================
-PROFILE CARD
+   PROFILE CARD
 ========================================= */
 
 .profile-card-main{
 
-width:100%;
+    position:relative;
 
-max-width:420px;
-
-position:relative;
-
-overflow:hidden;
-
-display:flex;
-
-flex-direction:column;
+    width:100%;
 
 }
 
 
 /* =========================================
-BACKGROUND EFFECTS
-========================================= */
-
-.card-glow{
-
-position:absolute;
-
-top:-110px;
-
-right:-110px;
-
-width:230px;
-
-height:230px;
-
-border-radius:50%;
-
-background:rgba(212,175,55,.14);
-
-filter:blur(45px);
-
-pointer-events:none;
-
-}
-
-.card-shine{
-
-position:absolute;
-
-top:-120px;
-
-left:-70px;
-
-width:120px;
-
-height:420px;
-
-background:rgba(255,255,255,.05);
-
-transform:rotate(25deg);
-
-pointer-events:none;
-
-}
-
-
-/* =========================================
-HEADER
+   PROFILE HEADER
 ========================================= */
 
 .profile-header{
 
-text-align:center;
+    text-align:center;
 
-margin-bottom:24px;
+    margin-bottom:24px;
 
-position:relative;
+    position:relative;
 
-z-index:2;
+    z-index:2;
 
 }
+
 
 .profile-header h1{
 
-display:flex;
+    font-size:24px;
 
-justify-content:center;
+    font-weight:800;
 
-align-items:center;
+    color:#ffd86a;
 
-gap:10px;
+    letter-spacing:1px;
 
-font-size:24px;
+    display:flex;
 
-font-weight:800;
+    align-items:center;
 
-color:#ffd86a;
+    justify-content:center;
+
+    gap:10px;
 
 }
 
+
+.profile-header h1 i{
+
+    font-size:22px;
+
+}
+
+
 .profile-header p{
 
-margin-top:8px;
+    margin-top:7px;
 
-font-size:13px;
+    font-size:12px;
 
-opacity:.82;
+    color:#d8d8d8;
+
+    font-weight:500;
 
 }
 
 
 /* =========================================
-PROFILE USER
+   PROFILE USER
 ========================================= */
 
 .profile-user{
 
-text-align:center;
+    text-align:center;
 
-margin-bottom:24px;
+    position:relative;
 
-position:relative;
+    z-index:2;
 
-z-index:2;
+    padding:10px 0 24px;
 
 }
+
+
+/* =========================================
+   PROFILE PHOTO
+========================================= */
 
 .profile-photo{
 
-width:95px;
+    width:96px;
 
-height:95px;
+    height:96px;
 
-margin:auto;
+    margin:0 auto 14px;
 
-border-radius:50%;
+    border-radius:50%;
 
-overflow:hidden;
+    padding:4px;
 
-border:3px solid #d4af37;
+    background:
 
-background:#1b1b1b;
+        linear-gradient(
 
-box-shadow:
+            135deg,
 
-0 0 20px rgba(212,175,55,.35);
+            #d4af37,
+
+            #ffd86a,
+
+            #a67c00
+
+        );
+
+    box-shadow:
+
+        0 0 20px
+
+        rgba(
+
+            212,
+
+            175,
+
+            55,
+
+            .35
+
+        );
 
 }
+
 
 .profile-photo img{
 
-width:100%;
+    width:100%;
 
-height:100%;
+    height:100%;
 
-object-fit:cover;
+    display:block;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:3px solid #111111;
 
 }
+
+
+/* =========================================
+   PROFILE NAME
+========================================= */
 
 .profile-user h2{
 
-margin-top:14px;
+    font-size:21px;
 
-font-size:21px;
+    font-weight:700;
 
-font-weight:700;
+    color:#ffffff;
+
+    margin-bottom:7px;
+
+    word-break:break-word;
 
 }
+
+
+/* =========================================
+   MEMBER ID
+========================================= */
 
 .member-id{
 
-margin-top:8px;
+    display:flex;
 
-font-size:13px;
+    justify-content:center;
 
-font-weight:600;
+    align-items:center;
 
-color:#ffd86a;
+    gap:7px;
+
+    color:#bdbdbd;
+
+    font-size:11px;
+
+    font-weight:500;
+
+    letter-spacing:.5px;
 
 }
+
 
 .member-id i{
 
-margin-right:6px;
+    color:#d4af37;
+
+    font-size:12px;
 
 }
+
+
+/* =========================================
+   PREMIUM BADGE
+========================================= */
 
 .premium-badge{
 
-display:inline-flex;
+    display:inline-flex;
 
-align-items:center;
+    align-items:center;
 
-gap:8px;
+    justify-content:center;
 
-margin-top:14px;
+    gap:7px;
 
-padding:8px 18px;
+    margin-top:12px;
 
-border-radius:50px;
+    padding:7px 15px;
 
-background:#d4af37;
+    border-radius:20px;
 
-color:#111111;
+    background:
 
-font-size:12px;
+        linear-gradient(
 
-font-weight:700;
+            135deg,
+
+            rgba(
+
+                212,
+
+                175,
+
+                55,
+
+                .18
+
+            ),
+
+            rgba(
+
+                212,
+
+                175,
+
+                55,
+
+                .06
+
+            )
+
+        );
+
+    border:1px solid
+
+        rgba(
+
+            212,
+
+            175,
+
+            55,
+
+            .45
+
+        );
+
+    color:#ffd86a;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
 
 }
+
+
+.premium-badge i{
+
+    font-size:11px;
+
+}
+
+
 /* =========================================
-PROFILE DETAILS
+   PROFILE DETAILS
 ========================================= */
 
 .profile-details{
 
-display:flex;
+    display:flex;
 
-flex-direction:column;
+    flex-direction:column;
 
-gap:12px;
+    gap:10px;
 
-margin-bottom:22px;
+    position:relative;
 
-position:relative;
-
-z-index:2;
-
-}
-
-.detail-card{
-
-display:flex;
-
-align-items:center;
-
-gap:14px;
-
-padding:14px;
-
-border-radius:18px;
-
-background:rgba(255,255,255,.05);
-
-border:1px solid rgba(212,175,55,.22);
-
-transition:.25s ease;
-
-}
-
-.detail-card:hover{
-
-border-color:#d4af37;
-
-transform:translateY(-2px);
-
-}
-
-.detail-icon{
-
-width:42px;
-
-height:42px;
-
-border-radius:50%;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-background:#222222;
-
-font-size:20px;
-
-flex-shrink:0;
-
-}
-
-.detail-card span{
-
-display:block;
-
-font-size:11px;
-
-color:#bbbbbb;
-
-margin-bottom:2px;
-
-}
-
-.detail-card strong{
-
-display:block;
-
-font-size:13px;
-
-font-weight:600;
-
-color:#ffffff;
-
-word-break:break-word;
+    z-index:2;
 
 }
 
 
 /* =========================================
-LOYALTY SUMMARY
+   DETAIL CARD
+========================================= */
+
+.detail-card{
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+
+    padding:13px 14px;
+
+    background:
+
+        rgba(
+
+            255,
+
+            255,
+
+            255,
+
+            .035
+
+        );
+
+    border:1px solid
+
+        rgba(
+
+            212,
+
+            175,
+
+            55,
+
+            .20
+
+        );
+
+    border-radius:15px;
+
+    transition:
+
+        transform .25s ease,
+
+        border-color .25s ease,
+
+        background .25s ease;
+
+}
+
+
+.detail-card:hover{
+
+    transform:translateY(-2px);
+
+    border-color:
+
+        rgba(
+
+            212,
+
+            175,
+
+            55,
+
+            .55
+
+        );
+
+    background:
+
+        rgba(
+
+            255,
+
+            255,
+
+            255,
+
+            .055
+
+        );
+
+}
+
+
+/* =========================================
+   DETAIL ICON
+========================================= */
+
+.detail-icon{
+
+    width:40px;
+
+    height:40px;
+
+    min-width:40px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:
+
+        rgba(
+
+            212,
+
+            175,
+
+            55,
+
+            .10
+
+        );
+
+    border:1px solid
+
+        rgba(
+
+            212,
+
+            175,
+
+            55,
+
+            .25
+
+        );
+
+    font-size:19px;
+
+}
+
+
+/* =========================================
+   DETAIL TEXT
+========================================= */
+
+.detail-card > div:last-child{
+
+    min-width:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:3px;
+
+}
+
+
+.detail-card span{
+
+    font-size:10px;
+
+    color:#999999;
+
+    font-weight:500;
+
+}
+
+
+.detail-card strong{
+
+    font-size:13px;
+
+    color:#ffffff;
+
+    font-weight:600;
+
+    overflow-wrap:anywhere;
+
+}
+
+
+/* =========================================
+   PROFILE.CSS - PART 1 END
+========================================= */
+/* =========================================
+   RIO MAGGI POINT
+   PREMIUM CUSTOMER PROFILE
+   PROFILE.CSS - PART 2 OF 3
+========================================= */
+
+
+/* =========================================
+   LOYALTY SUMMARY
 ========================================= */
 
 .loyalty-summary{
 
-margin-bottom:22px;
+    margin-top:22px;
 
-position:relative;
+    position:relative;
 
-z-index:2;
+    z-index:2;
 
 }
+
 
 .loyalty-summary h2{
 
-text-align:center;
+    font-size:16px;
 
-font-size:16px;
+    font-weight:700;
 
-font-weight:700;
+    color:#ffd86a;
 
-color:#ffd86a;
+    text-align:center;
 
-margin-bottom:14px;
+    margin-bottom:12px;
 
 }
+
+
+/* =========================================
+   SUMMARY CARD
+========================================= */
 
 .summary-card{
 
-background:rgba(255,255,255,.05);
+    width:100%;
 
-border:1px solid rgba(212,175,55,.22);
+    display:flex;
 
-border-radius:18px;
+    flex-direction:column;
 
-padding:14px;
+    gap:1px;
+
+    background:
+
+        rgba(
+
+            212,
+
+            175,
+
+            55,
+
+            .12
+
+        );
+
+    border:1px solid
+
+        rgba(
+
+            212,
+
+            175,
+
+            55,
+
+            .28
+
+        );
+
+    border-radius:16px;
+
+    overflow:hidden;
 
 }
+
+
+/* =========================================
+   SUMMARY ITEM
+========================================= */
 
 .summary-item{
 
-display:flex;
+    display:flex;
 
-justify-content:space-between;
+    align-items:center;
 
-align-items:center;
+    justify-content:space-between;
 
-padding:12px 4px;
+    gap:12px;
 
-border-bottom:1px solid rgba(255,255,255,.08);
+    padding:14px 15px;
 
-font-size:13px;
-
-}
-
-.summary-item:last-child{
-
-border-bottom:none;
+    background:#171717;
 
 }
+
 
 .summary-item span{
 
-color:#cccccc;
+    font-size:11px;
+
+    color:#c7c7c7;
+
+    font-weight:500;
 
 }
+
 
 .summary-item strong{
 
-color:#ffd86a;
+    font-size:12px;
 
-font-weight:700;
+    color:#ffd86a;
+
+    font-weight:700;
+
+    text-align:right;
 
 }
 
 
 /* =========================================
-PROFILE ACTIONS
-========================================= */
-
-.profile-actions{
-
-display:flex;
-
-gap:12px;
-
-margin-bottom:20px;
-
-position:relative;
-
-z-index:2;
-
-}
-
-.profile-actions button{
-
-flex:1;
-
-height:48px;
-
-border:none;
-
-border-radius:14px;
-
-cursor:pointer;
-
-font-size:14px;
-
-font-weight:700;
-
-transition:.25s ease;
-
-}
-
-.primary-btn{
-
-background:#d4af37;
-
-color:#111111;
-
-}
-
-.logout-btn{
-
-background:#b3261e;
-
-color:#ffffff;
-
-}
-
-.profile-actions button:hover{
-
-transform:translateY(-2px);
-
-box-shadow:0 8px 20px rgba(0,0,0,.25);
-
-}
-/* =========================================
-EDIT PROFILE MODAL
+   EDIT PROFILE MODAL
 ========================================= */
 
 .edit-modal{
 
-position:fixed;
+    position:fixed;
 
-top:0;
+    inset:0;
 
-left:0;
+    display:none;
 
-width:100%;
+    align-items:center;
 
-height:100%;
+    justify-content:center;
 
-display:flex;
+    padding:20px;
 
-justify-content:center;
+    background:
 
-align-items:center;
+        rgba(
 
-background:rgba(0,0,0,.75);
+            0,
 
-backdrop-filter:blur(10px);
+            0,
 
-z-index:10000;
+            0,
+
+            .78
+
+        );
+
+    backdrop-filter:blur(8px);
+
+    -webkit-backdrop-filter:blur(8px);
+
+    z-index:10000;
 
 }
+
+
+/* =========================================
+   EDIT BOX
+========================================= */
 
 .edit-box{
 
-width:100%;
+    width:100%;
 
-max-width:320px;
+    max-width:360px;
 
-background:linear-gradient(
-145deg,
-#181818,
-#242018
-);
+    max-height:90vh;
 
-border:2px solid #d4af37;
+    overflow-y:auto;
 
-border-radius:28px;
+    padding:24px 20px;
 
-padding:24px;
+    background:
 
-box-shadow:
+        linear-gradient(
 
-0 20px 60px rgba(0,0,0,.8),
+            145deg,
 
-0 0 30px rgba(212,175,55,.30);
+            #202020,
 
-animation:editOpen .35s ease;
+            #111111
+
+        );
+
+    border:2px solid
+
+        rgba(
+
+            212,
+
+            175,
+
+            55,
+
+            .70
+
+        );
+
+    border-radius:22px;
+
+    box-shadow:
+
+        0 20px 60px
+
+        rgba(
+
+            0,
+
+            0,
+
+            0,
+
+            .65
+
+        ),
+
+        0 0 25px
+
+        rgba(
+
+            212,
+
+            175,
+
+            55,
+
+            .18
+
+        );
 
 }
 
-@keyframes editOpen{
-
-from{
-
-opacity:0;
-
-transform:scale(.88);
-
-}
-
-to{
-
-opacity:1;
-
-transform:scale(1);
-
-}
-
-}
 
 .edit-box h2{
 
-text-align:center;
+    text-align:center;
 
-color:#ffd86a;
+    color:#ffd86a;
 
-font-size:22px;
+    font-size:20px;
 
-font-weight:800;
+    font-weight:700;
 
-margin-bottom:20px;
+    margin-bottom:20px;
 
 }
+
+
+/* =========================================
+   EDIT LABEL
+========================================= */
 
 .edit-box label{
 
-display:block;
+    display:block;
 
-margin:12px 0 6px;
+    margin:13px 0 6px;
 
-font-size:12px;
+    color:#c8c8c8;
 
-font-weight:600;
+    font-size:11px;
 
-color:#ffd86a;
+    font-weight:600;
 
 }
+
+
+/* =========================================
+   EDIT INPUTS
+========================================= */
 
 .edit-box input,
 
 .edit-box select{
 
-width:100%;
+    width:100%;
 
-height:48px;
+    height:45px;
 
-padding:0 14px;
+    padding:0 13px;
 
-background:#111111;
+    border-radius:11px;
 
-color:#ffffff;
+    border:1px solid
 
-border:1px solid rgba(212,175,55,.45);
+        rgba(
 
-border-radius:14px;
+            212,
 
-outline:none;
+            175,
 
-font-size:14px;
+            55,
 
-transition:.25s;
+            .30
+
+        );
+
+    outline:none;
+
+    background:#171717;
+
+    color:#ffffff;
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:12px;
+
+    transition:
+
+        border-color .25s ease,
+
+        box-shadow .25s ease;
 
 }
+
 
 .edit-box input:focus,
 
 .edit-box select:focus{
 
-border-color:#d4af37;
+    border-color:#d4af37;
 
-box-shadow:
+    box-shadow:
 
-0 0 10px rgba(212,175,55,.25);
+        0 0 0 3px
 
-}
+        rgba(
 
-.edit-buttons{
+            212,
 
-display:flex;
+            175,
 
-gap:12px;
+            55,
 
-margin-top:24px;
+            .10
 
-}
-
-.edit-buttons button{
-
-flex:1;
-
-height:48px;
-
-border:none;
-
-border-radius:14px;
-
-cursor:pointer;
-
-font-size:14px;
-
-font-weight:700;
-
-transition:.25s;
-
-}
-
-.edit-buttons button:hover{
-
-transform:translateY(-2px);
+        );
 
 }
 
 
 /* =========================================
-RESPONSIVE
+   DATE INPUT
+========================================= */
+
+.edit-box input[type="date"]{
+
+    color-scheme:dark;
+
+}
+
+
+/* =========================================
+   EDIT BUTTONS
+========================================= */
+
+.edit-buttons{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:22px;
+
+}
+
+
+.edit-buttons button{
+
+    flex:1;
+
+    min-height:44px;
+
+}
+
+
+/* =========================================
+   PRIMARY BUTTON
+========================================= */
+
+.primary-btn{
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:12px 16px;
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            #d4af37,
+
+            #ffd86a
+
+        );
+
+    color:#111111;
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:7px;
+
+    transition:
+
+        transform .25s ease,
+
+        box-shadow .25s ease,
+
+        opacity .25s ease;
+
+}
+
+
+.primary-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+
+        0 7px 18px
+
+        rgba(
+
+            212,
+
+            175,
+
+            55,
+
+            .25
+
+        );
+
+}
+
+
+.primary-btn:active{
+
+    transform:scale(.97);
+
+}
+
+
+.primary-btn:disabled{
+
+    opacity:.60;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}
+
+
+/* =========================================
+   LOGOUT BUTTON
+========================================= */
+
+.logout-btn{
+
+    border:1px solid
+
+        rgba(
+
+            255,
+
+            90,
+
+            90,
+
+            .35
+
+        );
+
+    border-radius:12px;
+
+    padding:12px 16px;
+
+    background:
+
+        rgba(
+
+            255,
+
+            70,
+
+            70,
+
+            .07
+
+        );
+
+    color:#ff8b8b;
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:7px;
+
+    transition:
+
+        transform .25s ease,
+
+        background .25s ease,
+
+        border-color .25s ease;
+
+}
+
+
+.logout-btn:hover{
+
+    transform:translateY(-2px);
+
+    background:
+
+        rgba(
+
+            255,
+
+            70,
+
+            70,
+
+            .13
+
+        );
+
+    border-color:
+
+        rgba(
+
+            255,
+
+            90,
+
+            90,
+
+            .60
+
+        );
+
+}
+
+
+/* =========================================
+   PROFILE.CSS - PART 2 END
+========================================= */
+/* =========================================
+   RIO MAGGI POINT
+   PREMIUM CUSTOMER PROFILE
+   PROFILE.CSS - PART 3 OF 3
+   FINAL PART
+========================================= */
+
+
+/* =========================================
+   PROFILE ACTIONS
+========================================= */
+
+.profile-actions{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    margin-top:22px;
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+.profile-actions button{
+
+    width:100%;
+
+    min-height:46px;
+
+}
+
+
+/* =========================================
+   MODAL SCROLLBAR
+========================================= */
+
+.edit-box::-webkit-scrollbar{
+
+    width:5px;
+
+}
+
+
+.edit-box::-webkit-scrollbar-track{
+
+    background:#151515;
+
+    border-radius:10px;
+
+}
+
+
+.edit-box::-webkit-scrollbar-thumb{
+
+    background:#d4af37;
+
+    border-radius:10px;
+
+}
+
+
+/* =========================================
+   MOBILE RESPONSIVE
 ========================================= */
 
 @media (max-width:480px){
 
-.profile-photo{
+    .profile-header h1{
 
-width:88px;
+        font-size:21px;
 
-height:88px;
+    }
 
-}
 
-.profile-user h2{
+    .profile-header p{
 
-font-size:19px;
+        font-size:11px;
 
-}
+    }
 
-.detail-card{
 
-padding:12px;
+    .profile-photo{
 
-}
+        width:88px;
 
-.summary-item{
+        height:88px;
 
-font-size:12px;
+    }
 
-}
+
+    .profile-user h2{
+
+        font-size:19px;
+
+    }
+
+
+    .detail-card{
+
+        padding:12px;
+
+    }
+
+
+    .detail-icon{
+
+        width:38px;
+
+        height:38px;
+
+        min-width:38px;
+
+        font-size:18px;
+
+    }
+
+
+    .detail-card strong{
+
+        font-size:12px;
+
+    }
+
+
+    .summary-item{
+
+        padding:13px;
+
+    }
+
+
+    .summary-item span{
+
+        font-size:10px;
+
+    }
+
+
+    .summary-item strong{
+
+        font-size:11px;
+
+    }
+
+
+    .edit-modal{
+
+        padding:14px;
+
+    }
+
+
+    .edit-box{
+
+        padding:22px 17px;
+
+        border-radius:20px;
+
+    }
+
+
+    .edit-box h2{
+
+        font-size:18px;
+
+    }
+
 
 }
 
 
 /* =========================================
-SCROLLBAR
+   SMALL MOBILE DEVICES
 ========================================= */
 
-::-webkit-scrollbar{
+@media (max-width:360px){
 
-width:6px;
+    .profile-header h1{
 
-}
+        font-size:19px;
 
-::-webkit-scrollbar-thumb{
+    }
 
-background:#d4af37;
 
-border-radius:10px;
+    .profile-photo{
 
-}
+        width:80px;
 
-::-webkit-scrollbar-track{
+        height:80px;
 
-background:#1a1a1a;
+    }
+
+
+    .profile-user h2{
+
+        font-size:17px;
+
+    }
+
+
+    .detail-card{
+
+        gap:10px;
+
+        padding:10px;
+
+    }
+
+
+    .detail-icon{
+
+        width:35px;
+
+        height:35px;
+
+        min-width:35px;
+
+        font-size:16px;
+
+    }
+
+
+    .summary-item{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:5px;
+
+    }
+
+
+    .summary-item strong{
+
+        text-align:left;
+
+    }
+
+
+    .edit-buttons{
+
+        flex-direction:column;
+
+    }
+
 
 }
 
 
 /* =========================================
-END OF PROFILE.CSS
+   TABLET / DESKTOP
+========================================= */
+
+@media (min-width:481px){
+
+    .profile-card-main{
+
+        min-height:calc(100vh - 36px);
+
+    }
+
+}
+
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+.profile-actions button:focus-visible,
+
+.edit-buttons button:focus-visible,
+
+.edit-box input:focus-visible,
+
+.edit-box select:focus-visible{
+
+    outline:2px solid #ffd86a;
+
+    outline-offset:2px;
+
+}
+
+
+/* =========================================
+   PROFILE.CSS FINAL
 ========================================= */
