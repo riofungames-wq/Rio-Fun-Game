@@ -9,7 +9,10 @@
 // FIREBASE IMPORT
 // =====================================
 
-import { auth, db } from "./firebase-config.js";
+import {
+    auth,
+    db
+} from "./firebase-config.js";
 
 import {
     onAuthStateChanged
@@ -25,9 +28,11 @@ import {
 // BUSINESS DETAILS
 // =====================================
 
-const SHOP_PHONE = "7987827979";
+const SHOP_PHONE =
+    "7987827979";
 
-const SHOP_WHATSAPP = "917987827979";
+const SHOP_WHATSAPP =
+    "917987827979";
 
 const FREE_GAME_URL =
     "https://riofungames-wq.github.io/Rio-Fun-Game/";
@@ -37,38 +42,70 @@ const DEFAULT_AVATAR =
 
 
 // =====================================
+// SHOP LOCATION
+// =====================================
+
+// IMPORTANT:
+// Yahan baad mein Rio Maggi Point
+// ka exact Google Maps link add karna hai.
+
+const SHOP_MAP_URL =
+    "";
+
+
+// =====================================
 // HTML ELEMENTS
 // =====================================
 
 const customerName =
-    document.getElementById("customerName");
+    document.getElementById(
+        "customerName"
+    );
 
 const memberId =
-    document.getElementById("memberId");
+    document.getElementById(
+        "memberId"
+    );
 
 const customerPhoto =
-    document.getElementById("customerPhoto");
+    document.getElementById(
+        "customerPhoto"
+    );
 
 const countdownDays =
-    document.getElementById("countdownDays");
+    document.getElementById(
+        "countdownDays"
+    );
 
 const rewardCircle =
-    document.getElementById("rewardCircle");
+    document.getElementById(
+        "rewardCircle"
+    );
 
 const gameLink =
-    document.getElementById("gameLink");
+    document.getElementById(
+        "gameLink"
+    );
 
 const callBtn =
-    document.getElementById("callBtn");
+    document.getElementById(
+        "callBtn"
+    );
 
 const whatsappBtn =
-    document.getElementById("whatsappBtn");
+    document.getElementById(
+        "whatsappBtn"
+    );
 
 const mapBtn =
-    document.getElementById("mapBtn");
+    document.getElementById(
+        "mapBtn"
+    );
 
 const deliveryBtn =
-    document.getElementById("deliveryBtn");
+    document.getElementById(
+        "deliveryBtn"
+    );
 
 
 // =====================================
@@ -78,10 +115,15 @@ const deliveryBtn =
 const stampIds = [
 
     "stamp1",
+
     "stamp2",
+
     "stamp3",
+
     "stamp4",
+
     "stamp5",
+
     "stamp6"
 
 ];
@@ -94,10 +136,15 @@ const stampIds = [
 const stampDateIds = [
 
     "stampDate1",
+
     "stampDate2",
+
     "stampDate3",
+
     "stampDate4",
+
     "stampDate5",
+
     "stampDate6"
 
 ];
@@ -141,7 +188,10 @@ function setDefaultData() {
 
 function getAvatar(data) {
 
-    // Customer uploaded photo
+    // =====================================
+    // CUSTOMER UPLOADED PHOTO
+    // =====================================
+
     if (
         data &&
         data.photoURL
@@ -152,7 +202,10 @@ function getAvatar(data) {
     }
 
 
-    // Saved avatar
+    // =====================================
+    // SAVED AVATAR
+    // =====================================
+
     if (
         data &&
         data.avatar
@@ -163,7 +216,10 @@ function getAvatar(data) {
     }
 
 
-    // Gender based avatar
+    // =====================================
+    // GENDER BASED AVATAR
+    // =====================================
+
     if (
         data &&
         data.gender
@@ -178,37 +234,54 @@ function getAvatar(data) {
             .trim();
 
 
-        // Female
+        // =====================================
+        // FEMALE
+        // =====================================
+
         if (
 
             gender === "female" ||
+
             gender === "girl" ||
+
             gender === "woman"
 
         ) {
 
-            return "assets/avatars/female.png";
+            return (
+                "assets/avatars/female.png"
+            );
 
         }
 
 
-        // Male
+        // =====================================
+        // MALE
+        // =====================================
+
         if (
 
             gender === "male" ||
+
             gender === "boy" ||
+
             gender === "man"
 
         ) {
 
-            return "assets/avatars/male.png";
+            return (
+                "assets/avatars/male.png"
+            );
 
         }
 
     }
 
 
-    // Default avatar
+    // =====================================
+    // DEFAULT AVATAR
+    // =====================================
+
     return DEFAULT_AVATAR;
 
 }
@@ -218,9 +291,15 @@ function getAvatar(data) {
 // LOAD CUSTOMER DATA
 // =====================================
 
-async function loadCustomerData(user) {
+async function loadCustomerData(
+    user
+) {
 
     try {
+
+        // =====================================
+        // CUSTOMER FIRESTORE DOCUMENT
+        // =====================================
 
         const customerRef =
 
@@ -235,66 +314,101 @@ async function loadCustomerData(user) {
             );
 
 
+        // =====================================
+        // GET CUSTOMER DOCUMENT
+        // =====================================
+
         const customerSnap =
 
             await getDoc(
+
                 customerRef
+
             );
 
 
-        // Customer not found
+        // =====================================
+        // CUSTOMER NOT FOUND
+        // =====================================
+
         if (
             !customerSnap.exists()
         ) {
 
             console.warn(
+
                 "Customer document not found."
+
             );
 
+
             setDefaultData();
+
 
             return;
 
         }
 
 
+        // =====================================
+        // CUSTOMER DATA
+        // =====================================
+
         const data =
             customerSnap.data();
 
 
-        // Customer name
+        // =====================================
+        // CUSTOMER NAME
+        // =====================================
+
         if (customerName) {
 
             customerName.textContent =
 
                 data.name ||
+
                 "Customer";
 
         }
 
 
-        // Member ID
+        // =====================================
+        // MEMBER ID
+        // =====================================
+
         if (memberId) {
 
             memberId.textContent =
 
                 data.memberId ||
+
                 "RIO-000000";
 
         }
 
 
-        // Customer photo
+        // =====================================
+        // CUSTOMER PHOTO
+        // =====================================
+
         if (customerPhoto) {
 
             customerPhoto.src =
-                getAvatar(data);
+
+                getAvatar(
+                    data
+                );
 
 
-            // If image fails
+            // =====================================
+            // IMAGE LOAD ERROR
+            // =====================================
+
             customerPhoto.onerror = () => {
 
                 customerPhoto.src =
+
                     DEFAULT_AVATAR;
 
             };
@@ -302,9 +416,16 @@ async function loadCustomerData(user) {
         }
 
 
+        // =====================================
+        // SUCCESS LOG
+        // =====================================
+
         console.log(
+
             "Customer Data Loaded Successfully",
+
             data
+
         );
 
     }
@@ -312,11 +433,22 @@ async function loadCustomerData(user) {
 
     catch (error) {
 
+        // =====================================
+        // CUSTOMER LOAD ERROR
+        // =====================================
+
         console.error(
+
             "Customer Load Error:",
+
             error
+
         );
 
+
+        // =====================================
+        // SAFE FALLBACK
+        // =====================================
 
         setDefaultData();
 
@@ -337,16 +469,27 @@ if (gameLink) {
 
         () => {
 
+            // =====================================
+            // CLICK ANIMATION
+            // =====================================
+
             gameLink.classList.add(
+
                 "game-button-clicked"
+
             );
 
+
+            // =====================================
+            // OPEN FREE GAME WEBSITE
+            // =====================================
 
             setTimeout(
 
                 () => {
 
                     window.location.href =
+
                         FREE_GAME_URL;
 
                 },
@@ -419,7 +562,6 @@ if (whatsappBtn) {
 
 // =====================================
 // MAP BUTTON
-// CURRENTLY COMING SOON
 // =====================================
 
 if (mapBtn) {
@@ -430,9 +572,31 @@ if (mapBtn) {
 
         () => {
 
-            showComingSoon(
-                "Shop Map"
-            );
+            // =====================================
+            // CHECK MAP LINK
+            // =====================================
+
+            if (SHOP_MAP_URL) {
+
+                window.open(
+
+                    SHOP_MAP_URL,
+
+                    "_blank"
+
+                );
+
+            }
+
+            else {
+
+                showComingSoon(
+
+                    "Shop Map"
+
+                );
+
+            }
 
         }
 
@@ -443,7 +607,6 @@ if (mapBtn) {
 
 // =====================================
 // HOME DELIVERY BUTTON
-// CURRENTLY COMING SOON
 // =====================================
 
 if (deliveryBtn) {
@@ -455,7 +618,9 @@ if (deliveryBtn) {
         () => {
 
             showComingSoon(
+
                 "Home Delivery"
+
             );
 
         }
@@ -507,10 +672,14 @@ function updateStampDisplay(
 
     let safeStampCount =
 
-        Number(stampCount || 0);
+        Number(
+            stampCount || 0
+        );
 
 
-    // Keep count between 0 and 6
+    // =====================================
+    // KEEP COUNT BETWEEN 0 AND 6
+    // =====================================
 
     safeStampCount =
 
@@ -544,7 +713,9 @@ function updateStampDisplay(
                 );
 
 
-            // Stamp element not found
+            // =====================================
+            // STAMP ELEMENT NOT FOUND
+            // =====================================
 
             if (!stamp) {
 
@@ -578,24 +749,36 @@ function updateStampDisplay(
 
             ) {
 
-                // Active gold stamp
+                // =====================================
+                // ACTIVE GOLD STAMP
+                // =====================================
 
                 stamp.classList.add(
+
                     "active"
+
                 );
 
 
-                // Special collected stamp
+                // =====================================
+                // COLLECTED STAMP STATE
+                // =====================================
 
                 stamp.classList.add(
+
                     "stamp-collected"
+
                 );
 
 
-                // Special animation
+                // =====================================
+                // STAMP ANIMATION
+                // =====================================
 
                 stamp.classList.add(
+
                     "stamp-pop"
+
                 );
 
 
@@ -613,7 +796,9 @@ function updateStampDisplay(
                     dateElement.textContent =
 
                         formatStampDate(
+
                             stampDate
+
                         );
 
                 }
@@ -627,24 +812,36 @@ function updateStampDisplay(
 
             else {
 
-                // Remove active state
+                // =====================================
+                // REMOVE ACTIVE STATE
+                // =====================================
 
                 stamp.classList.remove(
+
                     "active"
+
                 );
 
 
-                // Remove collected state
+                // =====================================
+                // REMOVE COLLECTED STATE
+                // =====================================
 
                 stamp.classList.remove(
+
                     "stamp-collected"
+
                 );
 
 
-                // Remove animation
+                // =====================================
+                // REMOVE ANIMATION
+                // =====================================
 
                 stamp.classList.remove(
+
                     "stamp-pop"
+
                 );
 
 
@@ -655,6 +852,7 @@ function updateStampDisplay(
                 if (dateElement) {
 
                     dateElement.textContent =
+
                         "--";
 
                 }
@@ -750,7 +948,9 @@ function formatStampDate(
             date =
 
                 new Date(
+
                     stampDate
+
                 );
 
         }
@@ -765,7 +965,9 @@ function formatStampDate(
             !date ||
 
             isNaN(
+
                 date.getTime()
+
             )
 
         ) {
@@ -897,8 +1099,7 @@ function updateRewardDisplay(
 
 
     // =====================================
-    // 6 STAMPS COMPLETE
-    // REWARD UNLOCKED
+    // CHECK 6 STAMPS COMPLETE
     // =====================================
 
     if (
@@ -907,12 +1108,20 @@ function updateRewardDisplay(
 
     ) {
 
+        // =====================================
+        // REWARD ACTIVE
+        // =====================================
+
         rewardCircle.classList.add(
 
             "active"
 
         );
 
+
+        // =====================================
+        // REWARD UNLOCKED
+        // =====================================
 
         rewardCircle.classList.add(
 
@@ -921,7 +1130,9 @@ function updateRewardDisplay(
         );
 
 
-        // Optional reward animation
+        // =====================================
+        // REWARD POP ANIMATION
+        // =====================================
 
         rewardCircle.classList.add(
 
@@ -974,7 +1185,7 @@ async function loadStampData(
     try {
 
         // =====================================
-        // CUSTOMER DOCUMENT
+        // CUSTOMER DOCUMENT REFERENCE
         // =====================================
 
         const customerRef =
@@ -991,7 +1202,7 @@ async function loadStampData(
 
 
         // =====================================
-        // GET CUSTOMER DATA
+        // GET CUSTOMER DOCUMENT
         // =====================================
 
         const customerSnap =
@@ -1184,7 +1395,7 @@ async function loadStampData(
     catch (error) {
 
         // =====================================
-        // ERROR HANDLING
+        // STAMP LOAD ERROR
         // =====================================
 
         console.error(
@@ -1196,7 +1407,9 @@ async function loadStampData(
         );
 
 
-        // Safe fallback
+        // =====================================
+        // SAFE FALLBACK
+        // =====================================
 
         updateStampDisplay(
 
@@ -1232,14 +1445,20 @@ async function loadStampData(
 // GET START OF DAY
 // =====================================
 
-function getStartOfDay(date) {
+function getStartOfDay(
+    date
+) {
 
     const result =
 
-        new Date(date);
+        new Date(
+            date
+        );
 
 
-    // Set time to exactly 12:00 AM
+    // =====================================
+    // SET TIME TO EXACTLY 12:00 AM
+    // =====================================
 
     result.setHours(
 
@@ -1551,7 +1770,7 @@ function updateResetCountdown(
 
 
         // =====================================
-        // DEBUG
+        // DEBUG LOG
         // =====================================
 
         console.log(
@@ -1580,6 +1799,10 @@ function updateResetCountdown(
 
 
     catch (error) {
+
+        // =====================================
+        // COUNTDOWN CALCULATION ERROR
+        // =====================================
 
         console.error(
 
@@ -1649,9 +1872,13 @@ async function loadCountdownData(
 
         ) {
 
-            countdownDays.textContent =
+            if (countdownDays) {
 
-                "40 DAYS";
+                countdownDays.textContent =
+
+                    "40 DAYS";
+
+            }
 
             return;
 
@@ -1677,9 +1904,13 @@ async function loadCountdownData(
 
         ) {
 
-            countdownDays.textContent =
+            if (countdownDays) {
 
-                "40 DAYS";
+                countdownDays.textContent =
+
+                    "40 DAYS";
+
+            }
 
 
             console.log(
@@ -1709,6 +1940,10 @@ async function loadCountdownData(
 
     catch (error) {
 
+        // =====================================
+        // COUNTDOWN LOAD ERROR
+        // =====================================
+
         console.error(
 
             "Countdown Load Error:",
@@ -1718,9 +1953,13 @@ async function loadCountdownData(
         );
 
 
-        countdownDays.textContent =
+        if (countdownDays) {
 
-            "40 DAYS";
+            countdownDays.textContent =
+
+                "40 DAYS";
+
+        }
 
     }
 
@@ -1923,7 +2162,9 @@ onAuthStateChanged(
             );
 
 
-            // Send user to login page
+            // =====================================
+            // SEND USER TO LOGIN PAGE
+            // =====================================
 
             window.location.href =
 
