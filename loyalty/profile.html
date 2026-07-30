@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -11,20 +10,26 @@ name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>
+
 Rio Maggi Point • Profile
+
 </title>
 
 <meta
 name="theme-color"
 content="#111111">
 
+<meta
+name="description"
+content="Rio Maggi Point Premium Customer Profile">
+
 <link
 rel="manifest"
 href="manifest.json">
 
 <link
-rel="stylesheet"
-href="css/profile.css">
+rel="icon"
+href="favicon.ico">
 
 <link
 rel="preconnect"
@@ -43,17 +48,29 @@ rel="stylesheet">
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
+<!-- COMMON CSS -->
+
+<link
+rel="stylesheet"
+href="css/common.css">
+
+<!-- PROFILE CSS -->
+
+<link
+rel="stylesheet"
+href="css/profile.css">
+
 </head>
 
 <body>
 
 <div class="page">
 
-<div class="profile-card-main">
+<div class="profile-card-main app-card">
 
 <div class="card-glow"></div>
 
-<!-- HEADER -->
+<div class="card-shine"></div>
 
 <header class="profile-header">
 
@@ -72,8 +89,6 @@ Rio Maggi Point Premium Member
 </p>
 
 </header>
-
-<!-- PROFILE USER -->
 
 <section class="profile-user">
 
@@ -116,8 +131,6 @@ PREMIUM MEMBER
 </div>
 
 </section>
-
-<!-- PROFILE DETAILS -->
 
 <section class="profile-details">
 
@@ -198,7 +211,6 @@ Date Of Birth
 </div>
 
 </div>
-
 <div class="detail-card">
 
 <div class="detail-icon">
@@ -252,8 +264,6 @@ Category
 </div>
 
 </section>
-
-<!-- ================= LOYALTY SUMMARY ================= -->
 
 <section class="loyalty-summary">
 
@@ -317,8 +327,6 @@ Locked
 
 </section>
 
-<!-- ================= EDIT PROFILE MODAL ================= -->
-
 <div
 
 id="editModal"
@@ -342,11 +350,8 @@ Full Name
 </label>
 
 <input
-
 type="text"
-
 id="editName"
-
 placeholder="Enter Name">
 
 <label>
@@ -356,9 +361,7 @@ Date Of Birth
 </label>
 
 <input
-
 type="date"
-
 id="editDOB">
 
 <label>
@@ -368,11 +371,8 @@ Age
 </label>
 
 <input
-
 type="number"
-
 id="editAge"
-
 placeholder="Enter Age">
 
 <label>
@@ -412,9 +412,7 @@ Other
 <div class="edit-buttons">
 
 <button
-
 id="saveProfileBtn"
-
 class="primary-btn">
 
 <i class="fa-solid fa-check"></i>
@@ -424,9 +422,7 @@ Save
 </button>
 
 <button
-
 id="closeEditBtn"
-
 class="logout-btn">
 
 Cancel
@@ -439,14 +435,10 @@ Cancel
 
 </div>
 
-<!-- ================= ACTION BUTTONS ================= -->
-
 <section class="profile-actions">
 
 <button
-
 id="editProfileBtn"
-
 class="primary-btn">
 
 <i class="fa-solid fa-pen"></i>
@@ -456,9 +448,7 @@ Edit Profile
 </button>
 
 <button
-
 id="logoutBtn"
-
 class="logout-btn">
 
 <i class="fa-solid fa-right-from-bracket"></i>
@@ -469,7 +459,7 @@ Logout
 
 </section>
 
-<!-- ================= BOTTOM NAVIGATION ================= -->
+<div class="nav-space"></div>
 
 <nav class="bottom-nav">
 
@@ -554,13 +544,65 @@ Profile
 
 </div>
 
-<!-- ================= PROFILE JAVASCRIPT ================= -->
+<!-- =========================
+PROFILE JAVASCRIPT
+========================= -->
 
 <script
 
 type="module"
 
 src="js/profile.js">
+
+</script>
+
+<!-- =========================
+SERVICE WORKER
+========================= -->
+
+<script>
+
+if("serviceWorker" in navigator){
+
+window.addEventListener(
+
+"load",
+
+async()=>{
+
+try{
+
+await navigator.serviceWorker.register(
+
+"./service-worker.js"
+
+);
+
+console.log(
+
+"Service Worker Registered"
+
+);
+
+}
+
+catch(error){
+
+console.error(
+
+"Service Worker Registration Failed:",
+
+error
+
+);
+
+}
+
+}
+
+);
+
+}
 
 </script>
 
