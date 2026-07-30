@@ -1,169 +1,1438 @@
-/* ===========================
-   RIO MAGGI POINT PREMIUM CARD
-=========================== */
+/* =========================================
+   RIO MAGGI POINT
+   PREMIUM LOYALTY CARD
+   CARD.CSS - PART 1
+========================================= */
+
+
+/* =========================================
+   ROOT VARIABLES
+========================================= */
 
 :root{
 
---bg:#0b0b0b;
+    --bg:#080808;
 
---card:#171717;
+    --card:#171717;
 
---gold:#d4af37;
+    --card-dark:#111111;
 
---gold-light:#f7de8b;
+    --gold:#d4af37;
 
---white:#ffffff;
+    --gold-light:#f7de8b;
 
---text:#ececec;
+    --gold-pale:#fff6d4;
 
---muted:#bdbdbd;
+    --white:#ffffff;
 
---border:rgba(212,175,55,.35);
+    --text:#ececec;
 
---shadow:rgba(0,0,0,.55);
+    --muted:#bdbdbd;
+
+    --border:rgba(212,175,55,.35);
+
+    --shadow:rgba(0,0,0,.55);
+
+    --game-blue:#00e5ff;
+
+    --game-purple:#7c4dff;
 
 }
+
+
+/* =========================================
+   GLOBAL RESET
+========================================= */
 
 *{
 
-margin:0;
+    margin:0;
 
-padding:0;
+    padding:0;
 
-box-sizing:border-box;
+    box-sizing:border-box;
 
-font-family:"Poppins",sans-serif;
+    font-family:"Poppins",sans-serif;
 
 }
+
+
+/* =========================================
+   BODY
+========================================= */
 
 body{
 
-background:#080808;
+    min-height:100vh;
 
-color:var(--white);
+    background:
 
-display:flex;
+        radial-gradient(
+            circle at top,
+            rgba(212,175,55,.08),
+            transparent 35%
+        ),
 
-justify-content:center;
+        #080808;
 
-padding:18px;
+    color:var(--white);
+
+    display:flex;
+
+    justify-content:center;
+
+    padding:18px;
 
 }
+
+
+/* =========================================
+   MAIN PAGE
+========================================= */
 
 .page{
 
-width:100%;
+    width:100%;
 
-max-width:430px;
+    max-width:430px;
 
-padding-bottom:100px;   /* पहले 90px था */
+    padding-bottom:110px;
 
 }
+
+
+/* =========================================
+   PREMIUM CARD
+========================================= */
 
 .premium-card{
 
-position:relative;
+    position:relative;
 
-background:linear-gradient(
-180deg,
-#1c1c1c,
-#121212);
+    background:
 
-border:2px solid var(--gold);
+        linear-gradient(
+            180deg,
+            #1c1c1c,
+            #121212
+        );
 
-border-radius:28px;
+    border:2px solid var(--gold);
 
-padding:22px;
+    border-radius:28px;
 
-overflow:hidden;
+    padding:22px;
 
-box-shadow:
+    overflow:hidden;
 
-0 0 18px rgba(212,175,55,.18),
+    box-shadow:
 
-0 20px 50px var(--shadow);
+        0 0 18px
+        rgba(212,175,55,.18),
+
+        0 20px 50px
+        var(--shadow);
 
 }
 
-/* Gold Glow */
+
+/* =========================================
+   GOLD GLOW
+========================================= */
 
 .card-glow{
 
-position:absolute;
+    position:absolute;
 
-right:-80px;
+    right:-80px;
 
-top:-80px;
+    top:-80px;
 
-width:220px;
+    width:220px;
 
-height:220px;
+    height:220px;
 
-border-radius:50%;
+    border-radius:50%;
 
-background:radial-gradient(
+    background:
 
-circle,
+        radial-gradient(
 
-rgba(212,175,55,.22),
+            circle,
 
-transparent 70%
+            rgba(212,175,55,.22),
 
-);
+            transparent 70%
+
+        );
+
+    pointer-events:none;
 
 }
 
-/* Shine */
+
+/* =========================================
+   CARD SHINE
+========================================= */
 
 .card-shine{
 
-position:absolute;
+    position:absolute;
 
-left:-40%;
+    left:-40%;
 
-top:-25%;
+    top:-25%;
 
-width:55%;
+    width:55%;
 
-height:180%;
+    height:180%;
 
-transform:rotate(25deg);
+    transform:rotate(25deg);
+
+    background:
+
+        linear-gradient(
+
+            to right,
+
+            transparent,
+
+            rgba(255,255,255,.08),
+
+            transparent
+
+        );
+
+    pointer-events:none;
+
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.card-header{
+
+    position:relative;
+
+    z-index:2;
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+
+.brand-title{
+
+    font-size:30px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            var(--gold-pale),
+
+            var(--gold),
+
+            var(--gold-pale)
+
+        );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+}
+
+
+.brand-subtitle{
+
+    margin-top:4px;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    color:#d8c27a;
+
+    letter-spacing:.8px;
+
+}
+
+
+/* =========================================
+   CUSTOMER SECTION
+========================================= */
+
+.customer-section{
+
+    position:relative;
+
+    z-index:2;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-bottom:22px;
+
+}
+
+
+/* =========================================
+   AVATAR
+========================================= */
+
+.avatar-frame{
+
+    width:120px;
+
+    height:120px;
+
+    border-radius:50%;
+
+    padding:4px;
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            var(--gold-light),
+
+            var(--gold)
+
+        );
+
+    box-shadow:
+
+        0 0 18px
+        rgba(212,175,55,.45);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-bottom:14px;
+
+}
+
+
+.avatar-frame img{
+
+    width:100%;
+
+    height:100%;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    background:#222;
+
+}
+
+
+/* =========================================
+   CUSTOMER NAME
+========================================= */
+
+.customer-name{
+
+    font-family:"Georgia",serif;
+
+    font-size:24px;
+
+    font-weight:700;
+
+    letter-spacing:.5px;
+
+    color:#ffffff;
+
+    text-align:center;
+
+    margin-bottom:6px;
+
+}
+
+
+/* =========================================
+   MEMBER ID
+========================================= */
+
+.customer-id{
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#e7cb74;
+
+    margin-bottom:10px;
+
+}
+
+
+/* =========================================
+   PREMIUM MEMBER BADGE
+========================================= */
+
+.premium-member{
+
+    padding:6px 18px;
+
+    border-radius:999px;
+
+    background:
+
+        rgba(212,175,55,.12);
+
+    border:
+
+        1px solid
+        rgba(212,175,55,.45);
+
+    font-size:11px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+    color:#f7de8b;
+
+    margin-bottom:16px;
+
+}
+
+
+/* =========================================
+   PREMIUM FREE GAME BUTTON
+========================================= */
+
+.game-button{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    min-width:205px;
+
+    padding:12px 20px;
+
+    border:1px solid
+        rgba(0,229,255,.65);
+
+    border-radius:999px;
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            #111827,
+
+            #24134f,
+
+            #071c27
+
+        );
+
+    color:#ffffff;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    letter-spacing:.5px;
+
+    cursor:pointer;
+
+    overflow:hidden;
+
+    transition:
+
+        transform .25s ease,
+
+        box-shadow .25s ease;
+
+    box-shadow:
+
+        0 0 8px
+        rgba(0,229,255,.35),
+
+        0 0 22px
+        rgba(124,77,255,.22);
+
+    animation:
+
+        gamePulse 2s
+        ease-in-out
+        infinite;
+
+}
+
+
+/* GAME BUTTON SHINE */
+
+.game-button::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-120%;
+
+    width:80%;
+
+    height:100%;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            rgba(255,255,255,.35),
+
+            transparent
+
+        );
+
+    transform:skewX(-20deg);
+
+    animation:
+
+        gameShine 3s
+        ease-in-out
+        infinite;
+
+}
+
+
+/* GAME ICON */
+
+.game-icon{
+
+    position:relative;
+
+    z-index:2;
+
+    width:28px;
+
+    height:28px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            var(--game-blue),
+
+            var(--game-purple)
+
+        );
+
+    color:#ffffff;
+
+    box-shadow:
+
+        0 0 10px
+        rgba(0,229,255,.55);
+
+}
+
+
+/* GAME TEXT */
+
+.game-text{
+
+    position:relative;
+
+    z-index:2;
+
+    white-space:nowrap;
+
+}
+
+
+/* GAME ARROW */
+
+.game-arrow{
+
+    position:relative;
+
+    z-index:2;
+
+    color:#00e5ff;
+
+    animation:
+
+        boltFlash 1.2s
+        ease-in-out
+        infinite;
+
+}
+
+
+/* GAME HOVER */
+
+.game-button:hover{
+
+    transform:
+
+        translateY(-3px)
+        scale(1.02);
+
+    box-shadow:
+
+        0 0 12px
+        rgba(0,229,255,.55),
+
+        0 0 30px
+        rgba(124,77,255,.45);
+
+}
+
+
+/* GAME CLICK */
+
+.game-button:active{
+
+    transform:
+
+        scale(.96);
+
+}
+
+
+/* GAME CLICK CLASS */
+
+.game-button-clicked{
+
+    animation:none;
+
+    transform:
+
+        scale(.94);
+
+}
+
+
+/* =========================================
+   GAME ANIMATIONS
+========================================= */
+
+@keyframes gamePulse{
+
+    0%,
+    100%{
+
+        box-shadow:
+
+            0 0 8px
+            rgba(0,229,255,.35),
+
+            0 0 22px
+            rgba(124,77,255,.22);
+
+    }
+
+    50%{
+
+        box-shadow:
+
+            0 0 15px
+            rgba(0,229,255,.65),
+
+            0 0 35px
+            rgba(124,77,255,.45);
+
+    }
+
+}
+
+
+@keyframes gameShine{
+
+    0%{
+
+        left:-120%;
+
+    }
+
+    45%,
+    100%{
+
+        left:140%;
+
+    }
+
+}
+
+
+@keyframes boltFlash{
+
+    0%,
+    100%{
+
+        transform:scale(1);
+
+        opacity:.8;
+
+    }
+
+    50%{
+
+        transform:
+
+            scale(1.25)
+            rotate(8deg);
+
+        opacity:1;
+
+    }
+
+}
+
+
+/* =========================================
+   STAMP TITLE
+========================================= */
+
+.stamp-title{
+
+    position:relative;
+
+    z-index:2;
+
+    width:100%;
+
+    text-align:center;
+
+    padding:9px 12px;
+
+    border-radius:14px;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            var(--gold),
+
+            var(--gold-light),
+
+            var(--gold)
+
+        );
+
+    color:#111;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    letter-spacing:.3px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    margin-bottom:18px;
+
+    box-shadow:
+
+        0 5px 14px
+        rgba(212,175,55,.30);
+
+}
+
+
+/* =========================================
+   STAMP SECTION
+========================================= */
+
+.stamp-section{
+
+    position:relative;
+
+    z-index:2;
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    margin-bottom:20px;
+
+}
+
+
+/* =========================================
+   STAMP ROW
+========================================= */
+
+.stamp-row{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:4px;
+
+}
+
+
+/* =========================================
+   STAMP ITEM
+========================================= */
+
+.stamp-item{
+
+    flex:1;
+
+    min-width:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+}
+
+
+/* =========================================
+   STAMP CIRCLE
+========================================= */
+
+.stamp-circle{
+
+    position:relative;
+
+    width:40px;
+
+    height:40px;
+
+    min-width:40px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+
+        radial-gradient(
+
+            circle at 35% 30%,
+
+            #333,
+
+            #1b1b1b
+
+        );
+
+    border:
+
+        2px solid
+        rgba(212,175,55,.45);
+
+    color:#d8c17b;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    transition:
+
+        transform .3s ease,
+
+        box-shadow .3s ease,
+
+        background .3s ease;
+
+    box-shadow:
+
+        inset 0 0 8px
+        rgba(255,255,255,.05);
+
+}
+
+
+/* =========================================
+   ACTIVE STAMP
+========================================= */
+
+.stamp-circle.active{
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            var(--gold-pale),
+
+            var(--gold),
+
+            #a77b08
+
+        );
+
+    color:#111;
+
+    border:
+
+        2px solid
+        var(--gold-light);
+
+    box-shadow:
+
+        0 0 10px
+        rgba(212,175,55,.55),
+
+        0 0 20px
+        rgba(212,175,55,.25);
+
+}
+
+
+/* =========================================
+   COLLECTED STAMP SPECIAL EFFECT
+========================================= */
+
+.stamp-circle.stamp-collected{
+
+    transform:
+
+        scale(1.05);
+
+}
+
+
+/* =========================================
+   STAMP POP ANIMATION
+========================================= */
+
+.stamp-circle.stamp-pop{
+
+    animation:
+
+        stampPop .5s
+        ease-out;
+
+}
+
+
+@keyframes stampPop{
+
+    0%{
+
+        transform:
+            scale(.75)
+            rotate(-15deg);
+
+    }
+
+    60%{
+
+        transform:
+            scale(1.15)
+            rotate(5deg);
+
+    }
+
+    100%{
+
+        transform:
+            scale(1.05)
+            rotate(0);
+
+    }
+
+}
+
+
+/* =========================================
+   STAMP DATE
+========================================= */
+
+.stamp-date{
+
+    width:100%;
+
+    min-height:22px;
+
+    margin-top:6px;
+
+    text-align:center;
+
+    color:#bda96a;
+
+    font-size:7px;
+
+    font-weight:600;
+
+    line-height:1.2;
+
+    white-space:nowrap;
+
+}
+
+
+/* =========================================
+   REWARD ITEM
+========================================= */
+
+.reward-item{
+
+    position:relative;
+
+}
+
+
+/* =========================================
+   REWARD CIRCLE
+========================================= */
+
+.reward-circle{
+
+    width:40px;
+
+    height:40px;
+
+    min-width:40px;
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            #fff0b8,
+
+            var(--gold)
+
+        );
+
+    color:#111;
+
+    font-size:7px;
+
+    font-weight:800;
+
+    line-height:8px;
+
+    text-align:center;
+
+    padding:2px;
+
+    border:
+
+        2px solid
+        var(--gold-light);
+
+}
+
+
+/* =========================================
+   REWARD LABEL
+========================================= */
+
+.reward-label{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    line-height:7px;
+
+}
+
+
+.reward-label i{
+
+    font-size:9px;
+
+    margin-bottom:2px;
+
+}
+
+
+/* =========================================
+   REWARD UNLOCKED
+========================================= */
+
+.reward-circle.reward-unlocked{
+
+    animation:
+
+        rewardGlow 1.5s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes rewardGlow{
+
+    0%,
+    100%{
+
+        box-shadow:
+
+            0 0 10px
+            rgba(212,175,55,.5);
+
+    }
+
+    50%{
+
+        box-shadow:
+
+            0 0 25px
+            rgba(212,175,55,.95);
+
+    }
+
+}
+/* =========================================
+   RIO MAGGI POINT PREMIUM CARD
+   CSS PART 2
+   STAMP DATE + PREMIUM GAME + QUICK BUTTONS
+========================================= */
+
+
+/* =========================================
+   STAMP ITEM
+========================================= */
+
+.stamp-item{
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:flex-start;
+
+gap:5px;
+
+min-width:40px;
+
+}
+
+
+/* =========================================
+   STAMP DATE
+========================================= */
+
+.stamp-date{
+
+min-height:16px;
+
+font-size:7px;
+
+font-weight:600;
+
+line-height:1;
+
+color:#a99b72;
+
+text-align:center;
+
+white-space:nowrap;
+
+opacity:.75;
+
+letter-spacing:.2px;
+
+}
+
+
+/* =========================================
+   ACTIVE STAMP SPECIAL DESIGN
+========================================= */
+
+.stamp-circle.active{
+
+position:relative;
 
 background:
 
-linear-gradient(
-
-to right,
-
-transparent,
-
-rgba(255,255,255,.08),
-
-transparent
-
+radial-gradient(
+circle at 30% 25%,
+#fff8d8 0%,
+#f7de8b 25%,
+#d4af37 65%,
+#9b7620 100%
 );
+
+color:#111;
+
+border:2px solid #ffeaa7;
+
+box-shadow:
+
+0 0 0 3px rgba(212,175,55,.12),
+
+0 0 14px rgba(212,175,55,.65),
+
+0 5px 12px rgba(0,0,0,.45);
+
+transform:scale(1.04);
+
+}
+
+
+/* STAMP NUMBER */
+
+.stamp-circle.active span{
+
+font-weight:800;
+
+color:#171717;
+
+text-shadow:
+
+0 1px 0 rgba(255,255,255,.45);
+
+}
+
+
+/* STAMP SHINE EFFECT */
+
+.stamp-circle.active::after{
+
+content:"";
+
+position:absolute;
+
+top:5px;
+
+left:7px;
+
+width:10px;
+
+height:6px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.65);
+
+transform:rotate(-25deg);
 
 pointer-events:none;
 
 }
 
-/* ================= HEADER ================= */
 
-.card-header{
+/* =========================================
+   REWARD CIRCLE
+========================================= */
 
-text-align:center;
+.reward-item{
 
-margin-bottom:20px;
+margin-left:2px;
 
 }
 
-.brand-title{
 
-font-size:30px;
+.reward-circle{
 
-font-weight:800;
+position:relative;
 
-letter-spacing:1px;
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+overflow:hidden;
+
+}
+
+
+.reward-circle .reward-label{
+
+position:relative;
+
+z-index:2;
+
+}
+
+
+.reward-circle.active{
+
+background:
+
+radial-gradient(
+circle at 30% 25%,
+#ffffff 0%,
+#fff0b8 20%,
+#f7de8b 45%,
+#d4af37 75%,
+#9b7620 100%
+);
+
+border:2px solid #fff0b8;
+
+box-shadow:
+
+0 0 0 3px rgba(212,175,55,.15),
+
+0 0 20px rgba(255,215,80,.75),
+
+0 0 35px rgba(212,175,55,.35);
+
+animation:
+
+rewardPulse 1.8s ease-in-out infinite;
+
+}
+
+
+.reward-circle.active::before{
+
+content:"";
+
+position:absolute;
+
+inset:3px;
+
+border-radius:50%;
+
+border:1px dashed rgba(80,55,5,.65);
+
+}
+
+
+@keyframes rewardPulse{
+
+0%,
+100%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.08);
+
+}
+
+}
+
+
+/* =========================================
+   PREMIUM FREE GAME BUTTON
+========================================= */
+
+.game-button{
+
+position:relative;
+
+min-width:190px;
+
+overflow:hidden;
+
+background:
+
+linear-gradient(
+135deg,
+#7b2cff 0%,
+#4c1d95 45%,
+#111 100%
+);
+
+border:1px solid rgba(255,255,255,.28);
+
+color:#ffffff;
+
+box-shadow:
+
+0 0 0 1px rgba(123,44,255,.25),
+
+0 8px 20px rgba(90,30,180,.35),
+
+inset 0 1px 0 rgba(255,255,255,.2);
+
+animation:
+
+gameButtonGlow 2s ease-in-out infinite;
+
+}
+
+
+.game-button::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+
+left:-120%;
+
+width:70%;
+
+height:100%;
 
 background:
 
@@ -171,144 +1440,54 @@ linear-gradient(
 
 90deg,
 
-#fff6d4,
+transparent,
 
-var(--gold),
+rgba(255,255,255,.35),
 
-#fff6d4);
+transparent
 
--webkit-background-clip:text;
+);
 
--webkit-text-fill-color:transparent;
+transform:skewX(-20deg);
 
-}
+animation:
 
-.brand-subtitle{
+gameButtonShine 3s ease-in-out infinite;
 
-margin-top:4px;
-
-font-size:11px;
-
-font-weight:600;
-
-color:#d8c27a;
-
-letter-spacing:.8px;
-
-}
-/* ===========================
-   CUSTOMER SECTION
-=========================== */
-
-.customer-section{
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-justify-content:center;
-
-margin-bottom:22px;
+pointer-events:none;
 
 }
 
-.avatar-frame{
 
-width:120px;
+.game-button::after{
 
-height:120px;
+content:"";
 
-border-radius:50%;
+position:absolute;
 
-padding:4px;
-
-background:linear-gradient(
-135deg,
-#f7de8b,
-#d4af37);
-
-box-shadow:
-0 0 18px rgba(212,175,55,.45);
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-margin-bottom:14px;
-
-}
-
-.avatar-frame img{
-
-width:100%;
-
-height:100%;
-
-border-radius:50%;
-
-object-fit:cover;
-
-background:#222;
-
-}
-
-.customer-name{
-
-font-family:"Georgia",serif;
-
-font-size:24px;
-
-font-weight:700;
-
-letter-spacing:.5px;
-
-color:#ffffff;
-
-text-align:center;
-
-margin-bottom:6px;
-
-}
-
-.customer-id{
-
-font-size:14px;
-
-font-weight:600;
-
-color:#e7cb74;
-
-margin-bottom:10px;
-
-}
-
-.premium-member{
-
-padding:6px 18px;
+inset:0;
 
 border-radius:999px;
 
-background:rgba(212,175,55,.12);
+border:1px solid rgba(255,255,255,.15);
 
-border:1px solid rgba(212,175,55,.45);
-
-font-size:11px;
-
-font-weight:700;
-
-letter-spacing:1px;
-
-color:#f7de8b;
-
-margin-bottom:14px;
+pointer-events:none;
 
 }
 
-.game-button{
+
+.game-button .game-icon,
+.game-button .game-text,
+.game-button .game-arrow{
+
+position:relative;
+
+z-index:2;
+
+}
+
+
+.game-button .game-icon{
 
 display:flex;
 
@@ -316,258 +1495,187 @@ align-items:center;
 
 justify-content:center;
 
-gap:8px;
+width:25px;
 
-padding:10px 18px;
+height:25px;
 
-border:none;
+border-radius:50%;
 
-border-radius:999px;
+background:rgba(255,255,255,.14);
 
-background:linear-gradient(
-135deg,
-#f7de8b,
-#d4af37);
+}
 
-color:#111;
+
+.game-button .game-icon i{
 
 font-size:13px;
 
-font-weight:700;
-
-cursor:pointer;
-
-transition:.25s;
-
-}
-
-.game-button:hover{
-
-transform:translateY(-2px);
-
-box-shadow:
-0 8px 18px rgba(212,175,55,.35);
-
-}
-
-/* ===========================
-   STAMP SECTION
-=========================== */
-
-.stamp-title{
-
-width:100%;
-
-text-align:center;
-
-padding:9px 12px;
-
-border-radius:14px;
-
-background:linear-gradient(
-90deg,
-#d4af37,
-#f7de8b,
-#d4af37);
-
-color:#111;
-
-font-size:11px;
-
-font-weight:700;
-
-letter-spacing:.3px;
-
-white-space:nowrap;
-
-overflow:hidden;
-
-text-overflow:ellipsis;
-
-margin-bottom:18px;
-
-box-shadow:
-0 5px 14px rgba(212,175,55,.30);
-
-}
-
-.stamp-section{
-
-width:100%;
-
-display:flex;
-
-justify-content:center;
-
-margin-bottom:20px;
-
-}
-
-.stamp-row{
-
-width:100%;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-gap:4px;
-
-}
-
-.stamp-circle{
-
-width:40px;
-
-height:40px;
-
-min-width:40px;
-
-border-radius:50%;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-background:#242424;
-
-border:2px solid rgba(212,175,55,.45);
-
-color:#d8c17b;
-
-font-size:15px;
-
-font-weight:700;
-
-transition:.25s;
-
-box-shadow:
-inset 0 0 8px rgba(255,255,255,.05);
-
-}
-
-.stamp-circle.active{
-
-background:linear-gradient(
-135deg,
-#f7de8b,
-#d4af37);
-
-color:#111;
-
-border:none;
-
-box-shadow:
-0 0 16px rgba(212,175,55,.45);
-
-}
-
-.reward-circle{
-
-width:40px;
-
-height:40px;
-
-min-width:40px;
-
-background:linear-gradient(
-135deg,
-#fff0b8,
-#d4af37);
-
-color:#111;
-
-font-size:7px;
-
-font-weight:800;
-
-line-height:8px;
-
-text-align:center;
-
-padding:2px;
-
-}
-
-/* ===========================
-   COUNTDOWN
-=========================== */
-
-.countdown-box{
-
-margin-top:10px;
-
-padding:12px;
-
-border-radius:16px;
-
-background:rgba(212,175,55,.10);
-
-border:1px solid rgba(212,175,55,.35);
-
-text-align:center;
-
-}
-
-.countdown-text{
-
-font-size:11px;
-
-font-weight:600;
-
-letter-spacing:1px;
-
-color:#d8c17b;
-
-}
-
-.countdown-days{
-
-margin-top:4px;
-
-font-size:21px;
-
-font-weight:800;
-
 color:#ffffff;
 
 }
 
-/* ===========================
-   QUICK BUTTONS
-=========================== */
 
-.quick-buttons{
+.game-button .game-text{
+
+font-size:12px;
+
+font-weight:800;
+
+letter-spacing:.7px;
+
+text-shadow:
+
+0 1px 4px rgba(0,0,0,.5);
+
+}
+
+
+.game-button .game-arrow{
 
 display:flex;
 
-justify-content:space-between;
+align-items:center;
 
-gap:8px;
+justify-content:center;
+
+width:22px;
+
+height:22px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.16);
+
+}
+
+
+.game-button .game-arrow i{
+
+font-size:11px;
+
+color:#ffe66d;
+
+}
+
+
+.game-button:hover{
+
+transform:
+
+translateY(-3px)
+
+scale(1.02);
+
+box-shadow:
+
+0 0 18px rgba(123,44,255,.55),
+
+0 12px 28px rgba(90,30,180,.45);
+
+}
+
+
+.game-button:active{
+
+transform:
+
+scale(.96);
+
+}
+
+
+@keyframes gameButtonGlow{
+
+0%,
+100%{
+
+box-shadow:
+
+0 0 0 1px rgba(123,44,255,.25),
+
+0 8px 20px rgba(90,30,180,.35);
+
+}
+
+50%{
+
+box-shadow:
+
+0 0 0 2px rgba(123,44,255,.35),
+
+0 0 22px rgba(123,44,255,.5),
+
+0 10px 26px rgba(90,30,180,.45);
+
+}
+
+}
+
+
+@keyframes gameButtonShine{
+
+0%{
+
+left:-120%;
+
+}
+
+45%,
+100%{
+
+left:150%;
+
+}
+
+}
+
+
+/* =========================================
+   QUICK BUTTONS - 4 BUTTON LAYOUT
+========================================= */
+
+.quick-buttons{
+
+display:grid;
+
+grid-template-columns:
+
+repeat(4,1fr);
+
+gap:7px;
 
 margin-top:20px;
 
 }
 
+
 .quick-buttons button{
 
-flex:1;
+position:relative;
 
-padding:10px 6px;
+min-width:0;
+
+min-height:72px;
+
+padding:9px 4px;
 
 border-radius:14px;
 
-border:1px solid rgba(212,175,55,.35);
+border:
 
-background:#1c1c1c;
+1px solid rgba(212,175,55,.30);
 
-color:#fff;
+background:
 
-font-size:11px;
+linear-gradient(
+180deg,
+#202020,
+#151515
+);
+
+color:#ffffff;
+
+font-size:10px;
 
 font-weight:600;
 
@@ -581,270 +1689,898 @@ align-items:center;
 
 justify-content:center;
 
-gap:5px;
+gap:4px;
 
-transition:.25s;
+transition:
+
+transform .25s ease,
+
+background .25s ease,
+
+box-shadow .25s ease;
+
+overflow:hidden;
 
 }
+
 
 .quick-buttons button i{
 
-font-size:17px;
+font-size:18px;
 
 color:#f7de8b;
 
+transition:
+
+transform .25s ease,
+
+color .25s ease;
+
 }
+
 
 .quick-buttons button:hover{
 
-background:#242424;
+background:
 
-transform:translateY(-2px);
+linear-gradient(
+180deg,
+#292929,
+#191919
+);
 
-}
+transform:
 
-/* CONTINUE IN PART 3 */
-/* ===========================
-   BOTTOM NAVIGATION
-=========================== */
-
-.bottom-nav{
-
-position:fixed;
-
-left:50%;
-
-bottom:10px;
-
-transform:translateX(-50%);
-
-width:calc(100% - 20px);
-
-max-width:430px;
-
-height:72px;
-
-padding:0 8px;
-
-background:#111;
-
-border:1px solid rgba(212,175,55,.35);
-
-border-radius:22px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
+translateY(-3px);
 
 box-shadow:
-0 10px 35px rgba(0,0,0,.55);
 
-z-index:999;
-
-}
-
-.bottom-nav a{
-
-flex:1;
-
-text-decoration:none;
-
-color:#888;
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-justify-content:center;
-
-gap:4px;
-
-height:100%;
-
-font-size:10px;
-
-font-weight:500;
-
-transition:.25s;
+0 8px 18px rgba(0,0,0,.35);
 
 }
 
-.bottom-nav a i{
 
-font-size:18px;
+.quick-buttons button:hover i{
 
-transition:.25s;
+transform:
 
-}
-
-.bottom-nav a.active{
-
-color:#f7de8b;
-
-}
-
-.bottom-nav a.active i{
-
-transform:translateY(-2px);
-
-}
-
-.bottom-nav a:hover{
+scale(1.12);
 
 color:#ffffff;
 
 }
 
-.bottom-nav a span{
 
-white-space:nowrap;
+/* =========================================
+   COMING SOON BUTTON
+========================================= */
+
+.coming-soon-button{
+
+cursor:default !important;
+
+opacity:.85;
+
+}
+
+
+.coming-soon-button:hover{
+
+transform:none !important;
+
+}
+
+
+.coming-soon-button small{
+
+font-size:6px;
+
+font-weight:600;
+
+color:#bdbdbd;
+
+letter-spacing:.2px;
 
 line-height:1;
 
 }
 
-/* ===========================
-   MOBILE
-=========================== */
+
+/* =========================================
+   DELIVERY ICON
+========================================= */
+
+#deliveryBtn i{
+
+color:#f7de8b;
+
+}
+
+
+/* =========================================
+   MAP ICON
+========================================= */
+
+#mapBtn i{
+
+color:#f7de8b;
+
+}
+
+
+/* =========================================
+   CALL ICON
+========================================= */
+
+#callBtn i{
+
+color:#7ee787;
+
+}
+
+
+/* =========================================
+   WHATSAPP ICON
+========================================= */
+
+#whatsappBtn i{
+
+color:#25d366;
+
+}
+
+
+/* =========================================
+   COUNTDOWN ACTIVE STYLE
+========================================= */
+
+.countdown-box{
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+
+.countdown-box::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+
+left:-100%;
+
+width:60%;
+
+height:100%;
+
+background:
+
+linear-gradient(
+
+90deg,
+
+transparent,
+
+rgba(255,255,255,.05),
+
+transparent
+
+);
+
+animation:
+
+countdownShine 4s ease-in-out infinite;
+
+pointer-events:none;
+
+}
+
+
+@keyframes countdownShine{
+
+0%{
+
+left:-100%;
+
+}
+
+50%,
+100%{
+
+left:150%;
+
+}
+
+}
+
+
+/* =========================================
+   MOBILE QUICK BUTTONS
+========================================= */
 
 @media (max-width:390px){
 
-.brand-title{
+.quick-buttons{
 
-font-size:26px;
-
-}
-
-.customer-name{
-
-font-size:20px;
+gap:5px;
 
 }
 
-.avatar-frame{
 
-width:105px;
+.quick-buttons button{
 
-height:105px;
+min-height:68px;
 
-}
-
-.stamp-circle{
-
-width:40px;
-
-height:40px;
-
-min-width:40px;
-
-font-size:13px;
-
-}
-
-.reward-circle{
-
-font-size:7px;
-
-line-height:9px;
-
-}
-
-.game-button{
-
-font-size:12px;
-
-padding:9px 14px;
-
-}
-
-.stamp-title{
-
-font-size:10px;
-
-}
-
-.bottom-nav{
-
-height:68px;
-
-padding:0 4px;
-
-}
-
-.bottom-nav a{
+padding:8px 2px;
 
 font-size:9px;
 
-gap:3px;
+border-radius:12px;
 
 }
 
-.bottom-nav a i{
+
+.quick-buttons button i{
 
 font-size:16px;
 
 }
 
+
+.coming-soon-button small{
+
+font-size:5px;
+
 }
 
-/* ===========================
+
+.stamp-date{
+
+font-size:6px;
+
+}
+
+
+.stamp-item{
+
+gap:4px;
+
+}
+
+
+.game-button{
+
+min-width:175px;
+
+}
+
+
+.game-button .game-text{
+
+font-size:11px;
+
+}
+
+}
+
+
+/* =========================================
    TABLET
-=========================== */
+========================================= */
 
 @media (min-width:768px){
 
-.page{
+.quick-buttons{
 
-max-width:470px;
-
-}
-
-.brand-title{
-
-font-size:34px;
+gap:9px;
 
 }
 
-.avatar-frame{
 
-width:130px;
+.quick-buttons button{
 
-height:130px;
+min-height:76px;
+
+font-size:11px;
+
+}
+
+
+.quick-buttons button i{
+
+font-size:19px;
 
 }
 
-.customer-name{
 
-font-size:26px;
+.stamp-date{
+
+font-size:8px;
 
 }
+
+}
+
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+button{
+
+-webkit-tap-highlight-color:
+
+transparent;
+
+}
+
+
+button:focus-visible{
+
+outline:
+
+2px solid #f7de8b;
+
+outline-offset:3px;
+
+}
+
+
+/* =========================================
+   END CSS PART 2
+========================================= */
+/* =========================================
+   RIO MAGGI POINT PREMIUM CARD
+   CSS PART 3 — FINAL
+========================================= */
+
+
+/* =========================================
+   STAMP ROW MOBILE SAFETY
+========================================= */
+
+.stamp-row{
+
+overflow:visible;
+
+}
+
+
+.stamp-item{
+
+flex-shrink:1;
+
+}
+
 
 .stamp-circle{
 
-width:50px;
+position:relative;
 
-height:50px;
+}
 
-min-width:50px;
+
+/* =========================================
+   EMPTY STAMP DESIGN
+========================================= */
+
+.stamp-circle:not(.active):not(.reward-circle){
+
+background:
+
+linear-gradient(
+145deg,
+#292929,
+#181818
+);
+
+border:
+
+2px solid rgba(212,175,55,.35);
+
+box-shadow:
+
+inset 0 2px 6px rgba(0,0,0,.55),
+
+0 2px 5px rgba(0,0,0,.25);
+
+}
+
+
+/* =========================================
+   STAMP DATE EMPTY STATE
+========================================= */
+
+.stamp-date{
+
+color:#777;
+
+}
+
+
+.stamp-item:has(.stamp-circle.active)
+.stamp-date{
+
+color:#d8c17b;
+
+opacity:1;
+
+}
+
+
+/* =========================================
+   COUNTDOWN NUMBER
+========================================= */
+
+.countdown-days{
+
+text-shadow:
+
+0 0 10px rgba(255,255,255,.15);
+
+}
+
+
+/* =========================================
+   COUNTDOWN WHEN ACTIVE
+========================================= */
+
+.countdown-box.active{
+
+border-color:
+
+rgba(212,175,55,.65);
+
+background:
+
+rgba(212,175,55,.15);
+
+box-shadow:
+
+0 0 18px rgba(212,175,55,.12);
+
+}
+
+
+/* =========================================
+   REWARD UNLOCKED
+========================================= */
+
+.countdown-box.reward-unlocked{
+
+border-color:
+
+rgba(255,215,80,.7);
+
+background:
+
+linear-gradient(
+
+135deg,
+
+rgba(212,175,55,.18),
+
+rgba(255,240,184,.08)
+
+);
+
+}
+
+
+.countdown-box.reward-unlocked
+.countdown-days{
+
+color:#f7de8b;
+
+}
+
+
+/* =========================================
+   PREMIUM MEMBER BADGE
+========================================= */
+
+.premium-member{
+
+box-shadow:
+
+0 0 12px rgba(212,175,55,.08);
+
+}
+
+
+/* =========================================
+   CUSTOMER PHOTO PREMIUM EFFECT
+========================================= */
+
+.avatar-frame{
+
+position:relative;
+
+}
+
+
+.avatar-frame::after{
+
+content:"";
+
+position:absolute;
+
+inset:-4px;
+
+border-radius:50%;
+
+border:
+
+1px solid rgba(255,240,184,.45);
+
+pointer-events:none;
+
+}
+
+
+/* =========================================
+   CARD CONTENT SAFETY
+========================================= */
+
+.premium-card > *:not(.card-glow):not(.card-shine){
+
+position:relative;
+
+z-index:2;
+
+}
+
+
+/* =========================================
+   DISABLE TEXT SELECTION ON UI BUTTONS
+========================================= */
+
+.game-button,
+.quick-buttons button,
+.bottom-nav a{
+
+user-select:none;
+
+-webkit-user-select:none;
+
+}
+
+
+/* =========================================
+   TOUCH EFFECT
+========================================= */
+
+.game-button:active,
+.quick-buttons button:active{
+
+transform:
+
+scale(.96);
+
+}
+
+
+/* =========================================
+   DELIVERY COMING SOON
+========================================= */
+
+#deliveryBtn{
+
+background:
+
+linear-gradient(
+180deg,
+#202020,
+#151515
+);
+
+}
+
+
+#deliveryBtn small{
+
+color:#d8c17b;
+
+}
+
+
+/* =========================================
+   MAP COMING SOON
+========================================= */
+
+#mapBtn{
+
+background:
+
+linear-gradient(
+180deg,
+#202020,
+#151515
+);
+
+}
+
+
+#mapBtn small{
+
+color:#d8c17b;
+
+}
+
+
+/* =========================================
+   BOTTOM NAV PREMIUM ACTIVE EFFECT
+========================================= */
+
+.bottom-nav a.active{
+
+text-shadow:
+
+0 0 8px rgba(247,222,139,.25);
+
+}
+
+
+.bottom-nav a.active i{
+
+color:#f7de8b;
+
+}
+
+
+/* =========================================
+   BOTTOM NAV TOUCH
+========================================= */
+
+.bottom-nav a:active{
+
+transform:
+
+scale(.94);
+
+}
+
+
+/* =========================================
+   SMALL MOBILE WIDTH
+========================================= */
+
+@media (max-width:350px){
+
+.premium-card{
+
+padding:17px;
+
+border-radius:24px;
+
+}
+
+
+.brand-title{
+
+font-size:23px;
+
+}
+
+
+.stamp-row{
+
+gap:2px;
+
+}
+
+
+.stamp-circle{
+
+width:34px;
+
+height:34px;
+
+min-width:34px;
+
+font-size:12px;
+
+}
+
+
+.reward-circle{
+
+width:34px;
+
+height:34px;
+
+min-width:34px;
+
+font-size:6px;
+
+line-height:7px;
+
+}
+
+
+.stamp-date{
+
+font-size:5px;
+
+}
+
+
+.quick-buttons{
+
+gap:3px;
+
+}
+
+
+.quick-buttons button{
+
+min-height:64px;
+
+font-size:8px;
+
+}
+
+
+.quick-buttons button i{
+
+font-size:15px;
+
+}
+
+
+.quick-buttons button small{
+
+font-size:4px;
+
+}
+
+
+.game-button{
+
+min-width:165px;
+
+padding:9px 12px;
+
+}
+
+
+.game-button .game-text{
+
+font-size:10px;
+
+letter-spacing:.4px;
+
+}
+
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+
+width:
+
+calc(100% - 12px);
+
+height:64px;
+
+bottom:6px;
+
+border-radius:19px;
+
+}
+
+
+.bottom-nav a{
+
+font-size:8px;
+
+}
+
+
+.bottom-nav a i{
+
+font-size:15px;
 
 }
 
 }
 
-/* ===========================
-   DESKTOP
-=========================== */
+
+/* =========================================
+   LARGE DESKTOP SAFETY
+========================================= */
 
 @media (min-width:1200px){
 
-.page{
+body{
 
-max-width:480px;
+padding-top:30px;
+
+}
+
+
+.premium-card{
+
+padding:25px;
+
+}
+
+
+.quick-buttons{
+
+gap:10px;
+
+}
+
+
+.quick-buttons button{
+
+min-height:80px;
 
 }
 
 }
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion:reduce){
+
+*,
+*::before,
+*::after{
+
+animation-duration:.01ms !important;
+
+animation-iteration-count:1 !important;
+
+transition-duration:.01ms !important;
+
+scroll-behavior:auto !important;
+
+}
+
+}
+
+
+/* =========================================
+   FINAL CARD POLISH
+========================================= */
+
+.premium-card{
+
+isolation:isolate;
+
+}
+
+
+.card-glow{
+
+pointer-events:none;
+
+}
+
+
+.card-shine{
+
+z-index:3;
+
+}
+
+
+.game-button{
+
+z-index:4;
+
+}
+
+
+/* =========================================
+   END OF CARD.CSS
+========================================= */
