@@ -7,23 +7,29 @@
 
 <meta
 name="viewport"
-content="width=device-width,initial-scale=1.0">
+content="width=device-width, initial-scale=1.0">
 
 <title>
+
 Rio Maggi Point • Review
+
 </title>
 
 <meta
 name="theme-color"
 content="#111111">
 
+<meta
+name="description"
+content="Rio Maggi Point Premium Customer Review">
+
 <link
 rel="manifest"
 href="manifest.json">
 
 <link
-rel="stylesheet"
-href="css/feedback.css">
+rel="icon"
+href="favicon.ico">
 
 <link
 rel="preconnect"
@@ -42,21 +48,31 @@ rel="stylesheet">
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
+<!-- COMMON LAYOUT -->
+
+<link
+rel="stylesheet"
+href="css/common.css">
+
+<!-- PAGE CSS -->
+
+<link
+rel="stylesheet"
+href="css/feedback.css">
+
 </head>
 
 <body>
 
 <div class="page">
 
-<div class="feedback-card">
+<div class="feedback-card app-card">
 
 <div class="card-glow"></div>
 
 <div class="card-shine"></div>
 
-<!-- ================= HEADER ================= -->
-
-<div class="feedback-header">
+<header class="feedback-header">
 
 <h1>
 
@@ -70,11 +86,9 @@ Premium Customer Review
 
 </p>
 
-</div>
+</header>
 
-<!-- ================= CUSTOMER ================= -->
-
-<div class="customer-section">
+<section class="customer-section">
 
 <div class="avatar-frame">
 
@@ -110,11 +124,9 @@ RIO-000000
 
 </div>
 
-</div>
+</section>
 
-<!-- ================= RATING ================= -->
-
-<div class="rating-box">
+<section class="rating-box">
 
 <h2>
 
@@ -142,11 +154,8 @@ Tap A Star
 
 </p>
 
-</div>
-
-<!-- ================= EMOJI FEELING ================= -->
-
-<div class="emoji-box">
+</section>
+<section class="emoji-box">
 
 <h2>
 
@@ -156,23 +165,51 @@ How Do You Feel?
 
 <div class="emoji-list">
 
-<button class="emoji-btn">😍</button>
+<button
+class="emoji-btn"
+type="button">
 
-<button class="emoji-btn">😊</button>
+😍
 
-<button class="emoji-btn">😋</button>
+</button>
 
-<button class="emoji-btn">🤩</button>
+<button
+class="emoji-btn"
+type="button">
 
-<button class="emoji-btn">🥰</button>
+😊
+
+</button>
+
+<button
+class="emoji-btn"
+type="button">
+
+😋
+
+</button>
+
+<button
+class="emoji-btn"
+type="button">
+
+🤩
+
+</button>
+
+<button
+class="emoji-btn"
+type="button">
+
+🥰
+
+</button>
 
 </div>
 
-</div>
+</section>
 
-<!-- ================= REVIEW BOX ================= -->
-
-<div class="review-box">
+<section class="review-box">
 
 <h2>
 
@@ -202,17 +239,17 @@ placeholder="Tell us about your Maggi experience today...">
 
 </div>
 
-</div>
+</section>
 
-<!-- ================= SUBMIT ================= -->
-
-<div class="submit-box">
+<section class="submit-box">
 
 <button
 
 id="submitFeedback"
 
-class="submit-btn">
+class="submit-btn"
+
+type="button">
 
 <i class="fa-solid fa-paper-plane"></i>
 
@@ -220,11 +257,9 @@ Submit Feedback
 
 </button>
 
-</div>
+</section>
 
-<!-- ================= THANK YOU ================= -->
-
-<div
+<section
 
 id="thankYouBox"
 
@@ -244,9 +279,9 @@ Your feedback has been submitted successfully.
 
 </p>
 
-</div>
+</section>
 
-<!-- ================= BOTTOM NAVIGATION ================= -->
+<div class="nav-space"></div>
 
 <nav class="bottom-nav">
 
@@ -297,6 +332,7 @@ Menu
 </span>
 
 </a>
+
 <a
 
 href="feedback.html"
@@ -313,8 +349,6 @@ Review
 
 </a>
 
-
-
 <a href="profile.html">
 
 <i class="fa-solid fa-user"></i>
@@ -327,45 +361,71 @@ Profile
 
 </a>
 
-
-
 </nav>
 
-
-
 </div>
 
 </div>
 
-
-
-<!-- ================= FEEDBACK JS ================= -->
+<!-- =========================
+FEEDBACK SCRIPT
+========================= -->
 
 <script
-
 type="module"
-
 src="js/feedback.js">
 
 </script>
 
-
+<!-- =========================
+SERVICE WORKER
+========================= -->
 
 <script>
 
 if("serviceWorker" in navigator){
 
-window.addEventListener("load",()=>{
+window.addEventListener(
 
-navigator.serviceWorker.register("./service-worker.js");
+"load",
 
-});
+async()=>{
+
+try{
+
+await navigator.serviceWorker.register(
+
+"./service-worker.js"
+
+);
+
+console.log(
+
+"Service Worker Registered"
+
+);
+
+}
+
+catch(error){
+
+console.error(
+
+"Service Worker Registration Failed:",
+
+error
+
+);
+
+}
+
+}
+
+);
 
 }
 
 </script>
-
-
 
 </body>
 
