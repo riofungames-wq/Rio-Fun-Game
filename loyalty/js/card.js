@@ -1041,3 +1041,562 @@ console.log(
 }
 
 );
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Rio Maggi Point
+</title>
+
+<meta
+name="theme-color"
+content="#111111">
+
+<link
+rel="manifest"
+href="manifest.json">
+
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<link
+rel="stylesheet"
+href="css/card.css">
+
+</head>
+
+<body>
+
+<div class="page">
+
+<div class="premium-card">
+
+<div class="card-glow"></div>
+
+<div class="card-shine"></div>
+
+<!-- HEADER -->
+
+<div class="card-header">
+
+<h1 class="brand-title">
+
+RIO MAGGI POINT
+
+</h1>
+
+<div class="brand-subtitle">
+
+Premium Loyalty Club
+
+</div>
+
+</div>
+
+
+<!-- CUSTOMER SECTION -->
+
+<div class="customer-section">
+
+<div class="avatar-frame">
+
+<img
+id="customerPhoto"
+src="assets/avatars/male.png"
+alt="Customer">
+
+</div>
+
+<div
+class="customer-name"
+id="customerName">
+
+Loading...
+
+</div>
+
+<div class="customer-id">
+
+ID :
+
+<span id="memberId">
+
+RIO-000000
+
+</span>
+
+</div>
+
+<div class="premium-member">
+
+PREMIUM MEMBER
+
+</div>
+
+
+<!-- PREMIUM FREE GAME BUTTON -->
+
+<button
+class="game-button"
+id="gameLink">
+
+<span class="game-icon">
+
+<i class="fa-solid fa-gamepad"></i>
+
+</span>
+
+<span class="game-text">
+
+CLICK FREE GAME
+
+</span>
+
+<span class="game-arrow">
+
+<i class="fa-solid fa-bolt"></i>
+
+</span>
+
+</button>
+
+</div>
+
+
+<!-- STAMP TITLE -->
+
+<div class="stamp-title">
+
+Collect 6 Stamps • Win 1 FREE VEG MAGGI
+
+</div>
+
+
+<!-- STAMP SECTION -->
+
+<div class="stamp-section">
+
+<div class="stamp-row">
+
+
+<!-- STAMP 1 -->
+
+<div class="stamp-item">
+
+<div
+class="stamp-circle"
+id="stamp1">
+
+<span>1</span>
+
+</div>
+
+<div
+class="stamp-date"
+id="stampDate1">
+
+--
+
+</div>
+
+</div>
+
+
+<!-- STAMP 2 -->
+
+<div class="stamp-item">
+
+<div
+class="stamp-circle"
+id="stamp2">
+
+<span>2</span>
+
+</div>
+
+<div
+class="stamp-date"
+id="stampDate2">
+
+--
+
+</div>
+
+</div>
+
+
+<!-- STAMP 3 -->
+
+<div class="stamp-item">
+
+<div
+class="stamp-circle"
+id="stamp3">
+
+<span>3</span>
+
+</div>
+
+<div
+class="stamp-date"
+id="stampDate3">
+
+--
+
+</div>
+
+</div>
+
+
+<!-- STAMP 4 -->
+
+<div class="stamp-item">
+
+<div
+class="stamp-circle"
+id="stamp4">
+
+<span>4</span>
+
+</div>
+
+<div
+class="stamp-date"
+id="stampDate4">
+
+--
+
+</div>
+
+</div>
+
+
+<!-- STAMP 5 -->
+
+<div class="stamp-item">
+
+<div
+class="stamp-circle"
+id="stamp5">
+
+<span>5</span>
+
+</div>
+
+<div
+class="stamp-date"
+id="stampDate5">
+
+--
+
+</div>
+
+</div>
+
+
+<!-- STAMP 6 -->
+
+<div class="stamp-item">
+
+<div
+class="stamp-circle"
+id="stamp6">
+
+<span>6</span>
+
+</div>
+
+<div
+class="stamp-date"
+id="stampDate6">
+
+--
+
+</div>
+
+</div>
+
+
+<!-- REWARD -->
+
+<div class="stamp-item reward-item">
+
+<div
+class="stamp-circle reward-circle"
+id="rewardCircle">
+
+<div class="reward-label">
+
+FREE
+<br>
+VEG
+<br>
+MAGGI
+
+</div>
+
+</div>
+
+<div class="stamp-date reward-date">
+
+REWARD
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- COUNTDOWN -->
+
+<div class="countdown-box">
+
+<div class="countdown-text">
+
+STAMP RESET IN
+
+</div>
+
+<div
+id="countdownDays"
+class="countdown-days">
+
+40 DAYS
+
+</div>
+
+</div>
+
+
+<!-- QUICK BUTTONS -->
+
+<div class="quick-buttons">
+
+
+<!-- CALL -->
+
+<button
+id="callBtn">
+
+<i class="fa-solid fa-phone"></i>
+
+<span>
+
+Call
+
+</span>
+
+</button>
+
+
+<!-- WHATSAPP -->
+
+<button
+id="whatsappBtn">
+
+<i class="fa-brands fa-whatsapp"></i>
+
+<span>
+
+WhatsApp
+
+</span>
+
+</button>
+
+
+<!-- HOME DELIVERY -->
+
+<button
+id="deliveryBtn"
+class="coming-soon-button">
+
+<i class="fa-solid fa-motorcycle"></i>
+
+<span>
+
+Delivery
+
+</span>
+
+<small>
+
+Coming Soon
+
+</small>
+
+</button>
+
+
+<!-- MAP -->
+
+<button
+id="mapBtn"
+class="coming-soon-button">
+
+<i class="fa-solid fa-location-dot"></i>
+
+<span>
+
+Map
+
+</span>
+
+<small>
+
+Coming Soon
+
+</small>
+
+</button>
+
+
+</div>
+
+
+<!-- BOTTOM NAVIGATION -->
+
+<nav class="bottom-nav">
+
+
+<a
+href="card.html"
+class="active">
+
+<i class="fa-solid fa-house"></i>
+
+<span>
+
+Home
+
+</span>
+
+</a>
+
+
+<a href="qr.html">
+
+<i class="fa-solid fa-qrcode"></i>
+
+<span>
+
+QR
+
+</span>
+
+</a>
+
+
+<a href="history.html">
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+<span>
+
+History
+
+</span>
+
+</a>
+
+
+<a href="menu.html">
+
+<i class="fa-solid fa-utensils"></i>
+
+<span>
+
+Menu
+
+</span>
+
+</a>
+
+
+<a href="feedback.html">
+
+<i class="fa-solid fa-heart"></i>
+
+<span>
+
+Review
+
+</span>
+
+</a>
+
+
+<a href="profile.html">
+
+<i class="fa-solid fa-user"></i>
+
+<span>
+
+Profile
+
+</span>
+
+</a>
+
+
+</nav>
+
+</div>
+
+</div>
+
+
+<!-- CARD JAVASCRIPT -->
+
+<script
+type="module"
+src="js/card.js">
+
+</script>
+
+
+<!-- SERVICE WORKER -->
+
+<script>
+
+if("serviceWorker" in navigator){
+
+window.addEventListener("load",()=>{
+
+navigator.serviceWorker.register("./service-worker.js");
+
+});
+
+}
+
+</script>
+
+</body>
+
+</html>
