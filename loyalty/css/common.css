@@ -7,7 +7,7 @@
 
 
 /* =========================
-RESET
+   RESET
 ========================= */
 
 *{
@@ -16,11 +16,13 @@ RESET
     box-sizing:border-box;
 }
 
+
 html{
     width:100%;
     min-height:100%;
     scroll-behavior:smooth;
 }
+
 
 body{
 
@@ -50,7 +52,7 @@ body{
 
 
 /* =========================
-MAIN PAGE
+   MAIN PAGE
 ========================= */
 
 .page{
@@ -77,7 +79,7 @@ MAIN PAGE
 
 
 /* =========================
-COMMON PREMIUM CARD
+   COMMON PREMIUM CARD
 ========================= */
 
 .app-card{
@@ -113,7 +115,7 @@ COMMON PREMIUM CARD
 
 
 /* =========================
-PREMIUM EFFECTS
+   PREMIUM EFFECTS
 ========================= */
 
 .card-glow{
@@ -143,6 +145,7 @@ PREMIUM EFFECTS
 
 }
 
+
 .card-shine{
 
     position:absolute;
@@ -163,8 +166,10 @@ PREMIUM EFFECTS
     pointer-events:none;
 
 }
+
+
 /* =========================
-FIXED PREMIUM BOTTOM NAVIGATION
+   FIXED PREMIUM BOTTOM NAVIGATION
 ========================= */
 
 .bottom-nav{
@@ -211,7 +216,7 @@ FIXED PREMIUM BOTTOM NAVIGATION
 
 
 /* =========================
-NAVIGATION LINKS
+   NAVIGATION LINKS
 ========================= */
 
 .bottom-nav a{
@@ -244,6 +249,7 @@ NAVIGATION LINKS
 
 }
 
+
 .bottom-nav a i{
 
     font-size:18px;
@@ -251,6 +257,7 @@ NAVIGATION LINKS
     transition:.25s ease;
 
 }
+
 
 .bottom-nav a span{
 
@@ -260,6 +267,7 @@ NAVIGATION LINKS
 
 }
 
+
 .bottom-nav a:hover{
 
     opacity:1;
@@ -267,6 +275,7 @@ NAVIGATION LINKS
     transform:translateY(-2px);
 
 }
+
 
 .bottom-nav a.active{
 
@@ -276,6 +285,7 @@ NAVIGATION LINKS
 
 }
 
+
 .bottom-nav a.active i{
 
     transform:scale(1.12);
@@ -284,7 +294,7 @@ NAVIGATION LINKS
 
 
 /* =========================
-SAFE SPACE
+   SAFE SPACE
 ========================= */
 
 .nav-space{
@@ -296,8 +306,10 @@ SAFE SPACE
     flex-shrink:0;
 
 }
+
+
 /* =========================
-MOBILE RESPONSIVE
+   MOBILE RESPONSIVE
 ========================= */
 
 @media (max-width:480px){
@@ -308,6 +320,7 @@ MOBILE RESPONSIVE
 
     }
 
+
     .page{
 
         max-width:100%;
@@ -315,6 +328,7 @@ MOBILE RESPONSIVE
         padding-bottom:105px;
 
     }
+
 
     .app-card{
 
@@ -330,6 +344,7 @@ MOBILE RESPONSIVE
 
     }
 
+
     .bottom-nav{
 
         width:calc(100% - 16px);
@@ -344,11 +359,13 @@ MOBILE RESPONSIVE
 
     }
 
+
     .bottom-nav a i{
 
         font-size:17px;
 
     }
+
 
     .bottom-nav a{
 
@@ -360,7 +377,7 @@ MOBILE RESPONSIVE
 
 
 /* =========================
-TABLET
+   TABLET
 ========================= */
 
 @media (min-width:481px) and (max-width:899px){
@@ -375,7 +392,7 @@ TABLET
 
 
 /* =========================
-DESKTOP
+   DESKTOP
 ========================= */
 
 @media (min-width:900px){
@@ -386,11 +403,13 @@ DESKTOP
 
     }
 
+
     .page{
 
         max-width:400px;
 
     }
+
 
     .app-card{
 
@@ -402,7 +421,7 @@ DESKTOP
 
 
 /* =========================
-SAFE AREA SUPPORT
+   SAFE AREA SUPPORT
 ========================= */
 
 @supports (padding:max(0px)){
@@ -417,7 +436,7 @@ SAFE AREA SUPPORT
 
 
 /* =========================
-SCROLLBAR
+   SCROLLBAR
 ========================= */
 
 ::-webkit-scrollbar{
@@ -426,11 +445,13 @@ SCROLLBAR
 
 }
 
+
 ::-webkit-scrollbar-track{
 
     background:#161616;
 
 }
+
 
 ::-webkit-scrollbar-thumb{
 
@@ -440,6 +461,7 @@ SCROLLBAR
 
 }
 
+
 ::-webkit-scrollbar-thumb:hover{
 
     background:#ffd86a;
@@ -448,5 +470,1083 @@ SCROLLBAR
 
 
 /* =========================
-END COMMON.CSS
+   END COMMON.CSS PART 1
+========================= */
+/* =========================================
+   RIO MAGGI POINT
+   COMMON.CSS
+   PREMIUM RESPONSIVE LAYOUT
+   PART 2 / 3
+========================================= */
+
+
+/* =========================
+   GLOBAL CARD CONTENT SAFETY
+========================= */
+
+.app-card > *:not(.card-glow):not(.card-shine){
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+/* =========================
+   COMMON HEADERS
+========================= */
+
+.app-card h1,
+.app-card h2,
+.app-card h3,
+.app-card p{
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+
+/* =========================
+   COMMON CUSTOMER SECTION
+========================= */
+
+.customer-section{
+
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    margin-top:20px;
+
+    margin-bottom:20px;
+
+}
+
+
+/* =========================
+   CUSTOMER AVATAR
+========================= */
+
+.avatar-frame{
+
+    position:relative;
+
+    width:82px;
+
+    height:82px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-bottom:10px;
+
+}
+
+
+.avatar-frame img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:2px solid #d4af37;
+
+    display:block;
+
+    background:#222222;
+
+}
+
+
+/* =========================
+   CUSTOMER NAME
+========================= */
+
+.customer-name{
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:#ffffff;
+
+    line-height:1.3;
+
+    margin-top:5px;
+
+    word-break:break-word;
+
+}
+
+
+/* =========================
+   CUSTOMER ID
+========================= */
+
+.customer-id{
+
+    margin-top:5px;
+
+    font-size:10px;
+
+    font-weight:500;
+
+    color:#999999;
+
+    letter-spacing:.5px;
+
+}
+
+
+.customer-id span{
+
+    color:#d8c17b;
+
+    font-weight:600;
+
+}
+
+
+/* =========================
+   COMMON PREMIUM BADGE
+========================= */
+
+.premium-member,
+.premium-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:5px;
+
+    margin-top:9px;
+
+    padding:5px 12px;
+
+    border-radius:20px;
+
+    border:1px solid rgba(212,175,55,.55);
+
+    background:
+
+    linear-gradient(
+
+        135deg,
+
+        rgba(212,175,55,.18),
+
+        rgba(212,175,55,.05)
+
+    );
+
+    color:#f7de8b;
+
+    font-size:9px;
+
+    font-weight:700;
+
+    letter-spacing:.8px;
+
+}
+
+
+/* =========================
+   COMMON SECTION TITLE
+========================= */
+
+.section-title{
+
+    width:100%;
+
+    margin-bottom:12px;
+
+    color:#f7de8b;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+
+}
+
+
+/* =========================
+   COMMON BUTTON RESET
+========================= */
+
+button{
+
+    font-family:'Poppins',sans-serif;
+
+    border:none;
+
+    outline:none;
+
+    cursor:pointer;
+
+    -webkit-tap-highlight-color:transparent;
+
+}
+
+
+/* =========================
+   BUTTON ACCESSIBILITY
+========================= */
+
+button:focus-visible,
+a:focus-visible{
+
+    outline:2px solid #f7de8b;
+
+    outline-offset:3px;
+
+}
+
+
+/* =========================
+   COMMON INPUTS
+========================= */
+
+input,
+textarea,
+select{
+
+    width:100%;
+
+    font-family:'Poppins',sans-serif;
+
+    color:#ffffff;
+
+    background:#181818;
+
+    border:1px solid rgba(212,175,55,.30);
+
+    border-radius:12px;
+
+    outline:none;
+
+    transition:.25s ease;
+
+}
+
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    border-color:#d4af37;
+
+    box-shadow:
+
+        0 0 0 3px
+
+        rgba(212,175,55,.10);
+
+}
+
+
+/* =========================
+   COMMON TEXTAREA
+========================= */
+
+textarea{
+
+    resize:vertical;
+
+    min-height:120px;
+
+}
+
+
+/* =========================
+   COMMON LINK RESET
+========================= */
+
+a{
+
+    -webkit-tap-highlight-color:transparent;
+
+}
+
+
+/* =========================
+   COMMON IMAGE SAFETY
+========================= */
+
+img{
+
+    max-width:100%;
+
+    height:auto;
+
+}
+
+
+/* =========================
+   COMMON PREMIUM APP CARD
+========================= */
+
+.app-card{
+
+    isolation:isolate;
+
+}
+
+
+/* =========================
+   COMMON CARD EFFECT LAYER
+========================= */
+
+.card-glow{
+
+    pointer-events:none;
+
+    z-index:0;
+
+}
+
+
+.card-shine{
+
+    pointer-events:none;
+
+    z-index:1;
+
+}
+
+
+/* =========================
+   COMMON TOUCH EFFECT
+========================= */
+
+button:active{
+
+    transform:scale(.97);
+
+}
+
+
+.bottom-nav a:active{
+
+    transform:scale(.94);
+
+}
+
+
+/* =========================
+   SMALL MOBILE SAFETY
+========================= */
+
+@media (max-width:350px){
+
+    body{
+
+        padding:8px;
+
+    }
+
+
+    .app-card{
+
+        padding:16px;
+
+        padding-bottom:105px;
+
+        border-radius:22px;
+
+    }
+
+
+    .customer-name{
+
+        font-size:16px;
+
+    }
+
+
+    .customer-id{
+
+        font-size:9px;
+
+    }
+
+
+    .avatar-frame{
+
+        width:72px;
+
+        height:72px;
+
+    }
+
+
+    .bottom-nav{
+
+        width:calc(100% - 12px);
+
+        height:62px;
+
+        bottom:6px;
+
+        border-radius:18px;
+
+        padding:0 5px;
+
+    }
+
+
+    .bottom-nav a{
+
+        font-size:8px;
+
+        gap:4px;
+
+    }
+
+
+    .bottom-nav a i{
+
+        font-size:15px;
+
+    }
+
+}
+
+
+/* =========================
+   MEDIUM MOBILE
+========================= */
+
+@media (min-width:351px) and (max-width:480px){
+
+    .customer-name{
+
+        font-size:17px;
+
+    }
+
+
+    .avatar-frame{
+
+        width:78px;
+
+        height:78px;
+
+    }
+
+}
+
+
+/* =========================
+   TABLET SAFETY
+========================= */
+
+@media (min-width:481px){
+
+    .app-card{
+
+        padding:24px;
+
+        padding-bottom:115px;
+
+    }
+
+
+    .avatar-frame{
+
+        width:88px;
+
+        height:88px;
+
+    }
+
+
+    .customer-name{
+
+        font-size:19px;
+
+    }
+
+}
+
+
+/* =========================
+   DESKTOP SAFETY
+========================= */
+
+@media (min-width:900px){
+
+    .app-card{
+
+        padding:26px;
+
+        padding-bottom:120px;
+
+    }
+
+
+    .bottom-nav{
+
+        max-width:400px;
+
+    }
+
+}
+
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+
+        animation-duration:.01ms !important;
+
+        animation-iteration-count:1 !important;
+
+        transition-duration:.01ms !important;
+
+        scroll-behavior:auto !important;
+
+    }
+
+}
+
+
+/* =========================
+   END COMMON.CSS PART 2
+========================= */
+/* =========================================
+   RIO MAGGI POINT
+   COMMON.CSS
+   PREMIUM RESPONSIVE LAYOUT
+   PART 3 / 3
+   FINAL PART
+========================================= */
+
+
+/* =========================
+   PREMIUM SCROLL BEHAVIOR
+========================= */
+
+html{
+
+    scroll-padding-bottom:120px;
+
+}
+
+
+/* =========================
+   CONTENT BOTTOM SAFETY
+========================= */
+
+.page{
+
+    padding-bottom:120px;
+
+}
+
+
+.app-card{
+
+    padding-bottom:125px;
+
+}
+
+
+/* =========================
+   BOTTOM NAV FINAL FIX
+========================= */
+
+.bottom-nav{
+
+    pointer-events:auto;
+
+    user-select:none;
+
+    -webkit-user-select:none;
+
+    touch-action:manipulation;
+
+}
+
+
+/* =========================
+   NAVIGATION LINK FINAL FIX
+========================= */
+
+.bottom-nav a{
+
+    position:relative;
+
+    z-index:2;
+
+    cursor:pointer;
+
+    touch-action:manipulation;
+
+}
+
+
+/* =========================
+   ACTIVE NAV INDICATOR
+========================= */
+
+.bottom-nav a.active::after{
+
+    content:"";
+
+    position:absolute;
+
+    bottom:5px;
+
+    left:50%;
+
+    width:22px;
+
+    height:3px;
+
+    transform:translateX(-50%);
+
+    border-radius:10px;
+
+    background:#ffd86a;
+
+    box-shadow:
+
+        0 0 8px
+
+        rgba(255,216,106,.45);
+
+}
+
+
+/* =========================
+   NAVIGATION HOVER EFFECT
+========================= */
+
+@media (hover:hover){
+
+    .bottom-nav a:hover{
+
+        color:#ffd86a;
+
+        opacity:1;
+
+    }
+
+}
+
+
+/* =========================
+   NAVIGATION MOBILE TOUCH
+========================= */
+
+@media (hover:none){
+
+    .bottom-nav a:hover{
+
+        transform:none;
+
+    }
+
+}
+
+
+/* =========================
+   COMMON PREMIUM DIVIDER
+========================= */
+
+.premium-divider{
+
+    width:100%;
+
+    height:1px;
+
+    margin:18px 0;
+
+    background:
+
+    linear-gradient(
+
+        90deg,
+
+        transparent,
+
+        rgba(212,175,55,.55),
+
+        transparent
+
+    );
+
+}
+
+
+/* =========================
+   COMMON LOADING STATE
+========================= */
+
+.loading{
+
+    opacity:.65;
+
+    animation:
+
+        loadingPulse 1.5s ease-in-out
+
+        infinite;
+
+}
+
+
+@keyframes loadingPulse{
+
+    0%{
+
+        opacity:.45;
+
+    }
+
+    50%{
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        opacity:.45;
+
+    }
+
+}
+
+
+/* =========================
+   COMMON HIDDEN STATE
+========================= */
+
+.hidden{
+
+    display:none !important;
+
+}
+
+
+/* =========================
+   COMMON VISIBILITY STATE
+========================= */
+
+.invisible{
+
+    visibility:hidden !important;
+
+}
+
+
+/* =========================
+   COMMON DISABLED STATE
+========================= */
+
+button:disabled,
+button.disabled{
+
+    opacity:.45;
+
+    cursor:not-allowed;
+
+    pointer-events:none;
+
+    transform:none !important;
+
+}
+
+
+/* =========================
+   COMMON SUCCESS STATE
+========================= */
+
+.success{
+
+    color:#9be28f !important;
+
+}
+
+
+/* =========================
+   COMMON ERROR STATE
+========================= */
+
+.error{
+
+    color:#ff8f8f !important;
+
+}
+
+
+/* =========================
+   COMMON WARNING STATE
+========================= */
+
+.warning{
+
+    color:#f7de8b !important;
+
+}
+
+
+/* =========================
+   COMMON PREMIUM GOLD TEXT
+========================= */
+
+.gold-text{
+
+    color:#f7de8b;
+
+}
+
+
+/* =========================
+   COMMON TEXT CENTER
+========================= */
+
+.text-center{
+
+    text-align:center;
+
+}
+
+
+/* =========================
+   COMMON FULL WIDTH
+========================= */
+
+.full-width{
+
+    width:100%;
+
+}
+
+
+/* =========================
+   COMMON NO SELECT UI
+========================= */
+
+.no-select{
+
+    user-select:none;
+
+    -webkit-user-select:none;
+
+}
+
+
+/* =========================
+   COMMON TOUCH SAFETY
+========================= */
+
+button,
+a{
+
+    -webkit-tap-highlight-color:
+
+        transparent;
+
+}
+
+
+/* =========================
+   FINAL MOBILE NAV SAFETY
+========================= */
+
+@media (max-width:480px){
+
+    .bottom-nav{
+
+        bottom:
+
+        max(
+
+            10px,
+
+            env(safe-area-inset-bottom)
+
+        );
+
+    }
+
+
+    .bottom-nav a.active::after{
+
+        bottom:4px;
+
+        width:18px;
+
+        height:2px;
+
+    }
+
+}
+
+
+/* =========================
+   FINAL SMALL SCREEN SAFETY
+========================= */
+
+@media (max-width:350px){
+
+    .page{
+
+        padding-bottom:110px;
+
+    }
+
+
+    .app-card{
+
+        padding-bottom:115px;
+
+    }
+
+
+    .bottom-nav a.active::after{
+
+        width:16px;
+
+    }
+
+}
+
+
+/* =========================
+   FINAL LARGE SCREEN SAFETY
+========================= */
+
+@media (min-width:1200px){
+
+    body{
+
+        padding-top:30px;
+
+    }
+
+
+    .page{
+
+        max-width:400px;
+
+    }
+
+
+    .app-card{
+
+        padding:28px;
+
+        padding-bottom:125px;
+
+    }
+
+
+    .bottom-nav{
+
+        max-width:400px;
+
+    }
+
+}
+
+
+/* =========================
+   FINAL CARD CONTENT SAFETY
+========================= */
+
+.app-card > *{
+
+    max-width:100%;
+
+}
+
+
+/* =========================
+   FINAL OVERFLOW SAFETY
+========================= */
+
+.app-card{
+
+    overflow:hidden;
+
+}
+
+
+.page{
+
+    overflow:visible;
+
+}
+
+
+/* =========================
+   FINAL FOCUS SAFETY
+========================= */
+
+a:focus-visible{
+
+    outline:
+
+        2px solid #f7de8b;
+
+    outline-offset:3px;
+
+    border-radius:8px;
+
+}
+
+
+/* =========================
+   FINAL COMMON.CSS STATUS
+========================= */
+
+body{
+
+    -webkit-font-smoothing:antialiased;
+
+    -moz-osx-font-smoothing:grayscale;
+
+}
+
+
+/* =========================
+   END OF COMMON.CSS
+   PART 3 / 3
+   FINAL
 ========================= */
