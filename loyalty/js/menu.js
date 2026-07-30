@@ -1,428 +1,706 @@
-// Rio Maggi Point
-// Premium Menu System
+// =====================================
+// RIO MAGGI POINT
+// PREMIUM VEG FOOD MENU
+// MENU.JS - PART 1
+// =====================================
 
+
+// =====================================
+// WAIT FOR DOM
+// =====================================
 
 document.addEventListener(
-"DOMContentLoaded",
-()=>{
+
+    "DOMContentLoaded",
+
+    () => {
 
 
-const categoryCards =
-document.querySelectorAll(
-".category-card"
+        // =====================================
+        // CATEGORY CARDS
+        // =====================================
+
+        const categoryCards =
+
+            document.querySelectorAll(
+
+                ".category-card"
+
+            );
+
+
+        // =====================================
+        // FOOD SECTIONS
+        // =====================================
+
+        const foodSections =
+
+            document.querySelectorAll(
+
+                ".food-section"
+
+            );
+
+
+        // =====================================
+        // CHECK CATEGORY DATA
+        // =====================================
+
+        if (
+
+            !categoryCards.length ||
+
+            !foodSections.length
+
+        ) {
+
+            console.warn(
+
+                "Menu categories or food sections not found."
+
+            );
+
+            return;
+
+        }
+
+
+        // =====================================
+        // CATEGORY CLICK EVENT
+        // =====================================
+
+        categoryCards.forEach(
+
+            card => {
+
+
+                card.addEventListener(
+
+                    "click",
+
+                    () => {
+
+
+                        // =====================================
+                        // GET TARGET SECTION
+                        // =====================================
+
+                        const targetId =
+
+                            card.dataset.target;
+
+
+                        // =====================================
+                        // INVALID TARGET CHECK
+                        // =====================================
+
+                        if (!targetId) {
+
+                            console.warn(
+
+                                "Category target not found."
+
+                            );
+
+                            return;
+
+                        }
+
+
+                        // =====================================
+                        // REMOVE ACTIVE FROM ALL
+                        // =====================================
+
+                        categoryCards.forEach(
+
+                            item => {
+
+                                item.classList.remove(
+
+                                    "active"
+
+                                );
+
+                            }
+
+                        );
+
+
+                        // =====================================
+                        // ADD ACTIVE TO CLICKED CATEGORY
+                        // =====================================
+
+                        card.classList.add(
+
+                            "active"
+
+                        );
+
+
+                        // =====================================
+                        // HIDE ALL FOOD SECTIONS
+                        // =====================================
+
+                        foodSections.forEach(
+
+                            section => {
+
+                                section.classList.remove(
+
+                                    "active"
+
+                                );
+
+                            }
+
+                        );
+
+
+                        // =====================================
+                        // FIND TARGET FOOD SECTION
+                        // =====================================
+
+                        const targetSection =
+
+                            document.getElementById(
+
+                                targetId
+
+                            );
+
+
+                        // =====================================
+                        // SHOW TARGET SECTION
+                        // =====================================
+
+                        if (targetSection) {
+
+                            targetSection.classList.add(
+
+                                "active"
+
+                            );
+
+
+                            // =====================================
+                            // SMOOTH SCROLL
+                            // =====================================
+
+                            targetSection.scrollIntoView({
+
+                                behavior: "smooth",
+
+                                block: "start"
+
+                            });
+
+                        }
+
+
+                    }
+
+                );
+
+
+            }
+
+        );
+
+
+        // =====================================
+        // MENU READY
+        // =====================================
+
+        console.log(
+
+            "Rio Maggi Point Premium Menu Loaded Successfully"
+
+        );
+
+
+    }
+
 );
 
 
+// =====================================
+// MENU.JS - PART 1 END
+// =====================================
+// =====================================
+// RIO MAGGI POINT
+// PREMIUM VEG FOOD MENU
+// MENU.JS - PART 2
+// =====================================
 
-const foodSections =
-document.querySelectorAll(
-".food-section"
+
+// =====================================
+// CATEGORY ACTIVE STATE ON SCROLL
+// =====================================
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+
+        // =====================================
+        // GET CATEGORY CARDS
+        // =====================================
+
+        const categoryCards =
+
+            document.querySelectorAll(
+
+                ".category-card"
+
+            );
+
+
+        // =====================================
+        // GET FOOD SECTIONS
+        // =====================================
+
+        const foodSections =
+
+            document.querySelectorAll(
+
+                ".food-section"
+
+            );
+
+
+        // =====================================
+        // STOP IF ELEMENTS NOT FOUND
+        // =====================================
+
+        if (
+
+            !categoryCards.length ||
+
+            !foodSections.length
+
+        ) {
+
+            return;
+
+        }
+
+
+        // =====================================
+        // UPDATE ACTIVE CATEGORY
+        // =====================================
+
+        const updateActiveCategory =
+
+            () => {
+
+
+                let currentSection =
+
+                    null;
+
+
+                const scrollPosition =
+
+                    window.scrollY + 180;
+
+
+                // =====================================
+                // FIND CURRENT SECTION
+                // =====================================
+
+                foodSections.forEach(
+
+                    section => {
+
+
+                        const sectionTop =
+
+                            section.offsetTop;
+
+
+                        const sectionBottom =
+
+                            sectionTop +
+
+                            section.offsetHeight;
+
+
+                        if (
+
+                            scrollPosition >= sectionTop &&
+
+                            scrollPosition < sectionBottom
+
+                        ) {
+
+                            currentSection =
+
+                                section.id;
+
+                        }
+
+
+                    }
+
+                );
+
+
+                // =====================================
+                // UPDATE CATEGORY CARDS
+                // =====================================
+
+                if (currentSection) {
+
+
+                    categoryCards.forEach(
+
+                        card => {
+
+
+                            const target =
+
+                                card.dataset.target;
+
+
+                            card.classList.toggle(
+
+                                "active",
+
+                                target === currentSection
+
+                            );
+
+
+                        }
+
+                    );
+
+
+                }
+
+
+            };
+
+
+        // =====================================
+        // SCROLL EVENT
+        // =====================================
+
+        window.addEventListener(
+
+            "scroll",
+
+            updateActiveCategory,
+
+            {
+
+                passive: true
+
+            }
+
+        );
+
+
+        // =====================================
+        // INITIAL ACTIVE CATEGORY
+        // =====================================
+
+        updateActiveCategory();
+
+
+    }
+
 );
 
 
+// =====================================
+// MENU.JS - PART 2 END
+// =====================================
+// =====================================
+// RIO MAGGI POINT
+// PREMIUM VEG FOOD MENU
+// MENU.JS - PART 3 OF 3
+// FINAL PART
+// =====================================
 
-const foodContainer =
-document.querySelector(
-".food-container"
+
+// =====================================
+// ACTIVE CATEGORY ON PAGE LOAD
+// =====================================
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+
+        // =====================================
+        // GET ALL CATEGORY CARDS
+        // =====================================
+
+        const categoryCards =
+
+            document.querySelectorAll(
+
+                ".category-card"
+
+            );
+
+
+        // =====================================
+        // GET ALL FOOD SECTIONS
+        // =====================================
+
+        const foodSections =
+
+            document.querySelectorAll(
+
+                ".food-section"
+
+            );
+
+
+        // =====================================
+        // CHECK ELEMENTS
+        // =====================================
+
+        if (
+
+            !categoryCards.length ||
+
+            !foodSections.length
+
+        ) {
+
+            console.warn(
+
+                "Menu elements are missing."
+
+            );
+
+            return;
+
+        }
+
+
+        // =====================================
+        // SHOW FIRST CATEGORY BY DEFAULT
+        // =====================================
+
+        let activeCard =
+
+            document.querySelector(
+
+                ".category-card.active"
+
+            );
+
+
+        // =====================================
+        // IF NO ACTIVE CARD
+        // =====================================
+
+        if (!activeCard) {
+
+
+            activeCard =
+
+                categoryCards[0];
+
+
+            activeCard.classList.add(
+
+                "active"
+
+            );
+
+
+        }
+
+
+        // =====================================
+        // GET DEFAULT TARGET
+        // =====================================
+
+        const defaultTarget =
+
+            activeCard.dataset.target;
+
+
+        // =====================================
+        // SHOW DEFAULT FOOD SECTION
+        // =====================================
+
+        foodSections.forEach(
+
+            section => {
+
+
+                if (
+
+                    section.id ===
+
+                    defaultTarget
+
+                ) {
+
+
+                    section.classList.add(
+
+                        "active"
+
+                    );
+
+
+                }
+
+                else {
+
+
+                    section.classList.remove(
+
+                        "active"
+
+                    );
+
+
+                }
+
+
+            }
+
+        );
+
+
+        // =====================================
+        // CATEGORY CLICK HANDLER
+        // =====================================
+
+        categoryCards.forEach(
+
+            card => {
+
+
+                card.addEventListener(
+
+                    "click",
+
+                    () => {
+
+
+                        const targetId =
+
+                            card.dataset.target;
+
+
+                        // =====================================
+                        // UPDATE ACTIVE CARD
+                        // =====================================
+
+                        categoryCards.forEach(
+
+                            item => {
+
+                                item.classList.remove(
+
+                                    "active"
+
+                                );
+
+                            }
+
+                        );
+
+
+                        card.classList.add(
+
+                            "active"
+
+                        );
+
+
+                        // =====================================
+                        // UPDATE FOOD SECTION
+                        // =====================================
+
+                        foodSections.forEach(
+
+                            section => {
+
+
+                                section.classList.toggle(
+
+                                    "active",
+
+                                    section.id ===
+
+                                    targetId
+
+                                );
+
+
+                            }
+
+                        );
+
+
+                        // =====================================
+                        // SCROLL TO FOOD AREA
+                        // =====================================
+
+                        const targetSection =
+
+                            document.getElementById(
+
+                                targetId
+
+                            );
+
+
+                        if (targetSection) {
+
+
+                            targetSection.scrollIntoView({
+
+                                behavior: "smooth",
+
+                                block: "start"
+
+                            });
+
+
+                        }
+
+
+                    }
+
+                );
+
+
+            }
+
+        );
+
+
+        // =====================================
+        // MENU SYSTEM READY
+        // =====================================
+
+        console.log(
+
+            "🍜 Rio Maggi Point Menu System Ready"
+
+        );
+
+
+    }
+
 );
 
 
-
-
-
-
-
-
-// CATEGORY SWITCH SYSTEM
-
-
-categoryCards.forEach(
-(card)=>{
-
-
-card.addEventListener(
-"click",
-()=>{
-
-
-const target =
-card.getAttribute(
-"data-target"
-);
-
-
-
-
-
-// REMOVE ACTIVE FROM ALL CATEGORY
-
-
-categoryCards.forEach(
-(item)=>{
-
-item.classList.remove(
-"active"
-);
-
-});
-
-
-
-
-
-// ADD ACTIVE TO CLICKED CATEGORY
-
-
-card.classList.add(
-"active"
-);
-
-
-
-
-
-
-
-// HIDE ALL FOOD SECTIONS
-
-
-foodSections.forEach(
-(section)=>{
-
-
-section.classList.remove(
-"active"
-);
-
-
-});
-
-
-
-
-
-
-
-
-// SHOW SELECTED FOOD SECTION
-
-
-const selectedSection =
-document.getElementById(
-target
-);
-
-
-
-
-
-if(selectedSection){
-
-
-
-selectedSection.classList.add(
-"active"
-);
-
-
-
-
-
-// Restart section animation
-
-
-selectedSection.style.animation =
-"none";
-
-
-
-selectedSection.offsetHeight;
-
-
-
-selectedSection.style.animation =
-"sectionOpen .5s ease";
-
-
-
-}
-
-
-
-
-
-
-
-// Smooth scroll
-
-
-setTimeout(
-()=>{
-
-
-if(foodContainer){
-
-
-foodContainer.scrollIntoView({
-
-behavior:"smooth",
-
-block:"start"
-
-});
-
-
-}
-
-
-},
-150
-);
-
-
-
-
-
-
-
-// Restart food icon animation
-
-
-restartFoodAnimation();
-
-
-
-
-
-
-});
-
-
-});
-
-
-
-
-
-
-
-
-
-// FOOD ANIMATION RESET FUNCTION
-
-
-function restartFoodAnimation(){
-
-
-
-const animationElements =
-document.querySelectorAll(
-".food-animation"
-);
-
-
-
-
-
-animationElements.forEach(
-(element)=>{
-
-
-
-element.style.animation =
-"none";
-
-
-
-element.offsetHeight;
-
-
-
-element.style.animation =
-"";
-
-
-
-});
-
-
-
-}
-
-
-
-
-
-
-
-
-// DEFAULT LOAD CHECK
-
-
-const firstCategory =
-document.querySelector(
-".category-card.active"
-);
-
-
-
-const firstSection =
-document.querySelector(
-".food-section.active"
-);
-
-
-
-
-
-
-if(firstCategory && firstSection){
-
-
-firstCategory.classList.add(
-"active"
-);
-
-
-firstSection.classList.add(
-"active"
-);
-
-
-
-}
-  
-
-
-
-
-
-// BOTTOM NAVIGATION ACTIVE CONTROL
-
-
-const bottomLinks =
-document.querySelectorAll(
-".bottom-nav a"
-);
-
-
-
-
-
-bottomLinks.forEach(
-(link)=>{
-
-
-link.addEventListener(
-"click",
-(e)=>{
-
-
-const href =
-link.getAttribute(
-"href"
-);
-
-
-
-
-if(href === "menu.html"){
-
-
-e.preventDefault();
-
-
-
-bottomLinks.forEach(
-(item)=>{
-
-
-item.classList.remove(
-"active"
-);
-
-
-});
-
-
-
-
-link.classList.add(
-"active"
-);
-
-
-
-}
-
-
-
-});
-
-
-});
-
-
-
-
-
-
-
-
-
-// CATEGORY CARD TOUCH EFFECT
-
-
-categoryCards.forEach(
-(card)=>{
-
-
-card.addEventListener(
-"touchstart",
-()=>{
-
-
-card.style.transform =
-"scale(0.96)";
-
-
-
-});
-
-
-
-
-
-card.addEventListener(
-"touchend",
-()=>{
-
-
-card.style.transform =
-"";
-
-
-});
-
-
-});
-
-
-
-
-
-
-
-
-// CHECK MENU LOADED
-
-
-console.log(
-"Rio Maggi Point Menu Loaded Successfully"
-);
-
-
-
-
-
-});
+// =====================================
+// END MENU.JS
+// =====================================
