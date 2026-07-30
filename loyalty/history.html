@@ -17,17 +17,17 @@ Rio Maggi Point • History
 name="theme-color"
 content="#111111">
 
+<meta
+name="description"
+content="Rio Maggi Point Loyalty History">
+
 <link
 rel="manifest"
 href="manifest.json">
 
 <link
-rel="stylesheet"
-href="css/common.css">
-
-<link
-rel="stylesheet"
-href="css/history.css">
+rel="icon"
+href="favicon.ico">
 
 <link
 rel="preconnect"
@@ -45,6 +45,14 @@ rel="stylesheet">
 <link
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<link
+rel="stylesheet"
+href="css/common.css">
+
+<link
+rel="stylesheet"
+href="css/history.css">
 
 </head>
 
@@ -79,22 +87,26 @@ Premium Loyalty History
 <div class="avatar-frame">
 
 <img
+
 id="historyPhoto"
+
 src="assets/avatars/default.png"
-alt="Customer">
+
+alt="Customer Photo"
+
+loading="lazy">
 
 </div>
 
 <div
-class="customer-name"
-id="historyName">
+id="historyName"
+class="customer-name">
 
 Loading...
 
 </div>
 
-<div
-class="customer-id">
+<div class="customer-id">
 
 ID :
 
@@ -110,6 +122,8 @@ RIO-000000
 
 <section class="status-box">
 
+<div class="status-header">
+
 <div class="status-title">
 
 CURRENT STAMPS
@@ -117,16 +131,28 @@ CURRENT STAMPS
 </div>
 
 <div
-class="status-value"
-id="historyStampCount">
+id="historyStampCount"
+class="status-value">
 
 0 / 6
 
 </div>
 
+</div>
+
+<div class="stamp-progress">
+
+<div
+id="stampProgressFill"
+class="stamp-progress-fill">
+
+</div>
+
+</div>
+
 </section>
 
-<section>
+<section class="timeline-section">
 
 <div class="section-title">
 
@@ -138,13 +164,12 @@ STAMP TIMELINE
 id="historyTimeline"
 class="timeline-list">
 
-<!-- Firebase History Will Load Here -->
+<!-- Firebase Timeline -->
 
 </div>
 
 </section>
-
-<section>
+<section class="reward-section">
 
 <div class="section-title">
 
@@ -170,7 +195,7 @@ FREE VEG MAGGI
 
 <p id="rewardStatus">
 
-Locked
+Collect 6 More Stamp(s)
 
 </p>
 
@@ -180,7 +205,7 @@ Locked
 
 </section>
 
-<section>
+<section class="statistics-section">
 
 <div class="section-title">
 
@@ -199,8 +224,8 @@ Total Visits
 </div>
 
 <div
-class="stat-value"
-id="totalVisits">
+id="totalVisits"
+class="stat-value">
 
 0
 
@@ -212,13 +237,13 @@ id="totalVisits">
 
 <div class="stat-label">
 
-Rewards
+Rewards Earned
 
 </div>
 
 <div
-class="stat-value"
-id="totalRewardCount">
+id="totalRewardCount"
+class="stat-value">
 
 0
 
@@ -235,12 +260,42 @@ Member Since
 </div>
 
 <div
-class="stat-value"
-id="memberSince">
+id="memberSince"
+class="stat-value">
 
 --
 
 </div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="history-note">
+
+<div class="info-card">
+
+<div class="info-icon">
+
+<i class="fa-solid fa-circle-info"></i>
+
+</div>
+
+<div class="info-text">
+
+<h3>
+
+How Loyalty History Works
+
+</h3>
+
+<p>
+
+Every successful Maggi purchase adds one stamp to your loyalty card. Complete six stamps to unlock one FREE VEG MAGGI reward automatically.
+
+</p>
 
 </div>
 
@@ -313,8 +368,6 @@ Review
 
 </a>
 
-
-
 <a href="profile.html">
 
 <i class="fa-solid fa-user"></i>
@@ -327,32 +380,45 @@ Profile
 
 </a>
 
-
-
 </nav>
 
 </div>
 
 </div>
 
-<!-- ================= HISTORY JS ================= -->
+<!-- =========================
+HISTORY SCRIPT
+========================= -->
 
 <script
 type="module"
 src="js/history.js">
+
 </script>
 
-<!-- ================= SERVICE WORKER ================= -->
+<!-- =========================
+SERVICE WORKER
+========================= -->
 
 <script>
 
 if("serviceWorker" in navigator){
 
-window.addEventListener("load",()=>{
+window.addEventListener(
 
-navigator.serviceWorker.register("./service-worker.js");
+"load",
 
-});
+()=>{
+
+navigator.serviceWorker.register(
+
+"./service-worker.js"
+
+);
+
+}
+
+);
 
 }
 
