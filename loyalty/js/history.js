@@ -1,15 +1,14 @@
 // =====================================================
 // RIO MAGGI POINT
 // HISTORY.JS
-// FINAL PREMIUM VERSION
-// PART 1
+// PREMIUM HISTORY SYSTEM
+// PART 1 / 3
 // =====================================================
 
 
-
-// =====================================================
+// ============================
 // FIREBASE IMPORT
-// =====================================================
+// ============================
 
 import { auth, db } from "./firebase-config.js";
 
@@ -22,7 +21,6 @@ onAuthStateChanged
 from
 
 "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
 
 
 import {
@@ -38,9 +36,10 @@ from
 
 
 
-// =====================================================
+
+// ============================
 // HTML ELEMENTS
-// =====================================================
+// ============================
 
 const historyPhoto =
 document.getElementById("historyPhoto");
@@ -72,14 +71,15 @@ document.getElementById("memberSince");
 const historyTimeline =
 document.getElementById("historyTimeline");
 
-const rewardBox =
-document.querySelector(".reward-box");
+const stampProgressFill =
+document.getElementById("stampProgressFill");
 
 
 
-// =====================================================
+
+// ============================
 // SAFE TEXT
-// =====================================================
+// ============================
 
 function setText(element,value){
 
@@ -93,62 +93,57 @@ element.textContent=value;
 
 
 
-// =====================================================
-// SAFE IMAGE
-// =====================================================
 
-function setImage(img,url){
+// ============================
+// AVATAR SYSTEM
+// ============================
 
-if(!img) return;
+function getAvatar(customer){
 
-img.src=url || "assets/avatars/default.png";
+if(customer.photoURL){
 
-img.onerror=()=>{
-
-img.src="assets/avatars/default.png";
-
-};
+return customer.photoURL;
 
 }
 
+if(customer.avatar){
 
-
-// =====================================================
-// DATE FORMAT
-// =====================================================
-
-function formatMemberDate(value){
-
-if(!value) return "--";
-
-try{
-
-if(value.toDate){
-
-return value
-.toDate()
-.toLocaleDateString();
+return customer.avatar;
 
 }
 
-return new Date(value)
-.toLocaleDateString();
+if(customer.gender){
 
-}
+const gender=
 
-catch{
+customer.gender.toLowerCase();
 
-return "--";
+if(
+
+gender==="female" ||
+
+gender==="girl" ||
+
+gender==="woman"
+
+){
+
+return "assets/avatars/female.png";
 
 }
 
 }
 
+return "assets/avatars/male.png";
+
+}
 
 
-// =====================================================
-// RESET PAGE
-// =====================================================
+
+
+// ============================
+// DEFAULT DATA
+// ============================
 
 function resetHistory(){
 
@@ -168,10 +163,11 @@ setText(totalRewardCount,"0");
 
 setText(memberSince,"--");
 
-setImage(
-historyPhoto,
-"assets/avatars/default.png"
-);
+if(historyPhoto){
+
+historyPhoto.src="assets/avatars/male.png";
+
+}
 
 if(historyTimeline){
 
@@ -179,19 +175,16 @@ historyTimeline.innerHTML="";
 
 }
 
-if(rewardBox){
+if(stampProgressFill){
 
-rewardBox.classList.remove("unlocked");
-
-}
+stampProgressFill.style.width="0%";
 
 }
 
-
-
-// =====================================================
-// LOAD CUSTOMER
-// =====================================================
+}
+// ============================
+// LOAD CUSTOMER FROM FIRESTORE
+// ============================
 
 async function loadCustomerHistory(user){
 
@@ -200,32 +193,45 @@ try{
 const customerRef=
 
 doc(
+
 db,
+
 "customers",
+
 user.uid
+
 );
 
-const snap=
+const customerSnap=
 
 await getDoc(customerRef);
 
-if(!snap.exists()){
+if(!customerSnap.exists()){
 
 resetHistory();
+
+console.error(
+
+"Customer document not found."
+
+);
 
 return null;
 
 }
 
-return snap.data();
+return customerSnap.data();
 
 }
 
 catch(error){
 
 console.error(
-"History Error:",
+
+"History Load Error:",
+
 error
+
 );
 
 resetHistory();
@@ -237,18 +243,13 @@ return null;
 }
 
 
-/* ===========================
-   CONTINUE IN PART 2
-=========================== */
-// =====================================================
-// DISPLAY CUSTOMER
-// =====================================================
+
+
+// ============================
+// DISPLAY CUSTOMER DATA
+// ============================
 
 function displayHistory(customer){
-
-// ============================
-// BASIC PROFILE
-// ============================
 
 setText(
 
@@ -266,27 +267,17 @@ customer.memberId || "RIO-000000"
 
 );
 
-setImage(
+if(historyPhoto){
 
-historyPhoto,
+historyPhoto.src=
 
-customer.photoURL ||
+getAvatar(customer);
 
-customer.avatar ||
+}
 
-customer.profilePhoto ||
+const stamps=
 
-"assets/avatars/default.png"
-
-);
-
-
-
-// ============================
-// STAMPS
-// ============================
-
-const stamps = Number(
+Number(
 
 customer.stamps || 0
 
@@ -300,93 +291,31 @@ historyStampCount,
 
 );
 
+setText(
 
-
-// ============================
-// VISITS
-// ============================
-
-const visits = Number(
-
-customer.totalVisits ??
-
-customer.visits ??
+totalVisits,
 
 stamps
 
 );
 
-setText(
+if(stampProgressFill){
 
-totalVisits,
+stampProgressFill.style.width=
 
-visits
+`${Math.min((stamps/6)*100,100)}%`;
 
-);
+}
 
+const rewardUnlocked=
 
+customer.rewardUnlocked===true ||
 
-// ============================
-// REWARD COUNT
-// ============================
+customer.reward===true ||
 
-const rewards = Number(
+stamps>=6;
 
-customer.totalRewards ??
-
-customer.rewardCount ??
-
-(customer.rewardUnlocked ? 1 : 0)
-
-);
-
-setText(
-
-totalRewardCount,
-
-rewards
-
-);
-
-
-
-// ============================
-// MEMBER SINCE
-// ============================
-
-setText(
-
-memberSince,
-
-formatMemberDate(
-
-customer.createdAt ||
-
-customer.joinDate ||
-
-customer.memberSince
-
-)
-
-);
-
-
-
-// ============================
-// REWARD STATUS
-// ============================
-
-const unlocked =
-
-customer.rewardUnlocked === true ||
-
-customer.reward === true ||
-
-stamps >= 6;
-
-
-
-if(unlocked){
+if(rewardUnlocked){
 
 setText(
 
@@ -400,19 +329,17 @@ setText(
 
 rewardStatus,
 
-"🎉 Reward Ready To Claim"
+"🎉 Ready To Claim"
 
 );
 
-if(rewardBox){
+setText(
 
-rewardBox.classList.add(
+totalRewardCount,
 
-"unlocked"
+"1"
 
 );
-
-}
 
 }
 
@@ -434,11 +361,53 @@ rewardStatus,
 
 );
 
-if(rewardBox){
+setText(
 
-rewardBox.classList.remove(
+totalRewardCount,
 
-"unlocked"
+"0"
+
+);
+
+}
+
+if(customer.createdAt){
+
+try{
+
+const date=
+
+customer.createdAt.toDate
+
+?
+
+customer.createdAt.toDate()
+
+:
+
+new Date(
+
+customer.createdAt.seconds*1000
+
+);
+
+setText(
+
+memberSince,
+
+date.toLocaleDateString()
+
+);
+
+}
+
+catch{
+
+setText(
+
+memberSince,
+
+"--"
 
 );
 
@@ -446,11 +415,17 @@ rewardBox.classList.remove(
 
 }
 
+else{
 
+setText(
 
-// ============================
-// BUILD TIMELINE
-// ============================
+memberSince,
+
+"--"
+
+);
+
+}
 
 createTimeline(
 
@@ -458,25 +433,21 @@ customer,
 
 stamps,
 
-unlocked
+rewardUnlocked
 
 );
 
 }
-
-
-
-/* ===================================
-   CONTINUE IN PART 3
-=================================== */
-// =====================================================
+// ============================
 // CREATE TIMELINE
-// =====================================================
+// ============================
 
 function createTimeline(
 
 customer,
+
 stamps,
+
 rewardUnlocked
 
 ){
@@ -489,17 +460,11 @@ return;
 
 historyTimeline.innerHTML="";
 
-
-
-// =====================================
-// NO HISTORY
-// =====================================
-
 if(stamps===0){
 
 historyTimeline.innerHTML=`
 
-<div class="timeline-item fade-up">
+<div class="timeline-item">
 
 <div class="timeline-icon">
 
@@ -531,12 +496,6 @@ return;
 
 }
 
-
-
-// =====================================
-// STAMP HISTORY
-// =====================================
-
 for(
 
 let i=1;
@@ -549,11 +508,15 @@ i++
 
 const item=
 
-document.createElement("div");
+document.createElement(
+
+"div"
+
+);
 
 item.className=
 
-"timeline-item fade-up";
+"timeline-item";
 
 item.innerHTML=`
 
@@ -581,25 +544,27 @@ Thank you for visiting Rio Maggi Point.
 
 `;
 
-historyTimeline.appendChild(item);
+historyTimeline.appendChild(
+
+item
+
+);
 
 }
-
-
-
-// =====================================
-// REWARD HISTORY
-// =====================================
 
 if(rewardUnlocked){
 
 const reward=
 
-document.createElement("div");
+document.createElement(
+
+"div"
+
+);
 
 reward.className=
 
-"timeline-item reward fade-up";
+"timeline-item reward";
 
 reward.innerHTML=`
 
@@ -627,7 +592,11 @@ Congratulations! Your reward is ready to claim.
 
 `;
 
-historyTimeline.appendChild(reward);
+historyTimeline.appendChild(
+
+reward
+
+);
 
 }
 
@@ -635,9 +604,10 @@ historyTimeline.appendChild(reward);
 
 
 
-// =====================================================
-// AUTH
-// =====================================================
+
+// ============================
+// AUTH CONNECTION
+// ============================
 
 onAuthStateChanged(
 
@@ -657,36 +627,59 @@ return;
 
 const customer=
 
-await loadCustomerHistory(user);
+await loadCustomerHistory(
+
+user
+
+);
 
 if(customer){
 
-displayHistory(customer);
+displayHistory(
 
-}
-
-}
+customer
 
 );
 
-
-
-// =====================================================
-// PAGE READY
-// =====================================================
-
-document.addEventListener(
-
-"DOMContentLoaded",
-
-()=>{
+}
 
 console.log(
 
-"🍜 Rio Maggi Point History Ready"
+"================================"
+
+);
+
+console.log(
+
+"🍜 Rio Maggi Point"
+
+);
+
+console.log(
+
+"Premium History Loaded"
+
+);
+
+console.log(
+
+"================================"
 
 );
 
 }
+
+);
+
+
+
+
+// ============================
+// READY
+// ============================
+
+console.log(
+
+"History JS Premium Ready"
 
 );
