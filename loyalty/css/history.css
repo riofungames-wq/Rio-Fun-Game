@@ -1,42 +1,152 @@
 /* =========================================
    RIO MAGGI POINT
    HISTORY PAGE CSS
-   PREMIUM CARD SYSTEM
-   PART 1
+   PART 1 / 3
+   Premium Black & Gold Theme
 ========================================= */
 
 
 /* =========================
-GLOBAL HISTORY
+RESET
 ========================= */
 
+*{
 
-.history-card{
+margin:0;
 
-position:relative;
+padding:0;
 
-overflow:hidden;
+box-sizing:border-box;
+
+font-family:'Poppins',sans-serif;
 
 }
 
 
 
 /* =========================
-CARD EFFECT
+BODY
 ========================= */
 
+body{
 
-.history-card .card-glow{
+background:#080808;
+
+color:#ffffff;
+
+min-height:100vh;
+
+overflow-x:hidden;
+
+}
+
+
+
+/* =========================
+PAGE
+========================= */
+
+.page{
+
+width:100%;
+
+min-height:100vh;
+
+padding:18px 16px 110px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:flex-start;
+
+}
+
+
+
+/* =========================
+MAIN CARD
+========================= */
+
+.history-card{
+
+position:relative;
+
+width:100%;
+
+max-width:460px;
+
+background:
+
+linear-gradient(
+180deg,
+#171717 0%,
+#0b0b0b 100%
+);
+
+border:1px solid rgba(212,175,55,.22);
+
+border-radius:28px;
+
+padding:26px 20px;
+
+overflow:hidden;
+
+box-shadow:
+
+0 20px 50px rgba(0,0,0,.45);
+
+animation:
+
+pageOpen .55s ease;
+
+}
+
+
+
+@keyframes pageOpen{
+
+from{
+
+opacity:0;
+
+transform:
+
+translateY(25px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:
+
+translateY(0);
+
+}
+
+}
+
+
+
+/* =========================
+CARD EFFECTS
+========================= */
+
+.card-glow{
 
 position:absolute;
 
-width:220px;
+top:-120px;
 
-height:220px;
+right:-120px;
 
-right:-100px;
+width:260px;
 
-top:-100px;
+height:260px;
+
+border-radius:50%;
 
 background:
 
@@ -44,48 +154,47 @@ radial-gradient(
 
 circle,
 
-rgba(212,175,55,.25),
+rgba(212,175,55,.22),
 
-transparent
+transparent 70%
 
 );
 
-border-radius:50%;
+filter:blur(20px);
 
-filter:blur(25px);
+pointer-events:none;
 
 }
 
 
 
-.history-card .card-shine{
+.card-shine{
 
 position:absolute;
 
-width:140px;
-
-height:420px;
+top:-140px;
 
 left:-80px;
 
-top:-100px;
+width:130px;
+
+height:520px;
 
 background:
 
 rgba(255,255,255,.05);
 
-transform:rotate(25deg);
+transform:rotate(28deg);
+
+pointer-events:none;
 
 }
-
-
 
 
 
 /* =========================
 HEADER
 ========================= */
-
 
 .history-header{
 
@@ -95,7 +204,7 @@ position:relative;
 
 z-index:2;
 
-margin-bottom:20px;
+margin-bottom:24px;
 
 }
 
@@ -103,13 +212,13 @@ margin-bottom:20px;
 
 .history-header h1{
 
-font-size:22px;
+font-size:24px;
 
 font-weight:800;
 
-color:#ffd86a;
+letter-spacing:1px;
 
-letter-spacing:.8px;
+color:#ffd86a;
 
 }
 
@@ -117,24 +226,21 @@ letter-spacing:.8px;
 
 .history-header p{
 
-font-size:11px;
+margin-top:8px;
 
-margin-top:5px;
+font-size:12px;
 
-color:#ffffff;
+color:#d8d8d8;
 
-opacity:.75;
+opacity:.85;
 
 }
 
 
 
-
-
 /* =========================
-CUSTOMER SECTION
+CUSTOMER
 ========================= */
-
 
 .customer-section{
 
@@ -144,7 +250,7 @@ position:relative;
 
 z-index:2;
 
-margin-bottom:18px;
+margin-bottom:22px;
 
 }
 
@@ -152,9 +258,9 @@ margin-bottom:18px;
 
 .avatar-frame{
 
-width:90px;
+width:94px;
 
-height:90px;
+height:94px;
 
 margin:auto;
 
@@ -162,13 +268,13 @@ border-radius:50%;
 
 overflow:hidden;
 
-border:3px solid #d4af37;
-
 background:#222;
+
+border:3px solid #d4af37;
 
 box-shadow:
 
-0 0 15px rgba(212,175,55,.35);
+0 0 18px rgba(212,175,55,.35);
 
 }
 
@@ -188,11 +294,11 @@ object-fit:cover;
 
 .customer-name{
 
-margin-top:10px;
+margin-top:12px;
 
-font-size:18px;
+font-size:20px;
 
-font-weight:800;
+font-weight:700;
 
 color:#ffffff;
 
@@ -202,7 +308,7 @@ color:#ffffff;
 
 .customer-id{
 
-margin-top:5px;
+margin-top:6px;
 
 font-size:12px;
 
@@ -214,33 +320,31 @@ color:#ffd86a;
 
 
 
-
 /* =========================
 CURRENT STATUS
 ========================= */
 
-
 .status-box{
+
+margin-bottom:24px;
+
+padding:18px;
+
+border-radius:18px;
+
+background:
+
+rgba(255,255,255,.05);
+
+border:
+
+1px solid rgba(212,175,55,.20);
+
+text-align:center;
 
 position:relative;
 
 z-index:2;
-
-background:
-
-rgba(255,255,255,.06);
-
-border:
-
-1px solid rgba(212,175,55,.25);
-
-border-radius:16px;
-
-padding:15px;
-
-text-align:center;
-
-margin-bottom:18px;
 
 }
 
@@ -250,9 +354,9 @@ margin-bottom:18px;
 
 font-size:11px;
 
-color:#cccccc;
-
 letter-spacing:1px;
+
+color:#bfbfbf;
 
 }
 
@@ -262,14 +366,13 @@ letter-spacing:1px;
 
 margin-top:8px;
 
-font-size:26px;
+font-size:28px;
 
 font-weight:800;
 
 color:#ffd86a;
 
 }
-
 
 
 
@@ -277,30 +380,26 @@ color:#ffd86a;
 SECTION TITLE
 ========================= */
 
-
 .section-title{
 
-position:relative;
-
-z-index:2;
-
-margin-top:20px;
-
-margin-bottom:12px;
+margin:24px 0 14px;
 
 font-size:14px;
 
 font-weight:700;
 
+letter-spacing:.6px;
+
 color:#ffd86a;
 
-letter-spacing:.5px;
+position:relative;
+
+z-index:2;
 
 }
 /* =========================================
-   HISTORY TIMELINE
+   TIMELINE
 ========================================= */
-
 
 .timeline-list{
 
@@ -308,7 +407,7 @@ display:flex;
 
 flex-direction:column;
 
-gap:12px;
+gap:14px;
 
 position:relative;
 
@@ -316,105 +415,11 @@ z-index:2;
 
 }
 
-
-
 .timeline-item{
 
 display:flex;
 
-align-items:center;
-
-gap:12px;
-
-padding:14px;
-
-background:
-
-rgba(255,255,255,.06);
-
-border:
-
-1px solid rgba(212,175,55,.22);
-
-border-radius:16px;
-
-}
-
-
-
-.timeline-item.reward{
-
-background:
-
-rgba(212,175,55,.12);
-
-border-color:#ffd86a;
-
-}
-
-
-
-.timeline-icon{
-
-width:42px;
-
-height:42px;
-
-border-radius:50%;
-
-background:#ffd86a;
-
-color:#111111;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:20px;
-
-flex-shrink:0;
-
-}
-
-
-
-.timeline-content h4{
-
-font-size:13px;
-
-font-weight:700;
-
-color:#ffffff;
-
-}
-
-
-
-.timeline-content p{
-
-font-size:11px;
-
-margin-top:4px;
-
-color:#cccccc;
-
-}
-
-
-
-
-/* =========================================
-   REWARD BOX
-========================================= */
-
-
-.reward-box{
-
-display:flex;
-
-align-items:center;
+align-items:flex-start;
 
 gap:14px;
 
@@ -422,41 +427,63 @@ padding:15px;
 
 background:
 
-rgba(255,255,255,.06);
+rgba(255,255,255,.05);
 
 border:
 
-1px solid rgba(212,175,55,.25);
+1px solid rgba(212,175,55,.18);
 
 border-radius:18px;
 
-position:relative;
-
-z-index:2;
+transition:.35s;
 
 }
 
+.timeline-item:hover{
 
+transform:translateY(-3px);
 
-.reward-icon{
+border-color:#d4af37;
 
-width:60px;
+box-shadow:
 
-height:60px;
+0 0 18px rgba(212,175,55,.20);
+
+}
+
+.timeline-item.reward{
+
+background:
+
+rgba(212,175,55,.10);
+
+border-color:#d4af37;
+
+}
+
+.timeline-icon{
+
+width:46px;
+
+height:46px;
 
 border-radius:50%;
 
-background:#ffd86a;
-
-color:#111111;
-
 display:flex;
-
-align-items:center;
 
 justify-content:center;
 
-font-size:28px;
+align-items:center;
+
+background:#ffd86a;
+
+color:#111;
+
+font-size:22px;
+
+font-weight:700;
+
+flex-shrink:0;
 
 box-shadow:
 
@@ -464,11 +491,115 @@ box-shadow:
 
 }
 
+.timeline-content{
 
+flex:1;
+
+}
+
+.timeline-content h4{
+
+font-size:14px;
+
+font-weight:700;
+
+color:#ffffff;
+
+}
+
+.timeline-content p{
+
+margin-top:5px;
+
+font-size:12px;
+
+line-height:1.5;
+
+color:#cccccc;
+
+}
+
+
+
+/* =========================================
+   REWARD BOX
+========================================= */
+
+.reward-box{
+
+display:flex;
+
+align-items:center;
+
+gap:16px;
+
+padding:18px;
+
+margin-top:4px;
+
+border-radius:18px;
+
+background:
+
+rgba(255,255,255,.05);
+
+border:
+
+1px solid rgba(212,175,55,.22);
+
+position:relative;
+
+overflow:hidden;
+
+transition:.35s;
+
+}
+
+.reward-box:hover{
+
+border-color:#d4af37;
+
+box-shadow:
+
+0 0 22px rgba(212,175,55,.22);
+
+}
+
+.reward-icon{
+
+width:64px;
+
+height:64px;
+
+border-radius:50%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:#ffd86a;
+
+color:#111111;
+
+font-size:30px;
+
+box-shadow:
+
+0 0 18px rgba(212,175,55,.35);
+
+}
+
+.reward-details{
+
+flex:1;
+
+}
 
 .reward-details h3{
 
-font-size:15px;
+font-size:16px;
 
 font-weight:800;
 
@@ -476,13 +607,11 @@ color:#ffffff;
 
 }
 
-
-
 .reward-details p{
 
 margin-top:5px;
 
-font-size:12px;
+font-size:13px;
 
 font-weight:600;
 
@@ -492,12 +621,45 @@ color:#ffd86a;
 
 
 
+/* =========================================
+   REWARD UNLOCK EFFECT
+========================================= */
+
+.reward-box.unlocked{
+
+animation:
+
+rewardPulse 1.8s infinite;
+
+}
+
+@keyframes rewardPulse{
+
+0%{
+
+box-shadow:0 0 0 rgba(212,175,55,0);
+
+}
+
+50%{
+
+box-shadow:0 0 28px rgba(212,175,55,.45);
+
+}
+
+100%{
+
+box-shadow:0 0 0 rgba(212,175,55,0);
+
+}
+
+}
+
 
 
 /* =========================================
    STATISTICS
 ========================================= */
-
 
 .stats-grid{
 
@@ -505,51 +667,53 @@ display:grid;
 
 grid-template-columns:1fr;
 
-gap:10px;
+gap:12px;
 
-position:relative;
-
-z-index:2;
+margin-top:4px;
 
 }
-
-
 
 .stat-card{
 
-background:
-
-rgba(255,255,255,.06);
-
-border:
-
-1px solid rgba(212,175,55,.20);
+padding:16px;
 
 border-radius:16px;
 
-padding:14px;
-
 text-align:center;
+
+background:
+
+rgba(255,255,255,.05);
+
+border:
+
+1px solid rgba(212,175,55,.18);
+
+transition:.3s;
 
 }
 
+.stat-card:hover{
 
+transform:translateY(-3px);
+
+border-color:#d4af37;
+
+}
 
 .stat-label{
 
-font-size:11px;
+font-size:12px;
 
-color:#cccccc;
+color:#cfcfcf;
 
 }
 
-
-
 .stat-value{
 
-margin-top:5px;
+margin-top:8px;
 
-font-size:20px;
+font-size:22px;
 
 font-weight:800;
 
@@ -559,148 +723,168 @@ color:#ffd86a;
 
 
 
-
 /* =========================================
    EMPTY HISTORY
 ========================================= */
 
-
 .empty-history{
 
-background:
+padding:20px;
 
-rgba(255,255,255,.06);
-
-border:
-
-1px solid rgba(212,175,55,.20);
-
-border-radius:16px;
-
-padding:18px;
+border-radius:18px;
 
 text-align:center;
 
-font-size:12px;
+background:
 
-color:#ffffff;
+rgba(255,255,255,.05);
 
-opacity:.85;
+border:
+
+1px solid rgba(212,175,55,.18);
+
+color:#dddddd;
+
+font-size:13px;
+
+line-height:1.7;
 
 }
 /* =========================================
-   REWARD UNLOCK ANIMATION
+   BOTTOM NAVIGATION
 ========================================= */
 
+.bottom-nav{
 
-.reward-box.unlocked{
+position:fixed;
 
-border-color:#ffd86a;
+left:0;
 
-animation:
-
-rewardPulse 1.8s infinite;
-
-}
-
-
-
-@keyframes rewardPulse{
-
-
-0%{
-
-box-shadow:
-
-0 0 0 rgba(212,175,55,0);
-
-}
-
-
-
-50%{
-
-box-shadow:
-
-0 0 25px rgba(212,175,55,.45);
-
-}
-
-
-
-100%{
-
-box-shadow:
-
-0 0 0 rgba(212,175,55,0);
-
-}
-
-
-}
-
-
-
-
-/* =========================================
-   FIXED NAV SPACE
-========================================= */
-
-
-.nav-space{
-
-height:20px;
-
-}
-
-
-
-
-/* =========================================
-   MOBILE RESPONSIVE
-========================================= */
-
-
-@media(max-width:480px){
-
-
-.history-card{
+bottom:0;
 
 width:100%;
 
+height:78px;
+
+display:flex;
+
+justify-content:space-around;
+
+align-items:center;
+
+background:rgba(12,12,12,.96);
+
+backdrop-filter:blur(20px);
+
+border-top:1px solid rgba(212,175,55,.25);
+
+z-index:9999;
+
+}
+
+.bottom-nav a{
+
+flex:1;
+
+height:100%;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+gap:5px;
+
+text-decoration:none;
+
+color:#8a8a8a;
+
+font-size:11px;
+
+font-weight:600;
+
+transition:.30s;
+
+}
+
+.bottom-nav a i{
+
+font-size:19px;
+
+transition:.30s;
+
+}
+
+.bottom-nav a.active{
+
+color:#ffd86a;
+
+}
+
+.bottom-nav a.active i{
+
+transform:translateY(-3px);
+
+text-shadow:0 0 14px rgba(255,216,106,.8);
+
+}
+
+.bottom-nav a:hover{
+
+color:#ffd86a;
+
 }
 
 
 
-.history-header h1{
-
-font-size:21px;
-
-}
 
 
+/* =========================================
+   NAVIGATION SPACE
+========================================= */
 
-.status-value{
+.nav-space{
 
-font-size:24px;
+height:95px;
 
 }
 
 
 
-.reward-icon{
 
-width:55px;
 
-height:55px;
+/* =========================================
+   TABLET
+========================================= */
 
-font-size:25px;
+@media(min-width:768px){
+
+.stats-grid{
+
+grid-template-columns:repeat(3,1fr);
+
+}
+
+.timeline-item{
+
+padding:18px;
+
+}
+
+.history-card{
+
+max-width:760px;
+
+margin:auto;
+
+}
 
 }
 
 
-
-}
 
 
 
@@ -708,18 +892,24 @@ font-size:25px;
    DESKTOP
 ========================================= */
 
+@media(min-width:1100px){
 
-@media(min-width:900px){
+.page{
 
+padding:40px;
+
+}
 
 .history-card{
 
-transform:scale(1.08);
+max-width:820px;
+
+margin:auto;
 
 }
 
-
 }
+
 
 
 
@@ -728,33 +918,64 @@ transform:scale(1.08);
    SCROLLBAR
 ========================================= */
 
-
 ::-webkit-scrollbar{
 
-width:6px;
+width:8px;
 
 }
 
+::-webkit-scrollbar-track{
 
+background:#101010;
+
+}
 
 ::-webkit-scrollbar-thumb{
 
 background:#d4af37;
 
-border-radius:10px;
+border-radius:20px;
 
 }
 
 
-
-::-webkit-scrollbar-track{
-
-background:#1a1a1a;
-
-}
 
 
 
 /* =========================================
-   END HISTORY CSS
+   FADE ANIMATION
+========================================= */
+
+.fade-up{
+
+animation:fadeUp .6s ease;
+
+}
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+
+
+
+
+/* =========================================
+   END OF HISTORY.CSS
 ========================================= */
