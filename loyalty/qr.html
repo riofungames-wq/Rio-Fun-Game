@@ -10,16 +10,26 @@ name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>
+
 Rio Maggi Point • QR Code
+
 </title>
 
 <meta
 name="theme-color"
 content="#111111">
 
+<meta
+name="description"
+content="Rio Maggi Point Premium Loyalty QR">
+
 <link
 rel="manifest"
 href="manifest.json">
+
+<link
+rel="icon"
+href="favicon.ico">
 
 <link
 rel="preconnect"
@@ -79,8 +89,11 @@ Premium Loyalty QR
 <div class="avatar-frame">
 
 <img
+
 id="customerPhoto"
+
 src="assets/avatars/male.png"
+
 alt="Customer">
 
 </div>
@@ -107,80 +120,96 @@ RIO-000000
 
 </section>
 
-<section class="qr-section">
+<section class="premium-qr-section">
 
-<div class="section-title">
+<div class="scan-title">
+
+<i class="fa-solid fa-qrcode"></i>
 
 SCAN THIS QR AT COUNTER
 
 </div>
 
+<div class="premium-qr-card">
+
 <div
-class="qr-box"
-id="qrcode">
+id="qrcode"
+class="qr-box">
+
+</div>
 
 </div>
 
 <div
-class="qr-status"
-id="qrStatus">
+id="qrStatus"
+class="qr-status">
 
-Preparing QR...
+Preparing Your Premium QR...
+
+</div>
+
+</section>
+<section class="instruction-box">
+
+<div class="instruction-item">
+
+<div class="instruction-icon">
+
+1
+
+</div>
+
+<div class="instruction-text">
+
+Show this QR code to the staff.
+
+</div>
+
+</div>
+
+<div class="instruction-item">
+
+<div class="instruction-icon">
+
+2
+
+</div>
+
+<div class="instruction-text">
+
+After every Maggi purchase, your loyalty stamp will be added.
+
+</div>
+
+</div>
+
+<div class="instruction-item">
+
+<div class="instruction-icon">
+
+3
+
+</div>
+
+<div class="instruction-text">
+
+Complete 6 stamps and unlock your FREE VEG MAGGI.
+
+</div>
 
 </div>
 
 </section>
 
-<section class="qr-action-box">
+<section class="security-note">
 
-<button
-class="action-btn"
-id="downloadQR">
+<i class="fa-solid fa-shield-halved"></i>
 
-<i class="fa-solid fa-download"></i>
+<span>
 
-Download QR
+This QR is linked to your Rio Maggi Point account.
 
-</button>
-
-<button
-class="action-btn secondary"
-id="shareQR">
-
-<i class="fa-solid fa-share-nodes"></i>
-
-Share QR
-
-</button>
-
-</section>
-<section class="qr-info">
-
-<div class="info-card">
-
-<div class="info-icon">
-
-<i class="fa-solid fa-circle-info"></i>
-
-</div>
-
-<div class="info-text">
-
-<h3>
-
-How To Use
-
-</h3>
-
-<p>
-
-Show this QR code at the Rio Maggi Point counter whenever you purchase Maggi to receive your loyalty stamp.
-
-</p>
-
-</div>
-
-</div>
+</span>
 
 </section>
 
@@ -267,22 +296,52 @@ Profile
 </div>
 
 </div>
+<!-- ================= QR LIBRARY ================= -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
+</script>
+
+<!-- ================= QR JAVASCRIPT ================= -->
 
 <script
 type="module"
 src="js/qr.js">
 </script>
+
 <!-- ================= SERVICE WORKER ================= -->
 
 <script>
 
 if("serviceWorker" in navigator){
 
-window.addEventListener("load",()=>{
+window.addEventListener("load",async()=>{
 
-navigator.serviceWorker.register("./service-worker.js");
+try{
+
+const registration=
+
+await navigator.serviceWorker.register("./service-worker.js");
+
+console.log(
+
+"Service Worker Registered",
+
+registration.scope
+
+);
+
+}catch(error){
+
+console.error(
+
+"Service Worker Registration Failed",
+
+error
+
+);
+
+}
 
 });
 
