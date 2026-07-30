@@ -1,4 +1,4 @@
-/<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -46,23 +46,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 <body>
 
-
 <div class="page">
 
-
 <div class="feedback-card">
-
 
 <div class="card-glow"></div>
 
 <div class="card-shine"></div>
 
-
 <!-- ================= HEADER ================= -->
 
-
 <div class="feedback-header">
-
 
 <h1>
 
@@ -70,26 +64,19 @@ RIO MAGGI POINT
 
 </h1>
 
-
 <p>
 
 Premium Customer Review
 
 </p>
 
-
 </div>
-
-
 
 <!-- ================= CUSTOMER ================= -->
 
-
 <div class="customer-section">
 
-
 <div class="avatar-frame">
-
 
 <img
 
@@ -99,10 +86,7 @@ src="assets/avatars/male.png"
 
 alt="Customer">
 
-
 </div>
-
-
 
 <div
 
@@ -114,8 +98,6 @@ Loading...
 
 </div>
 
-
-
 <div class="customer-id">
 
 ID :
@@ -126,20 +108,13 @@ RIO-000000
 
 </span>
 
-
 </div>
 
-
-
 </div>
-
-
 
 <!-- ================= RATING ================= -->
 
-
 <div class="rating-box">
-
 
 <h2>
 
@@ -147,9 +122,7 @@ How Was Your Maggi?
 
 </h2>
 
-
 <div class="star-rating">
-
 
 <i class="fa-regular fa-star star" data-rate="1"></i>
 
@@ -161,9 +134,7 @@ How Was Your Maggi?
 
 <i class="fa-regular fa-star star" data-rate="5"></i>
 
-
 </div>
-
 
 <p id="ratingText">
 
@@ -171,14 +142,11 @@ Tap A Star
 
 </p>
 
-
 </div>
 
 <!-- ================= EMOJI FEELING ================= -->
 
-
 <div class="emoji-box">
-
 
 <h2>
 
@@ -186,64 +154,31 @@ How Do You Feel?
 
 </h2>
 
-
 <div class="emoji-list">
 
+<button class="emoji-btn">😍</button>
 
-<button class="emoji-btn">
+<button class="emoji-btn">😊</button>
 
-😍
+<button class="emoji-btn">😋</button>
 
-</button>
+<button class="emoji-btn">🤩</button>
 
-
-<button class="emoji-btn">
-
-😊
-
-</button>
-
-
-<button class="emoji-btn">
-
-😋
-
-</button>
-
-
-<button class="emoji-btn">
-
-🤩
-
-</button>
-
-
-<button class="emoji-btn">
-
-🥰
-
-</button>
-
+<button class="emoji-btn">🥰</button>
 
 </div>
 
-
 </div>
-
-
 
 <!-- ================= REVIEW BOX ================= -->
 
-
 <div class="review-box">
-
 
 <h2>
 
 Write Your Review
 
 </h2>
-
 
 <textarea
 
@@ -255,10 +190,7 @@ placeholder="Tell us about your Maggi experience today...">
 
 </textarea>
 
-
-
 <div class="character-count">
-
 
 <span id="charCount">
 
@@ -268,19 +200,13 @@ placeholder="Tell us about your Maggi experience today...">
 
 /300
 
-
 </div>
 
-
 </div>
-
-
 
 <!-- ================= SUBMIT ================= -->
 
-
 <div class="submit-box">
-
 
 <button
 
@@ -288,22 +214,15 @@ id="submitFeedback"
 
 class="submit-btn">
 
-
 <i class="fa-solid fa-paper-plane"></i>
-
 
 Submit Feedback
 
-
 </button>
-
 
 </div>
 
-
-
 <!-- ================= THANK YOU ================= -->
-
 
 <div
 
@@ -313,13 +232,11 @@ class="thankyou-box"
 
 style="display:none;">
 
-
 <h2>
 
 🎉 Thank You!
 
 </h2>
-
 
 <p>
 
@@ -327,20 +244,15 @@ Your feedback has been submitted successfully.
 
 </p>
 
-
 </div>
 
 <!-- ================= BOTTOM NAVIGATION ================= -->
 
-
 <nav class="bottom-nav">
-
 
 <a href="card.html">
 
-
 <i class="fa-solid fa-house"></i>
-
 
 <span>
 
@@ -348,16 +260,11 @@ Home
 
 </span>
 
-
 </a>
-
-
 
 <a href="qr.html">
 
-
 <i class="fa-solid fa-qrcode"></i>
-
 
 <span>
 
@@ -365,16 +272,11 @@ QR
 
 </span>
 
-
 </a>
-
-
 
 <a href="history.html">
 
-
 <i class="fa-solid fa-clock-rotate-left"></i>
-
 
 <span>
 
@@ -382,20 +284,26 @@ History
 
 </span>
 
-
 </a>
 
+<a href="menu.html">
 
+<i class="fa-solid fa-utensils"></i>
 
+<span>
+
+Menu
+
+</span>
+
+</a>
 <a
 
 href="feedback.html"
 
 class="active">
 
-
 <i class="fa-solid fa-heart"></i>
-
 
 <span>
 
@@ -403,23 +311,19 @@ Review
 
 </span>
 
-
 </a>
 
 
 
 <a href="profile.html">
 
-
 <i class="fa-solid fa-user"></i>
-
 
 <span>
 
 Profile
 
 </span>
-
 
 </a>
 
@@ -437,7 +341,6 @@ Profile
 
 <!-- ================= FEEDBACK JS ================= -->
 
-
 <script
 
 type="module"
@@ -450,21 +353,15 @@ src="js/feedback.js">
 
 <script>
 
-
 if("serviceWorker" in navigator){
-
 
 window.addEventListener("load",()=>{
 
-
 navigator.serviceWorker.register("./service-worker.js");
-
 
 });
 
-
 }
-
 
 </script>
 
