@@ -1,65 +1,63 @@
 // ======================================
 // RIO MAGGI POINT
 // SERVICE WORKER
-// FINAL VERSION
+// FINAL STABLE VERSION
 // PART 1 / 3
 // ======================================
 
-const VERSION = "v4";
+const CACHE_NAME = "rio-maggi-v5";
 
-const CACHE_NAME = `rio-maggi-${VERSION}`;
+const STATIC_FILES = [
 
-const STATIC_CACHE = [
+    "./",
 
-"./",
+    "./index.html",
 
-"./index.html",
+    "./card.html",
 
-"./card.html",
+    "./login.html",
 
-"./login.html",
+    "./signup.html",
 
-"./signup.html",
+    "./forgot-password.html",
 
-"./forgot-password.html",
+    "./profile.html",
 
-"./profile.html",
+    "./reward.html",
 
-"./reward.html",
+    "./history.html",
 
-"./history.html",
+    "./menu.html",
 
-"./menu.html",
+    "./feedback.html",
 
-"./feedback.html",
+    "./qr.html",
 
-"./qr.html",
+    "./dashboard.html",
 
-"./dashboard.html",
+    "./admin.html",
 
-"./admin.html",
+    "./admin-login.html",
 
-"./admin-login.html",
+    "./about.html",
 
-"./about.html",
+    "./contact.html",
 
-"./contact.html",
+    "./privacy.html",
 
-"./privacy.html",
+    "./terms.html",
 
-"./terms.html",
+    "./offline.html",
 
-"./offline.html",
+    "./404.html",
 
-"./404.html",
+    "./manifest.json",
 
-"./manifest.json",
+    "./favicon.ico",
 
-"./favicon.ico",
+    "./icon-192.png",
 
-"./icon-192.png",
-
-"./icon-512.png"
+    "./icon-512.png"
 
 ];
 
@@ -78,7 +76,7 @@ event.waitUntil(
 
 (async()=>{
 
-const cache=
+const cache =
 
 await caches.open(
 
@@ -87,7 +85,7 @@ CACHE_NAME
 );
 
 
-// Safe Cache
+// Safe Cache Install
 
 for(
 
@@ -95,7 +93,7 @@ const file
 
 of
 
-STATIC_CACHE
+STATIC_FILES
 
 ){
 
@@ -117,11 +115,11 @@ file
 
 }
 
-catch(err){
+catch(error){
 
 console.warn(
 
-"Skip:",
+"Skipped:",
 
 file
 
@@ -143,7 +141,7 @@ self.skipWaiting();
 // ======================================
 // ACTIVATE
 // REMOVE OLD CACHE
-// PART 2
+// PART 2 / 3
 // ======================================
 
 self.addEventListener(
@@ -164,29 +162,31 @@ await Promise.all(
 
 cacheNames.map(
 
-(cache)=>{
+(cacheName)=>{
 
 if(
 
-cache!==CACHE_NAME
+cacheName!==CACHE_NAME
 
 ){
 
 console.log(
 
-"Delete Old Cache:",
+"Delete Cache:",
 
-cache
+cacheName
 
 );
 
 return caches.delete(
 
-cache
+cacheName
 
 );
 
 }
+
+return Promise.resolve();
 
 }
 
@@ -207,8 +207,7 @@ await self.clients.claim();
 
 // ======================================
 // FETCH
-// HTML = NETWORK FIRST
-// STATIC = CACHE FIRST
+// GITHUB PAGES SAFE
 // ======================================
 
 self.addEventListener(
@@ -216,6 +215,8 @@ self.addEventListener(
 "fetch",
 
 (event)=>{
+
+// Only GET Requests
 
 if(
 
@@ -227,6 +228,9 @@ return;
 
 }
 
+
+// Skip Firebase / Google / CDN
+
 const url=
 
 new URL(
@@ -234,9 +238,6 @@ new URL(
 event.request.url
 
 );
-
-
-// NEVER CACHE FIREBASE / CDN
 
 if(
 
@@ -249,17 +250,11 @@ return;
 }
 
 
-// HTML PAGES
-
-if(
-
-event.request.mode==="navigate"
-
-){
+// Handle Request
 
 event.respondWith(
 
-handleNavigation(
+fetchRequest(
 
 event.request
 
@@ -267,52 +262,29 @@ event.request
 
 );
 
-return;
-
-}
-
-
-// CSS / JS / IMAGE / ICON
-
-event.respondWith(
-
-handleStatic(
-
-event.request
-
-)
-
-);
-
-}
-);
+});
 // ======================================
-// NETWORK FIRST FOR HTML
+// FETCH REQUEST
+// PART 3 / 3
 // ======================================
 
-async function handleNavigation(request){
+async function fetchRequest(request){
+
+const cache = await caches.open(CACHE_NAME);
 
 try{
 
-const networkResponse=
+const networkResponse = await fetch(request);
 
-await fetch(request);
+// Cache only successful same-origin responses
 
 if(
 
 networkResponse &&
-networkResponse.ok &&
-networkResponse.status===200
+networkResponse.status===200 &&
+networkResponse.type==="basic"
 
 ){
-
-const cache=
-
-await caches.open(
-
-CACHE_NAME
-
-);
 
 cache.put(
 
@@ -322,33 +294,39 @@ networkResponse.clone()
 
 );
 
-return networkResponse;
-
 }
 
-throw new Error("Network Error");
+return networkResponse;
 
 }
 
 catch(error){
 
-const cached=
+// Try cache
 
-await caches.match(request);
+const cachedResponse =
 
-if(cached){
+await cache.match(request);
 
-return cached;
+if(cachedResponse){
+
+return cachedResponse;
 
 }
 
-const offline=
+// Offline page only for HTML navigation
 
-await caches.match("./offline.html");
+if(request.mode==="navigate"){
 
-if(offline){
+const offlinePage =
 
-return offline;
+await cache.match("./offline.html");
+
+if(offlinePage){
+
+return offlinePage;
+
+}
 
 }
 
@@ -372,77 +350,27 @@ statusText:"Offline"
 
 
 // ======================================
-// CACHE FIRST FOR STATIC FILES
+// MESSAGE EVENT
 // ======================================
 
-async function handleStatic(request){
+self.addEventListener(
 
-const cached=
+"message",
 
-await caches.match(request);
-
-if(cached){
-
-return cached;
-
-}
-
-try{
-
-const networkResponse=
-
-await fetch(request);
+(event)=>{
 
 if(
 
-networkResponse &&
-networkResponse.ok &&
-networkResponse.status===200 &&
-networkResponse.type==="basic"
+event.data &&
+event.data.type==="SKIP_WAITING"
 
 ){
 
-const cache=
-
-await caches.open(
-
-CACHE_NAME
-
-);
-
-cache.put(
-
-request,
-
-networkResponse.clone()
-
-);
+self.skipWaiting();
 
 }
 
-return networkResponse;
-
-}
-
-catch(error){
-
-return new Response(
-
-"Resource Not Available",
-
-{
-
-status:404,
-
-statusText:"Not Found"
-
-}
-
-);
-
-}
-
-}
+});
 
 
 // ======================================
@@ -451,10 +379,10 @@ statusText:"Not Found"
 
 console.log("================================");
 
-console.log("🍜 RIO MAGGI POINT");
+console.log("RIO MAGGI POINT");
 
-console.log("Service Worker v4 Loaded");
+console.log("Service Worker v5 Ready");
 
-console.log("GitHub Pages Optimized");
+console.log("GitHub Pages Stable");
 
 console.log("================================");
