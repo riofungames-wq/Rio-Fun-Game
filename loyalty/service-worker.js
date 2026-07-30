@@ -1,79 +1,337 @@
-const CACHE_NAME = "rio-maggi-v2";
+// ======================================
+// RIO MAGGI POINT
+// SERVICE WORKER
+// PART 1
+// ======================================
+
+const CACHE_NAME = "rio-maggi-v3";
 
 const FILES_TO_CACHE = [
+
     "./",
+
     "./index.html",
-    "./login.html",
-    "./signup.html",
-    "./profile.html",
-    "./reward.html",
-    "./admin-login.html",
-    "./admin.html",
+
+    "./card.html",
+
     "./qr.html",
-    "./about.html",
-    "./contact.html",
+
+    "./history.html",
+
+    "./menu.html",
+
     "./feedback.html",
+
+    "./profile.html",
+
+    "./reward.html",
+
+    "./login.html",
+
+    "./signup.html",
+
+    "./forgot-password.html",
+
+    "./admin-login.html",
+
+    "./admin.html",
+
+    "./dashboard.html",
+
+    "./about.html",
+
+    "./contact.html",
+
     "./privacy.html",
+
     "./terms.html",
+
     "./offline.html",
+
     "./404.html",
+
     "./manifest.json",
+
     "./favicon.ico",
+
     "./icon-192.png",
+
     "./icon-512.png"
+
 ];
+// ======================================
+// INSTALL
+// SAFE CACHE INSTALL
+// PART 2
+// ======================================
 
-// Install Service Worker
-self.addEventListener("install", (event) => {
-    event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll(FILES_TO_CACHE);
-        })
-    );
-    self.skipWaiting();
-});
+self.addEventListener(
 
-// Activate Service Worker (Purge old cache)
-self.addEventListener("activate", (event) => {
-    event.waitUntil(
-        caches.keys().then((cacheNames) => {
-            return Promise.all(
-                cacheNames.map((cache) => {
-                    if (cache !== CACHE_NAME) {
-                        return caches.delete(cache);
+    "install",
+
+    (event)=>{
+
+        event.waitUntil(
+
+            (async()=>{
+
+                const cache =
+
+                await caches.open(
+
+                    CACHE_NAME
+
+                );
+
+                for(
+
+                    const file
+
+                    of
+
+                    FILES_TO_CACHE
+
+                ){
+
+                    try{
+
+                        await cache.add(file);
+
                     }
-                })
-            );
-        })
-    );
-    self.clients.claim();
-});
 
-// Fetch Requests (Network-First with Offline Fallback)
-self.addEventListener("fetch", (event) => {
-    event.respondWith(
-        fetch(event.request)
-        .then((response) => {
-            // Check if response is valid before caching
-            if (response && response.status === 200 && response.type === "basic") {
-                const responseClone = response.clone();
-                caches.open(CACHE_NAME).then((cache) => {
-                    cache.put(event.request, responseClone);
-                });
-            }
-            return response;
-        })
-        .catch(() => {
-            return caches.match(event.request)
-            .then((cachedResponse) => {
-                if (cachedResponse) {
-                    return cachedResponse;
+                    catch(error){
+
+                        console.warn(
+
+                            "Cache Skip:",
+
+                            file,
+
+                            error
+
+                        );
+
+                    }
+
                 }
-                // Show Offline Page for navigation requests if page not in cache
-                if (event.request.mode === "navigate") {
-                    return caches.match("./offline.html");
+
+            })()
+
+        );
+
+        self.skipWaiting();
+
+    }
+
+);
+
+
+// ======================================
+// ACTIVATE
+// DELETE OLD CACHE
+// ======================================
+
+self.addEventListener(
+
+    "activate",
+
+    (event)=>{
+
+        event.waitUntil(
+
+            (async()=>{
+
+                const cacheNames =
+
+                await caches.keys();
+
+                await Promise.all(
+
+                    cacheNames.map(
+
+                        (cache)=>{
+
+                            if(
+
+                                cache !== CACHE_NAME
+
+                            ){
+
+                                return caches.delete(
+
+                                    cache
+
+                                );
+
+                            }
+
+                        }
+
+                    )
+
+                );
+
+                await self.clients.claim();
+
+            })()
+
+        );
+
+    }
+
+);
+// ======================================
+// FETCH
+// NETWORK FIRST
+// PART 3
+// ======================================
+
+self.addEventListener(
+
+    "fetch",
+
+    (event)=>{
+
+        // Cache only GET requests
+
+        if(
+
+            event.request.method !== "GET"
+
+        ){
+
+            return;
+
+        }
+
+        // Skip Firebase & external CDN requests
+
+        const requestURL =
+
+        new URL(
+
+            event.request.url
+
+        );
+
+        if(
+
+            requestURL.origin !== self.location.origin
+
+        ){
+
+            return;
+
+        }
+
+        event.respondWith(
+
+            (async()=>{
+
+                try{
+
+                    const networkResponse =
+
+                    await fetch(
+
+                        event.request
+
+                    );
+
+                    if(
+
+                        networkResponse &&
+                        networkResponse.status === 200
+                    ){
+
+                        const cache =
+
+                        await caches.open(
+
+                            CACHE_NAME
+                        );
+
+                        cache.put(
+
+                            event.request,
+
+                            networkResponse.clone()
+
+                        );
+
+                    }
+
+                    return networkResponse;
+
                 }
-            });
-        })
-    );
-});
+
+                catch(error){
+
+                    const cachedResponse =
+
+                    await caches.match(
+
+                        event.request
+
+                    );
+
+                    if(cachedResponse){
+
+                        return cachedResponse;
+
+                    }
+
+                    if(
+
+                        event.request.mode === "navigate"
+
+                    ){
+
+                        const offline =
+
+                        await caches.match(
+
+                            "./offline.html"
+
+                        );
+
+                        if(offline){
+
+                            return offline;
+
+                        }
+                    }
+
+                    return new Response(
+
+                        "Offline",
+
+                        {
+
+                            status:503,
+
+                            statusText:"Offline"
+
+                        }
+
+                    );
+
+                }
+
+            })()
+
+        );
+
+    }
+
+);
+
+// ======================================
+// READY
+// ======================================
+
+console.log(
+
+    "RIO MAGGI POINT SERVICE WORKER READY"
+
+);
