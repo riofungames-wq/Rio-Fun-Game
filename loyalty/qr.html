@@ -1,184 +1,290 @@
-<!-- ================= BOTTOM NAVIGATION ================= -->
+<!DOCTYPE html>
+<html lang="en">
 
-<nav class="bottom-nav">
+<head>
 
-    <a href="card.html">
+<meta charset="UTF-8">
 
-        <i class="fa-solid fa-house"></i>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-        <span>
+<title>
+Rio Maggi Point • QR Code
+</title>
 
-            Home
+<meta
+name="theme-color"
+content="#111111">
 
-        </span>
+<link
+rel="manifest"
+href="manifest.json">
 
-    </a>
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com">
 
-    <a
-    href="qr.html"
-    class="active">
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
 
-        <i class="fa-solid fa-qrcode"></i>
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
 
-        <span>
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-            QR
+<link
+rel="stylesheet"
+href="css/common.css">
 
-        </span>
+<link
+rel="stylesheet"
+href="css/qr.css">
 
-    </a>
+</head>
 
-    <a href="history.html">
+<body>
 
-        <i class="fa-solid fa-clock-rotate-left"></i>
+<div class="page">
 
-        <span>
+<div class="qr-card app-card">
 
-            History
+<div class="card-glow"></div>
 
-        </span>
+<div class="card-shine"></div>
 
-    </a>
+<header class="qr-header">
 
-    <a href="menu.html">
+<h1>
 
-        <i class="fa-solid fa-utensils"></i>
+RIO MAGGI POINT
 
-        <span>
+</h1>
 
-            Menu
+<p>
 
-        </span>
+Premium Loyalty QR
 
-    </a>
+</p>
 
-    <a href="feedback.html">
+</header>
 
-        <i class="fa-solid fa-heart"></i>
+<section class="customer-section">
 
-        <span>
+<div class="avatar-frame">
 
-            Review
+<img
+id="customerPhoto"
+src="assets/avatars/male.png"
+alt="Customer">
 
-        </span>
+</div>
 
-    </a>
+<div
+class="customer-name"
+id="customerName">
 
-    <a href="profile.html">
+Loading...
 
-        <i class="fa-solid fa-user"></i>
+</div>
 
-        <span>
+<div class="customer-id">
 
-            Profile
+ID :
 
-        </span>
+<span id="memberId">
 
-    </a>
+RIO-000000
 
-</nav>
-<!-- ================= NAVIGATION SPACER ================= -->
+</span>
+
+</div>
+
+</section>
+
+<section class="qr-section">
+
+<div class="section-title">
+
+SCAN THIS QR AT COUNTER
+
+</div>
+
+<div
+class="qr-box"
+id="qrcode">
+
+</div>
+
+<div
+class="qr-status"
+id="qrStatus">
+
+Preparing QR...
+
+</div>
+
+</section>
+
+<section class="qr-action-box">
+
+<button
+class="action-btn"
+id="downloadQR">
+
+<i class="fa-solid fa-download"></i>
+
+Download QR
+
+</button>
+
+<button
+class="action-btn secondary"
+id="shareQR">
+
+<i class="fa-solid fa-share-nodes"></i>
+
+Share QR
+
+</button>
+
+</section>
+<section class="qr-info">
+
+<div class="info-card">
+
+<div class="info-icon">
+
+<i class="fa-solid fa-circle-info"></i>
+
+</div>
+
+<div class="info-text">
+
+<h3>
+
+How To Use
+
+</h3>
+
+<p>
+
+Show this QR code at the Rio Maggi Point counter whenever you purchase Maggi to receive your loyalty stamp.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
 
 <div class="nav-space"></div>
 
-<!-- ================= BOTTOM NAVIGATION ================= -->
-
 <nav class="bottom-nav">
 
-    <a href="card.html">
+<a href="card.html">
 
-        <i class="fa-solid fa-house"></i>
+<i class="fa-solid fa-house"></i>
 
-        <span>
+<span>
 
-            Home
+Home
 
-        </span>
+</span>
 
-    </a>
+</a>
 
-    <a
-    href="qr.html"
-    class="active">
+<a
+href="qr.html"
+class="active">
 
-        <i class="fa-solid fa-qrcode"></i>
+<i class="fa-solid fa-qrcode"></i>
 
-        <span>
+<span>
 
-            QR
+QR
 
-        </span>
+</span>
 
-    </a>
+</a>
 
-    <a href="history.html">
+<a href="history.html">
 
-        <i class="fa-solid fa-clock-rotate-left"></i>
+<i class="fa-solid fa-clock-rotate-left"></i>
 
-        <span>
+<span>
 
-            History
+History
 
-        </span>
+</span>
 
-    </a>
+</a>
 
-    <a href="menu.html">
+<a href="menu.html">
 
-        <i class="fa-solid fa-utensils"></i>
+<i class="fa-solid fa-utensils"></i>
 
-        <span>
+<span>
 
-            Menu
+Menu
 
-        </span>
+</span>
 
-    </a>
+</a>
 
-    <a href="feedback.html">
+<a href="feedback.html">
 
-        <i class="fa-solid fa-heart"></i>
+<i class="fa-solid fa-heart"></i>
 
-        <span>
+<span>
 
-            Review
+Review
 
-        </span>
+</span>
 
-    </a>
+</a>
 
-    <a href="profile.html">
+<a href="profile.html">
 
-        <i class="fa-solid fa-user"></i>
+<i class="fa-solid fa-user"></i>
 
-        <span>
+<span>
 
-            Profile
+Profile
 
-        </span>
+</span>
 
-    </a>
+</a>
 
 </nav>
 
-<!-- ================= QR JAVASCRIPT ================= -->
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <script
 type="module"
 src="js/qr.js">
 </script>
-
 <!-- ================= SERVICE WORKER ================= -->
 
 <script>
 
 if("serviceWorker" in navigator){
 
-    window.addEventListener("load",()=>{
+window.addEventListener("load",()=>{
 
-        navigator.serviceWorker.register("./service-worker.js");
+navigator.serviceWorker.register("./service-worker.js");
 
-    });
+});
 
 }
 
