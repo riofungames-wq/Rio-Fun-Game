@@ -56,15 +56,34 @@ href="css/history.css">
 
 </head>
 
+
 <body>
+
+
+<!-- =====================================
+     MAIN PAGE
+===================================== -->
 
 <div class="page">
 
+
+<!-- =====================================
+     HISTORY CARD
+===================================== -->
+
 <div class="history-card app-card">
+
+
+<!-- CARD EFFECTS -->
 
 <div class="card-glow"></div>
 
 <div class="card-shine"></div>
+
+
+<!-- =====================================
+     HISTORY HEADER
+===================================== -->
 
 <header class="history-header">
 
@@ -74,6 +93,7 @@ RIO MAGGI POINT
 
 </h1>
 
+
 <p>
 
 Premium Loyalty History
@@ -82,7 +102,15 @@ Premium Loyalty History
 
 </header>
 
+
+<!-- =====================================
+     CUSTOMER SECTION
+===================================== -->
+
 <section class="customer-section">
+
+
+<!-- CUSTOMER PHOTO -->
 
 <div class="avatar-frame">
 
@@ -98,6 +126,9 @@ loading="lazy">
 
 </div>
 
+
+<!-- CUSTOMER NAME -->
+
 <div
 id="historyName"
 class="customer-name">
@@ -105,6 +136,9 @@ class="customer-name">
 Loading...
 
 </div>
+
+
+<!-- MEMBER ID -->
 
 <div class="customer-id">
 
@@ -118,17 +152,26 @@ RIO-000000
 
 </div>
 
+
 </section>
+
+
+<!-- =====================================
+     CURRENT STAMP STATUS
+===================================== -->
 
 <section class="status-box">
 
+
 <div class="status-header">
+
 
 <div class="status-title">
 
 CURRENT STAMPS
 
 </div>
+
 
 <div
 id="historyStampCount"
@@ -138,7 +181,11 @@ class="status-value">
 
 </div>
 
+
 </div>
+
+
+<!-- STAMP PROGRESS -->
 
 <div class="stamp-progress">
 
@@ -150,9 +197,16 @@ class="stamp-progress-fill">
 
 </div>
 
+
 </section>
 
+
+<!-- =====================================
+     STAMP TIMELINE
+===================================== -->
+
 <section class="timeline-section">
+
 
 <div class="section-title">
 
@@ -160,269 +214,196 @@ STAMP TIMELINE
 
 </div>
 
+
 <div
 id="historyTimeline"
 class="timeline-list">
 
-<!-- Firebase Timeline -->
+<!-- Firebase Timeline Will Load Here -->
 
 </div>
 
-</section>
-<section class="reward-section">
-
-<div class="section-title">
-
-REWARD STATUS
-
-</div>
-
-<div class="reward-box">
-
-<div class="reward-icon">
-
-🍜
-
-</div>
-
-<div class="reward-details">
-
-<h3 id="rewardTitle">
-
-FREE VEG MAGGI
-
-</h3>
-
-<p id="rewardStatus">
-
-Collect 6 More Stamp(s)
-
-</p>
-
-</div>
-
-</div>
 
 </section>
 
-<section class="statistics-section">
 
-<div class="section-title">
-
-YOUR STATISTICS
-
-</div>
-
-<div class="stats-grid">
-
-<div class="stat-card">
-
-<div class="stat-label">
-
-Total Visits
-
-</div>
-
-<div
-id="totalVisits"
-class="stat-value">
-
-0
-
-</div>
-
-</div>
-
-<div class="stat-card">
-
-<div class="stat-label">
-
-Rewards Earned
-
-</div>
-
-<div
-id="totalRewardCount"
-class="stat-value">
-
-0
-
-</div>
-
-</div>
-
-<div class="stat-card">
-
-<div class="stat-label">
-
-Member Since
-
-</div>
-
-<div
-id="memberSince"
-class="stat-value">
-
---
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="history-note">
-
-<div class="info-card">
-
-<div class="info-icon">
-
-<i class="fa-solid fa-circle-info"></i>
-
-</div>
-
-<div class="info-text">
-
-<h3>
-
-How Loyalty History Works
-
-</h3>
-
-<p>
-
-Every successful Maggi purchase adds one stamp to your loyalty card. Complete six stamps to unlock one FREE VEG MAGGI reward automatically.
-
-</p>
-
-</div>
-
-</div>
-
-</section>
+<!-- =====================================
+     PART 1 END
+===================================== -->
+  <!-- =====================================
+     HISTORY.HTML - PART 2
+     BOTTOM NAVIGATION
+===================================== -->
 
 <div class="nav-space"></div>
 
+
+<!-- =====================================
+     FIXED BOTTOM NAVIGATION
+===================================== -->
+
 <nav class="bottom-nav">
 
-<a href="card.html">
 
-<i class="fa-solid fa-house"></i>
+    <!-- HOME -->
 
-<span>
+    <a href="card.html">
 
-Home
+        <i class="fa-solid fa-house"></i>
 
-</span>
+        <span>
+            Home
+        </span>
 
-</a>
+    </a>
 
-<a href="qr.html">
 
-<i class="fa-solid fa-qrcode"></i>
+    <!-- QR -->
 
-<span>
+    <a href="qr.html">
 
-QR
+        <i class="fa-solid fa-qrcode"></i>
 
-</span>
+        <span>
+            QR
+        </span>
 
-</a>
+    </a>
 
-<a
-href="history.html"
-class="active">
 
-<i class="fa-solid fa-clock-rotate-left"></i>
+    <!-- HISTORY -->
 
-<span>
+    <a
+        href="history.html"
+        class="active">
 
-History
+        <i class="fa-solid fa-clock-rotate-left"></i>
 
-</span>
+        <span>
+            History
+        </span>
 
-</a>
+    </a>
 
-<a href="menu.html">
 
-<i class="fa-solid fa-utensils"></i>
+    <!-- MENU -->
 
-<span>
+    <a href="menu.html">
 
-Menu
+        <i class="fa-solid fa-utensils"></i>
 
-</span>
+        <span>
+            Menu
+        </span>
 
-</a>
-<a href="feedback.html">
+    </a>
 
-<i class="fa-solid fa-heart"></i>
 
-<span>
+    <!-- REVIEW -->
 
-Review
+    <a href="feedback.html">
 
-</span>
+        <i class="fa-solid fa-heart"></i>
 
-</a>
+        <span>
+            Review
+        </span>
 
-<a href="profile.html">
+    </a>
 
-<i class="fa-solid fa-user"></i>
 
-<span>
+    <!-- PROFILE -->
 
-Profile
+    <a href="profile.html">
 
-</span>
+        <i class="fa-solid fa-user"></i>
 
-</a>
+        <span>
+            Profile
+        </span>
+
+    </a>
+
 
 </nav>
 
-</div>
+
+<!-- =====================================
+     END BOTTOM NAVIGATION
+===================================== -->
+
 
 </div>
 
-<!-- =========================
-HISTORY SCRIPT
-========================= -->
+</div>
+
+
+<!-- =====================================
+     HISTORY JAVASCRIPT
+===================================== -->
 
 <script
-type="module"
-src="js/history.js">
-
+    type="module"
+    src="js/history.js">
 </script>
 
-<!-- =========================
-SERVICE WORKER
-========================= -->
+
+<!-- =====================================
+     SERVICE WORKER
+===================================== -->
 
 <script>
 
-if("serviceWorker" in navigator){
+if ("serviceWorker" in navigator) {
 
-window.addEventListener(
+    window.addEventListener(
 
-"load",
+        "load",
 
-()=>{
+        async () => {
 
-navigator.serviceWorker.register(
+            try {
 
-"./service-worker.js"
+                const registration =
+                    await navigator.serviceWorker.register(
+                        "./service-worker.js"
+                    );
 
-);
 
-}
+                console.log(
 
-);
+                    "Rio Maggi Point Service Worker Registered:",
+
+                    registration.scope
+
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+
+                    "Service Worker Registration Failed:",
+
+                    error
+
+                );
+
+            }
+
+        }
+
+    );
 
 }
 
 </script>
+
+
+<!-- =====================================
+     HISTORY.HTML END
+===================================== -->
 
 </body>
 
