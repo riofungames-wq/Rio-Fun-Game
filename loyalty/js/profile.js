@@ -1,18 +1,21 @@
 // =====================================================
 // RIO MAGGI POINT
 // PROFILE.JS
-// FINAL PREMIUM PROFILE EDIT SYSTEM
-// PART 1 / 3
+// FINAL PREMIUM VERSION
+// PART 1
 // =====================================================
 
 
-import { auth, db } from "./firebase-config.js";
 
+// =====================================================
+// FIREBASE IMPORT
+// =====================================================
+
+import { auth, db } from "./firebase-config.js";
 
 import {
 
 onAuthStateChanged,
-
 signOut
 
 }
@@ -21,14 +24,10 @@ from
 
 "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-
-
 import {
 
 doc,
-
 getDoc,
-
 updateDoc
 
 }
@@ -39,97 +38,75 @@ from
 
 
 
-
 // =====================================================
-// ELEMENTS
+// PROFILE ELEMENTS
 // =====================================================
-
 
 const profilePhoto =
 document.getElementById("profilePhoto");
 
-
 const profileName =
 document.getElementById("profileName");
-
 
 const profileMemberId =
 document.getElementById("profileMemberId");
 
-
 const profileMobile =
 document.getElementById("profileMobile");
-
 
 const profileEmail =
 document.getElementById("profileEmail");
 
-
 const profileDOB =
 document.getElementById("profileDOB");
-
 
 const profileAge =
 document.getElementById("profileAge");
 
-
 const profileCategory =
 document.getElementById("profileCategory");
-
 
 const profileStampCount =
 document.getElementById("profileStampCount");
 
-
 const profileReward =
 document.getElementById("profileReward");
-
 
 const profileMemberSince =
 document.getElementById("profileMemberSince");
 
 
 
-
+// =====================================================
 // EDIT ELEMENTS
-
+// =====================================================
 
 const editProfileBtn =
 document.getElementById("editProfileBtn");
 
-
 const editModal =
 document.getElementById("editModal");
-
 
 const editName =
 document.getElementById("editName");
 
-
 const editDOB =
 document.getElementById("editDOB");
-
 
 const editAge =
 document.getElementById("editAge");
 
-
 const editGender =
 document.getElementById("editGender");
-
 
 const saveProfileBtn =
 document.getElementById("saveProfileBtn");
 
-
 const closeEditBtn =
 document.getElementById("closeEditBtn");
 
-
 const logoutBtn =
 document.getElementById("logoutBtn");
-
-
 
 
 
@@ -137,16 +114,88 @@ document.getElementById("logoutBtn");
 // VARIABLES
 // =====================================================
 
-
 let currentUID = null;
 
-
 let currentCustomer = null;
+
+
+
 // =====================================================
-// AUTH + LOAD PROFILE
-// PART 2 / 3
+// SAFE TEXT
 // =====================================================
 
+function setText(element,value){
+
+if(element){
+
+element.textContent=value;
+
+}
+
+}
+
+
+
+// =====================================================
+// SAFE IMAGE
+// =====================================================
+
+function setImage(image,url){
+
+if(!image) return;
+
+image.src=url || "assets/avatars/default.png";
+
+image.onerror=()=>{
+
+image.src="assets/avatars/default.png";
+
+};
+
+}
+
+
+
+// =====================================================
+// SAFE DATE FORMAT
+// =====================================================
+
+function formatMemberDate(value){
+
+if(!value){
+
+return "--";
+
+}
+
+try{
+
+if(value.toDate){
+
+return value
+.toDate()
+.toLocaleDateString();
+
+}
+
+return new Date(value)
+.toLocaleDateString();
+
+}
+
+catch{
+
+return "--";
+
+}
+
+}
+
+
+
+// =====================================================
+// AUTH
+// =====================================================
 
 onAuthStateChanged(
 
@@ -154,389 +203,258 @@ auth,
 
 async(user)=>{
 
+if(!user){
+
+window.location.href="login.html";
+
+return;
+
+}
+
+currentUID=user.uid;
+
+try{
+
+const customerRef=
+
+doc(
+db,
+"customers",
+user.uid
+);
+
+const customerSnap=
+
+await getDoc(customerRef);
+
+if(!customerSnap.exists()){
+
+alert("Customer data not found");
+
+return;
+
+}
+
+currentCustomer=
+
+customerSnap.data();
+
+loadProfile(currentCustomer);
+
+}
+
+catch(error){
+
+console.error(
+
+"Profile Load Error:",
+
+error
+
+);
+
+alert(
+
+"Unable to load profile"
+
+);
+
+}
+
+});
+
+/* ============================
+   CONTINUE IN PART 2
+============================ */
+// =====================================================
+// LOAD CUSTOMER PROFILE
+// =====================================================
+
+onAuthStateChanged(
+
+auth,
+
+async(user)=>{
 
     if(!user){
 
-
         window.location.href = "login.html";
-
 
         return;
 
-
     }
-
-
 
     currentUID = user.uid;
 
-
-
     try{
 
-
-        const customerRef =
-
-        doc(
-
+        const customerRef = doc(
             db,
-
             "customers",
-
             user.uid
-
         );
 
-
-
-        const customerSnap =
-
-        await getDoc(customerRef);
-
-
-
+        const customerSnap = await getDoc(customerRef);
 
         if(!customerSnap.exists()){
 
-
-            alert(
-
-                "Customer data not found"
-
-            );
-
+            alert("Customer data not found");
 
             return;
 
-
         }
 
-
-
-
-
-        currentCustomer =
-
-        customerSnap.data();
-
-
-
-
+        currentCustomer = customerSnap.data();
 
         loadProfile(currentCustomer);
 
-
-
     }
-
 
     catch(error){
 
-
         console.error(
-
             "Profile Load Error:",
-
             error
-
         );
-
 
         alert(
-
             "Unable to load profile"
-
         );
 
-
     }
-
 
 }
 
 );
-
-
-
-
-
-
 
 
 // =====================================================
 // DISPLAY PROFILE DATA
 // =====================================================
 
-
 function loadProfile(customer){
 
-
-
-    // PHOTO
-
-
     profilePhoto.src =
-
-    customer.avatar ||
-
-    customer.photoURL ||
-
-    "assets/avatars/male.png";
-
-
-
-
-
+        customer.avatar ||
+        customer.photoURL ||
+        "assets/avatars/default.png";
 
     profileName.textContent =
-
-    customer.name || "Customer";
-
-
-
-
+        customer.name || "Customer";
 
     profileMemberId.textContent =
-
-    customer.memberId || "RIO-000000";
-
-
-
-
+        customer.memberId || "RIO-000000";
 
     profileMobile.textContent =
-
-    customer.mobile || "--";
-
-
-
-
+        customer.mobile || "--";
 
     profileEmail.textContent =
-
-    customer.email || "--";
-
-
-
-
+        customer.email || "--";
 
     profileDOB.textContent =
-
-    customer.dob || "--";
-
-
-
-
+        customer.dob || "--";
 
     profileAge.textContent =
-
-    customer.age || "--";
-
-
-
-
+        customer.age || "--";
 
     profileCategory.textContent =
-
-    customer.gender
-
-    ?
-
-    customer.gender.toUpperCase()
-
-    :
-
-    "PREMIUM MEMBER";
-
-
-
-
-
-
+        customer.gender
+            ? customer.gender.toUpperCase()
+            : "PREMIUM MEMBER";
 
     const stamps =
-
-    Number(customer.stamps || 0);
-
-
-
-
+        Number(customer.stamps || 0);
 
     profileStampCount.textContent =
-
-    `${stamps} / 6`;
-
-
-
-
-
+        `${stamps} / 6`;
 
     if(
-
-        customer.rewardUnlocked === true
-
-        ||
-
+        customer.rewardUnlocked === true ||
+        customer.reward === true ||
         stamps >= 6
-
     ){
 
-
         profileReward.textContent =
-
-        "FREE VEG MAGGI UNLOCKED";
-
+            "FREE VEG MAGGI UNLOCKED";
 
     }
 
     else{
 
-
         profileReward.textContent =
-
-        "Locked";
-
+            `Collect ${6 - stamps} More Stamp(s)`;
 
     }
 
-
-
-
-
-    // MEMBER DATE
-
-
     if(customer.createdAt){
-
-
 
         try{
 
-
             const date =
-
-            customer.createdAt.toDate
-
-            ?
-
-            customer.createdAt.toDate()
-
-            :
-
-            new Date(
-
-            customer.createdAt.seconds * 1000
-
-            );
-
-
-
+                customer.createdAt.toDate
+                ? customer.createdAt.toDate()
+                : new Date(customer.createdAt.seconds * 1000);
 
             profileMemberSince.textContent =
-
-            date.toLocaleDateString();
-
-
+                date.toLocaleDateString();
 
         }
 
         catch{
 
-
             profileMemberSince.textContent = "--";
 
-
         }
-
-
 
     }
 
     else{
 
-
         profileMemberSince.textContent = "--";
-
 
     }
 
-
-
 }
-
-
-
-
-
-
 
 
 // =====================================================
 // OPEN EDIT PROFILE
 // =====================================================
 
-
 if(editProfileBtn){
 
+    editProfileBtn.addEventListener(
 
-editProfileBtn.addEventListener(
+        "click",
 
-"click",
+        ()=>{
 
-()=>{
+            if(!currentCustomer) return;
 
+            editName.value =
+                currentCustomer.name || "";
 
-    if(!currentCustomer) return;
+            editDOB.value =
+                currentCustomer.dob || "";
 
+            editAge.value =
+                currentCustomer.age || "";
 
+            editGender.value =
+                currentCustomer.gender || "";
 
+            editModal.style.display = "flex";
 
-    editName.value =
+        }
 
-    currentCustomer.name || "";
-
-
-
-    editDOB.value =
-
-    currentCustomer.dob || "";
-
-
-
-    editAge.value =
-
-    currentCustomer.age || "";
-
-
-
-    editGender.value =
-
-    currentCustomer.gender || "";
-
-
-
-
-
-    editModal.style.display =
-
-    "flex";
-
-
-
-}
-
-);
-
+    );
 
 }
 // =====================================================
-// SAVE PROFILE UPDATE
-// PART 3 / 3
+// SAVE PROFILE
 // =====================================================
-
 
 if(saveProfileBtn){
-
 
 saveProfileBtn.addEventListener(
 
@@ -544,251 +462,126 @@ saveProfileBtn.addEventListener(
 
 async()=>{
 
+const newName = editName.value.trim();
 
-    const newName =
+const newDOB = editDOB.value;
 
-    editName.value.trim();
+const newAge = editAge.value;
 
+const newGender = editGender.value;
 
+if(!newName){
 
-    const newDOB =
+alert("Please enter your name.");
 
-    editDOB.value;
+return;
 
+}
 
+try{
 
-    const newAge =
+saveProfileBtn.disabled = true;
 
-    editAge.value;
+saveProfileBtn.innerHTML =
+`<i class="fa-solid fa-spinner fa-spin"></i> Saving...`;
 
+let avatar = "assets/avatars/default.png";
 
+if(newGender === "male"){
 
-    const newGender =
+avatar = "assets/avatars/male.png";
 
-    editGender.value;
+}
 
+else if(newGender === "female"){
 
+avatar = "assets/avatars/female.png";
 
+}
 
+const customerRef = doc(
 
-    if(!newName){
+db,
 
+"customers",
 
-        alert(
+currentUID
 
-            "Name required"
+);
 
-        );
+await updateDoc(
 
+customerRef,
 
-        return;
+{
 
+name:newName,
 
-    }
+dob:newDOB,
 
+age:newAge,
 
+gender:newGender,
 
-
-
-
-    try{
-
-
-        saveProfileBtn.disabled = true;
-
-
-        saveProfileBtn.innerHTML =
-
-        "Saving...";
-
-
-
-
-
-        let newAvatar =
-
-        "assets/avatars/male.png";
-
-
-
-
-
-        if(newGender === "female"){
-
-
-            newAvatar =
-
-            "assets/avatars/female.png";
-
-
-        }
-
-
-        else if(newGender === "male"){
-
-
-            newAvatar =
-
-            "assets/avatars/male.png";
-
-
-        }
-
-
-
-
-
-
-
-        const customerRef =
-
-        doc(
-
-            db,
-
-            "customers",
-
-            currentUID
-
-        );
-
-
-
-
-
-        await updateDoc(
-
-            customerRef,
-
-            {
-
-
-                name:newName,
-
-
-                dob:newDOB,
-
-
-                age:newAge,
-
-
-                gender:newGender,
-
-
-                avatar:newAvatar
-
-
-            }
-
-        );
-
-
-
-
-
-
-        // Update local data
-
-
-        currentCustomer.name = newName;
-
-        currentCustomer.dob = newDOB;
-
-        currentCustomer.age = newAge;
-
-        currentCustomer.gender = newGender;
-
-        currentCustomer.avatar = newAvatar;
-
-
-
-
-
-        loadProfile(currentCustomer);
-
-
-
-
-
-        editModal.style.display =
-
-        "none";
-
-
-
-
-
-        alert(
-
-            "Profile Updated Successfully"
-
-        );
-
-
-
-    }
-
-
-
-    catch(error){
-
-
-        console.error(
-
-            "Update Error:",
-
-            error
-
-        );
-
-
-
-        alert(
-
-            "Profile Update Failed"
-
-        );
-
-
-    }
-
-
-
-    finally{
-
-
-        saveProfileBtn.disabled = false;
-
-
-        saveProfileBtn.innerHTML =
-
-        `<i class="fa-solid fa-check"></i> Save`;
-
-
-    }
-
-
+avatar:avatar
 
 }
 
 );
 
+currentCustomer.name = newName;
+
+currentCustomer.dob = newDOB;
+
+currentCustomer.age = newAge;
+
+currentCustomer.gender = newGender;
+
+currentCustomer.avatar = avatar;
+
+loadProfile(currentCustomer);
+
+editModal.style.display = "none";
+
+alert("Profile updated successfully.");
+
+}
+
+catch(error){
+
+console.error(
+
+"Profile Update Error:",
+
+error
+
+);
+
+alert("Unable to update profile.");
+
+}
+
+finally{
+
+saveProfileBtn.disabled = false;
+
+saveProfileBtn.innerHTML =
+`<i class="fa-solid fa-check"></i> Save`;
+
+}
+
+}
+
+);
 
 }
 
 
-
-
-
-
-
 // =====================================================
-// CLOSE EDIT
+// CLOSE EDIT MODAL
 // =====================================================
-
 
 if(closeEditBtn){
-
 
 closeEditBtn.addEventListener(
 
@@ -796,123 +589,18 @@ closeEditBtn.addEventListener(
 
 ()=>{
 
-
-    editModal.style.display =
-
-    "none";
-
+editModal.style.display = "none";
 
 }
 
 );
 
-
 }
 
 
-
-
-
-
-
-
 // =====================================================
-// LOGOUT
+// CLOSE MODAL ON OUTSIDE CLICK
 // =====================================================
-
-
-if(logoutBtn){
-
-
-logoutBtn.addEventListener(
-
-"click",
-
-async()=>{
-
-
-
-    const confirmLogout =
-
-    confirm(
-
-    "Do you want to logout?"
-
-    );
-
-
-
-
-
-    if(!confirmLogout){
-
-        return;
-
-    }
-
-
-
-
-
-    try{
-
-
-        await signOut(auth);
-
-
-
-        window.location.href =
-
-        "login.html";
-
-
-
-    }
-
-
-
-    catch(error){
-
-
-        console.error(
-
-            "Logout Error:",
-
-            error
-
-        );
-
-
-        alert(
-
-            "Logout Failed"
-
-        );
-
-
-    }
-
-
-
-}
-
-);
-
-
-}
-
-
-
-
-
-
-// =====================================================
-// CLOSE MODAL OUTSIDE CLICK
-// =====================================================
-
-
-if(editModal){
-
 
 window.addEventListener(
 
@@ -920,60 +608,80 @@ window.addEventListener(
 
 (event)=>{
 
+if(event.target === editModal){
 
-    if(event.target === editModal){
+editModal.style.display = "none";
 
-
-        editModal.style.display =
-
-        "none";
-
-
-    }
-
+}
 
 }
 
 );
 
 
+// =====================================================
+// LOGOUT
+// =====================================================
+
+if(logoutBtn){
+
+logoutBtn.addEventListener(
+
+"click",
+
+async()=>{
+
+const confirmLogout = confirm(
+
+"Do you want to logout?"
+
+);
+
+if(!confirmLogout){
+
+return;
+
+}
+
+try{
+
+await signOut(auth);
+
+window.location.href = "login.html";
+
+}
+
+catch(error){
+
+console.error(
+
+"Logout Error:",
+
+error
+
+);
+
+alert("Logout failed.");
+
+}
+
+}
+
+);
+
 }
 
 
+// =====================================================
+// READY
+// =====================================================
 
+console.log("================================");
 
+console.log("🍜 Rio Maggi Point");
 
+console.log("Premium Profile Loaded");
 
-console.log(
+console.log("Profile Edit Enabled");
 
-"================================"
-
-);
-
-
-console.log(
-
-"🍜 Rio Maggi Point"
-
-);
-
-
-console.log(
-
-"Premium Profile System Active"
-
-);
-
-
-console.log(
-
-"Gender Avatar Update Ready"
-
-);
-
-
-console.log(
-
-"================================"
-
-);
+console.log("================================");
