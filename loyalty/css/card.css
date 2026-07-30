@@ -1,7 +1,8 @@
 /* =========================================
    RIO MAGGI POINT
    PREMIUM LOYALTY CARD
-   CARD.CSS - PART 1
+   CARD.CSS - PART 1 OF 3
+   CORRECTED FINAL VERSION
 ========================================= */
 
 
@@ -9,33 +10,33 @@
    ROOT VARIABLES
 ========================================= */
 
-:root{
+:root {
 
-    --bg:#080808;
+    --bg: #080808;
 
-    --card:#171717;
+    --card: #171717;
 
-    --card-dark:#111111;
+    --card-dark: #111111;
 
-    --gold:#d4af37;
+    --gold: #d4af37;
 
-    --gold-light:#f7de8b;
+    --gold-light: #f7de8b;
 
-    --gold-pale:#fff6d4;
+    --gold-pale: #fff6d4;
 
-    --white:#ffffff;
+    --white: #ffffff;
 
-    --text:#ececec;
+    --text: #ececec;
 
-    --muted:#bdbdbd;
+    --muted: #bdbdbd;
 
-    --border:rgba(212,175,55,.35);
+    --border: rgba(212,175,55,.35);
 
-    --shadow:rgba(0,0,0,.55);
+    --shadow: rgba(0,0,0,.55);
 
-    --game-blue:#00e5ff;
+    --game-blue: #00e5ff;
 
-    --game-purple:#7c4dff;
+    --game-purple: #7c4dff;
 
 }
 
@@ -44,15 +45,28 @@
    GLOBAL RESET
 ========================================= */
 
-*{
+* {
 
-    margin:0;
+    margin: 0;
 
-    padding:0;
+    padding: 0;
 
-    box-sizing:border-box;
+    box-sizing: border-box;
 
-    font-family:"Poppins",sans-serif;
+    font-family: "Poppins", sans-serif;
+
+}
+
+
+/* =========================================
+   HTML
+========================================= */
+
+html {
+
+    min-height: 100%;
+
+    background: #080808;
 
 }
 
@@ -61,9 +75,9 @@
    BODY
 ========================================= */
 
-body{
+body {
 
-    min-height:100vh;
+    min-height: 100vh;
 
     background:
 
@@ -75,13 +89,13 @@ body{
 
         #080808;
 
-    color:var(--white);
+    color: var(--white);
 
-    display:flex;
+    display: flex;
 
-    justify-content:center;
+    justify-content: center;
 
-    padding:18px;
+    padding: 18px 12px 100px;
 
 }
 
@@ -90,13 +104,13 @@ body{
    MAIN PAGE
 ========================================= */
 
-.page{
+.page {
 
-    width:100%;
+    width: 100%;
 
-    max-width:430px;
+    max-width: 430px;
 
-    padding-bottom:110px;
+    padding-bottom: 110px;
 
 }
 
@@ -105,9 +119,11 @@ body{
    PREMIUM CARD
 ========================================= */
 
-.premium-card{
+.premium-card {
 
-    position:relative;
+    position: relative;
+
+    width: 100%;
 
     background:
 
@@ -117,13 +133,15 @@ body{
             #121212
         );
 
-    border:2px solid var(--gold);
+    border: 2px solid var(--gold);
 
-    border-radius:28px;
+    border-radius: 28px;
 
-    padding:22px;
+    padding: 22px;
 
-    overflow:hidden;
+    overflow: hidden;
+
+    isolation: isolate;
 
     box-shadow:
 
@@ -137,22 +155,22 @@ body{
 
 
 /* =========================================
-   GOLD GLOW
+   CARD GLOW
 ========================================= */
 
-.card-glow{
+.card-glow {
 
-    position:absolute;
+    position: absolute;
 
-    right:-80px;
+    right: -80px;
 
-    top:-80px;
+    top: -80px;
 
-    width:220px;
+    width: 220px;
 
-    height:220px;
+    height: 220px;
 
-    border-radius:50%;
+    border-radius: 50%;
 
     background:
 
@@ -166,7 +184,9 @@ body{
 
         );
 
-    pointer-events:none;
+    pointer-events: none;
+
+    z-index: 0;
 
 }
 
@@ -175,19 +195,19 @@ body{
    CARD SHINE
 ========================================= */
 
-.card-shine{
+.card-shine {
 
-    position:absolute;
+    position: absolute;
 
-    left:-40%;
+    left: -40%;
 
-    top:-25%;
+    top: -25%;
 
-    width:55%;
+    width: 55%;
 
-    height:180%;
+    height: 180%;
 
-    transform:rotate(25deg);
+    transform: rotate(25deg);
 
     background:
 
@@ -203,7 +223,22 @@ body{
 
         );
 
-    pointer-events:none;
+    pointer-events: none;
+
+    z-index: 1;
+
+}
+
+
+/* =========================================
+   CARD CONTENT LAYER
+========================================= */
+
+.premium-card > *:not(.card-glow):not(.card-shine) {
+
+    position: relative;
+
+    z-index: 2;
 
 }
 
@@ -212,26 +247,28 @@ body{
    HEADER
 ========================================= */
 
-.card-header{
+.card-header {
 
-    position:relative;
+    text-align: center;
 
-    z-index:2;
-
-    text-align:center;
-
-    margin-bottom:20px;
+    margin-bottom: 20px;
 
 }
 
 
-.brand-title{
+/* =========================================
+   BRAND TITLE
+========================================= */
 
-    font-size:30px;
+.brand-title {
 
-    font-weight:800;
+    font-size: 30px;
 
-    letter-spacing:1px;
+    font-weight: 800;
+
+    line-height: 1.2;
+
+    letter-spacing: 1px;
 
     background:
 
@@ -247,24 +284,28 @@ body{
 
         );
 
-    -webkit-background-clip:text;
+    -webkit-background-clip: text;
 
-    -webkit-text-fill-color:transparent;
+    -webkit-text-fill-color: transparent;
 
 }
 
 
-.brand-subtitle{
+/* =========================================
+   BRAND SUBTITLE
+========================================= */
 
-    margin-top:4px;
+.brand-subtitle {
 
-    font-size:11px;
+    margin-top: 5px;
 
-    font-weight:600;
+    font-size: 11px;
 
-    color:#d8c27a;
+    font-weight: 600;
 
-    letter-spacing:.8px;
+    color: #d8c27a;
+
+    letter-spacing: .8px;
 
 }
 
@@ -273,38 +314,36 @@ body{
    CUSTOMER SECTION
 ========================================= */
 
-.customer-section{
+.customer-section {
 
-    position:relative;
+    display: flex;
 
-    z-index:2;
+    flex-direction: column;
 
-    display:flex;
+    align-items: center;
 
-    flex-direction:column;
+    justify-content: center;
 
-    align-items:center;
-
-    justify-content:center;
-
-    margin-bottom:22px;
+    margin-bottom: 22px;
 
 }
 
 
 /* =========================================
-   AVATAR
+   AVATAR FRAME
 ========================================= */
 
-.avatar-frame{
+.avatar-frame {
 
-    width:120px;
+    position: relative;
 
-    height:120px;
+    width: 120px;
 
-    border-radius:50%;
+    height: 120px;
 
-    padding:4px;
+    border-radius: 50%;
+
+    padding: 4px;
 
     background:
 
@@ -323,28 +362,58 @@ body{
         0 0 18px
         rgba(212,175,55,.45);
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
-    justify-content:center;
+    justify-content: center;
 
-    margin-bottom:14px;
+    margin-bottom: 14px;
 
 }
 
 
-.avatar-frame img{
+/* =========================================
+   AVATAR OUTER RING
+========================================= */
 
-    width:100%;
+.avatar-frame::after {
 
-    height:100%;
+    content: "";
 
-    border-radius:50%;
+    position: absolute;
 
-    object-fit:cover;
+    inset: -4px;
 
-    background:#222;
+    border-radius: 50%;
+
+    border:
+
+        1px solid
+        rgba(255,240,184,.45);
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================
+   CUSTOMER IMAGE
+========================================= */
+
+.avatar-frame img {
+
+    width: 100%;
+
+    height: 100%;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    background: #222;
+
+    display: block;
 
 }
 
@@ -353,21 +422,25 @@ body{
    CUSTOMER NAME
 ========================================= */
 
-.customer-name{
+.customer-name {
 
-    font-family:"Georgia",serif;
+    font-family: Georgia, serif;
 
-    font-size:24px;
+    font-size: 24px;
 
-    font-weight:700;
+    font-weight: 700;
 
-    letter-spacing:.5px;
+    line-height: 1.25;
 
-    color:#ffffff;
+    letter-spacing: .5px;
 
-    text-align:center;
+    color: #ffffff;
 
-    margin-bottom:6px;
+    text-align: center;
+
+    margin-bottom: 6px;
+
+    word-break: break-word;
 
 }
 
@@ -376,15 +449,15 @@ body{
    MEMBER ID
 ========================================= */
 
-.customer-id{
+.customer-id {
 
-    font-size:14px;
+    font-size: 14px;
 
-    font-weight:600;
+    font-weight: 600;
 
-    color:#e7cb74;
+    color: #e7cb74;
 
-    margin-bottom:10px;
+    margin-bottom: 10px;
 
 }
 
@@ -393,11 +466,11 @@ body{
    PREMIUM MEMBER BADGE
 ========================================= */
 
-.premium-member{
+.premium-member {
 
-    padding:6px 18px;
+    padding: 6px 18px;
 
-    border-radius:999px;
+    border-radius: 999px;
 
     background:
 
@@ -408,43 +481,48 @@ body{
         1px solid
         rgba(212,175,55,.45);
 
-    font-size:11px;
+    box-shadow:
 
-    font-weight:700;
+        0 0 12px
+        rgba(212,175,55,.08);
 
-    letter-spacing:1px;
+    font-size: 11px;
 
-    color:#f7de8b;
+    font-weight: 700;
 
-    margin-bottom:16px;
+    letter-spacing: 1px;
+
+    color: #f7de8b;
+
+    margin-bottom: 16px;
 
 }
 
 
 /* =========================================
-   PREMIUM FREE GAME BUTTON
+   FREE GAME BUTTON
 ========================================= */
 
-.game-button{
+.game-button {
 
-    position:relative;
+    position: relative;
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
-    justify-content:center;
+    justify-content: center;
 
-    gap:10px;
+    gap: 9px;
 
-    min-width:205px;
+    min-width: 205px;
 
-    padding:12px 20px;
+    padding: 11px 18px;
 
-    border:1px solid
-        rgba(0,229,255,.65);
+    border: 1px solid
+        rgba(255,255,255,.28);
 
-    border-radius:999px;
+    border-radius: 999px;
 
     background:
 
@@ -452,25 +530,43 @@ body{
 
             135deg,
 
-            #111827,
+            #7b2cff 0%,
 
-            #24134f,
+            #4c1d95 45%,
 
-            #071c27
+            #111 100%
 
         );
 
-    color:#ffffff;
+    color: #ffffff;
 
-    font-size:13px;
+    font-size: 12px;
 
-    font-weight:800;
+    font-weight: 800;
 
-    letter-spacing:.5px;
+    letter-spacing: .6px;
 
-    cursor:pointer;
+    cursor: pointer;
 
-    overflow:hidden;
+    overflow: hidden;
+
+    box-shadow:
+
+        0 0 0 1px
+        rgba(123,44,255,.25),
+
+        0 8px 20px
+        rgba(90,30,180,.35),
+
+        inset 0 1px 0
+        rgba(255,255,255,.2);
+
+    animation:
+
+        gameButtonGlow
+        2s
+        ease-in-out
+        infinite;
 
     transition:
 
@@ -478,38 +574,28 @@ body{
 
         box-shadow .25s ease;
 
-    box-shadow:
-
-        0 0 8px
-        rgba(0,229,255,.35),
-
-        0 0 22px
-        rgba(124,77,255,.22);
-
-    animation:
-
-        gamePulse 2s
-        ease-in-out
-        infinite;
+    -webkit-tap-highlight-color: transparent;
 
 }
 
 
-/* GAME BUTTON SHINE */
+/* =========================================
+   GAME BUTTON SHINE
+========================================= */
 
-.game-button::before{
+.game-button::before {
 
-    content:"";
+    content: "";
 
-    position:absolute;
+    position: absolute;
 
-    top:0;
+    top: 0;
 
-    left:-120%;
+    left: -120%;
 
-    width:80%;
+    width: 70%;
 
-    height:100%;
+    height: 100%;
 
     background:
 
@@ -525,94 +611,159 @@ body{
 
         );
 
-    transform:skewX(-20deg);
+    transform: skewX(-20deg);
 
     animation:
 
-        gameShine 3s
+        gameButtonShine
+        3s
         ease-in-out
         infinite;
+
+    pointer-events: none;
 
 }
 
 
-/* GAME ICON */
+/* =========================================
+   GAME BUTTON INNER BORDER
+========================================= */
 
-.game-icon{
+.game-button::after {
 
-    position:relative;
+    content: "";
 
-    z-index:2;
+    position: absolute;
 
-    width:28px;
+    inset: 0;
 
-    height:28px;
+    border-radius: 999px;
 
-    border-radius:50%;
+    border:
 
-    display:flex;
+        1px solid
+        rgba(255,255,255,.15);
 
-    align-items:center;
+    pointer-events: none;
 
-    justify-content:center;
+}
+
+
+/* =========================================
+   GAME ICON
+========================================= */
+
+.game-button .game-icon {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 27px;
+
+    height: 27px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
 
     background:
 
-        linear-gradient(
-
-            135deg,
-
-            var(--game-blue),
-
-            var(--game-purple)
-
-        );
-
-    color:#ffffff;
-
-    box-shadow:
-
-        0 0 10px
-        rgba(0,229,255,.55);
+        rgba(255,255,255,.14);
 
 }
 
 
-/* GAME TEXT */
+/* =========================================
+   GAME ICON SYMBOL
+========================================= */
 
-.game-text{
+.game-button .game-icon i {
 
-    position:relative;
+    font-size: 13px;
 
-    z-index:2;
-
-    white-space:nowrap;
-
-}
-
-
-/* GAME ARROW */
-
-.game-arrow{
-
-    position:relative;
-
-    z-index:2;
-
-    color:#00e5ff;
-
-    animation:
-
-        boltFlash 1.2s
-        ease-in-out
-        infinite;
+    color: #ffffff;
 
 }
 
 
-/* GAME HOVER */
+/* =========================================
+   GAME TEXT
+========================================= */
 
-.game-button:hover{
+.game-button .game-text {
+
+    position: relative;
+
+    z-index: 2;
+
+    white-space: nowrap;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: .7px;
+
+    text-shadow:
+
+        0 1px 4px
+        rgba(0,0,0,.5);
+
+}
+
+
+/* =========================================
+   GAME ARROW
+========================================= */
+
+.game-button .game-arrow {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 22px;
+
+    height: 22px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+
+        rgba(255,255,255,.16);
+
+}
+
+
+/* =========================================
+   GAME ARROW ICON
+========================================= */
+
+.game-button .game-arrow i {
+
+    font-size: 11px;
+
+    color: #ffe66d;
+
+}
+
+
+/* =========================================
+   GAME BUTTON HOVER
+========================================= */
+
+.game-button:hover {
 
     transform:
 
@@ -621,18 +772,20 @@ body{
 
     box-shadow:
 
-        0 0 12px
-        rgba(0,229,255,.55),
+        0 0 18px
+        rgba(123,44,255,.55),
 
-        0 0 30px
-        rgba(124,77,255,.45);
+        0 12px 28px
+        rgba(90,30,180,.45);
 
 }
 
 
-/* GAME CLICK */
+/* =========================================
+   GAME BUTTON ACTIVE
+========================================= */
 
-.game-button:active{
+.game-button:active {
 
     transform:
 
@@ -641,11 +794,13 @@ body{
 }
 
 
-/* GAME CLICK CLASS */
+/* =========================================
+   GAME BUTTON CLICKED
+========================================= */
 
-.game-button-clicked{
+.game-button-clicked {
 
-    animation:none;
+    animation: none;
 
     transform:
 
@@ -655,76 +810,54 @@ body{
 
 
 /* =========================================
-   GAME ANIMATIONS
+   GAME BUTTON ANIMATIONS
 ========================================= */
 
-@keyframes gamePulse{
+@keyframes gameButtonGlow {
 
     0%,
-    100%{
+    100% {
 
         box-shadow:
 
-            0 0 8px
-            rgba(0,229,255,.35),
+            0 0 0 1px
+            rgba(123,44,255,.25),
 
-            0 0 22px
-            rgba(124,77,255,.22);
+            0 8px 20px
+            rgba(90,30,180,.35);
 
     }
 
-    50%{
+    50% {
 
         box-shadow:
 
-            0 0 15px
-            rgba(0,229,255,.65),
+            0 0 0 2px
+            rgba(123,44,255,.35),
 
-            0 0 35px
-            rgba(124,77,255,.45);
+            0 0 22px
+            rgba(123,44,255,.5),
+
+            0 10px 26px
+            rgba(90,30,180,.45);
 
     }
 
 }
 
 
-@keyframes gameShine{
+@keyframes gameButtonShine {
 
-    0%{
+    0% {
 
-        left:-120%;
+        left: -120%;
 
     }
 
     45%,
-    100%{
+    100% {
 
-        left:140%;
-
-    }
-
-}
-
-
-@keyframes boltFlash{
-
-    0%,
-    100%{
-
-        transform:scale(1);
-
-        opacity:.8;
-
-    }
-
-    50%{
-
-        transform:
-
-            scale(1.25)
-            rotate(8deg);
-
-        opacity:1;
+        left: 150%;
 
     }
 
@@ -735,19 +868,15 @@ body{
    STAMP TITLE
 ========================================= */
 
-.stamp-title{
+.stamp-title {
 
-    position:relative;
+    width: 100%;
 
-    z-index:2;
+    text-align: center;
 
-    width:100%;
+    padding: 9px 12px;
 
-    text-align:center;
-
-    padding:9px 12px;
-
-    border-radius:14px;
+    border-radius: 14px;
 
     background:
 
@@ -763,21 +892,21 @@ body{
 
         );
 
-    color:#111;
+    color: #111;
 
-    font-size:11px;
+    font-size: 11px;
 
-    font-weight:700;
+    font-weight: 700;
 
-    letter-spacing:.3px;
+    letter-spacing: .3px;
 
-    white-space:nowrap;
+    white-space: nowrap;
 
-    overflow:hidden;
+    overflow: hidden;
 
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
 
-    margin-bottom:18px;
+    margin-bottom: 18px;
 
     box-shadow:
 
@@ -788,22 +917,30 @@ body{
 
 
 /* =========================================
+   PART 1 END
+========================================= */
+/* =========================================
+   RIO MAGGI POINT
+   PREMIUM LOYALTY CARD
+   CARD.CSS - PART 2 OF 3
+========================================= */
+
+
+/* =========================================
    STAMP SECTION
 ========================================= */
 
-.stamp-section{
+.stamp-section {
 
-    position:relative;
+    position: relative;
 
-    z-index:2;
+    width: 100%;
 
-    width:100%;
+    display: flex;
 
-    display:flex;
+    justify-content: center;
 
-    justify-content:center;
-
-    margin-bottom:20px;
+    margin-bottom: 20px;
 
 }
 
@@ -812,17 +949,19 @@ body{
    STAMP ROW
 ========================================= */
 
-.stamp-row{
+.stamp-row {
 
-    width:100%;
+    width: 100%;
 
-    display:flex;
+    display: flex;
 
-    justify-content:space-between;
+    justify-content: space-between;
 
-    align-items:flex-start;
+    align-items: flex-start;
 
-    gap:4px;
+    gap: 4px;
+
+    overflow: visible;
 
 }
 
@@ -831,19 +970,23 @@ body{
    STAMP ITEM
 ========================================= */
 
-.stamp-item{
+.stamp-item {
 
-    flex:1;
+    flex: 1;
 
-    min-width:0;
+    min-width: 0;
 
-    display:flex;
+    display: flex;
 
-    flex-direction:column;
+    flex-direction: column;
 
-    align-items:center;
+    align-items: center;
 
-    justify-content:flex-start;
+    justify-content: flex-start;
+
+    gap: 5px;
+
+    flex-shrink: 1;
 
 }
 
@@ -852,46 +995,54 @@ body{
    STAMP CIRCLE
 ========================================= */
 
-.stamp-circle{
+.stamp-circle {
 
-    position:relative;
+    position: relative;
 
-    width:40px;
+    width: 40px;
 
-    height:40px;
+    height: 40px;
 
-    min-width:40px;
+    min-width: 40px;
 
-    border-radius:50%;
+    border-radius: 50%;
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
-    justify-content:center;
+    justify-content: center;
 
     background:
 
-        radial-gradient(
+        linear-gradient(
 
-            circle at 35% 30%,
+            145deg,
 
-            #333,
+            #292929,
 
-            #1b1b1b
+            #181818
 
         );
 
     border:
 
         2px solid
-        rgba(212,175,55,.45);
+        rgba(212,175,55,.35);
 
-    color:#d8c17b;
+    color: #d8c17b;
 
-    font-size:15px;
+    font-size: 15px;
 
-    font-weight:700;
+    font-weight: 700;
+
+    box-shadow:
+
+        inset 0 2px 6px
+        rgba(0,0,0,.55),
+
+        0 2px 5px
+        rgba(0,0,0,.25);
 
     transition:
 
@@ -901,10 +1052,18 @@ body{
 
         background .3s ease;
 
-    box-shadow:
+}
 
-        inset 0 0 8px
-        rgba(255,255,255,.05);
+
+/* =========================================
+   STAMP NUMBER
+========================================= */
+
+.stamp-circle span {
+
+    position: relative;
+
+    z-index: 2;
 
 }
 
@@ -913,45 +1072,107 @@ body{
    ACTIVE STAMP
 ========================================= */
 
-.stamp-circle.active{
+.stamp-circle.active {
+
+    position: relative;
 
     background:
 
-        linear-gradient(
+        radial-gradient(
 
-            135deg,
+            circle at 30% 25%,
 
-            var(--gold-pale),
+            #fff8d8 0%,
 
-            var(--gold),
+            #f7de8b 25%,
 
-            #a77b08
+            #d4af37 65%,
+
+            #9b7620 100%
 
         );
 
-    color:#111;
+    color: #111;
 
     border:
 
         2px solid
-        var(--gold-light);
+        #ffeaa7;
 
     box-shadow:
 
-        0 0 10px
-        rgba(212,175,55,.55),
+        0 0 0 3px
+        rgba(212,175,55,.12),
 
-        0 0 20px
-        rgba(212,175,55,.25);
+        0 0 14px
+        rgba(212,175,55,.65),
+
+        0 5px 12px
+        rgba(0,0,0,.45);
+
+    transform:
+
+        scale(1.04);
 
 }
 
 
 /* =========================================
-   COLLECTED STAMP SPECIAL EFFECT
+   ACTIVE STAMP NUMBER
 ========================================= */
 
-.stamp-circle.stamp-collected{
+.stamp-circle.active span {
+
+    font-weight: 800;
+
+    color: #171717;
+
+    text-shadow:
+
+        0 1px 0
+        rgba(255,255,255,.45);
+
+}
+
+
+/* =========================================
+   ACTIVE STAMP SHINE
+========================================= */
+
+.stamp-circle.active::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 5px;
+
+    left: 7px;
+
+    width: 10px;
+
+    height: 6px;
+
+    border-radius: 50%;
+
+    background:
+
+        rgba(255,255,255,.65);
+
+    transform:
+
+        rotate(-25deg);
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================
+   COLLECTED STAMP
+========================================= */
+
+.stamp-circle.stamp-collected {
 
     transform:
 
@@ -964,37 +1185,41 @@ body{
    STAMP POP ANIMATION
 ========================================= */
 
-.stamp-circle.stamp-pop{
+.stamp-circle.stamp-pop {
 
     animation:
 
-        stampPop .5s
+        stampPop
+        .5s
         ease-out;
 
 }
 
 
-@keyframes stampPop{
+@keyframes stampPop {
 
-    0%{
+    0% {
 
         transform:
+
             scale(.75)
             rotate(-15deg);
 
     }
 
-    60%{
+    60% {
 
         transform:
+
             scale(1.15)
             rotate(5deg);
 
     }
 
-    100%{
+    100% {
 
         transform:
+
             scale(1.05)
             rotate(0);
 
@@ -1007,25 +1232,43 @@ body{
    STAMP DATE
 ========================================= */
 
-.stamp-date{
+.stamp-date {
 
-    width:100%;
+    width: 100%;
 
-    min-height:22px;
+    min-height: 16px;
 
-    margin-top:6px;
+    margin-top: 1px;
 
-    text-align:center;
+    text-align: center;
 
-    color:#bda96a;
+    color: #777;
 
-    font-size:7px;
+    font-size: 7px;
 
-    font-weight:600;
+    font-weight: 600;
 
-    line-height:1.2;
+    line-height: 1;
 
-    white-space:nowrap;
+    white-space: nowrap;
+
+    opacity: .75;
+
+    letter-spacing: .2px;
+
+}
+
+
+/* =========================================
+   ACTIVE STAMP DATE
+========================================= */
+
+.stamp-item:has(.stamp-circle.active)
+.stamp-date {
+
+    color: #d8c17b;
+
+    opacity: 1;
 
 }
 
@@ -1034,9 +1277,11 @@ body{
    REWARD ITEM
 ========================================= */
 
-.reward-item{
+.reward-item {
 
-    position:relative;
+    position: relative;
+
+    margin-left: 2px;
 
 }
 
@@ -1045,13 +1290,23 @@ body{
    REWARD CIRCLE
 ========================================= */
 
-.reward-circle{
+.reward-circle {
 
-    width:40px;
+    position: relative;
 
-    height:40px;
+    width: 40px;
 
-    min-width:40px;
+    height: 40px;
+
+    min-width: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
 
     background:
 
@@ -1065,17 +1320,17 @@ body{
 
         );
 
-    color:#111;
+    color: #111;
 
-    font-size:7px;
+    font-size: 7px;
 
-    font-weight:800;
+    font-weight: 800;
 
-    line-height:8px;
+    line-height: 8px;
 
-    text-align:center;
+    text-align: center;
 
-    padding:2px;
+    padding: 2px;
 
     border:
 
@@ -1089,26 +1344,106 @@ body{
    REWARD LABEL
 ========================================= */
 
-.reward-label{
+.reward-label {
 
-    display:flex;
+    position: relative;
 
-    flex-direction:column;
+    z-index: 2;
 
-    align-items:center;
+    display: flex;
 
-    justify-content:center;
+    flex-direction: column;
 
-    line-height:7px;
+    align-items: center;
+
+    justify-content: center;
+
+    line-height: 7px;
 
 }
 
 
-.reward-label i{
+/* =========================================
+   REWARD ICON
+========================================= */
 
-    font-size:9px;
+.reward-label i {
 
-    margin-bottom:2px;
+    font-size: 9px;
+
+    margin-bottom: 2px;
+
+}
+
+
+/* =========================================
+   ACTIVE REWARD
+========================================= */
+
+.reward-circle.active {
+
+    background:
+
+        radial-gradient(
+
+            circle at 30% 25%,
+
+            #ffffff 0%,
+
+            #fff0b8 20%,
+
+            #f7de8b 45%,
+
+            #d4af37 75%,
+
+            #9b7620 100%
+
+        );
+
+    border:
+
+        2px solid
+        #fff0b8;
+
+    box-shadow:
+
+        0 0 0 3px
+        rgba(212,175,55,.15),
+
+        0 0 20px
+        rgba(255,215,80,.75),
+
+        0 0 35px
+        rgba(212,175,55,.35);
+
+    animation:
+
+        rewardPulse
+        1.8s
+        ease-in-out
+        infinite;
+
+}
+
+
+/* =========================================
+   ACTIVE REWARD INNER BORDER
+========================================= */
+
+.reward-circle.active::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 3px;
+
+    border-radius: 50%;
+
+    border:
+
+        1px dashed
+        rgba(80,55,5,.65);
 
 }
 
@@ -1117,21 +1452,48 @@ body{
    REWARD UNLOCKED
 ========================================= */
 
-.reward-circle.reward-unlocked{
+.reward-circle.reward-unlocked {
 
     animation:
 
-        rewardGlow 1.5s
+        rewardGlow
+        1.5s
         ease-in-out
         infinite;
 
 }
 
 
-@keyframes rewardGlow{
+/* =========================================
+   REWARD ANIMATIONS
+========================================= */
+
+@keyframes rewardPulse {
 
     0%,
-    100%{
+    100% {
+
+        transform:
+
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+
+            scale(1.08);
+
+    }
+
+}
+
+
+@keyframes rewardGlow {
+
+    0%,
+    100% {
 
         box-shadow:
 
@@ -1140,7 +1502,7 @@ body{
 
     }
 
-    50%{
+    50% {
 
         box-shadow:
 
@@ -1150,660 +1512,320 @@ body{
     }
 
 }
-/* =========================================
-   RIO MAGGI POINT PREMIUM CARD
-   CSS PART 2
-   STAMP DATE + PREMIUM GAME + QUICK BUTTONS
-========================================= */
 
 
 /* =========================================
-   STAMP ITEM
+   COUNTDOWN BOX
 ========================================= */
 
-.stamp-item{
+.countdown-box {
 
-display:flex;
+    position: relative;
 
-flex-direction:column;
+    width: 100%;
 
-align-items:center;
+    min-height: 58px;
 
-justify-content:flex-start;
+    display: flex;
 
-gap:5px;
+    flex-direction: column;
 
-min-width:40px;
+    align-items: center;
 
-}
+    justify-content: center;
 
+    gap: 3px;
 
-/* =========================================
-   STAMP DATE
-========================================= */
+    margin-bottom: 20px;
 
-.stamp-date{
+    padding: 10px;
 
-min-height:16px;
+    border:
 
-font-size:7px;
+        1px solid
+        rgba(212,175,55,.35);
 
-font-weight:600;
+    border-radius: 15px;
 
-line-height:1;
+    background:
 
-color:#a99b72;
+        linear-gradient(
 
-text-align:center;
+            180deg,
 
-white-space:nowrap;
+            rgba(212,175,55,.10),
 
-opacity:.75;
+            rgba(212,175,55,.04)
 
-letter-spacing:.2px;
+        );
+
+    overflow: hidden;
 
 }
 
 
 /* =========================================
-   ACTIVE STAMP SPECIAL DESIGN
+   COUNTDOWN SHINE
 ========================================= */
 
-.stamp-circle.active{
+.countdown-box::before {
 
-position:relative;
+    content: "";
 
-background:
+    position: absolute;
 
-radial-gradient(
-circle at 30% 25%,
-#fff8d8 0%,
-#f7de8b 25%,
-#d4af37 65%,
-#9b7620 100%
-);
+    top: 0;
 
-color:#111;
+    left: -100%;
 
-border:2px solid #ffeaa7;
+    width: 60%;
 
-box-shadow:
+    height: 100%;
 
-0 0 0 3px rgba(212,175,55,.12),
+    background:
 
-0 0 14px rgba(212,175,55,.65),
+        linear-gradient(
 
-0 5px 12px rgba(0,0,0,.45);
+            90deg,
 
-transform:scale(1.04);
+            transparent,
 
-}
+            rgba(255,255,255,.05),
 
+            transparent
 
-/* STAMP NUMBER */
+        );
 
-.stamp-circle.active span{
+    animation:
 
-font-weight:800;
+        countdownShine
+        4s
+        ease-in-out
+        infinite;
 
-color:#171717;
-
-text-shadow:
-
-0 1px 0 rgba(255,255,255,.45);
-
-}
-
-
-/* STAMP SHINE EFFECT */
-
-.stamp-circle.active::after{
-
-content:"";
-
-position:absolute;
-
-top:5px;
-
-left:7px;
-
-width:10px;
-
-height:6px;
-
-border-radius:50%;
-
-background:rgba(255,255,255,.65);
-
-transform:rotate(-25deg);
-
-pointer-events:none;
+    pointer-events: none;
 
 }
 
 
 /* =========================================
-   REWARD CIRCLE
+   COUNTDOWN TEXT
 ========================================= */
 
-.reward-item{
+.countdown-text {
 
-margin-left:2px;
+    position: relative;
 
-}
+    z-index: 2;
 
+    color: #a99b72;
 
-.reward-circle{
+    font-size: 9px;
 
-position:relative;
+    font-weight: 600;
 
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-overflow:hidden;
-
-}
-
-
-.reward-circle .reward-label{
-
-position:relative;
-
-z-index:2;
-
-}
-
-
-.reward-circle.active{
-
-background:
-
-radial-gradient(
-circle at 30% 25%,
-#ffffff 0%,
-#fff0b8 20%,
-#f7de8b 45%,
-#d4af37 75%,
-#9b7620 100%
-);
-
-border:2px solid #fff0b8;
-
-box-shadow:
-
-0 0 0 3px rgba(212,175,55,.15),
-
-0 0 20px rgba(255,215,80,.75),
-
-0 0 35px rgba(212,175,55,.35);
-
-animation:
-
-rewardPulse 1.8s ease-in-out infinite;
-
-}
-
-
-.reward-circle.active::before{
-
-content:"";
-
-position:absolute;
-
-inset:3px;
-
-border-radius:50%;
-
-border:1px dashed rgba(80,55,5,.65);
-
-}
-
-
-@keyframes rewardPulse{
-
-0%,
-100%{
-
-transform:scale(1);
-
-}
-
-50%{
-
-transform:scale(1.08);
-
-}
+    letter-spacing: 1px;
 
 }
 
 
 /* =========================================
-   PREMIUM FREE GAME BUTTON
+   COUNTDOWN DAYS
 ========================================= */
 
-.game-button{
+.countdown-days {
 
-position:relative;
+    position: relative;
 
-min-width:190px;
+    z-index: 2;
 
-overflow:hidden;
+    color: #f7de8b;
 
-background:
+    font-size: 17px;
 
-linear-gradient(
-135deg,
-#7b2cff 0%,
-#4c1d95 45%,
-#111 100%
-);
+    font-weight: 800;
 
-border:1px solid rgba(255,255,255,.28);
+    letter-spacing: .5px;
 
-color:#ffffff;
+    text-shadow:
 
-box-shadow:
-
-0 0 0 1px rgba(123,44,255,.25),
-
-0 8px 20px rgba(90,30,180,.35),
-
-inset 0 1px 0 rgba(255,255,255,.2);
-
-animation:
-
-gameButtonGlow 2s ease-in-out infinite;
-
-}
-
-
-.game-button::before{
-
-content:"";
-
-position:absolute;
-
-top:0;
-
-left:-120%;
-
-width:70%;
-
-height:100%;
-
-background:
-
-linear-gradient(
-
-90deg,
-
-transparent,
-
-rgba(255,255,255,.35),
-
-transparent
-
-);
-
-transform:skewX(-20deg);
-
-animation:
-
-gameButtonShine 3s ease-in-out infinite;
-
-pointer-events:none;
-
-}
-
-
-.game-button::after{
-
-content:"";
-
-position:absolute;
-
-inset:0;
-
-border-radius:999px;
-
-border:1px solid rgba(255,255,255,.15);
-
-pointer-events:none;
-
-}
-
-
-.game-button .game-icon,
-.game-button .game-text,
-.game-button .game-arrow{
-
-position:relative;
-
-z-index:2;
-
-}
-
-
-.game-button .game-icon{
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-width:25px;
-
-height:25px;
-
-border-radius:50%;
-
-background:rgba(255,255,255,.14);
-
-}
-
-
-.game-button .game-icon i{
-
-font-size:13px;
-
-color:#ffffff;
-
-}
-
-
-.game-button .game-text{
-
-font-size:12px;
-
-font-weight:800;
-
-letter-spacing:.7px;
-
-text-shadow:
-
-0 1px 4px rgba(0,0,0,.5);
-
-}
-
-
-.game-button .game-arrow{
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-width:22px;
-
-height:22px;
-
-border-radius:50%;
-
-background:rgba(255,255,255,.16);
-
-}
-
-
-.game-button .game-arrow i{
-
-font-size:11px;
-
-color:#ffe66d;
-
-}
-
-
-.game-button:hover{
-
-transform:
-
-translateY(-3px)
-
-scale(1.02);
-
-box-shadow:
-
-0 0 18px rgba(123,44,255,.55),
-
-0 12px 28px rgba(90,30,180,.45);
-
-}
-
-
-.game-button:active{
-
-transform:
-
-scale(.96);
-
-}
-
-
-@keyframes gameButtonGlow{
-
-0%,
-100%{
-
-box-shadow:
-
-0 0 0 1px rgba(123,44,255,.25),
-
-0 8px 20px rgba(90,30,180,.35);
-
-}
-
-50%{
-
-box-shadow:
-
-0 0 0 2px rgba(123,44,255,.35),
-
-0 0 22px rgba(123,44,255,.5),
-
-0 10px 26px rgba(90,30,180,.45);
-
-}
-
-}
-
-
-@keyframes gameButtonShine{
-
-0%{
-
-left:-120%;
-
-}
-
-45%,
-100%{
-
-left:150%;
-
-}
+        0 0 10px
+        rgba(255,255,255,.15);
 
 }
 
 
 /* =========================================
-   QUICK BUTTONS - 4 BUTTON LAYOUT
+   COUNTDOWN ANIMATION
 ========================================= */
 
-.quick-buttons{
+@keyframes countdownShine {
 
-display:grid;
+    0% {
 
-grid-template-columns:
+        left: -100%;
 
-repeat(4,1fr);
+    }
 
-gap:7px;
+    50%,
+    100% {
 
-margin-top:20px;
+        left: 150%;
 
-}
-
-
-.quick-buttons button{
-
-position:relative;
-
-min-width:0;
-
-min-height:72px;
-
-padding:9px 4px;
-
-border-radius:14px;
-
-border:
-
-1px solid rgba(212,175,55,.30);
-
-background:
-
-linear-gradient(
-180deg,
-#202020,
-#151515
-);
-
-color:#ffffff;
-
-font-size:10px;
-
-font-weight:600;
-
-cursor:pointer;
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-justify-content:center;
-
-gap:4px;
-
-transition:
-
-transform .25s ease,
-
-background .25s ease,
-
-box-shadow .25s ease;
-
-overflow:hidden;
-
-}
-
-
-.quick-buttons button i{
-
-font-size:18px;
-
-color:#f7de8b;
-
-transition:
-
-transform .25s ease,
-
-color .25s ease;
-
-}
-
-
-.quick-buttons button:hover{
-
-background:
-
-linear-gradient(
-180deg,
-#292929,
-#191919
-);
-
-transform:
-
-translateY(-3px);
-
-box-shadow:
-
-0 8px 18px rgba(0,0,0,.35);
-
-}
-
-
-.quick-buttons button:hover i{
-
-transform:
-
-scale(1.12);
-
-color:#ffffff;
+    }
 
 }
 
 
 /* =========================================
-   COMING SOON BUTTON
+   QUICK BUTTONS
 ========================================= */
 
-.coming-soon-button{
+.quick-buttons {
 
-cursor:default !important;
+    width: 100%;
 
-opacity:.85;
+    display: grid;
 
-}
+    grid-template-columns:
 
+        repeat(4, 1fr);
 
-.coming-soon-button:hover{
+    gap: 7px;
 
-transform:none !important;
+    margin-top: 20px;
 
-}
-
-
-.coming-soon-button small{
-
-font-size:6px;
-
-font-weight:600;
-
-color:#bdbdbd;
-
-letter-spacing:.2px;
-
-line-height:1;
+    margin-bottom: 4px;
 
 }
 
 
 /* =========================================
-   DELIVERY ICON
+   QUICK BUTTON
 ========================================= */
 
-#deliveryBtn i{
+.quick-buttons button {
 
-color:#f7de8b;
+    position: relative;
+
+    min-width: 0;
+
+    min-height: 72px;
+
+    padding: 9px 4px;
+
+    border-radius: 14px;
+
+    border:
+
+        1px solid
+        rgba(212,175,55,.30);
+
+    background:
+
+        linear-gradient(
+
+            180deg,
+
+            #202020,
+
+            #151515
+
+        );
+
+    color: #ffffff;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 5px;
+
+    transition:
+
+        transform .25s ease,
+
+        background .25s ease,
+
+        box-shadow .25s ease;
+
+    overflow: hidden;
+
+    -webkit-tap-highlight-color: transparent;
 
 }
 
 
 /* =========================================
-   MAP ICON
+   QUICK BUTTON ICON
 ========================================= */
 
-#mapBtn i{
+.quick-buttons button i {
 
-color:#f7de8b;
+    font-size: 18px;
+
+    color: #f7de8b;
+
+    transition:
+
+        transform .25s ease,
+
+        color .25s ease;
+
+}
+
+
+/* =========================================
+   QUICK BUTTON HOVER
+========================================= */
+
+.quick-buttons button:hover {
+
+    background:
+
+        linear-gradient(
+
+            180deg,
+
+            #292929,
+
+            #191919
+
+        );
+
+    transform:
+
+        translateY(-3px);
+
+    box-shadow:
+
+        0 8px 18px
+        rgba(0,0,0,.35);
+
+}
+
+
+/* =========================================
+   QUICK BUTTON ICON HOVER
+========================================= */
+
+.quick-buttons button:hover i {
+
+    transform:
+
+        scale(1.12);
+
+    color: #ffffff;
 
 }
 
@@ -1812,9 +1834,9 @@ color:#f7de8b;
    CALL ICON
 ========================================= */
 
-#callBtn i{
+#callBtn i {
 
-color:#7ee787;
+    color: #7ee787;
 
 }
 
@@ -1823,215 +1845,37 @@ color:#7ee787;
    WHATSAPP ICON
 ========================================= */
 
-#whatsappBtn i{
+#whatsappBtn i {
 
-color:#25d366;
+    color: #25d366;
 
 }
 
 
 /* =========================================
-   COUNTDOWN ACTIVE STYLE
+   MAP ICON
 ========================================= */
 
-.countdown-box{
+#mapBtn i {
 
-position:relative;
-
-overflow:hidden;
-
-}
-
-
-.countdown-box::before{
-
-content:"";
-
-position:absolute;
-
-top:0;
-
-left:-100%;
-
-width:60%;
-
-height:100%;
-
-background:
-
-linear-gradient(
-
-90deg,
-
-transparent,
-
-rgba(255,255,255,.05),
-
-transparent
-
-);
-
-animation:
-
-countdownShine 4s ease-in-out infinite;
-
-pointer-events:none;
-
-}
-
-
-@keyframes countdownShine{
-
-0%{
-
-left:-100%;
-
-}
-
-50%,
-100%{
-
-left:150%;
-
-}
+    color: #f7de8b;
 
 }
 
 
 /* =========================================
-   MOBILE QUICK BUTTONS
+   DELIVERY ICON
 ========================================= */
 
-@media (max-width:390px){
+#deliveryBtn i {
 
-.quick-buttons{
-
-gap:5px;
-
-}
-
-
-.quick-buttons button{
-
-min-height:68px;
-
-padding:8px 2px;
-
-font-size:9px;
-
-border-radius:12px;
-
-}
-
-
-.quick-buttons button i{
-
-font-size:16px;
-
-}
-
-
-.coming-soon-button small{
-
-font-size:5px;
-
-}
-
-
-.stamp-date{
-
-font-size:6px;
-
-}
-
-
-.stamp-item{
-
-gap:4px;
-
-}
-
-
-.game-button{
-
-min-width:175px;
-
-}
-
-
-.game-button .game-text{
-
-font-size:11px;
-
-}
+    color: #f7de8b;
 
 }
 
 
 /* =========================================
-   TABLET
-========================================= */
-
-@media (min-width:768px){
-
-.quick-buttons{
-
-gap:9px;
-
-}
-
-
-.quick-buttons button{
-
-min-height:76px;
-
-font-size:11px;
-
-}
-
-
-.quick-buttons button i{
-
-font-size:19px;
-
-}
-
-
-.stamp-date{
-
-font-size:8px;
-
-}
-
-}
-
-
-/* =========================================
-   ACCESSIBILITY
-========================================= */
-
-button{
-
--webkit-tap-highlight-color:
-
-transparent;
-
-}
-
-
-button:focus-visible{
-
-outline:
-
-2px solid #f7de8b;
-
-outline-offset:3px;
-
-}
-
-
-/* =========================================
-   END CSS PART 2
+   PART 2 END
 ========================================= */
 /* =========================================
    RIO MAGGI POINT PREMIUM CARD
@@ -2045,21 +1889,21 @@ outline-offset:3px;
 
 .stamp-row{
 
-overflow:visible;
+    overflow:visible;
 
 }
 
 
 .stamp-item{
 
-flex-shrink:1;
+    flex-shrink:1;
 
 }
 
 
 .stamp-circle{
 
-position:relative;
+    position:relative;
 
 }
 
@@ -2070,23 +1914,26 @@ position:relative;
 
 .stamp-circle:not(.active):not(.reward-circle){
 
-background:
+    background:
 
-linear-gradient(
-145deg,
-#292929,
-#181818
-);
+        linear-gradient(
+            145deg,
+            #292929,
+            #181818
+        );
 
-border:
+    border:
 
-2px solid rgba(212,175,55,.35);
+        2px solid
+        rgba(212,175,55,.35);
 
-box-shadow:
+    box-shadow:
 
-inset 0 2px 6px rgba(0,0,0,.55),
+        inset 0 2px 6px
+        rgba(0,0,0,.55),
 
-0 2px 5px rgba(0,0,0,.25);
+        0 2px 5px
+        rgba(0,0,0,.25);
 
 }
 
@@ -2097,7 +1944,7 @@ inset 0 2px 6px rgba(0,0,0,.55),
 
 .stamp-date{
 
-color:#777;
+    color:#777;
 
 }
 
@@ -2105,9 +1952,9 @@ color:#777;
 .stamp-item:has(.stamp-circle.active)
 .stamp-date{
 
-color:#d8c17b;
+    color:#d8c17b;
 
-opacity:1;
+    opacity:1;
 
 }
 
@@ -2118,9 +1965,10 @@ opacity:1;
 
 .countdown-days{
 
-text-shadow:
+    text-shadow:
 
-0 0 10px rgba(255,255,255,.15);
+        0 0 10px
+        rgba(255,255,255,.15);
 
 }
 
@@ -2131,17 +1979,18 @@ text-shadow:
 
 .countdown-box.active{
 
-border-color:
+    border-color:
 
-rgba(212,175,55,.65);
+        rgba(212,175,55,.65);
 
-background:
+    background:
 
-rgba(212,175,55,.15);
+        rgba(212,175,55,.15);
 
-box-shadow:
+    box-shadow:
 
-0 0 18px rgba(212,175,55,.12);
+        0 0 18px
+        rgba(212,175,55,.12);
 
 }
 
@@ -2152,21 +2001,21 @@ box-shadow:
 
 .countdown-box.reward-unlocked{
 
-border-color:
+    border-color:
 
-rgba(255,215,80,.7);
+        rgba(255,215,80,.7);
 
-background:
+    background:
 
-linear-gradient(
+        linear-gradient(
 
-135deg,
+            135deg,
 
-rgba(212,175,55,.18),
+            rgba(212,175,55,.18),
 
-rgba(255,240,184,.08)
+            rgba(255,240,184,.08)
 
-);
+        );
 
 }
 
@@ -2174,7 +2023,7 @@ rgba(255,240,184,.08)
 .countdown-box.reward-unlocked
 .countdown-days{
 
-color:#f7de8b;
+    color:#f7de8b;
 
 }
 
@@ -2185,9 +2034,10 @@ color:#f7de8b;
 
 .premium-member{
 
-box-shadow:
+    box-shadow:
 
-0 0 12px rgba(212,175,55,.08);
+        0 0 12px
+        rgba(212,175,55,.08);
 
 }
 
@@ -2198,26 +2048,27 @@ box-shadow:
 
 .avatar-frame{
 
-position:relative;
+    position:relative;
 
 }
 
 
 .avatar-frame::after{
 
-content:"";
+    content:"";
 
-position:absolute;
+    position:absolute;
 
-inset:-4px;
+    inset:-4px;
 
-border-radius:50%;
+    border-radius:50%;
 
-border:
+    border:
 
-1px solid rgba(255,240,184,.45);
+        1px solid
+        rgba(255,240,184,.45);
 
-pointer-events:none;
+    pointer-events:none;
 
 }
 
@@ -2228,9 +2079,9 @@ pointer-events:none;
 
 .premium-card > *:not(.card-glow):not(.card-shine){
 
-position:relative;
+    position:relative;
 
-z-index:2;
+    z-index:2;
 
 }
 
@@ -2243,9 +2094,9 @@ z-index:2;
 .quick-buttons button,
 .bottom-nav a{
 
-user-select:none;
+    user-select:none;
 
--webkit-user-select:none;
+    -webkit-user-select:none;
 
 }
 
@@ -2257,9 +2108,9 @@ user-select:none;
 .game-button:active,
 .quick-buttons button:active{
 
-transform:
+    transform:
 
-scale(.96);
+        scale(.96);
 
 }
 
@@ -2270,20 +2121,20 @@ scale(.96);
 
 #deliveryBtn{
 
-background:
+    background:
 
-linear-gradient(
-180deg,
-#202020,
-#151515
-);
+        linear-gradient(
+            180deg,
+            #202020,
+            #151515
+        );
 
 }
 
 
 #deliveryBtn small{
 
-color:#d8c17b;
+    color:#d8c17b;
 
 }
 
@@ -2294,20 +2145,20 @@ color:#d8c17b;
 
 #mapBtn{
 
-background:
+    background:
 
-linear-gradient(
-180deg,
-#202020,
-#151515
-);
+        linear-gradient(
+            180deg,
+            #202020,
+            #151515
+        );
 
 }
 
 
 #mapBtn small{
 
-color:#d8c17b;
+    color:#d8c17b;
 
 }
 
@@ -2318,16 +2169,17 @@ color:#d8c17b;
 
 .bottom-nav a.active{
 
-text-shadow:
+    text-shadow:
 
-0 0 8px rgba(247,222,139,.25);
+        0 0 8px
+        rgba(247,222,139,.25);
 
 }
 
 
 .bottom-nav a.active i{
 
-color:#f7de8b;
+    color:#f7de8b;
 
 }
 
@@ -2338,9 +2190,9 @@ color:#f7de8b;
 
 .bottom-nav a:active{
 
-transform:
+    transform:
 
-scale(.94);
+        scale(.94);
 
 }
 
@@ -2351,141 +2203,141 @@ scale(.94);
 
 @media (max-width:350px){
 
-.premium-card{
+    .premium-card{
 
-padding:17px;
+        padding:17px;
 
-border-radius:24px;
+        border-radius:24px;
 
-}
+    }
 
 
-.brand-title{
+    .brand-title{
 
-font-size:23px;
+        font-size:23px;
 
-}
+    }
 
 
-.stamp-row{
+    .stamp-row{
 
-gap:2px;
+        gap:2px;
 
-}
+    }
 
 
-.stamp-circle{
+    .stamp-circle{
 
-width:34px;
+        width:34px;
 
-height:34px;
+        height:34px;
 
-min-width:34px;
+        min-width:34px;
 
-font-size:12px;
+        font-size:12px;
 
-}
+    }
 
 
-.reward-circle{
+    .reward-circle{
 
-width:34px;
+        width:34px;
 
-height:34px;
+        height:34px;
 
-min-width:34px;
+        min-width:34px;
 
-font-size:6px;
+        font-size:6px;
 
-line-height:7px;
+        line-height:7px;
 
-}
+    }
 
 
-.stamp-date{
+    .stamp-date{
 
-font-size:5px;
+        font-size:5px;
 
-}
+    }
 
 
-.quick-buttons{
+    .quick-buttons{
 
-gap:3px;
+        gap:3px;
 
-}
+    }
 
 
-.quick-buttons button{
+    .quick-buttons button{
 
-min-height:64px;
+        min-height:64px;
 
-font-size:8px;
+        font-size:8px;
 
-}
+    }
 
 
-.quick-buttons button i{
+    .quick-buttons button i{
 
-font-size:15px;
+        font-size:15px;
 
-}
+    }
 
 
-.quick-buttons button small{
+    .quick-buttons button small{
 
-font-size:4px;
+        font-size:4px;
 
-}
+    }
 
 
-.game-button{
+    .game-button{
 
-min-width:165px;
+        min-width:165px;
 
-padding:9px 12px;
+        padding:9px 12px;
 
-}
+    }
 
 
-.game-button .game-text{
+    .game-button .game-text{
 
-font-size:10px;
+        font-size:10px;
 
-letter-spacing:.4px;
+        letter-spacing:.4px;
 
-}
+    }
 
 
-/* BOTTOM NAV */
+    /* BOTTOM NAV */
 
-.bottom-nav{
+    .bottom-nav{
 
-width:
+        width:
 
-calc(100% - 12px);
+            calc(100% - 12px);
 
-height:64px;
+        height:64px;
 
-bottom:6px;
+        bottom:6px;
 
-border-radius:19px;
+        border-radius:19px;
 
-}
+    }
 
 
-.bottom-nav a{
+    .bottom-nav a{
 
-font-size:8px;
+        font-size:8px;
 
-}
+    }
 
 
-.bottom-nav a i{
+    .bottom-nav a i{
 
-font-size:15px;
+        font-size:15px;
 
-}
+    }
 
 }
 
@@ -2496,32 +2348,32 @@ font-size:15px;
 
 @media (min-width:1200px){
 
-body{
+    body{
 
-padding-top:30px;
+        padding-top:30px;
 
-}
-
-
-.premium-card{
-
-padding:25px;
-
-}
+    }
 
 
-.quick-buttons{
+    .premium-card{
 
-gap:10px;
+        padding:25px;
 
-}
+    }
 
 
-.quick-buttons button{
+    .quick-buttons{
 
-min-height:80px;
+        gap:10px;
 
-}
+    }
+
+
+    .quick-buttons button{
+
+        min-height:80px;
+
+    }
 
 }
 
@@ -2532,19 +2384,19 @@ min-height:80px;
 
 @media (prefers-reduced-motion:reduce){
 
-*,
-*::before,
-*::after{
+    *,
+    *::before,
+    *::after{
 
-animation-duration:.01ms !important;
+        animation-duration:.01ms !important;
 
-animation-iteration-count:1 !important;
+        animation-iteration-count:1 !important;
 
-transition-duration:.01ms !important;
+        transition-duration:.01ms !important;
 
-scroll-behavior:auto !important;
+        scroll-behavior:auto !important;
 
-}
+    }
 
 }
 
@@ -2555,28 +2407,28 @@ scroll-behavior:auto !important;
 
 .premium-card{
 
-isolation:isolate;
+    isolation:isolate;
 
 }
 
 
 .card-glow{
 
-pointer-events:none;
+    pointer-events:none;
 
 }
 
 
 .card-shine{
 
-z-index:3;
+    z-index:3;
 
 }
 
 
 .game-button{
 
-z-index:4;
+    z-index:4;
 
 }
 
