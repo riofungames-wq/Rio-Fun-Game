@@ -1,685 +1,1326 @@
-// =====================================================
+// =====================================
 // RIO MAGGI POINT
-// HISTORY.JS
-// PREMIUM HISTORY SYSTEM
-// PART 1 / 3
-// =====================================================
+// PREMIUM LOYALTY HISTORY SYSTEM
+// HISTORY.JS - PART 1
+// =====================================
 
 
-// ============================
-// FIREBASE IMPORT
-// ============================
-
-import { auth, db } from "./firebase-config.js";
+// =====================================
+// FIREBASE IMPORTS
+// =====================================
 
 import {
 
-onAuthStateChanged
+    auth,
 
-}
+    db
 
-from
-
-"https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+} from "./firebase-config.js";
 
 
 import {
 
-doc,
-getDoc
+    onAuthStateChanged
 
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
+import {
+
+    doc,
+
+    getDoc
+
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-// ============================
-// HTML ELEMENTS
-// ============================
+// =====================================
+// GLOBAL USER
+// =====================================
+
+let currentUser = null;
+
+
+// =====================================
+// DOM ELEMENTS
+// =====================================
 
 const historyPhoto =
-document.getElementById("historyPhoto");
+
+    document.getElementById(
+
+        "historyPhoto"
+
+    );
+
 
 const historyName =
-document.getElementById("historyName");
+
+    document.getElementById(
+
+        "historyName"
+
+    );
+
 
 const historyMember =
-document.getElementById("historyMember");
+
+    document.getElementById(
+
+        "historyMember"
+
+    );
+
 
 const historyStampCount =
-document.getElementById("historyStampCount");
 
-const rewardTitle =
-document.getElementById("rewardTitle");
+    document.getElementById(
 
-const rewardStatus =
-document.getElementById("rewardStatus");
+        "historyStampCount"
 
-const totalVisits =
-document.getElementById("totalVisits");
+    );
 
-const totalRewardCount =
-document.getElementById("totalRewardCount");
-
-const memberSince =
-document.getElementById("memberSince");
-
-const historyTimeline =
-document.getElementById("historyTimeline");
 
 const stampProgressFill =
-document.getElementById("stampProgressFill");
 
+    document.getElementById(
 
+        "stampProgressFill"
 
+    );
 
-// ============================
-// SAFE TEXT
-// ============================
 
-function setText(element,value){
+const historyTimeline =
 
-if(element){
+    document.getElementById(
 
-element.textContent=value;
+        "historyTimeline"
 
-}
+    );
 
-}
 
+const rewardTitle =
 
+    document.getElementById(
 
+        "rewardTitle"
 
-// ============================
-// AVATAR SYSTEM
-// ============================
+    );
 
-function getAvatar(customer){
 
-if(customer.photoURL){
+const rewardStatus =
 
-return customer.photoURL;
+    document.getElementById(
 
-}
+        "rewardStatus"
 
-if(customer.avatar){
+    );
 
-return customer.avatar;
 
-}
+const totalVisits =
 
-if(customer.gender){
+    document.getElementById(
 
-const gender=
+        "totalVisits"
 
-customer.gender.toLowerCase();
+    );
 
-if(
 
-gender==="female" ||
+const totalRewardCount =
 
-gender==="girl" ||
+    document.getElementById(
 
-gender==="woman"
+        "totalRewardCount"
 
-){
+    );
 
-return "assets/avatars/female.png";
 
-}
+const memberSince =
 
-}
+    document.getElementById(
 
-return "assets/avatars/male.png";
+        "memberSince"
 
-}
+    );
 
 
+// =====================================
+// DEFAULT VALUES
+// =====================================
 
+const DEFAULT_NAME =
 
-// ============================
-// DEFAULT DATA
-// ============================
+    "Customer";
 
-function resetHistory(){
 
-setText(historyName,"Customer");
+const DEFAULT_MEMBER_ID =
 
-setText(historyMember,"RIO-000000");
+    "RIO-000000";
 
-setText(historyStampCount,"0 / 6");
 
-setText(rewardTitle,"FREE VEG MAGGI");
+const TOTAL_STAMPS =
 
-setText(rewardStatus,"Locked");
+    6;
 
-setText(totalVisits,"0");
 
-setText(totalRewardCount,"0");
+// =====================================
+// FORMAT DATE
+// =====================================
 
-setText(memberSince,"--");
+function formatDate(
 
-if(historyPhoto){
+    dateValue
 
-historyPhoto.src="assets/avatars/male.png";
+) {
 
-}
 
-if(historyTimeline){
+    if (!dateValue) {
 
-historyTimeline.innerHTML="";
+        return "--";
 
-}
+    }
 
-if(stampProgressFill){
 
-stampProgressFill.style.width="0%";
+    try {
 
-}
 
-}
-// ============================
-// LOAD CUSTOMER FROM FIRESTORE
-// ============================
+        let date;
 
-async function loadCustomerHistory(user){
 
-try{
+        if (
 
-const customerRef=
+            dateValue.toDate
 
-doc(
+        ) {
 
-db,
+            date =
 
-"customers",
+                dateValue.toDate();
 
-user.uid
+        }
 
-);
+        else if (
 
-const customerSnap=
+            dateValue instanceof Date
 
-await getDoc(customerRef);
+        ) {
 
-if(!customerSnap.exists()){
+            date =
 
-resetHistory();
+                dateValue;
 
-console.error(
+        }
 
-"Customer document not found."
+        else {
 
-);
+            date =
 
-return null;
+                new Date(
 
-}
+                    dateValue
 
-return customerSnap.data();
+                );
 
-}
+        }
 
-catch(error){
 
-console.error(
+        if (
 
-"History Load Error:",
+            isNaN(
 
-error
+                date.getTime()
 
-);
+            )
 
-resetHistory();
+        ) {
 
-return null;
+            return "--";
 
-}
+        }
 
-}
 
+        return date.toLocaleDateString(
 
+            "en-IN",
 
+            {
 
-// ============================
-// DISPLAY CUSTOMER DATA
-// ============================
+                day: "numeric",
 
-function displayHistory(customer){
+                month: "numeric",
 
-setText(
+                year: "numeric"
 
-historyName,
+            }
 
-customer.name || "Customer"
+        );
 
-);
 
-setText(
+    }
 
-historyMember,
+    catch (
 
-customer.memberId || "RIO-000000"
+        error
 
-);
+    ) {
 
-if(historyPhoto){
 
-historyPhoto.src=
+        console.error(
 
-getAvatar(customer);
+            "Date formatting error:",
 
-}
+            error
 
-const stamps=
+        );
 
-Number(
 
-customer.stamps || 0
+        return "--";
 
-);
-
-setText(
-
-historyStampCount,
-
-`${stamps} / 6`
-
-);
-
-setText(
-
-totalVisits,
-
-stamps
-
-);
-
-if(stampProgressFill){
-
-stampProgressFill.style.width=
-
-`${Math.min((stamps/6)*100,100)}%`;
-
-}
-
-const rewardUnlocked=
-
-customer.rewardUnlocked===true ||
-
-customer.reward===true ||
-
-stamps>=6;
-
-if(rewardUnlocked){
-
-setText(
-
-rewardTitle,
-
-"FREE VEG MAGGI"
-
-);
-
-setText(
-
-rewardStatus,
-
-"🎉 Ready To Claim"
-
-);
-
-setText(
-
-totalRewardCount,
-
-"1"
-
-);
-
-}
-
-else{
-
-setText(
-
-rewardTitle,
-
-"FREE VEG MAGGI"
-
-);
-
-setText(
-
-rewardStatus,
-
-`Collect ${6-stamps} More Stamp(s)`
-
-);
-
-setText(
-
-totalRewardCount,
-
-"0"
-
-);
-
-}
-
-if(customer.createdAt){
-
-try{
-
-const date=
-
-customer.createdAt.toDate
-
-?
-
-customer.createdAt.toDate()
-
-:
-
-new Date(
-
-customer.createdAt.seconds*1000
-
-);
-
-setText(
-
-memberSince,
-
-date.toLocaleDateString()
-
-);
-
-}
-
-catch{
-
-setText(
-
-memberSince,
-
-"--"
-
-);
-
-}
-
-}
-
-else{
-
-setText(
-
-memberSince,
-
-"--"
-
-);
-
-}
-
-createTimeline(
-
-customer,
-
-stamps,
-
-rewardUnlocked
-
-);
-
-}
-// ============================
-// CREATE TIMELINE
-// ============================
-
-function createTimeline(
-
-customer,
-
-stamps,
-
-rewardUnlocked
-
-){
-
-if(!historyTimeline){
-
-return;
-
-}
-
-historyTimeline.innerHTML="";
-
-if(stamps===0){
-
-historyTimeline.innerHTML=`
-
-<div class="timeline-item">
-
-<div class="timeline-icon">
-
-🍜
-
-</div>
-
-<div class="timeline-content">
-
-<h4>
-
-Welcome To Rio Maggi Point
-
-</h4>
-
-<p>
-
-Your loyalty journey starts here.
-
-</p>
-
-</div>
-
-</div>
-
-`;
-
-return;
-
-}
-
-for(
-
-let i=1;
-
-i<=stamps;
-
-i++
-
-){
-
-const item=
-
-document.createElement(
-
-"div"
-
-);
-
-item.className=
-
-"timeline-item";
-
-item.innerHTML=`
-
-<div class="timeline-icon">
-
-⭐
-
-</div>
-
-<div class="timeline-content">
-
-<h4>
-
-Stamp ${i} Collected
-
-</h4>
-
-<p>
-
-Thank you for visiting Rio Maggi Point.
-
-</p>
-
-</div>
-
-`;
-
-historyTimeline.appendChild(
-
-item
-
-);
-
-}
-
-if(rewardUnlocked){
-
-const reward=
-
-document.createElement(
-
-"div"
-
-);
-
-reward.className=
-
-"timeline-item reward";
-
-reward.innerHTML=`
-
-<div class="timeline-icon">
-
-🎁
-
-</div>
-
-<div class="timeline-content">
-
-<h4>
-
-FREE VEG MAGGI UNLOCKED
-
-</h4>
-
-<p>
-
-Congratulations! Your reward is ready to claim.
-
-</p>
-
-</div>
-
-`;
-
-historyTimeline.appendChild(
-
-reward
-
-);
-
-}
+    }
 
 }
 
 
+// =====================================
+// GET STAMP COUNT
+// =====================================
+
+function getStampCount(
+
+    data
+
+) {
 
 
-// ============================
-// AUTH CONNECTION
-// ============================
+    if (!data) {
+
+        return 0;
+
+    }
+
+
+    if (
+
+        typeof data.stampCount ===
+
+        "number"
+
+    ) {
+
+        return Math.min(
+
+            data.stampCount,
+
+            TOTAL_STAMPS
+
+        );
+
+    }
+
+
+    if (
+
+        Array.isArray(
+
+            data.stamps
+
+        )
+
+    ) {
+
+        return Math.min(
+
+            data.stamps.length,
+
+            TOTAL_STAMPS
+
+        );
+
+    }
+
+
+    return 0;
+
+}
+
+
+// =====================================
+// GET REWARD COUNT
+// =====================================
+
+function getRewardCount(
+
+    data
+
+) {
+
+
+    if (!data) {
+
+        return 0;
+
+    }
+
+
+    if (
+
+        typeof data.rewardCount ===
+
+        "number"
+
+    ) {
+
+        return data.rewardCount;
+
+    }
+
+
+    if (
+
+        typeof data.rewardsEarned ===
+
+        "number"
+
+    ) {
+
+        return data.rewardsEarned;
+
+    }
+
+
+    return 0;
+
+}
+
+
+// =====================================
+// UPDATE BASIC PROFILE
+// =====================================
+
+function updateProfileData(
+
+    data
+
+) {
+
+
+    const name =
+
+        data?.name ||
+
+        data?.fullName ||
+
+        DEFAULT_NAME;
+
+
+    const memberId =
+
+        data?.memberId ||
+
+        data?.customerId ||
+
+        DEFAULT_MEMBER_ID;
+
+
+    if (
+
+        historyName
+
+    ) {
+
+        historyName.textContent =
+
+            name;
+
+    }
+
+
+    if (
+
+        historyMember
+
+    ) {
+
+        historyMember.textContent =
+
+            memberId;
+
+    }
+
+
+    if (
+
+        historyPhoto &&
+
+        data?.photoURL
+
+    ) {
+
+        historyPhoto.src =
+
+            data.photoURL;
+
+    }
+
+}
+
+
+// =====================================
+// UPDATE STAMP SUMMARY
+// =====================================
+
+function updateStampSummary(
+
+    stampCount
+
+) {
+
+
+    if (
+
+        historyStampCount
+
+    ) {
+
+        historyStampCount.textContent =
+
+            `${stampCount} / ${TOTAL_STAMPS}`;
+
+    }
+
+
+    if (
+
+        stampProgressFill
+
+    ) {
+
+
+        const progress =
+
+            (
+
+                stampCount /
+
+                TOTAL_STAMPS
+
+            ) * 100;
+
+
+        stampProgressFill.style.width =
+
+            `${progress}%`;
+
+    }
+
+}
+
+
+// =====================================
+// UPDATE REWARD STATUS
+// =====================================
+
+function updateRewardStatus(
+
+    stampCount,
+
+    rewardCount
+
+) {
+
+
+    if (
+
+        totalRewardCount
+
+    ) {
+
+        totalRewardCount.textContent =
+
+            rewardCount;
+
+    }
+
+
+    if (
+
+        stampCount >= TOTAL_STAMPS
+
+    ) {
+
+
+        if (
+
+            rewardTitle
+
+        ) {
+
+            rewardTitle.textContent =
+
+                "FREE VEG MAGGI UNLOCKED";
+
+        }
+
+
+        if (
+
+            rewardStatus
+
+        ) {
+
+            rewardStatus.textContent =
+
+                "Your reward is ready to claim!";
+
+        }
+
+
+    }
+
+    else {
+
+
+        const remaining =
+
+            TOTAL_STAMPS -
+
+            stampCount;
+
+
+        if (
+
+            rewardTitle
+
+        ) {
+
+            rewardTitle.textContent =
+
+                "FREE VEG MAGGI";
+
+        }
+
+
+        if (
+
+            rewardStatus
+
+        ) {
+
+            rewardStatus.textContent =
+
+                `Collect ${remaining} More Stamp(s)`;
+
+        }
+
+    }
+
+}
+
+
+// =====================================
+// HISTORY.JS PART 1 END
+// =====================================
+// =====================================
+// RIO MAGGI POINT
+// PREMIUM LOYALTY HISTORY SYSTEM
+// HISTORY.JS - PART 2
+// =====================================
+
+
+// =====================================
+// RENDER STAMP TIMELINE
+// =====================================
+
+function renderStampTimeline(
+
+    stamps
+
+) {
+
+
+    // =====================================
+    // CHECK TIMELINE ELEMENT
+    // =====================================
+
+    if (
+
+        !historyTimeline
+
+    ) {
+
+        return;
+
+    }
+
+
+    // =====================================
+    // CLEAR OLD TIMELINE
+    // =====================================
+
+    historyTimeline.innerHTML = "";
+
+
+    // =====================================
+    // NO STAMPS FOUND
+    // =====================================
+
+    if (
+
+        !Array.isArray(
+
+            stamps
+
+        ) ||
+
+        stamps.length === 0
+
+    ) {
+
+
+        const emptyItem =
+
+            document.createElement(
+
+                "div"
+
+            );
+
+
+        emptyItem.className =
+
+            "timeline-item empty";
+
+
+        emptyItem.innerHTML = `
+
+            <div class="timeline-icon">
+
+                🍜
+
+            </div>
+
+            <div class="timeline-content">
+
+                <h3>
+
+                    Welcome To Rio Maggi Point
+
+                </h3>
+
+                <p>
+
+                    Your loyalty journey starts here.
+
+                </p>
+
+            </div>
+
+        `;
+
+
+        historyTimeline.appendChild(
+
+            emptyItem
+
+        );
+
+
+        return;
+
+    }
+
+
+    // =====================================
+    // SORT STAMPS
+    // NEWEST FIRST
+    // =====================================
+
+    const sortedStamps =
+
+        [...stamps].sort(
+
+            (
+
+                a,
+
+                b
+
+            ) => {
+
+
+                const dateA =
+
+                    a?.date?.toDate
+
+                        ? a.date.toDate()
+
+                        : new Date(
+
+                            a?.date || 0
+
+                        );
+
+
+                const dateB =
+
+                    b?.date?.toDate
+
+                        ? b.date.toDate()
+
+                        : new Date(
+
+                            b?.date || 0
+
+                        );
+
+
+                return (
+
+                    dateB -
+
+                    dateA
+
+                );
+
+            }
+
+        );
+
+
+    // =====================================
+    // CREATE TIMELINE ITEMS
+    // =====================================
+
+    sortedStamps.forEach(
+
+        (
+
+            stamp,
+
+            index
+
+        ) => {
+
+
+            const item =
+
+                document.createElement(
+
+                    "div"
+
+                );
+
+
+            item.className =
+
+                "timeline-item";
+
+
+            // =====================================
+            // STAMP NUMBER
+            // =====================================
+
+            const stampNumber =
+
+                stamp?.stampNumber ||
+
+                (
+
+                    sortedStamps.length -
+
+                    index
+
+                );
+
+
+            // =====================================
+            // STAMP DATE
+            // =====================================
+
+            const stampDate =
+
+                formatDate(
+
+                    stamp?.date
+
+                );
+
+
+            // =====================================
+            // PURCHASE TYPE
+            // =====================================
+
+            const purchaseType =
+
+                stamp?.purchaseType ||
+
+                "Daily Purchase";
+
+
+            // =====================================
+            // TIMELINE HTML
+            // =====================================
+
+            item.innerHTML = `
+
+                <div class="timeline-icon">
+
+                    🍜
+
+                </div>
+
+
+                <div class="timeline-content">
+
+
+                    <h3>
+
+                        Stamp ${stampNumber} Collected
+
+                    </h3>
+
+
+                    <p>
+
+                        ${purchaseType}
+
+                    </p>
+
+
+                    <span class="timeline-date">
+
+                        ${stampDate}
+
+                    </span>
+
+
+                </div>
+
+            `;
+
+
+            historyTimeline.appendChild(
+
+                item
+
+            );
+
+        }
+
+    );
+
+}
+
+
+// =====================================
+// LOAD CUSTOMER DATA
+// =====================================
+
+async function loadCustomerData(
+
+    user
+
+) {
+
+
+    if (
+
+        !user
+
+    ) {
+
+        return null;
+
+    }
+
+
+    try {
+
+
+        // =====================================
+        // FIRESTORE CUSTOMER DOCUMENT
+        // =====================================
+
+        const customerRef =
+
+            doc(
+
+                db,
+
+                "customers",
+
+                user.uid
+
+            );
+
+
+        const customerSnap =
+
+            await getDoc(
+
+                customerRef
+
+            );
+
+
+        // =====================================
+        // CUSTOMER NOT FOUND
+        // =====================================
+
+        if (
+
+            !customerSnap.exists()
+
+        ) {
+
+
+            console.warn(
+
+                "Customer profile not found."
+
+            );
+
+
+            updateProfileData(
+
+                {
+
+                    name:
+
+                        user.displayName ||
+
+                        DEFAULT_NAME,
+
+                    memberId:
+
+                        DEFAULT_MEMBER_ID,
+
+                    photoURL:
+
+                        user.photoURL ||
+
+                        ""
+
+                }
+
+            );
+
+
+            return null;
+
+        }
+
+
+        // =====================================
+        // CUSTOMER DATA
+        // =====================================
+
+        const customerData =
+
+            customerSnap.data();
+
+
+        // =====================================
+        // UPDATE PROFILE
+        // =====================================
+
+        updateProfileData(
+
+            customerData
+
+        );
+
+
+        // =====================================
+        // MEMBER SINCE
+        // =====================================
+
+        if (
+
+            memberSince
+
+        ) {
+
+
+            const joinedDate =
+
+                customerData.memberSince ||
+
+                customerData.createdAt;
+
+
+            memberSince.textContent =
+
+                formatDate(
+
+                    joinedDate
+
+                );
+
+        }
+
+
+        // =====================================
+        // TOTAL VISITS
+        // =====================================
+
+        if (
+
+            totalVisits
+
+        ) {
+
+
+            const visits =
+
+                customerData.totalVisits ||
+
+                customerData.visits ||
+
+                0;
+
+
+            totalVisits.textContent =
+
+                visits;
+
+        }
+
+
+        // =====================================
+        // STAMP COUNT
+        // =====================================
+
+        const stampCount =
+
+            getStampCount(
+
+                customerData
+
+            );
+
+
+        // =====================================
+        // REWARD COUNT
+        // =====================================
+
+        const rewardCount =
+
+            getRewardCount(
+
+                customerData
+
+            );
+
+
+        // =====================================
+        // UPDATE UI
+        // =====================================
+
+        updateStampSummary(
+
+            stampCount
+
+        );
+
+
+        updateRewardStatus(
+
+            stampCount,
+
+            rewardCount
+
+        );
+
+
+        // =====================================
+        // RENDER TIMELINE
+        // =====================================
+
+        renderStampTimeline(
+
+            customerData.stamps || []
+
+        );
+
+
+        // =====================================
+        // RETURN DATA
+        // =====================================
+
+        return customerData;
+
+
+    }
+
+    catch (
+
+        error
+
+    ) {
+
+
+        console.error(
+
+            "Error loading customer history:",
+
+            error
+
+        );
+
+
+        return null;
+
+    }
+
+}
+
+
+// =====================================
+// HISTORY.JS PART 2 END
+// =====================================
+// =====================================
+// RIO MAGGI POINT
+// PREMIUM LOYALTY HISTORY SYSTEM
+// HISTORY.JS - PART 3
+// FINAL PART
+// =====================================
+
+
+// =====================================
+// AUTHENTICATION STATE
+// =====================================
 
 onAuthStateChanged(
 
-auth,
+    auth,
 
-async(user)=>{
+    async (user) => {
 
-if(!user){
 
-window.location.href=
+        // =====================================
+        // USER NOT LOGGED IN
+        // =====================================
 
-"login.html";
+        if (!user) {
 
-return;
 
-}
+            console.warn(
 
-const customer=
+                "No logged-in user found."
 
-await loadCustomerHistory(
+            );
 
-user
+
+            // =====================================
+            // REDIRECT TO LOGIN
+            // =====================================
+
+            window.location.href =
+
+                "login.html";
+
+
+            return;
+
+        }
+
+
+        // =====================================
+        // SAVE CURRENT USER
+        // =====================================
+
+        currentUser =
+
+            user;
+
+
+        window.currentRioUser =
+
+            user;
+
+
+        // =====================================
+        // DEBUG USER UID
+        // =====================================
+
+        console.log(
+
+            "History User UID:",
+
+            user.uid
+
+        );
+
+
+        // =====================================
+        // LOAD CUSTOMER HISTORY
+        // =====================================
+
+        await loadCustomerData(
+
+            user
+
+        );
+
+
+        // =====================================
+        // FINAL SUCCESS LOG
+        // =====================================
+
+        console.log(
+
+            "================================"
+
+        );
+
+
+        console.log(
+
+            "🍜 Rio Maggi Point"
+
+        );
+
+
+        console.log(
+
+            "Premium Loyalty History Loaded"
+
+        );
+
+
+        console.log(
+
+            "Customer UID:",
+
+            user.uid
+
+        );
+
+
+        console.log(
+
+            "================================"
+
+        );
+
+    }
 
 );
 
-if(customer){
 
-displayHistory(
-
-customer
-
-);
-
-}
+// =====================================
+// FINAL HISTORY.JS READY MESSAGE
+// =====================================
 
 console.log(
 
-"================================"
-
-);
-
-console.log(
-
-"🍜 Rio Maggi Point"
-
-);
-
-console.log(
-
-"Premium History Loaded"
-
-);
-
-console.log(
-
-"================================"
-
-);
-
-}
+    "Rio Maggi Point Premium Loyalty History System Ready"
 
 );
 
 
-
-
-// ============================
-// READY
-// ============================
-
-console.log(
-
-"History JS Premium Ready"
-
-);
+// =====================================
+// END OF HISTORY.JS
+// =====================================
+``
