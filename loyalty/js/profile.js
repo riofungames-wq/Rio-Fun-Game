@@ -1,687 +1,1495 @@
-// =====================================================
+// =====================================
 // RIO MAGGI POINT
-// PROFILE.JS
-// FINAL PREMIUM VERSION
-// PART 1
-// =====================================================
+// PREMIUM CUSTOMER PROFILE SYSTEM
+// PROFILE.JS - PART 1 OF 3
+// =====================================
 
 
-
-// =====================================================
-// FIREBASE IMPORT
-// =====================================================
-
-import { auth, db } from "./firebase-config.js";
+// =====================================
+// FIREBASE IMPORTS
+// =====================================
 
 import {
 
-onAuthStateChanged,
-signOut
+    auth,
 
-}
+    db
 
-from
+} from "./firebase.js";
 
-"https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 import {
 
-doc,
-getDoc,
-updateDoc
+    onAuthStateChanged,
 
-}
+    signOut
 
-from
-
-"https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
+import {
 
-// =====================================================
-// PROFILE ELEMENTS
-// =====================================================
+    doc,
+
+    getDoc,
+
+    updateDoc
+
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+// =====================================
+// DOM ELEMENTS
+// =====================================
 
 const profilePhoto =
-document.getElementById("profilePhoto");
+
+    document.getElementById(
+
+        "profilePhoto"
+
+    );
+
 
 const profileName =
-document.getElementById("profileName");
+
+    document.getElementById(
+
+        "profileName"
+
+    );
+
 
 const profileMemberId =
-document.getElementById("profileMemberId");
+
+    document.getElementById(
+
+        "profileMemberId"
+
+    );
+
 
 const profileMobile =
-document.getElementById("profileMobile");
+
+    document.getElementById(
+
+        "profileMobile"
+
+    );
+
 
 const profileEmail =
-document.getElementById("profileEmail");
+
+    document.getElementById(
+
+        "profileEmail"
+
+    );
+
 
 const profileDOB =
-document.getElementById("profileDOB");
+
+    document.getElementById(
+
+        "profileDOB"
+
+    );
+
 
 const profileAge =
-document.getElementById("profileAge");
+
+    document.getElementById(
+
+        "profileAge"
+
+    );
+
 
 const profileCategory =
-document.getElementById("profileCategory");
+
+    document.getElementById(
+
+        "profileCategory"
+
+    );
+
 
 const profileStampCount =
-document.getElementById("profileStampCount");
+
+    document.getElementById(
+
+        "profileStampCount"
+
+    );
+
 
 const profileReward =
-document.getElementById("profileReward");
+
+    document.getElementById(
+
+        "profileReward"
+
+    );
+
 
 const profileMemberSince =
-document.getElementById("profileMemberSince");
+
+    document.getElementById(
+
+        "profileMemberSince"
+
+    );
 
 
-
-// =====================================================
-// EDIT ELEMENTS
-// =====================================================
-
-const editProfileBtn =
-document.getElementById("editProfileBtn");
+// =====================================
+// EDIT PROFILE ELEMENTS
+// =====================================
 
 const editModal =
-document.getElementById("editModal");
 
-const editName =
-document.getElementById("editName");
+    document.getElementById(
 
-const editDOB =
-document.getElementById("editDOB");
+        "editModal"
 
-const editAge =
-document.getElementById("editAge");
+    );
 
-const editGender =
-document.getElementById("editGender");
 
-const saveProfileBtn =
-document.getElementById("saveProfileBtn");
+const editProfileBtn =
+
+    document.getElementById(
+
+        "editProfileBtn"
+
+    );
+
 
 const closeEditBtn =
-document.getElementById("closeEditBtn");
+
+    document.getElementById(
+
+        "closeEditBtn"
+
+    );
+
+
+const saveProfileBtn =
+
+    document.getElementById(
+
+        "saveProfileBtn"
+
+    );
+
+
+const editName =
+
+    document.getElementById(
+
+        "editName"
+
+    );
+
+
+const editDOB =
+
+    document.getElementById(
+
+        "editDOB"
+
+    );
+
+
+const editAge =
+
+    document.getElementById(
+
+        "editAge"
+
+    );
+
+
+const editGender =
+
+    document.getElementById(
+
+        "editGender"
+
+    );
+
+
+// =====================================
+// LOGOUT BUTTON
+// =====================================
 
 const logoutBtn =
-document.getElementById("logoutBtn");
+
+    document.getElementById(
+
+        "logoutBtn"
+
+    );
 
 
+// =====================================
+// CURRENT USER
+// =====================================
 
-// =====================================================
-// VARIABLES
-// =====================================================
+let currentUser =
 
-let currentUID = null;
-
-let currentCustomer = null;
-
+    null;
 
 
-// =====================================================
-// SAFE TEXT
-// =====================================================
+// =====================================
+// DEFAULT AVATAR
+// =====================================
 
-function setText(element,value){
+const defaultAvatar =
 
-if(element){
-
-element.textContent=value;
-
-}
-
-}
+    "assets/avatars/default.png";
 
 
-
-// =====================================================
-// SAFE IMAGE
-// =====================================================
-
-function setImage(image,url){
-
-if(!image) return;
-
-image.src=url || "assets/avatars/default.png";
-
-image.onerror=()=>{
-
-image.src="assets/avatars/default.png";
-
-};
-
-}
+// =====================================
+// PROFILE.JS - PART 1 END
+// =====================================
+// =====================================
+// RIO MAGGI POINT
+// PREMIUM CUSTOMER PROFILE SYSTEM
+// PROFILE.JS - PART 2 OF 3
+// =====================================
 
 
+// =====================================
+// CALCULATE AGE FROM DATE OF BIRTH
+// =====================================
 
-// =====================================================
-// SAFE DATE FORMAT
-// =====================================================
+function calculateAge(dob) {
 
-function formatMemberDate(value){
+    if (!dob) {
 
-if(!value){
+        return "--";
 
-return "--";
-
-}
-
-try{
-
-if(value.toDate){
-
-return value
-.toDate()
-.toLocaleDateString();
-
-}
-
-return new Date(value)
-.toLocaleDateString();
-
-}
-
-catch{
-
-return "--";
-
-}
-
-}
+    }
 
 
+    const birthDate =
 
-// =====================================================
-// AUTH
-// =====================================================
+        new Date(dob);
 
-onAuthStateChanged(
 
-auth,
+    if (isNaN(birthDate.getTime())) {
 
-async(user)=>{
+        return "--";
 
-if(!user){
+    }
 
-window.location.href="login.html";
 
-return;
+    const today =
 
-}
+        new Date();
 
-currentUID=user.uid;
 
-try{
+    let age =
 
-const customerRef=
+        today.getFullYear()
 
-doc(
-db,
-"customers",
-user.uid
-);
+        -
 
-const customerSnap=
+        birthDate.getFullYear();
 
-await getDoc(customerRef);
 
-if(!customerSnap.exists()){
+    const monthDifference =
 
-alert("Customer data not found");
+        today.getMonth()
 
-return;
+        -
+
+        birthDate.getMonth();
+
+
+    if (
+
+        monthDifference < 0
+
+        ||
+
+        (
+
+            monthDifference === 0
+
+            &&
+
+            today.getDate()
+
+            <
+
+            birthDate.getDate()
+
+        )
+
+    ) {
+
+        age--;
+
+    }
+
+
+    return age;
 
 }
 
-currentCustomer=
 
-customerSnap.data();
+// =====================================
+// FORMAT MEMBER SINCE DATE
+// =====================================
 
-loadProfile(currentCustomer);
+function formatMemberSince(dateValue) {
+
+    if (!dateValue) {
+
+        return "--";
+
+    }
+
+
+    try {
+
+        let date;
+
+
+        if (
+
+            typeof dateValue.toDate
+
+            ===
+
+            "function"
+
+        ) {
+
+            date =
+
+                dateValue.toDate();
+
+        }
+
+        else {
+
+            date =
+
+                new Date(dateValue);
+
+        }
+
+
+        if (isNaN(date.getTime())) {
+
+            return "--";
+
+        }
+
+
+        return date.toLocaleDateString(
+
+            "en-IN",
+
+            {
+
+                day: "numeric",
+
+                month: "numeric",
+
+                year: "numeric"
+
+            }
+
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+
+            "Member date format error:",
+
+            error
+
+        );
+
+
+        return "--";
+
+    }
 
 }
 
-catch(error){
 
-console.error(
-
-"Profile Load Error:",
-
-error
-
-);
-
-alert(
-
-"Unable to load profile"
-
-);
-
-}
-
-});
-
-/* ============================
-   CONTINUE IN PART 2
-============================ */
-// =====================================================
+// =====================================
 // LOAD CUSTOMER PROFILE
-// =====================================================
+// =====================================
 
-onAuthStateChanged(
+async function loadProfileData(user) {
 
-auth,
 
-async(user)=>{
-
-    if(!user){
-
-        window.location.href = "login.html";
+    if (!user) {
 
         return;
 
     }
 
-    currentUID = user.uid;
 
-    try{
+    try {
 
-        const customerRef = doc(
-            db,
-            "customers",
-            user.uid
-        );
 
-        const customerSnap = await getDoc(customerRef);
+        // =====================================
+        // FIRESTORE CUSTOMER DOCUMENT
+        // =====================================
 
-        if(!customerSnap.exists()){
+        const userRef =
 
-            alert("Customer data not found");
+            doc(
+
+                db,
+
+                "customers",
+
+                user.uid
+
+            );
+
+
+        const userSnap =
+
+            await getDoc(
+
+                userRef
+
+            );
+
+
+        if (!userSnap.exists()) {
+
+            console.warn(
+
+                "Customer profile not found."
+
+            );
 
             return;
 
         }
 
-        currentCustomer = customerSnap.data();
 
-        loadProfile(currentCustomer);
+        const data =
+
+            userSnap.data();
+
+
+        // =====================================
+        // CUSTOMER NAME
+        // =====================================
+
+        const customerName =
+
+            data.name
+
+            ||
+
+            data.fullName
+
+            ||
+
+            user.displayName
+
+            ||
+
+            "Customer";
+
+
+        profileName.textContent =
+
+            customerName;
+
+
+        // =====================================
+        // MEMBER ID
+        // =====================================
+
+        profileMemberId.textContent =
+
+            data.memberId
+
+            ||
+
+            "RIO-" + user.uid.slice(
+
+                0,
+
+                10
+
+            ).toUpperCase();
+
+
+        // =====================================
+        // MOBILE NUMBER
+        // =====================================
+
+        profileMobile.textContent =
+
+            data.phone
+
+            ||
+
+            data.mobile
+
+            ||
+
+            user.phoneNumber
+
+            ||
+
+            "--";
+
+
+        // =====================================
+        // EMAIL
+        // =====================================
+
+        profileEmail.textContent =
+
+            data.email
+
+            ||
+
+            user.email
+
+            ||
+
+            "--";
+
+
+        // =====================================
+        // DATE OF BIRTH
+        // =====================================
+
+        const dob =
+
+            data.dob
+
+            ||
+
+            data.dateOfBirth
+
+            ||
+
+            "";
+
+
+        profileDOB.textContent =
+
+            dob
+
+            ||
+
+            "--";
+
+
+        // =====================================
+        // AGE
+        // =====================================
+
+        const calculatedAge =
+
+            dob
+
+            ?
+
+            calculateAge(dob)
+
+            :
+
+            (
+
+                data.age
+
+                ||
+
+                "--"
+
+            );
+
+
+        profileAge.textContent =
+
+            calculatedAge;
+
+
+        // =====================================
+        // CATEGORY / GENDER
+        // =====================================
+
+        profileCategory.textContent =
+
+            (
+
+                data.gender
+
+                ||
+
+                data.category
+
+                ||
+
+                "--"
+
+            ).toString().toUpperCase();
+
+
+        // =====================================
+        // CUSTOMER PHOTO
+        // =====================================
+
+        if (data.photoURL) {
+
+            profilePhoto.src =
+
+                data.photoURL;
+
+        }
+
+        else if (data.photo) {
+
+            profilePhoto.src =
+
+                data.photo;
+
+        }
+
+        else {
+
+            profilePhoto.src =
+
+                defaultAvatar;
+
+        }
+
+
+        // =====================================
+        // CURRENT STAMPS
+        // =====================================
+
+        const currentStamps =
+
+            Number(
+
+                data.stamps
+
+                ||
+
+                data.currentStamps
+
+                ||
+
+                0
+
+            );
+
+
+        profileStampCount.textContent =
+
+            Math.min(
+
+                currentStamps,
+
+                6
+
+            )
+
+            +
+
+            " / 6";
+
+
+        // =====================================
+        // REWARD STATUS
+        // =====================================
+
+        if (currentStamps >= 6) {
+
+            profileReward.textContent =
+
+                "FREE VEG MAGGI UNLOCKED";
+
+        }
+
+        else {
+
+            const remaining =
+
+                6
+
+                -
+
+                currentStamps;
+
+
+            profileReward.textContent =
+
+                "Collect "
+
+                +
+
+                remaining
+
+                +
+
+                " More Stamp(s)";
+
+        }
+
+
+        // =====================================
+        // MEMBER SINCE
+        // =====================================
+
+        profileMemberSince.textContent =
+
+            formatMemberSince(
+
+                data.createdAt
+
+                ||
+
+                data.memberSince
+
+            );
+
+
+        console.log(
+
+            "Profile loaded successfully:",
+
+            user.uid
+
+        );
+
 
     }
 
-    catch(error){
+    catch (error) {
 
         console.error(
-            "Profile Load Error:",
+
+            "Failed to load profile:",
+
             error
-        );
 
-        alert(
-            "Unable to load profile"
         );
 
     }
 
 }
 
-);
+
+// =====================================
+// PROFILE.JS - PART 2 END
+// =====================================
+// =====================================
+// RIO MAGGI POINT
+// PREMIUM CUSTOMER PROFILE SYSTEM
+// PROFILE.JS - PART 3 OF 3
+// FINAL PART
+// =====================================
 
 
-// =====================================================
-// DISPLAY PROFILE DATA
-// =====================================================
+// =====================================
+// OPEN EDIT PROFILE MODAL
+// =====================================
 
-function loadProfile(customer){
+editProfileBtn.addEventListener(
 
-    profilePhoto.src =
-        customer.avatar ||
-        customer.photoURL ||
-        "assets/avatars/default.png";
+    "click",
 
-    profileName.textContent =
-        customer.name || "Customer";
-
-    profileMemberId.textContent =
-        customer.memberId || "RIO-000000";
-
-    profileMobile.textContent =
-        customer.mobile || "--";
-
-    profileEmail.textContent =
-        customer.email || "--";
-
-    profileDOB.textContent =
-        customer.dob || "--";
-
-    profileAge.textContent =
-        customer.age || "--";
-
-    profileCategory.textContent =
-        customer.gender
-            ? customer.gender.toUpperCase()
-            : "PREMIUM MEMBER";
-
-    const stamps =
-        Number(customer.stamps || 0);
-
-    profileStampCount.textContent =
-        `${stamps} / 6`;
-
-    if(
-        customer.rewardUnlocked === true ||
-        customer.reward === true ||
-        stamps >= 6
-    ){
-
-        profileReward.textContent =
-            "FREE VEG MAGGI UNLOCKED";
-
-    }
-
-    else{
-
-        profileReward.textContent =
-            `Collect ${6 - stamps} More Stamp(s)`;
-
-    }
-
-    if(customer.createdAt){
-
-        try{
-
-            const date =
-                customer.createdAt.toDate
-                ? customer.createdAt.toDate()
-                : new Date(customer.createdAt.seconds * 1000);
-
-            profileMemberSince.textContent =
-                date.toLocaleDateString();
-
-        }
-
-        catch{
-
-            profileMemberSince.textContent = "--";
-
-        }
-
-    }
-
-    else{
-
-        profileMemberSince.textContent = "--";
-
-    }
-
-}
+    () => {
 
 
-// =====================================================
-// OPEN EDIT PROFILE
-// =====================================================
+        // =====================================
+        // OPEN MODAL
+        // =====================================
 
-if(editProfileBtn){
+        editModal.style.display =
 
-    editProfileBtn.addEventListener(
+            "flex";
 
-        "click",
 
-        ()=>{
+        // =====================================
+        // LOAD CURRENT NAME
+        // =====================================
 
-            if(!currentCustomer) return;
+        editName.value =
 
-            editName.value =
-                currentCustomer.name || "";
+            profileName.textContent
+
+            !==
+
+            "Loading..."
+
+            ?
+
+            profileName.textContent
+
+            :
+
+            "";
+
+
+        // =====================================
+        // LOAD CURRENT DOB
+        // =====================================
+
+        if (
+
+            currentUser
+
+            &&
+
+            currentUser.profileData
+
+        ) {
 
             editDOB.value =
-                currentCustomer.dob || "";
 
-            editAge.value =
-                currentCustomer.age || "";
+                currentUser.profileData.dob
 
-            editGender.value =
-                currentCustomer.gender || "";
+                ||
 
-            editModal.style.display = "flex";
+                "";
 
         }
 
-    );
 
-}
-// =====================================================
-// SAVE PROFILE
-// =====================================================
+        // =====================================
+        // LOAD CURRENT AGE
+        // =====================================
 
-if(saveProfileBtn){
+        editAge.value =
 
-saveProfileBtn.addEventListener(
+            profileAge.textContent
 
-"click",
+            !==
 
-async()=>{
+            "--"
 
-const newName = editName.value.trim();
+            ?
 
-const newDOB = editDOB.value;
+            profileAge.textContent
 
-const newAge = editAge.value;
+            :
 
-const newGender = editGender.value;
+            "";
 
-if(!newName){
 
-alert("Please enter your name.");
+        // =====================================
+        // LOAD CURRENT GENDER
+        // =====================================
 
-return;
+        if (
 
-}
+            currentUser
 
-try{
+            &&
 
-saveProfileBtn.disabled = true;
+            currentUser.profileData
 
-saveProfileBtn.innerHTML =
-`<i class="fa-solid fa-spinner fa-spin"></i> Saving...`;
+        ) {
 
-let avatar = "assets/avatars/default.png";
+            editGender.value =
 
-if(newGender === "male"){
+                currentUser.profileData.gender
 
-avatar = "assets/avatars/male.png";
+                ||
 
-}
+                "";
 
-else if(newGender === "female"){
+        }
 
-avatar = "assets/avatars/female.png";
-
-}
-
-const customerRef = doc(
-
-db,
-
-"customers",
-
-currentUID
+    }
 
 );
 
-await updateDoc(
 
-customerRef,
-
-{
-
-name:newName,
-
-dob:newDOB,
-
-age:newAge,
-
-gender:newGender,
-
-avatar:avatar
-
-}
-
-);
-
-currentCustomer.name = newName;
-
-currentCustomer.dob = newDOB;
-
-currentCustomer.age = newAge;
-
-currentCustomer.gender = newGender;
-
-currentCustomer.avatar = avatar;
-
-loadProfile(currentCustomer);
-
-editModal.style.display = "none";
-
-alert("Profile updated successfully.");
-
-}
-
-catch(error){
-
-console.error(
-
-"Profile Update Error:",
-
-error
-
-);
-
-alert("Unable to update profile.");
-
-}
-
-finally{
-
-saveProfileBtn.disabled = false;
-
-saveProfileBtn.innerHTML =
-`<i class="fa-solid fa-check"></i> Save`;
-
-}
-
-}
-
-);
-
-}
-
-
-// =====================================================
-// CLOSE EDIT MODAL
-// =====================================================
-
-if(closeEditBtn){
+// =====================================
+// CLOSE EDIT PROFILE MODAL
+// =====================================
 
 closeEditBtn.addEventListener(
 
-"click",
+    "click",
 
-()=>{
+    () => {
 
-editModal.style.display = "none";
+        editModal.style.display =
 
-}
+            "none";
 
-);
-
-}
-
-
-// =====================================================
-// CLOSE MODAL ON OUTSIDE CLICK
-// =====================================================
-
-window.addEventListener(
-
-"click",
-
-(event)=>{
-
-if(event.target === editModal){
-
-editModal.style.display = "none";
-
-}
-
-}
+    }
 
 );
 
 
-// =====================================================
+// =====================================
+// SAVE PROFILE
+// =====================================
+
+saveProfileBtn.addEventListener(
+
+    "click",
+
+    async () => {
+
+
+        if (!currentUser) {
+
+            alert(
+
+                "Please login first."
+
+            );
+
+            return;
+
+        }
+
+
+        // =====================================
+        // GET UPDATED VALUES
+        // =====================================
+
+        const updatedName =
+
+            editName.value.trim();
+
+
+        const updatedDOB =
+
+            editDOB.value;
+
+
+        const updatedAge =
+
+            editAge.value;
+
+
+        const updatedGender =
+
+            editGender.value;
+
+
+        // =====================================
+        // VALIDATE NAME
+        // =====================================
+
+        if (!updatedName) {
+
+            alert(
+
+                "Please enter your name."
+
+            );
+
+            return;
+
+        }
+
+
+        // =====================================
+        // SAVE TO FIRESTORE
+        // =====================================
+
+        try {
+
+
+            saveProfileBtn.disabled =
+
+                true;
+
+
+            saveProfileBtn.innerHTML =
+
+                '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+
+            const userRef =
+
+                doc(
+
+                    db,
+
+                    "customers",
+
+                    currentUser.uid
+
+                );
+
+
+            await updateDoc(
+
+                userRef,
+
+                {
+
+                    name:
+
+                        updatedName,
+
+                    fullName:
+
+                        updatedName,
+
+                    dob:
+
+                        updatedDOB,
+
+                    age:
+
+                        updatedAge
+
+                        ?
+
+                        Number(
+
+                            updatedAge
+
+                        )
+
+                        :
+
+                        null,
+
+                    gender:
+
+                        updatedGender
+
+                }
+
+            );
+
+
+            // =====================================
+            // UPDATE SCREEN
+            // =====================================
+
+            profileName.textContent =
+
+                updatedName;
+
+
+            profileDOB.textContent =
+
+                updatedDOB
+
+                ||
+
+                "--";
+
+
+            profileAge.textContent =
+
+                updatedDOB
+
+                ?
+
+                calculateAge(
+
+                    updatedDOB
+
+                )
+
+                :
+
+                (
+
+                    updatedAge
+
+                    ||
+
+                    "--"
+
+                );
+
+
+            profileCategory.textContent =
+
+                (
+
+                    updatedGender
+
+                    ||
+
+                    "--"
+
+                ).toUpperCase();
+
+
+            // =====================================
+            // SAVE LOCAL PROFILE DATA
+            // =====================================
+
+            currentUser.profileData = {
+
+                name:
+
+                    updatedName,
+
+                dob:
+
+                    updatedDOB,
+
+                age:
+
+                    updatedAge,
+
+                gender:
+
+                    updatedGender
+
+            };
+
+
+            // =====================================
+            // CLOSE MODAL
+            // =====================================
+
+            editModal.style.display =
+
+                "none";
+
+
+            alert(
+
+                "Profile updated successfully!"
+
+            );
+
+
+            console.log(
+
+                "Profile updated successfully."
+
+            );
+
+
+        }
+
+        catch (error) {
+
+
+            console.error(
+
+                "Profile update failed:",
+
+                error
+
+            );
+
+
+            alert(
+
+                "Unable to update profile. Please try again."
+
+            );
+
+
+        }
+
+        finally {
+
+
+            saveProfileBtn.disabled =
+
+                false;
+
+
+            saveProfileBtn.innerHTML =
+
+                '<i class="fa-solid fa-check"></i> Save';
+
+
+        }
+
+    }
+
+);
+
+
+// =====================================
 // LOGOUT
-// =====================================================
-
-if(logoutBtn){
+// =====================================
 
 logoutBtn.addEventListener(
 
-"click",
+    "click",
 
-async()=>{
+    async () => {
 
-const confirmLogout = confirm(
 
-"Do you want to logout?"
+        const confirmLogout =
+
+            confirm(
+
+                "Are you sure you want to logout?"
+
+            );
+
+
+        if (!confirmLogout) {
+
+            return;
+
+        }
+
+
+        try {
+
+
+            await signOut(
+
+                auth
+
+            );
+
+
+            window.location.href =
+
+                "login.html";
+
+
+        }
+
+        catch (error) {
+
+
+            console.error(
+
+                "Logout failed:",
+
+                error
+
+            );
+
+
+            alert(
+
+                "Logout failed. Please try again."
+
+            );
+
+        }
+
+    }
 
 );
 
-if(!confirmLogout){
 
-return;
+// =====================================
+// AUTHENTICATION STATE
+// =====================================
 
-}
+onAuthStateChanged(
 
-try{
+    auth,
 
-await signOut(auth);
+    async (user) => {
 
-window.location.href = "login.html";
 
-}
+        // =====================================
+        // USER NOT LOGGED IN
+        // =====================================
 
-catch(error){
+        if (!user) {
 
-console.error(
+            console.warn(
 
-"Logout Error:",
+                "No logged-in user found."
 
-error
+            );
+
+
+            window.location.href =
+
+                "login.html";
+
+
+            return;
+
+        }
+
+
+        // =====================================
+        // SAVE CURRENT USER
+        // =====================================
+
+        currentUser =
+
+            user;
+
+
+        // =====================================
+        // LOAD PROFILE
+        // =====================================
+
+        await loadProfileData(
+
+            user
+
+        );
+
+
+        // =====================================
+        // STORE PROFILE DATA
+        // =====================================
+
+        try {
+
+
+            const userRef =
+
+                doc(
+
+                    db,
+
+                    "customers",
+
+                    user.uid
+
+                );
+
+
+            const userSnap =
+
+                await getDoc(
+
+                    userRef
+
+                );
+
+
+            if (
+
+                userSnap.exists()
+
+            ) {
+
+                currentUser.profileData =
+
+                    userSnap.data();
+
+            }
+
+        }
+
+        catch (error) {
+
+
+            console.error(
+
+                "Profile cache error:",
+
+                error
+
+            );
+
+        }
+
+
+        // =====================================
+        // PROFILE READY
+        // =====================================
+
+        console.log(
+
+            "================================"
+
+        );
+
+
+        console.log(
+
+            "🍜 Rio Maggi Point"
+
+        );
+
+
+        console.log(
+
+            "Premium Customer Profile Loaded"
+
+        );
+
+
+        console.log(
+
+            "Customer UID:",
+
+            user.uid
+
+        );
+
+
+        console.log(
+
+            "================================"
+
+        );
+
+    }
 
 );
 
-alert("Logout failed.");
 
-}
+// =====================================
+// CLOSE MODAL WHEN CLICKING OUTSIDE
+// =====================================
 
-}
+window.addEventListener(
+
+    "click",
+
+    (event) => {
+
+
+        if (
+
+            event.target
+
+            ===
+
+            editModal
+
+        ) {
+
+            editModal.style.display =
+
+                "none";
+
+        }
+
+    }
 
 );
 
-}
+
+// =====================================
+// PROFILE.JS READY
+// =====================================
+
+console.log(
+
+    "Rio Maggi Point Premium Profile System Ready"
+
+);
 
 
-// =====================================================
-// READY
-// =====================================================
-
-console.log("================================");
-
-console.log("🍜 Rio Maggi Point");
-
-console.log("Premium Profile Loaded");
-
-console.log("Profile Edit Enabled");
-
-console.log("================================");
+// =====================================
+// END OF PROFILE.JS
+// =====================================
