@@ -10,12 +10,16 @@ name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>
-Rio Maggi Point
+Rio Maggi Point | Premium Loyalty Club
 </title>
 
 <meta
 name="theme-color"
 content="#111111">
+
+<meta
+name="description"
+content="Rio Maggi Point Premium Loyalty Club">
 
 <link
 rel="manifest"
@@ -44,17 +48,34 @@ href="css/card.css">
 
 </head>
 
+
 <body>
+
+
+<!-- =====================================
+     MAIN PAGE
+===================================== -->
 
 <div class="page">
 
+
+<!-- =====================================
+     PREMIUM LOYALTY CARD
+===================================== -->
+
 <div class="premium-card">
+
+
+<!-- CARD EFFECTS -->
 
 <div class="card-glow"></div>
 
 <div class="card-shine"></div>
 
-<!-- HEADER -->
+
+<!-- =====================================
+     CARD HEADER
+===================================== -->
 
 <div class="card-header">
 
@@ -64,6 +85,7 @@ RIO MAGGI POINT
 
 </h1>
 
+
 <div class="brand-subtitle">
 
 Premium Loyalty Club
@@ -72,18 +94,27 @@ Premium Loyalty Club
 
 </div>
 
-<!-- CUSTOMER SECTION -->
+
+<!-- =====================================
+     CUSTOMER SECTION
+===================================== -->
 
 <div class="customer-section">
+
+
+<!-- CUSTOMER PHOTO -->
 
 <div class="avatar-frame">
 
 <img
 id="customerPhoto"
 src="assets/avatars/male.png"
-alt="Customer">
+alt="Customer Photo">
 
 </div>
+
+
+<!-- CUSTOMER NAME -->
 
 <div
 class="customer-name"
@@ -92,6 +123,9 @@ id="customerName">
 Loading...
 
 </div>
+
+
+<!-- MEMBER ID -->
 
 <div class="customer-id">
 
@@ -105,25 +139,54 @@ RIO-000000
 
 </div>
 
+
+<!-- PREMIUM MEMBER -->
+
 <div class="premium-member">
 
 PREMIUM MEMBER
 
 </div>
 
+
+<!-- =====================================
+     FREE GAME BUTTON
+===================================== -->
+
 <button
+type="button"
 class="game-button"
 id="gameLink">
 
+<span class="game-icon">
+
 <i class="fa-solid fa-gamepad"></i>
+
+</span>
+
+
+<span class="game-text">
 
 CLICK FREE GAME
 
+</span>
+
+
+<span class="game-arrow">
+
+<i class="fa-solid fa-bolt"></i>
+
+</span>
+
 </button>
+
 
 </div>
 
-<!-- STAMP TITLE -->
+
+<!-- =====================================
+     STAMP TITLE
+===================================== -->
 
 <div class="stamp-title">
 
@@ -131,53 +194,221 @@ Collect 6 Stamps • Win 1 FREE VEG MAGGI
 
 </div>
 
-<!-- STAMP SECTION -->
+
+<!-- =====================================
+     STAMP SECTION
+===================================== -->
 
 <div class="stamp-section">
 
+
 <div class="stamp-row">
 
-<div class="stamp-circle" id="stamp1"><span>1</span></div>
 
-<div class="stamp-circle" id="stamp2"><span>2</span></div>
+<!-- STAMP 1 -->
 
-<div class="stamp-circle" id="stamp3"><span>3</span></div>
+<div class="stamp-item">
 
-<div class="stamp-circle" id="stamp4"><span>4</span></div>
+<div
+class="stamp-circle"
+id="stamp1">
 
-<div class="stamp-circle" id="stamp5"><span>5</span></div>
+<span>1</span>
 
-<div class="stamp-circle" id="stamp6"><span>6</span></div>
+</div>
+
+
+<div
+class="stamp-date"
+id="stampDate1">
+
+--
+
+</div>
+
+</div>
+
+
+<!-- STAMP 2 -->
+
+<div class="stamp-item">
+
+<div
+class="stamp-circle"
+id="stamp2">
+
+<span>2</span>
+
+</div>
+
+
+<div
+class="stamp-date"
+id="stampDate2">
+
+--
+
+</div>
+
+</div>
+
+
+<!-- STAMP 3 -->
+
+<div class="stamp-item">
+
+<div
+class="stamp-circle"
+id="stamp3">
+
+<span>3</span>
+
+</div>
+
+
+<div
+class="stamp-date"
+id="stampDate3">
+
+--
+
+</div>
+
+</div>
+
+
+<!-- STAMP 4 -->
+
+<div class="stamp-item">
+
+<div
+class="stamp-circle"
+id="stamp4">
+
+<span>4</span>
+
+</div>
+
+
+<div
+class="stamp-date"
+id="stampDate4">
+
+--
+
+</div>
+
+</div>
+
+
+<!-- STAMP 5 -->
+
+<div class="stamp-item">
+
+<div
+class="stamp-circle"
+id="stamp5">
+
+<span>5</span>
+
+</div>
+
+
+<div
+class="stamp-date"
+id="stampDate5">
+
+--
+
+</div>
+
+</div>
+
+
+<!-- STAMP 6 -->
+
+<div class="stamp-item">
+
+<div
+class="stamp-circle"
+id="stamp6">
+
+<span>6</span>
+
+</div>
+
+
+<div
+class="stamp-date"
+id="stampDate6">
+
+--
+
+</div>
+
+</div>
+
+
+<!-- =====================================
+     FREE VEG MAGGI REWARD
+===================================== -->
+
+<div class="stamp-item reward-item">
 
 <div
 class="stamp-circle reward-circle"
 id="rewardCircle">
 
+
 <div class="reward-label">
 
+<i class="fa-solid fa-gift"></i>
+
+<span>
 FREE
-<br>
+</span>
+
+<span>
 VEG
-<br>
+</span>
+
+<span>
 MAGGI
+</span>
+
+</div>
+
+
+</div>
+
+
+<div class="stamp-date">
+
+REWARD
 
 </div>
 
 </div>
 
-</div>
 
 </div>
 
-<!-- COUNTDOWN -->
+</div>
+
+
+<!-- =====================================
+     COUNTDOWN
+===================================== -->
 
 <div class="countdown-box">
+
 
 <div class="countdown-text">
 
 STAMP RESET IN
 
 </div>
+
 
 <div
 id="countdownDays"
@@ -187,41 +418,105 @@ class="countdown-days">
 
 </div>
 
+
 </div>
 
-<!-- QUICK BUTTONS -->
+
+<!-- =====================================
+     QUICK BUTTONS
+===================================== -->
 
 <div class="quick-buttons">
 
-<button id="callBtn">
+
+<!-- CALL -->
+
+<button
+type="button"
+id="callBtn">
 
 <i class="fa-solid fa-phone"></i>
 
+<span>
+
 Call
+
+</span>
 
 </button>
 
-<button id="whatsappBtn">
+
+<!-- WHATSAPP -->
+
+<button
+type="button"
+id="whatsappBtn">
 
 <i class="fa-brands fa-whatsapp"></i>
 
+<span>
+
 WhatsApp
+
+</span>
 
 </button>
 
-<button id="mapBtn">
+
+<!-- MAP -->
+
+<button
+type="button"
+id="mapBtn">
 
 <i class="fa-solid fa-location-dot"></i>
 
+<span>
+
 Map
+
+</span>
 
 </button>
 
+
+<!-- DELIVERY -->
+
+<button
+type="button"
+id="deliveryBtn">
+
+<i class="fa-solid fa-motorcycle"></i>
+
+<span>
+
+Delivery
+
+</span>
+
+</button>
+
+
 </div>
 
-<!-- BOTTOM NAVIGATION -->
+
+<!-- =====================================
+     PART 1 END
+===================================== -->
+  <!-- =====================================
+     CARD.HTML - PART 2
+     QUICK BUTTONS + BOTTOM NAVIGATION
+===================================== -->
+
+
+<!-- =====================================
+     BOTTOM NAVIGATION
+===================================== -->
 
 <nav class="bottom-nav">
+
+
+<!-- HOME -->
 
 <a
 href="card.html"
@@ -237,7 +532,11 @@ Home
 
 </a>
 
-<a href="qr.html">
+
+<!-- QR -->
+
+<a
+href="qr.html">
 
 <i class="fa-solid fa-qrcode"></i>
 
@@ -249,7 +548,11 @@ QR
 
 </a>
 
-<a href="history.html">
+
+<!-- HISTORY -->
+
+<a
+href="history.html">
 
 <i class="fa-solid fa-clock-rotate-left"></i>
 
@@ -261,7 +564,11 @@ History
 
 </a>
 
-<a href="menu.html">
+
+<!-- MENU -->
+
+<a
+href="menu.html">
 
 <i class="fa-solid fa-utensils"></i>
 
@@ -272,7 +579,12 @@ Menu
 </span>
 
 </a>
-<a href="feedback.html">
+
+
+<!-- REVIEW -->
+
+<a
+href="feedback.html">
 
 <i class="fa-solid fa-heart"></i>
 
@@ -284,7 +596,11 @@ Review
 
 </a>
 
-<a href="profile.html">
+
+<!-- PROFILE -->
+
+<a
+href="profile.html">
 
 <i class="fa-solid fa-user"></i>
 
@@ -296,37 +612,101 @@ Profile
 
 </a>
 
+
 </nav>
 
-</div>
 
 </div>
 
-<!-- CARD JAVASCRIPT -->
+
+</div>
+
+
+<!-- =====================================
+     PART 2 END
+===================================== -->
+  <!-- =====================================
+     CARD.HTML - PART 3
+     JAVASCRIPT + SERVICE WORKER
+===================================== -->
+
+
+<!-- =====================================
+     CARD JAVASCRIPT
+===================================== -->
 
 <script
-
 type="module"
-
 src="js/card.js">
-
 </script>
 
-<!-- SERVICE WORKER -->
+
+<!-- =====================================
+     SERVICE WORKER
+===================================== -->
 
 <script>
 
-if("serviceWorker" in navigator){
+if (
+    "serviceWorker" in navigator
+) {
 
-window.addEventListener("load",()=>{
+    window.addEventListener(
 
-navigator.serviceWorker.register("./service-worker.js");
+        "load",
 
-});
+        () => {
+
+            navigator.serviceWorker.register(
+
+                "./service-worker.js"
+
+            )
+
+            .then(
+
+                registration => {
+
+                    console.log(
+
+                        "Rio Maggi Point Service Worker Registered:",
+
+                        registration.scope
+
+                    );
+
+                }
+
+            )
+
+            .catch(
+
+                error => {
+
+                    console.error(
+
+                        "Service Worker Registration Failed:",
+
+                        error
+
+                    );
+
+                }
+
+            );
+
+        }
+
+    );
 
 }
 
 </script>
+
+
+<!-- =====================================
+     CARD.HTML END
+===================================== -->
 
 </body>
 
