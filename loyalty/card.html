@@ -1,4 +1,12 @@
+<!-- =========================================
+     RIO MAGGI POINT
+     CARD.HTML
+     HOME DASHBOARD
+     PART 1/4
+========================================= -->
+
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -10,20 +18,24 @@ name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>
-Rio Maggi Point | Premium Loyalty Club
+Rio Maggi Point • Premium Loyalty
 </title>
 
 <meta
 name="theme-color"
-content="#111111">
+content="#263525">
 
 <meta
 name="description"
-content="Rio Maggi Point Premium Loyalty Club">
+content="Rio Maggi Point Premium Loyalty Dashboard">
 
 <link
 rel="manifest"
 href="manifest.json">
+
+<link
+rel="icon"
+href="favicon.ico">
 
 <link
 rel="preconnect"
@@ -44,7 +56,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 <link
 rel="stylesheet"
-href="css/card.css">
+href="css/common.css">
 
 </head>
 
@@ -52,509 +64,404 @@ href="css/card.css">
 <body>
 
 
-<!-- =====================================
-     MAIN PAGE
-===================================== -->
+<!-- =========================================
+     MAIN APP PAGE
+========================================= -->
 
-<div class="page">
-
-
-<!-- =====================================
-     PREMIUM LOYALTY CARD
-===================================== -->
-
-<div class="premium-card">
+<main class="profile-page app-page">
 
 
-<!-- CARD EFFECTS -->
+<!-- =========================================
+     HOME DASHBOARD HEADER
+========================================= -->
 
-<div class="card-glow"></div>
-
-<div class="card-shine"></div>
+<header class="profile-header app-card">
 
 
-<!-- =====================================
-     CARD HEADER
-===================================== -->
+<div class="profile-header-icon">
 
-<div class="card-header">
+<i class="fa-solid fa-house"></i>
 
-<h1 class="brand-title">
+</div>
 
-RIO MAGGI POINT
+
+<div class="profile-header-content">
+
+<h1>
+
+RIO MAGGI
+<span>POINT</span>
 
 </h1>
 
 
-<div class="brand-subtitle">
+<p>
 
-Premium Loyalty Club
+Premium Loyalty Club • Welcome Back!
+
+</p>
 
 </div>
 
+
+</header>
+
+
+<!-- =========================================
+     ANNOUNCEMENT AREA
+========================================= -->
+
+<section
+class="announcement-card app-card">
+
+
+<div class="announcement-icon">
+
+<i class="fa-solid fa-bullhorn"></i>
+
 </div>
 
 
-<!-- =====================================
-     CUSTOMER SECTION
-===================================== -->
-
-<div class="customer-section">
+<div class="announcement-content">
 
 
-<!-- CUSTOMER PHOTO -->
+<div class="announcement-top-row">
 
-<div class="avatar-frame">
+<h2>
+
+Announcement
+
+</h2>
+
+
+<span class="new-badge">
+
+NEW
+
+</span>
+
+</div>
+
+
+<p id="announcementText">
+
+Welcome to Rio Maggi Point Premium Loyalty Club!
+
+</p>
+
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================
+     CUSTOMER LOYALTY CARD
+========================================= -->
+
+<section class="profile-card app-card">
+
+
+<div class="profile-top">
+
+
+<div class="profile-photo-wrapper">
+
+
+<div class="profile-photo">
+
+
+<span
+class="default-avatar"
+id="defaultAvatar">
+
+😊
+
+</span>
+
 
 <img
 id="customerPhoto"
-src="assets/avatars/male.png"
-alt="Customer Photo">
+src=""
+alt="Customer Photo"
+style="display:none;">
 
 </div>
 
 
-<!-- CUSTOMER NAME -->
+</div>
 
-<div
-class="customer-name"
+
+<h2
+class="profile-name"
 id="customerName">
 
 Loading...
 
+</h2>
+
+
+<p
+class="profile-email"
+id="customerEmail">
+
+Loading...
+
+</p>
+
+
+<div class="member-badge">
+
+<i class="fa-solid fa-crown"></i>
+
+Premium Member
+
 </div>
 
 
-<!-- MEMBER ID -->
+</div>
 
-<div class="customer-id">
 
-ID :
+<!-- =========================================
+     LOYALTY SUMMARY
+========================================= -->
 
-<span id="memberId">
+<div class="profile-info">
 
-RIO-000000
+
+<div class="info-item">
+
+
+<div class="info-icon">
+
+<i class="fa-solid fa-star"></i>
+
+</div>
+
+
+<span class="info-label">
+
+Current Stamps
 
 </span>
 
+
+<span
+class="info-value"
+id="stampCount">
+
+0 / 6
+
+</span>
+
+
 </div>
 
 
-<!-- PREMIUM MEMBER -->
+<div class="info-item">
 
-<div class="premium-member">
 
-PREMIUM MEMBER
+<div class="info-icon">
+
+<i class="fa-solid fa-gift"></i>
 
 </div>
 
 
-<!-- =====================================
-     FREE GAME BUTTON
-===================================== -->
+<span class="info-label">
 
-<button
-type="button"
-class="game-button"
-id="gameLink">
+Reward Status
 
-<span class="game-icon">
+</span>
+
+
+<span
+class="info-value"
+id="rewardStatus">
+
+Collecting Stamps
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+<!-- =========================================
+     STAMP GRID
+========================================= -->
+
+<div
+class="stamp-grid"
+id="stampContainer">
+
+
+<!-- Firebase will generate 6 stamps -->
+
+</div>
+
+
+<!-- =========================================
+     REWARD MESSAGE
+========================================= -->
+
+<div
+id="rewardMessage"
+class="reward-card"
+style="display:none;">
+
+
+<div class="reward-sparkle">
+
+
+<i class="fa-solid fa-gift"></i>
+
+</div>
+
+
+<h3>
+
+FREE VEG MAGGI UNLOCKED!
+
+</h3>
+
+
+<p>
+
+Congratulations! You have completed 6 loyalty stamps.
+
+</p>
+
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================
+     END CARD.HTML PART 1/4
+========================================= -->
+     <!-- =========================================
+     RIO MAGGI POINT
+     CARD.HTML
+     HOME DASHBOARD
+     PART 2/4
+========================================= -->
+
+
+<!-- =========================================
+     FREE GAME SECTION
+========================================= -->
+
+<section
+class="game-section app-card">
+
+
+<div class="game-section-icon">
 
 <i class="fa-solid fa-gamepad"></i>
 
-</span>
+</div>
 
 
-<span class="game-text">
+<div class="game-section-content">
+
+
+<h2>
+
+Rio Fun Game
+
+</h2>
+
+
+<p>
+
+Enjoy a free game while you enjoy your Maggi!
+
+</p>
+
+
+<a
+href="../index.html"
+class="profile-action-btn game-btn">
+
+
+<i class="fa-solid fa-play"></i>
+
+<span>
 
 CLICK FREE GAME
 
 </span>
 
 
-<span class="game-arrow">
-
-<i class="fa-solid fa-bolt"></i>
-
-</span>
-
-</button>
-
-
-</div>
-
-
-<!-- =====================================
-     STAMP TITLE
-===================================== -->
-
-<div class="stamp-title">
-
-Collect 6 Stamps • Win 1 FREE VEG MAGGI
-
-</div>
-
-
-<!-- =====================================
-     STAMP SECTION
-===================================== -->
-
-<div class="stamp-section">
-
-
-<div class="stamp-row">
-
-
-<!-- STAMP 1 -->
-
-<div class="stamp-item">
-
-<div
-class="stamp-circle"
-id="stamp1">
-
-<span>1</span>
-
-</div>
-
-
-<div
-class="stamp-date"
-id="stampDate1">
-
---
-
-</div>
-
-</div>
-
-
-<!-- STAMP 2 -->
-
-<div class="stamp-item">
-
-<div
-class="stamp-circle"
-id="stamp2">
-
-<span>2</span>
-
-</div>
-
-
-<div
-class="stamp-date"
-id="stampDate2">
-
---
-
-</div>
-
-</div>
-
-
-<!-- STAMP 3 -->
-
-<div class="stamp-item">
-
-<div
-class="stamp-circle"
-id="stamp3">
-
-<span>3</span>
-
-</div>
-
-
-<div
-class="stamp-date"
-id="stampDate3">
-
---
-
-</div>
-
-</div>
-
-
-<!-- STAMP 4 -->
-
-<div class="stamp-item">
-
-<div
-class="stamp-circle"
-id="stamp4">
-
-<span>4</span>
-
-</div>
-
-
-<div
-class="stamp-date"
-id="stampDate4">
-
---
-
-</div>
-
-</div>
-
-
-<!-- STAMP 5 -->
-
-<div class="stamp-item">
-
-<div
-class="stamp-circle"
-id="stamp5">
-
-<span>5</span>
-
-</div>
-
-
-<div
-class="stamp-date"
-id="stampDate5">
-
---
-
-</div>
-
-</div>
-
-
-<!-- STAMP 6 -->
-
-<div class="stamp-item">
-
-<div
-class="stamp-circle"
-id="stamp6">
-
-<span>6</span>
-
-</div>
-
-
-<div
-class="stamp-date"
-id="stampDate6">
-
---
-
-</div>
-
-</div>
-
-
-<!-- =====================================
-     FREE VEG MAGGI REWARD
-===================================== -->
-
-<div class="stamp-item reward-item">
-
-<div
-class="stamp-circle reward-circle"
-id="rewardCircle">
-
-
-<div class="reward-label">
-
-<i class="fa-solid fa-gift"></i>
-
-<span>
-FREE
-</span>
-
-<span>
-VEG
-</span>
-
-<span>
-MAGGI
-</span>
-
-</div>
-
-
-</div>
-
-
-<div class="stamp-date">
-
-REWARD
-
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- =====================================
-     COUNTDOWN
-===================================== -->
-
-<div class="countdown-box">
-
-
-<div class="countdown-text">
-
-STAMP RESET IN
-
-</div>
-
-
-<div
-id="countdownDays"
-class="countdown-days">
-
-40 DAYS
-
-</div>
-
-
-</div>
-
-
-<!-- =====================================
-     QUICK BUTTONS
-===================================== -->
-
-<div class="quick-buttons">
-
-
-<!-- CALL -->
-
-<button
-type="button"
-id="callBtn">
-
-<i class="fa-solid fa-phone"></i>
-
-<span>
-
-Call
-
-</span>
-
-</button>
-
-
-<!-- WHATSAPP -->
-
-<button
-type="button"
-id="whatsappBtn">
-
-<i class="fa-brands fa-whatsapp"></i>
-
-<span>
-
-WhatsApp
-
-</span>
-
-</button>
-
-
-<!-- MAP -->
-
-<button
-type="button"
-id="mapBtn">
-
-<i class="fa-solid fa-location-dot"></i>
-
-<span>
-
-Map
-
-</span>
-
-</button>
-
-
-<!-- DELIVERY -->
-
-<button
-type="button"
-id="deliveryBtn">
-
-<i class="fa-solid fa-motorcycle"></i>
-
-<span>
-
-Delivery
-
-</span>
-
-</button>
-
-
-</div>
-
-
-<!-- =====================================
-     PART 1 END
-===================================== -->
-  <!-- =====================================
-     CARD.HTML - PART 2
-     QUICK BUTTONS + BOTTOM NAVIGATION
-===================================== -->
-
-
-<!-- =====================================
-     BOTTOM NAVIGATION
-===================================== -->
-
-<nav class="bottom-nav">
-
-
-<!-- HOME -->
-
-<a
-href="card.html"
-class="active">
-
-<i class="fa-solid fa-house"></i>
-
-<span>
-
-Home
-
-</span>
-
 </a>
 
 
-<!-- QR -->
+</div>
+
+
+</section>
+
+
+
+<!-- =========================================
+     QUICK ACTIONS
+========================================= -->
+
+<section
+class="quick-actions app-card">
+
+
+<h2 class="section-title">
+
+Quick Actions
+
+</h2>
+
+
+<div class="profile-actions">
+
+
+<!-- =====================================
+     QR BUTTON
+===================================== -->
 
 <a
-href="qr.html">
+href="qr.html"
+class="profile-action-btn call-btn">
+
 
 <i class="fa-solid fa-qrcode"></i>
 
+
 <span>
 
-QR
+My QR
 
 </span>
+
 
 </a>
 
 
-<!-- HISTORY -->
+
+<!-- =====================================
+     HISTORY BUTTON
+===================================== -->
 
 <a
-href="history.html">
+href="history.html"
+class="profile-action-btn whatsapp-btn">
+
 
 <i class="fa-solid fa-clock-rotate-left"></i>
+
 
 <span>
 
@@ -562,15 +469,22 @@ History
 
 </span>
 
+
 </a>
 
 
-<!-- MENU -->
+
+<!-- =====================================
+     MENU BUTTON
+===================================== -->
 
 <a
-href="menu.html">
+href="menu.html"
+class="profile-action-btn map-btn">
+
 
 <i class="fa-solid fa-utensils"></i>
+
 
 <span>
 
@@ -578,15 +492,22 @@ Menu
 
 </span>
 
+
 </a>
 
 
-<!-- REVIEW -->
+
+<!-- =====================================
+     REVIEW BUTTON
+===================================== -->
 
 <a
-href="feedback.html">
+href="feedback.html"
+class="profile-action-btn review-btn">
+
 
 <i class="fa-solid fa-heart"></i>
+
 
 <span>
 
@@ -594,15 +515,284 @@ Review
 
 </span>
 
+
 </a>
 
 
-<!-- PROFILE -->
+</div>
+
+
+</section>
+
+
+
+<!-- =========================================
+     SHOP CONTACT ACTIONS
+========================================= -->
+
+<section
+class="contact-actions app-card">
+
+
+<h2 class="section-title">
+
+Visit Rio Maggi Point
+
+</h2>
+
+
+<div class="profile-actions">
+
+
+<!-- =====================================
+     CALL
+     REPLACE PHONE NUMBER LATER
+===================================== -->
 
 <a
-href="profile.html">
+href="tel:+91XXXXXXXXXX"
+class="profile-action-btn call-btn">
+
+
+<i class="fa-solid fa-phone"></i>
+
+
+<span>
+
+Call
+
+</span>
+
+
+</a>
+
+
+
+<!-- =====================================
+     WHATSAPP
+     REPLACE NUMBER LATER
+===================================== -->
+
+<a
+href="https://wa.me/91XXXXXXXXXX"
+target="_blank"
+rel="noopener"
+class="profile-action-btn whatsapp-btn">
+
+
+<i class="fa-brands fa-whatsapp"></i>
+
+
+<span>
+
+WhatsApp
+
+</span>
+
+
+</a>
+
+
+
+<!-- =====================================
+     GOOGLE MAP
+     REPLACE LOCATION LINK LATER
+===================================== -->
+
+<a
+href="https://www.google.com/maps/search/?api=1&query=Rio+Maggi+Point"
+target="_blank"
+rel="noopener"
+class="profile-action-btn map-btn">
+
+
+<i class="fa-solid fa-location-dot"></i>
+
+
+<span>
+
+Map
+
+</span>
+
+
+</a>
+
+
+
+<!-- =====================================
+     GOOGLE REVIEW
+     REPLACE REVIEW LINK LATER
+===================================== -->
+
+<a
+href="feedback.html"
+class="profile-action-btn review-btn">
+
+
+<i class="fa-solid fa-star"></i>
+
+
+<span>
+
+Give Review
+
+</span>
+
+
+</a>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =========================================
+     NAVIGATION SAFE SPACE
+========================================= -->
+
+<div class="nav-space"></div>
+
+
+
+<!-- =========================================
+     FIXED COMMON BOTTOM NAVIGATION
+========================================= -->
+
+<nav
+class="bottom-nav"
+id="commonBottomNav">
+
+
+<!-- =====================================
+     HOME
+===================================== -->
+
+<a
+href="card.html"
+class="nav-item active">
+
+
+<i class="fa-solid fa-house"></i>
+
+
+<span>
+
+Home
+
+</span>
+
+
+</a>
+
+
+
+<!-- =====================================
+     QR
+===================================== -->
+
+<a
+href="qr.html"
+class="nav-item">
+
+
+<i class="fa-solid fa-qrcode"></i>
+
+
+<span>
+
+QR
+
+</span>
+
+
+</a>
+
+
+
+<!-- =====================================
+     HISTORY
+===================================== -->
+
+<a
+href="history.html"
+class="nav-item">
+
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+
+<span>
+
+History
+
+</span>
+
+
+</a>
+
+
+
+<!-- =====================================
+     MENU
+===================================== -->
+
+<a
+href="menu.html"
+class="nav-item">
+
+
+<i class="fa-solid fa-utensils"></i>
+
+
+<span>
+
+Menu
+
+</span>
+
+
+</a>
+
+
+
+<!-- =====================================
+     REVIEW
+===================================== -->
+
+<a
+href="feedback.html"
+class="nav-item">
+
+
+<i class="fa-solid fa-heart"></i>
+
+
+<span>
+
+Review
+
+</span>
+
+
+</a>
+
+
+
+<!-- =====================================
+     PROFILE
+===================================== -->
+
+<a
+href="profile.html"
+class="nav-item">
+
 
 <i class="fa-solid fa-user"></i>
+
 
 <span>
 
@@ -610,104 +800,933 @@ Profile
 
 </span>
 
+
 </a>
 
 
 </nav>
 
 
-</div>
+
+<!-- =========================================
+     END CARD.HTML PART 2/4
+========================================= -->
+     <!-- =========================================
+     RIO MAGGI POINT
+     CARD.HTML
+     HOME DASHBOARD
+     PART 3/4
+     FIREBASE + CUSTOMER DATA + STAMPS
+========================================= -->
 
 
-</div>
+<!-- =========================================
+     FIREBASE MODULE
+========================================= -->
+
+<script type="module">
 
 
-<!-- =====================================
-     PART 2 END
-===================================== -->
-  <!-- =====================================
-     CARD.HTML - PART 3
-     JAVASCRIPT + SERVICE WORKER
-===================================== -->
+/* =========================================
+   FIREBASE IMPORTS
+========================================= */
+
+import {
+
+    initializeApp
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
 
-<!-- =====================================
-     CARD JAVASCRIPT
-===================================== -->
+import {
 
-<script
-type="module"
-src="js/card.js">
+    getAuth,
+
+    onAuthStateChanged
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+
+import {
+
+    getFirestore,
+
+    doc,
+
+    getDoc
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+
+import {
+
+    firebaseConfig
+
+}
+
+from
+
+"./js/firebase-config.js";
+
+
+
+/* =========================================
+   FIREBASE INITIALIZE
+========================================= */
+
+const app =
+
+    initializeApp(
+        firebaseConfig
+    );
+
+
+const auth =
+
+    getAuth(
+        app
+    );
+
+
+const db =
+
+    getFirestore(
+        app
+    );
+
+
+
+/* =========================================
+   HTML ELEMENTS
+========================================= */
+
+const customerName =
+
+    document.getElementById(
+        "customerName"
+    );
+
+
+const customerEmail =
+
+    document.getElementById(
+        "customerEmail"
+    );
+
+
+const customerPhoto =
+
+    document.getElementById(
+        "customerPhoto"
+    );
+
+
+const defaultAvatar =
+
+    document.getElementById(
+        "defaultAvatar"
+    );
+
+
+const stampCount =
+
+    document.getElementById(
+        "stampCount"
+    );
+
+
+const rewardStatus =
+
+    document.getElementById(
+        "rewardStatus"
+    );
+
+
+const stampContainer =
+
+    document.getElementById(
+        "stampContainer"
+    );
+
+
+const rewardMessage =
+
+    document.getElementById(
+        "rewardMessage"
+    );
+
+
+const announcementText =
+
+    document.getElementById(
+        "announcementText"
+    );
+
+
+
+/* =========================================
+   DEFAULT ANNOUNCEMENT
+========================================= */
+
+const defaultAnnouncement =
+
+    "Welcome to Rio Maggi Point Premium Loyalty Club!";
+
+
+/* =========================================
+   LOAD ANNOUNCEMENT
+========================================= */
+
+async function loadAnnouncement() {
+
+
+    try {
+
+
+        const announcementRef =
+
+            doc(
+
+                db,
+
+                "settings",
+
+                "announcement"
+
+            );
+
+
+        const announcementSnap =
+
+            await getDoc(
+
+                announcementRef
+
+            );
+
+
+        if (
+
+            announcementSnap.exists()
+
+        ) {
+
+
+            const data =
+
+                announcementSnap.data();
+
+
+            if (
+
+                data.text
+
+            ) {
+
+
+                announcementText.textContent =
+
+                    data.text;
+
+
+            }
+
+
+            else {
+
+
+                announcementText.textContent =
+
+                    defaultAnnouncement;
+
+
+            }
+
+
+        }
+
+
+        else {
+
+
+            announcementText.textContent =
+
+                defaultAnnouncement;
+
+
+        }
+
+
+    }
+
+
+    catch (error) {
+
+
+        console.error(
+
+            "Announcement Loading Error:",
+
+            error
+
+        );
+
+
+        announcementText.textContent =
+
+            defaultAnnouncement;
+
+
+    }
+
+
+}
+
+
+
+/* =========================================
+   LOAD CUSTOMER DATA
+========================================= */
+
+async function loadCustomerData(user) {
+
+
+    try {
+
+
+        const customerRef =
+
+            doc(
+
+                db,
+
+                "customers",
+
+                user.uid
+
+            );
+
+
+        const customerSnap =
+
+            await getDoc(
+
+                customerRef
+
+            );
+
+
+        if (
+
+            customerSnap.exists()
+
+        ) {
+
+
+            const data =
+
+                customerSnap.data();
+
+
+
+            /* =================================
+               CUSTOMER NAME
+            ================================= */
+
+            customerName.textContent =
+
+                data.name ||
+
+                user.displayName ||
+
+                "Customer";
+
+
+
+            /* =================================
+               CUSTOMER EMAIL
+            ================================= */
+
+            customerEmail.textContent =
+
+                data.email ||
+
+                user.email ||
+
+                "";
+
+
+
+            /* =================================
+               PROFILE PHOTO
+            ================================= */
+
+            if (
+
+                data.photoURL
+
+            ) {
+
+
+                customerPhoto.src =
+
+                    data.photoURL;
+
+
+                customerPhoto.style.display =
+
+                    "block";
+
+
+                defaultAvatar.style.display =
+
+                    "none";
+
+
+            }
+
+
+            else if (
+
+                user.photoURL
+
+            ) {
+
+
+                customerPhoto.src =
+
+                    user.photoURL;
+
+
+                customerPhoto.style.display =
+
+                    "block";
+
+
+                defaultAvatar.style.display =
+
+                    "none";
+
+
+            }
+
+
+            else {
+
+
+                customerPhoto.style.display =
+
+                    "none";
+
+
+                defaultAvatar.style.display =
+
+                    "block";
+
+
+            }
+
+
+
+            /* =================================
+               STAMP COUNT
+            ================================= */
+
+            const stamps =
+
+                Number(
+
+                    data.stamps || 0
+
+                );
+
+
+            renderStamps(
+
+                stamps
+
+            );
+
+
+        }
+
+
+        else {
+
+
+            customerName.textContent =
+
+                user.displayName ||
+
+                "Customer";
+
+
+            customerEmail.textContent =
+
+                user.email ||
+
+                "";
+
+
+            renderStamps(
+
+                0
+
+            );
+
+
+        }
+
+
+    }
+
+
+    catch (error) {
+
+
+        console.error(
+
+            "Customer Loading Error:",
+
+            error
+
+        );
+
+
+        customerName.textContent =
+
+            "Customer";
+
+
+        customerEmail.textContent =
+
+            user.email ||
+
+            "";
+
+
+        renderStamps(
+
+            0
+
+        );
+
+
+    }
+
+
+}
+
+
+
+/* =========================================
+   RENDER 6 LOYALTY STAMPS
+========================================= */
+
+function renderStamps(
+
+    count
+
+) {
+
+
+    stampContainer.innerHTML =
+
+        "";
+
+
+    const safeCount =
+
+        Math.min(
+
+            Math.max(
+
+                Number(
+
+                    count
+
+                ) || 0,
+
+                0
+
+            ),
+
+            6
+
+        );
+
+
+    stampCount.textContent =
+
+        safeCount +
+
+        " / 6";
+
+
+
+    /* =====================================
+       REWARD STATUS
+    ===================================== */
+
+    if (
+
+        safeCount >= 6
+
+    ) {
+
+
+        rewardStatus.textContent =
+
+            "FREE VEG MAGGI UNLOCKED";
+
+
+        rewardMessage.style.display =
+
+            "block";
+
+
+    }
+
+
+    else {
+
+
+        rewardStatus.textContent =
+
+            "Collecting Stamps";
+
+
+        rewardMessage.style.display =
+
+            "none";
+
+
+    }
+
+
+
+    /* =====================================
+       CREATE 6 STAMPS
+    ===================================== */
+
+    for (
+
+        let i = 1;
+
+        i <= 6;
+
+        i++
+
+    ) {
+
+
+        const stamp =
+
+            document.createElement(
+
+                "div"
+
+            );
+
+
+        stamp.className =
+
+            "stamp-box";
+
+
+        if (
+
+            i <= safeCount
+
+        ) {
+
+
+            stamp.classList.add(
+
+                "active"
+
+            );
+
+
+            stamp.innerHTML =
+
+                '<i class="fa-solid fa-check"></i>';
+
+
+        }
+
+
+        else {
+
+
+            stamp.textContent =
+
+                i;
+
+
+        }
+
+
+        stampContainer.appendChild(
+
+            stamp
+
+        );
+
+
+    }
+
+
+}
+
+
+
+/* =========================================
+   AUTH STATE
+========================================= */
+
+onAuthStateChanged(
+
+    auth,
+
+    async (user) => {
+
+
+        if (
+
+            !user
+
+        ) {
+
+
+            window.location.href =
+
+                "login.html";
+
+
+            return;
+
+
+        }
+
+
+
+        /* =================================
+           LOAD CUSTOMER
+        ================================= */
+
+        await loadCustomerData(
+
+            user
+
+        );
+
+
+
+        /* =================================
+           LOAD ANNOUNCEMENT
+        ================================= */
+
+        await loadAnnouncement();
+
+
+    }
+
+);
+
+
 </script>
 
 
-<!-- =====================================
+
+<!-- =========================================
+     END CARD.HTML PART 3/4
+========================================= -->
+     <!-- =========================================
+     RIO MAGGI POINT
+     CARD.HTML
+     HOME DASHBOARD
+     PART 4/4
+     FINAL SCRIPTS + SERVICE WORKER + END
+========================================= -->
+
+
+<!-- =========================================
      SERVICE WORKER
-===================================== -->
+========================================= -->
 
 <script>
 
+
 if (
-    "serviceWorker" in navigator
+
+    "serviceWorker"
+
+    in navigator
+
 ) {
+
 
     window.addEventListener(
 
         "load",
 
-        () => {
+        async () => {
 
-            navigator.serviceWorker.register(
 
-                "./service-worker.js"
+            try {
 
-            )
 
-            .then(
+                const registration =
 
-                registration => {
+                    await navigator.serviceWorker.register(
 
-                    console.log(
-
-                        "Rio Maggi Point Service Worker Registered:",
-
-                        registration.scope
+                        "./service-worker.js"
 
                     );
 
-                }
 
-            )
+                console.log(
 
-            .catch(
+                    "Rio Maggi Point Service Worker Registered:",
 
-                error => {
+                    registration.scope
 
-                    console.error(
+                );
 
-                        "Service Worker Registration Failed:",
 
-                        error
+            }
 
-                    );
 
-                }
+            catch (error) {
 
-            );
+
+                console.error(
+
+                    "Service Worker Registration Failed:",
+
+                    error
+
+                );
+
+
+            }
+
 
         }
 
     );
 
+
 }
+
 
 </script>
 
 
-<!-- =====================================
+
+<!-- =========================================
+     NAVIGATION ACTIVE STATE
+     KEEP HOME ACTIVE
+========================================= -->
+
+<script>
+
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+
+        const navItems =
+
+            document.querySelectorAll(
+
+                ".bottom-nav .nav-item"
+
+            );
+
+
+        navItems.forEach(
+
+            (item) => {
+
+
+                item.addEventListener(
+
+                    "click",
+
+                    () => {
+
+
+                        navItems.forEach(
+
+                            (nav) =>
+
+                                nav.classList.remove(
+
+                                    "active"
+
+                                )
+
+                        );
+
+
+                        item.classList.add(
+
+                            "active"
+
+                        );
+
+
+                    }
+
+                );
+
+
+            }
+
+        );
+
+
+    }
+
+);
+
+
+</script>
+
+
+
+<!-- =========================================
      CARD.HTML END
-===================================== -->
+========================================= -->
+
+
+</main>
+
 
 </body>
 
+
 </html>
+
+
+<!-- =========================================
+     END OF CARD.HTML
+     TOTAL PARTS: 4/4
+========================================= -->
