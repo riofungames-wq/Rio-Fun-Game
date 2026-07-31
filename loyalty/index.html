@@ -1,1820 +1,1230 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>
-Rio Maggi Point - Loyalty Card
-</title>
+    <title>
+        Rio Maggi Point - Home
+    </title>
 
-<link rel="manifest" href="manifest.json">
 
-<meta name="theme-color" content="#f5d99b">
+    <!-- =====================================================
+         PWA
+         ===================================================== -->
 
-<link rel="icon" href="favicon.ico">
+    <link
+        rel="manifest"
+        href="manifest.json"
+    >
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <meta
+        name="theme-color"
+        content="#f5d99b"
+    >
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
->
+    <meta
+        name="mobile-web-app-capable"
+        content="yes"
+    >
 
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
 
-<style>
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="default"
+    >
 
-:root{
+    <link
+        rel="icon"
+        href="favicon.ico"
+    >
 
---primary-bg:#f5d99b;
+    <link
+        rel="apple-touch-icon"
+        href="icon-192.png"
+    >
 
---card-bg:#fff8e7;
 
---accent-color:#d19b4a;
+    <!-- =====================================================
+         GOOGLE FONT
+         ===================================================== -->
 
---text-dark:#3a2e2b;
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
---text-muted:#7a6855;
 
---border-color:#e0be7b;
+    <!-- =====================================================
+         FONT AWESOME
+         ===================================================== -->
 
---btn-red:#c62828;
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
 
-}
 
+    <!-- =====================================================
+         COMMON CSS
+         ===================================================== -->
 
-*{
+    <link
+        rel="stylesheet"
+        href="common.css"
+    >
 
-margin:0;
 
-padding:0;
+    <!-- =====================================================
+         HOME PAGE CSS
+         ===================================================== -->
 
-box-sizing:border-box;
+    <style>
 
-font-family:'Poppins',sans-serif;
+        /* =================================================
+           HOME PAGE ONLY
+           ================================================= */
 
-}
 
+        body {
 
-body{
+            background:
+                #f5d99b;
 
-background:var(--primary-bg);
+        }
 
-color:var(--text-dark);
 
-min-height:100vh;
+        /* =================================================
+           HOME CONTAINER
+           ================================================= */
 
-display:flex;
+        .home-page {
 
-justify-content:center;
+            width: 100%;
 
-padding-bottom:90px;
+            max-width: 420px;
 
-}
+            min-height:
+                calc(100vh - 72px);
 
+            margin:
+                0 auto;
 
-.container{
+            padding:
+                20px
+                20px
+                30px;
 
-width:100%;
+        }
 
-max-width:420px;
 
-padding:20px;
+        /* =================================================
+           TOP HEADER
+           ================================================= */
 
-}
+        .home-header {
 
+            width: 100%;
 
-/* =================================
-   HEADER
-================================= */
+            display: flex;
 
-.header{
+            align-items: center;
 
-display:flex;
+            justify-content: space-between;
 
-justify-content:space-between;
+            gap: 12px;
 
-align-items:center;
+            margin-bottom: 20px;
 
-margin-bottom:20px;
+        }
 
-}
 
+        .home-brand {
 
-.header h2{
+            display: flex;
 
-font-size:22px;
+            align-items: center;
 
-font-weight:700;
+            gap: 10px;
 
-}
+            min-width: 0;
 
+        }
 
-.logout-btn{
 
-background:rgba(209,155,74,.2);
+        .home-brand-icon {
 
-border:1px solid var(--border-color);
+            width: 46px;
 
-padding:8px 14px;
+            height: 46px;
 
-border-radius:12px;
+            flex-shrink: 0;
 
-font-weight:600;
+            display: flex;
 
-cursor:pointer;
+            align-items: center;
 
-color:var(--text-dark);
+            justify-content: center;
 
-}
+            border-radius: 14px;
 
+            background:
+                #263525;
 
-/* =================================
-   ANNOUNCEMENT SECTION
-================================= */
+            color:
+                #ffd54f;
 
-.announcement-section{
+            font-size: 22px;
 
-display:none;
+        }
 
-margin-bottom:20px;
 
-}
+        .home-brand-text {
 
+            min-width: 0;
 
-.announcement-header{
+        }
 
-display:flex;
 
-align-items:center;
+        .home-brand-text h1 {
 
-gap:8px;
+            font-size: 18px;
 
-margin-bottom:10px;
+            line-height: 1.2;
 
-font-size:18px;
+            font-weight: 800;
 
-font-weight:700;
+            color:
+                #3a2e2b;
 
-color:var(--text-dark);
+        }
 
-}
 
+        .home-brand-text p {
 
-.announcement-header i{
+            margin-top: 3px;
 
-color:var(--btn-red);
+            font-size: 11px;
 
-}
+            color:
+                #7a6855;
 
+        }
 
-.announcement-list{
 
-display:flex;
+        /* =================================================
+           PROFILE BUTTON
+           ================================================= */
 
-flex-direction:column;
+        .home-profile-btn {
 
-gap:12px;
+            width: 44px;
 
-}
+            height: 44px;
 
+            flex-shrink: 0;
 
-.announcement-card{
+            display: flex;
 
-background:var(--card-bg);
+            align-items: center;
 
-border:2px solid var(--accent-color);
+            justify-content: center;
 
-border-radius:16px;
+            border-radius: 50%;
 
-padding:16px;
+            background:
+                #fff8e7;
 
-box-shadow:0 6px 15px rgba(0,0,0,.08);
+            border:
+                2px solid
+                #d19b4a;
 
-}
+            color:
+                #3a2e2b;
 
+            text-decoration:
+                none;
 
-.announcement-card.offer{
+        }
 
-border-left:6px solid #c62828;
 
-}
+        .home-profile-btn i {
 
+            font-size: 19px;
 
-.announcement-card.update{
+        }
 
-border-left:6px solid #1565c0;
 
-}
+        /* =================================================
+           WELCOME CARD
+           ================================================= */
 
+        .welcome-card {
 
-.announcement-card.event{
+            width: 100%;
 
-border-left:6px solid #2e7d32;
+            padding: 20px;
 
-}
+            margin-bottom: 18px;
 
+            background:
+                #263525;
 
-.announcement-card.general{
+            color:
+                white;
 
-border-left:6px solid #8e24aa;
+            border-radius: 18px;
 
-}
+            box-shadow:
+                0 8px 22px
+                rgba(0,0,0,.12);
 
+        }
 
-.announcement-title{
 
-font-size:16px;
+        .welcome-card h2 {
 
-font-weight:700;
+            font-size: 21px;
 
-color:var(--text-dark);
+            line-height: 1.3;
 
-margin-bottom:6px;
+            margin-bottom: 6px;
 
-display:flex;
+            color:
+                #ffd54f;
 
-align-items:center;
+        }
 
-gap:8px;
 
-}
+        .welcome-card p {
 
+            font-size: 13px;
 
-.announcement-message{
+            line-height: 1.6;
 
-font-size:14px;
+            color:
+                #f5f5f5;
 
-line-height:1.6;
+        }
 
-color:var(--text-muted);
 
-white-space:pre-wrap;
+        /* =================================================
+           LOYALTY SUMMARY
+           ================================================= */
 
-}
+        .loyalty-summary {
 
+            width: 100%;
 
-.announcement-date{
+            padding: 18px;
 
-font-size:11px;
+            margin-bottom: 18px;
 
-color:#9a866d;
+            background:
+                #fff8e7;
 
-margin-top:10px;
+            border:
+                2px solid
+                #d19b4a;
 
-}
+            border-radius: 16px;
 
+        }
 
-.announcement-loading{
 
-text-align:center;
+        .loyalty-summary-header {
 
-padding:12px;
+            display: flex;
 
-font-size:13px;
+            align-items: center;
 
-color:var(--text-muted);
+            justify-content: space-between;
 
-}
+            gap: 10px;
 
+            margin-bottom: 15px;
 
-.announcement-empty{
+        }
 
-display:none;
 
-}
+        .loyalty-summary-header h3 {
 
+            font-size: 17px;
 
-/* =================================
-   LOYALTY CARD
-================================= */
+            color:
+                #3a2e2b;
 
-.loyalty-card{
+        }
 
-background:var(--card-bg);
 
-border:3px solid var(--accent-color);
+        .stamp-count-label {
 
-border-radius:20px;
+            font-size: 13px;
 
-padding:20px;
+            font-weight: 600;
 
-box-shadow:0 10px 25px rgba(0,0,0,.1);
+            color:
+                #c62828;
 
-}
+        }
 
 
-/* =================================
-   PROFILE
-================================= */
+        /* =================================================
+           STAMP GRID
+           ================================================= */
 
-.profile-section{
+        .home-stamp-grid {
 
-display:flex;
+            display: grid;
 
-align-items:center;
+            grid-template-columns:
+                repeat(6, 1fr);
 
-gap:15px;
+            gap: 7px;
 
-margin-bottom:20px;
+        }
 
-}
 
+        .home-stamp {
 
-.avatar-box{
+            width: 100%;
 
-width:65px;
+            aspect-ratio: 1;
 
-height:65px;
+            display: flex;
 
-border-radius:50%;
+            align-items: center;
 
-background:#fff7df;
+            justify-content: center;
 
-border:2px solid var(--accent-color);
+            border-radius: 50%;
 
-display:flex;
+            background:
+                #fff;
 
-justify-content:center;
+            border:
+                2px solid
+                #d19b4a;
 
-align-items:center;
+            color:
+                #7a6855;
 
-font-size:32px;
+            font-size: 12px;
 
-overflow:hidden;
+            font-weight: 700;
 
-}
+        }
 
 
-.avatar-box img{
+        .home-stamp.active {
 
-width:100%;
+            background:
+                #c62828;
 
-height:100%;
+            border-color:
+                #c62828;
 
-object-fit:cover;
+            color:
+                #fff;
 
-}
+        }
 
 
-.user-info h3{
+        /* =================================================
+           QUICK ACTIONS
+           ================================================= */
 
-font-size:18px;
+        .quick-actions {
 
-font-weight:700;
+            width: 100%;
 
-}
+            display: grid;
 
+            grid-template-columns:
+                repeat(2, 1fr);
 
-.user-info p{
+            gap: 12px;
 
-font-size:14px;
+            margin-bottom: 18px;
 
-color:var(--text-muted);
+        }
 
-}
 
+        .quick-action {
 
-/* =================================
-   STAMP
-================================= */
+            min-height: 100px;
 
-.stamp-grid{
+            display: flex;
 
-display:grid;
+            flex-direction: column;
 
-grid-template-columns:repeat(3,1fr);
+            align-items: center;
 
-gap:12px;
+            justify-content: center;
 
-margin-top:15px;
+            gap: 8px;
 
-}
+            padding: 15px;
 
+            background:
+                #fff8e7;
 
-.stamp-box{
+            border:
+                2px solid
+                #e0be7b;
 
-aspect-ratio:1;
+            border-radius: 16px;
 
-background:#fff;
+            color:
+                #3a2e2b;
 
-border:2px dashed var(--accent-color);
+            text-decoration:
+                none;
 
-border-radius:12px;
+        }
 
-display:flex;
 
-justify-content:center;
+        .quick-action i {
 
-align-items:center;
+            font-size: 24px;
 
-font-size:20px;
+            color:
+                #c62828;
 
-font-weight:bold;
+        }
 
-color:var(--accent-color);
 
-}
+        .quick-action span {
 
+            font-size: 12px;
 
-.stamp-box.active{
+            font-weight: 600;
 
-background:var(--btn-red);
+            text-align: center;
 
-color:white;
+        }
 
-border:2px solid var(--btn-red);
-
-}
-
-
-/* =================================
-   BOTTOM NAVIGATION
-================================= */
-
-.bottom-nav{
-
-position:fixed;
-
-bottom:0;
-
-left:50%;
-
-transform:translateX(-50%);
-
-width:100%;
-
-max-width:420px;
-
-background:#263525;
-
-border-top:2px solid var(--accent-color);
-
-display:flex;
-
-justify-content:space-around;
-
-padding:12px 0;
-
-z-index:1000;
-
-}
-
-
-.nav-item{
-
-color:#ffd54f;
-
-text-decoration:none;
-
-display:flex;
-
-flex-direction:column;
-
-align-items:center;
-
-font-size:12px;
-
-gap:4px;
-
-font-weight:600;
-
-opacity:.7;
-
-}
-
-
-.nav-item i{
-
-font-size:20px;
-
-}
-
-
-.nav-item.active,
-.nav-item:hover{
-
-opacity:1;
-
-color:white;
-
-}
-
-
-/* =================================
-   MOBILE
-================================= */
-
-@media(max-width:450px){
-
-.container{
-
-padding:15px;
-
-}
-
-
-.header h2{
-
-font-size:20px;
-
-}
-
-
-.announcement-card{
-
-padding:14px;
-
-}
-
-
-.announcement-title{
-
-font-size:15px;
-
-}
-
-
-.announcement-message{
-
-font-size:13px;
-
-}
-
-}
-
-</style>
+    </style>
 
 </head>
 
 
 <body>
 
+    <!-- =====================================================
+         HOME PAGE
+         ===================================================== -->
 
-<div class="container">
+    <main class="home-page">
 
 
-<!-- =================================
-     HEADER
-================================= -->
+        <!-- =================================================
+             HEADER
+             ================================================= -->
 
-<header class="header">
+        <header class="home-header">
 
-<h2>
-🍜 Rio Maggi Point
-</h2>
+            <div class="home-brand">
 
+                <div class="home-brand-icon">
 
-<button
-class="logout-btn"
-id="logoutBtn"
->
+                    <i class="fa-solid fa-bowl-food"></i>
 
-<i class="fa-solid fa-right-from-bracket"></i>
+                </div>
 
-Logout
 
-</button>
+                <div class="home-brand-text">
 
-</header>
+                    <h1>
+                        Rio Maggi Point
+                    </h1>
 
+                    <p>
+                        Premium Loyalty Club
+                    </p>
 
-<!-- =================================
-     ANNOUNCEMENTS
-================================= -->
-
-<section
-class="announcement-section"
-id="announcementSection"
->
-
-
-<div class="announcement-header">
-
-<i class="fa-solid fa-bullhorn"></i>
-
-<span>
-Latest Announcements
-</span>
-
-</div>
-
-
-<div
-class="announcement-list"
-id="announcementList"
->
-
-
-<div class="announcement-loading">
-
-<i class="fa-solid fa-spinner fa-spin"></i>
-
-Loading announcements...
-
-</div>
-
-
-</div>
-
-
-</section>
-
-
-<!-- =================================
-     LOYALTY CARD
-================================= -->
-
-<div class="loyalty-card">
-
-
-<div class="profile-section">
-
-
-<div class="avatar-box">
-
-
-<span id="emojiAvatar">
-😊
-</span>
-
-
-<img
-id="imageAvatar"
-style="display:none;"
-alt="Profile"
->
-
-
-</div>
-
-
-<div class="user-info">
-
-
-<h3 id="userName">
-
-Loading...
-
-</h3>
-
-
-<p id="userEmail">
-
-Loading...
-
-</p>
-
-
-</div>
-
-
-</div>
-
-
-<!-- STAMP GRID -->
-
-<div
-class="stamp-grid"
-id="stampContainer"
->
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-<!-- =================================
-     BOTTOM NAVIGATION
-================================= -->
-
-<nav class="bottom-nav">
-
-
-<a
-class="nav-item active"
-href="index.html"
->
-
-<i class="fa-solid fa-house"></i>
-
-<span>
-Home
-</span>
-
-</a>
-
-
-<a
-class="nav-item"
-href="qr.html"
->
-
-<i class="fa-solid fa-qrcode"></i>
-
-<span>
-QR
-</span>
-
-</a>
-
-
-<a
-class="nav-item"
-href="history.html"
->
-
-<i class="fa-solid fa-clock-rotate-left"></i>
-
-<span>
-History
-</span>
-
-</a>
-
-
-<a
-class="nav-item"
-href="profile.html"
->
-
-<i class="fa-solid fa-user"></i>
-
-<span>
-Profile
-</span>
-
-</a>
-
-
-</nav>
-<!-- =================================
-     FIREBASE SCRIPT
-================================= -->
-
-<script type="module">
-
-
-import {
-    firebaseConfig
-}
-from "./js/firebase-config.js";
-
-
-import {
-    initializeApp
-}
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-
-
-import {
-
-    getAuth,
-
-    onAuthStateChanged,
-
-    signOut
-
-}
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-
-import {
-
-    getFirestore,
-
-    doc,
-
-    getDoc,
-
-    collection,
-
-    query,
-
-    where,
-
-    orderBy,
-
-    limit,
-
-    getDocs
-
-}
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-
-
-/* =================================
-   FIREBASE INITIALIZE
-================================= */
-
-
-const app =
-    initializeApp(
-        firebaseConfig
-    );
-
-
-const auth =
-    getAuth(
-        app
-    );
-
-
-const db =
-    getFirestore(
-        app
-    );
-
-
-
-/* =================================
-   HTML ELEMENTS
-================================= */
-
-
-const userName =
-    document.getElementById(
-        "userName"
-    );
-
-
-const userEmail =
-    document.getElementById(
-        "userEmail"
-    );
-
-
-const emojiAvatar =
-    document.getElementById(
-        "emojiAvatar"
-    );
-
-
-const imageAvatar =
-    document.getElementById(
-        "imageAvatar"
-    );
-
-
-const stampContainer =
-    document.getElementById(
-        "stampContainer"
-    );
-
-
-const logoutBtn =
-    document.getElementById(
-        "logoutBtn"
-    );
-
-
-const announcementSection =
-    document.getElementById(
-        "announcementSection"
-    );
-
-
-const announcementList =
-    document.getElementById(
-        "announcementList"
-    );
-
-
-
-/* =================================
-   ANNOUNCEMENT ICON
-================================= */
-
-
-function getAnnouncementIcon(
-    type
-) {
-
-
-    switch(
-        type
-    ) {
-
-
-        case "offer":
-
-            return `
-                <i class="fa-solid fa-gift"></i>
-            `;
-
-
-        case "update":
-
-            return `
-                <i class="fa-solid fa-circle-info"></i>
-            `;
-
-
-        case "event":
-
-            return `
-                <i class="fa-solid fa-calendar-days"></i>
-            `;
-
-
-        case "general":
-
-            return `
-                <i class="fa-solid fa-bullhorn"></i>
-            `;
-
-
-        default:
-
-            return `
-                <i class="fa-solid fa-bell"></i>
-            `;
-
-    }
-
-}
-
-
-
-/* =================================
-   ANNOUNCEMENT TYPE NAME
-================================= */
-
-
-function getAnnouncementType(
-    type
-) {
-
-
-    if (
-        type === "offer"
-    ) {
-
-        return "Offer";
-
-    }
-
-
-    if (
-        type === "update"
-    ) {
-
-        return "Update";
-
-    }
-
-
-    if (
-        type === "event"
-    ) {
-
-        return "Event";
-
-    }
-
-
-    if (
-        type === "general"
-    ) {
-
-        return "Announcement";
-
-    }
-
-
-    return "Announcement";
-
-}
-
-
-
-/* =================================
-   LOAD ANNOUNCEMENTS
-================================= */
-
-
-async function loadAnnouncements() {
-
-
-    try {
-
-
-        announcementList.innerHTML = `
-
-            <div class="announcement-loading">
-
-                <i class="fa-solid fa-spinner fa-spin"></i>
-
-                Loading announcements...
+                </div>
 
             </div>
 
-        `;
+
+            <a
+                href="profile.html"
+                class="home-profile-btn"
+                aria-label="Profile"
+            >
+
+                <i class="fa-solid fa-user"></i>
+
+            </a>
+
+        </header>
 
 
-        /*
-        =================================
-        GET ACTIVE ANNOUNCEMENTS
-        =================================
+        <!-- =================================================
+             WELCOME
+             ================================================= -->
 
-        Firestore Collection:
+        <section class="welcome-card">
 
-        announcements
+            <h2 id="welcomeTitle">
+                Welcome!
+            </h2>
 
-        Expected fields:
+            <p id="welcomeSubtitle">
+                Welcome to Rio Maggi Point Premium Loyalty Club.
+            </p>
 
-        title
-        message
-        type
-        active
-        createdAt
-
-        */
+        </section>
 
 
-        const announcementsRef =
-            collection(
-                db,
-                "announcements"
+        <!-- =================================================
+             LOYALTY SUMMARY
+             ================================================= -->
+
+        <section class="loyalty-summary">
+
+            <div class="loyalty-summary-header">
+
+                <h3>
+                    Loyalty Summary
+                </h3>
+
+
+                <span
+                    class="stamp-count-label"
+                    id="stampCountLabel"
+                >
+                    ⭐ 0/6 Stamps
+                </span>
+
+            </div>
+
+
+            <div
+                class="home-stamp-grid"
+                id="homeStampGrid"
+            >
+
+                <!-- JavaScript will create 6 stamps -->
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             QUICK ACTIONS
+             ================================================= -->
+
+        <section class="quick-actions">
+
+
+            <a
+                href="qr.html"
+                class="quick-action"
+            >
+
+                <i class="fa-solid fa-qrcode"></i>
+
+                <span>
+                    My QR Code
+                </span>
+
+            </a>
+
+
+            <a
+                href="history.html"
+                class="quick-action"
+            >
+
+                <i class="fa-solid fa-clock-rotate-left"></i>
+
+                <span>
+                    Stamp History
+                </span>
+
+            </a>
+
+
+            <a
+                href="menu.html"
+                class="quick-action"
+            >
+
+                <i class="fa-solid fa-utensils"></i>
+
+                <span>
+                    View Menu
+                </span>
+
+            </a>
+
+
+            <a
+                href="feedback.html"
+                class="quick-action"
+            >
+
+                <i class="fa-solid fa-star"></i>
+
+                <span>
+                    Give Feedback
+                </span>
+
+            </a>
+
+
+        </section>
+
+
+        <!-- =================================================
+             PART 2 WILL CONTINUE HERE
+             ================================================= -->
+
+    </main>
+        <!-- =====================================================
+         BOTTOM NAVIGATION
+         FIXED MASTER LAYOUT
+         SAME SIZE ON EVERY PAGE
+         ===================================================== -->
+
+    <nav
+        class="bottom-nav"
+        aria-label="Main Navigation"
+    >
+
+
+        <a
+            href="index.html"
+            class="nav-item active"
+        >
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>
+                Home
+            </span>
+
+        </a>
+
+
+        <a
+            href="qr.html"
+            class="nav-item"
+        >
+
+            <i class="fa-solid fa-qrcode"></i>
+
+            <span>
+                QR
+            </span>
+
+        </a>
+
+
+        <a
+            href="history.html"
+            class="nav-item"
+        >
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+            <span>
+                History
+            </span>
+
+        </a>
+
+
+        <a
+            href="profile.html"
+            class="nav-item"
+        >
+
+            <i class="fa-solid fa-user"></i>
+
+            <span>
+                Profile
+            </span>
+
+        </a>
+
+
+    </nav>
+
+
+    <!-- =====================================================
+         FIREBASE
+         ===================================================== -->
+
+    <script type="module">
+
+
+        import {
+            firebaseConfig
+        }
+        from "./js/firebase-config.js";
+
+
+        import {
+            initializeApp
+        }
+        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+
+
+        import {
+            getAuth,
+            onAuthStateChanged
+        }
+        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+
+        import {
+            getFirestore,
+            doc,
+            getDoc
+        }
+        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+
+        /* =================================================
+           FIREBASE INITIALIZE
+           ================================================= */
+
+
+        const app =
+            initializeApp(
+                firebaseConfig
             );
 
 
-        const announcementsQuery =
-            query(
-
-                announcementsRef,
-
-                where(
-                    "active",
-                    "==",
-                    true
-                ),
-
-                orderBy(
-                    "createdAt",
-                    "desc"
-                ),
-
-                limit(
-                    10
-                )
-
+        const auth =
+            getAuth(
+                app
             );
 
 
-        const snapshot =
-            await getDocs(
-                announcementsQuery
+        const db =
+            getFirestore(
+                app
             );
 
 
+        /* =================================================
+           HTML ELEMENTS
+           ================================================= */
 
-        /* =================================
-           NO ANNOUNCEMENTS
-        ================================= */
+
+        const welcomeTitle =
+            document.getElementById(
+                "welcomeTitle"
+            );
 
 
-        if (
-            snapshot.empty
+        const welcomeSubtitle =
+            document.getElementById(
+                "welcomeSubtitle"
+            );
+
+
+        const stampCountLabel =
+            document.getElementById(
+                "stampCountLabel"
+            );
+
+
+        const homeStampGrid =
+            document.getElementById(
+                "homeStampGrid"
+            );
+
+
+        /* =================================================
+           AUTH CHECK
+           ================================================= */
+
+
+        onAuthStateChanged(
+
+            auth,
+
+            async (user) => {
+
+
+                /* -----------------------------------------
+                   USER NOT LOGGED IN
+                   ----------------------------------------- */
+
+
+                if (!user) {
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                /* -----------------------------------------
+                   DEFAULT USER NAME
+                   ----------------------------------------- */
+
+
+                welcomeTitle.textContent =
+                    "Welcome!";
+
+
+                welcomeSubtitle.textContent =
+                    "Welcome to Rio Maggi Point Premium Loyalty Club.";
+
+
+                /* -----------------------------------------
+                   LOAD CUSTOMER DATA
+                   ----------------------------------------- */
+
+
+                try {
+
+
+                    const userRef =
+                        doc(
+                            db,
+                            "customers",
+                            user.uid
+                        );
+
+
+                    const userSnap =
+                        await getDoc(
+                            userRef
+                        );
+
+
+                    /* -------------------------------------
+                       CUSTOMER FOUND
+                       ------------------------------------- */
+
+
+                    if (
+                        userSnap.exists()
+                    ) {
+
+
+                        const data =
+                            userSnap.data();
+
+
+                        const customerName =
+                            data.name ||
+                            "Customer";
+
+
+                        const stamps =
+                            Number(
+                                data.stamps || 0
+                            );
+
+
+                        /* ---------------------------------
+                           WELCOME NAME
+                           --------------------------------- */
+
+
+                        welcomeTitle.textContent =
+                            "Welcome, " +
+                            customerName +
+                            "!";
+
+
+                        welcomeSubtitle.textContent =
+                            "Enjoy your Rio Maggi Point Loyalty Rewards.";
+
+
+                        /* ---------------------------------
+                           STAMP COUNT
+                           --------------------------------- */
+
+
+                        const safeStamps =
+                            Math.min(
+                                Math.max(
+                                    stamps,
+                                    0
+                                ),
+                                6
+                            );
+
+
+                        stampCountLabel.textContent =
+                            "⭐ " +
+                            safeStamps +
+                            "/6 Stamps";
+
+
+                        /* ---------------------------------
+                           RENDER STAMPS
+                           --------------------------------- */
+
+
+                        renderHomeStamps(
+                            safeStamps
+                        );
+
+
+                    }
+
+
+                    /* -------------------------------------
+                       CUSTOMER DOCUMENT NOT FOUND
+                       ------------------------------------- */
+
+
+                    else {
+
+
+                        stampCountLabel.textContent =
+                            "⭐ 0/6 Stamps";
+
+
+                        renderHomeStamps(
+                            0
+                        );
+
+
+                    }
+
+
+                }
+
+
+                /* -----------------------------------------
+                   FIREBASE ERROR
+                   ----------------------------------------- */
+
+
+                catch (
+                    error
+                ) {
+
+
+                    console.error(
+                        "Home Firebase Error:",
+                        error
+                    );
+
+
+                    stampCountLabel.textContent =
+                        "⭐ 0/6 Stamps";
+
+
+                    renderHomeStamps(
+                        0
+                    );
+
+
+                }
+
+
+            }
+
+        );
+
+
+        /* =================================================
+           RENDER HOME STAMPS
+           ================================================= */
+
+
+        function renderHomeStamps(
+            count
         ) {
 
 
-            announcementSection.style.display =
-                "none";
-
-
-            announcementList.innerHTML =
+            homeStampGrid.innerHTML =
                 "";
 
 
-            return;
-
-        }
-
-
-
-        /* =================================
-           SHOW ANNOUNCEMENT SECTION
-        ================================= */
-
-
-        announcementSection.style.display =
-            "block";
+            const safeCount =
+                Math.min(
+                    Math.max(
+                        Number(count) || 0,
+                        0
+                    ),
+                    6
+                );
 
 
-        announcementList.innerHTML =
-            "";
+            for (
+                let i = 1;
+                i <= 6;
+                i++
+            ) {
 
 
-
-        /* =================================
-           LOOP ANNOUNCEMENTS
-        ================================= */
-
-
-        snapshot.forEach(
-            (
-                announcementDoc
-            ) => {
-
-
-                const data =
-                    announcementDoc.data();
-
-
-
-                const title =
-                    data.title ||
-                    "Rio Maggi Point";
-
-
-                const message =
-                    data.message ||
-                    "";
-
-
-                const type =
-                    data.type ||
-                    "general";
-
-
-
-                /* =========================
-                   CREATE CARD
-                ========================= */
-
-
-                const card =
+                const stamp =
                     document.createElement(
                         "div"
                     );
 
 
-                card.className =
-                    "announcement-card " +
-                    type;
+                stamp.className =
+                    "home-stamp";
 
 
-
-                /* =========================
-                   DATE
-                ========================= */
-
-
-                let dateText =
-                    "";
+                /* -----------------------------------------
+                   ACTIVE STAMP
+                   ----------------------------------------- */
 
 
                 if (
-                    data.createdAt &&
-                    data.createdAt.toDate
+                    i <= safeCount
                 ) {
 
 
-                    const date =
-                        data.createdAt.toDate();
+                    stamp.classList.add(
+                        "active"
+                    );
 
 
-                    dateText =
-                        date.toLocaleDateString(
-                            "en-IN",
-                            {
-
-                                day:
-                                    "2-digit",
-
-                                month:
-                                    "short",
-
-                                year:
-                                    "numeric"
-
-                            }
-                        );
-
-                }
-
-
-
-                /* =========================
-                   CARD HTML
-                ========================= */
-
-
-                card.innerHTML = `
-
-                    <div
-                        class="announcement-title"
-                    >
-
-                        ${getAnnouncementIcon(type)}
-
-                        <span>
-
-                            ${escapeHTML(title)}
-
-                        </span>
-
-                    </div>
-
-
-                    <div
-                        class="announcement-message"
-                    >
-
-                        ${escapeHTML(message)}
-
-                    </div>
-
-
-                    <div
-                        class="announcement-date"
-                    >
-
-                        ${getAnnouncementType(type)}
-
-                        ${dateText
-                            ? " • " + dateText
-                            : ""
-                        }
-
-                    </div>
-
-                `;
-
-
-
-                announcementList.appendChild(
-                    card
-                );
-
-
-            }
-        );
-
-
-    }
-
-
-    catch(
-        error
-    ) {
-
-
-        console.error(
-
-            "Announcement Loading Error:",
-
-            error
-
-        );
-
-
-        /*
-        =================================
-        HIDE ANNOUNCEMENT ON ERROR
-        =================================
-
-        इससे Home Page टूटेगा नहीं।
-        */
-
-
-        announcementSection.style.display =
-            "none";
-
-
-        announcementList.innerHTML =
-            "";
-
-
-    }
-
-}
-
-
-
-/* =================================
-   SECURITY
-   ESCAPE HTML
-================================= */
-
-
-function escapeHTML(
-    value
-) {
-
-
-    const div =
-        document.createElement(
-            "div"
-        );
-
-
-    div.textContent =
-        value;
-
-
-    return div.innerHTML;
-
-}
-
-
-
-/* =================================
-   CHECK LOGIN USER
-================================= */
-
-
-onAuthStateChanged(
-
-    auth,
-
-    async (
-        user
-    ) => {
-
-
-        /* =========================
-           USER NOT LOGGED IN
-        ========================= */
-
-
-        if (
-            !user
-        ) {
-
-
-            window.location.href =
-                "login.html";
-
-
-            return;
-
-        }
-
-
-
-        try {
-
-
-            /* =========================
-               CUSTOMER DOCUMENT
-            ========================= */
-
-
-            const userRef =
-                doc(
-
-                    db,
-
-                    "customers",
-
-                    user.uid
-
-                );
-
-
-
-            const userSnap =
-                await getDoc(
-                    userRef
-                );
-
-
-
-            console.log(
-
-                "Firebase User:",
-
-                user.uid
-
-            );
-
-
-
-            /* =========================
-               CUSTOMER EXISTS
-            ========================= */
-
-
-            if (
-                userSnap.exists()
-            ) {
-
-
-                const data =
-                    userSnap.data();
-
-
-
-                console.log(
-
-                    "Customer Data:",
-
-                    data
-
-                );
-
-
-
-                /* =========================
-                   NAME
-                ========================= */
-
-
-                userName.textContent =
-
-                    data.name ||
-
-                    "Customer";
-
-
-
-                /* =========================
-                   EMAIL
-                ========================= */
-
-
-                userEmail.textContent =
-
-                    data.email ||
-
-                    user.email ||
-
-                    "";
-
-
-
-                /* =========================
-                   AVATAR
-                ========================= */
-
-
-                if (
-                    data.photoURL
-                ) {
-
-
-                    imageAvatar.src =
-                        data.photoURL;
-
-
-                    imageAvatar.style.display =
-                        "block";
-
-
-                    emojiAvatar.style.display =
-                        "none";
+                    stamp.innerHTML =
+                        '<i class="fa-solid fa-check"></i>';
 
 
                 }
 
 
-                else if (
-                    data.avatar
-                ) {
-
-
-                    emojiAvatar.textContent =
-                        data.avatar;
-
-
-                    emojiAvatar.style.display =
-                        "block";
-
-
-                    imageAvatar.style.display =
-                        "none";
-
-
-                }
+                /* -----------------------------------------
+                   EMPTY STAMP
+                   ----------------------------------------- */
 
 
                 else {
 
 
-                    emojiAvatar.textContent =
-                        "😊";
-
-
-                    emojiAvatar.style.display =
-                        "block";
-
-
-                    imageAvatar.style.display =
-                        "none";
+                    stamp.textContent =
+                        i;
 
 
                 }
 
 
-
-                /* =========================
-                   STAMPS
-                ========================= */
-
-
-                renderStamps(
-
-                    data.stamps || 0
-
+                homeStampGrid.appendChild(
+                    stamp
                 );
 
 
             }
-
-
-            /* =========================
-               CUSTOMER DOCUMENT MISSING
-            ========================= */
-
-
-            else {
-
-
-                userName.textContent =
-                    "Welcome Customer";
-
-
-                userEmail.textContent =
-
-                    user.email ||
-
-                    "";
-
-
-                renderStamps(
-                    0
-                );
-
-
-            }
-
-
-
-            /* =========================
-               LOAD ANNOUNCEMENTS
-            ========================= */
-
-
-            await loadAnnouncements();
 
 
         }
 
 
-        catch(
-            error
+        /* =================================================
+           SERVICE WORKER
+           ================================================= */
+
+
+        if (
+            "serviceWorker"
+            in navigator
         ) {
 
 
-            console.error(
+            window.addEventListener(
 
-                "Firebase Loading Error:",
+                "load",
 
-                error
+                () => {
+
+
+                    navigator.serviceWorker
+                        .register(
+                            "./service-worker.js"
+                        )
+                        .catch(
+
+                            (error) => {
+
+
+                                console.error(
+                                    "Service Worker Error:",
+                                    error
+                                );
+
+
+                            }
+
+                        );
+
+
+                }
 
             );
-
-
-            userName.textContent =
-                "Error Loading";
 
 
         }
 
 
-    }
-
-);
-
-
-
-/* =================================
-   RENDER 6 STAMPS
-================================= */
+        /* =================================================
+           STARTUP
+           ================================================= */
 
 
-function renderStamps(
-    count
-) {
-
-
-    stampContainer.innerHTML =
-        "";
-
-
-    const safeCount =
-
-        Math.min(
-
-            Math.max(
-
-                Number(
-                    count
-                ) || 0,
-
-                0
-
-            ),
-
-            6
-
+        console.log(
+            "================================="
         );
 
 
-
-    for(
-
-        let i = 1;
-
-        i <= 6;
-
-        i++
-
-    ) {
-
-
-        const box =
-            document.createElement(
-                "div"
-            );
-
-
-        box.className =
-
-            "stamp-box " +
-
-            (
-
-                i <= safeCount
-
-                    ? "active"
-
-                    : ""
-
-            );
-
-
-
-        box.innerHTML =
-
-            i <= safeCount
-
-                ?
-
-                '<i class="fa-solid fa-check"></i>'
-
-                :
-
-                i;
-
-
-
-        stampContainer.appendChild(
-            box
+        console.log(
+            "RIO MAGGI POINT HOME"
         );
 
 
-    }
+        console.log(
+            "HOME PAGE READY"
+        );
 
 
-}
-  // ==========================================
-// LOGOUT
-// ==========================================
-
-logoutBtn.addEventListener(
-    "click",
-    async () => {
-
-        const confirmLogout =
-            confirm(
-                "🚪 Are you sure you want to logout?"
-            );
+        console.log(
+            "FIREBASE USER LOADING READY"
+        );
 
 
-        if (!confirmLogout) {
-
-            return;
-
-        }
+        console.log(
+            "LOYALTY STAMP DISPLAY READY"
+        );
 
 
-        try {
-
-            await signOut(
-                auth
-            );
+        console.log(
+            "MASTER BOTTOM NAVIGATION READY"
+        );
 
 
-            window.location.href =
-                "login.html";
-
-        }
-
-
-        catch (error) {
-
-            console.error(
-                "Logout Error:",
-                error
-            );
+        console.log(
+            "================================="
+        );
 
 
-            alert(
-                "❌ Logout failed. Please try again."
-            );
-
-        }
-
-    }
-);
-
-
-
-// ==========================================
-// SERVICE WORKER
-// ==========================================
-
-if (
-    "serviceWorker" in navigator
-) {
-
-    window.addEventListener(
-        "load",
-        () => {
-
-            navigator.serviceWorker
-                .register(
-                    "./service-worker.js"
-                )
-                .then(
-                    () => {
-
-                        console.log(
-                            "✅ Service Worker Registered"
-                        );
-
-                    }
-                )
-                .catch(
-                    (error) => {
-
-                        console.error(
-                            "Service Worker Error:",
-                            error
-                        );
-
-                    }
-                );
-
-        }
-    );
-
-}
-
-
-
-// ==========================================
-// FINAL STARTUP LOG
-// ==========================================
-
-console.log(
-    "==================================="
-);
-
-console.log(
-    "RIO MAGGI POINT"
-);
-
-console.log(
-    "HOME / LOYALTY CARD READY"
-);
-
-console.log(
-    "ANNOUNCEMENT SYSTEM READY"
-);
-
-console.log(
-    "STAMP SYSTEM READY"
-);
-
-console.log(
-    "==================================="
-);
-
-</script>
+    </script>
+        <!-- =====================================================
+         FINAL PAGE END
+         ===================================================== -->
 
 
 </body>
+
 
 </html>
