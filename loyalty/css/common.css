@@ -1,625 +1,553 @@
 /* =========================================
    RIO MAGGI POINT
    COMMON.CSS
-   COMMON BOTTOM NAVIGATION
-   PART 1/4
-   PREMIUM RESPONSIVE SYSTEM
+   PREMIUM ANIMATION SYSTEM
+   PART 1/3
 ========================================= */
 
 
 /* =========================================
-   ROOT VARIABLES
+   PAGE LOAD ANIMATION
 ========================================= */
 
-:root {
+.page {
 
-    --primary-bg:
-        #f5d99b;
+    animation:
+        pageFadeIn
+        .6s
+        ease
+        both;
 
-    --card-bg:
-        #fff8e7;
+}
 
-    --accent-color:
-        #d19b4a;
 
-    --accent-light:
-        #f8dda0;
+@keyframes pageFadeIn {
 
-    --dark-green:
-        #263525;
+    from {
 
-    --dark-text:
-        #3a2e2b;
+        opacity:
+            0;
 
-    --muted-text:
-        #7a6855;
+        transform:
+            translateY(12px);
 
-    --red:
-        #c62828;
+    }
 
-    --gold:
-        #ffd54f;
+    to {
 
-    --white:
-        #ffffff;
+        opacity:
+            1;
 
-    --border:
-        #e0be7b;
+        transform:
+            translateY(0);
 
-    --nav-height:
-        78px;
-
-    --page-max-width:
-        520px;
-
-    --page-bottom-space:
-        100px;
+    }
 
 }
 
 
 /* =========================================
-   GLOBAL RESET
+   COMMON DASHBOARD ANIMATION
 ========================================= */
 
-* {
+.app-header {
 
-    margin:
-        0;
+    animation:
+        dashboardEnter
+        .7s
+        ease
+        both;
 
-    padding:
-        0;
+}
 
-    box-sizing:
-        border-box;
+
+@keyframes dashboardEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(-15px)
+            scale(.98);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
 
 }
 
 
 /* =========================================
-   HTML
+   DASHBOARD GOLDEN SHINE
 ========================================= */
 
-html {
+.app-header {
 
-    width:
-        100%;
+    position:
+        relative;
 
-    min-height:
-        100%;
-
-    scroll-behavior:
-        smooth;
-
-}
-
-
-/* =========================================
-   BODY
-========================================= */
-
-body {
-
-    width:
-        100%;
-
-    min-height:
-        100vh;
-
-    margin:
-        0;
-
-    padding:
-        0;
-
-    background:
-        var(--primary-bg);
-
-    color:
-        var(--dark-text);
-
-    font-family:
-        'Poppins',
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    overflow-x:
+    overflow:
         hidden;
 
 }
 
 
-/* =========================================
-   MAIN PAGE WRAPPER
-========================================= */
+.app-header::after {
 
-.page {
+    content:
+        "";
 
-    width:
-        100%;
+    position:
+        absolute;
 
-    max-width:
-        var(--page-max-width);
+    top:
+        0;
 
-    min-height:
-        100vh;
-
-    margin:
-        0 auto;
-
-    padding:
-
-        20px
-
-        20px
-
-        var(--page-bottom-space);
-
-}
-
-
-/* =========================================
-   COMMON APP CARD
-========================================= */
-
-.app-card {
+    left:
+        -120%;
 
     width:
+        60%;
+
+    height:
         100%;
-
-    background:
-        var(--card-bg);
-
-    border:
-
-        2px solid
-
-        var(--accent-color);
-
-    border-radius:
-        22px;
-
-    box-shadow:
-
-        0 10px 30px
-
-        rgba(
-            0,
-            0,
-            0,
-            .12
-        );
-
-}
-
-
-/* =========================================
-   COMMON DASHBOARD / HEADER
-========================================= */
-
-.app-header {
-
-    width:
-        100%;
-
-    min-height:
-        92px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        15px;
-
-    padding:
-        18px;
-
-    margin-bottom:
-        18px;
 
     background:
 
         linear-gradient(
 
-            135deg,
+            90deg,
 
-            #f8dda0,
+            transparent,
 
-            #edc77d
+            rgba(
+                255,
+                255,
+                255,
+                .28
+            ),
+
+            transparent
 
         );
-
-    border:
-
-        2px solid
-
-        var(--accent-color);
-
-    border-radius:
-        20px;
-
-    box-shadow:
-
-        0 10px 30px
-
-        rgba(
-            0,
-            0,
-            0,
-            .12
-        );
-
-}
-
-
-/* =========================================
-   COMMON DASHBOARD ICON
-========================================= */
-
-.app-header-icon {
-
-    width:
-        54px;
-
-    height:
-        54px;
-
-    min-width:
-        54px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    background:
-        var(--dark-green);
-
-    color:
-        var(--gold);
-
-    border-radius:
-        16px;
-
-    font-size:
-        24px;
-
-    box-shadow:
-
-        0 5px 15px
-
-        rgba(
-            0,
-            0,
-            0,
-            .18
-        );
-
-}
-
-
-/* =========================================
-   COMMON DASHBOARD CONTENT
-========================================= */
-
-.app-header-content {
-
-    flex:
-        1;
-
-    min-width:
-        0;
-
-}
-
-
-/* =========================================
-   DASHBOARD TITLE
-========================================= */
-
-.app-header-content h1 {
-
-    margin:
-        0;
-
-    font-size:
-        24px;
-
-    line-height:
-        1.2;
-
-    font-weight:
-        800;
-
-    color:
-        #222;
-
-}
-
-
-/* =========================================
-   DASHBOARD TITLE RED TEXT
-========================================= */
-
-.app-header-content h1 span {
-
-    color:
-        var(--red);
-
-}
-
-
-/* =========================================
-   DASHBOARD SUBTITLE
-========================================= */
-
-.app-header-content p {
-
-    margin-top:
-        5px;
-
-    font-size:
-        12px;
-
-    line-height:
-        1.4;
-
-    color:
-        #5c4b3d;
-
-}
-
-
-/* =========================================
-   COMMON CONTENT SPACE
-========================================= */
-
-.nav-space {
-
-    width:
-        100%;
-
-    height:
-        var(--page-bottom-space);
-
-}
-
-
-/* =========================================
-   BOTTOM NAVIGATION BASE
-========================================= */
-
-.bottom-nav {
-
-    position:
-        fixed;
-
-    left:
-        50%;
-
-    bottom:
-        0;
 
     transform:
-        translateX(-50%);
+        skewX(-20deg);
 
-    width:
-        100%;
+    animation:
 
-    max-width:
-        var(--page-max-width);
+        dashboardShine
+        6s
+        ease-in-out
+        infinite;
 
-    height:
-        var(--nav-height);
+    pointer-events:
+        none;
 
-    display:
-        flex;
+}
 
-    align-items:
-        center;
 
-    justify-content:
-        space-around;
+@keyframes dashboardShine {
 
-    padding:
+    0% {
 
-        8px
+        left:
+            -120%;
 
-        6px;
+    }
 
-    background:
-        var(--dark-green);
+    35% {
 
-    border-top:
+        left:
+            130%;
 
-        2px solid
+    }
 
-        var(--accent-color);
+    100% {
 
-    box-shadow:
+        left:
+            130%;
 
-        0 -5px 20px
-
-        rgba(
-            0,
-            0,
-            0,
-            .18
-        );
-
-    z-index:
-        9999;
+    }
 
 }
 
 
 /* =========================================
-   BOTTOM NAVIGATION ITEM
+   COMMON CARD ENTER ANIMATION
 ========================================= */
 
-.bottom-nav .nav-item {
+.app-card {
 
-    flex:
-        1;
+    animation:
 
-    height:
-        60px;
+        cardEnter
+        .7s
+        ease
+        .1s
+        both;
 
-    display:
-        flex;
+}
 
-    flex-direction:
-        column;
 
-    align-items:
-        center;
+@keyframes cardEnter {
 
-    justify-content:
-        center;
+    from {
 
-    gap:
-        4px;
+        opacity:
+            0;
 
-    color:
-        var(--gold);
+        transform:
+            translateY(18px);
 
-    text-decoration:
-        none;
+    }
 
-    font-size:
-        10px;
+    to {
 
-    font-weight:
-        600;
+        opacity:
+            1;
 
-    line-height:
-        1;
+        transform:
+            translateY(0);
 
-    opacity:
-        .72;
+    }
 
-    border-radius:
-        12px;
+}
+
+
+/* =========================================
+   GOLDEN CARD GLOW
+========================================= */
+
+.app-card {
 
     transition:
 
-        background
-
-        .2s
-
-        ease,
-
-        color
-
-        .2s
-
-        ease,
-
-        opacity
-
-        .2s
-
+        box-shadow
+        .35s
         ease,
 
         transform
-
-        .2s
-
+        .35s
         ease;
 
 }
 
 
-/* =========================================
-   NAVIGATION ICON
-========================================= */
+.app-card:hover {
 
-.bottom-nav .nav-item i {
+    box-shadow:
 
-    width:
-        22px;
+        0 14px 35px
 
-    height:
-        22px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    font-size:
-        20px;
-
-    line-height:
-        1;
-
-}
-
-
-/* =========================================
-   NAVIGATION TEXT
-========================================= */
-
-.bottom-nav .nav-item span {
-
-    display:
-        block;
-
-    white-space:
-        nowrap;
-
-}
-
-
-/* =========================================
-   ACTIVE NAVIGATION
-========================================= */
-
-.bottom-nav .nav-item.active {
-
-    background:
         rgba(
-            255,
-            213,
-            79,
-            .12
+            209,
+            155,
+            74,
+            .22
         );
 
-    color:
-        var(--white);
+}
 
-    opacity:
-        1;
+
+/* =========================================
+   BUTTON PREMIUM ANIMATION
+========================================= */
+
+button,
+.profile-action-btn,
+.save-profile-btn {
+
+    transition:
+
+        transform
+        .2s
+        ease,
+
+        box-shadow
+        .2s
+        ease,
+
+        opacity
+        .2s
+        ease;
+
+}
+
+
+button:hover,
+.profile-action-btn:hover,
+.save-profile-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+
+        0 6px 15px
+
+        rgba(
+            0,
+            0,
+            0,
+            .15
+        );
+
+}
+
+
+button:active,
+.profile-action-btn:active,
+.save-profile-btn:active {
+
+    transform:
+        scale(.96);
 
 }
 
 
 /* =========================================
-   NAVIGATION HOVER
+   GOLDEN PULSE
 ========================================= */
 
-.bottom-nav .nav-item:hover {
+.gold-pulse {
 
-    color:
-        var(--white);
+    animation:
 
-    opacity:
-        1;
+        goldPulse
+        2.5s
+        ease-in-out
+        infinite;
 
-    transform:
-        translateY(-1px);
+}
+
+
+@keyframes goldPulse {
+
+    0% {
+
+        box-shadow:
+
+            0 0 0
+            rgba(
+                209,
+                155,
+                74,
+                0
+            );
+
+    }
+
+    50% {
+
+        box-shadow:
+
+            0 0 18px
+            rgba(
+                209,
+                155,
+                74,
+                .45
+            );
+
+    }
+
+    100% {
+
+        box-shadow:
+
+            0 0 0
+            rgba(
+                209,
+                155,
+                74,
+                0
+            );
+
+    }
+
+}
+
+
+/* =========================================
+   GOLDEN ROTATING RING
+   FOR PROFILE PHOTO
+========================================= */
+
+.profile-photo-wrapper {
+
+    position:
+        relative;
+
+}
+
+
+.profile-photo-wrapper::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        -7px;
+
+    border-radius:
+        50%;
+
+    border:
+
+        2px
+
+        solid
+
+        transparent;
+
+    border-top-color:
+        var(--accent-color);
+
+    border-right-color:
+        var(--gold);
+
+    animation:
+
+        profileGoldRotate
+        10s
+        linear
+        infinite;
+
+    pointer-events:
+        none;
+
+}
+
+
+@keyframes profileGoldRotate {
+
+    from {
+
+        transform:
+            rotate(0deg);
+
+    }
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
+
+}
+
+
+/* =========================================
+   PROFILE PHOTO SOFT GLOW
+========================================= */
+
+.profile-photo {
+
+    animation:
+
+        profileGlow
+        3s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes profileGlow {
+
+    0% {
+
+        box-shadow:
+
+            0 8px 20px
+            rgba(
+                0,
+                0,
+                0,
+                .15
+            );
+
+    }
+
+    50% {
+
+        box-shadow:
+
+            0 8px 25px
+            rgba(
+                209,
+                155,
+                74,
+                .35
+            );
+
+    }
+
+    100% {
+
+        box-shadow:
+
+            0 8px 20px
+            rgba(
+                0,
+                0,
+                0,
+                .15
+            );
+
+    }
+
+}
+
+
+/* =========================================
+   EDIT PHOTO BUTTON PULSE
+========================================= */
+
+.photo-edit-btn {
+
+    animation:
+
+        editButtonPulse
+        2.8s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes editButtonPulse {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.06);
+
+    }
 
 }
 
@@ -628,1002 +556,575 @@ body {
    NAVIGATION ACTIVE ICON
 ========================================= */
 
-.bottom-nav .nav-item.active i {
+.bottom-nav
+.nav-item.active
+i {
+
+    animation:
+
+        navIconFloat
+        2.5s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes navIconFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-3px);
+
+    }
+
+}
+
+
+/* =========================================
+   END ANIMATION PART 1/3
+========================================= */
+/* =========================================
+   RIO MAGGI POINT
+   COMMON.CSS
+   PREMIUM ANIMATION SYSTEM
+   PART 2/3
+   STAMPS + QR + ANNOUNCEMENT + HISTORY
+========================================= */
+
+
+/* =========================================
+   LOYALTY STAMP CONTAINER
+========================================= */
+
+.stamp-grid {
+
+    animation:
+
+        stampGridEnter
+        .7s
+        ease
+        .2s
+        both;
+
+}
+
+
+@keyframes stampGridEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(15px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================
+   INDIVIDUAL STAMP BOX
+========================================= */
+
+.stamp-box {
+
+    transition:
+
+        transform
+        .25s
+        ease,
+
+        box-shadow
+        .25s
+        ease;
+
+}
+
+
+.stamp-box:hover {
 
     transform:
-        scale(1.05);
+        translateY(-3px)
+        scale(1.03);
+
+    box-shadow:
+
+        0 6px 15px
+
+        rgba(
+            209,
+            155,
+            74,
+            .2
+        );
 
 }
 
 
 /* =========================================
-   END COMMON.CSS PART 1/4
-========================================= */
-/* =========================================
-   RIO MAGGI POINT
-   COMMON.CSS
-   COMMON BOTTOM NAVIGATION
-   PART 2/4
-   MOBILE + SMALL PHONE RESPONSIVE
+   ACTIVE STAMP
 ========================================= */
 
+.stamp-box.active {
 
-/* =========================================
-   MOBILE DEVICES
-   UP TO 480px
-========================================= */
+    animation:
 
-@media screen and (max-width: 480px) {
+        activeStampGlow
+        2.5s
+        ease-in-out
+        infinite;
 
-
-    /* =====================================
-       MAIN PAGE
-    ===================================== */
-
-    .page {
-
-        max-width:
-            100%;
-
-        padding:
-
-            14px
-
-            14px
-
-            96px;
-
-    }
+}
 
 
-    /* =====================================
-       COMMON DASHBOARD
-    ===================================== */
+@keyframes activeStampGlow {
 
-    .app-header {
+    0% {
 
-        min-height:
-            84px;
+        box-shadow:
 
-        gap:
-            12px;
+            0 0 0
 
-        padding:
-            14px;
-
-        margin-bottom:
-            16px;
-
-        border-radius:
-            18px;
+            rgba(
+                198,
+                40,
+                40,
+                0
+            );
 
     }
 
+    50% {
 
-    /* =====================================
-       DASHBOARD ICON
-    ===================================== */
+        box-shadow:
 
-    .app-header-icon {
+            0 0 14px
 
-        width:
-            48px;
-
-        height:
-            48px;
-
-        min-width:
-            48px;
-
-        border-radius:
-            14px;
-
-        font-size:
-            21px;
+            rgba(
+                198,
+                40,
+                40,
+                .3
+            );
 
     }
 
+    100% {
 
-    /* =====================================
-       DASHBOARD TITLE
-    ===================================== */
+        box-shadow:
 
-    .app-header-content h1 {
+            0 0 0
 
-        font-size:
-            21px;
-
-        line-height:
-            1.2;
-
-    }
-
-
-    /* =====================================
-       DASHBOARD SUBTITLE
-    ===================================== */
-
-    .app-header-content p {
-
-        margin-top:
-            4px;
-
-        font-size:
-            11px;
-
-        line-height:
-            1.4;
+            rgba(
+                198,
+                40,
+                40,
+                0
+            );
 
     }
-
-
-    /* =====================================
-       COMMON CARD
-    ===================================== */
-
-    .app-card {
-
-        border-radius:
-            18px;
-
-    }
-
-
-    /* =====================================
-       BOTTOM NAVIGATION
-    ===================================== */
-
-    .bottom-nav {
-
-        width:
-            100%;
-
-        max-width:
-            100%;
-
-        height:
-            74px;
-
-        padding:
-
-            7px
-
-            4px;
-
-    }
-
-
-    /* =====================================
-       NAVIGATION ITEM
-    ===================================== */
-
-    .bottom-nav .nav-item {
-
-        height:
-            58px;
-
-        gap:
-            4px;
-
-        font-size:
-            9px;
-
-        border-radius:
-            10px;
-
-    }
-
-
-    /* =====================================
-       NAVIGATION ICON
-    ===================================== */
-
-    .bottom-nav .nav-item i {
-
-        width:
-            21px;
-
-        height:
-            21px;
-
-        font-size:
-            19px;
-
-    }
-
-
-    /* =====================================
-       NAVIGATION TEXT
-    ===================================== */
-
-    .bottom-nav .nav-item span {
-
-        font-size:
-            9px;
-
-    }
-
-
-    /* =====================================
-       NAVIGATION SAFE SPACE
-    ===================================== */
-
-    .nav-space {
-
-        height:
-            92px;
-
-    }
-
 
 }
 
 
 /* =========================================
-   VERY SMALL PHONES
-   UP TO 360px
+   STAMP CHECK ICON
 ========================================= */
 
-@media screen and (max-width: 360px) {
+.stamp-box.active i {
+
+    animation:
+
+        stampCheckPop
+        .5s
+        ease
+        both;
+
+}
 
 
-    /* =====================================
-       MAIN PAGE
-    ===================================== */
+@keyframes stampCheckPop {
 
-    .page {
+    0% {
 
-        padding:
+        opacity:
+            0;
 
-            12px
-
-            10px
-
-            94px;
-
-    }
-
-
-    /* =====================================
-       DASHBOARD
-    ===================================== */
-
-    .app-header {
-
-        min-height:
-            80px;
-
-        gap:
-            10px;
-
-        padding:
-            12px;
+        transform:
+            scale(.3);
 
     }
 
+    70% {
 
-    /* =====================================
-       DASHBOARD ICON
-    ===================================== */
-
-    .app-header-icon {
-
-        width:
-            44px;
-
-        height:
-            44px;
-
-        min-width:
-            44px;
-
-        border-radius:
-            12px;
-
-        font-size:
-            19px;
+        transform:
+            scale(1.2);
 
     }
 
+    100% {
 
-    /* =====================================
-       DASHBOARD TITLE
-    ===================================== */
+        opacity:
+            1;
 
-    .app-header-content h1 {
-
-        font-size:
-            18px;
+        transform:
+            scale(1);
 
     }
-
-
-    /* =====================================
-       DASHBOARD SUBTITLE
-    ===================================== */
-
-    .app-header-content p {
-
-        font-size:
-            10px;
-
-    }
-
-
-    /* =====================================
-       BOTTOM NAVIGATION
-    ===================================== */
-
-    .bottom-nav {
-
-        height:
-            70px;
-
-        padding:
-
-            6px
-
-            2px;
-
-    }
-
-
-    /* =====================================
-       NAV ITEM
-    ===================================== */
-
-    .bottom-nav .nav-item {
-
-        height:
-            56px;
-
-        gap:
-            3px;
-
-        font-size:
-            8px;
-
-        border-radius:
-            8px;
-
-    }
-
-
-    /* =====================================
-       NAV ICON
-    ===================================== */
-
-    .bottom-nav .nav-item i {
-
-        width:
-            20px;
-
-        height:
-            20px;
-
-        font-size:
-            17px;
-
-    }
-
-
-    /* =====================================
-       NAV TEXT
-    ===================================== */
-
-    .bottom-nav .nav-item span {
-
-        font-size:
-            8px;
-
-    }
-
-
-    /* =====================================
-       NAV SPACE
-    ===================================== */
-
-    .nav-space {
-
-        height:
-            88px;
-
-    }
-
 
 }
 
 
 /* =========================================
-   END COMMON.CSS PART 2/4
-========================================= */
-/* =========================================
-   RIO MAGGI POINT
-   COMMON.CSS
-   COMMON BOTTOM NAVIGATION
-   PART 3/4
-   TABLET + LAPTOP + DESKTOP RESPONSIVE
+   NEW STAMP ANIMATION
+   ADD CLASS: stamp-new
 ========================================= */
 
+.stamp-box.stamp-new {
 
-/* =========================================
-   TABLET DEVICES
-   481px - 768px
-========================================= */
+    animation:
 
-@media screen and (min-width: 481px)
-and (max-width: 768px) {
+        newStampAnimation
+        .8s
+        ease
+        both;
+
+}
 
 
-    /* =====================================
-       MAIN PAGE
-    ===================================== */
+@keyframes newStampAnimation {
 
-    .page {
+    0% {
 
-        max-width:
-            520px;
+        transform:
+            scale(.5)
+            rotate(-10deg);
 
-        padding:
-
-            20px
-
-            20px
-
-            110px;
+        opacity:
+            0;
 
     }
 
+    60% {
 
-    /* =====================================
-       COMMON DASHBOARD
-    ===================================== */
+        transform:
+            scale(1.15)
+            rotate(5deg);
 
-    .app-header {
-
-        min-height:
-            92px;
-
-        padding:
-            18px;
-
-        border-radius:
-            20px;
+        opacity:
+            1;
 
     }
 
+    100% {
 
-    /* =====================================
-       DASHBOARD ICON
-    ===================================== */
-
-    .app-header-icon {
-
-        width:
-            54px;
-
-        height:
-            54px;
-
-        min-width:
-            54px;
-
-        font-size:
-            24px;
+        transform:
+            scale(1)
+            rotate(0);
 
     }
-
-
-    /* =====================================
-       DASHBOARD TITLE
-    ===================================== */
-
-    .app-header-content h1 {
-
-        font-size:
-            24px;
-
-    }
-
-
-    /* =====================================
-       DASHBOARD SUBTITLE
-    ===================================== */
-
-    .app-header-content p {
-
-        font-size:
-            12px;
-
-    }
-
-
-    /* =====================================
-       BOTTOM NAVIGATION
-    ===================================== */
-
-    .bottom-nav {
-
-        width:
-            100%;
-
-        max-width:
-            520px;
-
-        height:
-            78px;
-
-        padding:
-
-            8px
-
-            6px;
-
-    }
-
-
-    /* =====================================
-       NAV ITEM
-    ===================================== */
-
-    .bottom-nav .nav-item {
-
-        height:
-            60px;
-
-        gap:
-            4px;
-
-        font-size:
-            10px;
-
-    }
-
-
-    /* =====================================
-       NAV ICON
-    ===================================== */
-
-    .bottom-nav .nav-item i {
-
-        width:
-            22px;
-
-        height:
-            22px;
-
-        font-size:
-            20px;
-
-    }
-
-
-    /* =====================================
-       NAV SPACE
-    ===================================== */
-
-    .nav-space {
-
-        height:
-            100px;
-
-    }
-
 
 }
 
 
 /* =========================================
-   LAPTOP DEVICES
-   769px - 1200px
+   SIXTH STAMP / REWARD UNLOCK
+   ADD CLASS: reward-unlocked
 ========================================= */
 
-@media screen and (min-width: 769px)
-and (max-width: 1200px) {
+.reward-unlocked {
+
+    animation:
+
+        rewardUnlock
+        1s
+        ease
+        both;
+
+}
 
 
-    /* =====================================
-       MAIN PAGE
-    ===================================== */
+@keyframes rewardUnlock {
 
-    .page {
+    0% {
 
-        max-width:
-            520px;
+        transform:
+            scale(.9);
 
-        padding:
-
-            20px
-
-            20px
-
-            110px;
-
-    }
-
-
-    /* =====================================
-       COMMON DASHBOARD
-    ===================================== */
-
-    .app-header {
-
-        min-height:
-            92px;
-
-        padding:
-            18px;
+        box-shadow:
+            0 0 0
+            rgba(
+                255,
+                213,
+                79,
+                0
+            );
 
     }
 
+    50% {
 
-    /* =====================================
-       DASHBOARD ICON
-    ===================================== */
+        transform:
+            scale(1.04);
 
-    .app-header-icon {
+        box-shadow:
 
-        width:
-            54px;
+            0 0 30px
 
-        height:
-            54px;
-
-        min-width:
-            54px;
-
-        font-size:
-            24px;
+            rgba(
+                255,
+                213,
+                79,
+                .65
+            );
 
     }
 
+    100% {
 
-    /* =====================================
-       DASHBOARD TITLE
-    ===================================== */
-
-    .app-header-content h1 {
-
-        font-size:
-            24px;
+        transform:
+            scale(1);
 
     }
-
-
-    /* =====================================
-       DASHBOARD SUBTITLE
-    ===================================== */
-
-    .app-header-content p {
-
-        font-size:
-            12px;
-
-    }
-
-
-    /* =====================================
-       BOTTOM NAVIGATION
-    ===================================== */
-
-    .bottom-nav {
-
-        width:
-            100%;
-
-        max-width:
-            520px;
-
-        height:
-            78px;
-
-    }
-
-
-    /* =====================================
-       NAVIGATION ITEM
-    ===================================== */
-
-    .bottom-nav .nav-item {
-
-        height:
-            60px;
-
-        font-size:
-            10px;
-
-    }
-
-
-    /* =====================================
-       NAVIGATION ICON
-    ===================================== */
-
-    .bottom-nav .nav-item i {
-
-        font-size:
-            20px;
-
-    }
-
-
-    /* =====================================
-       NAV SPACE
-    ===================================== */
-
-    .nav-space {
-
-        height:
-            100px;
-
-    }
-
 
 }
 
 
 /* =========================================
-   DESKTOP / PC
-   1201px AND ABOVE
+   REWARD CARD
 ========================================= */
 
-@media screen and (min-width: 1201px) {
+.reward-card {
+
+    animation:
+
+        rewardCardEnter
+        .8s
+        ease
+        both;
+
+}
 
 
-    /* =====================================
-       MAIN PAGE
-    ===================================== */
+@keyframes rewardCardEnter {
 
-    .page {
+    from {
 
-        max-width:
-            520px;
+        opacity:
+            0;
 
-        padding:
-
-            20px
-
-            20px
-
-            110px;
-
-    }
-
-
-    /* =====================================
-       COMMON DASHBOARD
-    ===================================== */
-
-    .app-header {
-
-        min-height:
-            92px;
-
-        padding:
-            18px;
+        transform:
+            translateY(20px)
+            scale(.96);
 
     }
 
+    to {
 
-    /* =====================================
-       DASHBOARD ICON
-    ===================================== */
+        opacity:
+            1;
 
-    .app-header-icon {
-
-        width:
-            54px;
-
-        height:
-            54px;
-
-        min-width:
-            54px;
-
-        font-size:
-            24px;
+        transform:
+            translateY(0)
+            scale(1);
 
     }
-
-
-    /* =====================================
-       DASHBOARD TITLE
-    ===================================== */
-
-    .app-header-content h1 {
-
-        font-size:
-            24px;
-
-    }
-
-
-    /* =====================================
-       DASHBOARD SUBTITLE
-    ===================================== */
-
-    .app-header-content p {
-
-        font-size:
-            12px;
-
-    }
-
-
-    /* =====================================
-       BOTTOM NAVIGATION
-    ===================================== */
-
-    .bottom-nav {
-
-        width:
-            520px;
-
-        max-width:
-            520px;
-
-        height:
-            78px;
-
-    }
-
-
-    /* =====================================
-       NAVIGATION ITEM
-    ===================================== */
-
-    .bottom-nav .nav-item {
-
-        height:
-            60px;
-
-        font-size:
-            10px;
-
-    }
-
-
-    /* =====================================
-       NAVIGATION ICON
-    ===================================== */
-
-    .bottom-nav .nav-item i {
-
-        font-size:
-            20px;
-
-    }
-
-
-    /* =====================================
-       NAV SPACE
-    ===================================== */
-
-    .nav-space {
-
-        height:
-            100px;
-
-    }
-
 
 }
 
 
 /* =========================================
-   END COMMON.CSS PART 3/4
-========================================= */
-/* =========================================
-   RIO MAGGI POINT
-   COMMON.CSS
-   COMMON BOTTOM NAVIGATION
-   PART 4/4
-   FINAL FIX + TOUCH + STABILITY
+   REWARD UNLOCKED GOLDEN GLOW
 ========================================= */
 
+.reward-card.unlocked {
 
-/* =========================================
-   PREVENT NAVIGATION OVERFLOW
-========================================= */
+    animation:
 
-.bottom-nav {
+        rewardGoldenGlow
+        3s
+        ease-in-out
+        infinite;
 
-    overflow:
-        hidden;
+}
 
-    isolation:
-        isolate;
+
+@keyframes rewardGoldenGlow {
+
+    0% {
+
+        box-shadow:
+
+            0 0 5px
+
+            rgba(
+                255,
+                213,
+                79,
+                .15
+            );
+
+    }
+
+    50% {
+
+        box-shadow:
+
+            0 0 28px
+
+            rgba(
+                255,
+                213,
+                79,
+                .55
+            );
+
+    }
+
+    100% {
+
+        box-shadow:
+
+            0 0 5px
+
+            rgba(
+                255,
+                213,
+                79,
+                .15
+            );
+
+    }
 
 }
 
 
 /* =========================================
-   NAVIGATION ITEM TOUCH AREA
+   QR CARD ENTRY
 ========================================= */
 
-.bottom-nav .nav-item {
+.qr-card {
+
+    animation:
+
+        qrCardEnter
+        .8s
+        ease
+        both;
+
+}
+
+
+@keyframes qrCardEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(20px)
+            scale(.97);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================
+   QR SCANNING EFFECT
+========================================= */
+
+.premium-qr-card {
 
     position:
         relative;
 
-    min-width:
-        0;
-
-    user-select:
-        none;
-
-    -webkit-user-select:
-        none;
-
-    -webkit-tap-highlight-color:
-        transparent;
-
-    touch-action:
-        manipulation;
+    overflow:
+        hidden;
 
 }
 
 
-/* =========================================
-   REMOVE DEFAULT LINK OUTLINE
-========================================= */
+.premium-qr-card::after {
 
-.bottom-nav .nav-item:focus {
+    content:
+        "";
 
-    outline:
-        none;
+    position:
+        absolute;
 
-}
+    left:
+        10%;
 
+    top:
+        -10%;
 
-/* =========================================
-   ACCESSIBILITY FOCUS
-========================================= */
+    width:
+        80%;
 
-.bottom-nav .nav-item:focus-visible {
+    height:
+        3px;
 
-    outline:
+    background:
 
-        2px solid
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            var(--gold),
+
+            transparent
+
+        );
+
+    box-shadow:
+
+        0 0 12px
 
         var(--gold);
 
-    outline-offset:
-        -2px;
+    animation:
 
-}
-
-
-/* =========================================
-   ACTIVE NAVIGATION STABILITY
-========================================= */
-
-.bottom-nav .nav-item.active {
-
-    transform:
-        none;
-
-}
-
-
-/* =========================================
-   ACTIVE NAVIGATION HOVER
-========================================= */
-
-.bottom-nav .nav-item.active:hover {
-
-    transform:
-        none;
-
-}
-
-
-/* =========================================
-   DISABLE TEXT SELECTION
-========================================= */
-
-.bottom-nav .nav-item span,
-.bottom-nav .nav-item i {
+        qrScanLine
+        2.8s
+        ease-in-out
+        infinite;
 
     pointer-events:
         none;
@@ -1631,196 +1132,117 @@ and (max-width: 1200px) {
 }
 
 
-/* =========================================
-   SAFE AREA FOR MODERN MOBILE DEVICES
-========================================= */
+@keyframes qrScanLine {
 
-@supports (
-    padding-bottom:
-    env(safe-area-inset-bottom)
-) {
+    0% {
 
-    .bottom-nav {
-
-        padding-bottom:
-
-            calc(
-
-                8px
-
-                +
-
-                env(
-                    safe-area-inset-bottom
-                )
-
-            );
-
-    }
-
-}
-
-
-/* =========================================
-   MOBILE SAFE AREA
-========================================= */
-
-@media screen and (max-width: 480px) {
-
-    .bottom-nav {
-
-        padding-bottom:
-
-            calc(
-
-                7px
-
-                +
-
-                env(
-                    safe-area-inset-bottom
-                )
-
-            );
-
-    }
-
-}
-
-
-/* =========================================
-   SMALL PHONE SAFE AREA
-========================================= */
-
-@media screen and (max-width: 360px) {
-
-    .bottom-nav {
-
-        padding-bottom:
-
-            calc(
-
-                6px
-
-                +
-
-                env(
-                    safe-area-inset-bottom
-                )
-
-            );
-
-    }
-
-}
-
-
-/* =========================================
-   PREVENT CONTENT FROM HIDING
-   BEHIND FIXED NAVIGATION
-========================================= */
-
-body {
-
-    padding-bottom:
-        0;
-
-}
-
-
-/* =========================================
-   COMMON PAGE BOTTOM SPACE
-========================================= */
-
-.page {
-
-    padding-bottom:
-        var(--page-bottom-space);
-
-}
-
-
-/* =========================================
-   NAV SPACE FINAL SAFETY
-========================================= */
-
-.nav-space {
-
-    display:
-        block;
-
-    width:
-        100%;
-
-    min-height:
-        var(--page-bottom-space);
-
-}
-
-
-/* =========================================
-   DISABLE HORIZONTAL SCROLL
-========================================= */
-
-html,
-body {
-
-    max-width:
-        100%;
-
-    overflow-x:
-        hidden;
-
-}
-
-
-/* =========================================
-   PREVENT FIXED NAV FROM MOVING
-========================================= */
-
-.bottom-nav {
-
-    will-change:
-        transform;
-
-    backface-visibility:
-        hidden;
-
-    -webkit-backface-visibility:
-        hidden;
-
-}
-
-
-/* =========================================
-   TOUCH DEVICE HOVER FIX
-========================================= */
-
-@media (hover: none) {
-
-    .bottom-nav .nav-item:hover {
-
-        color:
-            var(--gold);
+        top:
+            -10%;
 
         opacity:
-            .72;
-
-        transform:
-            none;
+            0;
 
     }
 
-    .bottom-nav .nav-item.active:hover {
+    15% {
 
-        color:
-            var(--white);
+        opacity:
+            1;
+
+    }
+
+    85% {
+
+        opacity:
+            1;
+
+    }
+
+    100% {
+
+        top:
+            110%;
+
+        opacity:
+            0;
+
+    }
+
+}
+
+
+/* =========================================
+   QR STATUS
+========================================= */
+
+.qr-status {
+
+    animation:
+
+        qrStatusPulse
+        2.5s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes qrStatusPulse {
+
+    0%,
+    100% {
+
+        opacity:
+            .65;
+
+    }
+
+    50% {
+
+        opacity:
+            1;
+
+    }
+
+}
+
+
+/* =========================================
+   DAILY STAMP RULE
+========================================= */
+
+.daily-stamp-rule {
+
+    animation:
+
+        dailyRuleEnter
+        .8s
+        ease
+        .3s
+        both;
+
+}
+
+
+@keyframes dailyRuleEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateX(-15px);
+
+    }
+
+    to {
 
         opacity:
             1;
 
         transform:
-            none;
+            translateX(0);
 
     }
 
@@ -1828,7 +1250,1171 @@ body {
 
 
 /* =========================================
-   REDUCE MOTION SUPPORT
+   DAILY RULE ICON
+========================================= */
+
+.daily-rule-icon {
+
+    animation:
+
+        calendarPulse
+        3s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes calendarPulse {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.08);
+
+    }
+
+}
+
+
+/* =========================================
+   ANNOUNCEMENT CARD
+========================================= */
+
+.announcement-card {
+
+    animation:
+
+        announcementEnter
+        .7s
+        ease
+        both;
+
+}
+
+
+@keyframes announcementEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(-15px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================
+   ANNOUNCEMENT ICON
+========================================= */
+
+.announcement-card i {
+
+    animation:
+
+        announcementBell
+        3s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes announcementBell {
+
+    0%,
+    80%,
+    100% {
+
+        transform:
+            rotate(0);
+
+    }
+
+    84% {
+
+        transform:
+            rotate(10deg);
+
+    }
+
+    88% {
+
+        transform:
+            rotate(-10deg);
+
+    }
+
+    92% {
+
+        transform:
+            rotate(6deg);
+
+    }
+
+    96% {
+
+        transform:
+            rotate(-6deg);
+
+    }
+
+}
+
+
+/* =========================================
+   NEW ANNOUNCEMENT BADGE
+========================================= */
+
+.new-badge {
+
+    animation:
+
+        newBadgePulse
+        2s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes newBadgePulse {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.06);
+
+    }
+
+}
+
+
+/* =========================================
+   HISTORY ITEM
+========================================= */
+
+.history-item {
+
+    animation:
+
+        historyItemEnter
+        .6s
+        ease
+        both;
+
+}
+
+
+@keyframes historyItemEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateX(-15px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateX(0);
+
+    }
+
+}
+
+
+/* =========================================
+   HISTORY STAMP ICON
+========================================= */
+
+.history-item .stamp-icon {
+
+    animation:
+
+        historyStampPulse
+        3s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes historyStampPulse {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.08);
+
+    }
+
+}
+
+
+/* =========================================
+   END ANIMATION PART 2/3
+========================================= */
+/* =========================================
+   RIO MAGGI POINT
+   COMMON.CSS
+   PREMIUM ANIMATION SYSTEM
+   PART 3/3
+   MENU + REVIEW + LOADING + FINAL
+========================================= */
+
+
+/* =========================================
+   MENU CARD ENTER
+========================================= */
+
+.menu-card {
+
+    animation:
+
+        menuCardEnter
+        .6s
+        ease
+        both;
+
+}
+
+
+@keyframes menuCardEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(18px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================
+   MENU IMAGE
+========================================= */
+
+.menu-card img {
+
+    transition:
+
+        transform
+        .35s
+        ease;
+
+}
+
+
+.menu-card:hover img {
+
+    transform:
+        scale(1.04);
+
+}
+
+
+/* =========================================
+   MENU CATEGORY BUTTON
+========================================= */
+
+.menu-category-btn {
+
+    transition:
+
+        transform
+        .2s
+        ease,
+
+        box-shadow
+        .2s
+        ease;
+
+}
+
+
+.menu-category-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+.menu-category-btn:active {
+
+    transform:
+        scale(.95);
+
+}
+
+
+/* =========================================
+   ACTIVE MENU CATEGORY
+========================================= */
+
+.menu-category-btn.active {
+
+    animation:
+
+        categoryActive
+        2.5s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes categoryActive {
+
+    0%,
+    100% {
+
+        box-shadow:
+
+            0 0 0
+
+            rgba(
+                209,
+                155,
+                74,
+                0
+            );
+
+    }
+
+    50% {
+
+        box-shadow:
+
+            0 0 12px
+
+            rgba(
+                209,
+                155,
+                74,
+                .35
+            );
+
+    }
+
+}
+
+
+/* =========================================
+   MENU PRICE HIGHLIGHT
+========================================= */
+
+.menu-price {
+
+    transition:
+
+        transform
+        .25s
+        ease;
+
+}
+
+
+.menu-card:hover
+.menu-price {
+
+    transform:
+        scale(1.04);
+
+}
+
+
+/* =========================================
+   REVIEW CARD ENTER
+========================================= */
+
+.review-card {
+
+    animation:
+
+        reviewCardEnter
+        .7s
+        ease
+        both;
+
+}
+
+
+@keyframes reviewCardEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(18px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================
+   REVIEW HEART
+========================================= */
+
+.review-heart {
+
+    animation:
+
+        heartBeat
+        2.5s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes heartBeat {
+
+    0%,
+    70%,
+    100% {
+
+        transform:
+            scale(1);
+
+    }
+
+    75% {
+
+        transform:
+            scale(1.12);
+
+    }
+
+    80% {
+
+        transform:
+            scale(1);
+
+    }
+
+    85% {
+
+        transform:
+            scale(1.08);
+
+    }
+
+}
+
+
+/* =========================================
+   REVIEW STAR
+========================================= */
+
+.rating-star {
+
+    transition:
+
+        transform
+        .2s
+        ease;
+
+}
+
+
+.rating-star:hover {
+
+    transform:
+        scale(1.2)
+        rotate(-5deg);
+
+}
+
+
+/* =========================================
+   SELECTED STAR
+========================================= */
+
+.rating-star.active {
+
+    animation:
+
+        starPop
+        .4s
+        ease
+        both;
+
+}
+
+
+@keyframes starPop {
+
+    0% {
+
+        transform:
+            scale(.5);
+
+        opacity:
+            .3;
+
+    }
+
+    70% {
+
+        transform:
+            scale(1.25);
+
+    }
+
+    100% {
+
+        transform:
+            scale(1);
+
+        opacity:
+            1;
+
+    }
+
+}
+
+
+/* =========================================
+   SUBMIT SUCCESS
+========================================= */
+
+.success-animation {
+
+    animation:
+
+        successPop
+        .7s
+        ease
+        both;
+
+}
+
+
+@keyframes successPop {
+
+    0% {
+
+        opacity:
+            0;
+
+        transform:
+            scale(.6);
+
+    }
+
+    70% {
+
+        opacity:
+            1;
+
+        transform:
+            scale(1.1);
+
+    }
+
+    100% {
+
+        transform:
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================
+   SUCCESS CHECK ICON
+========================================= */
+
+.success-check {
+
+    animation:
+
+        checkPop
+        .6s
+        ease
+        both;
+
+}
+
+
+@keyframes checkPop {
+
+    0% {
+
+        transform:
+            scale(0)
+            rotate(-30deg);
+
+    }
+
+    70% {
+
+        transform:
+            scale(1.2)
+            rotate(5deg);
+
+    }
+
+    100% {
+
+        transform:
+            scale(1)
+            rotate(0);
+
+    }
+
+}
+
+
+/* =========================================
+   ERROR MESSAGE
+========================================= */
+
+.error-animation {
+
+    animation:
+
+        errorShake
+        .45s
+        ease
+        both;
+
+}
+
+
+@keyframes errorShake {
+
+    0%,
+    100% {
+
+        transform:
+            translateX(0);
+
+    }
+
+    25% {
+
+        transform:
+            translateX(-5px);
+
+    }
+
+    50% {
+
+        transform:
+            translateX(5px);
+
+    }
+
+    75% {
+
+        transform:
+            translateX(-3px);
+
+    }
+
+}
+
+
+/* =========================================
+   LOADING SPINNER
+========================================= */
+
+.loading-spinner {
+
+    width:
+        32px;
+
+    height:
+        32px;
+
+    border:
+
+        3px
+
+        solid
+
+        rgba(
+            209,
+            155,
+            74,
+            .25
+        );
+
+    border-top-color:
+        var(--accent-color);
+
+    border-radius:
+        50%;
+
+    animation:
+
+        spinnerRotate
+        .8s
+        linear
+        infinite;
+
+}
+
+
+@keyframes spinnerRotate {
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
+
+}
+
+
+/* =========================================
+   PROFILE LOADING
+========================================= */
+
+.profile-loading {
+
+    animation:
+
+        profileLoadingPulse
+        1.5s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes profileLoadingPulse {
+
+    0%,
+    100% {
+
+        opacity:
+            .45;
+
+    }
+
+    50% {
+
+        opacity:
+            .9;
+
+    }
+
+}
+
+
+/* =========================================
+   BUTTON LOADING
+========================================= */
+
+.button-loading {
+
+    position:
+        relative;
+
+    pointer-events:
+        none;
+
+    color:
+        transparent
+        !important;
+
+}
+
+
+.button-loading::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    width:
+        18px;
+
+    height:
+        18px;
+
+    top:
+        50%;
+
+    left:
+        50%;
+
+    margin-top:
+        -9px;
+
+    margin-left:
+        -9px;
+
+    border:
+
+        2px
+
+        solid
+
+        rgba(
+            255,
+            255,
+            255,
+            .35
+        );
+
+    border-top-color:
+        white;
+
+    border-radius:
+        50%;
+
+    animation:
+
+        buttonSpinner
+        .7s
+        linear
+        infinite;
+
+}
+
+
+@keyframes buttonSpinner {
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
+
+}
+
+
+/* =========================================
+   TOAST NOTIFICATION
+========================================= */
+
+.toast {
+
+    animation:
+
+        toastEnter
+        .45s
+        ease
+        both;
+
+}
+
+
+@keyframes toastEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(20px)
+            scale(.95);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================
+   FREE MAGGI UNLOCK SPARKLE
+========================================= */
+
+.reward-sparkle {
+
+    position:
+        relative;
+
+}
+
+
+.reward-sparkle::before,
+.reward-sparkle::after {
+
+    content:
+        "✦";
+
+    position:
+        absolute;
+
+    color:
+        var(--gold);
+
+    font-size:
+        18px;
+
+    pointer-events:
+        none;
+
+    animation:
+
+        sparkleFloat
+        2s
+        ease-in-out
+        infinite;
+
+}
+
+
+.reward-sparkle::before {
+
+    top:
+        5px;
+
+    left:
+        10px;
+
+}
+
+
+.reward-sparkle::after {
+
+    right:
+        10px;
+
+    bottom:
+        5px;
+
+    animation-delay:
+        .8s;
+
+}
+
+
+@keyframes sparkleFloat {
+
+    0% {
+
+        opacity:
+            0;
+
+        transform:
+            scale(.5)
+            translateY(5px);
+
+    }
+
+    50% {
+
+        opacity:
+            1;
+
+        transform:
+            scale(1)
+            translateY(0);
+
+    }
+
+    100% {
+
+        opacity:
+            0;
+
+        transform:
+            scale(.5)
+            translateY(-5px);
+
+    }
+
+}
+
+
+/* =========================================
+   PAGE TRANSITION
+========================================= */
+
+body {
+
+    animation:
+
+        bodyPageEnter
+        .45s
+        ease
+        both;
+
+}
+
+
+@keyframes bodyPageEnter {
+
+    from {
+
+        opacity:
+            0;
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+    }
+
+}
+
+
+/* =========================================
+   SMOOTH SCROLL
+========================================= */
+
+html {
+
+    scroll-behavior:
+        smooth;
+
+}
+
+
+/* =========================================
+   MOBILE PERFORMANCE
+========================================= */
+
+@media screen and (max-width: 520px) {
+
+    .app-card,
+    .profile-card,
+    .qr-card,
+    .menu-card,
+    .review-card {
+
+        will-change:
+            transform,
+            opacity;
+
+    }
+
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media screen and (min-width: 521px)
+and (max-width: 1024px) {
+
+    .app-card:hover {
+
+        transform:
+            translateY(-2px);
+
+    }
+
+}
+
+
+/* =========================================
+   LAPTOP / PC
+========================================= */
+
+@media screen and (min-width: 1025px) {
+
+    .app-card:hover {
+
+        transform:
+            translateY(-3px);
+
+    }
+
+}
+
+
+/* =========================================
+   REDUCED MOTION ACCESSIBILITY
 ========================================= */
 
 @media (
@@ -1836,67 +2422,25 @@ body {
     reduce
 ) {
 
-    html {
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            .01ms
+            !important;
+
+        animation-iteration-count:
+            1
+            !important;
 
         scroll-behavior:
-            auto;
+            auto
+            !important;
 
-    }
-
-    .bottom-nav .nav-item {
-
-        transition:
-            none;
-
-    }
-
-}
-
-
-/* =========================================
-   FINAL NAVIGATION LAYER
-========================================= */
-
-.bottom-nav {
-
-    pointer-events:
-        auto;
-
-}
-
-
-/* =========================================
-   FINAL Z-INDEX PROTECTION
-========================================= */
-
-.bottom-nav,
-.bottom-nav .nav-item {
-
-    isolation:
-        isolate;
-
-}
-
-
-/* =========================================
-   FINAL RESPONSIVE WIDTH
-========================================= */
-
-@media screen and (max-width: 520px) {
-
-    .bottom-nav {
-
-        left:
-            0;
-
-        transform:
-            none;
-
-        width:
-            100%;
-
-        max-width:
-            100%;
+        transition-duration:
+            .01ms
+            !important;
 
     }
 
@@ -1904,50 +2448,11 @@ body {
 
 
 /* =========================================
-   TABLET AND ABOVE
+   FINAL ANIMATION SYSTEM END
 ========================================= */
-
-@media screen and (min-width: 521px) {
-
-    .bottom-nav {
-
-        left:
-            50%;
-
-        transform:
-            translateX(-50%);
-
-        width:
-            100%;
-
-        max-width:
-            520px;
-
-    }
-
-}
 
 
 /* =========================================
-   FINAL END
-========================================= */
-
-.bottom-nav {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        space-around;
-
-}
-
-
-/* =========================================
-   END COMMON.CSS
-   COMMON BOTTOM NAVIGATION COMPLETE
-   PART 4/4
+   PREMIUM ANIMATION SYSTEM
+   PART 3/3 COMPLETE
 ========================================= */
