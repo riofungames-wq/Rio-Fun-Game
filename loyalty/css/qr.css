@@ -1,1496 +1,1634 @@
-/* =========================================
+/* ==========================================
    RIO MAGGI POINT
-   PREMIUM LOYALTY QR
-   QR.CSS — PART 1 / 3
-========================================= */
+   QR.CSS — PART 1
+   PREMIUM RESPONSIVE QR PAGE
+========================================== */
 
 
-/* =========================================
-   QR CARD
-========================================= */
+/* ==========================================
+   ROOT VARIABLES
+========================================== */
 
-.qr-card{
+:root {
 
-    position:relative;
+    --primary-bg: #f5d99b;
 
-    width:100%;
+    --card-bg: #fff8e7;
 
-    min-height:calc(100vh - 36px);
+    --card-bg-soft: #fff3d2;
 
-    background:
-    linear-gradient(
-        145deg,
-        #1b1b1b,
-        #101010
-    );
+    --accent-color: #d19b4a;
 
-    border:2px solid #d4af37;
+    --accent-light: #f1cf8a;
 
-    border-radius:28px;
+    --text-dark: #3a2e2b;
 
-    overflow:hidden;
+    --text-muted: #7a6855;
 
-    padding:22px;
+    --dark-green: #263525;
 
-    padding-bottom:110px;
+    --dark-green-2: #182318;
 
-    box-shadow:
+    --red: #c62828;
 
-        0 14px 40px rgba(0,0,0,.55),
+    --red-dark: #9f1f1f;
 
-        0 0 20px rgba(212,175,55,.28);
+    --gold: #ffd54f;
 
-}
+    --white: #ffffff;
 
+    --border-color: #e0be7b;
 
-/* =========================================
-   QR HEADER
-========================================= */
+    --nav-height: 78px;
 
-.qr-header{
-
-    position:relative;
-
-    z-index:2;
-
-    text-align:center;
-
-    margin-bottom:22px;
+    --max-width: 520px;
 
 }
 
 
-.qr-header h1{
+/* ==========================================
+   RESET
+========================================== */
 
-    margin:0;
+* {
 
-    color:#f7de8b;
+    margin: 0;
 
-    font-size:25px;
+    padding: 0;
 
-    font-weight:800;
-
-    letter-spacing:1.5px;
-
-    line-height:1.2;
+    box-sizing: border-box;
 
 }
 
 
-.qr-header p{
+html {
 
-    margin-top:7px;
+    width: 100%;
 
-    color:#bdbdbd;
+    min-height: 100%;
 
-    font-size:11px;
-
-    font-weight:500;
-
-    letter-spacing:.8px;
+    scroll-behavior: smooth;
 
 }
 
 
-/* =========================================
-   CUSTOMER SECTION
-========================================= */
+body {
 
-.customer-section{
+    width: 100%;
 
-    position:relative;
-
-    z-index:2;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    text-align:center;
-
-    margin-bottom:22px;
-
-}
-
-
-/* =========================================
-   AVATAR FRAME
-========================================= */
-
-.avatar-frame{
-
-    position:relative;
-
-    width:82px;
-
-    height:82px;
-
-    margin-bottom:10px;
-
-    border-radius:50%;
-
-    padding:3px;
+    min-height: 100vh;
 
     background:
 
-    linear-gradient(
+        radial-gradient(
+            circle at top,
+            #fff1c8 0%,
+            #f5d99b 45%,
+            #e8c47d 100%
+        );
 
-        135deg,
+    color: var(--text-dark);
 
-        #f7de8b,
+    font-family:
+        'Poppins',
+        Arial,
+        Helvetica,
+        sans-serif;
 
-        #d4af37,
+    overflow-x: hidden;
 
-        #8f6b18
-
-    );
-
-    box-shadow:
-
-        0 0 15px rgba(212,175,55,.25);
-
-}
-
-
-.avatar-frame img{
-
-    width:100%;
-
-    height:100%;
-
-    display:block;
-
-    object-fit:cover;
-
-    border-radius:50%;
-
-    border:3px solid #171717;
+    padding-bottom:
+        calc(
+            var(--nav-height) + 30px
+        );
 
 }
 
 
-/* =========================================
-   CUSTOMER NAME
-========================================= */
+/* ==========================================
+   MAIN PAGE WRAPPER
+========================================== */
 
-.customer-name{
+.page {
 
-    color:#ffffff;
+    width: 100%;
 
-    font-size:18px;
+    min-height: 100vh;
 
-    font-weight:700;
+    display: flex;
 
-    letter-spacing:.5px;
+    justify-content: center;
 
-    margin-bottom:4px;
-
-}
-
-
-/* =========================================
-   CUSTOMER ID
-========================================= */
-
-.customer-id{
-
-    color:#8f8f8f;
-
-    font-size:10px;
-
-    font-weight:500;
-
-    letter-spacing:.5px;
+    padding:
+        24px 16px 30px;
 
 }
 
 
-.customer-id span{
+.page > .qr-card {
 
-    color:#d8c17b;
+    width: 100%;
 
-    font-weight:600;
-
-}
-
-
-/* =========================================
-   PREMIUM QR SECTION
-========================================= */
-
-.premium-qr-section{
-
-    position:relative;
-
-    z-index:2;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    text-align:center;
+    max-width: var(--max-width);
 
 }
 
 
-/* =========================================
-   SCAN TITLE
-========================================= */
+/* ==========================================
+   MAIN QR DASHBOARD CARD
+   SAME BASE SIZE FOR ALL DEVICES
+========================================== */
 
-.scan-title{
+.qr-card {
 
-    display:flex;
+    position: relative;
 
-    align-items:center;
-
-    justify-content:center;
-
-    gap:8px;
-
-    color:#f7de8b;
-
-    font-size:12px;
-
-    font-weight:700;
-
-    letter-spacing:.8px;
-
-    margin-bottom:14px;
-
-}
-
-
-.scan-title i{
-
-    font-size:16px;
-
-}
-
-
-/* =========================================
-   PREMIUM QR CARD
-========================================= */
-
-.premium-qr-card{
-
-    width:220px;
-
-    height:220px;
-
-    padding:10px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
+    width: 100%;
 
     background:
 
-    linear-gradient(
-
-        145deg,
-
-        #f8f8f8,
-
-        #dedede
-
-    );
-
-    border-radius:20px;
-
-    border:2px solid #d4af37;
-
-    box-shadow:
-
-        0 8px 25px rgba(0,0,0,.45),
-
-        0 0 18px rgba(212,175,55,.18);
-
-}
-
-
-/* =========================================
-   QR BOX
-========================================= */
-
-.qr-box{
-
-    width:100%;
-
-    height:100%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:#ffffff;
-
-    border-radius:10px;
-
-    overflow:hidden;
-
-}
-
-
-.qr-box img{
-
-    display:block;
-
-    max-width:100%;
-
-    max-height:100%;
-
-}
-
-
-.qr-box canvas{
-
-    display:block;
-
-    max-width:100%;
-
-    max-height:100%;
-
-}
-
-
-/* =========================================
-   QR STATUS
-========================================= */
-
-.qr-status{
-
-    margin-top:12px;
-
-    color:#d8c17b;
-
-    font-size:10px;
-
-    font-weight:500;
-
-    letter-spacing:.4px;
-
-    min-height:16px;
-
-}
-
-
-/* =========================================
-   DAILY STAMP RULE
-========================================= */
-
-.daily-stamp-rule{
-
-    position:relative;
-
-    z-index:2;
-
-    display:flex;
-
-    align-items:flex-start;
-
-    gap:12px;
-
-    margin-top:20px;
-
-    padding:14px;
-
-    background:
-
-    linear-gradient(
-
-        145deg,
-
-        rgba(212,175,55,.12),
-
-        rgba(212,175,55,.04)
-
-    );
-
-    border:1px solid rgba(212,175,55,.35);
-
-    border-radius:16px;
-
-    box-shadow:
-
-        inset 0 1px 4px rgba(255,255,255,.03),
-
-        0 4px 12px rgba(0,0,0,.20);
-
-}
-
-
-/* =========================================
-   DAILY RULE ICON
-========================================= */
-
-.daily-rule-icon{
-
-    width:34px;
-
-    height:34px;
-
-    min-width:34px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:10px;
-
-    background:
-
-    rgba(212,175,55,.16);
-
-    color:#f7de8b;
-
-    font-size:16px;
-
-}
-
-
-/* =========================================
-   DAILY RULE CONTENT
-========================================= */
-
-.daily-rule-content{
-
-    flex:1;
-
-}
-
-
-.daily-rule-content h3{
-
-    margin:0 0 5px;
-
-    color:#f7de8b;
-
-    font-size:11px;
-
-    font-weight:800;
-
-    letter-spacing:.6px;
-
-}
-
-
-.daily-rule-content p{
-
-    margin:3px 0 0;
-
-    color:#bdbdbd;
-
-    font-size:9px;
-
-    line-height:1.6;
-
-}
-
-
-.daily-rule-content strong{
-
-    color:#ffffff;
-
-    font-weight:700;
-
-}
-
-
-/* =========================================
-   INSTRUCTION BOX
-========================================= */
-
-.instruction-box{
-
-    position:relative;
-
-    z-index:2;
-
-    margin-top:18px;
-
-    padding:14px;
-
-    background:
-
-    rgba(255,255,255,.025);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    border-radius:16px;
-
-}
-
-
-/* =========================================
-   INSTRUCTION ITEM
-========================================= */
-
-.instruction-item{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-}
-
-
-.instruction-item + .instruction-item{
-
-    margin-top:12px;
-
-}
-
-
-/* =========================================
-   INSTRUCTION ICON
-========================================= */
-
-.instruction-icon{
-
-    width:26px;
-
-    height:26px;
-
-    min-width:26px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:#d4af37;
-
-    color:#111111;
-
-    font-size:10px;
-
-    font-weight:800;
-
-}
-
-
-/* =========================================
-   INSTRUCTION TEXT
-========================================= */
-
-.instruction-text{
-
-    color:#c8c8c8;
-
-    font-size:10px;
-
-    line-height:1.5;
-
-}
-
-
-/* =========================================
-   END QR.CSS PART 1
-========================================= */
-/* =========================================
-   RIO MAGGI POINT
-   PREMIUM LOYALTY QR
-   QR.CSS — PART 2 / 3
-========================================= */
-
-
-/* =========================================
-   SECURITY NOTE
-========================================= */
-
-.security-note{
-
-    position:relative;
-
-    z-index:2;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:8px;
-
-    margin-top:16px;
-
-    padding:10px 12px;
-
-    color:#929292;
-
-    font-size:9px;
-
-    line-height:1.5;
-
-    text-align:center;
-
-    background:
-
-    rgba(255,255,255,.025);
+        linear-gradient(
+            145deg,
+            #fffdf5 0%,
+            var(--card-bg) 55%,
+            #f9e7b8 100%
+        );
 
     border:
+        3px solid
+        var(--accent-color);
 
-    1px solid rgba(255,255,255,.06);
+    border-radius: 24px;
 
-    border-radius:12px;
+    padding:
+        26px 22px 28px;
 
-}
+    box-shadow:
 
+        0 18px 45px
+        rgba(70, 45, 15, .18),
 
-.security-note i{
+        0 5px 15px
+        rgba(70, 45, 15, .10);
 
-    color:#d4af37;
+    overflow: hidden;
 
-    font-size:13px;
-
-}
-
-
-/* =========================================
-   NAVIGATION SAFE SPACE
-========================================= */
-
-.nav-space{
-
-    width:100%;
-
-    height:90px;
-
-    flex-shrink:0;
+    isolation: isolate;
 
 }
 
 
-/* =========================================
-   QR CARD CONTENT SAFETY
-========================================= */
+/* ==========================================
+   PREMIUM CARD GLOW
+========================================== */
 
-.qr-card > *:not(.card-glow):not(.card-shine){
+.card-glow {
 
-    position:relative;
+    position: absolute;
 
-    z-index:2;
+    width: 220px;
 
-}
+    height: 220px;
 
+    top: -110px;
 
-/* =========================================
-   CARD GLOW
-========================================= */
-
-.qr-card .card-glow{
-
-    position:absolute;
-
-    width:220px;
-
-    height:220px;
-
-    top:-110px;
-
-    right:-100px;
-
-    border-radius:50%;
+    right: -90px;
 
     background:
 
-    radial-gradient(
+        radial-gradient(
+            circle,
+            rgba(255,213,79,.38),
+            transparent 70%
+        );
 
-        circle,
+    border-radius: 50%;
 
-        rgba(212,175,55,.22),
+    pointer-events: none;
 
-        transparent 70%
+    z-index: -1;
 
-    );
-
-    filter:blur(28px);
-
-    pointer-events:none;
+    animation:
+        qrGlow 5s ease-in-out infinite;
 
 }
 
 
-/* =========================================
-   CARD SHINE
-========================================= */
+@keyframes qrGlow {
 
-.qr-card .card-shine{
+    0%,
+    100% {
 
-    position:absolute;
+        transform:
+            scale(1);
 
-    width:120px;
+        opacity:
+            .65;
 
-    height:420px;
+    }
 
-    top:-100px;
+    50% {
 
-    left:-70px;
+        transform:
+            scale(1.18);
+
+        opacity:
+            1;
+
+    }
+
+}
+
+
+/* ==========================================
+   PREMIUM CARD SHINE
+========================================== */
+
+.card-shine {
+
+    position: absolute;
+
+    top: 0;
+
+    left: -120%;
+
+    width: 70%;
+
+    height: 100%;
 
     background:
 
-    rgba(255,255,255,.05);
+        linear-gradient(
+            100deg,
+            transparent,
+            rgba(255,255,255,.32),
+            transparent
+        );
 
-    transform:rotate(25deg);
+    transform:
+        skewX(-20deg);
 
-    pointer-events:none;
+    pointer-events: none;
 
-    z-index:3;
+    animation:
+        cardShine 7s ease-in-out infinite;
 
 }
 
 
-/* =========================================
-   MOBILE RESPONSIVE
-========================================= */
+@keyframes cardShine {
 
-@media (max-width:480px){
+    0% {
 
-    .qr-card{
-
-        width:100%;
-
-        min-height:calc(100vh - 28px);
-
-        border-radius:24px;
-
-        padding:20px;
-
-        padding-bottom:110px;
+        left: -120%;
 
     }
 
+    35% {
 
-    .qr-header h1{
-
-        font-size:23px;
-
-        letter-spacing:1.2px;
+        left: 140%;
 
     }
 
+    100% {
 
-    .qr-header p{
-
-        font-size:10px;
-
-    }
-
-
-    .avatar-frame{
-
-        width:76px;
-
-        height:76px;
-
-    }
-
-
-    .customer-name{
-
-        font-size:17px;
-
-    }
-
-
-    .premium-qr-card{
-
-        width:210px;
-
-        height:210px;
-
-        padding:9px;
-
-        border-radius:18px;
-
-    }
-
-
-    .scan-title{
-
-        font-size:11px;
-
-    }
-
-
-    .daily-stamp-rule{
-
-        padding:12px;
-
-        gap:10px;
-
-    }
-
-
-    .daily-rule-icon{
-
-        width:32px;
-
-        height:32px;
-
-        min-width:32px;
-
-        font-size:15px;
-
-    }
-
-
-    .daily-rule-content h3{
-
-        font-size:10px;
-
-    }
-
-
-    .daily-rule-content p{
-
-        font-size:8px;
-
-    }
-
-
-    .instruction-box{
-
-        padding:12px;
-
-    }
-
-
-    .instruction-text{
-
-        font-size:9px;
-
-    }
-
-
-    .security-note{
-
-        font-size:8px;
+        left: 140%;
 
     }
 
 }
 
 
-/* =========================================
-   SMALL MOBILE WIDTH
-========================================= */
+/* ==========================================
+   QR HEADER
+========================================== */
 
-@media (max-width:350px){
+.qr-header {
 
-    .qr-card{
+    position: relative;
 
-        padding:17px;
+    text-align: center;
 
-        padding-bottom:105px;
-
-        border-radius:22px;
-
-    }
-
-
-    .qr-header h1{
-
-        font-size:21px;
-
-    }
-
-
-    .qr-header p{
-
-        font-size:9px;
-
-    }
-
-
-    .avatar-frame{
-
-        width:68px;
-
-        height:68px;
-
-    }
-
-
-    .customer-name{
-
-        font-size:15px;
-
-    }
-
-
-    .customer-id{
-
-        font-size:9px;
-
-    }
-
-
-    .premium-qr-card{
-
-        width:180px;
-
-        height:180px;
-
-        padding:8px;
-
-        border-radius:16px;
-
-    }
-
-
-    .scan-title{
-
-        font-size:9px;
-
-        gap:6px;
-
-    }
-
-
-    .scan-title i{
-
-        font-size:13px;
-
-    }
-
-
-    .daily-stamp-rule{
-
-        padding:10px;
-
-        gap:8px;
-
-    }
-
-
-    .daily-rule-icon{
-
-        width:28px;
-
-        height:28px;
-
-        min-width:28px;
-
-        font-size:13px;
-
-    }
-
-
-    .daily-rule-content h3{
-
-        font-size:9px;
-
-    }
-
-
-    .daily-rule-content p{
-
-        font-size:7px;
-
-        line-height:1.5;
-
-    }
-
-
-    .instruction-box{
-
-        padding:10px;
-
-    }
-
-
-    .instruction-item{
-
-        gap:7px;
-
-    }
-
-
-    .instruction-icon{
-
-        width:23px;
-
-        height:23px;
-
-        min-width:23px;
-
-        font-size:9px;
-
-    }
-
-
-    .instruction-text{
-
-        font-size:8px;
-
-    }
-
-
-    .security-note{
-
-        padding:8px;
-
-        font-size:7px;
-
-    }
+    padding:
+        4px 5px 22px;
 
 }
 
 
-/* =========================================
-   TABLET
-========================================= */
+.qr-header h1 {
 
-@media (min-width:481px) and (max-width:899px){
+    font-size:
+        clamp(
+            22px,
+            5vw,
+            30px
+        );
 
-    .qr-card{
+    line-height:
+        1.2;
 
-        max-width:400px;
+    font-weight:
+        800;
 
-    }
+    letter-spacing:
+        1.8px;
 
-
-    .premium-qr-card{
-
-        width:230px;
-
-        height:230px;
-
-    }
-
-}
-
-
-/* =========================================
-   DESKTOP
-========================================= */
-
-@media (min-width:900px){
-
-    .qr-card{
-
-        max-width:400px;
-
-    }
-
-
-    .premium-qr-card{
-
-        width:240px;
-
-        height:240px;
-
-    }
-
-
-    .qr-header h1{
-
-        font-size:27px;
-
-    }
-
-
-    .customer-name{
-
-        font-size:19px;
-
-    }
+    color:
+        var(--dark-green);
 
 }
 
 
-/* =========================================
-   TOUCH SAFETY
-========================================= */
+.qr-header p {
 
-button,
-a{
+    margin-top:
+        7px;
 
-    -webkit-tap-highlight-color:
+    font-size:
+        clamp(
+            12px,
+            3vw,
+            15px
+        );
 
-    transparent;
+    font-weight:
+        600;
 
-}
+    letter-spacing:
+        .8px;
 
-
-/* =========================================
-   ACCESSIBILITY
-========================================= */
-
-a:focus-visible{
-
-    outline:
-
-    2px solid #f7de8b;
-
-    outline-offset:3px;
+    color:
+        var(--text-muted);
 
 }
 
 
-/* =========================================
-   REDUCED MOTION
-========================================= */
+/* ==========================================
+   CUSTOMER SECTION
+========================================== */
 
-@media (prefers-reduced-motion:reduce){
+.customer-section {
 
-    *,
-    *::before,
-    *::after{
+    display:
+        flex;
 
-        animation-duration:.01ms !important;
+    flex-direction:
+        column;
 
-        animation-iteration-count:1 !important;
+    align-items:
+        center;
 
-        transition-duration:.01ms !important;
+    text-align:
+        center;
 
-        scroll-behavior:auto !important;
+    padding:
+        8px 10px 22px;
+
+}
+
+
+/* ==========================================
+   CUSTOMER AVATAR
+========================================== */
+
+.avatar-frame {
+
+    width:
+        82px;
+
+    height:
+        82px;
+
+    padding:
+        3px;
+
+    border-radius:
+        50%;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--accent-color),
+            var(--gold),
+            var(--accent-color)
+        );
+
+    box-shadow:
+
+        0 7px 18px
+        rgba(0,0,0,.16);
+
+    overflow:
+        hidden;
+
+}
+
+
+.avatar-frame img {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    display:
+        block;
+
+    object-fit:
+        cover;
+
+    border:
+        3px solid
+        var(--card-bg);
+
+    border-radius:
+        50%;
+
+}
+
+
+.customer-name {
+
+    margin-top:
+        12px;
+
+    font-size:
+        clamp(
+            17px,
+            4vw,
+            21px
+        );
+
+    font-weight:
+        700;
+
+    color:
+        var(--dark-green);
+
+    line-height:
+        1.3;
+
+}
+
+
+.customer-id {
+
+    margin-top:
+        4px;
+
+    font-size:
+        12px;
+
+    font-weight:
+        500;
+
+    color:
+        var(--text-muted);
+
+}
+
+
+.customer-id span {
+
+    font-weight:
+        700;
+
+    color:
+        var(--dark-green);
+
+}
+
+
+/* ==========================================
+   RESPONSIVE BASE
+========================================== */
+
+@media (min-width: 768px) {
+
+    .page {
+
+        padding:
+            32px 24px 40px;
+
+    }
+
+
+    .qr-card {
+
+        padding:
+            30px 28px 34px;
+
+        border-radius:
+            26px;
 
     }
 
 }
-
-
-/* =========================================
-   END QR.CSS PART 2
-========================================= */
-/* =========================================
+/* ==========================================
    RIO MAGGI POINT
-   PREMIUM LOYALTY QR
-   QR.CSS — PART 3 / 3
-   FINAL POLISH
-========================================= */
+   QR.CSS — PART 2
+   QR SECTION + DAILY STAMP RULE
+========================================== */
 
 
-/* =========================================
-   QR IMAGE SAFETY
-========================================= */
+/* ==========================================
+   PREMIUM QR SECTION
+========================================== */
 
-#qrcode{
+.premium-qr-section {
 
-    position:relative;
+    width: 100%;
 
-    width:100%;
+    display: flex;
 
-    height:100%;
+    flex-direction: column;
 
-    display:flex;
+    align-items: center;
 
-    align-items:center;
+    text-align: center;
 
-    justify-content:center;
+    padding:
+        18px 0 22px;
 
-}
-
-
-/* =========================================
-   QR IMAGE PERFECT FIT
-========================================= */
-
-#qrcode img{
-
-    width:100% !important;
-
-    height:100% !important;
-
-    max-width:100%;
-
-    max-height:100%;
-
-    object-fit:contain;
+    border-top:
+        1px solid
+        rgba(209,155,74,.35);
 
 }
 
 
-/* =========================================
-   QR CANVAS PERFECT FIT
-========================================= */
+/* ==========================================
+   SCAN TITLE
+========================================== */
 
-#qrcode canvas{
+.scan-title {
 
-    width:100% !important;
+    display: flex;
 
-    height:100% !important;
+    align-items: center;
 
-    max-width:100%;
+    justify-content: center;
 
-    max-height:100%;
+    gap: 9px;
 
-    object-fit:contain;
+    width: 100%;
 
-}
+    font-size:
+        clamp(
+            14px,
+            3.5vw,
+            17px
+        );
 
+    line-height: 1.4;
 
-/* =========================================
-   QR LOADING STATE
-========================================= */
+    font-weight: 800;
 
-.qr-status{
+    letter-spacing:
+        .5px;
 
-    transition:
-
-    opacity .25s ease,
-
-    color .25s ease;
-
-}
-
-
-/* =========================================
-   QR READY STATE
-========================================= */
-
-.qr-status.ready{
-
-    color:#f7de8b;
+    color:
+        var(--dark-green);
 
 }
 
 
-/* =========================================
-   QR ERROR STATE
-========================================= */
+.scan-title i {
 
-.qr-status.error{
+    font-size:
+        clamp(
+            20px,
+            5vw,
+            25px
+        );
 
-    color:#ff8a8a;
-
-}
-
-
-/* =========================================
-   DAILY PURCHASE RULE HIGHLIGHT
-========================================= */
-
-.daily-stamp-rule{
-
-    transition:
-
-    transform .25s ease,
-
-    border-color .25s ease,
-
-    box-shadow .25s ease;
+    color:
+        var(--red);
 
 }
 
 
-.daily-stamp-rule:hover{
+/* ==========================================
+   PREMIUM QR BOX OUTER CARD
+========================================== */
 
-    transform:translateY(-2px);
+.premium-qr-card {
 
-    border-color:
+    position: relative;
 
-    rgba(212,175,55,.55);
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 100%;
+
+    max-width: 310px;
+
+    margin:
+        18px auto 12px;
+
+    padding:
+        14px;
+
+    background:
+        #ffffff;
+
+    border:
+        3px solid
+        var(--accent-color);
+
+    border-radius:
+        18px;
 
     box-shadow:
 
-    0 6px 18px rgba(0,0,0,.25),
-
-    0 0 12px rgba(212,175,55,.10);
-
-}
-
-
-/* =========================================
-   INSTRUCTION HOVER
-========================================= */
-
-.instruction-item{
-
-    transition:
-
-    transform .2s ease;
+        0 10px 25px
+        rgba(70,45,15,.16);
 
 }
 
 
-.instruction-item:hover{
+/* ==========================================
+   QR BOX
+========================================== */
 
-    transform:translateX(2px);
+.qr-box {
 
-}
+    width:
+        100%;
 
+    aspect-ratio:
+        1 / 1;
 
-/* =========================================
-   INSTRUCTION ICON PREMIUM
-========================================= */
+    display:
+        flex;
 
-.instruction-icon{
+    align-items:
+        center;
 
-    box-shadow:
+    justify-content:
+        center;
 
-    0 2px 8px rgba(212,175,55,.18);
+    background:
+        #ffffff;
 
-}
+    border-radius:
+        8px;
 
-
-/* =========================================
-   SECURITY NOTE PREMIUM
-========================================= */
-
-.security-note{
-
-    transition:
-
-    border-color .25s ease,
-
-    background .25s ease;
+    overflow:
+        hidden;
 
 }
 
 
-.security-note:hover{
+/* ==========================================
+   GENERATED QR IMAGE / CANVAS
+========================================== */
 
-    border-color:
+.qr-box img,
+.qr-box canvas {
 
-    rgba(212,175,55,.25);
+    display:
+        block;
+
+    width:
+        100% !important;
+
+    height:
+        auto !important;
+
+    max-width:
+        100%;
+
+}
+
+
+/* ==========================================
+   QR STATUS
+========================================== */
+
+.qr-status {
+
+    width:
+        100%;
+
+    max-width:
+        340px;
+
+    min-height:
+        24px;
+
+    padding:
+        5px 10px;
+
+    font-size:
+        clamp(
+            11px,
+            2.8vw,
+            14px
+        );
+
+    line-height:
+        1.5;
+
+    font-weight:
+        500;
+
+    color:
+        var(--text-muted);
+
+    text-align:
+        center;
+
+}
+
+
+/* ==========================================
+   DAILY STAMP RULE
+   IMPORTANT CUSTOMER NOTICE
+========================================== */
+
+.daily-stamp-rule {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    display:
+        flex;
+
+    align-items:
+        flex-start;
+
+    gap:
+        14px;
+
+    margin:
+        4px 0 22px;
+
+    padding:
+        18px 16px;
 
     background:
 
-    rgba(212,175,55,.035);
+        linear-gradient(
+            135deg,
+            #263525,
+            #1d291e
+        );
+
+    border:
+        2px solid
+        var(--accent-color);
+
+    border-radius:
+        16px;
+
+    box-shadow:
+
+        0 8px 20px
+        rgba(38,53,37,.20);
+
+    overflow:
+        hidden;
 
 }
 
 
-/* =========================================
-   BOTTOM NAV SAFETY
-========================================= */
+/* ==========================================
+   DAILY RULE DECORATION
+========================================== */
 
-.qr-card .bottom-nav{
+.daily-stamp-rule::after {
 
-    z-index:9999;
+    content:
+        "";
 
-}
+    position:
+        absolute;
 
+    width:
+        90px;
 
-/* =========================================
-   BOTTOM NAV ACTIVE STATE
-========================================= */
+    height:
+        90px;
 
-.qr-card .bottom-nav a.active{
+    right:
+        -35px;
 
-    color:#ffd86a;
+    bottom:
+        -45px;
 
-    opacity:1;
+    border-radius:
+        50%;
 
-}
-
-
-.qr-card .bottom-nav a.active i{
-
-    color:#f7de8b;
-
-    transform:scale(1.12);
-
-}
-
-
-/* =========================================
-   BOTTOM NAV TOUCH EFFECT
-========================================= */
-
-.qr-card .bottom-nav a:active{
-
-    transform:scale(.94);
+    border:
+        2px solid
+        rgba(255,213,79,.22);
 
 }
 
 
-/* =========================================
-   FINAL MOBILE SAFETY
-========================================= */
+/* ==========================================
+   DAILY RULE ICON
+========================================== */
 
-@media (max-width:350px){
+.daily-rule-icon {
 
-    .qr-card .bottom-nav{
+    flex:
+        0 0 46px;
+
+    width:
+        46px;
+
+    height:
+        46px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        var(--gold);
+
+    color:
+        var(--dark-green);
+
+    border-radius:
+        12px;
+
+    font-size:
+        21px;
+
+    box-shadow:
+
+        0 4px 10px
+        rgba(0,0,0,.18);
+
+}
+
+
+.daily-rule-icon i {
+
+    line-height:
+        1;
+
+}
+
+
+/* ==========================================
+   DAILY RULE CONTENT
+========================================== */
+
+.daily-rule-content {
+
+    flex:
+        1;
+
+    min-width:
+        0;
+
+}
+
+
+.daily-rule-content h3 {
+
+    margin:
+        0 0 8px;
+
+    font-size:
+        clamp(
+            15px,
+            3.8vw,
+            19px
+        );
+
+    line-height:
+        1.35;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .4px;
+
+    color:
+        var(--gold);
+
+}
+
+
+.daily-rule-content p {
+
+    margin:
+        0 0 9px;
+
+    font-size:
+        clamp(
+            13px,
+            3.3vw,
+            16px
+        );
+
+    line-height:
+        1.65;
+
+    font-weight:
+        500;
+
+    color:
+        #ffffff;
+
+}
+
+
+.daily-rule-content p:last-child {
+
+    margin-bottom:
+        0;
+
+}
+
+
+.daily-rule-content strong {
+
+    color:
+        var(--gold);
+
+    font-weight:
+        800;
+
+}
+
+
+/* ==========================================
+   RESPONSIVE QR SIZE
+========================================== */
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+
+    .premium-qr-card {
+
+        max-width:
+            280px;
+
+        padding:
+            12px;
+
+    }
+
+}
+
+
+/* SMALL MOBILE */
+
+@media (max-width: 360px) {
+
+    .daily-stamp-rule {
+
+        gap:
+            10px;
+
+        padding:
+            15px 12px;
+
+    }
+
+
+    .daily-rule-icon {
+
+        flex-basis:
+            40px;
 
         width:
+            40px;
 
-        calc(100% - 12px);
+        height:
+            40px;
 
-        height:64px;
-
-        bottom:6px;
-
-        border-radius:19px;
-
-    }
-
-
-    .qr-card .bottom-nav a{
-
-        font-size:8px;
+        font-size:
+            18px;
 
     }
 
 
-    .qr-card .bottom-nav a i{
+    .daily-rule-content h3 {
 
-        font-size:15px;
+        font-size:
+            14px;
+
+    }
+
+
+    .daily-rule-content p {
+
+        font-size:
+            12px;
+
+        line-height:
+            1.55;
 
     }
 
 }
 
 
-/* =========================================
-   FINAL CARD POLISH
-========================================= */
+/* TABLET */
 
-.qr-card{
+@media (min-width: 768px) {
 
-    isolation:isolate;
+    .premium-qr-card {
 
-}
+        max-width:
+            330px;
+
+        padding:
+            16px;
+
+    }
 
 
-/* =========================================
-   KEEP CONTENT ABOVE EFFECTS
-========================================= */
+    .daily-stamp-rule {
 
-.qr-card .qr-header,
-.qr-card .customer-section,
-.qr-card .premium-qr-section,
-.qr-card .daily-stamp-rule,
-.qr-card .instruction-box,
-.qr-card .security-note,
-.qr-card .nav-space{
+        padding:
+            20px 18px;
 
-    position:relative;
-
-    z-index:2;
+    }
 
 }
 
 
-/* =========================================
-   EFFECT LAYER
-========================================= */
+/* LAPTOP / DESKTOP */
 
-.qr-card .card-shine{
+@media (min-width: 1024px) {
 
-    z-index:3;
+    .page {
+
+        padding-top:
+            40px;
+
+    }
+
+
+    .premium-qr-card {
+
+        max-width:
+            340px;
+
+    }
+
+
+    .daily-stamp-rule {
+
+        padding:
+            21px 20px;
+
+    }
+
+}
+/* ==========================================
+   RIO MAGGI POINT
+   QR.CSS — PART 3
+   INSTRUCTIONS + SECURITY + BOTTOM NAV
+========================================== */
+
+
+/* ==========================================
+   INSTRUCTION BOX
+========================================== */
+
+.instruction-box {
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    margin:
+        0 0 20px;
+
+    padding:
+        18px;
+
+    background:
+        rgba(255,255,255,.55);
+
+    border:
+        2px solid
+        var(--border-color);
+
+    border-radius:
+        16px;
 
 }
 
 
-/* =========================================
-   END OF QR.CSS
-========================================= */
+/* ==========================================
+   INSTRUCTION ITEM
+========================================== */
+
+.instruction-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    width: 100%;
+
+    padding:
+        11px 10px;
+
+    background:
+        rgba(255,255,255,.72);
+
+    border-radius:
+        11px;
+
+}
+
+
+/* ==========================================
+   INSTRUCTION NUMBER
+========================================== */
+
+.instruction-icon {
+
+    flex:
+        0 0 34px;
+
+    width:
+        34px;
+
+    height:
+        34px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--dark-green);
+
+    color:
+        var(--gold);
+
+    font-size:
+        15px;
+
+    font-weight:
+        800;
+
+}
+
+
+/* ==========================================
+   INSTRUCTION TEXT
+========================================== */
+
+.instruction-text {
+
+    flex:
+        1;
+
+    font-size:
+        clamp(
+            13px,
+            3.2vw,
+            16px
+        );
+
+    line-height:
+        1.55;
+
+    font-weight:
+        600;
+
+    color:
+        var(--text-dark);
+
+}
+
+
+/* ==========================================
+   SECURITY NOTE
+========================================== */
+
+.security-note {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    margin:
+        0 0 25px;
+
+    padding:
+        12px 14px;
+
+    background:
+        rgba(38,53,37,.08);
+
+    border:
+        1px solid
+        rgba(38,53,37,.18);
+
+    border-radius:
+        12px;
+
+    text-align:
+        center;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        clamp(
+            11px,
+            2.8vw,
+            14px
+        );
+
+    line-height:
+        1.5;
+
+    font-weight:
+        500;
+
+}
+
+
+.security-note i {
+
+    flex:
+        0 0 auto;
+
+    color:
+        var(--dark-green);
+
+    font-size:
+        17px;
+
+}
+
+
+/* ==========================================
+   NAVIGATION SAFE SPACE
+   Prevents content from hiding behind nav
+========================================== */
+
+.nav-space {
+
+    width:
+        100%;
+
+    height:
+        95px;
+
+}
+
+
+/* ==========================================
+   FIXED PREMIUM BOTTOM NAVIGATION
+   SAME SIZE ON EVERY DEVICE
+========================================== */
+
+.bottom-nav {
+
+    position:
+        fixed;
+
+    left:
+        50%;
+
+    bottom:
+        0;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        100%;
+
+    max-width:
+        600px;
+
+    height:
+        74px;
+
+    display:
+        flex;
+
+    align-items:
+        stretch;
+
+    justify-content:
+        space-between;
+
+    padding:
+        6px 8px
+        env(safe-area-inset-bottom);
+
+    background:
+        #263525;
+
+    border-top:
+        2px solid
+        var(--accent-color);
+
+    box-shadow:
+        0 -8px 25px
+        rgba(0,0,0,.18);
+
+    z-index:
+        9999;
+
+}
+
+
+/* ==========================================
+   NAV ITEM
+========================================== */
+
+.bottom-nav a {
+
+    flex:
+        1 1 0;
+
+    min-width:
+        0;
+
+    height:
+        62px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        4px;
+
+    padding:
+        5px 3px;
+
+    color:
+        #ffd54f;
+
+    text-decoration:
+        none;
+
+    border-radius:
+        10px;
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
+
+    line-height:
+        1.2;
+
+    opacity:
+        .72;
+
+    transition:
+        .2s ease;
+
+}
+
+
+/* ==========================================
+   NAV ICON
+========================================== */
+
+.bottom-nav a i {
+
+    width:
+        24px;
+
+    height:
+        24px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    font-size:
+        19px;
+
+    line-height:
+        1;
+
+}
+
+
+/* ==========================================
+   ACTIVE NAV
+========================================== */
+
+.bottom-nav a.active {
+
+    color:
+        #ffffff;
+
+    background:
+        rgba(255,213,79,.12);
+
+    opacity:
+        1;
+
+}
+
+
+/* ==========================================
+   HOVER
+========================================== */
+
+.bottom-nav a:hover {
+
+    color:
+        #ffffff;
+
+    opacity:
+        1;
+
+}
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (min-width: 768px) {
+
+    .bottom-nav {
+
+        height:
+            78px;
+
+        padding:
+            7px 12px
+            env(safe-area-inset-bottom);
+
+    }
+
+
+    .bottom-nav a {
+
+        height:
+            64px;
+
+        font-size:
+            11px;
+
+    }
+
+
+    .bottom-nav a i {
+
+        font-size:
+            20px;
+
+    }
+
+
+    .nav-space {
+
+        height:
+            100px;
+
+    }
+
+}
+
+
+/* ==========================================
+   LAPTOP + DESKTOP
+========================================== */
+
+@media (min-width: 1024px) {
+
+    .bottom-nav {
+
+        max-width:
+            600px;
+
+    }
+
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 360px) {
+
+    .bottom-nav {
+
+        height:
+            70px;
+
+        padding:
+            5px 4px
+            env(safe-area-inset-bottom);
+
+    }
+
+
+    .bottom-nav a {
+
+        height:
+            58px;
+
+        font-size:
+            9px;
+
+        gap:
+            3px;
+
+    }
+
+
+    .bottom-nav a i {
+
+        font-size:
+            17px;
+
+    }
+
+
+    .nav-space {
+
+        height:
+            90px;
+
+    }
+
+}
+
+
+/* ==========================================
+   SAFE AREA FOR IPHONE
+========================================== */
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+
+    .bottom-nav {
+
+        padding-bottom:
+            calc(
+                6px +
+                env(safe-area-inset-bottom)
+            );
+
+    }
+
+}
+
+
+/* ==========================================
+   END QR.CSS
+========================================== */
