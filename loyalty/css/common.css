@@ -1,34 +1,122 @@
-/* =========================================================
-   RIO MAGGI POINT — COMMON CSS
-   PART 1/3
-   GLOBAL RESET + FIXED DASHBOARD LAYOUT
-   ========================================================= */
+/* =========================================
+   RIO MAGGI POINT
+   COMMON.CSS
+   COMMON BOTTOM NAVIGATION
+   PART 1/4
+   PREMIUM RESPONSIVE SYSTEM
+========================================= */
 
 
-/* =========================================================
+/* =========================================
+   ROOT VARIABLES
+========================================= */
+
+:root {
+
+    --primary-bg:
+        #f5d99b;
+
+    --card-bg:
+        #fff8e7;
+
+    --accent-color:
+        #d19b4a;
+
+    --accent-light:
+        #f8dda0;
+
+    --dark-green:
+        #263525;
+
+    --dark-text:
+        #3a2e2b;
+
+    --muted-text:
+        #7a6855;
+
+    --red:
+        #c62828;
+
+    --gold:
+        #ffd54f;
+
+    --white:
+        #ffffff;
+
+    --border:
+        #e0be7b;
+
+    --nav-height:
+        78px;
+
+    --page-max-width:
+        520px;
+
+    --page-bottom-space:
+        100px;
+
+}
+
+
+/* =========================================
    GLOBAL RESET
-   ========================================================= */
+========================================= */
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+    box-sizing:
+        border-box;
+
 }
 
+
+/* =========================================
+   HTML
+========================================= */
 
 html {
-    width: 100%;
-    min-height: 100%;
-    scroll-behavior: smooth;
+
+    width:
+        100%;
+
+    min-height:
+        100%;
+
+    scroll-behavior:
+        smooth;
+
 }
 
 
-body {
-    width: 100%;
-    min-height: 100vh;
+/* =========================================
+   BODY
+========================================= */
 
-    margin: 0;
-    padding: 0;
+body {
+
+    width:
+        100%;
+
+    min-height:
+        100vh;
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+    background:
+        var(--primary-bg);
+
+    color:
+        var(--dark-text);
 
     font-family:
         'Poppins',
@@ -36,549 +124,499 @@ body {
         Helvetica,
         sans-serif;
 
-    background: #f5d99b;
-    color: #3a2e2b;
+    overflow-x:
+        hidden;
 
-    overflow-x: hidden;
-
-    /* Fixed bottom navigation के लिए जगह */
-    padding-bottom: 82px;
 }
 
 
-/* =========================================================
-   MAIN APP / DASHBOARD WRAPPER
-   हर page का main layout इसी size के अंदर रहेगा
-   ========================================================= */
+/* =========================================
+   MAIN PAGE WRAPPER
+========================================= */
 
-.app-container,
-.page-container,
-.container,
-.main-container {
+.page {
 
-    width: 100%;
+    width:
+        100%;
 
-    max-width: 420px;
+    max-width:
+        var(--page-max-width);
 
-    min-height: calc(100vh - 82px);
+    min-height:
+        100vh;
 
-    margin-left: auto;
-    margin-right: auto;
+    margin:
+        0 auto;
 
     padding:
-        20px
-        20px
-        30px;
 
-    position: relative;
+        20px
+
+        20px
+
+        var(--page-bottom-space);
 
 }
 
 
-/* =========================================================
-   COMMON PAGE CONTENT
-   ========================================================= */
+/* =========================================
+   COMMON APP CARD
+========================================= */
 
-.page-content,
-.main-content,
-.content-wrapper {
+.app-card {
 
-    width: 100%;
+    width:
+        100%;
 
-    max-width: 420px;
-
-    margin-left: auto;
-    margin-right: auto;
-
-}
-
-
-/* =========================================================
-   COMMON CARD
-   ========================================================= */
-
-.card {
-
-    width: 100%;
-
-    background: #fff8e7;
+    background:
+        var(--card-bg);
 
     border:
+
         2px solid
-        #d19b4a;
 
-    border-radius: 18px;
+        var(--accent-color);
 
-    padding: 18px;
+    border-radius:
+        22px;
 
     box-shadow:
-        0 8px 24px
-        rgba(0, 0, 0, 0.10);
+
+        0 10px 30px
+
+        rgba(
+            0,
+            0,
+            0,
+            .12
+        );
 
 }
 
 
-/* =========================================================
-   COMMON HEADER
-   ========================================================= */
+/* =========================================
+   COMMON DASHBOARD / HEADER
+========================================= */
 
-.page-header {
+.app-header {
 
-    width: 100%;
+    width:
+        100%;
 
-    display: flex;
+    min-height:
+        92px;
 
-    align-items: center;
+    display:
+        flex;
 
-    justify-content: space-between;
+    align-items:
+        center;
 
-    gap: 12px;
-
-    margin-bottom: 20px;
-
-}
-
-
-.page-header h1,
-.page-header h2 {
-
-    margin: 0;
-
-    font-weight: 700;
-
-    color: #3a2e2b;
-
-}
-
-
-.page-header h1 {
-
-    font-size: 24px;
-
-}
-
-
-.page-header h2 {
-
-    font-size: 21px;
-
-}
-
-
-/* =========================================================
-   COMMON SECTION
-   ========================================================= */
-
-.section {
-
-    width: 100%;
-
-    margin-bottom: 18px;
-
-    padding: 18px;
-
-    background: #fff8e7;
-
-    border:
-        2px solid
-        #e0be7b;
-
-    border-radius: 16px;
-
-}
-
-
-/* =========================================================
-   COMMON BUTTON
-   ========================================================= */
-
-button,
-.btn {
-
-    min-height: 44px;
-
-    border: none;
-
-    border-radius: 12px;
+    gap:
+        15px;
 
     padding:
-        11px
+        18px;
+
+    margin-bottom:
+        18px;
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            #f8dda0,
+
+            #edc77d
+
+        );
+
+    border:
+
+        2px solid
+
+        var(--accent-color);
+
+    border-radius:
+        20px;
+
+    box-shadow:
+
+        0 10px 30px
+
+        rgba(
+            0,
+            0,
+            0,
+            .12
+        );
+
+}
+
+
+/* =========================================
+   COMMON DASHBOARD ICON
+========================================= */
+
+.app-header-icon {
+
+    width:
+        54px;
+
+    height:
+        54px;
+
+    min-width:
+        54px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        var(--dark-green);
+
+    color:
+        var(--gold);
+
+    border-radius:
         16px;
 
-    font-family:
-        'Poppins',
-        Arial,
-        sans-serif;
-
-    font-size: 14px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition:
-        transform .2s ease,
-        opacity .2s ease,
-        box-shadow .2s ease;
-
-}
-
-
-button:hover,
-.btn:hover {
-
-    transform:
-        translateY(-1px);
-
-}
-
-
-button:active,
-.btn:active {
-
-    transform:
-        translateY(0);
-
-}
-
-
-button:disabled,
-.btn:disabled {
-
-    opacity: .55;
-
-    cursor:
-        not-allowed;
-
-    transform:
-        none;
-
-}
-
-
-/* =========================================================
-   COMMON INPUT
-   ========================================================= */
-
-input,
-textarea,
-select {
-
-    width: 100%;
-
-    min-height: 44px;
-
-    padding:
-        11px
-        13px;
-
-    border:
-        1px solid
-        #d19b4a;
-
-    border-radius: 10px;
-
-    background: #fff;
-
-    color: #3a2e2b;
-
-    font-family:
-        'Poppins',
-        Arial,
-        sans-serif;
-
-    font-size: 14px;
-
-    outline: none;
-
-}
-
-
-textarea {
-
-    min-height: 100px;
-
-    resize: vertical;
-
-}
-
-
-input:focus,
-textarea:focus,
-select:focus {
-
-    border-color:
-        #c62828;
+    font-size:
+        24px;
 
     box-shadow:
-        0 0 0 3px
-        rgba(198, 40, 40, .12);
+
+        0 5px 15px
+
+        rgba(
+            0,
+            0,
+            0,
+            .18
+        );
 
 }
 
 
-/* =========================================================
-   COMMON IMAGE
-   ========================================================= */
+/* =========================================
+   COMMON DASHBOARD CONTENT
+========================================= */
 
-img {
+.app-header-content {
 
-    max-width: 100%;
+    flex:
+        1;
 
-    display: block;
-
-}
-
-
-/* =========================================================
-   HIDE HORIZONTAL OVERFLOW
-   ========================================================= */
-
-body,
-#app,
-.app {
-
-    overflow-x: hidden;
+    min-width:
+        0;
 
 }
 
 
-/* =========================================================
-   MOBILE STANDARD
-   ========================================================= */
+/* =========================================
+   DASHBOARD TITLE
+========================================= */
 
-@media (
-    max-width: 420px
-) {
+.app-header-content h1 {
 
-    body {
+    margin:
+        0;
 
-        padding-bottom:
-            82px;
+    font-size:
+        24px;
 
-    }
+    line-height:
+        1.2;
 
+    font-weight:
+        800;
 
-    .app-container,
-    .page-container,
-    .container,
-    .main-container {
-
-        width: 100%;
-
-        max-width: 420px;
-
-        padding:
-            16px
-            16px
-            25px;
-
-    }
-
-
-    .page-header h1 {
-
-        font-size:
-            22px;
-
-    }
-
-
-    .page-header h2 {
-
-        font-size:
-            20px;
-
-    }
-
-
-    .card,
-    .section {
-
-        padding:
-            15px;
-
-    }
+    color:
+        #222;
 
 }
-/* =========================================================
-   RIO MAGGI POINT — COMMON CSS
-   PART 2/3
-   FIXED BOTTOM NAVIGATION
-   ========================================================= */
 
 
-/* =========================================================
-   BOTTOM NAVIGATION WRAPPER
-   ========================================================= */
+/* =========================================
+   DASHBOARD TITLE RED TEXT
+========================================= */
+
+.app-header-content h1 span {
+
+    color:
+        var(--red);
+
+}
+
+
+/* =========================================
+   DASHBOARD SUBTITLE
+========================================= */
+
+.app-header-content p {
+
+    margin-top:
+        5px;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.4;
+
+    color:
+        #5c4b3d;
+
+}
+
+
+/* =========================================
+   COMMON CONTENT SPACE
+========================================= */
+
+.nav-space {
+
+    width:
+        100%;
+
+    height:
+        var(--page-bottom-space);
+
+}
+
+
+/* =========================================
+   BOTTOM NAVIGATION BASE
+========================================= */
 
 .bottom-nav {
 
-    position: fixed;
+    position:
+        fixed;
 
-    left: 50%;
+    left:
+        50%;
 
-    bottom: 0;
+    bottom:
+        0;
 
     transform:
         translateX(-50%);
 
-    width: 100%;
+    width:
+        100%;
 
-    max-width: 420px;
+    max-width:
+        var(--page-max-width);
 
-    height: 72px;
+    height:
+        var(--nav-height);
 
-    background: #263525;
+    display:
+        flex;
 
-    border-top:
-        2px solid
-        #d19b4a;
+    align-items:
+        center;
 
-    display: flex;
-
-    align-items: stretch;
-
-    justify-content: space-around;
+    justify-content:
+        space-around;
 
     padding:
-        6px
-        4px;
 
-    margin: 0;
+        8px
 
-    z-index: 9999;
+        6px;
+
+    background:
+        var(--dark-green);
+
+    border-top:
+
+        2px solid
+
+        var(--accent-color);
 
     box-shadow:
+
         0 -5px 20px
-        rgba(0, 0, 0, .18);
+
+        rgba(
+            0,
+            0,
+            0,
+            .18
+        );
+
+    z-index:
+        9999;
 
 }
 
 
-/* =========================================================
-   NAVIGATION ITEM
-   ========================================================= */
+/* =========================================
+   BOTTOM NAVIGATION ITEM
+========================================= */
 
 .bottom-nav .nav-item {
 
-    flex: 1 1 0;
+    flex:
+        1;
 
-    min-width: 0;
+    height:
+        60px;
 
-    height: 60px;
+    display:
+        flex;
 
-    display: flex;
+    flex-direction:
+        column;
 
-    flex-direction: column;
+    align-items:
+        center;
 
-    align-items: center;
+    justify-content:
+        center;
 
-    justify-content: center;
+    gap:
+        4px;
 
-    gap: 3px;
+    color:
+        var(--gold);
 
-    padding:
-        4px
-        2px;
+    text-decoration:
+        none;
 
-    margin: 0;
+    font-size:
+        10px;
 
-    color: #ffd54f;
+    font-weight:
+        600;
 
-    text-decoration: none;
+    line-height:
+        1;
 
-    font-family:
-        'Poppins',
-        Arial,
-        sans-serif;
+    opacity:
+        .72;
 
-    font-size: 11px;
-
-    font-weight: 600;
-
-    line-height: 1;
-
-    opacity: .72;
-
-    border: none;
-
-    background: transparent;
+    border-radius:
+        12px;
 
     transition:
-        color .2s ease,
-        opacity .2s ease,
-        transform .2s ease;
+
+        background
+
+        .2s
+
+        ease,
+
+        color
+
+        .2s
+
+        ease,
+
+        opacity
+
+        .2s
+
+        ease,
+
+        transform
+
+        .2s
+
+        ease;
 
 }
 
 
-/* =========================================================
+/* =========================================
    NAVIGATION ICON
-   ========================================================= */
+========================================= */
 
 .bottom-nav .nav-item i {
 
-    width: 24px;
+    width:
+        22px;
 
-    height: 24px;
+    height:
+        22px;
 
-    display: flex;
+    display:
+        flex;
 
-    align-items: center;
+    align-items:
+        center;
 
-    justify-content: center;
+    justify-content:
+        center;
 
-    font-size: 20px;
+    font-size:
+        20px;
 
-    line-height: 1;
+    line-height:
+        1;
 
 }
 
 
-/* =========================================================
+/* =========================================
    NAVIGATION TEXT
-   ========================================================= */
+========================================= */
 
 .bottom-nav .nav-item span {
 
-    display: block;
+    display:
+        block;
 
-    width: 100%;
-
-    text-align: center;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
+    white-space:
+        nowrap;
 
 }
 
 
-/* =========================================================
+/* =========================================
    ACTIVE NAVIGATION
-   ========================================================= */
+========================================= */
 
 .bottom-nav .nav-item.active {
 
-    color: #ffffff;
+    background:
+        rgba(
+            255,
+            213,
+            79,
+            .12
+        );
 
-    opacity: 1;
+    color:
+        var(--white);
+
+    opacity:
+        1;
 
 }
 
 
-/* =========================================================
-   HOVER
-   ========================================================= */
+/* =========================================
+   NAVIGATION HOVER
+========================================= */
 
 .bottom-nav .nav-item:hover {
 
-    color: #ffffff;
+    color:
+        var(--white);
 
-    opacity: 1;
+    opacity:
+        1;
 
     transform:
         translateY(-1px);
@@ -586,9 +624,9 @@ body,
 }
 
 
-/* =========================================================
-   ACTIVE ICON
-   ========================================================= */
+/* =========================================
+   NAVIGATION ACTIVE ICON
+========================================= */
 
 .bottom-nav .nav-item.active i {
 
@@ -598,476 +636,87 @@ body,
 }
 
 
-/* =========================================================
-   PREVENT DIFFERENT PAGES FROM CHANGING NAV SIZE
-   ========================================================= */
-
-body {
-
-    --bottom-nav-height: 72px;
-
-}
-
-
-body {
-
-    padding-bottom:
-        var(--bottom-nav-height);
-
-}
+/* =========================================
+   END COMMON.CSS PART 1/4
+========================================= */
+/* =========================================
+   RIO MAGGI POINT
+   COMMON.CSS
+   COMMON BOTTOM NAVIGATION
+   PART 2/4
+   MOBILE + SMALL PHONE RESPONSIVE
+========================================= */
 
 
-/* =========================================================
-   NAVIGATION SAFE AREA
-   Mobile devices with bottom gesture area
-   ========================================================= */
+/* =========================================
+   MOBILE DEVICES
+   UP TO 480px
+========================================= */
 
-@supports (
-    padding-bottom: env(safe-area-inset-bottom)
-) {
-
-    .bottom-nav {
-
-        padding-bottom:
-            calc(
-                6px +
-                env(safe-area-inset-bottom)
-            );
-
-        height:
-            calc(
-                72px +
-                env(safe-area-inset-bottom)
-            );
-
-    }
+@media screen and (max-width: 480px) {
 
 
-    body {
+    /* =====================================
+       MAIN PAGE
+    ===================================== */
 
-        padding-bottom:
-            calc(
-                72px +
-                env(safe-area-inset-bottom)
-            );
+    .page {
 
-    }
-
-}
-
-
-/* =========================================================
-   SMALL MOBILE SCREEN
-   ========================================================= */
-
-@media (
-    max-width: 360px
-) {
-
-    .bottom-nav {
-
-        height: 70px;
+        max-width:
+            100%;
 
         padding:
-            5px
-            2px;
+
+            14px
+
+            14px
+
+            96px;
 
     }
 
 
-    .bottom-nav .nav-item {
+    /* =====================================
+       COMMON DASHBOARD
+    ===================================== */
 
-        height: 60px;
+    .app-header {
 
-        font-size:
-            10px;
+        min-height:
+            84px;
 
-    }
+        gap:
+            12px;
 
+        padding:
+            14px;
 
-    .bottom-nav .nav-item i {
-
-        font-size:
-            19px;
-
-        width:
-            22px;
-
-        height:
-            22px;
-
-    }
-
-}
-
-
-/* =========================================================
-   DESKTOP
-   Navigation remains same dashboard width
-   ========================================================= */
-
-@media (
-    min-width: 421px
-) {
-
-    .bottom-nav {
-
-        width: 420px;
-
-        max-width: 420px;
+        margin-bottom:
+            16px;
 
         border-radius:
-            0;
+            18px;
 
     }
 
-}
-/* =========================================================
-   RIO MAGGI POINT — COMMON CSS
-   PART 3/3
-   FINAL LAYOUT + RESPONSIVE + NAVIGATION CONFLICT FIX
-   ========================================================= */
 
+    /* =====================================
+       DASHBOARD ICON
+    ===================================== */
 
-/* =========================================================
-   FINAL PAGE LAYOUT
-   ========================================================= */
+    .app-header-icon {
 
-main {
+        width:
+            48px;
 
-    width: 100%;
+        height:
+            48px;
 
-    max-width: 420px;
+        min-width:
+            48px;
 
-    margin-left: auto;
-    margin-right: auto;
-
-    padding:
-        0;
-
-}
-
-
-/* =========================================================
-   DIRECT PAGE WRAPPERS
-   ========================================================= */
-
-.home-page,
-.qr-page,
-.history-page,
-.menu-page,
-.feedback-page,
-.profile-page {
-
-    width: 100%;
-
-    max-width: 420px;
-
-    min-height:
-        calc(100vh - 72px);
-
-    margin-left: auto;
-    margin-right: auto;
-
-    padding:
-        20px
-        20px
-        30px;
-
-}
-
-
-/* =========================================================
-   COMMON TOP SPACING
-   ========================================================= */
-
-.page-top {
-
-    width: 100%;
-
-    margin-top: 0;
-
-    margin-bottom: 20px;
-
-}
-
-
-/* =========================================================
-   COMMON TITLE
-   ========================================================= */
-
-.page-title {
-
-    width: 100%;
-
-    font-size: 22px;
-
-    font-weight: 700;
-
-    line-height: 1.3;
-
-    color: #3a2e2b;
-
-    margin-bottom: 6px;
-
-}
-
-
-.page-subtitle {
-
-    width: 100%;
-
-    font-size: 13px;
-
-    line-height: 1.5;
-
-    color: #7a6855;
-
-}
-
-
-/* =========================================================
-   COMMON FLEX HELPERS
-   ========================================================= */
-
-.flex {
-
-    display: flex;
-
-}
-
-
-.flex-center {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-}
-
-
-.flex-between {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-}
-
-
-.flex-column {
-
-    display: flex;
-
-    flex-direction: column;
-
-}
-
-
-/* =========================================================
-   COMMON WIDTH HELPERS
-   ========================================================= */
-
-.full-width {
-
-    width: 100%;
-
-}
-
-
-.text-center {
-
-    text-align: center;
-
-}
-
-
-/* =========================================================
-   COMMON SPACING
-   ========================================================= */
-
-.mt-10 {
-
-    margin-top: 10px;
-
-}
-
-
-.mt-20 {
-
-    margin-top: 20px;
-
-}
-
-
-.mb-10 {
-
-    margin-bottom: 10px;
-
-}
-
-
-.mb-20 {
-
-    margin-bottom: 20px;
-
-}
-
-
-/* =========================================================
-   HIDDEN
-   ========================================================= */
-
-.hidden {
-
-    display: none !important;
-
-}
-
-
-/* =========================================================
-   LOADING STATE
-   ========================================================= */
-
-.loading {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    width: 100%;
-
-    min-height: 100px;
-
-    color: #7a6855;
-
-    font-size: 14px;
-
-}
-
-
-/* =========================================================
-   ERROR MESSAGE
-   ========================================================= */
-
-.error-message {
-
-    width: 100%;
-
-    padding: 12px;
-
-    border-radius: 10px;
-
-    background:
-        #ffebee;
-
-    color:
-        #c62828;
-
-    border:
-        1px solid
-        #ef9a9a;
-
-    font-size: 13px;
-
-    text-align: center;
-
-}
-
-
-/* =========================================================
-   SUCCESS MESSAGE
-   ========================================================= */
-
-.success-message {
-
-    width: 100%;
-
-    padding: 12px;
-
-    border-radius: 10px;
-
-    background:
-        #e8f5e9;
-
-    color:
-        #2e7d32;
-
-    border:
-        1px solid
-        #81c784;
-
-    font-size: 13px;
-
-    text-align: center;
-
-}
-
-
-/* =========================================================
-   SCROLLBAR
-   ========================================================= */
-
-::-webkit-scrollbar {
-
-    width: 6px;
-
-}
-
-
-::-webkit-scrollbar-track {
-
-    background:
-        #f5d99b;
-
-}
-
-
-::-webkit-scrollbar-thumb {
-
-    background:
-        #d19b4a;
-
-    border-radius:
-        10px;
-
-}
-
-
-/* =========================================================
-   FINAL MOBILE LAYOUT
-   ========================================================= */
-
-@media (
-    max-width: 420px
-) {
-
-    .home-page,
-    .qr-page,
-    .history-page,
-    .menu-page,
-    .feedback-page,
-    .profile-page {
-
-        width: 100%;
-
-        max-width: 420px;
-
-        padding:
-            16px
-            16px
-            30px;
-
-    }
-
-
-    .page-title {
+        border-radius:
+            14px;
 
         font-size:
             21px;
@@ -1075,157 +724,1049 @@ main {
     }
 
 
-    .page-subtitle {
+    /* =====================================
+       DASHBOARD TITLE
+    ===================================== */
+
+    .app-header-content h1 {
+
+        font-size:
+            21px;
+
+        line-height:
+            1.2;
+
+    }
+
+
+    /* =====================================
+       DASHBOARD SUBTITLE
+    ===================================== */
+
+    .app-header-content p {
+
+        margin-top:
+            4px;
+
+        font-size:
+            11px;
+
+        line-height:
+            1.4;
+
+    }
+
+
+    /* =====================================
+       COMMON CARD
+    ===================================== */
+
+    .app-card {
+
+        border-radius:
+            18px;
+
+    }
+
+
+    /* =====================================
+       BOTTOM NAVIGATION
+    ===================================== */
+
+    .bottom-nav {
+
+        width:
+            100%;
+
+        max-width:
+            100%;
+
+        height:
+            74px;
+
+        padding:
+
+            7px
+
+            4px;
+
+    }
+
+
+    /* =====================================
+       NAVIGATION ITEM
+    ===================================== */
+
+    .bottom-nav .nav-item {
+
+        height:
+            58px;
+
+        gap:
+            4px;
+
+        font-size:
+            9px;
+
+        border-radius:
+            10px;
+
+    }
+
+
+    /* =====================================
+       NAVIGATION ICON
+    ===================================== */
+
+    .bottom-nav .nav-item i {
+
+        width:
+            21px;
+
+        height:
+            21px;
+
+        font-size:
+            19px;
+
+    }
+
+
+    /* =====================================
+       NAVIGATION TEXT
+    ===================================== */
+
+    .bottom-nav .nav-item span {
+
+        font-size:
+            9px;
+
+    }
+
+
+    /* =====================================
+       NAVIGATION SAFE SPACE
+    ===================================== */
+
+    .nav-space {
+
+        height:
+            92px;
+
+    }
+
+
+}
+
+
+/* =========================================
+   VERY SMALL PHONES
+   UP TO 360px
+========================================= */
+
+@media screen and (max-width: 360px) {
+
+
+    /* =====================================
+       MAIN PAGE
+    ===================================== */
+
+    .page {
+
+        padding:
+
+            12px
+
+            10px
+
+            94px;
+
+    }
+
+
+    /* =====================================
+       DASHBOARD
+    ===================================== */
+
+    .app-header {
+
+        min-height:
+            80px;
+
+        gap:
+            10px;
+
+        padding:
+            12px;
+
+    }
+
+
+    /* =====================================
+       DASHBOARD ICON
+    ===================================== */
+
+    .app-header-icon {
+
+        width:
+            44px;
+
+        height:
+            44px;
+
+        min-width:
+            44px;
+
+        border-radius:
+            12px;
+
+        font-size:
+            19px;
+
+    }
+
+
+    /* =====================================
+       DASHBOARD TITLE
+    ===================================== */
+
+    .app-header-content h1 {
+
+        font-size:
+            18px;
+
+    }
+
+
+    /* =====================================
+       DASHBOARD SUBTITLE
+    ===================================== */
+
+    .app-header-content p {
+
+        font-size:
+            10px;
+
+    }
+
+
+    /* =====================================
+       BOTTOM NAVIGATION
+    ===================================== */
+
+    .bottom-nav {
+
+        height:
+            70px;
+
+        padding:
+
+            6px
+
+            2px;
+
+    }
+
+
+    /* =====================================
+       NAV ITEM
+    ===================================== */
+
+    .bottom-nav .nav-item {
+
+        height:
+            56px;
+
+        gap:
+            3px;
+
+        font-size:
+            8px;
+
+        border-radius:
+            8px;
+
+    }
+
+
+    /* =====================================
+       NAV ICON
+    ===================================== */
+
+    .bottom-nav .nav-item i {
+
+        width:
+            20px;
+
+        height:
+            20px;
+
+        font-size:
+            17px;
+
+    }
+
+
+    /* =====================================
+       NAV TEXT
+    ===================================== */
+
+    .bottom-nav .nav-item span {
+
+        font-size:
+            8px;
+
+    }
+
+
+    /* =====================================
+       NAV SPACE
+    ===================================== */
+
+    .nav-space {
+
+        height:
+            88px;
+
+    }
+
+
+}
+
+
+/* =========================================
+   END COMMON.CSS PART 2/4
+========================================= */
+/* =========================================
+   RIO MAGGI POINT
+   COMMON.CSS
+   COMMON BOTTOM NAVIGATION
+   PART 3/4
+   TABLET + LAPTOP + DESKTOP RESPONSIVE
+========================================= */
+
+
+/* =========================================
+   TABLET DEVICES
+   481px - 768px
+========================================= */
+
+@media screen and (min-width: 481px)
+and (max-width: 768px) {
+
+
+    /* =====================================
+       MAIN PAGE
+    ===================================== */
+
+    .page {
+
+        max-width:
+            520px;
+
+        padding:
+
+            20px
+
+            20px
+
+            110px;
+
+    }
+
+
+    /* =====================================
+       COMMON DASHBOARD
+    ===================================== */
+
+    .app-header {
+
+        min-height:
+            92px;
+
+        padding:
+            18px;
+
+        border-radius:
+            20px;
+
+    }
+
+
+    /* =====================================
+       DASHBOARD ICON
+    ===================================== */
+
+    .app-header-icon {
+
+        width:
+            54px;
+
+        height:
+            54px;
+
+        min-width:
+            54px;
+
+        font-size:
+            24px;
+
+    }
+
+
+    /* =====================================
+       DASHBOARD TITLE
+    ===================================== */
+
+    .app-header-content h1 {
+
+        font-size:
+            24px;
+
+    }
+
+
+    /* =====================================
+       DASHBOARD SUBTITLE
+    ===================================== */
+
+    .app-header-content p {
 
         font-size:
             12px;
 
     }
 
-}
 
+    /* =====================================
+       BOTTOM NAVIGATION
+    ===================================== */
 
-/* =========================================================
-   VERY SMALL MOBILE
-   ========================================================= */
+    .bottom-nav {
 
-@media (
-    max-width: 360px
-) {
+        width:
+            100%;
 
-    .home-page,
-    .qr-page,
-    .history-page,
-    .menu-page,
-    .feedback-page,
-    .profile-page {
+        max-width:
+            520px;
+
+        height:
+            78px;
 
         padding:
-            14px
-            14px
-            28px;
+
+            8px
+
+            6px;
 
     }
 
 
-    .page-title {
+    /* =====================================
+       NAV ITEM
+    ===================================== */
+
+    .bottom-nav .nav-item {
+
+        height:
+            60px;
+
+        gap:
+            4px;
+
+        font-size:
+            10px;
+
+    }
+
+
+    /* =====================================
+       NAV ICON
+    ===================================== */
+
+    .bottom-nav .nav-item i {
+
+        width:
+            22px;
+
+        height:
+            22px;
 
         font-size:
             20px;
 
     }
 
+
+    /* =====================================
+       NAV SPACE
+    ===================================== */
+
+    .nav-space {
+
+        height:
+            100px;
+
+    }
+
+
 }
 
 
-/* =========================================================
-   PREVENT CONTENT FROM HIDING BEHIND NAVIGATION
-   ========================================================= */
+/* =========================================
+   LAPTOP DEVICES
+   769px - 1200px
+========================================= */
 
-body > *:last-child {
+@media screen and (min-width: 769px)
+and (max-width: 1200px) {
 
-    margin-bottom:
+
+    /* =====================================
+       MAIN PAGE
+    ===================================== */
+
+    .page {
+
+        max-width:
+            520px;
+
+        padding:
+
+            20px
+
+            20px
+
+            110px;
+
+    }
+
+
+    /* =====================================
+       COMMON DASHBOARD
+    ===================================== */
+
+    .app-header {
+
+        min-height:
+            92px;
+
+        padding:
+            18px;
+
+    }
+
+
+    /* =====================================
+       DASHBOARD ICON
+    ===================================== */
+
+    .app-header-icon {
+
+        width:
+            54px;
+
+        height:
+            54px;
+
+        min-width:
+            54px;
+
+        font-size:
+            24px;
+
+    }
+
+
+    /* =====================================
+       DASHBOARD TITLE
+    ===================================== */
+
+    .app-header-content h1 {
+
+        font-size:
+            24px;
+
+    }
+
+
+    /* =====================================
+       DASHBOARD SUBTITLE
+    ===================================== */
+
+    .app-header-content p {
+
+        font-size:
+            12px;
+
+    }
+
+
+    /* =====================================
+       BOTTOM NAVIGATION
+    ===================================== */
+
+    .bottom-nav {
+
+        width:
+            100%;
+
+        max-width:
+            520px;
+
+        height:
+            78px;
+
+    }
+
+
+    /* =====================================
+       NAVIGATION ITEM
+    ===================================== */
+
+    .bottom-nav .nav-item {
+
+        height:
+            60px;
+
+        font-size:
+            10px;
+
+    }
+
+
+    /* =====================================
+       NAVIGATION ICON
+    ===================================== */
+
+    .bottom-nav .nav-item i {
+
+        font-size:
+            20px;
+
+    }
+
+
+    /* =====================================
+       NAV SPACE
+    ===================================== */
+
+    .nav-space {
+
+        height:
+            100px;
+
+    }
+
+
+}
+
+
+/* =========================================
+   DESKTOP / PC
+   1201px AND ABOVE
+========================================= */
+
+@media screen and (min-width: 1201px) {
+
+
+    /* =====================================
+       MAIN PAGE
+    ===================================== */
+
+    .page {
+
+        max-width:
+            520px;
+
+        padding:
+
+            20px
+
+            20px
+
+            110px;
+
+    }
+
+
+    /* =====================================
+       COMMON DASHBOARD
+    ===================================== */
+
+    .app-header {
+
+        min-height:
+            92px;
+
+        padding:
+            18px;
+
+    }
+
+
+    /* =====================================
+       DASHBOARD ICON
+    ===================================== */
+
+    .app-header-icon {
+
+        width:
+            54px;
+
+        height:
+            54px;
+
+        min-width:
+            54px;
+
+        font-size:
+            24px;
+
+    }
+
+
+    /* =====================================
+       DASHBOARD TITLE
+    ===================================== */
+
+    .app-header-content h1 {
+
+        font-size:
+            24px;
+
+    }
+
+
+    /* =====================================
+       DASHBOARD SUBTITLE
+    ===================================== */
+
+    .app-header-content p {
+
+        font-size:
+            12px;
+
+    }
+
+
+    /* =====================================
+       BOTTOM NAVIGATION
+    ===================================== */
+
+    .bottom-nav {
+
+        width:
+            520px;
+
+        max-width:
+            520px;
+
+        height:
+            78px;
+
+    }
+
+
+    /* =====================================
+       NAVIGATION ITEM
+    ===================================== */
+
+    .bottom-nav .nav-item {
+
+        height:
+            60px;
+
+        font-size:
+            10px;
+
+    }
+
+
+    /* =====================================
+       NAVIGATION ICON
+    ===================================== */
+
+    .bottom-nav .nav-item i {
+
+        font-size:
+            20px;
+
+    }
+
+
+    /* =====================================
+       NAV SPACE
+    ===================================== */
+
+    .nav-space {
+
+        height:
+            100px;
+
+    }
+
+
+}
+
+
+/* =========================================
+   END COMMON.CSS PART 3/4
+========================================= */
+/* =========================================
+   RIO MAGGI POINT
+   COMMON.CSS
+   COMMON BOTTOM NAVIGATION
+   PART 4/4
+   FINAL FIX + TOUCH + STABILITY
+========================================= */
+
+
+/* =========================================
+   PREVENT NAVIGATION OVERFLOW
+========================================= */
+
+.bottom-nav {
+
+    overflow:
+        hidden;
+
+    isolation:
+        isolate;
+
+}
+
+
+/* =========================================
+   NAVIGATION ITEM TOUCH AREA
+========================================= */
+
+.bottom-nav .nav-item {
+
+    position:
+        relative;
+
+    min-width:
+        0;
+
+    user-select:
+        none;
+
+    -webkit-user-select:
+        none;
+
+    -webkit-tap-highlight-color:
+        transparent;
+
+    touch-action:
+        manipulation;
+
+}
+
+
+/* =========================================
+   REMOVE DEFAULT LINK OUTLINE
+========================================= */
+
+.bottom-nav .nav-item:focus {
+
+    outline:
+        none;
+
+}
+
+
+/* =========================================
+   ACCESSIBILITY FOCUS
+========================================= */
+
+.bottom-nav .nav-item:focus-visible {
+
+    outline:
+
+        2px solid
+
+        var(--gold);
+
+    outline-offset:
+        -2px;
+
+}
+
+
+/* =========================================
+   ACTIVE NAVIGATION STABILITY
+========================================= */
+
+.bottom-nav .nav-item.active {
+
+    transform:
+        none;
+
+}
+
+
+/* =========================================
+   ACTIVE NAVIGATION HOVER
+========================================= */
+
+.bottom-nav .nav-item.active:hover {
+
+    transform:
+        none;
+
+}
+
+
+/* =========================================
+   DISABLE TEXT SELECTION
+========================================= */
+
+.bottom-nav .nav-item span,
+.bottom-nav .nav-item i {
+
+    pointer-events:
+        none;
+
+}
+
+
+/* =========================================
+   SAFE AREA FOR MODERN MOBILE DEVICES
+========================================= */
+
+@supports (
+    padding-bottom:
+    env(safe-area-inset-bottom)
+) {
+
+    .bottom-nav {
+
+        padding-bottom:
+
+            calc(
+
+                8px
+
+                +
+
+                env(
+                    safe-area-inset-bottom
+                )
+
+            );
+
+    }
+
+}
+
+
+/* =========================================
+   MOBILE SAFE AREA
+========================================= */
+
+@media screen and (max-width: 480px) {
+
+    .bottom-nav {
+
+        padding-bottom:
+
+            calc(
+
+                7px
+
+                +
+
+                env(
+                    safe-area-inset-bottom
+                )
+
+            );
+
+    }
+
+}
+
+
+/* =========================================
+   SMALL PHONE SAFE AREA
+========================================= */
+
+@media screen and (max-width: 360px) {
+
+    .bottom-nav {
+
+        padding-bottom:
+
+            calc(
+
+                6px
+
+                +
+
+                env(
+                    safe-area-inset-bottom
+                )
+
+            );
+
+    }
+
+}
+
+
+/* =========================================
+   PREVENT CONTENT FROM HIDING
+   BEHIND FIXED NAVIGATION
+========================================= */
+
+body {
+
+    padding-bottom:
         0;
 
 }
 
 
-.bottom-nav {
+/* =========================================
+   COMMON PAGE BOTTOM SPACE
+========================================= */
 
-    flex-shrink: 0;
+.page {
 
-}
-
-
-/* =========================================================
-   FINAL NAVIGATION OVERRIDE
-   ========================================================= */
-
-nav.bottom-nav {
-
-    position: fixed !important;
-
-    left: 50% !important;
-
-    bottom: 0 !important;
-
-    transform:
-        translateX(-50%) !important;
-
-    width: 100% !important;
-
-    max-width: 420px !important;
-
-    z-index: 99999 !important;
+    padding-bottom:
+        var(--page-bottom-space);
 
 }
 
 
-/* =========================================================
-   PREVENT OLD NAVIGATION STYLES
-   ========================================================= */
+/* =========================================
+   NAV SPACE FINAL SAFETY
+========================================= */
 
-nav.bottom-nav a {
+.nav-space {
 
-    text-decoration:
-        none !important;
-
-}
-
-
-nav.bottom-nav button {
-
-    width:
-        auto !important;
-
-    margin:
-        0 !important;
-
-    padding:
-        4px
-        2px !important;
-
-    background:
-        transparent !important;
-
-    border:
-        none !important;
-
-}
-
-
-/* =========================================================
-   FINAL BOX SIZING
-   ========================================================= */
-
-.container,
-.app-container,
-.page-container,
-.main-container,
-.home-page,
-.qr-page,
-.history-page,
-.menu-page,
-.feedback-page,
-.profile-page {
-
-    box-sizing:
-        border-box;
-
-}
-
-
-/* =========================================================
-   FINAL BODY WIDTH CONTROL
-   ========================================================= */
-
-body {
+    display:
+        block;
 
     width:
         100%;
 
+    min-height:
+        var(--page-bottom-space);
+
+}
+
+
+/* =========================================
+   DISABLE HORIZONTAL SCROLL
+========================================= */
+
+html,
+body {
+
     max-width:
-        100vw;
+        100%;
 
     overflow-x:
         hidden;
@@ -1233,29 +1774,180 @@ body {
 }
 
 
-/* =========================================================
-   COMMON LINK RESET
-   ========================================================= */
+/* =========================================
+   PREVENT FIXED NAV FROM MOVING
+========================================= */
 
-a {
+.bottom-nav {
 
-    color:
-        inherit;
+    will-change:
+        transform;
+
+    backface-visibility:
+        hidden;
+
+    -webkit-backface-visibility:
+        hidden;
+
+}
+
+
+/* =========================================
+   TOUCH DEVICE HOVER FIX
+========================================= */
+
+@media (hover: none) {
+
+    .bottom-nav .nav-item:hover {
+
+        color:
+            var(--gold);
+
+        opacity:
+            .72;
+
+        transform:
+            none;
+
+    }
+
+    .bottom-nav .nav-item.active:hover {
+
+        color:
+            var(--white);
+
+        opacity:
+            1;
+
+        transform:
+            none;
+
+    }
 
 }
 
 
-/* =========================================================
-   FINAL TOUCH
-   ========================================================= */
+/* =========================================
+   REDUCE MOTION SUPPORT
+========================================= */
 
-button,
-a,
-input,
-textarea,
-select {
+@media (
+    prefers-reduced-motion:
+    reduce
+) {
 
-    -webkit-tap-highlight-color:
-        transparent;
+    html {
+
+        scroll-behavior:
+            auto;
+
+    }
+
+    .bottom-nav .nav-item {
+
+        transition:
+            none;
+
+    }
 
 }
+
+
+/* =========================================
+   FINAL NAVIGATION LAYER
+========================================= */
+
+.bottom-nav {
+
+    pointer-events:
+        auto;
+
+}
+
+
+/* =========================================
+   FINAL Z-INDEX PROTECTION
+========================================= */
+
+.bottom-nav,
+.bottom-nav .nav-item {
+
+    isolation:
+        isolate;
+
+}
+
+
+/* =========================================
+   FINAL RESPONSIVE WIDTH
+========================================= */
+
+@media screen and (max-width: 520px) {
+
+    .bottom-nav {
+
+        left:
+            0;
+
+        transform:
+            none;
+
+        width:
+            100%;
+
+        max-width:
+            100%;
+
+    }
+
+}
+
+
+/* =========================================
+   TABLET AND ABOVE
+========================================= */
+
+@media screen and (min-width: 521px) {
+
+    .bottom-nav {
+
+        left:
+            50%;
+
+        transform:
+            translateX(-50%);
+
+        width:
+            100%;
+
+        max-width:
+            520px;
+
+    }
+
+}
+
+
+/* =========================================
+   FINAL END
+========================================= */
+
+.bottom-nav {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-around;
+
+}
+
+
+/* =========================================
+   END COMMON.CSS
+   COMMON BOTTOM NAVIGATION COMPLETE
+   PART 4/4
+========================================= */
