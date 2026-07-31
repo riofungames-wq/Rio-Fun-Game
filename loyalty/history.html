@@ -1,4 +1,12 @@
+<!-- =========================================
+     RIO MAGGI POINT
+     HISTORY.HTML
+     PART 1/3
+     PREMIUM LOYALTY HISTORY DASHBOARD
+========================================= -->
+
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -7,8 +15,7 @@
 
 <meta
 name="viewport"
-content="width=device-width, initial-scale=1.0"
->
+content="width=device-width, initial-scale=1.0">
 
 <title>
 Rio Maggi Point • Loyalty History
@@ -16,54 +23,44 @@ Rio Maggi Point • Loyalty History
 
 <meta
 name="theme-color"
-content="#263525"
->
+content="#263525">
 
 <meta
 name="description"
-content="Rio Maggi Point Premium Loyalty Purchase History"
->
+content="Rio Maggi Point Premium Loyalty History">
 
 <link
 rel="manifest"
-href="manifest.json"
->
+href="manifest.json">
 
 <link
 rel="icon"
-href="favicon.ico"
->
+href="favicon.ico">
+
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com">
 
 <link
 rel="preconnect"
 href="https://fonts.googleapis.com"
->
+crossorigin>
 
 <link
-rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin
->
-
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;500;600;700;800&display=swap"
-rel="stylesheet"
->
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
 
 <link
 rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
->
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 <link
 rel="stylesheet"
-href="css/common.css"
->
+href="css/common.css">
 
 <link
 rel="stylesheet"
-href="css/history.css"
->
+href="css/history.css">
 
 </head>
 
@@ -71,48 +68,47 @@ href="css/history.css"
 <body>
 
 
-<!-- =====================================
-     MAIN APP WRAPPER
-===================================== -->
+<!-- =========================================
+     MAIN HISTORY PAGE
+========================================= -->
 
-<div class="app-wrapper">
-
-
-<!-- =====================================
-     HISTORY PAGE CONTAINER
-===================================== -->
-
-<main class="history-page">
+<main class="history-page app-page">
 
 
-<!-- =====================================
-     PAGE HEADER
-===================================== -->
+<!-- =========================================
+     HISTORY DASHBOARD HEADER
+========================================= -->
 
-<header class="page-header">
+<header
+class="profile-header app-card">
 
 
-<div class="header-icon">
+<div
+class="profile-header-icon">
 
 <i class="fa-solid fa-clock-rotate-left"></i>
 
 </div>
 
 
-<div class="header-content">
+<div
+class="profile-header-content">
+
 
 <h1>
 
-Loyalty History
+LOYALTY
+<span>HISTORY</span>
 
 </h1>
 
 
 <p>
 
-Your Rio Maggi Point activity
+Track your daily stamps and rewards
 
 </p>
+
 
 </div>
 
@@ -120,87 +116,35 @@ Your Rio Maggi Point activity
 </header>
 
 
-<!-- =====================================
-     CUSTOMER SUMMARY CARD
-===================================== -->
 
-<section class="summary-card">
+<!-- =========================================
+     LOYALTY SUMMARY
+========================================= -->
 
-
-<div class="summary-profile">
-
-
-<div class="summary-avatar">
-
-<img
-id="customerPhoto"
-src="assets/avatars/male.png"
-alt="Customer"
->
+<section
+class="history-summary app-card">
 
 
-</div>
+<div
+class="summary-item">
 
 
-<div class="summary-user">
+<div
+class="summary-icon">
 
-
-<h2
-id="customerName">
-
-Loading...
-
-</h2>
-
-
-<p
-id="customerMemberId">
-
-RIO-000000
-
-</p>
-
+<i class="fa-solid fa-star"></i>
 
 </div>
 
 
-</div>
+<div
+class="summary-content">
 
 
-<!-- =====================================
-     STAMP SUMMARY
-===================================== -->
+<span
+class="summary-label">
 
-<div class="stamp-summary">
-
-
-<div class="summary-item">
-
-
-<span class="summary-label">
-
-Current Stamps
-
-</span>
-
-
-<strong
-id="currentStamps">
-
-0 / 6
-
-</strong>
-
-
-</div>
-
-
-<div class="summary-item">
-
-
-<span class="summary-label">
-
-Total Stamps
+TOTAL STAMPS
 
 </span>
 
@@ -216,18 +160,36 @@ id="totalStamps">
 </div>
 
 
-<div class="summary-item">
+</div>
 
 
-<span class="summary-label">
 
-Free Maggi
+<div
+class="summary-item">
+
+
+<div
+class="summary-icon">
+
+<i class="fa-solid fa-gift"></i>
+
+</div>
+
+
+<div
+class="summary-content">
+
+
+<span
+class="summary-label">
+
+REWARDS
 
 </span>
 
 
 <strong
-id="freeMaggiCount">
+id="totalRewards">
 
 0
 
@@ -243,91 +205,42 @@ id="freeMaggiCount">
 </section>
 
 
-<!-- =====================================
-     HISTORY TITLE
-===================================== -->
 
-<section class="history-section">
+<!-- =========================================
+     HISTORY INFORMATION
+========================================= -->
+
+<section
+class="history-info app-card">
 
 
-<div class="section-heading">
+<div
+class="history-info-icon">
+
+<i class="fa-solid fa-calendar-check"></i>
+
+</div>
 
 
-<div>
+<div
+class="history-info-content">
+
 
 <h2>
 
-Activity History
+Daily Loyalty Stamps
 
 </h2>
 
 
 <p>
 
-Your latest loyalty activity
+Only one loyalty stamp can be earned per purchase day.
+
+Multiple purchases on the same day will still count as only one daily stamp.
 
 </p>
 
-</div>
-
-
-<i class="fa-solid fa-list-check"></i>
-
-
-</div>
-
-
-<!-- =====================================
-     LOADING MESSAGE
-===================================== -->
-
-<div
-id="historyLoading"
-class="history-message">
-
-<i class="fa-solid fa-spinner fa-spin"></i>
-
-Loading your history...
-
-</div>
-
-
-<!-- =====================================
-     EMPTY HISTORY
-===================================== -->
-
-<div
-id="historyEmpty"
-class="history-message"
-style="display:none;"
->
-
-<i class="fa-solid fa-clock"></i>
-
-<p>
-
-No loyalty activity yet.
-
-</p>
-
-
-<span>
-
-Your stamp activity will appear here after your first purchase.
-
-</span>
-
-</div>
-
-
-<!-- =====================================
-     HISTORY LIST
-===================================== -->
-
-<div
-id="historyList"
-class="history-list"
->
 
 </div>
 
@@ -335,115 +248,424 @@ class="history-list"
 </section>
 
 
+
+<!-- =========================================
+     HISTORY LIST
+========================================= -->
+
+<section
+class="history-list-section app-card">
+
+
+<div
+class="history-section-title">
+
+
+<div
+class="history-section-icon">
+
+<i class="fa-solid fa-list-check"></i>
+
+</div>
+
+
+<h2>
+
+Stamp History
+
+</h2>
+
+
+</div>
+
+
+
 <!-- =====================================
+     LOADING STATE
+===================================== -->
+
+<div
+id="historyLoading"
+class="history-loading">
+
+
+<i
+class="fa-solid fa-spinner fa-spin"></i>
+
+
+<span>
+
+Loading your loyalty history...
+
+</span>
+
+
+</div>
+
+
+
+<!-- =====================================
+     EMPTY STATE
+===================================== -->
+
+<div
+id="historyEmpty"
+class="history-empty"
+style="display:none;">
+
+
+<div
+class="empty-icon">
+
+<i class="fa-solid fa-receipt"></i>
+
+</div>
+
+
+<h3>
+
+No Loyalty History Yet
+
+</h3>
+
+
+<p>
+
+Your daily loyalty stamps will appear here after your first purchase.
+
+</p>
+
+
+</div>
+
+
+
+<!-- =====================================
+     HISTORY ITEMS
+===================================== -->
+
+<div
+id="historyContainer"
+class="history-container">
+
+
+<!-- Firebase history items will appear here -->
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =========================================
      NAVIGATION SAFE SPACE
-===================================== -->
+========================================= -->
 
-<div class="nav-space"></div>
+<div
+class="nav-space">
+</div>
 
 
-</main>
+
+<!-- =========================================
+     END HISTORY.HTML PART 1/3
+========================================= -->
+     <!-- =========================================
+     RIO MAGGI POINT
+     HISTORY.HTML
+     PART 2/3
+     HISTORY UI + FIXED NAVIGATION
+========================================= -->
+
+
+<!-- =========================================
+     REWARD UNLOCKED CARD
+========================================= -->
+
+<section
+id="rewardUnlockedCard"
+class="reward-unlocked-card app-card"
+style="display:none;">
+
+
+<div
+class="reward-unlocked-icon">
+
+<i class="fa-solid fa-gift"></i>
+
+</div>
+
+
+<div
+class="reward-unlocked-content">
+
+
+<h2>
+
+FREE VEG MAGGI UNLOCKED!
+
+</h2>
+
+
+<p>
+
+Congratulations! You completed 6 loyalty stamps.
+
+</p>
+
+
+<span>
+
+Show your loyalty card at Rio Maggi Point to claim your reward.
+
+</span>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =========================================
+     HISTORY ITEM TEMPLATE AREA
+========================================= -->
+
+<section
+class="history-timeline-section app-card">
+
+
+<div
+class="history-section-title">
+
+
+<div
+class="history-section-icon">
+
+<i class="fa-solid fa-timeline"></i>
+
+</div>
+
+
+<h2>
+
+Your Loyalty Journey
+
+</h2>
+
+
+</div>
+
+
+<div
+class="history-timeline">
 
 
 <!-- =====================================
-     FIXED PREMIUM BOTTOM NAVIGATION
+     TIMELINE ITEM
+     GENERATED BY JAVASCRIPT
 ===================================== -->
 
-<nav class="bottom-nav">
+<div
+id="timelineContainer">
 
 
-<!-- HOME -->
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =========================================
+     DAILY STAMP REMINDER
+========================================= -->
+
+<section
+class="daily-reminder-card app-card">
+
+
+<div
+class="daily-reminder-icon">
+
+<i class="fa-solid fa-calendar-day"></i>
+
+</div>
+
+
+<div
+class="daily-reminder-content">
+
+
+<h3>
+
+One Day • One Stamp
+
+</h3>
+
+
+<p>
+
+You can make multiple purchases in one day, but you can earn only one loyalty stamp for that day.
+
+</p>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =========================================
+     FIXED COMMON BOTTOM NAVIGATION
+========================================= -->
+
+<nav
+class="bottom-nav"
+id="commonBottomNav">
+
+
+<!-- =====================================
+     HOME
+===================================== -->
 
 <a
 href="card.html"
-class="nav-item"
->
+class="nav-item">
+
 
 <i class="fa-solid fa-house"></i>
 
+
 <span>
+
 Home
+
 </span>
+
 
 </a>
 
 
-<!-- QR -->
+
+<!-- =====================================
+     QR
+===================================== -->
 
 <a
 href="qr.html"
-class="nav-item"
->
+class="nav-item">
+
 
 <i class="fa-solid fa-qrcode"></i>
 
+
 <span>
+
 QR
+
 </span>
+
 
 </a>
 
 
-<!-- HISTORY -->
+
+<!-- =====================================
+     HISTORY
+===================================== -->
 
 <a
 href="history.html"
-class="nav-item active"
->
+class="nav-item active">
+
 
 <i class="fa-solid fa-clock-rotate-left"></i>
 
+
 <span>
+
 History
+
 </span>
+
 
 </a>
 
 
-<!-- MENU -->
+
+<!-- =====================================
+     MENU
+===================================== -->
 
 <a
 href="menu.html"
-class="nav-item"
->
+class="nav-item">
+
 
 <i class="fa-solid fa-utensils"></i>
 
+
 <span>
+
 Menu
+
 </span>
+
 
 </a>
 
 
-<!-- REVIEW -->
+
+<!-- =====================================
+     REVIEW
+===================================== -->
 
 <a
 href="feedback.html"
-class="nav-item"
->
+class="nav-item">
+
 
 <i class="fa-solid fa-heart"></i>
 
+
 <span>
+
 Review
+
 </span>
+
 
 </a>
 
 
-<!-- PROFILE -->
+
+<!-- =====================================
+     PROFILE
+===================================== -->
 
 <a
 href="profile.html"
-class="nav-item"
->
+class="nav-item">
+
 
 <i class="fa-solid fa-user"></i>
 
+
 <span>
+
 Profile
+
 </span>
+
 
 </a>
 
@@ -451,845 +673,28 @@ Profile
 </nav>
 
 
-</div>
 
-
-<!-- =====================================
-     FIREBASE SCRIPT
-     PART 2 WILL GO HERE
-===================================== -->
-
-<script
-type="module"
-src="js/history.js"
-></script>
-
-
-</body>
-
-</html>
-<!-- =====================================
-     HISTORY.HTML — PART 2
-     RESPONSIVE CSS + FIREBASE
-===================================== -->
-
-
-<style>
-
-/* =====================================
-   ROOT
-===================================== */
-
-:root {
-
-    --primary-bg: #f5d99b;
-
-    --card-bg: #fff8e7;
-
-    --dark-green: #263525;
-
-    --accent: #d19b4a;
-
-    --gold: #ffd54f;
-
-    --red: #c62828;
-
-    --text-dark: #3a2e2b;
-
-    --text-muted: #7a6855;
-
-}
-
-
-/* =====================================
-   RESET
-===================================== */
-
-* {
-
-    margin: 0;
-
-    padding: 0;
-
-    box-sizing: border-box;
-
-    font-family: 'Poppins', sans-serif;
-
-}
-
-
-/* =====================================
-   BODY
-===================================== */
-
-body {
-
-    min-height: 100vh;
-
-    background: var(--primary-bg);
-
-    color: var(--text-dark);
-
-}
-
-
-/* =====================================
-   APP WRAPPER
-===================================== */
-
-.app-wrapper {
-
-    width: 100%;
-
-    min-height: 100vh;
-
-    display: flex;
-
-    justify-content: center;
-
-}
-
-
-/* =====================================
-   HISTORY PAGE
-===================================== */
-
-.history-page {
-
-    width: 100%;
-
-    max-width: 520px;
-
-    min-height: 100vh;
-
-    padding: 24px 20px 110px;
-
-}
-
-
-/* =====================================
-   PAGE HEADER
-===================================== */
-
-.page-header {
-
-    width: 100%;
-
-    min-height: 86px;
-
-    background: var(--dark-green);
-
-    border-radius: 20px;
-
-    padding: 18px 20px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-    color: white;
-
-    box-shadow:
-
-        0 10px 25px
-        rgba(0,0,0,.15);
-
-}
-
-
-.header-icon {
-
-    width: 52px;
-
-    height: 52px;
-
-    min-width: 52px;
-
-    border-radius: 15px;
-
-    background: var(--gold);
-
-    color: var(--dark-green);
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    font-size: 24px;
-
-}
-
-
-.header-content h1 {
-
-    font-size: 23px;
-
-    font-weight: 800;
-
-}
-
-
-.header-content p {
-
-    font-size: 12px;
-
-    color: #e9e9e9;
-
-    margin-top: 3px;
-
-}
-
-
-/* =====================================
-   SUMMARY CARD
-===================================== */
-
-.summary-card {
-
-    width: 100%;
-
-    margin-top: 20px;
-
-    background: var(--card-bg);
-
-    border: 2px solid var(--accent);
-
-    border-radius: 20px;
-
-    padding: 20px;
-
-    box-shadow:
-
-        0 10px 25px
-        rgba(0,0,0,.10);
-
-}
-
-
-/* =====================================
-   PROFILE SUMMARY
-===================================== */
-
-.summary-profile {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-
-}
-
-
-.summary-avatar {
-
-    width: 62px;
-
-    height: 62px;
-
-    min-width: 62px;
-
-    border-radius: 50%;
-
-    overflow: hidden;
-
-    border: 2px solid var(--accent);
-
-    background: #fff;
-
-}
-
-
-.summary-avatar img {
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: cover;
-
-}
-
-
-.summary-user h2 {
-
-    font-size: 18px;
-
-    font-weight: 700;
-
-}
-
-
-.summary-user p {
-
-    font-size: 12px;
-
-    color: var(--text-muted);
-
-    margin-top: 3px;
-
-}
-
-
-/* =====================================
-   STAMP SUMMARY
-===================================== */
-
-.stamp-summary {
-
-    display: grid;
-
-    grid-template-columns:
-
-        repeat(3, 1fr);
-
-    gap: 10px;
-
-    margin-top: 20px;
-
-}
-
-
-.summary-item {
-
-    background: #fff;
-
-    border: 1px solid var(--accent);
-
-    border-radius: 12px;
-
-    padding: 12px 6px;
-
-    text-align: center;
-
-}
-
-
-.summary-label {
-
-    display: block;
-
-    font-size: 10px;
-
-    color: var(--text-muted);
-
-}
-
-
-.summary-item strong {
-
-    display: block;
-
-    margin-top: 5px;
-
-    font-size: 17px;
-
-    color: var(--dark-green);
-
-}
-
-
-/* =====================================
-   HISTORY SECTION
-===================================== */
-
-.history-section {
-
-    width: 100%;
-
-    margin-top: 20px;
-
-    background: var(--card-bg);
-
-    border: 2px solid var(--accent);
-
-    border-radius: 20px;
-
-    padding: 20px;
-
-}
-
-
-.section-heading {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    margin-bottom: 18px;
-
-}
-
-
-.section-heading h2 {
-
-    font-size: 19px;
-
-    color: var(--dark-green);
-
-}
-
-
-.section-heading p {
-
-    font-size: 11px;
-
-    color: var(--text-muted);
-
-    margin-top: 3px;
-
-}
-
-
-.section-heading > i {
-
-    font-size: 22px;
-
-    color: var(--accent);
-
-}
-
-
-/* =====================================
-   HISTORY LIST
-===================================== */
-
-.history-list {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 10px;
-
-}
-
-
-/* =====================================
-   HISTORY ITEM
-===================================== */
-
-.history-item {
-
-    width: 100%;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    padding: 14px;
-
-    background: #fff;
-
-    border: 1px solid #ead19e;
-
-    border-radius: 14px;
-
-}
-
-
-.history-icon {
-
-    width: 44px;
-
-    height: 44px;
-
-    min-width: 44px;
-
-    border-radius: 12px;
-
-    background: var(--dark-green);
-
-    color: var(--gold);
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    font-size: 18px;
-
-}
-
-
-.history-details {
-
-    flex: 1;
-
-    min-width: 0;
-
-}
-
-
-.history-details h3 {
-
-    font-size: 14px;
-
-    font-weight: 700;
-
-}
-
-
-.history-details p {
-
-    font-size: 10px;
-
-    color: var(--text-muted);
-
-    margin-top: 3px;
-
-}
-
-
-.history-value {
-
-    font-size: 13px;
-
-    font-weight: 700;
-
-    color: var(--red);
-
-}
-
-
-/* =====================================
-   LOADING / EMPTY
-===================================== */
-
-.history-message {
-
-    width: 100%;
-
-    padding: 28px 15px;
-
-    text-align: center;
-
-    color: var(--text-muted);
-
-    font-size: 13px;
-
-}
-
-
-.history-message i {
-
-    display: block;
-
-    font-size: 26px;
-
-    margin-bottom: 10px;
-
-    color: var(--accent);
-
-}
-
-
-.history-message span {
-
-    display: block;
-
-    font-size: 10px;
-
-    margin-top: 6px;
-
-}
-
-
-/* =====================================
-   NAVIGATION SAFE SPACE
-===================================== */
-
-.nav-space {
-
-    height: 90px;
-
-}
-
-
-/* =====================================
-   FIXED BOTTOM NAVIGATION
-===================================== */
-
-.bottom-nav {
-
-    position: fixed;
-
-    left: 50%;
-
-    bottom: 0;
-
-    transform: translateX(-50%);
-
-    width: 100%;
-
-    max-width: 520px;
-
-    height: 76px;
-
-    background: var(--dark-green);
-
-    border-top: 2px solid var(--accent);
-
-    display: flex;
-
-    justify-content: space-around;
-
-    align-items: center;
-
-    padding:
-
-        8px 6px;
-
-    z-index: 9999;
-
-    box-shadow:
-
-        0 -8px 25px
-        rgba(0,0,0,.20);
-
-}
-
-
-.nav-item {
-
-    flex: 1;
-
-    height: 60px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    align-items: center;
-
-    gap: 4px;
-
-    color: var(--gold);
-
-    text-decoration: none;
-
-    font-size: 10px;
-
-    font-weight: 600;
-
-    opacity: .65;
-
-    border-radius: 12px;
-
-    transition: .2s;
-
-}
-
-
-.nav-item i {
-
-    font-size: 19px;
-
-}
-
-
-.nav-item.active {
-
-    opacity: 1;
-
-    color: white;
-
-    background:
-
-        rgba(255,213,79,.12);
-
-}
-
-
-.nav-item:hover {
-
-    opacity: 1;
-
-}
-
-
-/* =====================================
-   TABLET
-===================================== */
-
-@media (min-width: 600px) {
-
-    .history-page {
-
-        max-width: 600px;
-
-        padding:
-
-            30px 28px 120px;
-
-    }
-
-
-    .bottom-nav {
-
-        max-width: 600px;
-
-    }
-
-
-    .page-header {
-
-        min-height: 92px;
-
-    }
-
-
-    .header-content h1 {
-
-        font-size: 26px;
-
-    }
-
-}
-
-
-/* =====================================
-   LAPTOP
-===================================== */
-
-@media (min-width: 1024px) {
-
-    .history-page {
-
-        max-width: 650px;
-
-        padding-top: 35px;
-
-    }
-
-
-    .bottom-nav {
-
-        max-width: 650px;
-
-    }
-
-
-    .summary-card,
-
-    .history-section {
-
-        padding: 24px;
-
-    }
-
-}
-
-
-/* =====================================
-   LARGE PC
-===================================== */
-
-@media (min-width: 1440px) {
-
-    .history-page {
-
-        max-width: 700px;
-
-    }
-
-
-    .bottom-nav {
-
-        max-width: 700px;
-
-    }
-
-}
-
-
-/* =====================================
-   SMALL MOBILE
-===================================== */
-
-@media (max-width: 380px) {
-
-    .history-page {
-
-        padding-left: 12px;
-
-        padding-right: 12px;
-
-    }
-
-
-    .page-header {
-
-        padding: 15px;
-
-    }
-
-
-    .header-icon {
-
-        width: 46px;
-
-        height: 46px;
-
-        min-width: 46px;
-
-    }
-
-
-    .header-content h1 {
-
-        font-size: 20px;
-
-    }
-
-
-    .nav-item {
-
-        font-size: 9px;
-
-    }
-
-
-    .nav-item i {
-
-        font-size: 17px;
-
-    }
-
-}
-
-</style>
-
-
-<!-- =====================================
+<!-- =========================================
+     END HISTORY.HTML PART 2/3
+========================================= -->
+     <!-- =========================================
+     RIO MAGGI POINT
+     HISTORY.HTML
+     PART 3/3
+     FIREBASE HISTORY + TIMELINE + END
+========================================= -->
+
+
+<!-- =========================================
      FIREBASE HISTORY SCRIPT
-===================================== -->
+========================================= -->
 
 <script type="module">
 
-/* =====================================
-   FIREBASE IMPORT
-===================================== */
 
-import {
-
-    firebaseConfig
-
-}
-
-from "./js/firebase-config.js";
-
+/* =========================================
+   FIREBASE IMPORTS
+========================================= */
 
 import {
 
@@ -1297,7 +702,9 @@ import {
 
 }
 
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+from
+
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
 
 import {
@@ -1308,12 +715,24 @@ import {
 
 }
 
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+from
+
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 
 import {
 
     getFirestore,
+
+    collection,
+
+    query,
+
+    where,
+
+    orderBy,
+
+    getDocs,
 
     doc,
 
@@ -1321,542 +740,181 @@ import {
 
 }
 
-from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+from
+
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 
-/* =====================================
-   INITIALIZE FIREBASE
-===================================== */
+import {
+
+    firebaseConfig
+
+}
+
+from
+
+"./js/firebase-config.js";
+
+
+
+/* =========================================
+   FIREBASE INITIALIZE
+========================================= */
 
 const app =
 
     initializeApp(
+
         firebaseConfig
+
     );
 
 
 const auth =
 
     getAuth(
+
         app
+
     );
 
 
 const db =
 
     getFirestore(
+
         app
+
     );
 
 
-/* =====================================
-   ELEMENTS
-===================================== */
 
-const customerPhoto =
-
-    document.getElementById(
-        "customerPhoto"
-    );
-
-
-const customerName =
-
-    document.getElementById(
-        "customerName"
-    );
-
-
-const customerMemberId =
-
-    document.getElementById(
-        "customerMemberId"
-    );
-
-
-const currentStamps =
-
-    document.getElementById(
-        "currentStamps"
-    );
-
-
-const totalStamps =
-
-    document.getElementById(
-        "totalStamps"
-    );
-
-
-const freeMaggiCount =
-
-    document.getElementById(
-        "freeMaggiCount"
-    );
-
+/* =========================================
+   HTML ELEMENTS
+========================================= */
 
 const historyLoading =
 
     document.getElementById(
+
         "historyLoading"
+
     );
 
 
 const historyEmpty =
 
     document.getElementById(
+
         "historyEmpty"
+
     );
 
 
-const historyList =
+const historyContainer =
 
     document.getElementById(
-        "historyList"
+
+        "historyContainer"
+
     );
 
 
-/* =====================================
-   AUTH CHECK
-===================================== */
+const timelineContainer =
 
-onAuthStateChanged(
+    document.getElementById(
 
-    auth,
+        "timelineContainer"
 
-    async (user) => {
-
-        if (!user) {
-
-            window.location.href =
-                "login.html";
-
-            return;
-
-        }
-
-
-        await loadCustomerHistory(
-            user.uid
-        );
-
-    }
-
-);
-
-
-/* =====================================
-   LOAD CUSTOMER HISTORY
-===================================== */
-
-async function loadCustomerHistory(
-    uid
-) {
-
-    try {
-
-        const customerRef =
-
-            doc(
-
-                db,
-
-                "customers",
-
-                uid
-
-            );
-
-
-        const customerSnap =
-
-            await getDoc(
-                customerRef
-            );
-
-
-        if (
-            !customerSnap.exists()
-        ) {
-
-            showEmptyHistory();
-
-            return;
-
-        }
-
-
-        const data =
-
-            customerSnap.data();
-
-
-        /* ==============================
-           CUSTOMER PROFILE
-        ============================== */
-
-        customerName.textContent =
-
-            data.name ||
-            "Customer";
-
-
-        customerMemberId.textContent =
-
-            data.memberId ||
-            "RIO-" +
-            uid.substring(0,6).toUpperCase();
-
-
-        if (
-            data.photoURL
-        ) {
-
-            customerPhoto.src =
-
-                data.photoURL;
-
-        }
-
-
-        /* ==============================
-           STAMP SUMMARY
-        ============================== */
-
-        const stamps =
-
-            Number(
-                data.stamps || 0
-            );
-
-
-        const total =
-
-            Number(
-                data.totalStamps || stamps
-            );
-
-
-        const freeMaggi =
-
-            Number(
-                data.freeMaggiCount || 0
-            );
-
-
-        currentStamps.textContent =
-
-            stamps +
-            " / 6";
-
-
-        totalStamps.textContent =
-
-            total;
-
-
-        freeMaggiCount.textContent =
-
-            freeMaggi;
-
-
-        /* ==============================
-           HISTORY DATA
-        ============================== */
-
-        const history =
-
-            Array.isArray(
-                data.history
-            )
-
-            ?
-
-            data.history
-
-            :
-
-            [];
-
-
-        historyLoading.style.display =
-            "none";
-
-
-        if (
-            history.length === 0
-        ) {
-
-            showEmptyHistory();
-
-            return;
-
-        }
-
-
-        historyEmpty.style.display =
-            "none";
-
-
-        historyList.innerHTML =
-            "";
-
-
-        history
-
-            .slice()
-
-            .reverse()
-
-            .forEach(
-
-                (item) => {
-
-                    renderHistoryItem(
-                        item
-                    );
-
-                }
-
-            );
-
-    }
-
-
-    catch (error) {
-
-        console.error(
-
-            "History Loading Error:",
-
-            error
-
-        );
-
-
-        historyLoading.style.display =
-            "none";
-
-
-        showEmptyHistory();
-
-    }
-
-}
-
-
-/* =====================================
-   SHOW EMPTY HISTORY
-===================================== */
-
-function showEmptyHistory() {
-
-    historyLoading.style.display =
-        "none";
-
-
-    historyList.innerHTML =
-        "";
-
-
-    historyEmpty.style.display =
-        "block";
-
-}
-
-
-/* =====================================
-   RENDER HISTORY ITEM
-===================================== */
-
-function renderHistoryItem(
-    item
-) {
-
-    const historyItem =
-
-        document.createElement(
-            "div"
-        );
-
-
-    historyItem.className =
-        "history-item";
-
-
-    const icon =
-
-        document.createElement(
-            "div"
-        );
-
-
-    icon.className =
-        "history-icon";
-
-
-    icon.innerHTML =
-
-        '<i class="fa-solid fa-stamp"></i>';
-
-
-    const details =
-
-        document.createElement(
-            "div"
-        );
-
-
-    details.className =
-        "history-details";
-
-
-    const title =
-
-        document.createElement(
-            "h3"
-        );
-
-
-    title.textContent =
-
-        item.type ===
-        "reward"
-
-        ?
-
-        "FREE Veg Maggi Redeemed"
-
-        :
-
-        "Daily Loyalty Stamp";
-
-
-    const date =
-
-        document.createElement(
-            "p"
-        );
-
-
-    date.textContent =
-
-        formatHistoryDate(
-            item.date ||
-            item.createdAt
-        );
-
-
-    details.appendChild(
-        title
     );
 
 
-    details.appendChild(
-        date
+const totalStamps =
+
+    document.getElementById(
+
+        "totalStamps"
+
     );
 
 
-    const value =
+const totalRewards =
 
-        document.createElement(
-            "div"
-        );
+    document.getElementById(
 
+        "totalRewards"
 
-    value.className =
-        "history-value";
-
-
-    value.textContent =
-
-        item.type ===
-        "reward"
-
-        ?
-
-        "FREE"
-
-        :
-
-        "+1 Stamp";
-
-
-    historyItem.appendChild(
-        icon
     );
 
 
-    historyItem.appendChild(
-        details
+const rewardUnlockedCard =
+
+    document.getElementById(
+
+        "rewardUnlockedCard"
+
     );
 
 
-    historyItem.appendChild(
-        value
-    );
 
-
-    historyList.appendChild(
-        historyItem
-    );
-
-}
-
-
-/* =====================================
+/* =========================================
    FORMAT DATE
-===================================== */
+========================================= */
 
-function formatHistoryDate(
+function formatDate(
+
     value
+
 ) {
 
-    if (!value) {
+
+    if (
+
+        !value
+
+    ) {
+
 
         return "Date unavailable";
 
+
     }
 
 
     try {
 
-        let date;
-
 
         if (
-            value &&
-            typeof value.toDate ===
-            "function"
+
+            value.toDate
+
         ) {
 
-            date =
+
+            value =
+
                 value.toDate();
 
+
         }
+
 
         else {
 
-            date =
+
+            value =
+
                 new Date(
+
                     value
+
                 );
 
-        }
-
-
-        if (
-            isNaN(
-                date.getTime()
-            )
-        ) {
-
-            return "Date unavailable";
 
         }
 
 
-        return date.toLocaleDateString(
+        return value.toLocaleDateString(
 
             "en-IN",
 
@@ -1875,78 +933,630 @@ function formatHistoryDate(
 
         );
 
+
     }
 
 
-    catch (error) {
+    catch (
+
+        error
+
+    ) {
+
 
         return "Date unavailable";
 
+
     }
+
 
 }
 
 
-/* =====================================
-   SERVICE WORKER
-===================================== */
 
-if (
-    "serviceWorker"
-    in navigator
+/* =========================================
+   CREATE HISTORY ITEM
+========================================= */
+
+function createHistoryItem(
+
+    data
+
 ) {
 
-    window.addEventListener(
 
-        "load",
+    const item =
 
-        () => {
+        document.createElement(
 
-            navigator.serviceWorker.register(
+            "div"
 
-                "./service-worker.js"
+        );
 
-            )
 
-            .then(
+    item.className =
 
-                () => {
+        "history-item";
 
-                    console.log(
 
-                        "History Service Worker Ready"
+    item.innerHTML = `
+
+        <div class="history-item-icon">
+
+            <i class="fa-solid fa-check"></i>
+
+        </div>
+
+        <div class="history-item-content">
+
+            <h3>
+
+                Loyalty Stamp Earned
+
+            </h3>
+
+            <p>
+
+                Daily purchase stamp added successfully.
+
+            </p>
+
+            <span>
+
+                ${formatDate(data.date || data.createdAt)}
+
+            </span>
+
+        </div>
+
+    `;
+
+
+    return item;
+
+
+}
+
+
+
+/* =========================================
+   CREATE TIMELINE ITEM
+========================================= */
+
+function createTimelineItem(
+
+    data,
+
+    index
+
+) {
+
+
+    const item =
+
+        document.createElement(
+
+            "div"
+
+        );
+
+
+    item.className =
+
+        "timeline-item";
+
+
+    item.innerHTML = `
+
+        <div class="timeline-dot">
+
+            <i class="fa-solid fa-star"></i>
+
+        </div>
+
+        <div class="timeline-content">
+
+            <strong>
+
+                Stamp ${index + 1}
+
+            </strong>
+
+            <span>
+
+                ${formatDate(data.date || data.createdAt)}
+
+            </span>
+
+        </div>
+
+    `;
+
+
+    return item;
+
+
+}
+
+
+
+/* =========================================
+   LOAD HISTORY
+========================================= */
+
+async function loadHistory(
+
+    user
+
+) {
+
+
+    try {
+
+
+        historyLoading.style.display =
+
+            "flex";
+
+
+        historyEmpty.style.display =
+
+            "none";
+
+
+        historyContainer.innerHTML =
+
+            "";
+
+
+        timelineContainer.innerHTML =
+
+            "";
+
+
+
+        /* =================================
+           CUSTOMER DATA
+        ================================= */
+
+        const customerRef =
+
+            doc(
+
+                db,
+
+                "customers",
+
+                user.uid
+
+            );
+
+
+        const customerSnap =
+
+            await getDoc(
+
+                customerRef
+
+            );
+
+
+        let customerData = {};
+
+
+        if (
+
+            customerSnap.exists()
+
+        ) {
+
+
+            customerData =
+
+                customerSnap.data();
+
+
+        }
+
+
+
+        const currentStamps =
+
+            Number(
+
+                customerData.stamps || 0
+
+            );
+
+
+
+        /* =================================
+           LOAD STAMP HISTORY
+        ================================= */
+
+        const historyRef =
+
+            collection(
+
+                db,
+
+                "customers",
+
+                user.uid,
+
+                "stampHistory"
+
+            );
+
+
+        const historyQuery =
+
+            query(
+
+                historyRef,
+
+                orderBy(
+
+                    "createdAt",
+
+                    "desc"
+
+                )
+
+            );
+
+
+        const historySnapshot =
+
+            await getDocs(
+
+                historyQuery
+
+            );
+
+
+        const historyData = [];
+
+
+
+        historySnapshot.forEach(
+
+            (historyDoc) => {
+
+
+                historyData.push(
+
+                    historyDoc.data()
+
+                );
+
+
+            }
+
+        );
+
+
+
+        /* =================================
+           TOTAL STAMPS
+        ================================= */
+
+        totalStamps.textContent =
+
+            currentStamps;
+
+
+
+        /* =================================
+           TOTAL REWARDS
+        ================================= */
+
+        const rewards =
+
+            Number(
+
+                customerData.rewards || 0
+
+            );
+
+
+        totalRewards.textContent =
+
+            rewards;
+
+
+
+        /* =================================
+           REWARD STATUS
+        ================================= */
+
+        if (
+
+            currentStamps >= 6
+
+        ) {
+
+
+            rewardUnlockedCard.style.display =
+
+                "flex";
+
+
+        }
+
+
+
+        /* =================================
+           EMPTY HISTORY
+        ================================= */
+
+        if (
+
+            historyData.length === 0
+
+        ) {
+
+
+            historyLoading.style.display =
+
+                "none";
+
+
+            historyEmpty.style.display =
+
+                "flex";
+
+
+            return;
+
+
+        }
+
+
+
+        /* =================================
+           RENDER HISTORY
+        ================================= */
+
+        historyData.forEach(
+
+            (data) => {
+
+
+                const historyItem =
+
+                    createHistoryItem(
+
+                        data
 
                     );
 
-                }
+
+                historyContainer.appendChild(
+
+                    historyItem
+
+                );
+
+
+            }
+
+        );
+
+
+
+        /* =================================
+           RENDER TIMELINE
+        ================================= */
+
+        historyData
+
+            .slice(
+
+                0,
+
+                6
 
             )
 
-            .catch(
+            .reverse()
 
-                (error) => {
+            .forEach(
 
-                    console.error(
+                (data, index) => {
 
-                        "Service Worker Error:",
 
-                        error
+                    const timelineItem =
+
+                        createTimelineItem(
+
+                            data,
+
+                            index
+
+                        );
+
+
+                    timelineContainer.appendChild(
+
+                        timelineItem
 
                     );
+
 
                 }
 
             );
 
+
+
+        historyLoading.style.display =
+
+            "none";
+
+
+    }
+
+
+    catch (
+
+        error
+
+    ) {
+
+
+        console.error(
+
+            "History Loading Error:",
+
+            error
+
+        );
+
+
+        historyLoading.style.display =
+
+            "none";
+
+
+        historyEmpty.style.display =
+
+            "flex";
+
+
+    }
+
+
+}
+
+
+
+/* =========================================
+   AUTH CHECK
+========================================= */
+
+onAuthStateChanged(
+
+    auth,
+
+    async (user) => {
+
+
+        if (
+
+            !user
+
+        ) {
+
+
+            window.location.href =
+
+                "login.html";
+
+
+            return;
+
+
+        }
+
+
+        await loadHistory(
+
+            user
+
+        );
+
+
+    }
+
+);
+
+
+</script>
+
+
+
+<!-- =========================================
+     SERVICE WORKER
+========================================= -->
+
+<script>
+
+
+if (
+
+    "serviceWorker"
+
+    in navigator
+
+) {
+
+
+    window.addEventListener(
+
+        "load",
+
+        async () => {
+
+
+            try {
+
+
+                await navigator.serviceWorker.register(
+
+                    "./service-worker.js"
+
+                );
+
+
+            }
+
+
+            catch (
+
+                error
+
+            ) {
+
+
+                console.error(
+
+                    "Service Worker Error:",
+
+                    error
+
+                );
+
+
+            }
+
+
         }
 
     );
+
 
 }
 
 
 </script>
 
-<!-- =====================================
-     HISTORY.HTML — PART 2 END
-===================================== -->
+
+
+<!-- =========================================
+     HISTORY.HTML END
+========================================= -->
+
+</main>
+
+
+</body>
+
+
+</html>
+
+
+<!-- =========================================
+     END OF HISTORY.HTML
+     TOTAL PARTS: 3/3
+========================================= -->
