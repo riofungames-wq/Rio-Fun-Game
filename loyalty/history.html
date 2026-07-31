@@ -7,52 +7,63 @@
 
 <meta
 name="viewport"
-content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0"
+>
 
 <title>
-Rio Maggi Point • History
+Rio Maggi Point • Loyalty History
 </title>
 
 <meta
 name="theme-color"
-content="#111111">
+content="#263525"
+>
 
 <meta
 name="description"
-content="Rio Maggi Point Loyalty History">
+content="Rio Maggi Point Premium Loyalty Purchase History"
+>
 
 <link
 rel="manifest"
-href="manifest.json">
+href="manifest.json"
+>
 
 <link
 rel="icon"
-href="favicon.ico">
+href="favicon.ico"
+>
 
 <link
 rel="preconnect"
-href="https://fonts.googleapis.com">
+href="https://fonts.googleapis.com"
+>
 
 <link
 rel="preconnect"
 href="https://fonts.gstatic.com"
-crossorigin>
+crossorigin
+>
 
 <link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;500;600;700;800&display=swap"
+rel="stylesheet"
+>
 
 <link
 rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+>
 
 <link
 rel="stylesheet"
-href="css/common.css">
+href="css/common.css"
+>
 
 <link
 rel="stylesheet"
-href="css/history.css">
+href="css/history.css"
+>
 
 </head>
 
@@ -61,139 +72,262 @@ href="css/history.css">
 
 
 <!-- =====================================
-     MAIN PAGE
+     MAIN APP WRAPPER
 ===================================== -->
 
-<div class="page">
+<div class="app-wrapper">
 
 
 <!-- =====================================
-     HISTORY CARD
+     HISTORY PAGE CONTAINER
 ===================================== -->
 
-<div class="history-card app-card">
-
-
-<!-- CARD EFFECTS -->
-
-<div class="card-glow"></div>
-
-<div class="card-shine"></div>
+<main class="history-page">
 
 
 <!-- =====================================
-     HISTORY HEADER
+     PAGE HEADER
 ===================================== -->
 
-<header class="history-header">
+<header class="page-header">
+
+
+<div class="header-icon">
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+</div>
+
+
+<div class="header-content">
 
 <h1>
 
-RIO MAGGI POINT
+Loyalty History
 
 </h1>
 
 
 <p>
 
-Premium Loyalty History
+Your Rio Maggi Point activity
 
 </p>
+
+</div>
+
 
 </header>
 
 
 <!-- =====================================
-     CUSTOMER SECTION
+     CUSTOMER SUMMARY CARD
 ===================================== -->
 
-<section class="customer-section">
+<section class="summary-card">
 
 
-<!-- CUSTOMER PHOTO -->
+<div class="summary-profile">
 
-<div class="avatar-frame">
+
+<div class="summary-avatar">
 
 <img
+id="customerPhoto"
+src="assets/avatars/male.png"
+alt="Customer"
+>
 
-id="historyPhoto"
-
-src="assets/avatars/default.png"
-
-alt="Customer Photo"
-
-loading="lazy">
 
 </div>
 
 
-<!-- CUSTOMER NAME -->
+<div class="summary-user">
 
-<div
-id="historyName"
-class="customer-name">
+
+<h2
+id="customerName">
 
 Loading...
 
+</h2>
+
+
+<p
+id="customerMemberId">
+
+RIO-000000
+
+</p>
+
+
 </div>
 
 
-<!-- MEMBER ID -->
+</div>
 
-<div class="customer-id">
 
-ID :
+<!-- =====================================
+     STAMP SUMMARY
+===================================== -->
 
-<span id="historyMember">
+<div class="stamp-summary">
 
-RIO-000000
+
+<div class="summary-item">
+
+
+<span class="summary-label">
+
+Current Stamps
+
+</span>
+
+
+<strong
+id="currentStamps">
+
+0 / 6
+
+</strong>
+
+
+</div>
+
+
+<div class="summary-item">
+
+
+<span class="summary-label">
+
+Total Stamps
+
+</span>
+
+
+<strong
+id="totalStamps">
+
+0
+
+</strong>
+
+
+</div>
+
+
+<div class="summary-item">
+
+
+<span class="summary-label">
+
+Free Maggi
+
+</span>
+
+
+<strong
+id="freeMaggiCount">
+
+0
+
+</strong>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+<!-- =====================================
+     HISTORY TITLE
+===================================== -->
+
+<section class="history-section">
+
+
+<div class="section-heading">
+
+
+<div>
+
+<h2>
+
+Activity History
+
+</h2>
+
+
+<p>
+
+Your latest loyalty activity
+
+</p>
+
+</div>
+
+
+<i class="fa-solid fa-list-check"></i>
+
+
+</div>
+
+
+<!-- =====================================
+     LOADING MESSAGE
+===================================== -->
+
+<div
+id="historyLoading"
+class="history-message">
+
+<i class="fa-solid fa-spinner fa-spin"></i>
+
+Loading your history...
+
+</div>
+
+
+<!-- =====================================
+     EMPTY HISTORY
+===================================== -->
+
+<div
+id="historyEmpty"
+class="history-message"
+style="display:none;"
+>
+
+<i class="fa-solid fa-clock"></i>
+
+<p>
+
+No loyalty activity yet.
+
+</p>
+
+
+<span>
+
+Your stamp activity will appear here after your first purchase.
 
 </span>
 
 </div>
 
 
-</section>
-
-
 <!-- =====================================
-     CURRENT STAMP STATUS
+     HISTORY LIST
 ===================================== -->
 
-<section class="status-box">
-
-
-<div class="status-header">
-
-
-<div class="status-title">
-
-CURRENT STAMPS
-
-</div>
-
-
 <div
-id="historyStampCount"
-class="status-value">
-
-0 / 6
-
-</div>
-
-
-</div>
-
-
-<!-- STAMP PROGRESS -->
-
-<div class="stamp-progress">
-
-<div
-id="stampProgressFill"
-class="stamp-progress-fill">
-
-</div>
+id="historyList"
+class="history-list"
+>
 
 </div>
 
@@ -202,195 +336,1607 @@ class="stamp-progress-fill">
 
 
 <!-- =====================================
-     STAMP TIMELINE
-===================================== -->
-
-<section class="timeline-section">
-
-
-<div class="section-title">
-
-STAMP TIMELINE
-
-</div>
-
-
-<div
-id="historyTimeline"
-class="timeline-list">
-
-<!-- Firebase Timeline Will Load Here -->
-
-</div>
-
-
-</section>
-
-
-<!-- =====================================
-     PART 1 END
-===================================== -->
-  <!-- =====================================
-     HISTORY.HTML - PART 2
-     BOTTOM NAVIGATION
+     NAVIGATION SAFE SPACE
 ===================================== -->
 
 <div class="nav-space"></div>
 
 
+</main>
+
+
 <!-- =====================================
-     FIXED BOTTOM NAVIGATION
+     FIXED PREMIUM BOTTOM NAVIGATION
 ===================================== -->
 
 <nav class="bottom-nav">
 
 
-    <!-- HOME -->
+<!-- HOME -->
 
-    <a href="card.html">
+<a
+href="card.html"
+class="nav-item"
+>
 
-        <i class="fa-solid fa-house"></i>
+<i class="fa-solid fa-house"></i>
 
-        <span>
-            Home
-        </span>
+<span>
+Home
+</span>
 
-    </a>
-
-
-    <!-- QR -->
-
-    <a href="qr.html">
-
-        <i class="fa-solid fa-qrcode"></i>
-
-        <span>
-            QR
-        </span>
-
-    </a>
+</a>
 
 
-    <!-- HISTORY -->
+<!-- QR -->
 
-    <a
-        href="history.html"
-        class="active">
+<a
+href="qr.html"
+class="nav-item"
+>
 
-        <i class="fa-solid fa-clock-rotate-left"></i>
+<i class="fa-solid fa-qrcode"></i>
 
-        <span>
-            History
-        </span>
+<span>
+QR
+</span>
 
-    </a>
-
-
-    <!-- MENU -->
-
-    <a href="menu.html">
-
-        <i class="fa-solid fa-utensils"></i>
-
-        <span>
-            Menu
-        </span>
-
-    </a>
+</a>
 
 
-    <!-- REVIEW -->
+<!-- HISTORY -->
 
-    <a href="feedback.html">
+<a
+href="history.html"
+class="nav-item active"
+>
 
-        <i class="fa-solid fa-heart"></i>
+<i class="fa-solid fa-clock-rotate-left"></i>
 
-        <span>
-            Review
-        </span>
+<span>
+History
+</span>
 
-    </a>
+</a>
 
 
-    <!-- PROFILE -->
+<!-- MENU -->
 
-    <a href="profile.html">
+<a
+href="menu.html"
+class="nav-item"
+>
 
-        <i class="fa-solid fa-user"></i>
+<i class="fa-solid fa-utensils"></i>
 
-        <span>
-            Profile
-        </span>
+<span>
+Menu
+</span>
 
-    </a>
+</a>
+
+
+<!-- REVIEW -->
+
+<a
+href="feedback.html"
+class="nav-item"
+>
+
+<i class="fa-solid fa-heart"></i>
+
+<span>
+Review
+</span>
+
+</a>
+
+
+<!-- PROFILE -->
+
+<a
+href="profile.html"
+class="nav-item"
+>
+
+<i class="fa-solid fa-user"></i>
+
+<span>
+Profile
+</span>
+
+</a>
 
 
 </nav>
 
 
-<!-- =====================================
-     END BOTTOM NAVIGATION
-===================================== -->
-
-
-</div>
-
 </div>
 
 
 <!-- =====================================
-     HISTORY JAVASCRIPT
+     FIREBASE SCRIPT
+     PART 2 WILL GO HERE
 ===================================== -->
 
 <script
-    type="module"
-    src="js/history.js">
-</script>
+type="module"
+src="js/history.js"
+></script>
+
+
+</body>
+
+</html>
+<!-- =====================================
+     HISTORY.HTML — PART 2
+     RESPONSIVE CSS + FIREBASE
+===================================== -->
+
+
+<style>
+
+/* =====================================
+   ROOT
+===================================== */
+
+:root {
+
+    --primary-bg: #f5d99b;
+
+    --card-bg: #fff8e7;
+
+    --dark-green: #263525;
+
+    --accent: #d19b4a;
+
+    --gold: #ffd54f;
+
+    --red: #c62828;
+
+    --text-dark: #3a2e2b;
+
+    --text-muted: #7a6855;
+
+}
+
+
+/* =====================================
+   RESET
+===================================== */
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+    font-family: 'Poppins', sans-serif;
+
+}
+
+
+/* =====================================
+   BODY
+===================================== */
+
+body {
+
+    min-height: 100vh;
+
+    background: var(--primary-bg);
+
+    color: var(--text-dark);
+
+}
+
+
+/* =====================================
+   APP WRAPPER
+===================================== */
+
+.app-wrapper {
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+}
+
+
+/* =====================================
+   HISTORY PAGE
+===================================== */
+
+.history-page {
+
+    width: 100%;
+
+    max-width: 520px;
+
+    min-height: 100vh;
+
+    padding: 24px 20px 110px;
+
+}
+
+
+/* =====================================
+   PAGE HEADER
+===================================== */
+
+.page-header {
+
+    width: 100%;
+
+    min-height: 86px;
+
+    background: var(--dark-green);
+
+    border-radius: 20px;
+
+    padding: 18px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    color: white;
+
+    box-shadow:
+
+        0 10px 25px
+        rgba(0,0,0,.15);
+
+}
+
+
+.header-icon {
+
+    width: 52px;
+
+    height: 52px;
+
+    min-width: 52px;
+
+    border-radius: 15px;
+
+    background: var(--gold);
+
+    color: var(--dark-green);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 24px;
+
+}
+
+
+.header-content h1 {
+
+    font-size: 23px;
+
+    font-weight: 800;
+
+}
+
+
+.header-content p {
+
+    font-size: 12px;
+
+    color: #e9e9e9;
+
+    margin-top: 3px;
+
+}
+
+
+/* =====================================
+   SUMMARY CARD
+===================================== */
+
+.summary-card {
+
+    width: 100%;
+
+    margin-top: 20px;
+
+    background: var(--card-bg);
+
+    border: 2px solid var(--accent);
+
+    border-radius: 20px;
+
+    padding: 20px;
+
+    box-shadow:
+
+        0 10px 25px
+        rgba(0,0,0,.10);
+
+}
+
+
+/* =====================================
+   PROFILE SUMMARY
+===================================== */
+
+.summary-profile {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+}
+
+
+.summary-avatar {
+
+    width: 62px;
+
+    height: 62px;
+
+    min-width: 62px;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    border: 2px solid var(--accent);
+
+    background: #fff;
+
+}
+
+
+.summary-avatar img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+.summary-user h2 {
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+}
+
+
+.summary-user p {
+
+    font-size: 12px;
+
+    color: var(--text-muted);
+
+    margin-top: 3px;
+
+}
+
+
+/* =====================================
+   STAMP SUMMARY
+===================================== */
+
+.stamp-summary {
+
+    display: grid;
+
+    grid-template-columns:
+
+        repeat(3, 1fr);
+
+    gap: 10px;
+
+    margin-top: 20px;
+
+}
+
+
+.summary-item {
+
+    background: #fff;
+
+    border: 1px solid var(--accent);
+
+    border-radius: 12px;
+
+    padding: 12px 6px;
+
+    text-align: center;
+
+}
+
+
+.summary-label {
+
+    display: block;
+
+    font-size: 10px;
+
+    color: var(--text-muted);
+
+}
+
+
+.summary-item strong {
+
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 17px;
+
+    color: var(--dark-green);
+
+}
+
+
+/* =====================================
+   HISTORY SECTION
+===================================== */
+
+.history-section {
+
+    width: 100%;
+
+    margin-top: 20px;
+
+    background: var(--card-bg);
+
+    border: 2px solid var(--accent);
+
+    border-radius: 20px;
+
+    padding: 20px;
+
+}
+
+
+.section-heading {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+
+}
+
+
+.section-heading h2 {
+
+    font-size: 19px;
+
+    color: var(--dark-green);
+
+}
+
+
+.section-heading p {
+
+    font-size: 11px;
+
+    color: var(--text-muted);
+
+    margin-top: 3px;
+
+}
+
+
+.section-heading > i {
+
+    font-size: 22px;
+
+    color: var(--accent);
+
+}
+
+
+/* =====================================
+   HISTORY LIST
+===================================== */
+
+.history-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+
+/* =====================================
+   HISTORY ITEM
+===================================== */
+
+.history-item {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 14px;
+
+    background: #fff;
+
+    border: 1px solid #ead19e;
+
+    border-radius: 14px;
+
+}
+
+
+.history-icon {
+
+    width: 44px;
+
+    height: 44px;
+
+    min-width: 44px;
+
+    border-radius: 12px;
+
+    background: var(--dark-green);
+
+    color: var(--gold);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 18px;
+
+}
+
+
+.history-details {
+
+    flex: 1;
+
+    min-width: 0;
+
+}
+
+
+.history-details h3 {
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+}
+
+
+.history-details p {
+
+    font-size: 10px;
+
+    color: var(--text-muted);
+
+    margin-top: 3px;
+
+}
+
+
+.history-value {
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    color: var(--red);
+
+}
+
+
+/* =====================================
+   LOADING / EMPTY
+===================================== */
+
+.history-message {
+
+    width: 100%;
+
+    padding: 28px 15px;
+
+    text-align: center;
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+
+}
+
+
+.history-message i {
+
+    display: block;
+
+    font-size: 26px;
+
+    margin-bottom: 10px;
+
+    color: var(--accent);
+
+}
+
+
+.history-message span {
+
+    display: block;
+
+    font-size: 10px;
+
+    margin-top: 6px;
+
+}
+
+
+/* =====================================
+   NAVIGATION SAFE SPACE
+===================================== */
+
+.nav-space {
+
+    height: 90px;
+
+}
+
+
+/* =====================================
+   FIXED BOTTOM NAVIGATION
+===================================== */
+
+.bottom-nav {
+
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 0;
+
+    transform: translateX(-50%);
+
+    width: 100%;
+
+    max-width: 520px;
+
+    height: 76px;
+
+    background: var(--dark-green);
+
+    border-top: 2px solid var(--accent);
+
+    display: flex;
+
+    justify-content: space-around;
+
+    align-items: center;
+
+    padding:
+
+        8px 6px;
+
+    z-index: 9999;
+
+    box-shadow:
+
+        0 -8px 25px
+        rgba(0,0,0,.20);
+
+}
+
+
+.nav-item {
+
+    flex: 1;
+
+    height: 60px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 4px;
+
+    color: var(--gold);
+
+    text-decoration: none;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    opacity: .65;
+
+    border-radius: 12px;
+
+    transition: .2s;
+
+}
+
+
+.nav-item i {
+
+    font-size: 19px;
+
+}
+
+
+.nav-item.active {
+
+    opacity: 1;
+
+    color: white;
+
+    background:
+
+        rgba(255,213,79,.12);
+
+}
+
+
+.nav-item:hover {
+
+    opacity: 1;
+
+}
+
+
+/* =====================================
+   TABLET
+===================================== */
+
+@media (min-width: 600px) {
+
+    .history-page {
+
+        max-width: 600px;
+
+        padding:
+
+            30px 28px 120px;
+
+    }
+
+
+    .bottom-nav {
+
+        max-width: 600px;
+
+    }
+
+
+    .page-header {
+
+        min-height: 92px;
+
+    }
+
+
+    .header-content h1 {
+
+        font-size: 26px;
+
+    }
+
+}
+
+
+/* =====================================
+   LAPTOP
+===================================== */
+
+@media (min-width: 1024px) {
+
+    .history-page {
+
+        max-width: 650px;
+
+        padding-top: 35px;
+
+    }
+
+
+    .bottom-nav {
+
+        max-width: 650px;
+
+    }
+
+
+    .summary-card,
+
+    .history-section {
+
+        padding: 24px;
+
+    }
+
+}
+
+
+/* =====================================
+   LARGE PC
+===================================== */
+
+@media (min-width: 1440px) {
+
+    .history-page {
+
+        max-width: 700px;
+
+    }
+
+
+    .bottom-nav {
+
+        max-width: 700px;
+
+    }
+
+}
+
+
+/* =====================================
+   SMALL MOBILE
+===================================== */
+
+@media (max-width: 380px) {
+
+    .history-page {
+
+        padding-left: 12px;
+
+        padding-right: 12px;
+
+    }
+
+
+    .page-header {
+
+        padding: 15px;
+
+    }
+
+
+    .header-icon {
+
+        width: 46px;
+
+        height: 46px;
+
+        min-width: 46px;
+
+    }
+
+
+    .header-content h1 {
+
+        font-size: 20px;
+
+    }
+
+
+    .nav-item {
+
+        font-size: 9px;
+
+    }
+
+
+    .nav-item i {
+
+        font-size: 17px;
+
+    }
+
+}
+
+</style>
 
 
 <!-- =====================================
-     SERVICE WORKER
+     FIREBASE HISTORY SCRIPT
 ===================================== -->
 
-<script>
+<script type="module">
 
-if ("serviceWorker" in navigator) {
+/* =====================================
+   FIREBASE IMPORT
+===================================== */
+
+import {
+
+    firebaseConfig
+
+}
+
+from "./js/firebase-config.js";
+
+
+import {
+
+    initializeApp
+
+}
+
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+
+
+import {
+
+    getAuth,
+
+    onAuthStateChanged
+
+}
+
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+
+import {
+
+    getFirestore,
+
+    doc,
+
+    getDoc
+
+}
+
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+
+/* =====================================
+   INITIALIZE FIREBASE
+===================================== */
+
+const app =
+
+    initializeApp(
+        firebaseConfig
+    );
+
+
+const auth =
+
+    getAuth(
+        app
+    );
+
+
+const db =
+
+    getFirestore(
+        app
+    );
+
+
+/* =====================================
+   ELEMENTS
+===================================== */
+
+const customerPhoto =
+
+    document.getElementById(
+        "customerPhoto"
+    );
+
+
+const customerName =
+
+    document.getElementById(
+        "customerName"
+    );
+
+
+const customerMemberId =
+
+    document.getElementById(
+        "customerMemberId"
+    );
+
+
+const currentStamps =
+
+    document.getElementById(
+        "currentStamps"
+    );
+
+
+const totalStamps =
+
+    document.getElementById(
+        "totalStamps"
+    );
+
+
+const freeMaggiCount =
+
+    document.getElementById(
+        "freeMaggiCount"
+    );
+
+
+const historyLoading =
+
+    document.getElementById(
+        "historyLoading"
+    );
+
+
+const historyEmpty =
+
+    document.getElementById(
+        "historyEmpty"
+    );
+
+
+const historyList =
+
+    document.getElementById(
+        "historyList"
+    );
+
+
+/* =====================================
+   AUTH CHECK
+===================================== */
+
+onAuthStateChanged(
+
+    auth,
+
+    async (user) => {
+
+        if (!user) {
+
+            window.location.href =
+                "login.html";
+
+            return;
+
+        }
+
+
+        await loadCustomerHistory(
+            user.uid
+        );
+
+    }
+
+);
+
+
+/* =====================================
+   LOAD CUSTOMER HISTORY
+===================================== */
+
+async function loadCustomerHistory(
+    uid
+) {
+
+    try {
+
+        const customerRef =
+
+            doc(
+
+                db,
+
+                "customers",
+
+                uid
+
+            );
+
+
+        const customerSnap =
+
+            await getDoc(
+                customerRef
+            );
+
+
+        if (
+            !customerSnap.exists()
+        ) {
+
+            showEmptyHistory();
+
+            return;
+
+        }
+
+
+        const data =
+
+            customerSnap.data();
+
+
+        /* ==============================
+           CUSTOMER PROFILE
+        ============================== */
+
+        customerName.textContent =
+
+            data.name ||
+            "Customer";
+
+
+        customerMemberId.textContent =
+
+            data.memberId ||
+            "RIO-" +
+            uid.substring(0,6).toUpperCase();
+
+
+        if (
+            data.photoURL
+        ) {
+
+            customerPhoto.src =
+
+                data.photoURL;
+
+        }
+
+
+        /* ==============================
+           STAMP SUMMARY
+        ============================== */
+
+        const stamps =
+
+            Number(
+                data.stamps || 0
+            );
+
+
+        const total =
+
+            Number(
+                data.totalStamps || stamps
+            );
+
+
+        const freeMaggi =
+
+            Number(
+                data.freeMaggiCount || 0
+            );
+
+
+        currentStamps.textContent =
+
+            stamps +
+            " / 6";
+
+
+        totalStamps.textContent =
+
+            total;
+
+
+        freeMaggiCount.textContent =
+
+            freeMaggi;
+
+
+        /* ==============================
+           HISTORY DATA
+        ============================== */
+
+        const history =
+
+            Array.isArray(
+                data.history
+            )
+
+            ?
+
+            data.history
+
+            :
+
+            [];
+
+
+        historyLoading.style.display =
+            "none";
+
+
+        if (
+            history.length === 0
+        ) {
+
+            showEmptyHistory();
+
+            return;
+
+        }
+
+
+        historyEmpty.style.display =
+            "none";
+
+
+        historyList.innerHTML =
+            "";
+
+
+        history
+
+            .slice()
+
+            .reverse()
+
+            .forEach(
+
+                (item) => {
+
+                    renderHistoryItem(
+                        item
+                    );
+
+                }
+
+            );
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+
+            "History Loading Error:",
+
+            error
+
+        );
+
+
+        historyLoading.style.display =
+            "none";
+
+
+        showEmptyHistory();
+
+    }
+
+}
+
+
+/* =====================================
+   SHOW EMPTY HISTORY
+===================================== */
+
+function showEmptyHistory() {
+
+    historyLoading.style.display =
+        "none";
+
+
+    historyList.innerHTML =
+        "";
+
+
+    historyEmpty.style.display =
+        "block";
+
+}
+
+
+/* =====================================
+   RENDER HISTORY ITEM
+===================================== */
+
+function renderHistoryItem(
+    item
+) {
+
+    const historyItem =
+
+        document.createElement(
+            "div"
+        );
+
+
+    historyItem.className =
+        "history-item";
+
+
+    const icon =
+
+        document.createElement(
+            "div"
+        );
+
+
+    icon.className =
+        "history-icon";
+
+
+    icon.innerHTML =
+
+        '<i class="fa-solid fa-stamp"></i>';
+
+
+    const details =
+
+        document.createElement(
+            "div"
+        );
+
+
+    details.className =
+        "history-details";
+
+
+    const title =
+
+        document.createElement(
+            "h3"
+        );
+
+
+    title.textContent =
+
+        item.type ===
+        "reward"
+
+        ?
+
+        "FREE Veg Maggi Redeemed"
+
+        :
+
+        "Daily Loyalty Stamp";
+
+
+    const date =
+
+        document.createElement(
+            "p"
+        );
+
+
+    date.textContent =
+
+        formatHistoryDate(
+            item.date ||
+            item.createdAt
+        );
+
+
+    details.appendChild(
+        title
+    );
+
+
+    details.appendChild(
+        date
+    );
+
+
+    const value =
+
+        document.createElement(
+            "div"
+        );
+
+
+    value.className =
+        "history-value";
+
+
+    value.textContent =
+
+        item.type ===
+        "reward"
+
+        ?
+
+        "FREE"
+
+        :
+
+        "+1 Stamp";
+
+
+    historyItem.appendChild(
+        icon
+    );
+
+
+    historyItem.appendChild(
+        details
+    );
+
+
+    historyItem.appendChild(
+        value
+    );
+
+
+    historyList.appendChild(
+        historyItem
+    );
+
+}
+
+
+/* =====================================
+   FORMAT DATE
+===================================== */
+
+function formatHistoryDate(
+    value
+) {
+
+    if (!value) {
+
+        return "Date unavailable";
+
+    }
+
+
+    try {
+
+        let date;
+
+
+        if (
+            value &&
+            typeof value.toDate ===
+            "function"
+        ) {
+
+            date =
+                value.toDate();
+
+        }
+
+        else {
+
+            date =
+                new Date(
+                    value
+                );
+
+        }
+
+
+        if (
+            isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return "Date unavailable";
+
+        }
+
+
+        return date.toLocaleDateString(
+
+            "en-IN",
+
+            {
+
+                day:
+                    "2-digit",
+
+                month:
+                    "short",
+
+                year:
+                    "numeric"
+
+            }
+
+        );
+
+    }
+
+
+    catch (error) {
+
+        return "Date unavailable";
+
+    }
+
+}
+
+
+/* =====================================
+   SERVICE WORKER
+===================================== */
+
+if (
+    "serviceWorker"
+    in navigator
+) {
 
     window.addEventListener(
 
         "load",
 
-        async () => {
+        () => {
 
-            try {
+            navigator.serviceWorker.register(
 
-                const registration =
-                    await navigator.serviceWorker.register(
-                        "./service-worker.js"
+                "./service-worker.js"
+
+            )
+
+            .then(
+
+                () => {
+
+                    console.log(
+
+                        "History Service Worker Ready"
+
                     );
 
+                }
 
-                console.log(
+            )
 
-                    "Rio Maggi Point Service Worker Registered:",
+            .catch(
 
-                    registration.scope
+                (error) => {
 
-                );
+                    console.error(
 
-            }
+                        "Service Worker Error:",
 
-            catch (error) {
+                        error
 
-                console.error(
+                    );
 
-                    "Service Worker Registration Failed:",
+                }
 
-                    error
-
-                );
-
-            }
+            );
 
         }
 
@@ -398,13 +1944,9 @@ if ("serviceWorker" in navigator) {
 
 }
 
+
 </script>
 
-
 <!-- =====================================
-     HISTORY.HTML END
+     HISTORY.HTML — PART 2 END
 ===================================== -->
-
-</body>
-
-</html>
