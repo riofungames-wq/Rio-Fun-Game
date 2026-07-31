@@ -1,79 +1,477 @@
-
-RIO MAGGI POINT
-Premium Customer Review
-
-Customer
-Loading...
-ID : RIO-000000
-How Was Your Maggi?
-Tap A Star
-
-How Do You Feel?
-😍
-😊
-😋
-🤩
-🥰
-Write Your Review
-
-
-0 /300
-
-Submit Feedback
- Home  QR  History  Menu  Review  Profile
-/* =========================================
+/* =========================================================
    RIO MAGGI POINT
-   COMMON NAVIGATION FIX
-   PART 2/4
-   MOBILE + SAFE AREA + SCROLL FIX
-========================================= */
+   COMMON.CSS
+   FINAL PREMIUM SYSTEM
+   PART 1/4
+   ROOT + RESET + RED BLACK GOLD THEME + COMMON LAYOUT
+========================================================= */
 
 
-/* =========================================
-   HTML BASE
-========================================= */
+/* =========================================================
+   ROOT VARIABLES
+========================================================= */
+
+:root {
+
+    /* =========================
+       PREMIUM BRAND COLORS
+    ========================== */
+
+    --rio-black:
+        #0b0b0d;
+
+    --rio-black-soft:
+        #151519;
+
+    --rio-red:
+        #8f1624;
+
+    --rio-red-dark:
+        #5f0d17;
+
+    --rio-burgundy:
+        #3a0b12;
+
+    --rio-gold:
+        #d4a83f;
+
+    --rio-gold-light:
+        #f3d77a;
+
+    --rio-gold-dark:
+        #9c7422;
+
+    --rio-white:
+        #ffffff;
+
+    --rio-text:
+        #f7f3ea;
+
+    --rio-muted:
+        #c8bfb2;
+
+    --rio-border:
+        rgba(
+            212,
+            168,
+            63,
+            .28
+        );
+
+
+    /* =========================
+       BACKGROUNDS
+    ========================== */
+
+    --page-background:
+
+        radial-gradient(
+
+            circle at
+
+            15%
+
+            10%,
+
+            rgba(
+
+                143,
+
+                22,
+
+                36,
+
+                .32
+
+            ),
+
+            transparent
+
+            32%
+
+        ),
+
+        linear-gradient(
+
+            145deg,
+
+            #09090b
+
+            0%,
+
+            #1a090d
+
+            45%,
+
+            #0b0b0d
+
+            100%
+
+        );
+
+
+    --card-background:
+
+        linear-gradient(
+
+            145deg,
+
+            rgba(
+
+                35,
+
+                12,
+
+                17,
+
+                .98
+
+            ),
+
+            rgba(
+
+                12,
+
+                12,
+
+                15,
+
+                .98
+
+            )
+
+        );
+
+
+    --nav-background:
+
+        linear-gradient(
+
+            135deg,
+
+            #09090b,
+
+            #260910,
+
+            #0d0d10
+
+        );
+
+
+    /* =========================
+       RADIUS
+    ========================== */
+
+    --radius-small:
+        10px;
+
+    --radius-medium:
+        16px;
+
+    --radius-large:
+        22px;
+
+    --radius-xl:
+        28px;
+
+
+    /* =========================
+       SHADOWS
+    ========================== */
+
+    --shadow-card:
+
+        0
+
+        12px
+
+        35px
+
+        rgba(
+
+            0,
+
+            0,
+
+            0,
+
+            .35
+
+        );
+
+
+    --shadow-gold:
+
+        0
+
+        0
+
+        18px
+
+        rgba(
+
+            212,
+
+            168,
+
+            63,
+
+            .22
+
+        );
+
+
+    --shadow-red:
+
+        0
+
+        0
+
+        25px
+
+        rgba(
+
+            143,
+
+            22,
+
+            36,
+
+            .25
+
+        );
+
+
+    /* =========================
+       LAYOUT
+    ========================== */
+
+    --page-width:
+
+        520px;
+
+    --page-padding:
+
+        20px;
+
+    --nav-height:
+
+        82px;
+
+
+    /* =========================
+       TRANSITIONS
+    ========================== */
+
+    --transition-fast:
+
+        .18s
+
+        ease;
+
+    --transition-normal:
+
+        .28s
+
+        ease;
+
+    --transition-smooth:
+
+        .45s
+
+        cubic-bezier(
+
+            .22,
+
+            1,
+
+            .36,
+
+            1
+
+        );
+
+}
+
+
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
+
+* {
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+    box-sizing:
+        border-box;
+
+}
+
+
+/* =========================================================
+   HTML
+========================================================= */
 
 html {
 
-    width: 100%;
+    width:
+        100%;
 
-    min-height: 100%;
+    min-height:
+        100%;
 
-    overflow-x: hidden;
+    overflow-x:
+        hidden;
 
-    scroll-behavior: smooth;
+    scroll-behavior:
+        smooth;
 
 }
 
 
-/* =========================================
-   BODY SCROLL CONTROL
-========================================= */
+/* =========================================================
+   BODY
+========================================================= */
 
 body {
 
-    width: 100%;
+    width:
+        100%;
 
-    min-width: 0;
+    min-width:
+        0;
 
-    min-height: 100vh;
+    min-height:
+        100vh;
 
-    margin: 0;
+    margin:
+        0;
 
-    overflow-x: hidden;
+    padding:
 
-    overflow-y: auto;
+        0
 
-    padding-bottom:
+        0
 
-        90px !important;
+        calc(
+
+            var(--nav-height)
+
+            +
+
+            20px
+
+        );
+
+    overflow-x:
+        hidden;
+
+    overflow-y:
+        auto;
+
+    background:
+
+        var(--page-background);
+
+    background-attachment:
+        fixed;
+
+    color:
+
+        var(--rio-text);
+
+    font-family:
+
+        'Poppins',
+
+        Arial,
+
+        Helvetica,
+
+        sans-serif;
+
+    -webkit-font-smoothing:
+        antialiased;
+
+    text-rendering:
+        optimizeLegibility;
 
 }
 
 
-/* =========================================
-   ALL MAIN PAGE WRAPPERS
-========================================= */
+/* =========================================================
+   IMAGES
+========================================================= */
+
+img {
+
+    max-width:
+        100%;
+
+    height:
+        auto;
+
+    display:
+        block;
+
+}
+
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+a {
+
+    color:
+        inherit;
+
+    text-decoration:
+        none;
+
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+button,
+
+input,
+
+textarea,
+
+select {
+
+    font-family:
+        inherit;
+
+}
+
+
+/* =========================================================
+   BUTTON RESET
+========================================================= */
+
+button {
+
+    border:
+        none;
+
+    outline:
+        none;
+
+}
+
+
+/* =========================================================
+   COMMON PAGE WRAPPER
+========================================================= */
 
 main,
 
@@ -93,88 +491,637 @@ main,
 
 .home-page {
 
-    width: 100%;
+    width:
+        100%;
 
-    max-width: 100%;
+    max-width:
+        var(--page-width);
 
-    min-height: 100vh;
+    min-height:
+        100vh;
 
-    padding-bottom:
+    margin:
 
-        100px;
+        0
+
+        auto;
+
+    padding:
+
+        var(--page-padding)
+
+        var(--page-padding)
+
+        120px;
+
+    position:
+        relative;
 
 }
 
 
-/* =========================================
-   FIXED NAVIGATION
-========================================= */
+/* =========================================================
+   COMMON PAGE CONTENT
+========================================================= */
 
-.bottom-nav {
+.page-content {
 
-    position: fixed !important;
+    width:
+        100%;
 
-    left: 0 !important;
+    max-width:
+        100%;
 
-    right: 0 !important;
+    margin:
+        0 auto;
 
-    bottom: 0 !important;
+}
 
-    top: auto !important;
 
-    width: 100vw !important;
+/* =========================================================
+   COMMON PREMIUM CARD
+========================================================= */
 
-    max-width: 100vw !important;
+.premium-card {
 
-    height: 78px !important;
-
-    min-height: 78px !important;
-
-    margin: 0 !important;
-
-    padding:
-
-        7px
-
-        8px
-
-        calc(
-
-            7px +
-
-            env(
-
-                safe-area-inset-bottom
-
-            )
-
-        )
-
-        8px !important;
-
-    box-sizing: border-box !important;
-
-    display: flex !important;
-
-    align-items: center !important;
-
-    justify-content: space-between !important;
-
-    gap: 3px !important;
+    width:
+        100%;
 
     background:
 
-        #263525 !important;
+        var(--card-background);
 
-    border-top:
+    border:
 
-        2px solid
+        1px solid
 
-        #d19b4a !important;
+        var(--rio-border);
+
+    border-radius:
+
+        var(--radius-large);
 
     box-shadow:
 
-        0 -6px 25px
+        var(--shadow-card);
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+    transition:
+
+        transform
+
+        var(--transition-normal),
+
+        box-shadow
+
+        var(--transition-normal),
+
+        border-color
+
+        var(--transition-normal);
+
+}
+
+
+/* =========================================================
+   PREMIUM CARD HOVER
+========================================================= */
+
+.premium-card:hover {
+
+    transform:
+
+        translateY(
+
+            -2px
+
+        );
+
+    border-color:
+
+        rgba(
+
+            212,
+
+            168,
+
+            63,
+
+            .48
+
+        );
+
+    box-shadow:
+
+        var(--shadow-card),
+
+        var(--shadow-gold);
+
+}
+
+
+/* =========================================================
+   COMMON GOLD LINE
+========================================================= */
+
+.premium-gold-line {
+
+    width:
+        100%;
+
+    height:
+        1px;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            var(--rio-gold),
+
+            transparent
+
+        );
+
+    opacity:
+        .75;
+
+}
+
+
+/* =========================================================
+   COMMON PREMIUM TITLE
+========================================================= */
+
+.premium-title {
+
+    color:
+
+        var(--rio-white);
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .2px;
+
+}
+
+
+.premium-title span {
+
+    color:
+
+        var(--rio-gold-light);
+
+}
+
+
+/* =========================================================
+   COMMON PREMIUM BUTTON
+========================================================= */
+
+.premium-btn {
+
+    min-height:
+        48px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        8px;
+
+    padding:
+
+        12px
+
+        18px;
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            var(--rio-red),
+
+            var(--rio-red-dark)
+
+        );
+
+    color:
+
+        var(--rio-white);
+
+    border:
+
+        1px solid
+
+        rgba(
+
+            212,
+
+            168,
+
+            63,
+
+            .35
+
+        );
+
+    border-radius:
+
+        var(--radius-medium);
+
+    font-size:
+        13px;
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
+
+    transition:
+
+        transform
+
+        var(--transition-fast),
+
+        box-shadow
+
+        var(--transition-fast),
+
+        border-color
+
+        var(--transition-fast);
+
+}
+
+
+.premium-btn:hover {
+
+    transform:
+
+        translateY(
+
+            -2px
+
+        );
+
+    border-color:
+
+        var(--rio-gold);
+
+    box-shadow:
+
+        var(--shadow-red),
+
+        var(--shadow-gold);
+
+}
+
+
+.premium-btn:active {
+
+    transform:
+
+        scale(
+
+            .96
+
+        );
+
+}
+
+
+/* =========================================================
+   COMMON GOLD BUTTON
+========================================================= */
+
+.premium-btn-gold {
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            var(--rio-gold-light),
+
+            var(--rio-gold)
+
+        );
+
+    color:
+
+        #1a0d08;
+
+    border-color:
+
+        var(--rio-gold-light);
+
+}
+
+
+/* =========================================================
+   COMMON TEXT
+========================================================= */
+
+.text-muted {
+
+    color:
+
+        var(--rio-muted);
+
+}
+
+
+/* =========================================================
+   COMMON SECTION
+========================================================= */
+
+.premium-section {
+
+    width:
+        100%;
+
+    margin-bottom:
+        18px;
+
+}
+
+
+/* =========================================================
+   MOBILE LAYOUT
+========================================================= */
+
+@media (
+
+    max-width: 600px
+
+) {
+
+    :root {
+
+        --page-padding:
+            16px;
+
+    }
+
+
+    main,
+
+    .page,
+
+    .page-container,
+
+    .profile-page,
+
+    .qr-page,
+
+    .history-page,
+
+    .menu-page,
+
+    .feedback-page,
+
+    .home-page {
+
+        width:
+            100%;
+
+        max-width:
+            var(--page-width);
+
+        padding:
+
+            16px
+
+            16px
+
+            120px;
+
+    }
+
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (
+
+    max-width: 380px
+
+) {
+
+    :root {
+
+        --page-padding:
+            13px;
+
+    }
+
+
+    main,
+
+    .page,
+
+    .page-container,
+
+    .profile-page,
+
+    .qr-page,
+
+    .history-page,
+
+    .menu-page,
+
+    .feedback-page,
+
+    .home-page {
+
+        padding:
+
+            13px
+
+            13px
+
+            115px;
+
+    }
+
+}
+
+
+/* =========================================================
+   END COMMON.CSS
+   FINAL PREMIUM SYSTEM
+   PART 1/4
+========================================================= */
+/* =========================================================
+   RIO MAGGI POINT
+   COMMON.CSS
+   FINAL PREMIUM SYSTEM
+   PART 2/4
+   FIXED PREMIUM BOTTOM NAVIGATION
+========================================================= */
+
+
+/* =========================================================
+   NAVIGATION CONTAINER
+========================================================= */
+
+.bottom-nav,
+.bottom-navigation,
+#bottomNav,
+#mainNav {
+
+    position:
+
+        fixed;
+
+    left:
+        50%;
+
+    bottom:
+        12px;
+
+    transform:
+
+        translateX(
+
+            -50%
+
+        );
+
+    width:
+
+        min(
+
+            calc(
+
+                100%
+
+                -
+
+                24px
+
+            ),
+
+            var(--page-width)
+
+        );
+
+    height:
+
+        var(--nav-height);
+
+    z-index:
+        9999;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    padding:
+
+        8px;
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            rgba(
+
+                8,
+
+                8,
+
+                10,
+
+                .98
+
+            ),
+
+            rgba(
+
+                40,
+
+                8,
+
+                16,
+
+                .98
+
+            ),
+
+            rgba(
+
+                10,
+
+                10,
+
+                12,
+
+                .98
+
+            )
+
+        );
+
+    border:
+
+        1px solid
+
+        rgba(
+
+            212,
+
+            168,
+
+            63,
+
+            .38
+
+        );
+
+    border-radius:
+
+        24px;
+
+    box-shadow:
+
+        0
+
+        10px
+
+        35px
 
         rgba(
 
@@ -184,28 +1131,141 @@ main,
 
             0,
 
+            .55
+
+        ),
+
+        0
+
+        0
+
+        25px
+
+        rgba(
+
+            143,
+
+            22,
+
+            36,
+
             .20
 
-        ) !important;
+        );
 
-    z-index: 2147483647 !important;
+    backdrop-filter:
 
-    transform: translateZ(0) !important;
+        blur(
 
-    -webkit-transform: translateZ(0) !important;
+            18px
 
-    backface-visibility: hidden !important;
+        );
 
-    -webkit-backface-visibility: hidden !important;
+    -webkit-backdrop-filter:
+
+        blur(
+
+            18px
+
+        );
 
 }
 
 
-/* =========================================
-   NAVIGATION ITEM MOBILE
-========================================= */
+/* =========================================================
+   NAVIGATION TOP PREMIUM LINE
+========================================================= */
 
-.bottom-nav .nav-item {
+.bottom-nav::before,
+.bottom-navigation::before,
+#bottomNav::before,
+#mainNav::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        -1px;
+
+    left:
+        12%;
+
+    width:
+        76%;
+
+    height:
+        1px;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            var(--rio-gold),
+
+            transparent
+
+        );
+
+    opacity:
+        .85;
+
+    pointer-events:
+        none;
+
+}
+
+
+/* =========================================================
+   NAVIGATION LIST
+========================================================= */
+
+.bottom-nav ul,
+.bottom-navigation ul,
+#bottomNav ul,
+#mainNav ul {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    display:
+        flex;
+
+    align-items:
+        stretch;
+
+    justify-content:
+        space-around;
+
+    list-style:
+        none;
+
+    margin:
+        0;
+
+    padding:
+        0;
+
+}
+
+
+/* =========================================================
+   NAVIGATION ITEM
+========================================================= */
+
+.bottom-nav li,
+.bottom-navigation li,
+#bottomNav li,
+#mainNav li {
 
     flex:
 
@@ -213,86 +1273,527 @@ main,
 
         1
 
-        0 !important;
+        0;
 
-    width: 0 !important;
+    min-width:
+        0;
 
-    max-width: none !important;
+    height:
+        100%;
 
-    min-width: 0 !important;
+    display:
+        flex;
 
-    height: 60px !important;
+    align-items:
+        center;
 
-    min-height: 60px !important;
+    justify-content:
+        center;
+
+}
+
+
+/* =========================================================
+   NAVIGATION LINKS
+========================================================= */
+
+.bottom-nav a,
+.bottom-navigation a,
+#bottomNav a,
+#mainNav a {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    position:
+        relative;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        3px;
 
     padding:
 
         6px
 
-        2px !important;
+        3px;
 
-    margin: 0 !important;
+    color:
 
-    display: flex !important;
+        rgba(
 
-    align-items: center !important;
+            255,
 
-    justify-content: center !important;
+            255,
 
-    flex-direction: column !important;
+            255,
 
-    gap: 4px !important;
+            .62
 
-    overflow: hidden !important;
+        );
 
-    border-radius: 14px !important;
+    border-radius:
 
-}
+        17px;
 
+    font-size:
+        9px;
 
-/* =========================================
-   NAV ICON MOBILE
-========================================= */
+    font-weight:
+        600;
 
-.bottom-nav .nav-item i {
+    line-height:
+        1;
 
-    flex-shrink: 0 !important;
+    text-align:
+        center;
 
-    width: 23px !important;
+    transition:
 
-    height: 23px !important;
+        color
 
-    font-size: 19px !important;
+        var(--transition-normal),
 
-    line-height: 23px !important;
+        transform
 
-}
+        var(--transition-fast),
 
+        background
 
-/* =========================================
-   NAV TEXT MOBILE
-========================================= */
-
-.bottom-nav .nav-item span {
-
-    max-width: 100% !important;
-
-    overflow: hidden !important;
-
-    text-overflow: ellipsis !important;
-
-    white-space: nowrap !important;
-
-    font-size: 9px !important;
-
-    line-height: 13px !important;
+        var(--transition-normal);
 
 }
 
 
-/* =========================================
-   IOS / ANDROID SAFE AREA
-========================================= */
+/* =========================================================
+   NAVIGATION ICON
+========================================================= */
+
+.bottom-nav a i,
+.bottom-nav a svg,
+.bottom-nav a .nav-icon,
+
+.bottom-navigation a i,
+.bottom-navigation a svg,
+.bottom-navigation a .nav-icon,
+
+#bottomNav a i,
+#bottomNav a svg,
+#bottomNav a .nav-icon,
+
+#mainNav a i,
+#mainNav a svg,
+#mainNav a .nav-icon {
+
+    width:
+        22px;
+
+    height:
+        22px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    font-size:
+        20px;
+
+    line-height:
+        1;
+
+    transition:
+
+        transform
+
+        var(--transition-fast),
+
+        filter
+
+        var(--transition-normal);
+
+}
+
+
+/* =========================================================
+   NAVIGATION LABEL
+========================================================= */
+
+.bottom-nav a span,
+.bottom-navigation a span,
+#bottomNav a span,
+#mainNav a span {
+
+    display:
+        block;
+
+    max-width:
+        100%;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.bottom-nav a:hover,
+.bottom-navigation a:hover,
+#bottomNav a:hover,
+#mainNav a:hover {
+
+    color:
+
+        var(--rio-gold-light);
+
+    background:
+
+        rgba(
+
+            143,
+
+            22,
+
+            36,
+
+            .20
+
+        );
+
+}
+
+
+/* =========================================================
+   HOVER ICON
+========================================================= */
+
+.bottom-nav a:hover i,
+.bottom-nav a:hover svg,
+.bottom-nav a:hover .nav-icon,
+
+.bottom-navigation a:hover i,
+.bottom-navigation a:hover svg,
+.bottom-navigation a:hover .nav-icon,
+
+#bottomNav a:hover i,
+#bottomNav a:hover svg,
+#bottomNav a:hover .nav-icon,
+
+#mainNav a:hover i,
+#mainNav a:hover svg,
+#mainNav a:hover .nav-icon {
+
+    transform:
+
+        translateY(
+
+            -2px
+
+        );
+
+    filter:
+
+        drop-shadow(
+
+            0
+
+            0
+
+            8px
+
+            rgba(
+
+                212,
+
+                168,
+
+                63,
+
+                .65
+
+            )
+
+        );
+
+}
+
+
+/* =========================================================
+   ACTIVE NAVIGATION
+========================================================= */
+
+.bottom-nav a.active,
+.bottom-navigation a.active,
+#bottomNav a.active,
+#mainNav a.active,
+
+.bottom-nav a[aria-current="page"],
+.bottom-navigation a[aria-current="page"],
+#bottomNav a[aria-current="page"],
+#mainNav a[aria-current="page"] {
+
+    color:
+
+        var(--rio-gold-light);
+
+    background:
+
+        linear-gradient(
+
+            145deg,
+
+            rgba(
+
+                143,
+
+                22,
+
+                36,
+
+                .55
+
+            ),
+
+            rgba(
+
+                95,
+
+                13,
+
+                23,
+
+                .28
+
+            )
+
+        );
+
+    box-shadow:
+
+        inset
+
+        0
+
+        0
+
+        12px
+
+        rgba(
+
+            212,
+
+            168,
+
+            63,
+
+            .08
+
+        );
+
+}
+
+
+/* =========================================================
+   ACTIVE ICON
+========================================================= */
+
+.bottom-nav a.active i,
+.bottom-nav a.active svg,
+.bottom-nav a.active .nav-icon,
+
+.bottom-navigation a.active i,
+.bottom-navigation a.active svg,
+.bottom-navigation a.active .nav-icon,
+
+#bottomNav a.active i,
+#bottomNav a.active svg,
+#bottomNav a.active .nav-icon,
+
+#mainNav a.active i,
+#mainNav a.active svg,
+#mainNav a.active .nav-icon,
+
+.bottom-nav a[aria-current="page"] i,
+.bottom-nav a[aria-current="page"] svg,
+.bottom-nav a[aria-current="page"] .nav-icon,
+
+.bottom-navigation a[aria-current="page"] i,
+.bottom-navigation a[aria-current="page"] svg,
+.bottom-navigation a[aria-current="page"] .nav-icon,
+
+#bottomNav a[aria-current="page"] i,
+#bottomNav a[aria-current="page"] svg,
+#bottomNav a[aria-current="page"] .nav-icon,
+
+#mainNav a[aria-current="page"] i,
+#mainNav a[aria-current="page"] svg,
+#mainNav a[aria-current="page"] .nav-icon {
+
+    transform:
+
+        translateY(
+
+            -2px
+
+        );
+
+    filter:
+
+        drop-shadow(
+
+            0
+
+            0
+
+            10px
+
+            rgba(
+
+                212,
+
+                168,
+
+                63,
+
+                .75
+
+            )
+
+        );
+
+}
+
+
+/* =========================================================
+   ACTIVE INDICATOR
+========================================================= */
+
+.bottom-nav a.active::after,
+.bottom-navigation a.active::after,
+#bottomNav a.active::after,
+#mainNav a.active::after,
+
+.bottom-nav a[aria-current="page"]::after,
+.bottom-navigation a[aria-current="page"]::after,
+#bottomNav a[aria-current="page"]::after,
+#mainNav a[aria-current="page"]::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        50%;
+
+    bottom:
+        4px;
+
+    width:
+        22px;
+
+    height:
+        3px;
+
+    transform:
+
+        translateX(
+
+            -50%
+
+        );
+
+    border-radius:
+        10px;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            var(--rio-red),
+
+            var(--rio-gold-light),
+
+            var(--rio-red)
+
+        );
+
+    box-shadow:
+
+        0
+
+        0
+
+        10px
+
+        rgba(
+
+            212,
+
+            168,
+
+            63,
+
+            .65
+
+        );
+
+}
+
+
+/* =========================================================
+   NAVIGATION TAP ANIMATION
+========================================================= */
+
+.bottom-nav a:active,
+.bottom-navigation a:active,
+#bottomNav a:active,
+#mainNav a:active {
+
+    transform:
+
+        scale(
+
+            .92
+
+        );
+
+}
+
+
+/* =========================================================
+   NAVIGATION SAFE AREA
+========================================================= */
 
 @supports (
 
@@ -306,14 +1807,18 @@ main,
 
 ) {
 
+    .bottom-nav,
+    .bottom-navigation,
+    #bottomNav,
+    #mainNav {
 
-    .bottom-nav {
-
-        padding-bottom:
+        bottom:
 
             calc(
 
-                7px +
+                12px
+
+                +
 
                 env(
 
@@ -321,17 +1826,16 @@ main,
 
                 )
 
-            ) !important;
+            );
 
     }
-
 
 }
 
 
-/* =========================================
-   MOBILE SCREEN
-========================================= */
+/* =========================================================
+   MOBILE NAVIGATION
+========================================================= */
 
 @media (
 
@@ -339,31 +1843,90 @@ main,
 
 ) {
 
+    .bottom-nav,
+    .bottom-navigation,
+    #bottomNav,
+    #mainNav {
 
-    .bottom-nav {
+        width:
 
-        height: 78px !important;
+            calc(
 
-        min-height: 78px !important;
+                100%
+
+                -
+
+                20px
+
+            );
+
+        height:
+            76px;
+
+        bottom:
+            10px;
+
+        border-radius:
+            22px;
+
+        padding:
+            7px;
 
     }
 
 
-    body {
+    .bottom-nav a,
+    .bottom-navigation a,
+    #bottomNav a,
+    #mainNav a {
 
-        padding-bottom:
+        font-size:
+            8px;
 
-            90px !important;
+        gap:
+            3px;
+
+        padding:
+            5px
+
+            2px;
 
     }
 
+
+    .bottom-nav a i,
+    .bottom-nav a svg,
+    .bottom-nav a .nav-icon,
+
+    .bottom-navigation a i,
+    .bottom-navigation a svg,
+    .bottom-navigation a .nav-icon,
+
+    #bottomNav a i,
+    #bottomNav a svg,
+    #bottomNav a .nav-icon,
+
+    #mainNav a i,
+    #mainNav a svg,
+    #mainNav a .nav-icon {
+
+        width:
+            21px;
+
+        height:
+            21px;
+
+        font-size:
+            19px;
+
+    }
 
 }
 
 
-/* =========================================
-   SMALL MOBILE SCREEN
-========================================= */
+/* =========================================================
+   SMALL MOBILE NAVIGATION
+========================================================= */
 
 @media (
 
@@ -371,331 +1934,1374 @@ main,
 
 ) {
 
+    .bottom-nav,
+    .bottom-navigation,
+    #bottomNav,
+    #mainNav {
 
-    .bottom-nav {
+        width:
 
-        height: 74px !important;
+            calc(
 
-        min-height: 74px !important;
+                100%
 
-        padding-left:
+                -
 
-            4px !important;
+                14px
 
-        padding-right:
+            );
 
-            4px !important;
+        height:
+            72px;
 
-    }
-
-
-    .bottom-nav .nav-item {
-
-        height: 58px !important;
-
-        min-height: 58px !important;
+        bottom:
+            7px;
 
         border-radius:
-
-            12px !important;
+            20px;
 
     }
 
 
-    .bottom-nav .nav-item i {
+    .bottom-nav a,
+    .bottom-navigation a,
+    #bottomNav a,
+    #mainNav a {
 
         font-size:
-
-            18px !important;
+            7px;
 
     }
 
 
-    .bottom-nav .nav-item span {
+    .bottom-nav a i,
+    .bottom-nav a svg,
+    .bottom-nav a .nav-icon,
+
+    .bottom-navigation a i,
+    .bottom-navigation a svg,
+    .bottom-navigation a .nav-icon,
+
+    #bottomNav a i,
+    #bottomNav a svg,
+    #bottomNav a .nav-icon,
+
+    #mainNav a i,
+    #mainNav a svg,
+    #mainNav a .nav-icon {
+
+        width:
+            19px;
+
+        height:
+            19px;
 
         font-size:
-
-            8px !important;
-
-    }
-
-
-    body {
-
-        padding-bottom:
-
-            86px !important;
+            17px;
 
     }
-
 
 }
 
 
-/* =========================================
-   PREVENT NAVIGATION FROM DISAPPEARING
-========================================= */
+/* =========================================================
+   END PART 2/4
+========================================================= */
+/* =========================================================
+   RIO MAGGI POINT
+   COMMON.CSS
+   FINAL PREMIUM SYSTEM
+   PART 3/4
+   PREMIUM ANIMATION SYSTEM
+========================================================= */
 
-.bottom-nav,
 
-.bottom-nav * {
+/* =========================================================
+   PAGE ENTRY ANIMATION
+   हर page खुलने पर एक बार
+========================================================= */
 
-    visibility:
+main,
+.page,
+.page-container,
+.profile-page,
+.qr-page,
+.history-page,
+.menu-page,
+.feedback-page,
+.home-page {
 
-        visible !important;
+    animation:
+
+        rioPageEnter
+
+        .55s
+
+        cubic-bezier(
+
+            .22,
+
+            1,
+
+            .36,
+
+            1
+
+        )
+
+        both;
 
 }
 
 
-/* =========================================
-   PREVENT PAGE TRANSFORM FROM HIDING NAV
-========================================= */
+@keyframes rioPageEnter {
 
-body {
+    0% {
+
+        opacity:
+            0;
+
+        transform:
+
+            translateY(
+
+                14px
+
+            );
+
+    }
+
+    100% {
+
+        opacity:
+            1;
+
+        transform:
+
+            translateY(
+
+                0
+
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   PREMIUM CARD ENTRY
+========================================================= */
+
+.premium-card,
+.loyalty-card,
+.dashboard-card,
+.menu-card,
+.history-card,
+.review-card,
+.qr-card {
+
+    animation:
+
+        rioCardEnter
+
+        .6s
+
+        cubic-bezier(
+
+            .22,
+
+            1,
+
+            .36,
+
+            1
+
+        )
+
+        both;
+
+}
+
+
+@keyframes rioCardEnter {
+
+    0% {
+
+        opacity:
+            0;
+
+        transform:
+
+            translateY(
+
+                12px
+
+            )
+
+            scale(
+
+                .985
+
+            );
+
+    }
+
+    100% {
+
+        opacity:
+            1;
+
+        transform:
+
+            translateY(
+
+                0
+
+            )
+
+            scale(
+
+                1
+
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   PREMIUM GOLD SHIMMER
+   हल्का decorative effect
+========================================================= */
+
+.premium-shimmer {
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+}
+
+
+.premium-shimmer::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+    left:
+        -120%;
+
+    width:
+        55%;
+
+    height:
+        100%;
+
+    pointer-events:
+        none;
+
+    background:
+
+        linear-gradient(
+
+            100deg,
+
+            transparent,
+
+            rgba(
+
+                243,
+
+                215,
+
+                122,
+
+                .08
+
+            ),
+
+            rgba(
+
+                255,
+
+                255,
+
+                255,
+
+                .16
+
+            ),
+
+            rgba(
+
+                243,
+
+                215,
+
+                122,
+
+                .08
+
+            ),
+
+            transparent
+
+        );
 
     transform:
 
-        none !important;
+        skewX(
+
+            -18deg
+
+        );
+
+    animation:
+
+        rioShimmer
+
+        4.5s
+
+        ease-in-out
+
+        1
+
+        both;
 
 }
 
 
-/* =========================================
-   END COMMON NAVIGATION FIX
-   PART 2/4
-========================================= */
-/* =========================================
-   RIO MAGGI POINT
-   COMMON NAVIGATION FIX
-   PART 3/4
-   OLD NAV CONFLICT RESET + PREMIUM STYLE
-========================================= */
+@keyframes rioShimmer {
 
+    0% {
 
-/* =========================================
-   RESET OLD NAVIGATION POSITIONING
-========================================= */
+        left:
+            -120%;
 
-.bottom-nav {
+    }
 
-    position: fixed !important;
+    100% {
 
-    top: auto !important;
+        left:
+            160%;
 
-    right: 0 !important;
-
-    bottom: 0 !important;
-
-    left: 0 !important;
-
-    float: none !important;
-
-    clear: both !important;
-
-    transform: translateZ(0) !important;
+    }
 
 }
 
 
-/* =========================================
-   REMOVE OLD NAVIGATION LIMIT
-========================================= */
+/* =========================================================
+   PREMIUM GOLD GLOW
+   Decorative continuous effect
+   बहुत हल्का रखा गया है
+========================================================= */
 
-.bottom-nav {
+.premium-gold-glow {
 
-    max-width: none !important;
+    animation:
 
-    min-width: 0 !important;
+        rioGoldGlow
+
+        3.5s
+
+        ease-in-out
+
+        infinite;
 
 }
 
 
-/* =========================================
-   REMOVE OLD NAVIGATION BACKGROUND
-========================================= */
+@keyframes rioGoldGlow {
 
-.bottom-nav {
+    0%,
+
+    100% {
+
+        box-shadow:
+
+            0
+
+            0
+
+            12px
+
+            rgba(
+
+                212,
+
+                168,
+
+                63,
+
+                .12
+
+            );
+
+    }
+
+    50% {
+
+        box-shadow:
+
+            0
+
+            0
+
+            22px
+
+            rgba(
+
+                212,
+
+                168,
+
+                63,
+
+                .25
+
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   PREMIUM ROTATING GOLD RING
+   Profile background / avatar decoration
+========================================================= */
+
+.premium-rotating-ring {
+
+    position:
+        relative;
+
+    isolation:
+        isolate;
+
+}
+
+
+.premium-rotating-ring::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        -6px;
+
+    border-radius:
+        50%;
 
     background:
 
-        #263525 !important;
+        conic-gradient(
 
-    background-image:
+            from
 
-        none !important;
+            0deg,
 
-}
+            transparent
 
+            0deg,
 
-/* =========================================
-   NAVIGATION ITEM RESET
-========================================= */
+            transparent
 
-.bottom-nav .nav-item {
+            55deg,
 
-    position: relative !important;
+            var(--rio-gold-light)
 
-    top: auto !important;
+            90deg,
 
-    right: auto !important;
+            var(--rio-gold)
 
-    bottom: auto !important;
+            130deg,
 
-    left: auto !important;
+            transparent
 
-    float: none !important;
+            175deg,
 
-    transform: none !important;
+            transparent
 
-}
+            360deg
 
+        );
 
-/* =========================================
-   REMOVE OLD ICON STYLES
-========================================= */
+    animation:
 
-.bottom-nav .nav-item i {
+        rioRotateRing
 
-    position: static !important;
+        7s
 
-    margin: 0 !important;
+        linear
 
-    padding: 0 !important;
+        infinite;
 
-    background: transparent !important;
-
-    border: none !important;
-
-    box-shadow: none !important;
+    z-index:
+        -1;
 
 }
 
 
-/* =========================================
-   REMOVE OLD TEXT STYLES
-========================================= */
+.premium-rotating-ring::after {
 
-.bottom-nav .nav-item span {
+    content:
+        "";
 
-    position: static !important;
+    position:
+        absolute;
 
-    margin: 0 !important;
+    inset:
+        -2px;
 
-    padding: 0 !important;
-
-    background: transparent !important;
-
-    border: none !important;
-
-    box-shadow: none !important;
-
-}
-
-
-/* =========================================
-   PREMIUM NAV ITEM
-========================================= */
-
-.bottom-nav .nav-item {
-
-    color:
-
-        #ffd54f !important;
-
-    opacity:
-
-        .70 !important;
+    border-radius:
+        50%;
 
     background:
 
-        transparent !important;
+        var(--rio-black);
+
+    z-index:
+        -1;
+
+}
+
+
+@keyframes rioRotateRing {
+
+    from {
+
+        transform:
+
+            rotate(
+
+                0deg
+
+            );
+
+    }
+
+    to {
+
+        transform:
+
+            rotate(
+
+                360deg
+
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   PROFILE PREMIUM BACKGROUND ORBIT
+========================================================= */
+
+.profile-premium-orbit {
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+}
+
+
+.profile-premium-orbit::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    width:
+        180px;
+
+    height:
+        180px;
+
+    top:
+        -70px;
+
+    right:
+        -70px;
+
+    border:
+
+        1px
+
+        solid
+
+        rgba(
+
+            212,
+
+            168,
+
+            63,
+
+            .22
+
+        );
+
+    border-radius:
+        50%;
+
+    animation:
+
+        rioOrbit
+
+        12s
+
+        linear
+
+        infinite;
+
+    pointer-events:
+        none;
+
+}
+
+
+.profile-premium-orbit::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    width:
+        120px;
+
+    height:
+        120px;
+
+    bottom:
+        -55px;
+
+    left:
+        -45px;
+
+    border:
+
+        1px
+
+        solid
+
+        rgba(
+
+            143,
+
+            22,
+
+            36,
+
+            .30
+
+        );
+
+    border-radius:
+        50%;
+
+    animation:
+
+        rioOrbit
+
+        9s
+
+        linear
+
+        infinite
+
+        reverse;
+
+    pointer-events:
+        none;
+
+}
+
+
+@keyframes rioOrbit {
+
+    from {
+
+        transform:
+
+            rotate(
+
+                0deg
+
+            );
+
+    }
+
+    to {
+
+        transform:
+
+            rotate(
+
+                360deg
+
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   FREE GAME PREMIUM BUTTON
+========================================================= */
+
+.free-game-btn,
+.click-free-game,
+.click-play-game {
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
 
     transition:
 
-        all
+        transform
 
-        .25s
+        var(--transition-fast),
 
-        ease !important;
+        box-shadow
+
+        var(--transition-normal);
 
 }
 
 
-/* =========================================
-   NAV ITEM HOVER
-========================================= */
+.free-game-btn::before,
+.click-free-game::before,
+.click-play-game::before {
 
-.bottom-nav .nav-item:hover {
+    content:
+        "";
 
-    color:
+    position:
+        absolute;
 
-        #ffffff !important;
+    top:
+        0;
 
-    opacity:
+    left:
+        -110%;
 
-        1 !important;
+    width:
+        55%;
+
+    height:
+        100%;
 
     background:
 
+        linear-gradient(
+
+            100deg,
+
+            transparent,
+
+            rgba(
+
+                255,
+
+                255,
+
+                255,
+
+                .18
+
+            ),
+
+            transparent
+
+        );
+
+    transform:
+
+        skewX(
+
+            -20deg
+
+        );
+
+    animation:
+
+        rioGameButtonShine
+
+        4s
+
+        ease-in-out
+
+        1
+
+        both;
+
+}
+
+
+.free-game-btn:hover,
+.click-free-game:hover,
+.click-play-game:hover {
+
+    transform:
+
+        translateY(
+
+            -2px
+
+        );
+
+    box-shadow:
+
+        0
+
+        0
+
+        20px
+
         rgba(
 
-            255,
+            212,
 
-            213,
+            168,
 
-            79,
+            63,
+
+            .22
+
+        );
+
+}
+
+
+@keyframes rioGameButtonShine {
+
+    0% {
+
+        left:
+            -110%;
+
+    }
+
+    100% {
+
+        left:
+            160%;
+
+    }
+
+}
+
+
+/* =========================================================
+   NAVIGATION ICON PREMIUM MOTION
+========================================================= */
+
+.bottom-nav a.active i,
+.bottom-navigation a.active i,
+#bottomNav a.active i,
+#mainNav a.active i,
+
+.bottom-nav a.active svg,
+.bottom-navigation a.active svg,
+#bottomNav a.active svg,
+#mainNav a.active svg {
+
+    animation:
+
+        rioNavIcon
+
+        .7s
+
+        cubic-bezier(
+
+            .22,
+
+            1,
+
+            .36,
+
+            1
+
+        )
+
+        both;
+
+}
+
+
+@keyframes rioNavIcon {
+
+    0% {
+
+        transform:
+
+            scale(
+
+                .82
+
+            )
+
+            translateY(
+
+                4px
+
+            );
+
+    }
+
+    60% {
+
+        transform:
+
+            scale(
+
+                1.08
+
+            )
+
+            translateY(
+
+                -2px
+
+            );
+
+    }
+
+    100% {
+
+        transform:
+
+            scale(
+
+                1
+
+            )
+
+            translateY(
+
+                -2px
+
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   QR ONE-TIME SCAN ANIMATION
+   IMPORTANT:
+   यह infinite नहीं है
+   सिर्फ एक बार चलेगा
+========================================================= */
+
+.qr-scan-container {
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+}
+
+
+.qr-scan-line {
+
+    position:
+        absolute;
+
+    left:
+        5%;
+
+    width:
+        90%;
+
+    height:
+        2px;
+
+    top:
+        5%;
+
+    z-index:
+        5;
+
+    pointer-events:
+        none;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            var(--rio-gold-light),
+
+            var(--rio-gold),
+
+            var(--rio-gold-light),
+
+            transparent
+
+        );
+
+    box-shadow:
+
+        0
+
+        0
+
+        12px
+
+        rgba(
+
+            243,
+
+            215,
+
+            122,
+
+            .65
+
+        );
+
+    animation:
+
+        rioQRScanOnce
+
+        2.2s
+
+        ease-in-out
+
+        1
+
+        forwards;
+
+}
+
+
+@keyframes rioQRScanOnce {
+
+    0% {
+
+        top:
+            5%;
+
+        opacity:
+            0;
+
+    }
+
+    12% {
+
+        opacity:
+            1;
+
+    }
+
+    50% {
+
+        top:
+            50%;
+
+        opacity:
+            1;
+
+    }
+
+    88% {
+
+        opacity:
+            1;
+
+    }
+
+    100% {
+
+        top:
+            95%;
+
+        opacity:
+            0;
+
+    }
+
+}
+
+
+/* =========================================================
+   QR PREMIUM BORDER
+========================================================= */
+
+.qr-premium-area {
+
+    position:
+        relative;
+
+    border:
+
+        1px
+
+        solid
+
+        rgba(
+
+            212,
+
+            168,
+
+            63,
+
+            .35
+
+        );
+
+    border-radius:
+
+        var(--radius-large);
+
+    background:
+
+        linear-gradient(
+
+            145deg,
+
+            rgba(
+
+                143,
+
+                22,
+
+                36,
+
+                .18
+
+            ),
+
+            rgba(
+
+                10,
+
+                10,
+
+                12,
+
+                .75
+
+            )
+
+        );
+
+    box-shadow:
+
+        0
+
+        0
+
+        25px
+
+        rgba(
+
+            143,
+
+            22,
+
+            36,
+
+            .12
+
+        );
+
+}
+
+
+/* =========================================================
+   QR CORNER DECORATION
+========================================================= */
+
+.qr-premium-area::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        10px;
+
+    border:
+
+        1px
+
+        solid
+
+        rgba(
+
+            212,
+
+            168,
+
+            63,
 
             .10
 
-        ) !important;
+        );
+
+    border-radius:
+
+        calc(
+
+            var(--radius-large)
+
+            -
+
+            8px
+
+        );
+
+    pointer-events:
+        none;
 
 }
 
 
-/* =========================================
-   ACTIVE NAVIGATION
-========================================= */
+/* =========================================================
+   MENU CATEGORY ENTRY
+========================================================= */
 
-.bottom-nav .nav-item.active,
+.menu-category,
+.menu-item-card {
 
-.bottom-nav .nav-item[aria-current="page"] {
+    animation:
 
-    color:
+        rioMenuEntry
 
-        #ffffff !important;
+        .55s
 
-    opacity:
+        cubic-bezier(
 
-        1 !important;
+            .22,
 
-    background:
+            1,
 
-        rgba(
+            .36,
 
-            255,
+            1
 
-            213,
+        )
 
-            79,
-
-            .16
-
-        ) !important;
+        both;
 
 }
 
 
-/* =========================================
-   ACTIVE NAV ICON
-========================================= */
+@keyframes rioMenuEntry {
 
-.bottom-nav .nav-item.active i,
+    from {
 
-.bottom-nav .nav-item[aria-current="page"] i {
+        opacity:
+            0;
 
-    color:
+        transform:
 
-        #ffd54f !important;
+            translateY(
+
+                10px
+
+            )
+
+            scale(
+
+                .98
+
+            );
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+
+            translateY(
+
+                0
+
+            )
+
+            scale(
+
+                1
+
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   REVIEW STAR TAP
+========================================================= */
+
+.review-star,
+.star-rating button {
+
+    transition:
+
+        transform
+
+        var(--transition-fast),
+
+        filter
+
+        var(--transition-fast);
+
+}
+
+
+.review-star:hover,
+.star-rating button:hover {
+
+    transform:
+
+        scale(
+
+            1.15
+
+        );
 
     filter:
 
@@ -705,87 +3311,137 @@ body {
 
             0
 
-            5px
+            8px
 
             rgba(
 
-                255,
+                243,
 
-                213,
+                215,
 
-                79,
+                122,
 
-                .45
+                .60
 
             )
 
-        ) !important;
+        );
 
 }
 
 
-/* =========================================
-   ACTIVE NAV TEXT
-========================================= */
-
-.bottom-nav .nav-item.active span,
-
-.bottom-nav .nav-item[aria-current="page"] span {
-
-    color:
-
-        #ffffff !important;
-
-    font-weight:
-
-        700 !important;
-
-}
-
-
-/* =========================================
-   ACTIVE INDICATOR
-========================================= */
-
-.bottom-nav .nav-item.active::after,
-
-.bottom-nav .nav-item[aria-current="page"]::after {
-
-    content:
-
-        "" !important;
-
-    position:
-
-        absolute !important;
-
-    left:
-
-        50% !important;
-
-    bottom:
-
-        3px !important;
-
-    width:
-
-        22px !important;
-
-    height:
-
-        3px !important;
+.review-star:active,
+.star-rating button:active {
 
     transform:
 
-        translateX(-50%) !important;
+        scale(
 
-    background:
+            .88
 
-        #ffd54f !important;
+        );
 
-    border-radius:
+}
 
-        10px !important;
+
+/* =========================================================
+   ANNOUNCEMENT ENTRY
+========================================================= */
+
+.announcement-card {
+
+    animation:
+
+        rioAnnouncement
+
+        .65s
+
+        cubic-bezier(
+
+            .22,
+
+            1,
+
+            .36,
+
+            1
+
+        )
+
+        both;
+
+}
+
+
+@keyframes rioAnnouncement {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+
+            translateY(
+
+                -10px
+
+            );
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+
+            translateY(
+
+                0
+
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOYALTY STAMP ENTRY
+========================================================= */
+
+.loyalty-stamp {
+
+    transition:
+
+        transform
+
+        var(--transition-normal),
+
+        box-shadow
+
+        var(--transition-normal);
+
+}
+
+
+.loyalty-stamp:hover {
+
+    transform:
+
+        translateY(
+
+            -3px
+
+        )
+
+        scale(
+
+            1.03
+
+        );
 
     box-shadow:
 
@@ -793,481 +3449,1032 @@ body {
 
         0
 
-        8px
+        16px
+
+        rgba(
+
+            212,
+
+            168,
+
+            63,
+
+            .20
+
+        );
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   Performance + accessibility
+========================================================= */
+
+@media (
+
+    prefers-reduced-motion:
+
+    reduce
+
+) {
+
+    *,
+
+    *::before,
+
+    *::after {
+
+        animation-duration:
+            .01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            .01ms !important;
+
+        scroll-behavior:
+            auto !important;
+
+    }
+
+}
+
+
+/* =========================================================
+   END PART 3/4
+========================================================= */
+/* =========================================================
+   RIO MAGGI POINT
+   COMMON.CSS
+   FINAL PREMIUM SYSTEM
+   PART 4/4
+   FINAL RESPONSIVE + CONFLICT OVERRIDES
+========================================================= */
+
+
+/* =========================================================
+   FINAL PAGE SIZE CONTROL
+   सभी pages का common width
+========================================================= */
+
+body > main,
+body > .page,
+body > .page-container,
+body > .profile-page,
+body > .qr-page,
+body > .history-page,
+body > .menu-page,
+body > .feedback-page,
+body > .home-page {
+
+    width:
+        100%;
+
+    max-width:
+        var(--page-width);
+
+    margin-left:
+        auto;
+
+    margin-right:
+        auto;
+
+}
+
+
+/* =========================================================
+   PREVENT HORIZONTAL OVERFLOW
+========================================================= */
+
+html,
+body {
+
+    max-width:
+        100%;
+
+    overflow-x:
+        hidden;
+
+}
+
+
+/* =========================================================
+   COMMON CONTENT WIDTH
+========================================================= */
+
+.container,
+.content,
+.main-content,
+.page-inner {
+
+    width:
+        100%;
+
+    max-width:
+        100%;
+
+    margin-left:
+        auto;
+
+    margin-right:
+        auto;
+
+}
+
+
+/* =========================================================
+   COMMON HEADER
+========================================================= */
+
+.premium-header,
+.page-header,
+.dashboard-header {
+
+    width:
+        100%;
+
+    position:
+        relative;
+
+    margin-bottom:
+        20px;
+
+    padding:
+        16px;
+
+    border:
+
+        1px
+
+        solid
+
+        rgba(
+
+            212,
+
+            168,
+
+            63,
+
+            .20
+
+        );
+
+    border-radius:
+
+        var(--radius-large);
+
+    background:
+
+        linear-gradient(
+
+            145deg,
+
+            rgba(
+
+                143,
+
+                22,
+
+                36,
+
+                .22
+
+            ),
+
+            rgba(
+
+                10,
+
+                10,
+
+                12,
+
+                .88
+
+            )
+
+        );
+
+    box-shadow:
+
+        var(--shadow-card);
+
+}
+
+
+/* =========================================================
+   COMMON HEADER TITLE
+========================================================= */
+
+.premium-header h1,
+.premium-header h2,
+.page-header h1,
+.page-header h2,
+.dashboard-header h1,
+.dashboard-header h2 {
+
+    margin:
+        0;
+
+    color:
+        var(--rio-white);
+
+    font-weight:
+        800;
+
+    line-height:
+        1.2;
+
+}
+
+
+/* =========================================================
+   COMMON SUBTITLE
+========================================================= */
+
+.premium-header p,
+.page-header p,
+.dashboard-header p {
+
+    margin-top:
+        6px;
+
+    color:
+        var(--rio-muted);
+
+    font-size:
+        12px;
+
+    line-height:
+        1.5;
+
+}
+
+
+/* =========================================================
+   COMMON INPUT
+========================================================= */
+
+.premium-input,
+input,
+textarea,
+select {
+
+    width:
+        100%;
+
+    min-height:
+        46px;
+
+    padding:
+
+        11px
+
+        13px;
+
+    color:
+        var(--rio-white);
+
+    background:
+
+        rgba(
+
+            0,
+
+            0,
+
+            0,
+
+            .28
+
+        );
+
+    border:
+
+        1px
+
+        solid
+
+        rgba(
+
+            212,
+
+            168,
+
+            63,
+
+            .22
+
+        );
+
+    border-radius:
+
+        var(--radius-medium);
+
+    outline:
+        none;
+
+    transition:
+
+        border-color
+
+        var(--transition-fast),
+
+        box-shadow
+
+        var(--transition-fast);
+
+}
+
+
+textarea {
+
+    min-height:
+        110px;
+
+    resize:
+        vertical;
+
+}
+
+
+.premium-input:focus,
+input:focus,
+textarea:focus,
+select:focus {
+
+    border-color:
+
+        var(--rio-gold);
+
+    box-shadow:
+
+        0
+
+        0
+
+        0
+
+        3px
+
+        rgba(
+
+            212,
+
+            168,
+
+            63,
+
+            .08
+
+        );
+
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
+
+input::placeholder,
+textarea::placeholder {
+
+    color:
 
         rgba(
 
             255,
 
-            213,
+            255,
 
-            79,
+            255,
 
-            .55
+            .42
 
-        ) !important;
+        );
 
 }
 
 
-/* =========================================
-   TAP ANIMATION
-========================================= */
+/* =========================================================
+   COMMON BADGE
+========================================================= */
 
-.bottom-nav .nav-item:active {
+.premium-badge {
 
-    transform:
+    display:
+        inline-flex;
 
-        scale(.92) !important;
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    min-height:
+        28px;
+
+    padding:
+
+        6px
+
+        11px;
+
+    color:
+
+        var(--rio-gold-light);
+
+    background:
+
+        rgba(
+
+            143,
+
+            22,
+
+            36,
+
+            .24
+
+        );
+
+    border:
+
+        1px
+
+        solid
+
+        rgba(
+
+            212,
+
+            168,
+
+            63,
+
+            .30
+
+        );
+
+    border-radius:
+        999px;
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+}
+
+
+/* =========================================================
+   PREMIUM DIVIDER
+========================================================= */
+
+.premium-divider {
+
+    width:
+        100%;
+
+    height:
+        1px;
+
+    margin:
+
+        16px
+
+        0;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            rgba(
+
+                212,
+
+                168,
+
+                63,
+
+                .35
+
+            ),
+
+            transparent
+
+        );
+
+}
+
+
+/* =========================================================
+   COMMON GRID
+========================================================= */
+
+.premium-grid {
+
+    width:
+        100%;
+
+    display:
+        grid;
+
+    grid-template-columns:
+
+        repeat(
+
+            2,
+
+            minmax(
+
+                0,
+
+                1fr
+
+            )
+
+        );
+
+    gap:
+        12px;
+
+}
+
+
+/* =========================================================
+   COMMON FLEX
+========================================================= */
+
+.premium-flex {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+}
+
+
+.premium-flex-between {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        12px;
+
+}
+
+
+/* =========================================================
+   COMMON ICON BUTTON
+========================================================= */
+
+.premium-icon-btn {
+
+    width:
+        44px;
+
+    height:
+        44px;
+
+    flex:
+        0 0 44px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    color:
+        var(--rio-gold-light);
+
+    background:
+
+        linear-gradient(
+
+            145deg,
+
+            rgba(
+
+                143,
+
+                22,
+
+                36,
+
+                .32
+
+            ),
+
+            rgba(
+
+                10,
+
+                10,
+
+                12,
+
+                .88
+
+            )
+
+        );
+
+    border:
+
+        1px
+
+        solid
+
+        rgba(
+
+            212,
+
+            168,
+
+            63,
+
+            .28
+
+        );
+
+    border-radius:
+        50%;
+
+    cursor:
+        pointer;
 
     transition:
 
         transform
 
-        .08s
+        var(--transition-fast),
 
-        ease !important;
+        box-shadow
 
-}
-
-
-/* =========================================
-   REMOVE LINK UNDERLINE
-========================================= */
-
-.bottom-nav a,
-
-.bottom-nav a:hover,
-
-.bottom-nav a:focus,
-
-.bottom-nav a:active {
-
-    text-decoration:
-
-        none !important;
+        var(--transition-fast);
 
 }
 
 
-/* =========================================
-   ACCESSIBILITY FOCUS
-========================================= */
+.premium-icon-btn:hover {
 
-.bottom-nav .nav-item:focus-visible {
+    transform:
+
+        translateY(
+
+            -2px
+
+        );
+
+    box-shadow:
+
+        var(--shadow-gold);
+
+}
+
+
+.premium-icon-btn:active {
+
+    transform:
+
+        scale(
+
+            .92
+
+        );
+
+}
+
+
+/* =========================================================
+   FINAL NAVIGATION VISIBILITY
+   Navigation को pages के ऊपर हमेशा visible रखना
+========================================================= */
+
+.bottom-nav,
+.bottom-navigation,
+#bottomNav,
+#mainNav {
+
+    visibility:
+        visible !important;
+
+    opacity:
+        1 !important;
+
+    pointer-events:
+        auto !important;
+
+}
+
+
+/* =========================================================
+   PREVENT PAGE CONTENT FROM HIDING BEHIND NAV
+========================================================= */
+
+body {
+
+    padding-bottom:
+
+        calc(
+
+            var(--nav-height)
+
+            +
+
+            35px
+
+            +
+
+            env(
+
+                safe-area-inset-bottom,
+
+                0px
+
+            )
+
+        );
+
+}
+
+
+/* =========================================================
+   NAVIGATION STACKING
+========================================================= */
+
+.bottom-nav,
+.bottom-navigation,
+#bottomNav,
+#mainNav {
+
+    isolation:
+        isolate;
+
+}
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (
+
+    min-width: 601px
+
+) {
+
+    body {
+
+        padding-bottom:
+
+            calc(
+
+                var(--nav-height)
+
+                +
+
+                45px
+
+            );
+
+    }
+
+
+    .bottom-nav,
+    .bottom-navigation,
+    #bottomNav,
+    #mainNav {
+
+        bottom:
+            18px;
+
+    }
+
+
+    main,
+    .page,
+    .page-container,
+    .profile-page,
+    .qr-page,
+    .history-page,
+    .menu-page,
+    .feedback-page,
+    .home-page {
+
+        padding-left:
+            20px;
+
+        padding-right:
+            20px;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (
+
+    max-width: 600px
+
+) {
+
+    .premium-grid {
+
+        grid-template-columns:
+
+            repeat(
+
+                2,
+
+                minmax(
+
+                    0,
+
+                    1fr
+
+                )
+
+            );
+
+        gap:
+            10px;
+
+    }
+
+
+    .premium-header,
+    .page-header,
+    .dashboard-header {
+
+        padding:
+            14px;
+
+        border-radius:
+            20px;
+
+    }
+
+
+    .premium-btn {
+
+        width:
+            100%;
+
+    }
+
+
+    .premium-flex-between {
+
+        align-items:
+            flex-start;
+
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (
+
+    max-width: 360px
+
+) {
+
+    .premium-grid {
+
+        grid-template-columns:
+
+            1fr;
+
+    }
+
+
+    .premium-flex-between {
+
+        flex-direction:
+            column;
+
+    }
+
+
+    .premium-flex-between > * {
+
+        width:
+            100%;
+
+    }
+
+}
+
+
+/* =========================================================
+   TOUCH DEVICE OPTIMIZATION
+========================================================= */
+
+@media (
+
+    hover: none
+
+) {
+
+    .premium-card:hover {
+
+        transform:
+            none;
+
+        box-shadow:
+
+            var(--shadow-card);
+
+    }
+
+
+    .premium-btn:hover {
+
+        transform:
+            none;
+
+    }
+
+
+    .premium-icon-btn:hover {
+
+        transform:
+            none;
+
+    }
+
+}
+
+
+/* =========================================================
+   FINAL FOCUS
+========================================================= */
+
+:focus-visible {
 
     outline:
 
-        2px solid
+        2px
 
-        #ffd54f !important;
+        solid
+
+        var(--rio-gold-light);
 
     outline-offset:
-
-        -2px !important;
+        3px;
 
 }
 
 
-/* =========================================
-   REVIEW NAV ITEM
-========================================= */
+/* =========================================================
+   FINAL SELECTION COLOR
+========================================================= */
 
-.bottom-nav .nav-item.review-nav-item {
+::selection {
 
     color:
 
-        #ffd54f !important;
+        #1a0d08;
+
+    background:
+
+        var(--rio-gold-light);
 
 }
 
 
-/* =========================================
-   MENU NAV ITEM
-========================================= */
-
-.bottom-nav .nav-item.menu-nav-item {
-
-    color:
-
-        #ffd54f !important;
-
-}
-
-
-/* =========================================
-   QR NAV ITEM
-========================================= */
-
-.bottom-nav .nav-item.qr-nav-item {
-
-    color:
-
-        #ffd54f !important;
-
-}
-
-
-/* =========================================
-   PROFILE NAV ITEM
-========================================= */
-
-.bottom-nav .nav-item.profile-nav-item {
-
-    color:
-
-        #ffd54f !important;
-
-}
-
-
-/* =========================================
-   HISTORY NAV ITEM
-========================================= */
-
-.bottom-nav .nav-item.history-nav-item {
-
-    color:
-
-        #ffd54f !important;
-
-}
-
-
-/* =========================================
-   HOME NAV ITEM
-========================================= */
-
-.bottom-nav .nav-item.home-nav-item {
-
-    color:
-
-        #ffd54f !important;
-
-}
-
-
-/* =========================================
-   END COMMON NAVIGATION FIX
-   PART 3/4
-========================================= */
-/* =========================================
-   RIO MAGGI POINT
-   COMMON NAVIGATION
-   PART 4/4
-   FINAL NAVIGATION CONTROLLER
-========================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        /* =====================================
-           GET CURRENT PAGE
-        ====================================== */
-
-        const currentFile =
-            window.location.pathname
-                .split("/")
-                .pop()
-                .toLowerCase();
-
-
-        /* =====================================
-           NAVIGATION ITEMS
-        ====================================== */
-
-        const navItems =
-            document.querySelectorAll(
-                ".bottom-nav .nav-item"
-            );
-
-
-        /* =====================================
-           PAGE MAP
-        ====================================== */
-
-        const pageMap = {
-
-            "index.html":
-                "home",
-
-            "card.html":
-                "home",
-
-            "qr.html":
-                "qr",
-
-            "history.html":
-                "history",
-
-            "menu.html":
-                "menu",
-
-            "feedback.html":
-                "review",
-
-            "profile.html":
-                "profile"
-
-        };
-
-
-        /* =====================================
-           CURRENT PAGE
-        ====================================== */
-
-        let currentPage =
-            pageMap[currentFile];
-
-
-        /* =====================================
-           DEFAULT HOME
-        ====================================== */
-
-        if (!currentPage) {
-
-            currentPage =
-                "home";
-
-        }
-
-
-        /* =====================================
-           SET ACTIVE NAVIGATION
-        ====================================== */
-
-        navItems.forEach(
-            function (item) {
-
-                /* =============================
-                   REMOVE OLD ACTIVE STATE
-                ============================== */
-
-                item.classList.remove(
-                    "active"
-                );
-
-                item.removeAttribute(
-                    "aria-current"
-                );
-
-
-                /* =============================
-                   GET NAV DATA
-                ============================== */
-
-                const navPage =
-                    item.dataset.page;
-
-
-                /* =============================
-                   ACTIVE PAGE
-                ============================== */
-
-                if (
-
-                    navPage &&
-
-                    navPage ===
-                    currentPage
-
-                ) {
-
-                    item.classList.add(
-                        "active"
-                    );
-
-                    item.setAttribute(
-                        "aria-current",
-                        "page"
-                    );
-
-                }
-
-            }
-        );
-
-
-        /* =====================================
-           FIX NAVIGATION CLICK
-        ====================================== */
-
-        navItems.forEach(
-            function (item) {
-
-                item.addEventListener(
-                    "click",
-                    function (event) {
-
-                        /* =====================
-                           GET TARGET
-                        ====================== */
-
-                        const targetPage =
-                            this.dataset.page;
-
-
-                        /* =====================
-                           PAGE URL
-                        ====================== */
-
-                        const pageUrls = {
-
-                            home:
-                                "index.html",
-
-                            qr:
-                                "qr.html",
-
-                            history:
-                                "history.html",
-
-                            menu:
-                                "menu.html",
-
-                            review:
-                                "feedback.html",
-
-                            profile:
-                                "profile.html"
-
-                        };
-
-
-                        /* =====================
-                           CHECK TARGET
-                        ====================== */
-
-                        if (
-
-                            !targetPage ||
-
-                            !pageUrls[
-                                targetPage
-                            ]
-
-                        ) {
-
-                            return;
-
-                        }
-
-
-                        /* =====================
-                           STOP OLD LINK
-                        ====================== */
-
-                        event.preventDefault();
-
-
-                        /* =====================
-                           ADD ACTIVE STATE
-                        ====================== */
-
-                        navItems.forEach(
-                            function (nav) {
-
-                                nav.classList.remove(
-                                    "active"
-                                );
-
-                                nav.removeAttribute(
-                                    "aria-current"
-                                );
-
-                            }
-                        );
-
-
-                        this.classList.add(
-                            "active"
-                        );
-
-                        this.setAttribute(
-                            "aria-current",
-                            "page"
-                        );
-
-
-                        /* =====================
-                           OPEN CORRECT PAGE
-                        ====================== */
-
-                        window.location.href =
-                            pageUrls[
-                                targetPage
-                            ];
-
-                    }
-                );
-
-            }
-        );
-
-
-        /* =====================================
-           FIX BACK/FORWARD CACHE
-        ====================================== */
-
-        window.addEventListener(
-            "pageshow",
-            function () {
-
-                const current =
-                    window.location.pathname
-                        .split("/")
-                        .pop()
-                        .toLowerCase();
-
-
-                const activePage =
-                    pageMap[current];
-
-
-                navItems.forEach(
-                    function (item) {
-
-                        item.classList.remove(
-                            "active"
-                        );
-
-                        item.removeAttribute(
-                            "aria-current"
-                        );
-
-
-                        if (
-
-                            item.dataset.page ===
-                            activePage
-
-                        ) {
-
-                            item.classList.add(
-                                "active"
-                            );
-
-                            item.setAttribute(
-                                "aria-current",
-                                "page"
-                            );
-
-                        }
-
-                    }
-                );
-
-            }
-        );
-
-
-    }
-);
-
-
-/* =========================================
-   END COMMON NAVIGATION
-   PART 4/4
-   COMPLETE
-========================================= */
+/* =========================================================
+   END FINAL PREMIUM SYSTEM
+   COMMON.CSS — PART 4/4
+========================================================= */
