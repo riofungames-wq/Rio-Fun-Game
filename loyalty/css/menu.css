@@ -1,1828 +1,4888 @@
-/* Rio Maggi Point
-Premium Menu CSS
-Part 1/3
-*/
+/* =========================================
+   RIO MAGGI POINT
+   MENU.CSS
+   PART 1/4
+   PREMIUM MENU DASHBOARD + CATEGORY CARDS
+========================================= */
 
 
-*{
+/* =========================================
+   ROOT VARIABLES
+========================================= */
 
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+:root {
 
-}
-
-
-
-body{
-
-background:#080808;
-color:#ffffff;
-min-height:100vh;
-
-}
-
-
-
-
-.menu-page{
-
-padding-bottom:90px;
-animation:pageLoad .7s ease;
-
-}
-
-
-
-@keyframes pageLoad{
-
-from{
-
-opacity:0;
-transform:translateY(20px);
-
-}
-
-to{
-
-opacity:1;
-transform:translateY(0);
-
-}
-
-}
-
-
-
-
-
-
-
-/* HEADER */
-
-
-.menu-header{
-
-padding:30px 20px 10px;
-text-align:center;
-
-}
-
-
-
-.brand-box h1{
-
-font-size:30px;
-font-weight:800;
-letter-spacing:1px;
-
-}
-
-
-
-.brand-box h1 span{
-
-color:#d4af37;
-
-}
-
-
-
-.brand-box p{
-
-margin-top:8px;
-font-size:14px;
-color:#f7de8b;
-letter-spacing:1px;
-
-}
-
-
-
-
-.gold-line{
-
-height:3px;
-width:120px;
-background:#d4af37;
-margin:18px auto;
-border-radius:20px;
-
-box-shadow:
-0 0 15px #d4af37;
-
-}
-
-
-
-
-
-
-
-
-/* MENU HEADING */
-
-
-.menu-heading{
-
-text-align:center;
-margin:25px 0;
-
-}
-
-
-
-.menu-heading h2{
-
-color:#d4af37;
-font-size:26px;
-
-}
-
-
-
-.menu-heading p{
-
-color:#bbbbbb;
-font-size:14px;
-
-}
-
-
-
-
-
-
-
-
-
-/* CATEGORY GRID */
-
-
-.category-area{
-
-padding:0 18px;
-
-}
-
-
-
-.category-grid{
-
-display:grid;
-
-grid-template-columns:
-repeat(auto-fit,minmax(150px,1fr));
-
-gap:18px;
-
-}
-
-
-
-
-
-
-
-/* CATEGORY CARD */
-
-
-.category-card{
-
-
-background:
-
-linear-gradient(
-145deg,
-#171717,
-#090909
-);
-
-
-border:
-
-1px solid rgba(212,175,55,.35);
-
-
-border-radius:22px;
-
-
-padding:18px 12px;
-
-
-text-align:center;
-
-
-cursor:pointer;
-
-
-position:relative;
-
-
-overflow:hidden;
-
-
-transition:.4s ease;
-
-
-}
-
-
-
-
-
-.category-card:hover{
-
-
-transform:
-translateY(-8px);
-
-
-border-color:#d4af37;
-
-
-box-shadow:
-
-0 0 25px
-rgba(212,175,55,.35);
-
-
-}
-
-
-
-
-
-
-.category-card.active{
-
-
-border-color:#d4af37;
-
-
-box-shadow:
-
-0 0 25px
-rgba(212,175,55,.5);
-
-
-}
-
-
-
-
-
-
-
-
-/* CATEGORY FOOD PNG */
-
-
-.category-image{
-
-
-height:110px;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-margin-bottom:10px;
-
-
-}
-
-
-
-
-
-
-.category-image img{
-
-
-max-width:120px;
-
-
-max-height:105px;
-
-
-object-fit:contain;
-
-
-filter:
-
-drop-shadow(
-0 10px 12px
-rgba(0,0,0,.8)
-);
-
-
-animation:
-
-foodFloat 3s infinite ease-in-out;
-
-
-transition:.4s;
-
-
-}
-
-
-
-
-
-.category-card:hover img{
-
-
-transform:
-
-scale(1.12);
-
-
-}
-
-
-
-
-
-
-@keyframes foodFloat{
-
-
-0%,100%{
-
-transform:translateY(0);
-
-}
-
-
-50%{
-
-transform:translateY(-10px);
-
-}
-
-
-}
-
-
-
-
-
-
-
-
-.category-card h3{
-
-
-font-size:14px;
-
-line-height:1.4;
-
-color:white;
-
-font-weight:600;
-
-
-}
-
-
-
-
-
-
-
-
-
-/* FOOD CONTAINER */
-
-
-.food-container{
-
-
-padding:20px 18px;
-
-}
-
-
-
-
-
-.food-section{
-
-
-display:none;
-
-
-background:
-
-linear-gradient(
-145deg,
-#161616,
-#090909
-);
-
-
-border:
-
-1px solid rgba(212,175,55,.3);
-
-
-border-radius:25px;
-
-
-padding:25px 18px;
-
-
-animation:
-
-sectionOpen .5s ease;
-
-
-}
-
-
-
-
-
-.food-section.active{
-
-display:block;
-
-}
-
-
-
-
-
-@keyframes sectionOpen{
-
-
-from{
-
-opacity:0;
-
-transform:
-translateY(30px);
-
-}
-
-
-to{
-
-opacity:1;
-
-transform:
-translateY(0);
-
-}
-
-
-}
-
-
-
-
-
-
-
-
-/* LARGE FOOD IMAGE */
-
-
-.food-image-large{
-
-
-height:220px;
-
-
-display:flex;
-
-
-justify-content:center;
-
-
-align-items:center;
-
-
-margin-bottom:15px;
-
-
-}
-
-
-
-
-
-.food-image-large img{
-
-
-max-width:230px;
-
-
-max-height:210px;
-
-
-object-fit:contain;
-
-
-filter:
-
-drop-shadow(
-0 15px 20px
-rgba(0,0,0,.8)
-);
-
-
-animation:
-
-mainFoodFloat 3s infinite ease-in-out;
-
-
-}
-
-
-
-
-
-@keyframes mainFoodFloat{
-
-
-0%,100%{
-
-transform:
-translateY(0)
-scale(1);
-
-}
-
-
-50%{
-
-
-transform:
-translateY(-12px)
-scale(1.05);
-
-
-}
-
-
-}
-
-
-
-
-
-/* FOOD HEADER */
-
-
-.food-header{
-
-text-align:center;
-
-margin-bottom:25px;
-
-}
-
-
-
-
-
-.food-header h2{
-
-
-font-size:25px;
-
-color:#d4af37;
-
-font-weight:700;
-
-
-}
-
-
-
-
-
-.food-header p{
-
-
-font-size:13px;
-
-color:#bbbbbb;
-
-margin-top:6px;
-
-
-}
-
-
-
-
-
-
-
-
-
-/* PRICE HEADING */
-
-
-.price-heading{
-
-
-background:
-
-linear-gradient(
-90deg,
-rgba(212,175,55,.15),
-rgba(247,222,139,.08)
-);
-
-
-border:
-
-1px solid rgba(212,175,55,.4);
-
-
-border-radius:12px;
-
-
-padding:12px 10px;
-
-
-margin-bottom:12px;
-
-
-color:#f7de8b;
-
-
-font-size:13px;
-
-
-font-weight:700;
-
-
-}
-
-
-
-
-
-.three-column{
-
-
-display:grid;
-
-grid-template-columns:
-
-1fr 90px 90px;
-
-
-align-items:center;
-
-
-}
-
-
-
-
-
-.price-single{
-
-
-display:grid;
-
-
-grid-template-columns:
-
-1fr 90px;
-
-
-align-items:center;
-
-
-}
-
-
-
-
-
-
-
-
-/* FOOD LIST */
-
-
-.food-list{
-
-
-display:flex;
-
-flex-direction:column;
-
-gap:12px;
-
-
-}
-
-
-
-
-
-
-
-/* FOOD ITEM */
-
-
-.food-item{
-
-
-background:
-
-linear-gradient(
-145deg,
-#121212,
-#090909
-);
-
-
-border:
-
-1px solid rgba(247,222,139,.18);
-
-
-border-radius:15px;
-
-
-padding:15px 12px;
-
-
-position:relative;
-
-
-overflow:hidden;
-
-
-transition:.35s;
-
-
-}
-
-
-
-
-
-
-.food-item::before{
-
-
-content:"";
-
-
-position:absolute;
-
-
-top:0;
-
-
-left:-100%;
-
-
-width:60%;
-
-
-height:100%;
-
-
-background:
-
-linear-gradient(
-120deg,
-transparent,
-rgba(247,222,139,.18),
-transparent
-);
-
-
-transition:.6s;
-
-
-}
-
-
-
-
-
-.food-item:hover::before{
-
-
-left:120%;
-
-
-}
-
-
-
-
-
-.food-item:hover{
-
-
-transform:
-
-translateX(6px);
-
-
-border-color:#d4af37;
-
-
-box-shadow:
-
-0 0 18px
-rgba(212,175,55,.25);
-
-
-}
-
-
-
-
-
-
-
-
-
-/* FOOD NAME */
-
-
-.food-name{
-
-
-font-size:15px;
-
-
-font-weight:600;
-
-
-color:#ffffff;
-
-
-}
-
-
-
-
-
-/* HALF FULL PRICE */
-
-
-.half-price,
-
-
-.full-price,
-
-
-.single-price{
-
-
-text-align:center;
-
-
-font-size:16px;
-
-
-font-weight:700;
-
-
-color:#f7de8b;
-
-
-}
-
-
-
-
-
-
-.half-price::before{
-
-
-content:"";
-
-
-}
-
-
-
-
-.full-price::before{
-
-
-content:"";
-
-
-}
-
-
-
-
-
-
-
-
-/* PRICE GLOW */
-
-
-.food-item:hover .half-price,
-
-
-.food-item:hover .full-price,
-
-
-.food-item:hover .single-price{
-
-
-color:#d4af37;
-
-
-text-shadow:
-
-0 0 8px
-rgba(212,175,55,.8);
-
-
-}
-
-
-
-
-
-
-
-
-/* SINGLE PRICE CARD */
-
-
-.price-two-column{
-
-
-display:grid;
-
-
-grid-template-columns:
-
-1fr 90px;
-
-
-align-items:center;
-
-
-}
-
-
-
-
-
-
-
-
-/* MOBILE FOOD IMAGE FIX */
-
-
-@media(max-width:600px){
-
-
-
-.food-image-large{
-
-
-height:180px;
-
-
-}
-
-
-
-.food-image-large img{
-
-
-max-width:190px;
-
-
-max-height:170px;
-
-
-}
-
-
-
-.food-header h2{
-
-
-font-size:21px;
-
-
-}
-
-
-
-.three-column{
-
-
-grid-template-columns:
-
-1fr 65px 65px;
-
-
-}
-
-
-
-.price-single,
-
-
-.price-two-column{
-
-
-grid-template-columns:
-
-1fr 70px;
-
-
-}
-
-
-
-.price-heading,
-
-
-.food-name{
-
-
-font-size:13px;
-
-
-}
-
-
-
-.half-price,
-
-.full-price,
-
-.single-price{
-
-
-font-size:14px;
-
-
-}
-
-
-
-}
-
-
-
-
-
-/* BOTTOM NAVIGATION */
-
-
-.bottom-nav{
-
-
-position:fixed;
-
-
-bottom:0;
-
-
-left:0;
-
-
-width:100%;
-
-
-height:75px;
-
-
-background:
-
-rgba(8,8,8,.96);
-
-
-backdrop-filter:
-
-blur(12px);
-
-
-border-top:
-
-1px solid rgba(212,175,55,.35);
-
-
-display:flex;
-
-
-justify-content:space-around;
-
-
-align-items:center;
-
-
-z-index:999;
-
-
-}
-
-
-
-
-
-
-
-.bottom-nav a{
-
-
-text-decoration:none;
-
-
-color:#888;
-
-
-display:flex;
-
-
-flex-direction:column;
-
-
-align-items:center;
-
-
-gap:5px;
-
-
-font-size:11px;
-
-
-transition:.3s;
-
-
-}
-
-
-
-
-
-.bottom-nav a i{
-
-
-font-size:20px;
-
-
-}
-
-
-
-
-
-
-.bottom-nav a:hover,
-
-.bottom-nav a.active{
-
-
-color:#d4af37;
-
-
-transform:
-
-translateY(-5px);
-
-
-}
-
-
-
-
-
-.bottom-nav a.active i{
-
-
-filter:
-
-drop-shadow(
-0 0 8px #d4af37
-);
-
-
-}
-
-
-
-
-
-
-
-
-
-/* TABLET RESPONSIVE */
-
-
-@media(min-width:601px) and (max-width:1024px){
-
-
-
-.category-grid{
-
-
-grid-template-columns:
-
-repeat(3,1fr);
-
-
-}
-
-
-
-
-.food-container{
-
-
-max-width:850px;
-
-
-margin:auto;
-
-
-}
-
-
-
-.food-section{
+    --menu-bg:
+        #f5d99b;
 
+    --menu-card:
+        #fff8e7;
 
-padding:30px;
+    --menu-card-light:
+        #fffdf5;
 
+    --menu-dark:
+        #263525;
 
-}
-
-
-
-}
-
-
-
-
-
-
-
-
-
-/* LAPTOP AND DESKTOP */
-
-
-@media(min-width:1025px){
-
-
-
-.category-area,
-
-.food-container{
-
-
-max-width:1200px;
-
-
-margin:auto;
-
-
-}
-
-
-
-
-
-.category-grid{
-
-
-grid-template-columns:
-
-repeat(4,1fr);
-
-
-}
-
-
-
-
-
-.food-section{
-
-
-padding:35px;
-
-
-}
-
-
-
-
-
-.food-item:hover{
-
-
-transform:
-
-translateX(10px)
-scale(1.01);
-
-
-}
-
-
-
-}
-
-
-
-
-
-
-
-
-
-/* GOLD SCROLLBAR */
-
-
-::-webkit-scrollbar{
-
-
-width:8px;
-
-
-}
-
-
-
-
-
-::-webkit-scrollbar-track{
-
-
-background:#080808;
-
-
-}
-
-
-
-
-
-::-webkit-scrollbar-thumb{
-
-
-background:#d4af37;
-
-
-border-radius:20px;
-
-
-}
-
-
-
-
-
-
-
-
-
-/* PREMIUM IMAGE GLOW */
-
-
-.category-image img:hover,
-
-.food-image-large img:hover{
-
-
-filter:
-
-drop-shadow(
-0 0 25px
-rgba(212,175,55,.65)
-);
-
-
-}
-
-
-
-
-
-
-
-
-
-/* BUTTON PRESS EFFECT */
+    --menu-red:
+        #c62828;
 
+    --menu-gold:
+        #ffd54f;
 
-.category-card:active{
+    --menu-accent:
+        #d19b4a;
 
+    --menu-border:
+        #e0be7b;
 
-transform:
+    --menu-text:
+        #3a2e2b;
 
-scale(.96);
+    --menu-muted:
+        #7a6855;
 
+    --menu-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, .12);
 
 }
 
 
+/* =========================================
+   MENU PAGE
+========================================= */
 
+.menu-page {
 
+    width:
+        100%;
 
+    max-width:
+        1100px;
 
+    min-height:
+        100vh;
 
+    margin:
+        0 auto;
 
+    padding:
 
-/* EMPTY IMAGE FALLBACK */
+        24px
 
+        24px
 
-img{
+        120px;
 
-
-user-select:none;
-
-
-}
-/* =====================================
-   PREMIUM FOOD IMAGE ANIMATION POLISH
-   ===================================== */
-
-
-
-.category-image,
-.food-image-large{
-
-    overflow:hidden;
-
-}
-
-
-
-
-
-.category-image img,
-.food-image-large img{
-
-    opacity:0;
-
-    animation:
-    imageReveal .8s ease forwards;
-
-}
-
-
-
-
-@keyframes imageReveal{
-
-
-    0%{
-
-        opacity:0;
-
-        transform:
-
-        translateY(30px)
-        scale(.85);
-
-
-    }
-
-
-    100%{
-
-
-        opacity:1;
-
-        transform:
-
-        translateY(0)
-        scale(1);
-
-
-    }
-
-
-}
-
-
-
-
-
-
-
-/* PREMIUM FLOATING FOOD EFFECT */
-
-
-.food-image-large img{
-
-
-    animation:
-
-    imageReveal .8s ease forwards,
-    premiumFloat 4s ease-in-out infinite .8s;
-
-
-}
-
-
-
-
-
-
-@keyframes premiumFloat{
-
-
-    0%,100%{
-
-
-        transform:
-
-        translateY(0);
-
-
-    }
-
-
-
-    50%{
-
-
-        transform:
-
-        translateY(-14px);
-
-
-    }
-
-
-
-}
-
-
-
-
-
-
-
-/* CATEGORY IMAGE FLOAT */
-
-
-.category-image img{
-
-
-    animation:
-
-    imageReveal .8s ease forwards,
-    categoryFloat 3.5s ease-in-out infinite .8s;
-
-
-}
-
-
-
-
-
-@keyframes categoryFloat{
-
-
-    0%,100%{
-
-
-        transform:
-
-        translateY(0);
-
-
-    }
-
-
-
-    50%{
-
-
-        transform:
-
-        translateY(-8px);
-
-
-    }
-
-
-
 }
-
-
-
-
-
-
-
-
-
-/* GOLD LIGHT SWEEP */
-
 
-.category-card::after{
 
+/* =========================================
+   PREMIUM MENU DASHBOARD
+========================================= */
 
-    content:"";
+.menu-dashboard {
 
+    position:
+        relative;
 
-    position:absolute;
+    width:
+        100%;
 
+    min-height:
+        110px;
 
-    top:0;
+    display:
+        flex;
 
+    align-items:
+        center;
 
-    left:-120%;
+    gap:
+        20px;
 
+    padding:
 
-    width:80%;
+        22px
 
+        24px;
 
-    height:100%;
+    margin-bottom:
+        20px;
 
+    overflow:
+        hidden;
 
     background:
 
-    linear-gradient(
+        linear-gradient(
 
-    120deg,
+            135deg,
 
-    transparent,
+            #f8dda0,
 
-    rgba(247,222,139,.18),
+            #edc77d
 
-    transparent
+        );
 
-    );
+    border:
 
+        2px solid
 
-    transition:.8s;
+        var(--menu-accent);
 
+    border-radius:
+        22px;
 
-}
+    box-shadow:
+        var(--menu-shadow);
 
+    animation:
 
+        menuDashboardEnter
 
+        .7s
 
+        ease
 
-.category-card:hover::after{
-
-
-    left:130%;
-
-
-}
-
-
-
-
-
-
-
-
-
-/* PREMIUM IMAGE SHADOW */
-
-
-.category-image img,
-.food-image-large img{
-
-
-    filter:
-
-    drop-shadow(
-
-    0 15px 25px
-
-    rgba(0,0,0,.75)
-
-    );
-
+        both;
 
 }
 
 
+/* =========================================
+   DASHBOARD GOLDEN SHINE
+========================================= */
 
+.menu-dashboard::after {
 
+    content:
+        "";
 
+    position:
+        absolute;
 
+    top:
+        -80px;
 
+    left:
+        -120px;
 
+    width:
+        80px;
 
-/* IMAGE HOVER */
+    height:
+        300px;
 
+    background:
 
-.food-image-large img:hover{
+        linear-gradient(
 
+            90deg,
+
+            transparent,
+
+            rgba(255, 255, 255, .45),
+
+            transparent
+
+        );
 
     transform:
+        rotate(25deg);
 
-    scale(1.08);
+    animation:
 
+        menuDashboardShine
+
+        5s
+
+        ease-in-out
+
+        infinite;
 
 }
 
 
+/* =========================================
+   DASHBOARD ICON
+========================================= */
+
+.menu-dashboard-icon {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    width:
+        66px;
+
+    height:
+        66px;
+
+    min-width:
+        66px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        var(--menu-dark);
+
+    color:
+        var(--menu-gold);
+
+    border:
+
+        3px solid
+
+        rgba(
+
+            255,
+
+            213,
+
+            79,
+
+            .5
+
+        );
+
+    border-radius:
+        18px;
+
+    font-size:
+        28px;
+
+    box-shadow:
+
+        0 8px 20px
+
+        rgba(
+
+            0,
+
+            0,
+
+            0,
+
+            .2
+
+        );
+
+    animation:
+
+        menuIconFloat
+
+        3s
+
+        ease-in-out
+
+        infinite;
+
+}
 
 
+/* =========================================
+   DASHBOARD CONTENT
+========================================= */
+
+.menu-dashboard-content {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    flex:
+        1;
+
+    min-width:
+        0;
+
+}
 
 
-.category-image img:hover{
+.menu-dashboard-content h1 {
 
+    margin:
+        0;
+
+    font-size:
+        clamp(
+
+            24px,
+
+            4vw,
+
+            36px
+
+        );
+
+    line-height:
+        1.15;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .5px;
+
+    color:
+        #222;
+
+}
+
+
+.menu-dashboard-content h1 span {
+
+    color:
+        var(--menu-red);
+
+}
+
+
+.menu-dashboard-content p {
+
+    margin-top:
+        7px;
+
+    font-size:
+        13px;
+
+    line-height:
+        1.5;
+
+    font-weight:
+        500;
+
+    color:
+        #5c4b3d;
+
+}
+
+
+/* =========================================
+   INTRO CARD
+========================================= */
+
+.menu-intro-card {
+
+    width:
+        100%;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        16px;
+
+    padding:
+        18px;
+
+    margin-bottom:
+        24px;
+
+    background:
+        var(--menu-card);
+
+    border:
+
+        1px solid
+
+        var(--menu-border);
+
+    border-radius:
+        18px;
+
+    box-shadow:
+        0 6px 18px
+
+        rgba(
+
+            0,
+
+            0,
+
+            0,
+
+            .08
+
+        );
+
+    animation:
+
+        menuFadeUp
+
+        .8s
+
+        .1s
+
+        ease
+
+        both;
+
+}
+
+
+/* =========================================
+   INTRO ICON
+========================================= */
+
+.menu-intro-icon {
+
+    width:
+        48px;
+
+    height:
+        48px;
+
+    min-width:
+        48px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        var(--menu-dark);
+
+    color:
+        var(--menu-gold);
+
+    border-radius:
+        14px;
+
+    font-size:
+        21px;
+
+}
+
+
+/* =========================================
+   INTRO CONTENT
+========================================= */
+
+.menu-intro-content {
+
+    min-width:
+        0;
+
+}
+
+
+.menu-intro-content h2 {
+
+    font-size:
+        18px;
+
+    font-weight:
+        800;
+
+    color:
+        var(--menu-text);
+
+}
+
+
+.menu-intro-content p {
+
+    margin-top:
+        4px;
+
+    font-size:
+        12px;
+
+    color:
+        var(--menu-muted);
+
+}
+
+
+/* =========================================
+   MENU SECTION HEADING
+========================================= */
+
+.menu-section-heading {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+    padding:
+        15px 18px;
+
+    margin-bottom:
+        16px;
+
+    background:
+        var(--menu-card);
+
+    border:
+
+        1px solid
+
+        var(--menu-border);
+
+    border-radius:
+        16px;
+
+    box-shadow:
+
+        0 5px 15px
+
+        rgba(
+
+            0,
+
+            0,
+
+            0,
+
+            .07
+
+        );
+
+}
+
+
+/* =========================================
+   SECTION HEADING ICON
+========================================= */
+
+.menu-section-heading-icon {
+
+    width:
+        42px;
+
+    height:
+        42px;
+
+    min-width:
+        42px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        var(--menu-dark);
+
+    color:
+        var(--menu-gold);
+
+    border-radius:
+        12px;
+
+    font-size:
+        17px;
+
+}
+
+
+/* =========================================
+   SECTION HEADING TEXT
+========================================= */
+
+.menu-section-heading h2 {
+
+    font-size:
+        18px;
+
+    font-weight:
+        800;
+
+    color:
+        var(--menu-text);
+
+}
+
+
+.menu-section-heading p {
+
+    margin-top:
+        3px;
+
+    font-size:
+        11px;
+
+    color:
+        var(--menu-muted);
+
+}
+
+
+/* =========================================
+   CATEGORY GRID
+========================================= */
+
+.menu-category-grid {
+
+    width:
+        100%;
+
+    display:
+        grid;
+
+    grid-template-columns:
+
+        repeat(
+
+            4,
+
+            minmax(
+
+                0,
+
+                1fr
+
+            )
+
+        );
+
+    gap:
+        18px;
+
+}
+
+
+/* =========================================
+   CATEGORY CARD
+========================================= */
+
+.menu-category-card {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    min-width:
+        0;
+
+    padding:
+        0;
+
+    overflow:
+        hidden;
+
+    display:
+        block;
+
+    text-align:
+        left;
+
+    background:
+        var(--menu-card);
+
+    color:
+        var(--menu-text);
+
+    border:
+
+        2px solid
+
+        var(--menu-border);
+
+    border-radius:
+        20px;
+
+    box-shadow:
+
+        0 8px 22px
+
+        rgba(
+
+            0,
+
+            0,
+
+            0,
+
+            .1
+
+        );
+
+    cursor:
+        pointer;
+
+    font-family:
+        inherit;
+
+    transition:
+
+        transform
+
+        .3s
+
+        ease,
+
+        box-shadow
+
+        .3s
+
+        ease,
+
+        border-color
+
+        .3s
+
+        ease;
+
+    animation:
+
+        categoryCardEnter
+
+        .7s
+
+        ease
+
+        both;
+
+}
+
+
+/* =========================================
+   STAGGER CARD ANIMATION
+========================================= */
+
+.menu-category-card:nth-child(1) {
+
+    animation-delay:
+        .10s;
+
+}
+
+
+.menu-category-card:nth-child(2) {
+
+    animation-delay:
+        .16s;
+
+}
+
+
+.menu-category-card:nth-child(3) {
+
+    animation-delay:
+        .22s;
+
+}
+
+
+.menu-category-card:nth-child(4) {
+
+    animation-delay:
+        .28s;
+
+}
+
+
+.menu-category-card:nth-child(5) {
+
+    animation-delay:
+        .34s;
+
+}
+
+
+.menu-category-card:nth-child(6) {
+
+    animation-delay:
+        .40s;
+
+}
+
+
+.menu-category-card:nth-child(7) {
+
+    animation-delay:
+        .46s;
+
+}
+
+
+.menu-category-card:nth-child(8) {
+
+    animation-delay:
+        .52s;
+
+}
+
+
+/* =========================================
+   CARD HOVER
+========================================= */
+
+.menu-category-card:hover {
 
     transform:
+        translateY(-7px);
 
-    scale(1.12);
+    border-color:
+        var(--menu-accent);
+
+    box-shadow:
+
+        0 16px 32px
+
+        rgba(
+
+            0,
+
+            0,
+
+            0,
+
+            .16
+
+        );
+
+}
+
+
+/* =========================================
+   CARD ACTIVE / TOUCH
+========================================= */
+
+.menu-category-card:active,
+
+.menu-card-touching {
+
+    transform:
+        scale(.97);
+
+}
+
+
+/* =========================================
+   CATEGORY IMAGE WRAPPER
+========================================= */
+
+.menu-category-image-wrapper {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    aspect-ratio:
+        1 / 1;
+
+    overflow:
+        hidden;
+
+    background:
+        #f1e2bd;
+
+}
+
+
+/* =========================================
+   CATEGORY PNG IMAGE
+========================================= */
+
+.menu-category-image {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    display:
+        block;
+
+    object-fit:
+        cover;
+
+    transition:
+
+        transform
+
+        .5s
+
+        ease;
+
+}
+
+
+/* =========================================
+   IMAGE HOVER ZOOM
+========================================= */
+
+.menu-category-card:hover
+
+.menu-category-image {
+
+    transform:
+        scale(1.08);
+
+}
+
+
+/* =========================================
+   IMAGE OVERLAY
+========================================= */
+
+.menu-category-image-overlay {
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        5px;
+
+    background:
+
+        rgba(
+
+            38,
+
+            53,
+
+            37,
+
+            .62
+
+        );
+
+    color:
+        var(--menu-gold);
+
+    opacity:
+        0;
+
+    transition:
+        opacity
+
+        .3s
+
+        ease;
+
+}
+
+
+.menu-category-card:hover
+
+.menu-category-image-overlay {
+
+    opacity:
+        1;
+
+}
+
+
+.menu-category-image-overlay i {
+
+    font-size:
+        25px;
+
+}
+
+
+.menu-category-image-overlay span {
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        .5px;
+
+}
+
+
+/* =========================================
+   CATEGORY CONTENT
+========================================= */
+
+.menu-category-content {
+
+    position:
+        relative;
+
+    padding:
+
+        15px
+
+        15px
+
+        17px;
+
+}
+
+
+/* =========================================
+   CATEGORY NUMBER
+========================================= */
+
+.menu-category-number {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    min-width:
+        32px;
+
+    height:
+        24px;
+
+    margin-bottom:
+        7px;
+
+    padding:
+
+        0
+
+        8px;
+
+    background:
+        var(--menu-dark);
+
+    color:
+        var(--menu-gold);
+
+    border-radius:
+        7px;
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+}
+
+
+/* =========================================
+   CATEGORY TITLE
+========================================= */
+
+.menu-category-content h3 {
+
+    font-size:
+        15px;
+
+    line-height:
+        1.35;
+
+    font-weight:
+        800;
+
+    color:
+        var(--menu-text);
+
+}
+
+
+/* =========================================
+   CATEGORY DESCRIPTION
+========================================= */
+
+.menu-category-content p {
+
+    margin-top:
+        6px;
+
+    font-size:
+        10px;
+
+    line-height:
+        1.5;
+
+    color:
+        var(--menu-muted);
+
+}
+
+
+/* =========================================
+   IMAGE LOAD ERROR
+========================================= */
+
+.menu-category-image.image-load-error {
+
+    opacity:
+        .25;
+
+}
+
+
+.menu-category-image.image-load-error::after {
+
+    content:
+        "PNG NOT FOUND";
+
+}
+
+
+/* =========================================
+   DASHBOARD ENTRY ANIMATION
+========================================= */
+
+@keyframes menuDashboardEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(-18px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================
+   FADE UP
+========================================= */
+
+@keyframes menuFadeUp {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(20px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================
+   CATEGORY CARD ENTRY
+========================================= */
+
+@keyframes categoryCardEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(25px)
+
+            scale(.97);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0)
+
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================
+   DASHBOARD ICON FLOAT
+========================================= */
+
+@keyframes menuIconFloat {
+
+    0% {
+
+        transform:
+            translateY(0)
+
+            rotate(0deg);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-4px)
+
+            rotate(2deg);
+
+    }
+
+    100% {
+
+        transform:
+            translateY(0)
+
+            rotate(0deg);
+
+    }
+
+}
+
+
+/* =========================================
+   DASHBOARD SHINE
+========================================= */
+
+@keyframes menuDashboardShine {
+
+    0% {
+
+        left:
+            -120px;
+
+        opacity:
+            0;
+
+    }
+
+    20% {
+
+        opacity:
+            1;
+
+    }
+
+    45% {
+
+        left:
+            110%;
+
+        opacity:
+            0;
+
+    }
+
+    100% {
+
+        left:
+            110%;
+
+        opacity:
+            0;
+
+    }
+
+}
+
+
+/* =========================================
+   END MENU.CSS PART 1/4
+========================================= */
+/* =========================================
+   RIO MAGGI POINT
+   MENU.CSS
+   PART 2/4
+   CATEGORY DETAILS + MENU ITEMS
+========================================= */
+
+
+/* =========================================
+   CATEGORY DETAIL SECTION
+========================================= */
+
+.category-detail-section {
+
+    width:
+        100%;
+
+    margin-top:
+        24px;
+
+    padding:
+        20px;
+
+    background:
+        var(--menu-card);
+
+    border:
+
+        2px solid
+
+        var(--menu-border);
+
+    border-radius:
+        22px;
+
+    box-shadow:
+        var(--menu-shadow);
+
+    animation:
+
+        detailSectionEnter
+
+        .5s
+
+        ease
+
+        both;
+
+}
+
+
+/* =========================================
+   CATEGORY DETAIL HEADER
+========================================= */
+
+.category-detail-header {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        14px;
+
+    padding-bottom:
+        18px;
+
+    border-bottom:
+
+        1px solid
+
+        var(--menu-border);
+
+}
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.back-category-btn {
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+    right:
+        0;
+
+    min-height:
+        38px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        7px;
+
+    padding:
+
+        8px
+
+        12px;
+
+    background:
+        var(--menu-dark);
+
+    color:
+        var(--menu-gold);
+
+    border:
+        none;
+
+    border-radius:
+        10px;
+
+    font-family:
+        inherit;
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
+
+    transition:
+
+        transform
+
+        .2s
+
+        ease,
+
+        opacity
+
+        .2s
+
+        ease;
+
+}
+
+
+.back-category-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    opacity:
+        .9;
+
+}
+
+
+.back-category-btn:active {
+
+    transform:
+        scale(.96);
+
+}
+
+
+/* =========================================
+   CATEGORY DETAIL ICON
+========================================= */
+
+.category-detail-icon {
+
+    width:
+        58px;
+
+    height:
+        58px;
+
+    min-width:
+        58px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        var(--menu-dark);
+
+    color:
+        var(--menu-gold);
+
+    border-radius:
+        16px;
+
+    font-size:
+        24px;
+
+    box-shadow:
+
+        0 6px 16px
+
+        rgba(
+
+            0,
+
+            0,
+
+            0,
+
+            .16
+
+        );
+
+    animation:
+
+        detailIconPulse
+
+        2.5s
+
+        ease-in-out
+
+        infinite;
+
+}
+
+
+/* =========================================
+   DETAIL TITLE
+========================================= */
+
+.category-detail-title {
+
+    min-width:
+        0;
+
+    padding-right:
+        130px;
+
+}
+
+
+.category-detail-title h2 {
+
+    font-size:
+        clamp(
+
+            18px,
+
+            3vw,
+
+            26px
+
+        );
+
+    line-height:
+        1.25;
+
+    font-weight:
+        800;
+
+    color:
+        var(--menu-text);
+
+}
+
+
+.category-detail-title p {
+
+    margin-top:
+        5px;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.4;
+
+    color:
+        var(--menu-muted);
+
+}
+
+
+/* =========================================
+   CATEGORY ITEMS CONTAINER
+========================================= */
+
+.category-items-container {
+
+    width:
+        100%;
+
+    display:
+        grid;
+
+    grid-template-columns:
+
+        repeat(
+
+            3,
+
+            minmax(
+
+                0,
+
+                1fr
+
+            )
+
+        );
+
+    gap:
+        16px;
+
+    margin-top:
+        20px;
+
+}
+
+
+/* =========================================
+   CATEGORY ITEM CARD
+========================================= */
+
+.category-item-card {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    min-width:
+        0;
+
+    overflow:
+        hidden;
+
+    padding:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    text-align:
+        left;
+
+    background:
+        var(--menu-card-light);
+
+    color:
+        var(--menu-text);
+
+    border:
+
+        1px solid
+
+        var(--menu-border);
+
+    border-radius:
+        16px;
+
+    box-shadow:
+
+        0 5px 15px
+
+        rgba(
+
+            0,
+
+            0,
+
+            0,
+
+            .07
+
+        );
+
+    cursor:
+        pointer;
+
+    font-family:
+        inherit;
+
+    animation:
+
+        itemCardEnter
+
+        .5s
+
+        ease
+
+        both;
+
+    transition:
+
+        transform
+
+        .25s
+
+        ease,
+
+        box-shadow
+
+        .25s
+
+        ease,
+
+        border-color
+
+        .25s
+
+        ease;
+
+}
+
+
+.category-item-card:hover {
+
+    transform:
+        translateY(-5px);
+
+    border-color:
+        var(--menu-accent);
+
+    box-shadow:
+
+        0 12px 24px
+
+        rgba(
+
+            0,
+
+            0,
+
+            0,
+
+            .13
+
+        );
+
+}
+
+
+.category-item-card:active {
+
+    transform:
+        scale(.97);
+
+}
+
+
+/* =========================================
+   ITEM IMAGE WRAPPER
+========================================= */
+
+.category-item-image-wrapper {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    aspect-ratio:
+        1 / 1;
+
+    overflow:
+        hidden;
+
+    background:
+        #f1e2bd;
+
+}
+
+
+/* =========================================
+   ITEM IMAGE
+========================================= */
+
+.category-item-image {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    display:
+        block;
+
+    object-fit:
+        cover;
+
+    transition:
+
+        transform
+
+        .45s
+
+        ease;
+
+}
+
+
+.category-item-card:hover
+
+.category-item-image {
+
+    transform:
+        scale(1.07);
+
+}
+
+
+/* =========================================
+   ITEM IMAGE OVERLAY
+========================================= */
+
+.category-item-image-overlay {
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        4px;
+
+    background:
+
+        rgba(
+
+            38,
+
+            53,
+
+            37,
+
+            .62
+
+        );
+
+    color:
+        var(--menu-gold);
+
+    opacity:
+        0;
+
+    transition:
+        opacity
+
+        .25s
+
+        ease;
+
+}
+
+
+.category-item-card:hover
+
+.category-item-image-overlay {
+
+    opacity:
+        1;
+
+}
+
+
+.category-item-image-overlay i {
+
+    font-size:
+        22px;
+
+}
+
+
+.category-item-image-overlay span {
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+/* =========================================
+   ITEM INFO
+========================================= */
+
+.category-item-info {
+
+    padding:
+
+        13px
+
+        13px
+
+        14px;
+
+}
+
+
+.category-item-info h3 {
+
+    min-height:
+        38px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    font-size:
+        13px;
+
+    line-height:
+        1.35;
+
+    font-weight:
+        800;
+
+    color:
+        var(--menu-text);
+
+}
+
+
+/* =========================================
+   HALF / FULL PRICE
+========================================= */
+
+.item-size-price {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        7px;
+
+    margin-top:
+        10px;
+
+}
+
+
+/* =========================================
+   SIZE PRICE BOX
+========================================= */
+
+.item-size-price > div {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        2px;
+
+    padding:
+
+        7px
+
+        5px;
+
+    background:
+        #f5e5bd;
+
+    border:
+
+        1px solid
+
+        var(--menu-border);
+
+    border-radius:
+        8px;
+
+}
+
+
+/* =========================================
+   SIZE LABEL
+========================================= */
+
+.item-size-price span {
+
+    font-size:
+        9px;
+
+    font-weight:
+        600;
+
+    color:
+        var(--menu-muted);
+
+    text-transform:
+        uppercase;
+
+}
+
+
+/* =========================================
+   SIZE PRICE VALUE
+========================================= */
+
+.item-size-price strong {
+
+    font-size:
+        13px;
+
+    font-weight:
+        800;
+
+    color:
+        var(--menu-red);
+
+}
+
+
+/* =========================================
+   SINGLE ITEM PRICE
+========================================= */
+
+.single-item-price {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    min-width:
+        65px;
+
+    margin-top:
+        10px;
+
+    padding:
+
+        7px
+
+        12px;
+
+    background:
+        var(--menu-dark);
+
+    color:
+        var(--menu-gold);
+
+    border-radius:
+        8px;
+
+    font-size:
+        14px;
+
+    font-weight:
+        800;
+
+}
+
+
+/* =========================================
+   DETAIL SECTION ENTRY
+========================================= */
+
+@keyframes detailSectionEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(18px);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================
+   DETAIL ICON PULSE
+========================================= */
+
+@keyframes detailIconPulse {
+
+    0% {
+
+        transform:
+            scale(1);
+
+        box-shadow:
+
+            0 6px 16px
+
+            rgba(
+
+                0,
+
+                0,
+
+                0,
+
+                .16
+
+            );
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.04);
+
+        box-shadow:
+
+            0 8px 22px
+
+            rgba(
+
+                209,
+
+                155,
+
+                74,
+
+                .28
+
+            );
+
+    }
+
+    100% {
+
+        transform:
+            scale(1);
+
+        box-shadow:
+
+            0 6px 16px
+
+            rgba(
+
+                0,
+
+                0,
+
+                0,
+
+                .16
+
+            );
+
+    }
+
+}
+
+
+/* =========================================
+   ITEM CARD ENTRY
+========================================= */
+
+@keyframes itemCardEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(18px)
+
+            scale(.97);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0)
+
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================
+   END MENU.CSS PART 2/4
+========================================= */
+/* =========================================
+   RIO MAGGI POINT
+   MENU.CSS
+   PART 3/4
+   ITEM PNG POPUP + RESPONSIVE DESIGN
+========================================= */
+
+
+/* =========================================
+   ITEM POPUP
+========================================= */
+
+.menu-item-popup {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    padding:
+        20px;
+
+    visibility:
+        hidden;
+
+    opacity:
+        0;
+
+    pointer-events:
+        none;
+
+    z-index:
+        9999;
+
+    transition:
+
+        opacity
+
+        .3s
+
+        ease,
+
+        visibility
+
+        .3s
+
+        ease;
+
+}
+
+
+/* =========================================
+   POPUP SHOW
+========================================= */
+
+.menu-item-popup.show {
+
+    visibility:
+        visible;
+
+    opacity:
+        1;
+
+    pointer-events:
+        auto;
+
+}
+
+
+/* =========================================
+   POPUP BACKDROP
+========================================= */
+
+.menu-popup-backdrop {
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    background:
+
+        rgba(
+
+            20,
+
+            28,
+
+            20,
+
+            .78
+
+        );
+
+    backdrop-filter:
+        blur(8px);
+
+    -webkit-backdrop-filter:
+        blur(8px);
+
+}
+
+
+/* =========================================
+   POPUP CARD
+========================================= */
+
+.menu-popup-card {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    width:
+        100%;
+
+    max-width:
+        440px;
+
+    max-height:
+        calc(
+
+            100vh
+
+            - 40px
+
+        );
+
+    overflow:
+        auto;
+
+    background:
+        var(--menu-card);
+
+    border:
+
+        2px solid
+
+        var(--menu-accent);
+
+    border-radius:
+        24px;
+
+    box-shadow:
+
+        0 25px 70px
+
+        rgba(
+
+            0,
+
+            0,
+
+            0,
+
+            .35
+
+        );
+
+    transform:
+        scale(.85)
+
+        translateY(20px);
+
+    opacity:
+        0;
+
+    transition:
+
+        transform
+
+        .35s
+
+        cubic-bezier(
+
+            .2,
+
+            .8,
+
+            .2,
+
+            1
+
+        ),
+
+        opacity
+
+        .3s
+
+        ease;
+
+}
+
+
+/* =========================================
+   POPUP CARD ACTIVE
+========================================= */
+
+.menu-item-popup.show
+
+.menu-popup-card {
+
+    transform:
+        scale(1)
+
+        translateY(0);
+
+    opacity:
+        1;
+
+}
+
+
+/* =========================================
+   POPUP GOLDEN BORDER ANIMATION
+========================================= */
+
+.menu-popup-card::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        -2px;
+
+    border-radius:
+        26px;
+
+    padding:
+        2px;
+
+    background:
+
+        linear-gradient(
+
+            120deg,
+
+            transparent,
+
+            var(--menu-gold),
+
+            var(--menu-accent),
+
+            transparent
+
+        );
+
+    background-size:
+        250% 250%;
+
+    animation:
+
+        popupGoldenBorder
+
+        4s
+
+        linear
+
+        infinite;
+
+    pointer-events:
+        none;
+
+    z-index:
+        -1;
+
+}
+
+
+/* =========================================
+   POPUP CLOSE BUTTON
+========================================= */
+
+.menu-popup-close {
+
+    position:
+        absolute;
+
+    top:
+        12px;
+
+    right:
+        12px;
+
+    z-index:
+        5;
+
+    width:
+        40px;
+
+    height:
+        40px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+
+        rgba(
+
+            38,
+
+            53,
+
+            37,
+
+            .9
+
+        );
+
+    color:
+        var(--menu-gold);
+
+    border:
+
+        2px solid
+
+        rgba(
+
+            255,
+
+            213,
+
+            79,
+
+            .5
+
+        );
+
+    border-radius:
+        50%;
+
+    cursor:
+        pointer;
+
+    font-size:
+        17px;
+
+    transition:
+
+        transform
+
+        .25s
+
+        ease,
+
+        background
+
+        .25s
+
+        ease;
+
+}
+
+
+.menu-popup-close:hover {
+
+    transform:
+        rotate(90deg)
+
+        scale(1.08);
+
+    background:
+        var(--menu-red);
+
+    color:
+        #fff;
+
+}
+
+
+/* =========================================
+   POPUP IMAGE WRAPPER
+========================================= */
+
+.menu-popup-image-wrapper {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    aspect-ratio:
+        1 / 1;
+
+    overflow:
+        hidden;
+
+    background:
+        #f1e2bd;
+
+    border-radius:
+
+        21px
+
+        21px
+
+        0
+
+        0;
+
+}
+
+
+/* =========================================
+   POPUP IMAGE
+========================================= */
+
+.menu-popup-image-wrapper img {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    display:
+        block;
+
+    object-fit:
+        cover;
+
+    animation:
+
+        popupImageEnter
+
+        .7s
+
+        ease
+
+        both;
+
+}
+
+
+/* =========================================
+   POPUP CONTENT
+========================================= */
+
+.menu-popup-content {
+
+    padding:
+        20px;
+
+    text-align:
+        center;
+
+}
+
+
+/* =========================================
+   POPUP CATEGORY
+========================================= */
+
+.menu-popup-category {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    max-width:
+        100%;
+
+    padding:
+
+        6px
+
+        12px;
+
+    background:
+        var(--menu-dark);
+
+    color:
+        var(--menu-gold);
+
+    border-radius:
+        20px;
+
+    font-size:
+        9px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        .5px;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+/* =========================================
+   POPUP ITEM NAME
+========================================= */
+
+.menu-popup-content h2 {
+
+    margin-top:
+        10px;
+
+    font-size:
+        22px;
+
+    line-height:
+        1.3;
+
+    font-weight:
+        800;
+
+    color:
+        var(--menu-text);
+
+}
+
+
+/* =========================================
+   POPUP PRICE AREA
+========================================= */
+
+.menu-popup-price {
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    gap:
+        10px;
+
+    margin-top:
+        16px;
+
+}
+
+
+/* =========================================
+   POPUP HALF / FULL PRICE
+========================================= */
+
+.popup-price-option {
+
+    min-width:
+        100px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    gap:
+        4px;
+
+    padding:
+
+        10px
+
+        16px;
+
+    background:
+        #f5e5bd;
+
+    border:
+
+        1px solid
+
+        var(--menu-border);
+
+    border-radius:
+        12px;
+
+}
+
+
+.popup-price-option span {
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
+
+    color:
+        var(--menu-muted);
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.popup-price-option strong {
+
+    font-size:
+        20px;
+
+    font-weight:
+        800;
+
+    color:
+        var(--menu-red);
+
+}
+
+
+/* =========================================
+   SINGLE POPUP PRICE
+========================================= */
+
+.popup-price-single {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    min-width:
+        120px;
+
+    padding:
+
+        10px
+
+        24px;
+
+    background:
+        var(--menu-dark);
+
+    color:
+        var(--menu-gold);
+
+    border-radius:
+        12px;
+
+    font-size:
+        22px;
+
+    font-weight:
+        800;
+
+}
+
+
+/* =========================================
+   POPUP DONE BUTTON
+========================================= */
+
+.menu-popup-done-btn {
+
+    width:
+        100%;
+
+    min-height:
+        48px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        8px;
+
+    margin-top:
+        18px;
+
+    padding:
+
+        12px
+
+        16px;
+
+    background:
+        var(--menu-red);
+
+    color:
+        #fff;
+
+    border:
+        none;
+
+    border-radius:
+        12px;
+
+    font-family:
+        inherit;
+
+    font-size:
+        13px;
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
+
+    transition:
+
+        transform
+
+        .2s
+
+        ease,
+
+        opacity
+
+        .2s
+
+        ease;
+
+}
+
+
+.menu-popup-done-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    opacity:
+        .9;
+
+}
+
+
+.menu-popup-done-btn:active {
+
+    transform:
+        scale(.97);
+
+}
+
+
+/* =========================================
+   BODY POPUP LOCK
+========================================= */
+
+body.menu-popup-open {
+
+    overflow:
+        hidden;
+
+}
+
+
+/* =========================================
+   GOLDEN POPUP BORDER
+========================================= */
+
+@keyframes popupGoldenBorder {
+
+    0% {
+
+        background-position:
+            0% 50%;
+
+    }
+
+    50% {
+
+        background-position:
+            100% 50%;
+
+    }
+
+    100% {
+
+        background-position:
+            0% 50%;
+
+    }
+
+}
+
+
+/* =========================================
+   POPUP IMAGE ENTRY
+========================================= */
+
+@keyframes popupImageEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            scale(1.08);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================================
+   TABLET
+   769px - 1024px
+========================================= */
+
+@media (
+
+    min-width:
+        769px
+
+)
+
+and (
+
+    max-width:
+        1024px
+
+) {
+
+
+    .menu-page {
+
+        max-width:
+            900px;
+
+        padding:
+
+            22px
+
+            22px
+
+            115px;
+
+    }
+
+
+    .menu-category-grid {
+
+        grid-template-columns:
+
+            repeat(
+
+                3,
+
+                minmax(
+
+                    0,
+
+                    1fr
+
+                )
+
+            );
+
+        gap:
+            16px;
+
+    }
+
+
+    .category-items-container {
+
+        grid-template-columns:
+
+            repeat(
+
+                3,
+
+                minmax(
+
+                    0,
+
+                    1fr
+
+                )
+
+            );
+
+    }
+
+
+    .menu-dashboard-content h1 {
+
+        font-size:
+            30px;
+
+    }
 
 
 }
 
 
+/* =========================================
+   LARGE MOBILE
+   481px - 768px
+========================================= */
+
+@media (
+
+    min-width:
+        481px
+
+)
+
+and (
+
+    max-width:
+        768px
+
+) {
 
 
+    .menu-page {
+
+        max-width:
+            680px;
+
+        padding:
+
+            18px
+
+            18px
+
+            115px;
+
+    }
 
 
+    .menu-category-grid {
+
+        grid-template-columns:
+
+            repeat(
+
+                2,
+
+                minmax(
+
+                    0,
+
+                    1fr
+
+                )
+
+            );
+
+        gap:
+            14px;
+
+    }
 
 
+    .category-items-container {
 
-/* MOBILE IMAGE OPTIMIZATION */
+        grid-template-columns:
+
+            repeat(
+
+                2,
+
+                minmax(
+
+                    0,
+
+                    1fr
+
+                )
+
+            );
+
+    }
 
 
-@media(max-width:600px){
+    .menu-dashboard {
+
+        min-height:
+            100px;
+
+        padding:
+            18px;
+
+    }
 
 
-.food-image-large{
+    .menu-dashboard-icon {
+
+        width:
+            58px;
+
+        height:
+            58px;
+
+        min-width:
+            58px;
+
+    }
 
 
-    height:190px;
+    .menu-dashboard-content h1 {
+
+        font-size:
+            26px;
+
+    }
 
 
 }
 
 
+/* =========================================
+   MOBILE
+   MAX 480px
+========================================= */
 
-.food-image-large img{
+@media (
+
+    max-width:
+        480px
+
+) {
 
 
-    max-width:200px;
+    .menu-page {
+
+        width:
+            100%;
+
+        max-width:
+            100%;
+
+        padding:
+
+            14px
+
+            14px
+
+            110px;
+
+    }
+
+
+    .menu-dashboard {
+
+        min-height:
+            90px;
+
+        gap:
+            12px;
+
+        padding:
+            15px;
+
+        border-radius:
+            18px;
+
+    }
+
+
+    .menu-dashboard-icon {
+
+        width:
+            52px;
+
+        height:
+            52px;
+
+        min-width:
+            52px;
+
+        border-radius:
+            14px;
+
+        font-size:
+            22px;
+
+    }
+
+
+    .menu-dashboard-content h1 {
+
+        font-size:
+            22px;
+
+    }
+
+
+    .menu-dashboard-content p {
+
+        font-size:
+            10px;
+
+    }
+
+
+    .menu-intro-card {
+
+        padding:
+            14px;
+
+        gap:
+            12px;
+
+    }
+
+
+    .menu-intro-icon {
+
+        width:
+            42px;
+
+        height:
+            42px;
+
+        min-width:
+            42px;
+
+        font-size:
+            18px;
+
+    }
+
+
+    .menu-intro-content h2 {
+
+        font-size:
+            15px;
+
+    }
+
+
+    .menu-intro-content p {
+
+        font-size:
+            10px;
+
+    }
+
+
+    .menu-section-heading {
+
+        padding:
+
+            13px
+
+            14px;
+
+    }
+
+
+    .menu-section-heading-icon {
+
+        width:
+            38px;
+
+        height:
+            38px;
+
+        min-width:
+            38px;
+
+    }
+
+
+    .menu-section-heading h2 {
+
+        font-size:
+            16px;
+
+    }
+
+
+    .menu-category-grid {
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap:
+            10px;
+
+    }
+
+
+    .menu-category-card {
+
+        border-radius:
+            15px;
+
+    }
+
+
+    .menu-category-content {
+
+        padding:
+
+            10px
+
+            10px
+
+            12px;
+
+    }
+
+
+    .menu-category-number {
+
+        min-width:
+            27px;
+
+        height:
+            21px;
+
+        font-size:
+            8px;
+
+    }
+
+
+    .menu-category-content h3 {
+
+        font-size:
+            11px;
+
+    }
+
+
+    .menu-category-content p {
+
+        font-size:
+            8px;
+
+        line-height:
+            1.4;
+
+    }
+
+
+    .category-detail-section {
+
+        padding:
+            14px;
+
+        border-radius:
+            18px;
+
+    }
+
+
+    .category-detail-header {
+
+        gap:
+            10px;
+
+        padding-bottom:
+            15px;
+
+    }
+
+
+    .category-detail-icon {
+
+        width:
+            46px;
+
+        height:
+            46px;
+
+        min-width:
+            46px;
+
+        border-radius:
+            12px;
+
+        font-size:
+            19px;
+
+    }
+
+
+    .category-detail-title {
+
+        padding-right:
+            0;
+
+        padding-top:
+            42px;
+
+    }
+
+
+    .category-detail-title h2 {
+
+        font-size:
+            17px;
+
+    }
+
+
+    .category-detail-title p {
+
+        font-size:
+            10px;
+
+    }
+
+
+    .back-category-btn {
+
+        left:
+            0;
+
+        right:
+            auto;
+
+        top:
+            0;
+
+        font-size:
+            10px;
+
+    }
+
+
+    .category-items-container {
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap:
+            10px;
+
+    }
+
+
+    .category-item-card {
+
+        border-radius:
+            13px;
+
+    }
+
+
+    .category-item-info {
+
+        padding:
+
+            9px
+
+            9px
+
+            10px;
+
+    }
+
+
+    .category-item-info h3 {
+
+        min-height:
+            32px;
+
+        font-size:
+            10px;
+
+    }
+
+
+    .item-size-price {
+
+        gap:
+            4px;
+
+        margin-top:
+            7px;
+
+    }
+
+
+    .item-size-price > div {
+
+        padding:
+
+            5px
+
+            3px;
+
+    }
+
+
+    .item-size-price span {
+
+        font-size:
+            7px;
+
+    }
+
+
+    .item-size-price strong {
+
+        font-size:
+            10px;
+
+    }
+
+
+    .single-item-price {
+
+        min-width:
+            50px;
+
+        margin-top:
+            7px;
+
+        padding:
+
+            5px
+
+            8px;
+
+        font-size:
+            11px;
+
+    }
+
+
+    .menu-popup-card {
+
+        max-width:
+            360px;
+
+        border-radius:
+            20px;
+
+    }
+
+
+    .menu-popup-image-wrapper {
+
+        border-radius:
+
+            17px
+
+            17px
+
+            0
+
+            0;
+
+    }
+
+
+    .menu-popup-content {
+
+        padding:
+            16px;
+
+    }
+
+
+    .menu-popup-content h2 {
+
+        font-size:
+            19px;
+
+    }
+
+
+    .popup-price-option {
+
+        min-width:
+            85px;
+
+        padding:
+
+            8px
+
+            10px;
+
+    }
+
+
+    .popup-price-option strong {
+
+        font-size:
+            17px;
+
+    }
 
 
 }
 
 
+/* =========================================
+   VERY SMALL MOBILE
+   MAX 360px
+========================================= */
 
-.category-image{
+@media (
+
+    max-width:
+        360px
+
+) {
 
 
-    height:90px;
+    .menu-page {
+
+        padding-left:
+            10px;
+
+        padding-right:
+            10px;
+
+    }
+
+
+    .menu-category-grid {
+
+        gap:
+            8px;
+
+    }
+
+
+    .menu-category-content h3 {
+
+        font-size:
+            10px;
+
+    }
+
+
+    .menu-category-content p {
+
+        font-size:
+            7px;
+
+    }
+
+
+    .category-items-container {
+
+        gap:
+            8px;
+
+    }
+
+
+    .category-item-info h3 {
+
+        font-size:
+            9px;
+
+    }
 
 
 }
 
 
+/* =========================================
+   END MENU.CSS PART 3/4
+========================================= */
+/* =========================================
+   RIO MAGGI POINT
+   MENU.CSS
+   PART 4/4
+   FINAL NAVIGATION + FINAL POLISH
+========================================= */
 
-.category-image img{
+
+/* =========================================
+   FIXED BOTTOM NAVIGATION
+========================================= */
+
+.bottom-nav {
+
+    position:
+        fixed;
+
+    left:
+        50%;
+
+    bottom:
+        0;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        100%;
+
+    max-width:
+        520px;
+
+    min-height:
+        76px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-around;
+
+    gap:
+        4px;
+
+    padding:
+
+        8px
+
+        6px
+
+        calc(
+
+            8px
+
+            +
+
+            env(
+
+                safe-area-inset-bottom
+
+            )
+
+        );
+
+    background:
+        var(--menu-dark);
+
+    border-top:
+
+        2px solid
+
+        var(--menu-accent);
+
+    box-shadow:
+
+        0 -6px 22px
+
+        rgba(
+
+            0,
+
+            0,
+
+            0,
+
+            .20
+
+        );
+
+    z-index:
+        1000;
+
+}
 
 
-    max-width:100px;
+/* =========================================
+   NAV ITEM
+========================================= */
+
+.nav-item {
+
+    position:
+        relative;
+
+    flex:
+        1;
+
+    min-width:
+        0;
+
+    height:
+        60px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        4px;
+
+    padding:
+        5px;
+
+    color:
+        var(--menu-gold);
+
+    background:
+        transparent;
+
+    border:
+        none;
+
+    border-radius:
+        13px;
+
+    text-decoration:
+        none;
+
+    font-family:
+        inherit;
+
+    font-size:
+        9px;
+
+    font-weight:
+        600;
+
+    opacity:
+        .68;
+
+    cursor:
+        pointer;
+
+    transition:
+
+        background
+
+        .25s
+
+        ease,
+
+        color
+
+        .25s
+
+        ease,
+
+        opacity
+
+        .25s
+
+        ease,
+
+        transform
+
+        .25s
+
+        ease;
+
+}
+
+
+/* =========================================
+   NAV ICON
+========================================= */
+
+.nav-item i {
+
+    width:
+        24px;
+
+    height:
+        24px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    font-size:
+        19px;
+
+    line-height:
+        1;
+
+    transition:
+
+        transform
+
+        .25s
+
+        ease;
+
+}
+
+
+/* =========================================
+   NAV LABEL
+========================================= */
+
+.nav-item span {
+
+    display:
+        block;
+
+    max-width:
+        100%;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+
+}
+
+
+/* =========================================
+   ACTIVE NAV ITEM
+========================================= */
+
+.nav-item.active {
+
+    color:
+        var(--menu-gold);
+
+    background:
+
+        rgba(
+
+            255,
+
+            213,
+
+            79,
+
+            .12
+
+        );
+
+    opacity:
+        1;
+
+}
+
+
+/* =========================================
+   ACTIVE NAV ICON
+========================================= */
+
+.nav-item.active i {
+
+    transform:
+        translateY(-2px)
+
+        scale(1.08);
+
+}
+
+
+/* =========================================
+   ACTIVE NAV GOLDEN INDICATOR
+========================================= */
+
+.nav-item.active::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        3px;
+
+    left:
+        50%;
+
+    width:
+        28px;
+
+    height:
+        3px;
+
+    transform:
+        translateX(-50%);
+
+    background:
+        var(--menu-gold);
+
+    border-radius:
+        10px;
+
+    box-shadow:
+
+        0 0 10px
+
+        rgba(
+
+            255,
+
+            213,
+
+            79,
+
+            .65
+
+        );
+
+}
+
+
+/* =========================================
+   NAV HOVER
+========================================= */
+
+.nav-item:hover {
+
+    color:
+        #ffffff;
+
+    opacity:
+        1;
+
+    background:
+
+        rgba(
+
+            255,
+
+            255,
+
+            255,
+
+            .06
+
+        );
+
+}
+
+
+.nav-item:hover i {
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+/* =========================================
+   NAV ACTIVE PRESS
+========================================= */
+
+.nav-item:active {
+
+    transform:
+        scale(.94);
+
+}
+
+
+/* =========================================
+   MENU NAV SPECIAL GLOW
+========================================= */
+
+.nav-item.menu-active {
+
+    color:
+        var(--menu-gold);
+
+    opacity:
+        1;
+
+}
+
+
+.nav-item.menu-active i {
+
+    animation:
+
+        menuNavGlow
+
+        2s
+
+        ease-in-out
+
+        infinite;
+
+}
+
+
+/* =========================================
+   NAVIGATION ACCESSIBILITY
+========================================= */
+
+.nav-item:focus-visible {
+
+    outline:
+
+        3px solid
+
+        rgba(
+
+            255,
+
+            213,
+
+            79,
+
+            .65
+
+        );
+
+    outline-offset:
+        2px;
+
+}
+
+
+/* =========================================
+   MENU PAGE BOTTOM SPACE
+========================================= */
+
+.menu-page {
+
+    padding-bottom:
+        120px;
+
+}
+
+
+/* =========================================
+   CATEGORY CARD KEYBOARD FOCUS
+========================================= */
+
+.menu-category-card:focus-visible,
+
+.category-item-card:focus-visible,
+
+.menu-popup-close:focus-visible,
+
+.menu-popup-done-btn:focus-visible,
+
+.back-category-btn:focus-visible {
+
+    outline:
+
+        3px solid
+
+        var(--menu-accent);
+
+    outline-offset:
+        3px;
+
+}
+
+
+/* =========================================
+   DISABLED CLICK STATE
+========================================= */
+
+.menu-category-card[aria-disabled="true"],
+
+.category-item-card[aria-disabled="true"] {
+
+    pointer-events:
+        none;
+
+    opacity:
+        .55;
+
+}
+
+
+/* =========================================
+   IMAGE LOADING STATE
+========================================= */
+
+.category-item-image-wrapper.is-loading,
+
+.menu-popup-image-wrapper.is-loading {
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            #ead8ad 25%,
+
+            #f8e9c5 50%,
+
+            #ead8ad 75%
+
+        );
+
+    background-size:
+        200% 100%;
+
+    animation:
+
+        imageLoading
+
+        1.4s
+
+        linear
+
+        infinite;
+
+}
+
+
+/* =========================================
+   IMAGE ERROR FALLBACK
+========================================= */
+
+.category-item-image.image-error,
+
+.menu-popup-image-wrapper img.image-error {
+
+    object-fit:
+        contain;
+
+    padding:
+        30px;
+
+    opacity:
+        .55;
+
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (
+
+    prefers-reduced-motion:
+        reduce
+
+) {
+
+
+    *,
+
+    *::before,
+
+    *::after {
+
+        animation-duration:
+            .01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        scroll-behavior:
+            auto !important;
+
+        transition-duration:
+            .01ms !important;
+
+    }
 
 
 }
 
 
+/* =========================================
+   MENU NAV GLOW
+========================================= */
+
+@keyframes menuNavGlow {
+
+    0% {
+
+        filter:
+            drop-shadow(
+
+                0 0 0
+
+                rgba(
+
+                    255,
+
+                    213,
+
+                    79,
+
+                    0
+
+                )
+
+            );
+
+    }
+
+    50% {
+
+        filter:
+            drop-shadow(
+
+                0 0 7px
+
+                rgba(
+
+                    255,
+
+                    213,
+
+                    79,
+
+                    .65
+
+                )
+
+            );
+
+    }
+
+    100% {
+
+        filter:
+            drop-shadow(
+
+                0 0 0
+
+                rgba(
+
+                    255,
+
+                    213,
+
+                    79,
+
+                    0
+
+                )
+
+            );
+
+    }
 
 }
 
 
+/* =========================================
+   IMAGE LOADING ANIMATION
+========================================= */
+
+@keyframes imageLoading {
+
+    0% {
+
+        background-position:
+            200% 0;
+
+    }
+
+    100% {
+
+        background-position:
+            -200% 0;
+
+    }
+
+}
 
 
+/* =========================================
+   DESKTOP FINAL
+========================================= */
+
+@media (
+
+    min-width:
+        1025px
+
+) {
 
 
+    .menu-page {
+
+        max-width:
+            1100px;
+
+        padding:
+
+            28px
+
+            28px
+
+            120px;
+
+    }
 
 
+    .menu-category-grid {
+
+        grid-template-columns:
+
+            repeat(
+
+                4,
+
+                minmax(
+
+                    0,
+
+                    1fr
+
+                )
+
+            );
+
+        gap:
+            20px;
+
+    }
 
 
+    .category-items-container {
+
+        grid-template-columns:
+
+            repeat(
+
+                4,
+
+                minmax(
+
+                    0,
+
+                    1fr
+
+                )
+
+            );
+
+        gap:
+            20px;
+
+    }
 
 
+    .menu-dashboard-content h1 {
+
+        font-size:
+            32px;
+
+    }
 
 
+    .bottom-nav {
+
+        max-width:
+            600px;
+
+        border-radius:
+
+            20px
+
+            20px
+
+            0
+
+            0;
+
+    }
+
+
+}
+
+
+/* =========================================
+   MOBILE NAV FINAL
+========================================= */
+
+@media (
+
+    max-width:
+        480px
+
+) {
+
+
+    .bottom-nav {
+
+        min-height:
+            70px;
+
+        padding:
+
+            6px
+
+            4px
+
+            calc(
+
+                6px
+
+                +
+
+                env(
+
+                    safe-area-inset-bottom
+
+                )
+
+            );
+
+    }
+
+
+    .nav-item {
+
+        height:
+            56px;
+
+        gap:
+            3px;
+
+        font-size:
+            8px;
+
+    }
+
+
+    .nav-item i {
+
+        font-size:
+            18px;
+
+    }
+
+
+    .nav-item.active::before {
+
+        width:
+            22px;
+
+        height:
+            2px;
+
+    }
+
+
+}
+
+
+/* =========================================
+   VERY SMALL SCREEN NAV
+========================================= */
+
+@media (
+
+    max-width:
+        360px
+
+) {
+
+
+    .bottom-nav {
+
+        min-height:
+            66px;
+
+    }
+
+
+    .nav-item {
+
+        height:
+            52px;
+
+        padding:
+            3px;
+
+        font-size:
+            7px;
+
+    }
+
+
+    .nav-item i {
+
+        font-size:
+            17px;
+
+    }
+
+
+}
+
+
+/* =========================================
+   FINAL MENU PAGE SAFETY
+========================================= */
+
+html {
+
+    scroll-behavior:
+        smooth;
+
+}
+
+
+img {
+
+    max-width:
+        100%;
+
+}
+
+
+button,
+
+a {
+
+    -webkit-tap-highlight-color:
+        transparent;
+
+}
+
+
+/* =========================================
+   END MENU.CSS PART 4/4
+   MENU.CSS COMPLETE
+========================================= */
