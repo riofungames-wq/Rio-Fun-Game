@@ -1,6 +1,6 @@
 /* =======================================================
    RIO MAGGI POINT
-   PREMIUM ADMIN DASHBOARD V4
+   PREMIUM ADMIN DASHBOARD V5
    PART 1 / 6
    GLOBAL RESET + THEME + BASE LAYOUT
 ======================================================= */
@@ -65,6 +65,8 @@ body{
 
     min-height:100vh;
 
+    padding-bottom:env(safe-area-inset-bottom);
+
 }
 
 
@@ -73,6 +75,10 @@ img{
     display:block;
 
     max-width:100%;
+
+    transition:
+        transform .35s ease,
+        opacity .35s ease;
 
 }
 
@@ -149,7 +155,7 @@ a{
 
 
 /* =======================================================
-   GLASS CARD
+   PREMIUM GLASS CARD
 ======================================================= */
 
 .scanner-card,
@@ -157,6 +163,10 @@ a{
 .stat-card,
 .customer-section,
 .status-card{
+
+    position:relative;
+
+    overflow:hidden;
 
     background:
         linear-gradient(
@@ -197,6 +207,46 @@ a{
 }
 
 
+.scanner-card::after,
+.customer-card::after,
+.stat-card::after,
+.customer-section::after,
+.status-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-120%;
+
+    width:45%;
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.08),
+            transparent
+        );
+
+    transition:1.2s;
+
+}
+
+
+.scanner-card:hover::after,
+.customer-card:hover::after,
+.stat-card:hover::after,
+.customer-section:hover::after,
+.status-card:hover::after{
+
+    left:160%;
+
+}
+
+
 /* =======================================================
    FADE ANIMATION
 ======================================================= */
@@ -207,8 +257,7 @@ a{
 
         opacity:0;
 
-        transform:
-            translateY(30px);
+        transform:translateY(30px);
 
     }
 
@@ -216,19 +265,19 @@ a{
 
         opacity:1;
 
-        transform:
-            translateY(0);
+        transform:translateY(0);
 
     }
 
 }
 
+
 .dashboard-wrapper>*{
 
-    animation:
-        fadeUp .6s ease both;
+    animation:fadeUp .6s ease both;
 
 }
+
 
 .dashboard-wrapper>*:nth-child(2){
 
@@ -236,11 +285,13 @@ a{
 
 }
 
+
 .dashboard-wrapper>*:nth-child(3){
 
     animation-delay:.16s;
 
 }
+
 
 .dashboard-wrapper>*:nth-child(4){
 
@@ -248,17 +299,20 @@ a{
 
 }
 
+
 .dashboard-wrapper>*:nth-child(5){
 
     animation-delay:.32s;
 
 }
 
+
 /* =======================================================
-   END PART 1
+   END PART 1 / 6
 ======================================================= */
 /* =======================================================
-   PREMIUM ADMIN DASHBOARD V4
+   RIO MAGGI POINT
+   PREMIUM ADMIN DASHBOARD V5
    PART 2 / 6
    HEADER + NAVIGATION + MAIN LAYOUT
 ======================================================= */
@@ -273,6 +327,10 @@ a{
     position:sticky;
 
     top:0;
+
+    left:0;
+
+    right:0;
 
     z-index:999;
 
@@ -472,7 +530,11 @@ a{
 
     cursor:pointer;
 
-    transition:.30s;
+    transition:
+        transform .30s,
+        background .30s,
+        color .30s,
+        box-shadow .30s;
 
 }
 
@@ -534,17 +596,11 @@ a{
     height:100%;
 
     background:
-
         linear-gradient(
-
             90deg,
-
             transparent,
-
             rgba(255,255,255,.35),
-
             transparent
-
         );
 
     transition:.7s;
@@ -581,8 +637,6 @@ a{
 
     background:#d32f2f !important;
 
-    color:#fff !important;
-
 }
 
 
@@ -608,7 +662,7 @@ a{
 
 
 /* =======================================================
-   SECTION TITLE
+   SECTION HEADER
 ======================================================= */
 
 .section-header{
@@ -635,10 +689,16 @@ a{
     color:var(--gold);
 
 }
+
+
 /* =======================================================
-   PREMIUM ADMIN DASHBOARD V4
+   END PART 2 / 6
+======================================================= */
+/* =======================================================
+   RIO MAGGI POINT
+   PREMIUM ADMIN DASHBOARD V5
    PART 3 / 6
-   SCANNER + CUSTOMER + BUTTONS
+   SCANNER + CUSTOMER PREVIEW
 ======================================================= */
 
 
@@ -716,7 +776,7 @@ a{
 
 
 /* =======================================================
-   QR CAMERA
+   QR SCANNER
 ======================================================= */
 
 .scanner-box{
@@ -725,7 +785,7 @@ a{
 
     width:100%;
 
-    height:430px;
+    min-height:430px;
 
     overflow:hidden;
 
@@ -878,6 +938,10 @@ a{
 .red-btn,
 .gray-btn{
 
+    position:relative;
+
+    overflow:hidden;
+
     flex:1;
 
     height:58px;
@@ -892,22 +956,30 @@ a{
 
     font-weight:700;
 
-    transition:.30s;
+    transition:
+
+        transform .30s,
+
+        box-shadow .30s,
+
+        background .30s;
 
 }
 
 
 .gold-btn{
 
-    background:linear-gradient(
+    background:
 
-        135deg,
+        linear-gradient(
 
-        #FFD95A,
+            135deg,
 
-        #D4AF37
+            #FFD95A,
 
-    );
+            #D4AF37
+
+        );
 
     color:#111;
 
@@ -983,9 +1055,11 @@ a{
 
     height:100px;
 
-    border-radius:50%;
+    flex-shrink:0;
 
     object-fit:cover;
+
+    border-radius:50%;
 
     border:4px solid var(--gold);
 
@@ -994,6 +1068,8 @@ a{
     box-shadow:
 
         0 0 25px rgba(212,175,55,.25);
+
+    animation:floating 4s ease-in-out infinite;
 
 }
 
@@ -1092,21 +1168,19 @@ a{
 }
 
 
-/* =======================================================
-   STATUS COLORS
-======================================================= */
-
 .pending{
 
     color:#ffb300 !important;
 
 }
 
+
 .success{
 
     color:#57ff8c !important;
 
 }
+
 
 .failed{
 
@@ -1116,17 +1190,18 @@ a{
 
 
 /* =======================================================
-   END PART 3
+   END PART 3 / 6
 ======================================================= */
 /* =======================================================
-   PREMIUM ADMIN DASHBOARD V4
+   RIO MAGGI POINT
+   PREMIUM ADMIN DASHBOARD V5
    PART 4 / 6
-   STATS + TABLE + SEARCH + QUICK ACTIONS
+   STATS + CUSTOMER TABLE + SEARCH + QUICK ACTIONS
 ======================================================= */
 
 
 /* =======================================================
-   STATS
+   DASHBOARD STATS
 ======================================================= */
 
 .stats-section{
@@ -1143,8 +1218,6 @@ a{
 .stat-card{
 
     position:relative;
-
-    overflow:hidden;
 
     padding:28px;
 
@@ -1221,6 +1294,8 @@ a{
 
     font-weight:700;
 
+    word-break:break-word;
+
 }
 
 
@@ -1241,6 +1316,10 @@ a{
 
 }
 
+
+/* =======================================================
+   SEARCH BOX
+======================================================= */
 
 .search-box{
 
@@ -1287,6 +1366,8 @@ a{
 
     flex:1;
 
+    min-width:0;
+
     background:transparent;
 
     border:none;
@@ -1296,6 +1377,13 @@ a{
     color:#fff;
 
     font-size:15px;
+
+}
+
+
+.search-box input::placeholder{
+
+    color:#888;
 
 }
 
@@ -1318,8 +1406,6 @@ a{
 table{
 
     width:100%;
-
-    min-width:1050px;
 
     border-collapse:collapse;
 
@@ -1394,6 +1480,21 @@ tbody td{
 }
 
 
+tbody img{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid rgba(212,175,55,.25);
+
+}
+
+
 /* =======================================================
    TABLE BUTTON
 ======================================================= */
@@ -1402,15 +1503,17 @@ tbody button{
 
     border:none;
 
-    background:linear-gradient(
+    background:
 
-        135deg,
+        linear-gradient(
 
-        #FFD95A,
+            135deg,
 
-        #D4AF37
+            #FFD95A,
 
-    );
+            #D4AF37
+
+        );
 
     color:#111;
 
@@ -1481,7 +1584,11 @@ tbody button:hover{
 
     color:#111;
 
-    transition:.30s;
+    transition:
+
+        transform .30s,
+
+        box-shadow .30s;
 
 }
 
@@ -1497,48 +1604,8 @@ tbody button:hover{
 }
 
 
-.quick-actions button::after{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-
-    left:-120%;
-
-    width:60%;
-
-    height:100%;
-
-    background:
-
-        linear-gradient(
-
-            90deg,
-
-            transparent,
-
-            rgba(255,255,255,.35),
-
-            transparent
-
-        );
-
-    transition:.7s;
-
-}
-
-
-.quick-actions button:hover::after{
-
-    left:150%;
-
-}
-
-
 /* =======================================================
-   STATUS SECTION
+   STATUS CARD
 ======================================================= */
 
 .status-card{
@@ -1603,10 +1670,11 @@ tbody button:hover{
 
 
 /* =======================================================
-   END PART 4
+   END PART 4 / 6
 ======================================================= */
 /* =======================================================
-   PREMIUM ADMIN DASHBOARD V4
+   RIO MAGGI POINT
+   PREMIUM ADMIN DASHBOARD V5
    PART 5 / 6
    RESPONSIVE DESIGN
 ======================================================= */
@@ -1746,7 +1814,7 @@ tbody button:hover{
 
     .scanner-box{
 
-        height:300px;
+        min-height:300px;
 
     }
 
@@ -1890,7 +1958,7 @@ tbody button:hover{
 
     .scanner-box{
 
-        height:260px;
+        min-height:260px;
 
     }
 
@@ -1967,17 +2035,18 @@ tbody button:hover{
 
 
 /* =======================================================
-   END PART 5
+   END PART 5 / 6
 ======================================================= */
 /* =======================================================
-   PREMIUM ADMIN DASHBOARD V4
+   RIO MAGGI POINT
+   PREMIUM ADMIN DASHBOARD V5
    PART 6 / 6
    FINAL POLISH + ANIMATIONS + ACCESSIBILITY
 ======================================================= */
 
 
 /* =======================================================
-   BUTTON RIPPLE
+   BUTTON RIPPLE EFFECT
 ======================================================= */
 
 .app-nav button,
@@ -2048,7 +2117,7 @@ tbody button:hover{
 
 
 /* =======================================================
-   FLOAT ANIMATION
+   FLOATING ANIMATION
 ======================================================= */
 
 @keyframes floating{
@@ -2074,85 +2143,27 @@ tbody button:hover{
 }
 
 
-.customer-photo{
-
-    animation:floating 4s ease-in-out infinite;
-
-}
-
-
 /* =======================================================
-   CARD SHINE
+   IMAGE HOVER
 ======================================================= */
 
-.scanner-card,
-.customer-card,
-.stat-card,
-.customer-section,
-.status-card{
+.customer-photo:hover,
+.logo-area img:hover{
 
-    position:relative;
-
-    overflow:hidden;
-
-}
-
-
-.scanner-card::after,
-.customer-card::after,
-.stat-card::after,
-.customer-section::after,
-.status-card::after{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-
-    left:-120%;
-
-    width:45%;
-
-    height:100%;
-
-    background:
-
-        linear-gradient(
-
-            90deg,
-
-            transparent,
-
-            rgba(255,255,255,.08),
-
-            transparent
-
-        );
-
-    transition:1.2s;
-
-}
-
-
-.scanner-card:hover::after,
-.customer-card:hover::after,
-.stat-card:hover::after,
-.customer-section:hover::after,
-.status-card:hover::after{
-
-    left:160%;
+    transform:scale(1.03);
 
 }
 
 
 /* =======================================================
-   INPUT PLACEHOLDER
+   PLACEHOLDER
 ======================================================= */
 
 ::placeholder{
 
     color:#888;
+
+    opacity:1;
 
 }
 
@@ -2172,7 +2183,7 @@ input:focus-visible{
 
 
 /* =======================================================
-   SELECTION
+   TEXT SELECTION
 ======================================================= */
 
 ::selection{
@@ -2185,7 +2196,7 @@ input:focus-visible{
 
 
 /* =======================================================
-   LOADING CLASS
+   LOADING STATE
 ======================================================= */
 
 .loading{
@@ -2203,19 +2214,19 @@ input:focus-visible{
 
     content:"";
 
+    display:inline-block;
+
     width:18px;
 
     height:18px;
 
     margin-left:10px;
 
-    display:inline-block;
-
     border-radius:50%;
 
     border:2px solid rgba(255,255,255,.25);
 
-    border-top-color:#fff;
+    border-top-color:#ffffff;
 
     animation:spin .8s linear infinite;
 
@@ -2229,28 +2240,6 @@ input:focus-visible{
         transform:rotate(360deg);
 
     }
-
-}
-
-
-/* =======================================================
-   IMAGE TRANSITION
-======================================================= */
-
-img{
-
-    transition:
-
-        transform .35s ease,
-
-        opacity .35s ease;
-
-}
-
-
-img:hover{
-
-    transform:scale(1.03);
 
 }
 
@@ -2275,7 +2264,7 @@ img:hover{
 
 
 /* =======================================================
-   PRINT
+   PRINT MODE
 ======================================================= */
 
 @media print{
@@ -2291,9 +2280,9 @@ img:hover{
 
     body{
 
-        background:#fff;
+        background:#ffffff;
 
-        color:#000;
+        color:#000000;
 
     }
 
@@ -2301,7 +2290,7 @@ img:hover{
 
 
 /* =======================================================
-   READY CLASS
+   READY ANIMATION
 ======================================================= */
 
 .admin-ready{
@@ -2315,6 +2304,218 @@ img:hover{
    END OF FILE
 
    RIO MAGGI POINT
-   PREMIUM ADMIN DASHBOARD CSS V4
+   PREMIUM ADMIN DASHBOARD CSS V5
    COMPLETE
+======================================================= */
+/* =======================================================
+   RIO MAGGI POINT
+   PREMIUM ADMIN DASHBOARD V4
+   PART 6 / 6
+   FINAL POLISH + ANIMATIONS + ACCESSIBILITY
+======================================================= */
+
+/* =======================================================
+   BUTTON RIPPLE
+======================================================= */
+
+.app-nav button,
+.quick-actions button,
+.gold-btn,
+.red-btn,
+.gray-btn{
+    position:relative;
+    overflow:hidden;
+    isolation:isolate;
+}
+
+.app-nav button::after,
+.quick-actions button::before,
+.gold-btn::before,
+.red-btn::before,
+.gray-btn::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle,rgba(255,255,255,.28),transparent 70%);
+    transform:scale(0);
+    opacity:0;
+    transition:transform .45s ease,opacity .45s ease;
+    z-index:-1;
+}
+
+.app-nav button:active::after,
+.quick-actions button:active::before,
+.gold-btn:active::before,
+.red-btn:active::before,
+.gray-btn:active::before{
+    transform:scale(3);
+    opacity:1;
+}
+
+/* =======================================================
+   FLOATING IMAGE
+======================================================= */
+
+@keyframes floating{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-5px);}
+    100%{transform:translateY(0);}
+}
+
+.customer-photo{
+    animation:floating 4s ease-in-out infinite;
+}
+
+/* =======================================================
+   CARD SHINE EFFECT
+======================================================= */
+
+.scanner-card,
+.customer-card,
+.stat-card,
+.customer-section,
+.status-card{
+    position:relative;
+    overflow:hidden;
+}
+
+.scanner-card::after,
+.customer-card::after,
+.stat-card::after,
+.customer-section::after,
+.status-card::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:45%;
+    height:100%;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.08),
+        transparent
+    );
+    transition:1.2s;
+}
+
+.scanner-card:hover::after,
+.customer-card:hover::after,
+.stat-card:hover::after,
+.customer-section:hover::after,
+.status-card:hover::after{
+    left:160%;
+}
+
+/* =======================================================
+   PLACEHOLDER
+======================================================= */
+
+::placeholder{
+    color:#888;
+}
+
+/* =======================================================
+   ACCESSIBILITY
+======================================================= */
+
+button:focus-visible,
+input:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:3px;
+}
+
+/* =======================================================
+   TEXT SELECTION
+======================================================= */
+
+::selection{
+    background:var(--gold);
+    color:#111;
+}
+
+/* =======================================================
+   LOADING
+======================================================= */
+
+.loading{
+    pointer-events:none;
+    opacity:.6;
+    filter:grayscale(.25);
+}
+
+.loading::after{
+    content:"";
+    display:inline-block;
+    width:18px;
+    height:18px;
+    margin-left:10px;
+    border-radius:50%;
+    border:2px solid rgba(255,255,255,.25);
+    border-top-color:#fff;
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* =======================================================
+   IMAGE EFFECT
+======================================================= */
+
+img{
+    transition:transform .35s ease,opacity .35s ease;
+}
+
+img:hover{
+    transform:scale(1.03);
+}
+
+/* =======================================================
+   REDUCED MOTION
+======================================================= */
+
+@media (prefers-reduced-motion:reduce){
+
+    *{
+        animation:none !important;
+        transition:none !important;
+        scroll-behavior:auto !important;
+    }
+
+}
+
+/* =======================================================
+   PRINT MODE
+======================================================= */
+
+@media print{
+
+    .app-nav,
+    .scanner-controls,
+    .customer-buttons,
+    .quick-actions{
+        display:none !important;
+    }
+
+    body{
+        background:#fff;
+        color:#000;
+    }
+
+}
+
+/* =======================================================
+   READY STATE
+======================================================= */
+
+.admin-ready{
+    animation:fadeUp .5s ease;
+}
+
+/* =======================================================
+   END OF FILE
 ======================================================= */
