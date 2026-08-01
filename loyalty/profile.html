@@ -1,66 +1,93 @@
-<!-- =========================================
-     RIO MAGGI POINT
-     PROFILE.HTML
-     PART 1/3
-     PREMIUM PROFILE DASHBOARD
-========================================= -->
-
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>
-Rio Maggi Point • Profile
-</title>
+    <title>Rio Maggi Point • Profile</title>
 
-<meta
-name="theme-color"
-content="#263525">
+    <meta
+        name="theme-color"
+        content="#263525"
+    >
 
-<meta
-name="description"
-content="Rio Maggi Point Premium Customer Profile">
+    <meta
+        name="description"
+        content="Rio Maggi Point Premium Customer Profile"
+    >
 
-<link
-rel="manifest"
-href="manifest.json">
+    <!-- PWA -->
+    <link
+        rel="manifest"
+        href="manifest.json"
+    >
 
-<link
-rel="icon"
-href="favicon.ico">
+    <link
+        rel="icon"
+        href="favicon.ico"
+        type="image/x-icon"
+    >
 
-<link
-rel="preconnect"
-href="https://fonts.googleapis.com">
+    <link
+        rel="apple-touch-icon"
+        href="icon-192.png"
+    >
 
-<link
-rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
+    <meta
+        name="mobile-web-app-capable"
+        content="yes"
+    >
 
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="default"
+    >
 
-<link
-rel="stylesheet"
-href="css/common.css">
+    <!-- Google Fonts -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-<link
-rel="stylesheet"
-href="css/profile.css">
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <!-- Common CSS -->
+    <link
+        rel="stylesheet"
+        href="css/common.css"
+    >
+
+    <!-- Profile CSS -->
+    <link
+        rel="stylesheet"
+        href="css/profile.css"
+    >
 
 </head>
 
@@ -68,964 +95,636 @@ href="css/profile.css">
 <body>
 
 
-<!-- =========================================
-     MAIN PROFILE PAGE
-========================================= -->
-
 <main class="profile-page app-page">
 
 
-<!-- =========================================
-     PROFILE DASHBOARD HEADER
-========================================= -->
+    <!-- =========================================
+         PROFILE DASHBOARD HEADER
+    ========================================== -->
 
-<header class="profile-header app-card">
+    <header class="profile-header app-card">
 
+        <div class="profile-header-icon">
 
-<div class="profile-header-icon">
+            <i class="fa-solid fa-user"></i>
 
-<i class="fa-solid fa-user"></i>
+        </div>
 
-</div>
 
+        <div class="profile-header-content">
 
-<div class="profile-header-content">
+            <h1>
+                MY
+                <span>PROFILE</span>
+            </h1>
 
-<h1>
+            <p>
+                Manage your Rio Maggi Point Premium Loyalty account
+            </p>
 
-MY
-<span>PROFILE</span>
+        </div>
 
-</h1>
+    </header>
 
 
-<p>
 
-Manage your Rio Maggi Point Premium Loyalty account
+    <!-- =========================================
+         PROFILE MAIN CARD
+    ========================================== -->
 
-</p>
+    <section class="profile-card app-card">
 
-</div>
 
+        <!-- PROFILE TOP -->
 
-</header>
+        <div class="profile-top">
 
 
+            <!-- PROFILE PHOTO -->
 
-<!-- =========================================
-     PROFILE MAIN CARD
-========================================= -->
+            <div class="profile-photo-wrapper">
 
-<section class="profile-card app-card">
+                <div class="profile-photo">
 
+                    <span
+                        id="defaultAvatar"
+                        class="default-avatar"
+                    >
+                        😊
+                    </span>
 
-<!-- =====================================
-     PROFILE TOP
-===================================== -->
 
-<div class="profile-top">
+                    <img
+                        id="profilePhoto"
+                        src=""
+                        alt="Profile Photo"
+                        style="display:none;"
+                    >
 
+                </div>
 
-<!-- =================================
-     PROFILE PHOTO
-================================= -->
 
-<div class="profile-photo-wrapper">
+                <!-- PHOTO EDIT BUTTON -->
 
+                <label
+                    for="photoInput"
+                    class="photo-edit-btn"
+                    title="Change Profile Photo"
+                >
 
-<div class="profile-photo">
+                    <i class="fa-solid fa-camera"></i>
 
+                </label>
 
-<span
-id="defaultAvatar"
-class="default-avatar">
 
-😊
+                <input
+                    type="file"
+                    id="photoInput"
+                    accept="image/*"
+                    hidden
+                >
 
-</span>
+            </div>
 
 
-<img
-id="profilePhoto"
-src=""
-alt="Profile Photo"
-style="display:none;">
 
+            <!-- CUSTOMER NAME -->
 
-</div>
+            <h2
+                id="profileName"
+                class="profile-name profile-loading"
+            >
+                Loading...
+            </h2>
 
 
-<!-- =================================
-     PHOTO EDIT BUTTON
-================================= -->
 
-<label
-for="photoInput"
-class="photo-edit-btn"
-title="Change Profile Photo">
+            <!-- CUSTOMER EMAIL -->
 
+            <p
+                id="profileEmail"
+                class="profile-email profile-loading"
+            >
+                Loading...
+            </p>
 
-<i class="fa-solid fa-camera"></i>
 
 
-</label>
+            <!-- MEMBER BADGE -->
 
+            <div class="member-badge">
 
-<input
-type="file"
-id="photoInput"
-accept="image/*">
+                <i class="fa-solid fa-crown"></i>
 
+                Premium Member
 
-</div>
+            </div>
 
+        </div>
 
 
-<!-- =====================================
-     CUSTOMER NAME
-===================================== -->
 
-<h2
-id="profileName"
-class="profile-name profile-loading">
+        <!-- =========================================
+             PROFILE INFORMATION
+        ========================================== -->
 
-Loading...
+        <div class="profile-info">
 
-</h2>
 
+            <!-- MEMBER ID -->
 
+            <div class="info-item">
 
-<!-- =====================================
-     CUSTOMER EMAIL
-===================================== -->
+                <div class="info-icon">
+                    <i class="fa-solid fa-id-card"></i>
+                </div>
 
-<p
-id="profileEmail"
-class="profile-email profile-loading">
+                <span class="info-label">
+                    Member ID
+                </span>
 
-Loading...
+                <span
+                    id="memberId"
+                    class="info-value"
+                >
+                    Loading...
+                </span>
 
-</p>
+            </div>
 
 
 
-<!-- =====================================
-     MEMBER BADGE
-===================================== -->
+            <!-- MEMBER SINCE -->
 
-<div class="member-badge">
+            <div class="info-item">
 
-<i class="fa-solid fa-crown"></i>
+                <div class="info-icon">
+                    <i class="fa-solid fa-calendar"></i>
+                </div>
 
-Premium Member
+                <span class="info-label">
+                    Member Since
+                </span>
 
-</div>
+                <span
+                    id="memberSince"
+                    class="info-value"
+                >
+                    Loading...
+                </span>
 
+            </div>
 
-</div>
 
 
+            <!-- LOYALTY STAMPS -->
 
-<!-- =========================================
-     PROFILE INFORMATION
-========================================= -->
+            <div class="info-item">
 
-<div class="profile-info">
+                <div class="info-icon">
+                    <i class="fa-solid fa-star"></i>
+                </div>
 
+                <span class="info-label">
+                    Loyalty Stamps
+                </span>
 
-<!-- =====================================
-     MEMBER ID
-===================================== -->
+                <span
+                    id="profileStamps"
+                    class="info-value"
+                >
+                    0 / 6
+                </span>
 
-<div class="info-item">
+            </div>
 
 
-<div class="info-icon">
 
-<i class="fa-solid fa-id-card"></i>
+            <!-- REWARD STATUS -->
 
-</div>
+            <div class="info-item">
 
+                <div class="info-icon">
+                    <i class="fa-solid fa-gift"></i>
+                </div>
 
-<span class="info-label">
+                <span class="info-label">
+                    Reward
+                </span>
 
-Member ID
+                <span
+                    id="profileReward"
+                    class="info-value"
+                >
+                    Collecting
+                </span>
 
-</span>
+            </div>
 
 
-<span
-id="memberId"
-class="info-value">
+        </div>
 
-Loading...
 
-</span>
+    </section>
 
 
-</div>
 
+    <!-- =========================================
+         EDIT PROFILE
+    ========================================== -->
 
+    <section class="edit-profile-section">
 
-<!-- =====================================
-     MEMBER SINCE
-===================================== -->
 
-<div class="info-item">
+        <h2 class="edit-profile-title">
 
+            <i class="fa-solid fa-pen-to-square"></i>
 
-<div class="info-icon">
+            <span>
+                Edit Profile
+            </span>
 
-<i class="fa-solid fa-calendar"></i>
+        </h2>
 
-</div>
 
 
-<span class="info-label">
+        <!-- NAME -->
 
-Member Since
+        <div class="form-group">
 
-</span>
+            <label for="editName">
+                Your Name
+            </label>
 
+            <input
+                type="text"
+                id="editName"
+                placeholder="Enter your name"
+                autocomplete="name"
+                maxlength="50"
+            >
 
-<span
-id="memberSince"
-class="info-value">
+        </div>
 
-Loading...
 
-</span>
 
+        <!-- EMAIL -->
 
-</div>
+        <div class="form-group">
 
+            <label for="editEmail">
+                Email Address
+            </label>
 
+            <input
+                type="email"
+                id="editEmail"
+                placeholder="Your email address"
+                disabled
+            >
 
-<!-- =====================================
-     LOYALTY STAMPS
-===================================== -->
+        </div>
 
-<div class="info-item">
 
 
-<div class="info-icon">
+        <!-- SAVE -->
 
-<i class="fa-solid fa-star"></i>
+        <button
+            type="button"
+            id="saveProfileBtn"
+            class="save-profile-btn"
+        >
 
-</div>
+            <i class="fa-solid fa-floppy-disk"></i>
 
+            <span>
+                Save Profile
+            </span>
 
-<span class="info-label">
+        </button>
 
-Loyalty Stamps
 
-</span>
 
+        <!-- MESSAGE -->
 
-<span
-id="profileStamps"
-class="info-value">
+        <div
+            id="profileMessage"
+            class="profile-message"
+            role="status"
+            aria-live="polite"
+        ></div>
 
-0 / 6
 
-</span>
+    </section>
 
 
-</div>
 
+    <!-- =========================================
+         QUICK ACTIONS
+    ========================================== -->
 
+    <section class="profile-actions-section">
 
-<!-- =====================================
-     REWARD STATUS
-===================================== -->
 
-<div class="info-item">
+        <h2 class="edit-profile-title">
 
+            <i class="fa-solid fa-bolt"></i>
 
-<div class="info-icon">
+            <span>
+                Quick Actions
+            </span>
 
-<i class="fa-solid fa-gift"></i>
+        </h2>
 
-</div>
 
 
-<span class="info-label">
+        <div class="profile-actions">
 
-Reward
 
-</span>
+            <!-- CALL -->
 
+            <a
+                href="tel:+91XXXXXXXXXX"
+                class="profile-action-btn call-btn"
+            >
 
-<span
-id="profileReward"
-class="info-value">
+                <i class="fa-solid fa-phone"></i>
 
-Collecting
+                <span>
+                    Call
+                </span>
 
-</span>
+            </a>
 
 
-</div>
 
+            <!-- WHATSAPP -->
 
-</div>
+            <a
+                href="https://wa.me/91XXXXXXXXXX"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="profile-action-btn whatsapp-btn"
+            >
 
+                <i class="fa-brands fa-whatsapp"></i>
 
+                <span>
+                    WhatsApp
+                </span>
 
-<!-- =========================================
-     END PROFILE.HTML PART 1/3
-========================================= -->
-     <!-- =========================================
-     RIO MAGGI POINT
-     PROFILE.HTML
-     PART 2/3
-     EDIT PROFILE + ACTIONS
-========================================= -->
+            </a>
 
 
-<!-- =========================================
-     EDIT PROFILE SECTION
-========================================= -->
 
-<section
-class="edit-profile-section">
+            <!-- MAP -->
 
+            <a
+                href="https://www.google.com/maps/search/?api=1&query=Rio+Maggi+Point"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="profile-action-btn map-btn"
+            >
 
-<!-- =====================================
-     SECTION TITLE
-===================================== -->
+                <i class="fa-solid fa-location-dot"></i>
 
-<h2
-class="edit-profile-title">
+                <span>
+                    Map
+                </span>
 
+            </a>
 
-<i class="fa-solid fa-pen-to-square"></i>
 
 
-<span>
+            <!-- REVIEW -->
 
-Edit Profile
+            <a
+                href="feedback.html"
+                class="profile-action-btn review-btn"
+            >
 
-</span>
+                <i class="fa-solid fa-star"></i>
 
+                <span>
+                    Review
+                </span>
 
-</h2>
+            </a>
 
 
+        </div>
 
-<!-- =====================================
-     NAME INPUT
-===================================== -->
 
-<div
-class="form-group">
+    </section>
 
 
-<label
-for="editName">
 
-Your Name
+    <!-- =========================================
+         ACCOUNT SECTION
+    ========================================== -->
 
-</label>
+    <section class="account-section">
 
 
-<input
+        <h2 class="account-title">
 
-type="text"
+            <i class="fa-solid fa-shield-halved"></i>
 
-id="editName"
+            <span>
+                Account
+            </span>
 
-placeholder="Enter your name"
+        </h2>
 
-autocomplete="name">
 
 
-</div>
+        <!-- LOGOUT -->
 
+        <button
+            type="button"
+            id="logoutBtn"
+            class="logout-btn"
+        >
 
+            <i class="fa-solid fa-right-from-bracket"></i>
 
-<!-- =====================================
-     EMAIL INPUT
-===================================== -->
+            <span>
+                Logout
+            </span>
 
-<div
-class="form-group">
+        </button>
 
 
-<label
-for="editEmail">
 
-Email Address
+        <!-- DELETE ACCOUNT -->
 
-</label>
+        <button
+            type="button"
+            id="deleteAccountBtn"
+            class="delete-account-btn"
+        >
 
+            <i class="fa-solid fa-trash"></i>
 
-<input
+            Delete Account
 
-type="email"
+        </button>
 
-id="editEmail"
 
-placeholder="Your email address"
+    </section>
 
-disabled>
 
 
-</div>
+    <!-- BOTTOM NAV SAFE SPACE -->
 
+    <div class="nav-space"></div>
 
 
-<!-- =====================================
-     SAVE BUTTON
-===================================== -->
 
-<button
+    <!-- =========================================
+         COMMON BOTTOM NAVIGATION
+    ========================================== -->
 
-type="button"
+    <nav
+        class="bottom-nav"
+        id="commonBottomNav"
+        aria-label="Main Navigation"
+    >
 
-id="saveProfileBtn"
 
-class="save-profile-btn">
+        <a
+            href="card.html"
+            class="nav-item"
+        >
 
+            <i class="fa-solid fa-house"></i>
 
-<i class="fa-solid fa-floppy-disk"></i>
+            <span>
+                Home
+            </span>
 
+        </a>
 
-<span>
 
-Save Profile
 
-</span>
+        <a
+            href="qr.html"
+            class="nav-item"
+        >
 
+            <i class="fa-solid fa-qrcode"></i>
 
-</button>
+            <span>
+                QR
+            </span>
 
+        </a>
 
 
-<!-- =====================================
-     PROFILE MESSAGE
-===================================== -->
 
-<div
+        <a
+            href="history.html"
+            class="nav-item"
+        >
 
-id="profileMessage"
+            <i class="fa-solid fa-clock-rotate-left"></i>
 
-class="profile-message">
+            <span>
+                History
+            </span>
 
+        </a>
 
-</div>
 
 
-</section>
+        <a
+            href="menu.html"
+            class="nav-item"
+        >
 
+            <i class="fa-solid fa-utensils"></i>
 
+            <span>
+                Menu
+            </span>
 
-<!-- =========================================
-     QUICK ACTIONS
-========================================= -->
+        </a>
 
-<section
-class="profile-actions-section">
 
 
-<h2
-class="edit-profile-title">
+        <a
+            href="feedback.html"
+            class="nav-item"
+        >
 
+            <i class="fa-solid fa-heart"></i>
 
-<i class="fa-solid fa-bolt"></i>
+            <span>
+                Review
+            </span>
 
+        </a>
 
-<span>
 
-Quick Actions
 
-</span>
+        <a
+            href="profile.html"
+            class="nav-item active"
+            aria-current="page"
+        >
 
+            <i class="fa-solid fa-user"></i>
 
-</h2>
+            <span>
+                Profile
+            </span>
 
+        </a>
 
 
-<div
-class="profile-actions">
+    </nav>
 
 
-<!-- =====================================
-     CALL BUTTON
-===================================== -->
-
-<a
-
-href="tel:+91XXXXXXXXXX"
-
-class="profile-action-btn call-btn">
-
-
-<i class="fa-solid fa-phone"></i>
-
-
-<span>
-
-Call
-
-</span>
-
-
-</a>
-
-
-
-<!-- =====================================
-     WHATSAPP BUTTON
-===================================== -->
-
-<a
-
-href="https://wa.me/91XXXXXXXXXX"
-
-target="_blank"
-
-rel="noopener"
-
-class="profile-action-btn whatsapp-btn">
-
-
-<i class="fa-brands fa-whatsapp"></i>
-
-
-<span>
-
-WhatsApp
-
-</span>
-
-
-</a>
-
-
-
-<!-- =====================================
-     MAP BUTTON
-===================================== -->
-
-<a
-
-href="https://www.google.com/maps/search/?api=1&query=Rio+Maggi+Point"
-
-target="_blank"
-
-rel="noopener"
-
-class="profile-action-btn map-btn">
-
-
-<i class="fa-solid fa-location-dot"></i>
-
-
-<span>
-
-Map
-
-</span>
-
-
-</a>
-
-
-
-<!-- =====================================
-     REVIEW BUTTON
-===================================== -->
-
-<a
-
-href="feedback.html"
-
-class="profile-action-btn review-btn">
-
-
-<i class="fa-solid fa-star"></i>
-
-
-<span>
-
-Review
-
-</span>
-
-
-</a>
-
-
-</div>
-
-
-</section>
-
-
-
-<!-- =========================================
-     ACCOUNT SECTION
-========================================= -->
-
-<section
-class="account-section">
-
-
-<h2
-class="account-title">
-
-
-<i class="fa-solid fa-shield-halved"></i>
-
-
-<span>
-
-Account
-
-</span>
-
-
-</h2>
-
-
-
-<!-- =====================================
-     LOGOUT BUTTON
-===================================== -->
-
-<button
-
-type="button"
-
-id="logoutBtn"
-
-class="logout-btn">
-
-
-<i class="fa-solid fa-right-from-bracket"></i>
-
-
-<span>
-
-Logout
-
-</span>
-
-
-</button>
-
-
-
-<!-- =====================================
-     DELETE ACCOUNT
-===================================== -->
-
-<button
-
-type="button"
-
-id="deleteAccountBtn"
-
-class="delete-account-btn">
-
-
-Delete Account
-
-
-</button>
-
-
-</section>
+</main>
 
 
 
 <!-- =========================================
-     NAVIGATION SAFE SPACE
-========================================= -->
-
-<div
-class="nav-space">
-</div>
-
-
-
-<!-- =========================================
-     FIXED COMMON BOTTOM NAVIGATION
-========================================= -->
-
-<nav
-
-class="bottom-nav"
-
-id="commonBottomNav">
-
-
-<!-- =====================================
-     HOME
-===================================== -->
-
-<a
-
-href="card.html"
-
-class="nav-item">
-
-
-<i class="fa-solid fa-house"></i>
-
-
-<span>
-
-Home
-
-</span>
-
-
-</a>
-
-
-
-<!-- =====================================
-     QR
-===================================== -->
-
-<a
-
-href="qr.html"
-
-class="nav-item">
-
-
-<i class="fa-solid fa-qrcode"></i>
-
-
-<span>
-
-QR
-
-</span>
-
-
-</a>
-
-
-
-<!-- =====================================
-     HISTORY
-===================================== -->
-
-<a
-
-href="history.html"
-
-class="nav-item">
-
-
-<i class="fa-solid fa-clock-rotate-left"></i>
-
-
-<span>
-
-History
-
-</span>
-
-
-</a>
-
-
-
-<!-- =====================================
-     MENU
-===================================== -->
-
-<a
-
-href="menu.html"
-
-class="nav-item">
-
-
-<i class="fa-solid fa-utensils"></i>
-
-
-<span>
-
-Menu
-
-</span>
-
-
-</a>
-
-
-
-<!-- =====================================
-     REVIEW
-===================================== -->
-
-<a
-
-href="feedback.html"
-
-class="nav-item">
-
-
-<i class="fa-solid fa-heart"></i>
-
-
-<span>
-
-Review
-
-</span>
-
-
-</a>
-
-
-
-<!-- =====================================
-     PROFILE
-===================================== -->
-
-<a
-
-href="profile.html"
-
-class="nav-item active">
-
-
-<i class="fa-solid fa-user"></i>
-
-
-<span>
-
-Profile
-
-</span>
-
-
-</a>
-
-
-</nav>
-
-
-
-<!-- =========================================
-     END PROFILE.HTML PART 2/3
-========================================= -->
-     <!-- =========================================
-     RIO MAGGI POINT
-     PROFILE.HTML
-     PART 3/3
-     FIREBASE + PROFILE PHOTO + SAVE
-========================================= -->
-
-
-<!-- =========================================
-     FIREBASE MODULE
+     FIREBASE + PROFILE LOGIC
 ========================================= -->
 
 <script type="module">
 
-
 /* =========================================
    FIREBASE IMPORTS
+
+   IMPORTANT:
+   firebase-config.js must export:
+   auth
+   db
 ========================================= */
 
 import {
-
-    initializeApp
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    auth,
+    db
+} from "./js/firebase-config.js";
 
 
 import {
-
-    getAuth,
-
     onAuthStateChanged,
-
     signOut,
-
-    deleteUser
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    deleteUser,
+    updateProfile
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 
 import {
-
-    getFirestore,
-
     doc,
-
     getDoc,
-
     setDoc,
-
-    updateDoc,
-
+    deleteDoc,
     serverTimestamp
-
-}
-
-from
-
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-
-import {
-
-    firebaseConfig
-
-}
-
-from
-
-"./js/firebase-config.js";
-
-
-
-/* =========================================
-   FIREBASE INITIALIZE
-========================================= */
-
-const app =
-
-    initializeApp(
-
-        firebaseConfig
-
-    );
-
-
-const auth =
-
-    getAuth(
-
-        app
-
-    );
-
-
-const db =
-
-    getFirestore(
-
-        app
-
-    );
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
 
@@ -1034,138 +733,63 @@ const db =
 ========================================= */
 
 const profileName =
-
-    document.getElementById(
-
-        "profileName"
-
-    );
+    document.getElementById("profileName");
 
 
 const profileEmail =
-
-    document.getElementById(
-
-        "profileEmail"
-
-    );
+    document.getElementById("profileEmail");
 
 
 const profilePhoto =
-
-    document.getElementById(
-
-        "profilePhoto"
-
-    );
+    document.getElementById("profilePhoto");
 
 
 const defaultAvatar =
-
-    document.getElementById(
-
-        "defaultAvatar"
-
-    );
+    document.getElementById("defaultAvatar");
 
 
 const photoInput =
-
-    document.getElementById(
-
-        "photoInput"
-
-    );
+    document.getElementById("photoInput");
 
 
 const editName =
-
-    document.getElementById(
-
-        "editName"
-
-    );
+    document.getElementById("editName");
 
 
 const editEmail =
-
-    document.getElementById(
-
-        "editEmail"
-
-    );
+    document.getElementById("editEmail");
 
 
 const memberId =
-
-    document.getElementById(
-
-        "memberId"
-
-    );
+    document.getElementById("memberId");
 
 
 const memberSince =
-
-    document.getElementById(
-
-        "memberSince"
-
-    );
+    document.getElementById("memberSince");
 
 
 const profileStamps =
-
-    document.getElementById(
-
-        "profileStamps"
-
-    );
+    document.getElementById("profileStamps");
 
 
 const profileReward =
-
-    document.getElementById(
-
-        "profileReward"
-
-    );
+    document.getElementById("profileReward");
 
 
 const saveProfileBtn =
-
-    document.getElementById(
-
-        "saveProfileBtn"
-
-    );
+    document.getElementById("saveProfileBtn");
 
 
 const profileMessage =
-
-    document.getElementById(
-
-        "profileMessage"
-
-    );
+    document.getElementById("profileMessage");
 
 
 const logoutBtn =
-
-    document.getElementById(
-
-        "logoutBtn"
-
-    );
+    document.getElementById("logoutBtn");
 
 
 const deleteAccountBtn =
-
-    document.getElementById(
-
-        "deleteAccountBtn"
-
-    );
+    document.getElementById("deleteAccountBtn");
 
 
 
@@ -1176,113 +800,164 @@ const deleteAccountBtn =
 let currentUser = null;
 
 
+/* =========================================
+   SELECTED PROFILE PHOTO
+========================================= */
+
+let selectedPhotoDataURL = null;
+
+
 
 /* =========================================
    SHOW MESSAGE
 ========================================= */
 
 function showMessage(
-
     message,
-
-    type
-
+    type = ""
 ) {
 
-
     profileMessage.textContent =
-
         message;
 
 
     profileMessage.className =
+        "profile-message";
 
-        "profile-message " +
 
-        type;
+    if (type) {
 
+        profileMessage.classList.add(
+            type
+        );
+
+    }
 
 }
 
 
 
 /* =========================================
-   CLEAR LOADING STATE
+   REMOVE LOADING
 ========================================= */
 
 function removeLoading() {
 
-
     profileName.classList.remove(
-
         "profile-loading"
-
     );
-
 
     profileEmail.classList.remove(
-
         "profile-loading"
-
     );
-
 
 }
 
 
 
 /* =========================================
-   LOAD PROFILE DATA
+   FORMAT DATE
 ========================================= */
 
-async function loadProfile(
-
-    user
-
+function formatMemberDate(
+    value
 ) {
+
+    if (!value) {
+
+        return "Not Available";
+
+    }
 
 
     try {
 
+        let date;
+
+
+        if (
+            typeof value.toDate ===
+            "function"
+        ) {
+
+            date =
+                value.toDate();
+
+        }
+
+        else {
+
+            date =
+                new Date(value);
+
+        }
+
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return "Not Available";
+
+        }
+
+
+        return date.toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Date Format Error:",
+            error
+        );
+
+        return "Not Available";
+
+    }
+
+}
+
+
+
+/* =========================================
+   LOAD PROFILE
+========================================= */
+
+async function loadProfile(
+    user
+) {
+
+    try {
 
         const userRef =
-
             doc(
-
                 db,
-
                 "customers",
-
                 user.uid
-
             );
 
 
         const userSnap =
-
             await getDoc(
-
                 userRef
-
             );
 
 
-        let data = {};
-
-
-        if (
-
+        const data =
             userSnap.exists()
-
-        ) {
-
-
-            data =
-
-                userSnap.data();
-
-
-        }
+                ? userSnap.data()
+                : {};
 
 
 
@@ -1291,21 +966,16 @@ async function loadProfile(
         ================================= */
 
         const name =
-
             data.name ||
-
             user.displayName ||
-
             "Customer";
 
 
         profileName.textContent =
-
             name;
 
 
         editName.value =
-
             name;
 
 
@@ -1315,21 +985,17 @@ async function loadProfile(
         ================================= */
 
         const email =
-
             data.email ||
-
             user.email ||
-
             "";
 
 
         profileEmail.textContent =
-
-            email;
+            email ||
+            "Email not available";
 
 
         editEmail.value =
-
             email;
 
 
@@ -1338,27 +1004,23 @@ async function loadProfile(
            MEMBER ID
         ================================= */
 
+        const generatedMemberId =
+
+            "RIO-" +
+
+            user.uid
+                .substring(
+                    0,
+                    8
+                )
+                .toUpperCase();
+
+
         memberId.textContent =
 
             data.memberId ||
 
-            (
-
-                "RIO-" +
-
-                user.uid
-
-                    .substring(
-
-                        0,
-
-                        6
-
-                    )
-
-                    .toUpperCase()
-
-            );
+            generatedMemberId;
 
 
 
@@ -1367,62 +1029,31 @@ async function loadProfile(
         ================================= */
 
         if (
-
             data.memberSince
-
         ) {
 
-
             memberSince.textContent =
-
-                data.memberSince;
-
+                formatMemberDate(
+                    data.memberSince
+                );
 
         }
-
 
         else if (
-
-            data.createdAt &&
-
-            data.createdAt.toDate
-
+            data.createdAt
         ) {
 
-
             memberSince.textContent =
-
-                data.createdAt
-
-                    .toDate()
-
-                    .toLocaleDateString(
-
-                        "en-IN",
-
-                        {
-
-                            day: "2-digit",
-
-                            month: "short",
-
-                            year: "numeric"
-
-                        }
-
-                    );
-
+                formatMemberDate(
+                    data.createdAt
+                );
 
         }
-
 
         else {
 
-
             memberSince.textContent =
-
-                "Premium Member";
-
+                "Not Available";
 
         }
 
@@ -1434,20 +1065,13 @@ async function loadProfile(
 
         const stamps =
 
-            Number(
-
-                data.stamps || 0
-
-            );
-
-
-        profileStamps.textContent =
-
             Math.min(
 
                 Math.max(
 
-                    stamps,
+                    Number(
+                        data.stamps || 0
+                    ),
 
                     0
 
@@ -1455,9 +1079,12 @@ async function loadProfile(
 
                 6
 
-            ) +
+            );
 
-            " / 6";
+
+        profileStamps.textContent =
+
+            `${stamps} / 6`;
 
 
 
@@ -1465,28 +1092,41 @@ async function loadProfile(
            REWARD STATUS
         ================================= */
 
+        const rewardUnlocked =
+
+            data.rewardUnlocked ===
+            true;
+
+
+        const rewardRedeemed =
+
+            data.rewardRedeemed ===
+            true;
+
+
         if (
-
-            stamps >= 6
-
+            rewardUnlocked &&
+            !rewardRedeemed
         ) {
 
-
             profileReward.textContent =
-
                 "FREE VEG MAGGI UNLOCKED";
-
 
         }
 
+        else if (
+            rewardRedeemed
+        ) {
+
+            profileReward.textContent =
+                "Reward Redeemed";
+
+        }
 
         else {
 
-
             profileReward.textContent =
-
                 "Collecting";
-
 
         }
 
@@ -1500,46 +1140,41 @@ async function loadProfile(
 
             data.photoURL ||
 
-            user.photoURL;
+            user.photoURL ||
+
+            "";
 
 
         if (
-
             photoURL
-
         ) {
 
-
             profilePhoto.src =
-
                 photoURL;
 
 
             profilePhoto.style.display =
-
                 "block";
 
 
             defaultAvatar.style.display =
-
                 "none";
-
 
         }
 
-
         else {
+
+            profilePhoto.removeAttribute(
+                "src"
+            );
 
 
             profilePhoto.style.display =
-
                 "none";
 
 
             defaultAvatar.style.display =
-
                 "block";
-
 
         }
 
@@ -1549,9 +1184,1670 @@ async function loadProfile(
 
     }
 
+    catch (error) {
+
+        console.error(
+            "Profile Loading Error:",
+            error
+        );
+
+
+        profileName.textContent =
+            "Customer";
+
+
+        profileEmail.textContent =
+            user.email ||
+            "Email not available";
+
+
+        removeLoading();
+
+
+        showMessage(
+            "Unable to load some profile information.",
+            "error"
+        );
+
+    }
+
+}
+
+
+
+/* =========================================
+   AUTH STATE
+========================================= */
+
+onAuthStateChanged(
+
+    auth,
+
+    async (user) => {
+
+        if (!user) {
+
+            window.location.replace(
+                "login.html"
+            );
+
+            return;
+
+        }
+
+
+        currentUser =
+            user;
+
+
+        await loadProfile(
+            user
+        );
+
+    }
+
+);
+
+
+
+/* =========================================
+   PROFILE PHOTO PREVIEW
+========================================= */
+
+photoInput.addEventListener(
+
+    "change",
+
+    (event) => {
+
+        const file =
+            event.target.files?.[0];
+
+
+        if (!file) {
+
+            return;
+
+        }
+
+
+
+        /* VALIDATE TYPE */
+
+        if (
+            !file.type.startsWith(
+                "image/"
+            )
+        ) {
+
+            showMessage(
+                "Please select a valid image.",
+                "error"
+            );
+
+
+            photoInput.value =
+                "";
+
+
+            return;
+
+        }
+
+
+
+        /* LIMIT 2MB */
+
+        const maxSize =
+            2 * 1024 * 1024;
+
+
+        if (
+            file.size >
+            maxSize
+        ) {
+
+            showMessage(
+                "Please select an image smaller than 2MB.",
+                "error"
+            );
+
+
+            photoInput.value =
+                "";
+
+
+            return;
+
+        }
+
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            () => {
+
+                selectedPhotoDataURL =
+                    reader.result;
+
+
+                profilePhoto.src =
+                    selectedPhotoDataURL;
+
+
+                profilePhoto.style.display =
+                    "block";
+
+
+                defaultAvatar.style.display =
+                    "none";
+
+
+                showMessage(
+                    "Profile photo selected. Click Save Profile to save your changes.",
+                    "success"
+                );
+
+            };
+
+
+        reader.onerror =
+            () => {
+
+                showMessage(
+                    "Unable to preview this image.",
+                    "error"
+                );
+
+            };
+
+
+        reader.readAsDataURL(
+            file
+        );
+
+    }
+
+);
+
+
+
+/* =========================================
+   SAVE PROFILE
+========================================= */
+
+saveProfileBtn.addEventListener(
+
+    "click",
+
+    async () => {
+
+        if (!currentUser) {
+
+            showMessage(
+                "Please login again.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+
+        const newName =
+            editName.value.trim();
+
+
+        if (!newName) {
+
+            showMessage(
+                "Please enter your name.",
+                "error"
+            );
+
+
+            editName.focus();
+
+
+            return;
+
+        }
+
+
+
+        if (
+            newName.length <
+            2
+        ) {
+
+            showMessage(
+                "Name must contain at least 2 characters.",
+                "error"
+            );
+
+
+            editName.focus();
+
+
+            return;
+
+        }
+
+
+
+        try {
+
+            saveProfileBtn.disabled =
+                true;
+
+
+            saveProfileBtn.innerHTML =
+
+                '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+
+
+            const userRef =
+
+                doc(
+                    db,
+                    "customers",
+                    currentUser.uid
+                );
+
+
+
+            /* =================================
+               FIRESTORE UPDATE DATA
+            ================================= */
+
+            const updateData = {
+
+                name:
+                    newName,
+
+                email:
+                    currentUser.email ||
+                    "",
+
+                updatedAt:
+                    serverTimestamp()
+
+            };
+
+
+
+            /*
+               NOTE:
+
+               selectedPhotoDataURL is only a
+               temporary browser preview.
+
+               It is NOT saved to Firestore
+               because storing large Base64
+               images directly in Firestore
+               is not recommended.
+
+               Firebase Storage should be used
+               for permanent profile photos.
+            */
+
+
+
+            await setDoc(
+
+                userRef,
+
+                updateData,
+
+                {
+                    merge:
+                        true
+                }
+
+            );
+
+
+
+            /* =================================
+               UPDATE FIREBASE AUTH DISPLAY NAME
+            ================================= */
+
+            try {
+
+                await updateProfile(
+
+                    currentUser,
+
+                    {
+                        displayName:
+                            newName
+                    }
+
+                );
+
+            }
+
+            catch (authError) {
+
+                console.warn(
+                    "Auth Profile Name Update Warning:",
+                    authError
+                );
+
+            }
+
+
+
+            /* =================================
+               UPDATE UI
+            ================================= */
+
+            profileName.textContent =
+                newName;
+
+
+            editName.value =
+                newName;
+
+
+            selectedPhotoDataURL =
+                null;
+
+
+            photoInput.value =
+                "";
+
+
+
+            showMessage(
+                "Profile updated successfully!",
+                "success"
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Profile Save Error:",
+                error
+            );
+
+
+            showMessage(
+                "Unable to save profile. Please try again.",
+                "error"
+            );
+
+        }
+
+        finally {
+
+            saveProfileBtn.disabled =
+                false;
+
+
+            saveProfileBtn.innerHTML =
+
+                '<i class="fa-solid fa-floppy-disk"></i> Save Profile';
+
+        }
+
+    }
+
+);
+
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+logoutBtn.addEventListener(
+
+    "click",
+
+    async () => {
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to logout?"
+            );
+
+
+        if (!confirmed) {
+
+            return;
+
+        }
+
+
+        try {
+
+            logoutBtn.disabled =
+                true;
+
+
+            logoutBtn.innerHTML =
+
+                '<i class="fa-solid fa-spinner fa-spin"></i> Logging out...';
+
+
+            await signOut(
+                auth
+            );
+
+
+            window.location.replace(
+                "login.html"
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Logout Error:",
+                error
+            );
+
+
+            logoutBtn.disabled =
+                false;
+
+
+            logoutBtn.innerHTML =
+
+                '<i class="fa-solid fa-right-from-bracket"></i> Logout';
+
+
+            showMessage(
+                "Logout failed. Please try again.",
+                "error"
+            );
+
+        }
+
+    }
+
+);
+
+
+
+/* =========================================
+   DELETE ACCOUNT
+========================================= */
+
+deleteAccountBtn.addEventListener(
+
+    "click",
+
+    async () => {
+
+        if (!currentUser) {
+
+            showMessage(
+                "Please login again.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+
+        const confirmed =
+
+            confirm(
+
+                "⚠️ WARNING\n\n" +
+
+                "Are you sure you want to permanently delete your account?\n\n" +
+
+                "Your account will be removed from Firebase Authentication and your customer profile data will also be deleted.\n\n" +
+
+                "This action cannot be undone."
+
+            );
+
+
+        if (!confirmed) {
+
+            return;
+
+        }
+
+
+
+        try {
+
+            deleteAccountBtn.disabled =
+                true;
+
+
+            deleteAccountBtn.innerHTML =
+
+                '<i class="fa-solid fa-spinner fa-spin"></i> Deleting...';
+
+
+
+            /* =================================
+               DELETE FIRESTORE PROFILE
+            ================================= */
+
+            const userRef =
+
+                doc(
+                    db,
+                    "customers",
+                    currentUser.uid
+                );
+
+
+            await deleteDoc(
+                userRef
+            );
+
+
+
+            /* =================================
+               DELETE AUTH ACCOUNT
+            ================================= */
+
+            await deleteUser(
+                currentUser
+            );
+
+
+
+            window.location.replace(
+                "signup.html"
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Delete Account Error:",
+                error
+            );
+
+
+            deleteAccountBtn.disabled =
+                false;
+
+
+            deleteAccountBtn.innerHTML =
+
+                '<i class="fa-solid fa-trash"></i> Delete Account';
+
+
+
+            if (
+                error.code ===
+                "auth/requires-recent-login"
+            ) {
+
+                showMessage(
+
+                    "For security, please login again before deleting your account.",
+
+                    "error"
+
+                );
+
+            }
+
+            else {
+
+                showMessage(
+
+                    "Account deletion failed. Please try again.",
+
+                    "error"
+
+                );
+
+            }
+
+        }
+
+    }
+
+);
+
+
+
+/* =========================================
+   SERVICE WORKER
+========================================= */
+
+if (
+    "serviceWorker" in navigator
+) {
+
+    window.addEventListener(
+
+        "load",
+
+        async () => {
+
+            try {
+
+                await navigator.serviceWorker.register(
+                    "./service-worker.js"
+                );
+
+
+                console.log(
+                    "Service Worker Registered"
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Service Worker Error:",
+                    error
+                );
+
+            }
+
+        }
+
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>
+<!-- =========================================
+     RIO MAGGI POINT
+     PROFILE.HTML
+     PART 2/3
+     EDIT PROFILE + QUICK ACTIONS + ACCOUNT
+========================================= -->
+
+
+<!-- =========================================
+     EDIT PROFILE SECTION
+========================================= -->
+
+<section class="edit-profile-section">
+
+    <h2 class="edit-profile-title">
+
+        <i class="fa-solid fa-pen-to-square"></i>
+
+        <span>
+            Edit Profile
+        </span>
+
+    </h2>
+
+
+    <!-- NAME -->
+
+    <div class="form-group">
+
+        <label for="editName">
+            Your Name
+        </label>
+
+        <input
+            type="text"
+            id="editName"
+            placeholder="Enter your name"
+            autocomplete="name"
+            maxlength="50"
+        >
+
+    </div>
+
+
+    <!-- EMAIL -->
+
+    <div class="form-group">
+
+        <label for="editEmail">
+            Email Address
+        </label>
+
+        <input
+            type="email"
+            id="editEmail"
+            placeholder="Your email address"
+            autocomplete="email"
+            disabled
+        >
+
+    </div>
+
+
+    <!-- SAVE -->
+
+    <button
+        type="button"
+        id="saveProfileBtn"
+        class="save-profile-btn"
+    >
+
+        <i class="fa-solid fa-floppy-disk"></i>
+
+        <span>
+            Save Profile
+        </span>
+
+    </button>
+
+
+    <!-- MESSAGE -->
+
+    <div
+        id="profileMessage"
+        class="profile-message"
+        role="status"
+        aria-live="polite"
+    ></div>
+
+</section>
+
+
+
+<!-- =========================================
+     QUICK ACTIONS
+========================================= -->
+
+<section class="profile-actions-section">
+
+    <h2 class="edit-profile-title">
+
+        <i class="fa-solid fa-bolt"></i>
+
+        <span>
+            Quick Actions
+        </span>
+
+    </h2>
+
+
+    <div class="profile-actions">
+
+
+        <!-- CALL -->
+
+        <a
+            href="tel:+91XXXXXXXXXX"
+            class="profile-action-btn call-btn"
+            aria-label="Call Rio Maggi Point"
+        >
+
+            <i class="fa-solid fa-phone"></i>
+
+            <span>
+                Call
+            </span>
+
+        </a>
+
+
+
+        <!-- WHATSAPP -->
+
+        <a
+            href="https://wa.me/91XXXXXXXXXX"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="profile-action-btn whatsapp-btn"
+            aria-label="Contact Rio Maggi Point on WhatsApp"
+        >
+
+            <i class="fa-brands fa-whatsapp"></i>
+
+            <span>
+                WhatsApp
+            </span>
+
+        </a>
+
+
+
+        <!-- MAP -->
+
+        <a
+            href="https://www.google.com/maps/search/?api=1&query=Rio+Maggi+Point"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="profile-action-btn map-btn"
+            aria-label="Open Rio Maggi Point location in Google Maps"
+        >
+
+            <i class="fa-solid fa-location-dot"></i>
+
+            <span>
+                Map
+            </span>
+
+        </a>
+
+
+
+        <!-- REVIEW -->
+
+        <a
+            href="feedback.html"
+            class="profile-action-btn review-btn"
+            aria-label="Give a review"
+        >
+
+            <i class="fa-solid fa-star"></i>
+
+            <span>
+                Review
+            </span>
+
+        </a>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     ACCOUNT SECTION
+========================================= -->
+
+<section class="account-section">
+
+    <h2 class="account-title">
+
+        <i class="fa-solid fa-shield-halved"></i>
+
+        <span>
+            Account
+        </span>
+
+    </h2>
+
+
+    <!-- LOGOUT -->
+
+    <button
+        type="button"
+        id="logoutBtn"
+        class="logout-btn"
+    >
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        <span>
+            Logout
+        </span>
+
+    </button>
+
+
+    <!-- DELETE ACCOUNT -->
+
+    <button
+        type="button"
+        id="deleteAccountBtn"
+        class="delete-account-btn"
+    >
+
+        <i class="fa-solid fa-trash"></i>
+
+        <span>
+            Delete Account
+        </span>
+
+    </button>
+
+</section>
+
+
+
+<!-- =========================================
+     BOTTOM NAVIGATION SAFE SPACE
+========================================= -->
+
+<div class="nav-space"></div>
+
+
+
+<!-- =========================================
+     COMMON BOTTOM NAVIGATION
+========================================= -->
+
+<nav
+    class="bottom-nav"
+    id="commonBottomNav"
+    aria-label="Main navigation"
+>
+
+
+    <!-- HOME -->
+
+    <a
+        href="card.html"
+        class="nav-item"
+    >
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>
+            Home
+        </span>
+
+    </a>
+
+
+
+    <!-- QR -->
+
+    <a
+        href="qr.html"
+        class="nav-item"
+    >
+
+        <i class="fa-solid fa-qrcode"></i>
+
+        <span>
+            QR
+        </span>
+
+    </a>
+
+
+
+    <!-- HISTORY -->
+
+    <a
+        href="history.html"
+        class="nav-item"
+    >
+
+        <i class="fa-solid fa-clock-rotate-left"></i>
+
+        <span>
+            History
+        </span>
+
+    </a>
+
+
+
+    <!-- MENU -->
+
+    <a
+        href="menu.html"
+        class="nav-item"
+    >
+
+        <i class="fa-solid fa-utensils"></i>
+
+        <span>
+            Menu
+        </span>
+
+    </a>
+
+
+
+    <!-- REVIEW -->
+
+    <a
+        href="feedback.html"
+        class="nav-item"
+    >
+
+        <i class="fa-solid fa-heart"></i>
+
+        <span>
+            Review
+        </span>
+
+    </a>
+
+
+
+    <!-- PROFILE -->
+
+    <a
+        href="profile.html"
+        class="nav-item active"
+        aria-current="page"
+    >
+
+        <i class="fa-solid fa-user"></i>
+
+        <span>
+            Profile
+        </span>
+
+    </a>
+
+
+</nav>
+
+
+<!-- =========================================
+     END PROFILE.HTML PART 2/3
+========================================= -->
+<!-- =========================================
+     RIO MAGGI POINT
+     PROFILE.HTML
+     PART 3/3
+     FIREBASE + PROFILE LOGIC
+========================================= -->
+
+<script type="module">
+
+
+/* =========================================
+   FIREBASE IMPORTS
+========================================= */
+
+import {
+
+    auth,
+
+    db
+
+}
+
+from "./js/firebase-config.js";
+
+
+import {
+
+    onAuthStateChanged,
+
+    signOut,
+
+    deleteUser
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+
+import {
+
+    doc,
+
+    getDoc,
+
+    setDoc,
+
+    serverTimestamp
+
+}
+
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+
+
+/* =========================================
+   HTML ELEMENTS
+========================================= */
+
+const profileName =
+    document.getElementById("profileName");
+
+
+const profileEmail =
+    document.getElementById("profileEmail");
+
+
+const profilePhoto =
+    document.getElementById("profilePhoto");
+
+
+const defaultAvatar =
+    document.getElementById("defaultAvatar");
+
+
+const photoInput =
+    document.getElementById("photoInput");
+
+
+const editName =
+    document.getElementById("editName");
+
+
+const editEmail =
+    document.getElementById("editEmail");
+
+
+const memberId =
+    document.getElementById("memberId");
+
+
+const memberSince =
+    document.getElementById("memberSince");
+
+
+const profileStamps =
+    document.getElementById("profileStamps");
+
+
+const profileReward =
+    document.getElementById("profileReward");
+
+
+const saveProfileBtn =
+    document.getElementById("saveProfileBtn");
+
+
+const profileMessage =
+    document.getElementById("profileMessage");
+
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
+
+const deleteAccountBtn =
+    document.getElementById("deleteAccountBtn");
+
+
+
+/* =========================================
+   CURRENT USER
+========================================= */
+
+let currentUser = null;
+
+
+
+/* =========================================
+   SHOW PROFILE MESSAGE
+========================================= */
+
+function showMessage(
+    message,
+    type = ""
+) {
+
+    if (!profileMessage) {
+
+        return;
+
+    }
+
+
+    profileMessage.textContent =
+        message;
+
+
+    profileMessage.className =
+        "profile-message";
+
+
+    if (type) {
+
+        profileMessage.classList.add(
+            type
+        );
+
+    }
+
+}
+
+
+
+/* =========================================
+   REMOVE LOADING STATE
+========================================= */
+
+function removeLoading() {
+
+    profileName?.classList.remove(
+        "profile-loading"
+    );
+
+
+    profileEmail?.classList.remove(
+        "profile-loading"
+    );
+
+}
+
+
+
+/* =========================================
+   FORMAT MEMBER DATE
+========================================= */
+
+function formatMemberDate(
+    value
+) {
+
+    if (!value) {
+
+        return "Premium Member";
+
+    }
+
+
+    try {
+
+        let date;
+
+
+        if (
+            typeof value.toDate ===
+            "function"
+        ) {
+
+            date =
+                value.toDate();
+
+        }
+
+        else if (
+            value instanceof Date
+        ) {
+
+            date =
+                value;
+
+        }
+
+        else {
+
+            date =
+                new Date(value);
+
+        }
+
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return "Premium Member";
+
+        }
+
+
+        return date.toLocaleDateString(
+
+            "en-IN",
+
+            {
+
+                day:
+                    "2-digit",
+
+                month:
+                    "short",
+
+                year:
+                    "numeric"
+
+            }
+
+        );
+
+    }
 
     catch (error) {
 
+        console.error(
+
+            "Member Date Format Error:",
+
+            error
+
+        );
+
+
+        return "Premium Member";
+
+    }
+
+}
+
+
+
+/* =========================================
+   UPDATE PROFILE PHOTO DISPLAY
+========================================= */
+
+function displayProfilePhoto(
+    photoURL
+) {
+
+    if (
+        !photoURL
+    ) {
+
+        profilePhoto.src =
+            "";
+
+
+        profilePhoto.style.display =
+            "none";
+
+
+        defaultAvatar.style.display =
+            "block";
+
+
+        return;
+
+    }
+
+
+    profilePhoto.src =
+        photoURL;
+
+
+    profilePhoto.style.display =
+        "block";
+
+
+    defaultAvatar.style.display =
+        "none";
+
+}
+
+
+
+/* =========================================
+   LOAD PROFILE
+========================================= */
+
+async function loadProfile(
+    user
+) {
+
+    if (!user) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const userRef =
+            doc(
+
+                db,
+
+                "customers",
+
+                user.uid
+
+            );
+
+
+        const userSnap =
+            await getDoc(
+
+                userRef
+
+            );
+
+
+        const data =
+            userSnap.exists()
+
+                ? userSnap.data()
+
+                : {};
+
+
+
+        /* =================================
+           CUSTOMER NAME
+        ================================= */
+
+        const name =
+
+            data.name ||
+
+            user.displayName ||
+
+            "Customer";
+
+
+        profileName.textContent =
+            name;
+
+
+        editName.value =
+            name;
+
+
+
+        /* =================================
+           CUSTOMER EMAIL
+        ================================= */
+
+        const email =
+
+            data.email ||
+
+            user.email ||
+
+            "";
+
+
+        profileEmail.textContent =
+            email;
+
+
+        editEmail.value =
+            email;
+
+
+
+        /* =================================
+           MEMBER ID
+        ================================= */
+
+        const generatedMemberId =
+
+            "RIO-" +
+
+            user.uid
+
+                .substring(
+
+                    0,
+
+                    6
+
+                )
+
+                .toUpperCase();
+
+
+        memberId.textContent =
+
+            data.memberId ||
+
+            generatedMemberId;
+
+
+
+        /* =================================
+           MEMBER SINCE
+        ================================= */
+
+        if (
+            data.memberSince
+        ) {
+
+            memberSince.textContent =
+
+                formatMemberDate(
+
+                    data.memberSince
+
+                );
+
+        }
+
+        else if (
+            data.createdAt
+        ) {
+
+            memberSince.textContent =
+
+                formatMemberDate(
+
+                    data.createdAt
+
+                );
+
+        }
+
+        else {
+
+            memberSince.textContent =
+
+                "Premium Member";
+
+        }
+
+
+
+        /* =================================
+           LOYALTY STAMPS
+        ================================= */
+
+        const stamps =
+
+            Math.min(
+
+                Math.max(
+
+                    Number(
+
+                        data.stamps ||
+
+                        0
+
+                    ),
+
+                    0
+
+                ),
+
+                6
+
+            );
+
+
+        profileStamps.textContent =
+
+            stamps +
+
+            " / 6";
+
+
+
+        /* =================================
+           REWARD STATUS
+        ================================= */
+
+        const rewardUnlocked =
+
+            data.rewardUnlocked ===
+
+            true;
+
+
+        const rewardRedeemed =
+
+            data.rewardRedeemed ===
+
+            true;
+
+
+        if (
+
+            stamps >= 6 &&
+
+            rewardUnlocked &&
+
+            !rewardRedeemed
+
+        ) {
+
+            profileReward.textContent =
+
+                "FREE VEG MAGGI UNLOCKED";
+
+        }
+
+        else if (
+            rewardRedeemed
+        ) {
+
+            profileReward.textContent =
+
+                "Reward Redeemed";
+
+        }
+
+        else {
+
+            profileReward.textContent =
+
+                "Collecting";
+
+        }
+
+
+
+        /* =================================
+           PROFILE PHOTO
+        ================================= */
+
+        const photoURL =
+
+            data.photoURL ||
+
+            user.photoURL ||
+
+            "";
+
+
+        displayProfilePhoto(
+
+            photoURL
+
+        );
+
+
+        removeLoading();
+
+
+    }
+
+    catch (error) {
 
         console.error(
 
@@ -1563,6 +2859,8 @@ async function loadProfile(
 
 
         profileName.textContent =
+
+            user.displayName ||
 
             "Customer";
 
@@ -1585,16 +2883,14 @@ async function loadProfile(
 
         );
 
-
     }
-
 
 }
 
 
 
 /* =========================================
-   AUTH STATE
+   AUTH STATE CHECK
 ========================================= */
 
 onAuthStateChanged(
@@ -1604,11 +2900,10 @@ onAuthStateChanged(
     async (user) => {
 
 
-        if (
+        if (!user) {
 
-            !user
-
-        ) {
+            currentUser =
+                null;
 
 
             window.location.href =
@@ -1618,12 +2913,10 @@ onAuthStateChanged(
 
             return;
 
-
         }
 
 
         currentUser =
-
             user;
 
 
@@ -1632,7 +2925,6 @@ onAuthStateChanged(
             user
 
         );
-
 
     }
 
@@ -1644,95 +2936,134 @@ onAuthStateChanged(
    PROFILE PHOTO PREVIEW
 ========================================= */
 
-photoInput.addEventListener(
+if (photoInput) {
 
-    "change",
+    photoInput.addEventListener(
 
-    (event) => {
+        "change",
 
-
-        const file =
-
-            event.target.files[0];
+        (event) => {
 
 
-        if (
+            const file =
 
-            !file
-
-        ) {
+                event.target.files?.[0];
 
 
-            return;
+            if (!file) {
+
+                return;
+
+            }
 
 
-        }
+            if (
+                !file.type.startsWith(
+                    "image/"
+                )
+            ) {
+
+                showMessage(
+
+                    "Please select a valid image.",
+
+                    "error"
+
+                );
 
 
-        if (
-
-            !file.type.startsWith(
-
-                "image/"
-
-            )
-
-        ) {
+                photoInput.value =
+                    "";
 
 
-            showMessage(
+                return;
 
-                "Please select a valid image.",
-
-                "error"
-
-            );
+            }
 
 
-            return;
+            /* ==============================
+               LIMIT FILE SIZE TO 5 MB
+            ============================== */
+
+            const maxSize =
+
+                5 *
+
+                1024 *
+
+                1024;
 
 
-        }
+            if (
+                file.size > maxSize
+            ) {
+
+                showMessage(
+
+                    "Profile photo must be smaller than 5 MB.",
+
+                    "error"
+
+                );
 
 
-        const reader =
-
-            new FileReader();
-
-
-        reader.onload =
-
-            () => {
+                photoInput.value =
+                    "";
 
 
-                profilePhoto.src =
+                return;
 
-                    reader.result;
-
-
-                profilePhoto.style.display =
-
-                    "block";
+            }
 
 
-                defaultAvatar.style.display =
+            const reader =
+                new FileReader();
 
-                    "none";
 
+            reader.onload = () => {
+
+                displayProfilePhoto(
+
+                    reader.result
+
+                );
+
+
+                showMessage(
+
+                    "Photo preview updated. Save it using the profile save system.",
+
+                    "success"
+
+                );
 
             };
 
 
-        reader.readAsDataURL(
+            reader.onerror = () => {
 
-            file
+                showMessage(
 
-        );
+                    "Unable to preview the selected photo.",
+
+                    "error"
+
+                );
+
+            };
 
 
-    }
+            reader.readAsDataURL(
 
-);
+                file
+
+            );
+
+        }
+
+    );
+
+}
 
 
 
@@ -1740,173 +3071,209 @@ photoInput.addEventListener(
    SAVE PROFILE
 ========================================= */
 
-saveProfileBtn.addEventListener(
+if (saveProfileBtn) {
 
-    "click",
+    saveProfileBtn.addEventListener(
 
-    async () => {
+        "click",
 
-
-        if (
-
-            !currentUser
-
-        ) {
+        async () => {
 
 
-            return;
+            if (!currentUser) {
 
+                showMessage(
 
-        }
+                    "Please login again.",
 
-
-        const newName =
-
-            editName.value.trim();
-
-
-        if (
-
-            !newName
-
-        ) {
-
-
-            showMessage(
-
-                "Please enter your name.",
-
-                "error"
-
-            );
-
-
-            return;
-
-
-        }
-
-
-        try {
-
-
-            saveProfileBtn.disabled =
-
-                true;
-
-
-            saveProfileBtn.innerHTML =
-
-                '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
-
-
-
-            const userRef =
-
-                doc(
-
-                    db,
-
-                    "customers",
-
-                    currentUser.uid
+                    "error"
 
                 );
 
 
-            await setDoc(
+                return;
 
-                userRef,
-
-                {
-
-                    name:
-
-                        newName,
-
-                    email:
-
-                        currentUser.email ||
-
-                        "",
-
-                    updatedAt:
-
-                        serverTimestamp()
-
-                },
-
-                {
-
-                    merge:
-
-                        true
-
-                }
-
-            );
+            }
 
 
-            profileName.textContent =
+            const newName =
 
-                newName;
+                editName.value.trim();
 
 
-            showMessage(
+            if (!newName) {
 
-                "Profile updated successfully!",
+                showMessage(
 
-                "success"
+                    "Please enter your name.",
 
-            );
+                    "error"
 
+                );
+
+
+                editName.focus();
+
+
+                return;
+
+            }
+
+
+            if (
+                newName.length < 2
+            ) {
+
+                showMessage(
+
+                    "Name must contain at least 2 characters.",
+
+                    "error"
+
+                );
+
+
+                editName.focus();
+
+
+                return;
+
+            }
+
+
+            try {
+
+
+                saveProfileBtn.disabled =
+                    true;
+
+
+                saveProfileBtn.innerHTML = `
+
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+
+                    <span>Saving...</span>
+
+                `;
+
+
+
+                const userRef =
+
+                    doc(
+
+                        db,
+
+                        "customers",
+
+                        currentUser.uid
+
+                    );
+
+
+                await setDoc(
+
+                    userRef,
+
+                    {
+
+                        name:
+
+                            newName,
+
+                        email:
+
+                            currentUser.email ||
+
+                            "",
+
+                        updatedAt:
+
+                            serverTimestamp()
+
+                    },
+
+                    {
+
+                        merge:
+
+                            true
+
+                    }
+
+                );
+
+
+
+                /* ==============================
+                   UPDATE SCREEN
+                ============================== */
+
+                profileName.textContent =
+
+                    newName;
+
+
+                editName.value =
+
+                    newName;
+
+
+                showMessage(
+
+                    "Profile updated successfully!",
+
+                    "success"
+
+                );
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+
+                    "Profile Save Error:",
+
+                    error
+
+                );
+
+
+                showMessage(
+
+                    "Unable to save profile. Please try again.",
+
+                    "error"
+
+                );
+
+            }
+
+            finally {
+
+
+                saveProfileBtn.disabled =
+                    false;
+
+
+                saveProfileBtn.innerHTML = `
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    <span>Save Profile</span>
+
+                `;
+
+
+            }
 
         }
 
+    );
 
-        catch (error) {
-
-
-            console.error(
-
-                "Profile Save Error:",
-
-                error
-
-            );
-
-
-            showMessage(
-
-                "Unable to save profile. Please try again.",
-
-                "error"
-
-            );
-
-
-        }
-
-
-        finally {
-
-
-            saveProfileBtn.disabled =
-
-                false;
-
-
-            saveProfileBtn.innerHTML =
-
-                '<i class="fa-solid fa-floppy-disk"></i> Save Profile';
-
-
-        }
-
-
-    }
-
-);
+}
 
 
 
@@ -1914,58 +3281,82 @@ saveProfileBtn.addEventListener(
    LOGOUT
 ========================================= */
 
-logoutBtn.addEventListener(
+if (logoutBtn) {
 
-    "click",
+    logoutBtn.addEventListener(
 
-    async () => {
+        "click",
 
-
-        try {
-
-
-            await signOut(
-
-                auth
-
-            );
+        async () => {
 
 
-            window.location.href =
+            const confirmed =
 
-                "login.html";
+                confirm(
 
+                    "Are you sure you want to logout?"
+
+                );
+
+
+            if (!confirmed) {
+
+                return;
+
+            }
+
+
+            try {
+
+
+                logoutBtn.disabled =
+                    true;
+
+
+                await signOut(
+
+                    auth
+
+                );
+
+
+                window.location.href =
+
+                    "login.html";
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+
+                    "Logout Error:",
+
+                    error
+
+                );
+
+
+                logoutBtn.disabled =
+                    false;
+
+
+                showMessage(
+
+                    "Logout failed. Please try again.",
+
+                    "error"
+
+                );
+
+            }
 
         }
 
+    );
 
-        catch (error) {
-
-
-            console.error(
-
-                "Logout Error:",
-
-                error
-
-            );
-
-
-            showMessage(
-
-                "Logout failed. Please try again.",
-
-                "error"
-
-            );
-
-
-        }
-
-
-    }
-
-);
+}
 
 
 
@@ -1973,93 +3364,137 @@ logoutBtn.addEventListener(
    DELETE ACCOUNT
 ========================================= */
 
-deleteAccountBtn.addEventListener(
+if (deleteAccountBtn) {
 
-    "click",
+    deleteAccountBtn.addEventListener(
 
-    async () => {
+        "click",
 
-
-        if (
-
-            !currentUser
-
-        ) {
+        async () => {
 
 
-            return;
+            if (!currentUser) {
 
+                showMessage(
+
+                    "Please login again.",
+
+                    "error"
+
+                );
+
+
+                return;
+
+            }
+
+
+            const confirmed =
+
+                confirm(
+
+                    "⚠️ Are you sure you want to delete your account?\n\n" +
+
+                    "This action cannot be undone."
+
+                );
+
+
+            if (!confirmed) {
+
+                return;
+
+            }
+
+
+            try {
+
+
+                deleteAccountBtn.disabled =
+                    true;
+
+
+                deleteAccountBtn.innerHTML = `
+
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+
+                    <span>Deleting...</span>
+
+                `;
+
+
+                await deleteUser(
+
+                    currentUser
+
+                );
+
+
+                window.location.href =
+
+                    "signup.html";
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+
+                    "Delete Account Error:",
+
+                    error
+
+                );
+
+
+                deleteAccountBtn.disabled =
+                    false;
+
+
+                deleteAccountBtn.innerHTML = `
+
+                    <i class="fa-solid fa-trash"></i>
+
+                    <span>Delete Account</span>
+
+                `;
+
+
+                if (
+                    error.code ===
+                    "auth/requires-recent-login"
+                ) {
+
+                    showMessage(
+
+                        "For security, please login again before deleting your account.",
+
+                        "error"
+
+                    );
+
+                }
+
+                else {
+
+                    showMessage(
+
+                        "Account deletion failed. Please try again.",
+
+                        "error"
+
+                    );
+
+                }
+
+            }
 
         }
 
+    );
 
-        const confirmed =
-
-            confirm(
-
-                "Are you sure you want to delete your account? This action cannot be undone."
-
-            );
-
-
-        if (
-
-            !confirmed
-
-        ) {
-
-
-            return;
-
-
-        }
-
-
-        try {
-
-
-            await deleteUser(
-
-                currentUser
-
-            );
-
-
-            window.location.href =
-
-                "signup.html";
-
-
-        }
-
-
-        catch (error) {
-
-
-            console.error(
-
-                "Delete Account Error:",
-
-                error
-
-            );
-
-
-            showMessage(
-
-                "Account deletion failed. Please login again and try.",
-
-                "error"
-
-            );
-
-
-        }
-
-
-    }
-
-);
+}
 
 
 </script>
@@ -2072,15 +3507,9 @@ deleteAccountBtn.addEventListener(
 
 <script>
 
-
 if (
-
-    "serviceWorker"
-
-    in navigator
-
+    "serviceWorker" in navigator
 ) {
-
 
     window.addEventListener(
 
@@ -2088,9 +3517,7 @@ if (
 
         async () => {
 
-
             try {
-
 
                 await navigator.serviceWorker.register(
 
@@ -2099,11 +3526,15 @@ if (
                 );
 
 
+                console.log(
+
+                    "Service Worker Registered"
+
+                );
+
             }
 
-
             catch (error) {
-
 
                 console.error(
 
@@ -2113,17 +3544,13 @@ if (
 
                 );
 
-
             }
-
 
         }
 
     );
 
-
 }
-
 
 </script>
 
@@ -2131,18 +3558,4 @@ if (
 
 <!-- =========================================
      PROFILE.HTML END
-========================================= -->
-
-</main>
-
-
-</body>
-
-
-</html>
-
-
-<!-- =========================================
-     END PROFILE.HTML
-     TOTAL PARTS: 3/3
 ========================================= -->
