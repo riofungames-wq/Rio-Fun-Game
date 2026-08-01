@@ -3,64 +3,63 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-<title>
-    Rio Maggi Point | Premium Menu
-</title>
+    <title>Rio Maggi Point | Premium Menu</title>
 
-<meta
-    name="theme-color"
-    content="#080808">
+    <meta
+        name="theme-color"
+        content="#263525">
 
-<meta
-    name="description"
-    content="Rio Maggi Point Premium 100% Pure Veg Food Menu">
+    <meta
+        name="description"
+        content="Rio Maggi Point Premium 100% Pure Veg Food Menu">
 
-<link
-    rel="manifest"
-    href="manifest.json">
+    <link
+        rel="manifest"
+        href="manifest.json">
 
-<link
-    rel="icon"
-    href="favicon.ico">
+    <link
+        rel="icon"
+        href="favicon.ico"
+        type="image/x-icon">
 
-<link
-    rel="apple-touch-icon"
-    href="icon-192.png">
+    <link
+        rel="apple-touch-icon"
+        href="icon-192.png">
 
-<link
-    rel="preconnect"
-    href="https://fonts.googleapis.com">
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
 
-<link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin>
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
 
-<link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-<!-- COMMON LAYOUT CSS -->
+    <!-- COMMON CSS -->
 
-<link
-    rel="stylesheet"
-    href="css/common.css">
+    <link
+        rel="stylesheet"
+        href="css/common.css">
 
-<!-- MENU PAGE CSS -->
+    <!-- MENU CSS -->
 
-<link
-    rel="stylesheet"
-    href="css/menu.css">
+    <link
+        rel="stylesheet"
+        href="css/menu.css">
 
 </head>
 
@@ -72,1793 +71,1162 @@
      MAIN MENU PAGE
 ================================================== -->
 
-<div class="page">
+<main class="menu-page">
+
+
+    <!-- ==================================================
+         PREMIUM MENU DASHBOARD
+    ================================================== -->
+
+    <section
+        class="menu-dashboard"
+        aria-labelledby="menuDashboardTitle">
+
+        <div
+            class="menu-dashboard-icon"
+            aria-hidden="true">
+
+            <i class="fa-solid fa-utensils"></i>
+
+        </div>
+
+
+        <div class="menu-dashboard-content">
+
+            <h1 id="menuDashboardTitle">
+
+                <span>RIO</span>
+                MAGGI POINT
+
+            </h1>
+
+            <p>
+                100% Pure Veg • Fresh • Tasty • Hygienic
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         INTRO CARD
+    ================================================== -->
+
+    <section class="menu-intro-card">
+
+        <div
+            class="menu-intro-icon"
+            aria-hidden="true">
+
+            <i class="fa-solid fa-bowl-food"></i>
+
+        </div>
+
+
+        <div class="menu-intro-content">
+
+            <h2>
+                Our Premium Menu
+            </h2>
+
+            <p>
+                Tap any category below to explore our delicious menu.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         CATEGORY SECTION HEADING
+    ================================================== -->
+
+    <section
+        class="menu-section-heading"
+        aria-labelledby="categoryHeading">
+
+        <div
+            class="menu-section-heading-icon"
+            aria-hidden="true">
+
+            <i class="fa-solid fa-list"></i>
+
+        </div>
+
+
+        <div>
+
+            <h2 id="categoryHeading">
+                Choose Your Favourite
+            </h2>
+
+            <p>
+                Tap a category to view menu items and prices.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         CATEGORY GRID
+    ================================================== -->
+
+    <section
+        class="menu-category-grid"
+        id="categoryGrid"
+        aria-label="Menu Categories">
+
+
+        <!-- ==================================================
+             01. EVERYDAY MAGIC MAGGI
+        ================================================== -->
+
+        <button
+            type="button"
+            class="menu-category-card"
+            data-target="everyday"
+            aria-controls="everyday">
+
+            <div class="menu-category-image-wrapper">
+
+                <img
+                    class="menu-category-image"
+                    src="images/menu/everyday-maggi.png"
+                    alt="Everyday Magic Maggi"
+                    loading="lazy">
+
+                <div
+                    class="menu-category-image-overlay"
+                    aria-hidden="true">
+
+                    <i class="fa-solid fa-eye"></i>
+
+                    <span>
+                        View Menu
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-category-content">
+
+                <span class="menu-category-number">
+                    01
+                </span>
+
+                <h3>
+                    Everyday Magic Maggi
+                </h3>
+
+                <p>
+                    Classic Rio Maggi Collection
+                </p>
+
+            </div>
+
+        </button>
+
+
+        <!-- ==================================================
+             02. CHEESE MAGIC MAGGI
+        ================================================== -->
+
+        <button
+            type="button"
+            class="menu-category-card"
+            data-target="cheese"
+            aria-controls="cheese">
+
+            <div class="menu-category-image-wrapper">
+
+                <img
+                    class="menu-category-image"
+                    src="images/menu/cheese-maggi.png"
+                    alt="Cheese Magic Maggi"
+                    loading="lazy">
+
+                <div
+                    class="menu-category-image-overlay"
+                    aria-hidden="true">
+
+                    <i class="fa-solid fa-eye"></i>
+
+                    <span>
+                        View Menu
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-category-content">
+
+                <span class="menu-category-number">
+                    02
+                </span>
+
+                <h3>
+                    Cheese Magic Maggi
+                </h3>
+
+                <p>
+                    Cheesy Rio Special Collection
+                </p>
+
+            </div>
+
+        </button>
+
+
+        <!-- ==================================================
+             03. CHEESE BUTTER MAGIC MAGGI
+        ================================================== -->
+
+        <button
+            type="button"
+            class="menu-category-card"
+            data-target="cheese-butter"
+            aria-controls="cheese-butter">
+
+            <div class="menu-category-image-wrapper">
+
+                <img
+                    class="menu-category-image"
+                    src="images/menu/cheese-butter-maggi.png"
+                    alt="Cheese Butter Magic Maggi"
+                    loading="lazy">
+
+                <div
+                    class="menu-category-image-overlay"
+                    aria-hidden="true">
+
+                    <i class="fa-solid fa-eye"></i>
+
+                    <span>
+                        View Menu
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-category-content">
+
+                <span class="menu-category-number">
+                    03
+                </span>
+
+                <h3>
+                    Cheese Butter Magic Maggi
+                </h3>
+
+                <p>
+                    Premium Cheese Butter Collection
+                </p>
+
+            </div>
+
+        </button>
+
+
+        <!-- ==================================================
+             04. UFO BURGER
+        ================================================== -->
+
+        <button
+            type="button"
+            class="menu-category-card"
+            data-target="burger"
+            aria-controls="burger">
+
+            <div class="menu-category-image-wrapper">
+
+                <img
+                    class="menu-category-image"
+                    src="images/menu/ufo-burger.png"
+                    alt="UFO Burger"
+                    loading="lazy">
+
+                <div
+                    class="menu-category-image-overlay"
+                    aria-hidden="true">
+
+                    <i class="fa-solid fa-eye"></i>
+
+                    <span>
+                        View Menu
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-category-content">
+
+                <span class="menu-category-number">
+                    04
+                </span>
+
+                <h3>
+                    UFO Burger
+                </h3>
+
+                <p>
+                    Premium Burger Collection
+                </p>
+
+            </div>
+
+        </button>
+
+
+        <!-- ==================================================
+             05. DELICIOUS MOMOS
+        ================================================== -->
+
+        <button
+            type="button"
+            class="menu-category-card"
+            data-target="momos"
+            aria-controls="momos">
+
+            <div class="menu-category-image-wrapper">
+
+                <img
+                    class="menu-category-image"
+                    src="images/menu/momos.png"
+                    alt="Delicious Momos"
+                    loading="lazy">
+
+                <div
+                    class="menu-category-image-overlay"
+                    aria-hidden="true">
+
+                    <i class="fa-solid fa-eye"></i>
+
+                    <span>
+                        View Menu
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-category-content">
+
+                <span class="menu-category-number">
+                    05
+                </span>
+
+                <h3>
+                    Delicious Momos
+                </h3>
+
+                <p>
+                    Hot &amp; Tasty Momos Collection
+                </p>
+
+            </div>
+
+        </button>
+
+
+        <!-- ==================================================
+             06. HOT SOUPS
+        ================================================== -->
+
+        <button
+            type="button"
+            class="menu-category-card"
+            data-target="soups"
+            aria-controls="soups">
+
+            <div class="menu-category-image-wrapper">
+
+                <img
+                    class="menu-category-image"
+                    src="images/menu/soup.png"
+                    alt="Hot Soups"
+                    loading="lazy">
+
+                <div
+                    class="menu-category-image-overlay"
+                    aria-hidden="true">
+
+                    <i class="fa-solid fa-eye"></i>
+
+                    <span>
+                        View Menu
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-category-content">
+
+                <span class="menu-category-number">
+                    06
+                </span>
+
+                <h3>
+                    Hot Soups
+                </h3>
+
+                <p>
+                    Hot &amp; Delicious Soup Collection
+                </p>
+
+            </div>
+
+        </button>
+
+
+        <!-- ==================================================
+             07. CRISPY SWEET CORN
+        ================================================== -->
+
+        <button
+            type="button"
+            class="menu-category-card"
+            data-target="corn"
+            aria-controls="corn">
+
+            <div class="menu-category-image-wrapper">
+
+                <img
+                    class="menu-category-image"
+                    src="images/menu/sweet-corn.png"
+                    alt="Crispy Sweet Corn"
+                    loading="lazy">
+
+                <div
+                    class="menu-category-image-overlay"
+                    aria-hidden="true">
+
+                    <i class="fa-solid fa-eye"></i>
+
+                    <span>
+                        View Menu
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-category-content">
+
+                <span class="menu-category-number">
+                    07
+                </span>
+
+                <h3>
+                    Crispy Sweet Corn
+                </h3>
+
+                <p>
+                    Crunchy Corn Special Collection
+                </p>
+
+            </div>
+
+        </button>
+
+
+        <!-- ==================================================
+             08. CHIPS BHEL
+        ================================================== -->
+
+        <button
+            type="button"
+            class="menu-category-card"
+            data-target="bhel"
+            aria-controls="bhel">
+
+            <div class="menu-category-image-wrapper">
+
+                <img
+                    class="menu-category-image"
+                    src="images/menu/chips-bhel.png"
+                    alt="Chips Bhel"
+                    loading="lazy">
+
+                <div
+                    class="menu-category-image-overlay"
+                    aria-hidden="true">
+
+                    <i class="fa-solid fa-eye"></i>
+
+                    <span>
+                        View Menu
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-category-content">
+
+                <span class="menu-category-number">
+                    08
+                </span>
+
+                <h3>
+                    Chips Bhel
+                </h3>
+
+                <p>
+                    Crispy Snack Collection
+                </p>
+
+            </div>
+
+        </button>
+
+
+    </section>
+
+
+    <!-- ==================================================
+         CATEGORY DETAIL SECTION
+         JS WILL SHOW SELECTED CATEGORY HERE
+    ================================================== -->
+
+    <section
+        class="category-detail-section"
+        id="foodContainer"
+        aria-live="polite">
+
+
+        <!-- ==================================================
+             01. EVERYDAY MAGIC MAGGI
+        ================================================== -->
+
+        <div
+            class="category-detail-header"
+            id="everyday"
+            data-category="everyday">
+
+            <div
+                class="category-detail-icon"
+                aria-hidden="true">
+
+                <i class="fa-solid fa-bowl-food"></i>
+
+            </div>
+
+
+            <div class="category-detail-title">
+
+                <h2>
+                    Everyday Magic Maggi
+                </h2>
+
+                <p>
+                    Classic Rio Maggi Collection
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="back-category-btn"
+                aria-label="Back to menu categories">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                <span>
+                    Back
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <div class="category-items-container">
+
+
+            <button
+                type="button"
+                class="category-item-card"
+                data-item="Classic"
+                data-category="Everyday Magic Maggi">
+
+                <div class="category-item-image-wrapper">
+
+                    <img
+                        class="category-item-image"
+                        src="images/menu/everyday-maggi-large.png"
+                        alt="Classic Maggi"
+                        loading="lazy">
+
+                    <div
+                        class="category-item-image-overlay"
+                        aria-hidden="true">
+
+                        <i class="fa-solid fa-magnifying-glass-plus"></i>
+
+                        <span>
+                            View
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="category-item-info">
+
+                    <h3>
+                        Classic
+                    </h3>
+
+                    <div class="item-size-price">
+
+                        <div>
+
+                            <span>
+                                Half
+                            </span>
+
+                            <strong>
+                                ₹30
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Full
+                            </span>
+
+                            <strong>
+                                ₹50
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="category-item-card"
+                data-item="Veg"
+                data-category="Everyday Magic Maggi">
+
+                <div class="category-item-image-wrapper">
+
+                    <img
+                        class="category-item-image"
+                        src="images/menu/everyday-maggi-large.png"
+                        alt="Veg Maggi"
+                        loading="lazy">
+
+                </div>
+
+                <div class="category-item-info">
+
+                    <h3>
+                        Veg
+                    </h3>
+
+                    <div class="item-size-price">
+
+                        <div>
+
+                            <span>
+                                Half
+                            </span>
+
+                            <strong>
+                                ₹40
+                            </strong>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Full
+                            </span>
+
+                            <strong>
+                                ₹70
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="category-item-card"
+                data-item="Garlic"
+                data-category="Everyday Magic Maggi">
+
+                <div class="category-item-image-wrapper">
+
+                    <img
+                        class="category-item-image"
+                        src="images/menu/everyday-maggi-large.png"
+                        alt="Garlic Maggi"
+                        loading="lazy">
+
+                </div>
+
+                <div class="category-item-info">
+
+                    <h3>
+                        Garlic
+                    </h3>
+
+                    <div class="item-size-price">
+
+                        <div>
+                            <span>Half</span>
+                            <strong>₹40</strong>
+                        </div>
+
+                        <div>
+                            <span>Full</span>
+                            <strong>₹70</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="category-item-card"
+                data-item="Corn"
+                data-category="Everyday Magic Maggi">
+
+                <div class="category-item-image-wrapper">
+
+                    <img
+                        class="category-item-image"
+                        src="images/menu/everyday-maggi-large.png"
+                        alt="Corn Maggi"
+                        loading="lazy">
+
+                </div>
+
+                <div class="category-item-info">
+
+                    <h3>
+                        Corn
+                    </h3>
+
+                    <div class="item-size-price">
+
+                        <div>
+                            <span>Half</span>
+                            <strong>₹40</strong>
+                        </div>
+
+                        <div>
+                            <span>Full</span>
+                            <strong>₹70</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="category-item-card"
+                data-item="Schezwan"
+                data-category="Everyday Magic Maggi">
+
+                <div class="category-item-image-wrapper">
+
+                    <img
+                        class="category-item-image"
+                        src="images/menu/everyday-maggi-large.png"
+                        alt="Schezwan Maggi"
+                        loading="lazy">
+
+                </div>
+
+                <div class="category-item-info">
+
+                    <h3>
+                        Schezwan
+                    </h3>
+
+                    <div class="item-size-price">
+
+                        <div>
+                            <span>Half</span>
+                            <strong>₹40</strong>
+                        </div>
+
+                        <div>
+                            <span>Full</span>
+                            <strong>₹70</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="category-item-card"
+                data-item="Veg Corn"
+                data-category="Everyday Magic Maggi">
+
+                <div class="category-item-image-wrapper">
+
+                    <img
+                        class="category-item-image"
+                        src="images/menu/everyday-maggi-large.png"
+                        alt="Veg Corn Maggi"
+                        loading="lazy">
+
+                </div>
+
+                <div class="category-item-info">
+
+                    <h3>
+                        Veg Corn
+                    </h3>
+
+                    <div class="item-size-price">
+
+                        <div>
+                            <span>Half</span>
+                            <strong>₹50</strong>
+                        </div>
+
+                        <div>
+                            <span>Full</span>
+                            <strong>₹80</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="category-item-card"
+                data-item="Veg Lemon"
+                data-category="Everyday Magic Maggi">
+
+                <div class="category-item-image-wrapper">
+
+                    <img
+                        class="category-item-image"
+                        src="images/menu/everyday-maggi-large.png"
+                        alt="Veg Lemon Maggi"
+                        loading="lazy">
+
+                </div>
+
+                <div class="category-item-info">
+
+                    <h3>
+                        Veg Lemon
+                    </h3>
+
+                    <div class="item-size-price">
+
+                        <div>
+                            <span>Half</span>
+                            <strong>₹80</strong>
+                        </div>
+
+                        <div>
+                            <span>Full</span>
+                            <strong>₹120</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="category-item-card"
+                data-item="Korean"
+                data-category="Everyday Magic Maggi">
+
+                <div class="category-item-image-wrapper">
+
+                    <img
+                        class="category-item-image"
+                        src="images/menu/everyday-maggi-large.png"
+                        alt="Korean Maggi"
+                        loading="lazy">
+
+                </div>
+
+                <div class="category-item-info">
+
+                    <h3>
+                        Korean
+                    </h3>
+
+                    <div class="item-size-price">
+
+                        <div>
+                            <span>Half</span>
+                            <strong>₹100</strong>
+                        </div>
+
+                        <div>
+                            <span>Full</span>
+                            <strong>₹150</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </button>
+
+
+        </div>
+
+
+    </section>
+
+
+    <!-- ==================================================
+         ITEM POPUP
+    ================================================== -->
+
+    <div
+        class="menu-item-popup"
+        id="menuItemPopup"
+        aria-hidden="true">
+
+        <div
+            class="menu-popup-backdrop"
+            data-popup-close>
+        </div>
+
+
+        <div
+            class="menu-popup-card"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="popupItemName">
+
+            <button
+                type="button"
+                class="menu-popup-close"
+                data-popup-close
+                aria-label="Close item details">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+
+            <div class="menu-popup-image-wrapper">
+
+                <img
+                    id="popupItemImage"
+                    src=""
+                    alt="">
+
+            </div>
+
+
+            <div class="menu-popup-content">
+
+                <span
+                    class="menu-popup-category"
+                    id="popupItemCategory">
+                </span>
+
+
+                <h2 id="popupItemName">
+                </h2>
+
+
+                <div
+                    class="menu-popup-price"
+                    id="popupItemPrice">
+                </div>
+
+
+                <button
+                    type="button"
+                    class="menu-popup-done-btn"
+                    data-popup-close>
+
+                    <i class="fa-solid fa-check"></i>
+
+                    <span>
+                        Done
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</main>
 
 
 <!-- ==================================================
-     MENU CARD
-================================================== -->
-
-<div class="menu-card app-card">
-
-
-<!-- ==================================================
-     PREMIUM VISUAL EFFECTS
-================================================== -->
-
-<div
-    class="card-glow"
-    aria-hidden="true">
-</div>
-
-<div
-    class="card-shine"
-    aria-hidden="true">
-</div>
-
-
-<!-- ==================================================
-     MENU HEADER
-================================================== -->
-
-<header class="menu-header">
-
-<div class="brand-box">
-
-<h1>
-
-<span>RIO</span>
-MAGGI POINT
-
-</h1>
-
-<p>
-
-100% Pure Veg • Fresh • Tasty • Hygienic
-
-</p>
-
-</div>
-
-
-<div
-    class="gold-line"
-    aria-hidden="true">
-</div>
-
-</header>
-
-
-<!-- ==================================================
-     CATEGORY DASHBOARD
-     TAP ANY PNG TO OPEN ITS MENU
-================================================== -->
-
-<section
-    class="category-area"
-    aria-labelledby="menuTitle">
-
-
-<div class="menu-heading">
-
-<h2 id="menuTitle">
-
-Our Menu
-
-</h2>
-
-<p>
-
-Tap Your Favourite
-
-</p>
-
-</div>
-
-
-<!-- ==================================================
-     CATEGORY GRID
-================================================== -->
-
-<div
-    class="category-grid"
-    id="categoryGrid">
-
-
-<!-- ==================================================
-     01. EVERYDAY MAGIC MAGGI
-================================================== -->
-
-<button
-    type="button"
-    class="category-card active"
-    data-target="everyday"
-    aria-controls="everyday"
-    aria-expanded="true">
-
-<div class="category-image">
-
-<img
-    src="images/menu/everyday-maggi.png"
-    alt="Everyday Magic Maggi"
-    loading="lazy">
-
-<div
-    class="steam-effect"
-    aria-hidden="true">
-
-<span></span>
-<span></span>
-<span></span>
-
-</div>
-
-</div>
-
-
-<h3>
-
-Everyday Magic Maggi
-
-</h3>
-
-
-<span class="tap-hint">
-
-Tap To View Menu
-
-</span>
-
-</button>
-
-
-<!-- ==================================================
-     02. CHEESE MAGIC MAGGI
-================================================== -->
-
-<button
-    type="button"
-    class="category-card"
-    data-target="cheese"
-    aria-controls="cheese"
-    aria-expanded="false">
-
-<div class="category-image">
-
-<img
-    src="images/menu/cheese-maggi.png"
-    alt="Cheese Magic Maggi"
-    loading="lazy">
-
-<div
-    class="image-shine"
-    aria-hidden="true">
-</div>
-
-</div>
-
-
-<h3>
-
-Cheese Magic Maggi
-
-</h3>
-
-
-<span class="tap-hint">
-
-Tap To View Menu
-
-</span>
-
-</button>
-
-
-<!-- ==================================================
-     03. CHEESE BUTTER MAGIC MAGGI
-================================================== -->
-
-<button
-    type="button"
-    class="category-card"
-    data-target="cheese-butter"
-    aria-controls="cheese-butter"
-    aria-expanded="false">
-
-<div class="category-image">
-
-<img
-    src="images/menu/cheese-butter-maggi.png"
-    alt="Cheese Butter Magic Maggi"
-    loading="lazy">
-
-<div
-    class="image-shine"
-    aria-hidden="true">
-</div>
-
-</div>
-
-
-<h3>
-
-Cheese Butter Magic Maggi
-
-</h3>
-
-
-<span class="tap-hint">
-
-Tap To View Menu
-
-</span>
-
-</button>
-
-
-<!-- ==================================================
-     04. UFO BURGER
-================================================== -->
-
-<button
-    type="button"
-    class="category-card"
-    data-target="burger"
-    aria-controls="burger"
-    aria-expanded="false">
-
-<div class="category-image">
-
-<img
-    src="images/menu/ufo-burger.png"
-    alt="UFO Burger"
-    loading="lazy">
-
-<div
-    class="image-shine"
-    aria-hidden="true">
-</div>
-
-</div>
-
-
-<h3>
-
-UFO Burger
-
-</h3>
-
-
-<span class="tap-hint">
-
-Tap To View Menu
-
-</span>
-
-</button>
-
-
-<!-- ==================================================
-     05. DELICIOUS MOMOS
-================================================== -->
-
-<button
-    type="button"
-    class="category-card"
-    data-target="momos"
-    aria-controls="momos"
-    aria-expanded="false">
-
-<div class="category-image">
-
-<img
-    src="images/menu/momos.png"
-    alt="Delicious Momos"
-    loading="lazy">
-
-<div
-    class="image-shine"
-    aria-hidden="true">
-</div>
-
-</div>
-
-
-<h3>
-
-Delicious Momos
-
-</h3>
-
-
-<span class="tap-hint">
-
-Tap To View Menu
-
-</span>
-
-</button>
-
-
-<!-- ==================================================
-     06. HOT SOUPS
-================================================== -->
-
-<button
-    type="button"
-    class="category-card"
-    data-target="soups"
-    aria-controls="soups"
-    aria-expanded="false">
-
-<div class="category-image">
-
-<img
-    src="images/menu/soup.png"
-    alt="Hot Soups"
-    loading="lazy">
-
-<div
-    class="steam-effect"
-    aria-hidden="true">
-
-<span></span>
-<span></span>
-<span></span>
-
-</div>
-
-</div>
-
-
-<h3>
-
-Hot Soups
-
-</h3>
-
-
-<span class="tap-hint">
-
-Tap To View Menu
-
-</span>
-
-</button>
-
-
-<!-- ==================================================
-     07. CRISPY SWEET CORN
-================================================== -->
-
-<button
-    type="button"
-    class="category-card"
-    data-target="corn"
-    aria-controls="corn"
-    aria-expanded="false">
-
-<div class="category-image">
-
-<img
-    src="images/menu/sweet-corn.png"
-    alt="Crispy Sweet Corn"
-    loading="lazy">
-
-<div
-    class="image-shine"
-    aria-hidden="true">
-</div>
-
-</div>
-
-
-<h3>
-
-Crispy Sweet Corn
-
-</h3>
-
-
-<span class="tap-hint">
-
-Tap To View Menu
-
-</span>
-
-</button>
-
-
-<!-- ==================================================
-     08. CHIPS BHEL
-================================================== -->
-
-<button
-    type="button"
-    class="category-card"
-    data-target="bhel"
-    aria-controls="bhel"
-    aria-expanded="false">
-
-<div class="category-image">
-
-<img
-    src="images/menu/chips-bhel.png"
-    alt="Chips Bhel"
-    loading="lazy">
-
-<div
-    class="image-shine"
-    aria-hidden="true">
-</div>
-
-</div>
-
-
-<h3>
-
-Chips Bhel
-
-</h3>
-
-
-<span class="tap-hint">
-
-Tap To View Menu
-
-</span>
-
-</button>
-
-
-</div>
-
-</section>
-
-
-<!-- ==================================================
-     FOOD DETAILS CONTAINER
-
-     IMPORTANT:
-     UNIQUE IDs ONLY
-================================================== -->
-
-<section
-    class="food-container"
-    id="foodContainer">
-
-
-<!-- ==================================================
-     01. EVERYDAY MAGIC MAGGI
-================================================== -->
-
-<div
-    class="food-section active"
-    id="everyday"
-    data-category="everyday">
-
-
-<div class="food-image-large">
-
-<img
-    src="images/menu/everyday-maggi-large.png"
-    alt="Everyday Magic Maggi"
-    loading="lazy">
-
-<div
-    class="food-steam"
-    aria-hidden="true">
-
-<span></span>
-<span></span>
-<span></span>
-
-</div>
-
-</div>
-
-
-<div class="food-header">
-
-<h2>
-
-Everyday Magic Maggi
-
-</h2>
-
-<p>
-
-Classic Rio Maggi Collection
-
-</p>
-
-</div>
-
-
-<div class="price-heading three-column">
-
-<div>
-Item Name
-</div>
-
-<div>
-Half Price
-</div>
-
-<div>
-Full Price
-</div>
-
-</div>
-
-
-<div class="food-list">
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Classic
-</div>
-
-<div class="half-price">
-₹30
-</div>
-
-<div class="full-price">
-₹50
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Veg
-</div>
-
-<div class="half-price">
-₹40
-</div>
-
-<div class="full-price">
-₹70
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Garlic
-</div>
-
-<div class="half-price">
-₹40
-</div>
-
-<div class="full-price">
-₹70
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Corn
-</div>
-
-<div class="half-price">
-₹40
-</div>
-
-<div class="full-price">
-₹70
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Schezwan
-</div>
-
-<div class="half-price">
-₹40
-</div>
-
-<div class="full-price">
-₹70
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Veg Corn
-</div>
-
-<div class="half-price">
-₹50
-</div>
-
-<div class="full-price">
-₹80
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Veg Lemon
-</div>
-
-<div class="half-price">
-₹80
-</div>
-
-<div class="full-price">
-₹120
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Korean
-</div>
-
-<div class="half-price">
-₹100
-</div>
-
-<div class="full-price">
-₹150
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- ==================================================
-     PART 1 END
-================================================== -->
-     <!-- ==================================================
-     02. CHEESE MAGIC MAGGI
-================================================== -->
-
-<div
-class="food-section"
-id="cheese"
-data-category="cheese">
-
-
-<div class="food-image-large">
-
-<img
-src="images/menu/cheese-maggi-large.png"
-alt="Cheese Magic Maggi"
-loading="lazy">
-
-<div
-class="image-shine"
-aria-hidden="true">
-</div>
-
-</div>
-
-
-<div class="food-header">
-
-<h2>
-Cheese Magic Maggi
-</h2>
-
-<p>
-Cheesy Rio Special Collection
-</p>
-
-</div>
-
-
-<div class="price-heading three-column">
-
-<div>
-Item Name
-</div>
-
-<div>
-Half Price
-</div>
-
-<div>
-Full Price
-</div>
-
-</div>
-
-
-<div class="food-list">
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Cheese Classic
-</div>
-
-<div class="half-price">
-₹40
-</div>
-
-<div class="full-price">
-₹70
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Cheese Veg
-</div>
-
-<div class="half-price">
-₹50
-</div>
-
-<div class="full-price">
-₹80
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Cheese Garlic
-</div>
-
-<div class="half-price">
-₹50
-</div>
-
-<div class="full-price">
-₹80
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Cheese Corn
-</div>
-
-<div class="half-price">
-₹50
-</div>
-
-<div class="full-price">
-₹80
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Cheese Schezwan
-</div>
-
-<div class="half-price">
-₹50
-</div>
-
-<div class="full-price">
-₹80
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Cheese Veg Corn
-</div>
-
-<div class="half-price">
-₹60
-</div>
-
-<div class="full-price">
-₹100
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Cheese Veg Schezwan
-</div>
-
-<div class="half-price">
-₹60
-</div>
-
-<div class="full-price">
-₹100
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Cheese Korean
-</div>
-
-<div class="half-price">
-₹120
-</div>
-
-<div class="full-price">
-₹180
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- ==================================================
-     03. CHEESE BUTTER MAGIC MAGGI
-================================================== -->
-
-<div
-class="food-section"
-id="cheese-butter"
-data-category="cheese-butter">
-
-
-<div class="food-image-large">
-
-<img
-src="images/menu/cheese-butter-maggi-large.png"
-alt="Cheese Butter Magic Maggi"
-loading="lazy">
-
-<div
-class="image-shine"
-aria-hidden="true">
-</div>
-
-</div>
-
-
-<div class="food-header">
-
-<h2>
-Cheese Butter Magic Maggi
-</h2>
-
-<p>
-Premium Cheese Butter Collection
-</p>
-
-</div>
-
-
-<div class="price-heading three-column">
-
-<div>
-Item Name
-</div>
-
-<div>
-Half Price
-</div>
-
-<div>
-Full Price
-</div>
-
-</div>
-
-
-<div class="food-list">
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Cheese Butter Classic
-</div>
-
-<div class="half-price">
-₹50
-</div>
-
-<div class="full-price">
-₹80
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Cheese Butter Veg
-</div>
-
-<div class="half-price">
-₹60
-</div>
-
-<div class="full-price">
-₹100
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Cheese Butter Garlic
-</div>
-
-<div class="half-price">
-₹60
-</div>
-
-<div class="full-price">
-₹100
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Cheese Butter Corn
-</div>
-
-<div class="half-price">
-₹60
-</div>
-
-<div class="full-price">
-₹100
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Cheese Butter Schezwan
-</div>
-
-<div class="half-price">
-₹60
-</div>
-
-<div class="full-price">
-₹100
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Cheese Butter Veg Corn
-</div>
-
-<div class="half-price">
-₹70
-</div>
-
-<div class="full-price">
-₹120
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Cheese Butter Veg Schezwan
-</div>
-
-<div class="half-price">
-₹70
-</div>
-
-<div class="full-price">
-₹120
-</div>
-
-</div>
-
-
-<div class="food-item three-column">
-
-<div class="food-name">
-Cheese Butter Korean
-</div>
-
-<div class="half-price">
-₹130
-</div>
-
-<div class="full-price">
-₹200
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- ==================================================
-     PART 2 END
-================================================== -->
-     <!-- ==================================================
-     04. UFO BURGER
-================================================== -->
-
-<div
-class="food-section"
-id="burger"
-data-category="burger">
-
-
-<div class="food-image-large">
-
-<img
-src="images/menu/ufo-burger-large.png"
-alt="UFO Burger"
-loading="lazy">
-
-<div
-class="image-shine"
-aria-hidden="true">
-</div>
-
-</div>
-
-
-<div class="food-header">
-
-<h2>
-UFO Burger
-</h2>
-
-<p>
-Premium Burger Collection
-</p>
-
-</div>
-
-
-<div class="price-heading price-single">
-
-<div>
-Item Name
-</div>
-
-<div>
-Price
-</div>
-
-</div>
-
-
-<div class="food-list">
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Veg Burger
-</div>
-
-<div class="single-price">
-₹40
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Cheese Burger
-</div>
-
-<div class="single-price">
-₹40
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Veg Cheese Burger
-</div>
-
-<div class="single-price">
-₹50
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Cheese Garlic Burger
-</div>
-
-<div class="single-price">
-₹50
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Schezwan Burger
-</div>
-
-<div class="single-price">
-₹50
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Cheese Schezwan Burger
-</div>
-
-<div class="single-price">
-₹60
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- ==================================================
-     05. DELICIOUS MOMOS
-================================================== -->
-
-<div
-class="food-section"
-id="momos"
-data-category="momos">
-
-
-<div class="food-image-large">
-
-<img
-src="images/menu/momos-large.png"
-alt="Delicious Momos"
-loading="lazy">
-
-<div
-class="image-shine"
-aria-hidden="true">
-</div>
-
-</div>
-
-
-<div class="food-header">
-
-<h2>
-Delicious Momos
-</h2>
-
-<p>
-Hot &amp; Tasty Momos Collection
-</p>
-
-</div>
-
-
-<div class="price-heading price-single">
-
-<div>
-Item Name
-</div>
-
-<div>
-Price
-</div>
-
-</div>
-
-
-<div class="food-list">
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Steam Momos
-</div>
-
-<div class="single-price">
-₹20
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Fried Momos
-</div>
-
-<div class="single-price">
-₹30
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Schezwan Momos
-</div>
-
-<div class="single-price">
-₹50
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Cheese Schezwan Momos
-</div>
-
-<div class="single-price">
-₹60
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- ==================================================
-     PART 3 END
-================================================== -->
-     <!-- ==================================================
-     06. HOT SOUPS
-================================================== -->
-
-<div
-class="food-section"
-id="soups"
-data-category="soups">
-
-
-<div class="food-image-large">
-
-<img
-src="images/menu/soup-large.png"
-alt="Hot Soups"
-loading="lazy">
-
-<div
-class="image-shine"
-aria-hidden="true">
-</div>
-
-</div>
-
-
-<div class="food-header">
-
-<h2>
-Hot Soups
-</h2>
-
-<p>
-Hot &amp; Delicious Soup Collection
-</p>
-
-</div>
-
-
-<div class="price-heading price-single">
-
-<div>
-Item Name
-</div>
-
-<div>
-Price
-</div>
-
-</div>
-
-
-<div class="food-list">
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Corn Soup
-</div>
-
-<div class="single-price">
-₹40
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Tomato Soup
-</div>
-
-<div class="single-price">
-₹40
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Chatpata Tomato
-</div>
-
-<div class="single-price">
-₹40
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Magic Maggi Soup
-</div>
-
-<div class="single-price">
-₹50
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Manchow Soup
-</div>
-
-<div class="single-price">
-₹50
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- ==================================================
-     07. CRISPY SWEET CORN
-================================================== -->
-
-<div
-class="food-section"
-id="corn"
-data-category="corn">
-
-
-<div class="food-image-large">
-
-<img
-src="images/menu/sweet-corn-large.png"
-alt="Crispy Sweet Corn"
-loading="lazy">
-
-<div
-class="image-shine"
-aria-hidden="true">
-</div>
-
-</div>
-
-
-<div class="food-header">
-
-<h2>
-Crispy Sweet Corn
-</h2>
-
-<p>
-Crunchy Corn Special Collection
-</p>
-
-</div>
-
-
-<div class="price-heading price-single">
-
-<div>
-Item Name
-</div>
-
-<div>
-Price
-</div>
-
-</div>
-
-
-<div class="food-list">
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Peri Peri Corn
-</div>
-
-<div class="single-price">
-₹40
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Butter Corn
-</div>
-
-<div class="single-price">
-₹50
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Masala Corn
-</div>
-
-<div class="single-price">
-₹50
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Cheese Corn
-</div>
-
-<div class="single-price">
-₹50
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Schezwan Corn
-</div>
-
-<div class="single-price">
-₹50
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Butter Cheese Corn
-</div>
-
-<div class="single-price">
-₹60
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- ==================================================
-     PART 4 END
-================================================== -->
-     <!-- ==================================================
-     08. CHIPS BHEL
-================================================== -->
-
-<div
-class="food-section"
-id="bhel"
-data-category="bhel">
-
-
-<div class="food-image-large">
-
-<img
-src="images/menu/chips-bhel-large.png"
-alt="Chips Bhel"
-loading="lazy">
-
-<div
-class="image-shine"
-aria-hidden="true">
-</div>
-
-</div>
-
-
-<div class="food-header">
-
-<h2>
-Chips Bhel
-</h2>
-
-<p>
-Crispy Snack Collection
-</p>
-
-</div>
-
-
-<div class="price-heading price-single">
-
-<div>
-Item Name
-</div>
-
-<div>
-Price
-</div>
-
-</div>
-
-
-<div class="food-list">
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Chips Bhel
-</div>
-
-<div class="single-price">
-₹50
-</div>
-
-</div>
-
-
-<div class="food-item price-two-column">
-
-<div class="food-name">
-Kurkure Bhel
-</div>
-
-<div class="single-price">
-₹50
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- ==================================================
-     FOOD CONTAINER END
-================================================== -->
-
-</section>
-
-
-<!-- ==================================================
-     BOTTOM NAVIGATION
-     ONLY ONE NAVIGATION BAR
+     FIXED BOTTOM NAVIGATION
 ================================================== -->
 
 <nav
-class="bottom-nav"
-aria-label="Main Navigation">
+    class="bottom-nav"
+    aria-label="Main Navigation">
 
 
-<a href="card.html">
+    <a
+        href="card.html"
+        class="nav-item">
 
-<i
-class="fa-solid fa-house"
-aria-hidden="true">
-</i>
+        <i
+            class="fa-solid fa-house"
+            aria-hidden="true">
+        </i>
 
-<span>
-Home
-</span>
+        <span>
+            Home
+        </span>
 
-</a>
-
-
-<a href="qr.html">
-
-<i
-class="fa-solid fa-qrcode"
-aria-hidden="true">
-</i>
-
-<span>
-QR
-</span>
-
-</a>
+    </a>
 
 
-<a href="history.html">
+    <a
+        href="qr.html"
+        class="nav-item">
 
-<i
-class="fa-solid fa-clock-rotate-left"
-aria-hidden="true">
-</i>
+        <i
+            class="fa-solid fa-qrcode"
+            aria-hidden="true">
+        </i>
 
-<span>
-History
-</span>
+        <span>
+            QR
+        </span>
 
-</a>
-
-
-<a
-href="menu.html"
-class="active"
-aria-current="page">
-
-<i
-class="fa-solid fa-utensils"
-aria-hidden="true">
-</i>
-
-<span>
-Menu
-</span>
-
-</a>
+    </a>
 
 
-<a href="feedback.html">
+    <a
+        href="history.html"
+        class="nav-item">
 
-<i
-class="fa-solid fa-heart"
-aria-hidden="true">
-</i>
+        <i
+            class="fa-solid fa-clock-rotate-left"
+            aria-hidden="true">
+        </i>
 
-<span>
-Review
-</span>
+        <span>
+            History
+        </span>
 
-</a>
+    </a>
 
 
-<a href="profile.html">
+    <a
+        href="menu.html"
+        class="nav-item active menu-active"
+        aria-current="page">
 
-<i
-class="fa-solid fa-user"
-aria-hidden="true">
-</i>
+        <i
+            class="fa-solid fa-utensils"
+            aria-hidden="true">
+        </i>
 
-<span>
-Profile
-</span>
+        <span>
+            Menu
+        </span>
 
-</a>
+    </a>
+
+
+    <a
+        href="feedback.html"
+        class="nav-item">
+
+        <i
+            class="fa-solid fa-heart"
+            aria-hidden="true">
+        </i>
+
+        <span>
+            Review
+        </span>
+
+    </a>
+
+
+    <a
+        href="profile.html"
+        class="nav-item">
+
+        <i
+            class="fa-solid fa-user"
+            aria-hidden="true">
+        </i>
+
+        <span>
+            Profile
+        </span>
+
+    </a>
 
 
 </nav>
-
-
-<!-- ==================================================
-     MENU CARD END
-================================================== -->
-
-</div>
-
-
-<!-- ==================================================
-     PAGE END
-================================================== -->
-
-</div>
 
 
 <!-- ==================================================
@@ -1866,8 +1234,8 @@ Profile
 ================================================== -->
 
 <script
-type="module"
-src="js/menu.js">
+    type="module"
+    src="js/menu.js">
 </script>
 
 
@@ -1879,42 +1247,36 @@ src="js/menu.js">
 
 if ("serviceWorker" in navigator) {
 
-window.addEventListener(
-"load",
-async function () {
+    window.addEventListener(
+        "load",
+        async function () {
 
-try {
+            try {
 
-await navigator.serviceWorker.register(
-"./service-worker.js"
-);
+                await navigator.serviceWorker.register(
+                    "./service-worker.js"
+                );
 
-console.log(
-"Rio Maggi Point Service Worker Registered"
-);
+                console.log(
+                    "Rio Maggi Point Service Worker Registered"
+                );
 
-}
+            } catch (error) {
 
-catch (error) {
+                console.error(
+                    "Service Worker Registration Failed:",
+                    error
+                );
 
-console.error(
-"Service Worker Registration Failed:",
-error
-);
+            }
 
-}
-
-}
-);
+        }
+    );
 
 }
 
 </script>
 
-
-<!-- ==================================================
-     MENU.HTML END
-================================================== -->
 
 </body>
 
