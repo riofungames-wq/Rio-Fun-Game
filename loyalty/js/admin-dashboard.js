@@ -1,573 +1,1381 @@
 // =====================================================
 // RIO MAGGI POINT
-// PREMIUM ADMIN DASHBOARD V3
-// FIXED VERSION
+// PREMIUM ADMIN DASHBOARD V4
+// FIXED & SECURE STRUCTURE
 // PART 1
 // =====================================================
 
 
-import { auth, db } from "./firebase-config.js";
+// =====================================================
+// FIREBASE IMPORTS
+// =====================================================
+
+import {
+  auth,
+  db
+} from "./firebase-config.js";
 
 
 import {
-
-collection,
-getDocs,
-doc,
-query,
-where,
-updateDoc,
-serverTimestamp
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+  query,
+  where,
+  updateDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
 import {
-
-onAuthStateChanged,
-signOut
-
-}
-
-from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 
 // =====================================================
-// ELEMENTS
+// DOM ELEMENTS
 // =====================================================
 
+
+// -----------------------------
+// DASHBOARD STATS
+// -----------------------------
 
 const totalCustomers =
-document.getElementById("totalCustomers");
+  document.getElementById("totalCustomers");
 
 
 const totalStamps =
-document.getElementById("totalStamps");
+  document.getElementById("totalStamps");
 
 
 const totalRewards =
-document.getElementById("totalRewards");
+  document.getElementById("totalRewards");
 
 
 const todayScans =
-document.getElementById("todayScans");
+  document.getElementById("todayScans");
 
+
+// -----------------------------
+// CUSTOMER TABLE
+// -----------------------------
 
 const customerTable =
-document.getElementById("customerTable");
+  document.getElementById("customerTable");
 
 
 const searchCustomer =
-document.getElementById("searchCustomer");
+  document.getElementById("searchCustomer");
 
 
+// -----------------------------
+// QUICK ACTIONS
+// -----------------------------
 
 const refreshBtn =
-document.getElementById("refreshBtn");
+  document.getElementById("refreshBtn");
 
 
 const exportBtn =
-document.getElementById("exportBtn");
+  document.getElementById("exportBtn");
 
 
 const rewardBtn =
-document.getElementById("rewardBtn");
+  document.getElementById("rewardBtn");
 
 
 const settingsBtn =
-document.getElementById("settingsBtn");
+  document.getElementById("settingsBtn");
 
 
-
-const giveStampBtn =
-document.getElementById("giveStampBtn");
-
-
-const cancelScanBtn =
-document.getElementById("cancelScanBtn");
-
-
+// -----------------------------
+// SCANNER
+// -----------------------------
 
 const startScannerBtn =
-document.getElementById("startScannerBtn");
+  document.getElementById("startScannerBtn");
 
 
 const stopScannerBtn =
-document.getElementById("stopScannerBtn");
+  document.getElementById("stopScannerBtn");
 
 
+const giveStampBtn =
+  document.getElementById("giveStampBtn");
+
+
+const cancelScanBtn =
+  document.getElementById("cancelScanBtn");
+
+
+// -----------------------------
+// SCANNER STATUS
+// -----------------------------
 
 const scannerStatus =
-document.getElementById("scannerStatus");
+  document.getElementById("scannerStatus");
 
 
 const lastRefresh =
-document.getElementById("lastRefresh");
+  document.getElementById("lastRefresh");
 
 
+// -----------------------------
+// CUSTOMER PREVIEW
+// -----------------------------
 
 const scanCustomerPhoto =
-document.getElementById("scanCustomerPhoto");
+  document.getElementById("scanCustomerPhoto");
 
 
 const scanCustomerName =
-document.getElementById("scanCustomerName");
+  document.getElementById("scanCustomerName");
 
 
 const scanMemberId =
-document.getElementById("scanMemberId");
+  document.getElementById("scanMemberId");
 
 
 const scanStampCount =
-document.getElementById("scanStampCount");
+  document.getElementById("scanStampCount");
 
 
 const todayStatus =
-document.getElementById("todayStatus");
+  document.getElementById("todayStatus");
 
 
+// -----------------------------
+// CAMERA OVERLAY
+// -----------------------------
+
+const cameraOverlay =
+  document.getElementById("cameraOverlay");
+
+
+// -----------------------------
+// LOGOUT
+// -----------------------------
 
 const logoutBtn =
-document.getElementById("logoutBtn");
+  document.getElementById("logoutBtn");
 
+
+// -----------------------------
+// NAVIGATION
+// -----------------------------
+
+const dashboardMenu =
+  document.getElementById("dashboardMenu");
+
+
+const scannerMenu =
+  document.getElementById("scannerMenu");
+
+
+const customersMenu =
+  document.getElementById("customersMenu");
+
+
+const stampMenu =
+  document.getElementById("stampMenu");
+
+
+const rewardMenu =
+  document.getElementById("rewardMenu");
+
+
+const reportMenu =
+  document.getElementById("reportMenu");
+
+
+const settingMenu =
+  document.getElementById("settingMenu");
 
 
 // =====================================================
-// VARIABLES
+// GLOBAL VARIABLES
 // =====================================================
 
 
-let customers=[];
+// All customers loaded from Firebase
+let customers = [];
 
 
-let currentCustomer=null;
+// Currently selected customer
+let currentCustomer = null;
 
 
-let todayScanCount=0;
+// Number of scans made today
+let todayScanCount = 0;
 
 
-let html5QrCode=null;
+// HTML5 QR Scanner instance
+let html5QrCode = null;
 
 
-let scannerRunning=false;
+// Scanner running status
+let scannerRunning = false;
 
+
+// Prevent duplicate QR processing
+let processingQr = false;
 
 
 // =====================================================
-// AUTH
+// CONSTANTS
 // =====================================================
 
 
-onAuthStateChanged(auth,async(user)=>{
+// Maximum stamps required for free Veg Maggi
+const MAX_STAMPS = 6;
 
 
-if(!user){
+// QR code prefix used by Rio Maggi Point
+const QR_PREFIX = "RIO-MAGGI::";
 
 
-location.href="admin-login.html";
+// =====================================================
+// HELPER FUNCTIONS
+// =====================================================
 
 
-return;
+// -----------------------------------------------------
+// GET TODAY DATE KEY
+// -----------------------------------------------------
+// Example:
+// 2026-08-02
+// -----------------------------------------------------
 
+function getTodayKey() {
+
+  const now = new Date();
+
+  const year =
+    now.getFullYear();
+
+  const month =
+    String(
+      now.getMonth() + 1
+    ).padStart(2, "0");
+
+  const day =
+    String(
+      now.getDate()
+    ).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
 
 }
 
 
-await loadDashboard();
+// -----------------------------------------------------
+// GET CUSTOMER AVATAR
+// -----------------------------------------------------
+
+function getCustomerAvatar(customer) {
+
+  // If customer has an uploaded photo,
+  // use it first.
+
+  if (
+    customer.photoURL &&
+    typeof customer.photoURL === "string" &&
+    customer.photoURL.trim() !== ""
+  ) {
+
+    return customer.photoURL;
+
+  }
 
 
-});
+  if (
+    customer.photoUrl &&
+    typeof customer.photoUrl === "string" &&
+    customer.photoUrl.trim() !== ""
+  ) {
+
+    return customer.photoUrl;
+
+  }
+
+
+  if (
+    customer.photo &&
+    typeof customer.photo === "string" &&
+    customer.photo.trim() !== ""
+  ) {
+
+    return customer.photo;
+
+  }
+
+
+  // Otherwise use gender avatar.
+
+  if (
+    customer.gender &&
+    customer.gender.toLowerCase() === "female"
+  ) {
+
+    return "assets/avatars/female.png";
+
+  }
+
+
+  return "assets/avatars/male.png";
+
+}
+
+
+// -----------------------------------------------------
+// CHECK IF CUSTOMER ALREADY GOT TODAY'S STAMP
+// -----------------------------------------------------
+
+function hasStampToday(customer) {
+
+  const todayKey =
+    getTodayKey();
+
+
+  // New recommended field
+  // dailyStampDate
+
+  if (
+    customer.dailyStampDate &&
+    customer.dailyStampDate === todayKey
+  ) {
+
+    return true;
+
+  }
+
+
+  // Backup field
+  // lastStampDate
+
+  if (
+    customer.lastStampDate &&
+    customer.lastStampDate === todayKey
+  ) {
+
+    return true;
+
+  }
+
+
+  return false;
+
+}
+
+
+// -----------------------------------------------------
+// GET STAMP STATUS TEXT
+// -----------------------------------------------------
+
+function getStampStatus(customer) {
+
+  if (!customer) {
+
+    return "Waiting";
+
+  }
+
+
+  if (hasStampToday(customer)) {
+
+    return "Already Stamped Today";
+
+  }
+
+
+  if (
+    Number(customer.stamps || 0) >= MAX_STAMPS
+  ) {
+
+    return "Reward Ready";
+
+  }
+
+
+  return "Ready To Give Stamp";
+
+}
+
+
+// -----------------------------------------------------
+// RESET CUSTOMER PREVIEW
+// -----------------------------------------------------
+
+function resetCustomerPreview() {
+
+  currentCustomer = null;
+
+
+  if (scanCustomerPhoto) {
+
+    scanCustomerPhoto.src =
+      "assets/avatars/male.png";
+
+  }
+
+
+  if (scanCustomerName) {
+
+    scanCustomerName.textContent =
+      "Waiting For Scan...";
+
+  }
+
+
+  if (scanMemberId) {
+
+    scanMemberId.textContent =
+      "RIO-000000000";
+
+  }
+
+
+  if (scanStampCount) {
+
+    scanStampCount.textContent =
+      `0/${MAX_STAMPS}`;
+
+  }
+
+
+  if (todayStatus) {
+
+    todayStatus.textContent =
+      "Waiting";
+
+    todayStatus.className =
+      "pending";
+
+  }
+
+
+  if (giveStampBtn) {
+
+    giveStampBtn.disabled = true;
+
+  }
+
+}
+
+
+// -----------------------------------------------------
+// SHOW CUSTOMER PREVIEW
+// -----------------------------------------------------
+
+function showCustomer(customer) {
+
+  if (!customer) {
+
+    return;
+
+  }
+
+
+  currentCustomer =
+    customer;
+
+
+  if (scanCustomerPhoto) {
+
+    scanCustomerPhoto.src =
+      getCustomerAvatar(customer);
+
+  }
+
+
+  if (scanCustomerName) {
+
+    scanCustomerName.textContent =
+      customer.name || "-";
+
+  }
+
+
+  if (scanMemberId) {
+
+    scanMemberId.textContent =
+      customer.memberId ||
+      "RIO-000000000";
+
+  }
+
+
+  if (scanStampCount) {
+
+    scanStampCount.textContent =
+      `${Number(customer.stamps || 0)}/${MAX_STAMPS}`;
+
+  }
+
+
+  const status =
+    getStampStatus(customer);
+
+
+  if (todayStatus) {
+
+    todayStatus.textContent =
+      status;
+
+
+    if (hasStampToday(customer)) {
+
+      todayStatus.className =
+        "pending";
+
+    }
+
+    else if (
+      Number(customer.stamps || 0) >= MAX_STAMPS
+    ) {
+
+      todayStatus.className =
+        "success";
+
+    }
+
+    else {
+
+      todayStatus.className =
+        "success";
+
+    }
+
+  }
+
+
+  // Disable Give Stamp button
+  // if customer already received
+  // today's stamp.
+
+  if (giveStampBtn) {
+
+    giveStampBtn.disabled =
+      hasStampToday(customer);
+
+  }
+
+}
+
+
+// =====================================================
+// AUTHENTICATION
+// =====================================================
+
+onAuthStateChanged(
+  auth,
+  async (user) => {
+
+    if (!user) {
+
+      location.href =
+        "admin-login.html";
+
+      return;
+
+    }
+
+
+    try {
+
+      await loadDashboard();
+
+    }
+
+    catch (error) {
+
+      console.error(
+        "Admin Dashboard Initialization Error:",
+        error
+      );
+
+    }
+
+  }
+);
+
+
 // =====================================================
 // LOAD DASHBOARD
 // =====================================================
 
-async function loadDashboard(){
+async function loadDashboard() {
 
-try{
+  try {
 
+    // Clear old data
 
-customerTable.innerHTML="";
+    customerTable.innerHTML = "";
 
+    customers = [];
 
-customers=[];
-
-
-let stampCount=0;
-
-let rewardCount=0;
-
-todayScanCount=0;
+    todayScanCount = 0;
 
 
+    let stampCount = 0;
 
-const uniqueCustomers = new Set();
-
-
-
-const snapshot =
-
-await getDocs(collection(db,"customers"));
+    let rewardCount = 0;
 
 
+    // Prevent duplicate customer IDs
 
-snapshot.forEach((document)=>{
+    const uniqueCustomers =
+      new Set();
 
 
-// duplicate protection
+    // Get today's date
 
-if(uniqueCustomers.has(document.id)){
+    const todayKey =
+      getTodayKey();
 
-return;
+
+    // Get all customers
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "customers"
+        )
+      );
+
+
+    snapshot.forEach(
+      (documentSnapshot) => {
+
+        // Prevent duplicate records
+
+        if (
+          uniqueCustomers.has(
+            documentSnapshot.id
+          )
+        ) {
+
+          return;
+
+        }
+
+
+        uniqueCustomers.add(
+          documentSnapshot.id
+        );
+
+
+        const customer =
+          documentSnapshot.data();
+
+
+        // Store Firebase document ID
+
+        customer.uid =
+          documentSnapshot.id;
+
+
+        // Ensure stamps is a number
+
+        customer.stamps =
+          Number(
+            customer.stamps || 0
+          );
+
+
+        // Add customer to array
+
+        customers.push(
+          customer
+        );
+
+
+        // Total stamps
+
+        stampCount +=
+          customer.stamps;
+
+
+        // Reward count
+
+        if (
+          customer.rewardUnlocked === true
+        ) {
+
+          rewardCount++;
+
+        }
+
+
+        // Count today's stamps
+
+        if (
+          customer.dailyStampDate === todayKey ||
+          customer.lastStampDate === todayKey
+        ) {
+
+          todayScanCount++;
+
+        }
+
+
+        // Create customer table row
+
+        createCustomerRow(
+          customer
+        );
+
+      }
+    );
+
+
+    // Update dashboard stats
+
+    if (totalCustomers) {
+
+      totalCustomers.textContent =
+        customers.length;
+
+    }
+
+
+    if (totalStamps) {
+
+      totalStamps.textContent =
+        stampCount;
+
+    }
+
+
+    if (totalRewards) {
+
+      totalRewards.textContent =
+        rewardCount;
+
+    }
+
+
+    if (todayScans) {
+
+      todayScans.textContent =
+        todayScanCount;
+
+    }
+
+
+    // Update last refresh time
+
+    if (lastRefresh) {
+
+      lastRefresh.textContent =
+        new Date().toLocaleString();
+
+    }
+
+
+    console.log(
+      "Dashboard Loaded Successfully"
+    );
+
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Dashboard Load Error:",
+      error
+    );
+
+
+    if (scannerStatus) {
+
+      scannerStatus.textContent =
+        "🔴 Dashboard Error";
+
+    }
+
+  }
 
 }
-
-
-uniqueCustomers.add(document.id);
-
-
-
-const customer=document.data();
-
-
-customer.uid=document.id;
-
-
-
-customers.push(customer);
-
-
-
-stampCount += customer.stamps || 0;
-
-
-
-if(customer.rewardUnlocked){
-
-rewardCount++;
-
-}
-
-
-
-createCustomerRow(customer);
-
-
-
-});
-
-
-
-totalCustomers.textContent=
-
-customers.length;
-
-
-
-totalStamps.textContent=
-
-stampCount;
-
-
-
-totalRewards.textContent=
-
-rewardCount;
-
-
-
-todayScans.textContent=
-
-todayScanCount;
-
-
-
-lastRefresh.textContent=
-
-new Date().toLocaleString();
-
-
-
-}
-
-catch(error){
-
-
-console.error(
-
-"Dashboard Load Error:",
-
-error
-
-);
-
-
-}
-
-}
-
 
 
 // =====================================================
-// CUSTOMER TABLE
+// END OF PART 1
+// =====================================================
+// =====================================================
+// RIO MAGGI POINT
+// PREMIUM ADMIN DASHBOARD V4
+// PART 2
+// CUSTOMER TABLE + SEARCH + CUSTOMER SELECTION
 // =====================================================
 
 
-function createCustomerRow(customer){
+// =====================================================
+// CREATE CUSTOMER TABLE ROW
+// =====================================================
+
+function createCustomerRow(customer) {
+
+  if (!customerTable) {
+
+    return;
+
+  }
 
 
-const tr=document.createElement("tr");
+  const tr =
+    document.createElement("tr");
 
 
+  // ---------------------------------------------------
+  // CUSTOMER AVATAR
+  // ---------------------------------------------------
 
-const avatar =
-
-customer.gender==="female"
-
-?
-
-"assets/avatars/female.png"
-
-:
-
-"assets/avatars/male.png";
+  const avatar =
+    getCustomerAvatar(customer);
 
 
+  // ---------------------------------------------------
+  // CUSTOMER DATA
+  // ---------------------------------------------------
 
-tr.innerHTML=`
-
-<td>
-
-<img
-
-src="${avatar}"
-
-style="width:45px;height:45px;border-radius:50%;object-fit:cover;"
-
->
-
-</td>
+  const customerName =
+    customer.name || "-";
 
 
-<td>
-
-${customer.name || "-"}
-
-</td>
+  const memberId =
+    customer.memberId ||
+    "RIO-000000000";
 
 
-<td>
-
-${customer.memberId || "-"}
-
-</td>
-
-
-<td>
-
-${customer.mobile || "-"}
-
-</td>
+  const mobile =
+    customer.mobile ||
+    customer.phone ||
+    customer.phoneNumber ||
+    "-";
 
 
-<td>
+  const stamps =
+    Number(
+      customer.stamps || 0
+    );
 
-${customer.stamps || 0}/6
 
-</td>
+  const rewardUnlocked =
+    customer.rewardUnlocked === true;
 
 
-<td>
+  // ---------------------------------------------------
+  // TODAY'S STAMP STATUS
+  // ---------------------------------------------------
 
-${customer.rewardUnlocked
+  const stampedToday =
+    hasStampToday(customer);
 
-?
 
-"✅ Ready"
+  // ---------------------------------------------------
+  // REWARD STATUS
+  // ---------------------------------------------------
 
-:
+  let rewardText =
+    "❌ Locked";
 
-"❌ Locked"
+
+  if (rewardUnlocked) {
+
+    rewardText =
+      "✅ Ready";
+
+  }
+
+
+  // ---------------------------------------------------
+  // DAILY STATUS
+  // ---------------------------------------------------
+
+  let stampStatusText =
+    "Give Stamp";
+
+
+  if (stampedToday) {
+
+    stampStatusText =
+      "Already Stamped";
+
+  }
+
+
+  // ---------------------------------------------------
+  // CREATE ROW
+  // ---------------------------------------------------
+
+  tr.innerHTML = `
+
+    <td>
+
+      <img
+        src="${escapeHtml(avatar)}"
+        alt="Customer Photo"
+        style="
+          width:45px;
+          height:45px;
+          border-radius:50%;
+          object-fit:cover;
+        "
+        loading="lazy"
+      >
+
+    </td>
+
+
+    <td>
+
+      ${escapeHtml(customerName)}
+
+    </td>
+
+
+    <td>
+
+      ${escapeHtml(memberId)}
+
+    </td>
+
+
+    <td>
+
+      ${escapeHtml(mobile)}
+
+    </td>
+
+
+    <td>
+
+      <strong>
+
+        ${stamps}/${MAX_STAMPS}
+
+      </strong>
+
+    </td>
+
+
+    <td>
+
+      ${rewardText}
+
+    </td>
+
+
+    <td>
+
+      <button
+        type="button"
+        class="customer-view-btn"
+        data-customer-id="${escapeHtml(customer.uid)}"
+      >
+
+        View
+
+      </button>
+
+    </td>
+
+  `;
+
+
+  // ---------------------------------------------------
+  // VIEW BUTTON
+  // ---------------------------------------------------
+
+  const viewButton =
+    tr.querySelector(
+      ".customer-view-btn"
+    );
+
+
+  if (viewButton) {
+
+    viewButton.addEventListener(
+      "click",
+      () => {
+
+        selectCustomer(
+          customer.uid
+        );
+
+      }
+    );
+
+  }
+
+
+  // ---------------------------------------------------
+  // ADD ROW TO TABLE
+  // ---------------------------------------------------
+
+  customerTable.appendChild(
+    tr
+  );
 
 }
 
-</td>
+
+// =====================================================
+// HTML ESCAPE PROTECTION
+// =====================================================
+// Prevent customer data from injecting HTML/JS
+// =====================================================
+
+function escapeHtml(value) {
+
+  if (
+    value === null ||
+    value === undefined
+  ) {
+
+    return "";
+
+  }
 
 
-<td>
+  return String(value)
 
+    .replace(
+      /&/g,
+      "&amp;"
+    )
 
-<button
+    .replace(
+      /</g,
+      "&lt;"
+    )
 
-onclick="selectCustomer('${customer.uid}')"
+    .replace(
+      />/g,
+      "&gt;"
+    )
 
->
+    .replace(
+      /"/g,
+      "&quot;"
+    )
 
-View
-
-</button>
-
-
-</td>
-
-`;
-
-
-
-customerTable.appendChild(tr);
-
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
-
 
 
 // =====================================================
 // SEARCH CUSTOMER
 // =====================================================
 
+searchCustomer?.addEventListener(
+  "input",
+  (event) => {
 
-searchCustomer?.addEventListener("keyup",(e)=>{
-
-
-const keyword =
-
-e.target.value.toLowerCase();
-
-
-
-customerTable.innerHTML="";
+    const keyword =
+      event.target.value
+        .trim()
+        .toLowerCase();
 
 
+    // Clear current table
 
-customers
-
-.filter(customer=>
-
-
-(customer.name||"")
-
-.toLowerCase()
-
-.includes(keyword)
+    customerTable.innerHTML = "";
 
 
+    // If search box is empty,
+    // show all customers.
 
-||
+    if (!keyword) {
 
+      customers.forEach(
+        createCustomerRow
+      );
 
+      return;
 
-(customer.memberId||"")
-
-.toLowerCase()
-
-.includes(keyword)
-
-
-
-||
+    }
 
 
+    // -------------------------------------------------
+    // FILTER CUSTOMERS
+    // -------------------------------------------------
 
-(customer.mobile||"")
+    const filteredCustomers =
+      customers.filter(
+        (customer) => {
 
-.includes(keyword)
+          const name =
+            String(
+              customer.name || ""
+            )
+            .toLowerCase();
 
 
-)
+          const memberId =
+            String(
+              customer.memberId || ""
+            )
+            .toLowerCase();
 
-.forEach(createCustomerRow);
+
+          const mobile =
+            String(
+              customer.mobile ||
+              customer.phone ||
+              customer.phoneNumber ||
+              ""
+            )
+            .toLowerCase();
 
 
+          return (
 
-});
+            name.includes(
+              keyword
+            )
+
+            ||
+
+            memberId.includes(
+              keyword
+            )
+
+            ||
+
+            mobile.includes(
+              keyword
+            )
+
+          );
+
+        }
+      );
+
+
+    // -------------------------------------------------
+    // DISPLAY RESULTS
+    // -------------------------------------------------
+
+    filteredCustomers.forEach(
+      createCustomerRow
+    );
+
+
+    // -------------------------------------------------
+    // NO RESULT MESSAGE
+    // -------------------------------------------------
+
+    if (
+      filteredCustomers.length === 0
+    ) {
+
+      const emptyRow =
+        document.createElement("tr");
+
+
+      emptyRow.innerHTML = `
+
+        <td
+          colspan="7"
+          style="
+            text-align:center;
+            padding:25px;
+          "
+        >
+
+          No Customer Found
+
+        </td>
+
+      `;
+
+
+      customerTable.appendChild(
+        emptyRow
+      );
+
+    }
+
+  }
+);
+
+
 // =====================================================
 // SELECT CUSTOMER
 // =====================================================
 
+function selectCustomer(uid) {
 
-window.selectCustomer=function(uid){
+  if (!uid) {
 
+    return;
 
-currentCustomer =
-
-customers.find(c=>c.uid===uid);
-
-
-
-if(!currentCustomer){
-
-return;
-
-}
+  }
 
 
+  // Find customer in local array
 
-showCustomer(currentCustomer);
-
-
-
-};
-
-
-
-// =====================================================
-// SHOW CUSTOMER
-// =====================================================
+  const customer =
+    customers.find(
+      (item) =>
+        item.uid === uid
+    );
 
 
-function showCustomer(customer){
+  // Customer not found
+
+  if (!customer) {
+
+    alert(
+      "Customer Not Found"
+    );
+
+    return;
+
+  }
 
 
-scanCustomerPhoto.src =
+  // Show selected customer
 
-customer.gender==="female"
-
-?
-
-"assets/avatars/female.png"
-
-:
-
-"assets/avatars/male.png";
+  showCustomer(
+    customer
+  );
 
 
+  // Scroll to scanner/customer preview
 
-scanCustomerName.textContent =
-
-customer.name || "-";
-
-
-
-scanMemberId.textContent =
-
-customer.memberId || "-";
+  const scannerSection =
+    document.getElementById(
+      "scannerSection"
+    );
 
 
+  if (scannerSection) {
 
-scanStampCount.textContent =
+    scannerSection.scrollIntoView({
 
-`${customer.stamps || 0}/6`;
+      behavior:
+        "smooth",
 
+      block:
+        "start"
 
+    });
 
-todayStatus.textContent =
-
-"Ready To Give Stamp";
-
-
-
-todayStatus.className="success";
-
-
-
-giveStampBtn.disabled=false;
-
-
+  }
 
 }
 
+
+// =====================================================
+// GLOBAL SELECT CUSTOMER
+// =====================================================
+// Allows compatibility with old HTML code
+// =====================================================
+
+window.selectCustomer =
+  selectCustomer;
+
+
+// =====================================================
+// CUSTOMER PREVIEW BUTTON RESET
+// =====================================================
+
+cancelScanBtn?.addEventListener(
+  "click",
+  () => {
+
+    resetCustomerPreview();
+
+  }
+);
+
+
+// =====================================================
+// REFRESH BUTTON
+// =====================================================
+
+refreshBtn?.addEventListener(
+  "click",
+  async () => {
+
+    if (refreshBtn) {
+
+      refreshBtn.disabled =
+        true;
+
+    }
+
+
+    try {
+
+      await loadDashboard();
+
+    }
+
+    catch (error) {
+
+      console.error(
+        "Refresh Error:",
+        error
+      );
+
+    }
+
+    finally {
+
+      if (refreshBtn) {
+
+        refreshBtn.disabled =
+          false;
+
+      }
+
+    }
+
+  }
+);
+
+
+// =====================================================
+// AUTO REFRESH STATUS
+// =====================================================
+
+console.log(
+  "Customer Table Module Ready"
+);
+
+
+console.log(
+  "Customer Search Module Ready"
+);
+
+
+console.log(
+  "Customer Selection Module Ready"
+);
+
+
+// =====================================================
+// END OF PART 2
+// =====================================================
+// =====================================================
+// RIO MAGGI POINT
+// PREMIUM ADMIN DASHBOARD V4
+// PART 3
+// LIVE QR SCANNER + QR VALIDATION
+// =====================================================
 
 
 // =====================================================
@@ -575,763 +1383,1226 @@ giveStampBtn.disabled=false;
 // =====================================================
 
 
-async function startScanner(){
+// -----------------------------------------------------
+// START SCANNER
+// -----------------------------------------------------
+
+async function startScanner() {
+
+  // Prevent multiple scanner instances
+
+  if (scannerRunning) {
+
+    return;
+
+  }
 
 
-if(scannerRunning){
+  // Check HTML5 QR Scanner library
 
-return;
+  if (
+    typeof Html5Qrcode ===
+    "undefined"
+  ) {
+
+    alert(
+      "QR Scanner Library Not Loaded"
+    );
+
+    console.error(
+      "Html5Qrcode library is not available."
+    );
+
+    return;
+
+  }
+
+
+  // Prevent duplicate QR processing
+
+  processingQr = false;
+
+
+  // Update status
+
+  if (scannerStatus) {
+
+    scannerStatus.textContent =
+      "🟡 Opening Camera...";
+
+  }
+
+
+  // Hide camera overlay
+
+  if (cameraOverlay) {
+
+    cameraOverlay.style.display =
+      "none";
+
+  }
+
+
+  try {
+
+    // -------------------------------------------------
+    // CREATE SCANNER INSTANCE
+    // -------------------------------------------------
+
+    html5QrCode =
+      new Html5Qrcode(
+        "qr-reader"
+      );
+
+
+    // -------------------------------------------------
+    // START CAMERA
+    // -------------------------------------------------
+
+    await html5QrCode.start(
+
+      {
+        facingMode:
+          "environment"
+      },
+
+      {
+        fps: 10,
+
+        qrbox: {
+          width: 250,
+          height: 250
+        }
+
+      },
+
+      onScanSuccess,
+
+      onScanError
+
+    );
+
+
+    // Scanner successfully started
+
+    scannerRunning =
+      true;
+
+
+    // Update status
+
+    if (scannerStatus) {
+
+      scannerStatus.textContent =
+        "🟢 Scanner Running";
+
+    }
+
+
+    // Update buttons
+
+    if (startScannerBtn) {
+
+      startScannerBtn.disabled =
+        true;
+
+    }
+
+
+    if (stopScannerBtn) {
+
+      stopScannerBtn.disabled =
+        false;
+
+    }
+
+
+    console.log(
+      "QR Scanner Started"
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Scanner Start Error:",
+      error
+    );
+
+
+    scannerRunning =
+      false;
+
+
+    html5QrCode =
+      null;
+
+
+    // Show overlay again
+
+    if (cameraOverlay) {
+
+      cameraOverlay.style.display =
+        "flex";
+
+    }
+
+
+    // Update status
+
+    if (scannerStatus) {
+
+      scannerStatus.textContent =
+        "🔴 Camera Error";
+
+    }
+
+
+    // Reset buttons
+
+    if (startScannerBtn) {
+
+      startScannerBtn.disabled =
+        false;
+
+    }
+
+
+    if (stopScannerBtn) {
+
+      stopScannerBtn.disabled =
+        true;
+
+    }
+
+
+    alert(
+      "Unable to start camera. Please allow camera permission and try again."
+    );
+
+  }
 
 }
 
 
+// =====================================================
+// SCANNER ERROR HANDLER
+// =====================================================
 
-scannerRunning=true;
+function onScanError(errorMessage) {
 
-
-
-scannerStatus.textContent=
-
-"🟡 Opening Camera...";
-
-
-
-document.getElementById("cameraOverlay")
-
-.style.display="none";
-
-
-
-html5QrCode =
-
-new Html5Qrcode("qr-reader");
-
-
-
-try{
-
-
-await html5QrCode.start(
-
-{
-
-facingMode:"environment"
-
-},
-
-{
-
-fps:10,
-
-qrbox:250
-
-},
-
-onScanSuccess,
-
-()=>{}
-
-);
-
-
-
-scannerStatus.textContent=
-
-"🟢 Scanner Running";
-
-
-
-startScannerBtn.disabled=true;
-
-
-stopScannerBtn.disabled=false;
-
-
+  // QR scanner continuously reports
+  // "QR code not found" while searching.
+  //
+  // We intentionally do not show alerts here.
+  //
+  // This prevents hundreds of alerts
+  // while the camera is running.
 
 }
-
-catch(error){
-
-
-console.error(error);
-
-
-
-scannerStatus.textContent=
-
-"🔴 Camera Error";
-
-
-
-scannerRunning=false;
-
-
-
-document.getElementById("cameraOverlay")
-
-.style.display="flex";
-
-
-
-}
-
-
-}
-
 
 
 // =====================================================
 // STOP SCANNER
 // =====================================================
 
+async function stopScanner() {
 
-async function stopScanner(){
+  // Nothing to stop
+
+  if (
+    !html5QrCode ||
+    !scannerRunning
+  ) {
+
+    return;
+
+  }
 
 
-if(!scannerRunning){
+  try {
 
-return;
+    await html5QrCode.stop();
+
+
+    // Clear scanner camera area
+
+    try {
+
+      await html5QrCode.clear();
+
+    }
+
+    catch (clearError) {
+
+      console.log(
+        "Scanner Clear Warning:",
+        clearError
+      );
+
+    }
+
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Scanner Stop Error:",
+      error
+    );
+
+  }
+
+
+  // Reset scanner state
+
+  scannerRunning =
+    false;
+
+
+  html5QrCode =
+    null;
+
+
+  processingQr =
+    false;
+
+
+  // Update status
+
+  if (scannerStatus) {
+
+    scannerStatus.textContent =
+      "⚪ Camera Stopped";
+
+  }
+
+
+  // Show camera overlay
+
+  if (cameraOverlay) {
+
+    cameraOverlay.style.display =
+      "flex";
+
+  }
+
+
+  // Reset buttons
+
+  if (startScannerBtn) {
+
+    startScannerBtn.disabled =
+      false;
+
+  }
+
+
+  if (stopScannerBtn) {
+
+    stopScannerBtn.disabled =
+      true;
+
+  }
+
+
+  console.log(
+    "QR Scanner Stopped"
+  );
 
 }
-
-
-
-try{
-
-
-await html5QrCode.stop();
-
-
-
-}
-
-catch(error){
-
-
-
-console.log(error);
-
-
-
-}
-
-
-
-scannerRunning=false;
-
-
-
-scannerStatus.textContent=
-
-"⚪ Camera Stopped";
-
-
-
-document.getElementById("cameraOverlay")
-
-.style.display="flex";
-
-
-
-startScannerBtn.disabled=false;
-
-
-stopScannerBtn.disabled=true;
-
-
-
-}
-
 
 
 // =====================================================
-// SCANNER BUTTONS
+// START / STOP BUTTON EVENTS
 // =====================================================
-
 
 startScannerBtn?.addEventListener(
-
-"click",
-
-startScanner
-
+  "click",
+  startScanner
 );
-
 
 
 stopScannerBtn?.addEventListener(
-
-"click",
-
-stopScanner
-
+  "click",
+  stopScanner
 );
 
 
-
 // =====================================================
-// QR SUCCESS
+// QR SCAN SUCCESS
 // =====================================================
 
+async function onScanSuccess(
+  decodedText
+) {
 
-async function onScanSuccess(decodedText){
+  // Prevent duplicate processing
+  // while the same QR is detected
+  // multiple times by the camera.
+
+  if (processingQr) {
+
+    return;
+
+  }
 
 
-await stopScanner();
+  processingQr =
+    true;
 
 
+  try {
 
-if(!decodedText.startsWith("RIO-MAGGI::")){
+    // -------------------------------------------------
+    // STOP CAMERA IMMEDIATELY
+    // -------------------------------------------------
+
+    await stopScanner();
 
 
-alert("Invalid Rio QR");
+    // -------------------------------------------------
+    // VALIDATE QR PREFIX
+    // -------------------------------------------------
+
+    if (
+      !decodedText ||
+      !decodedText.startsWith(
+        QR_PREFIX
+      )
+    ) {
+
+      alert(
+        "❌ Invalid Rio Maggi Point QR Code"
+      );
+
+      return;
+
+    }
 
 
-return;
+    // -------------------------------------------------
+    // EXTRACT MEMBER ID
+    // -------------------------------------------------
 
+    const memberId =
+      decodedText
+        .replace(
+          QR_PREFIX,
+          ""
+        )
+        .trim();
+
+
+    // Validate Member ID
+
+    if (!memberId) {
+
+      alert(
+        "❌ Invalid Member ID"
+      );
+
+      return;
+
+    }
+
+
+    console.log(
+      "Scanned Member ID:",
+      memberId
+    );
+
+
+    // -------------------------------------------------
+    // SEARCH CUSTOMER IN FIREBASE
+    // -------------------------------------------------
+
+    const customerQuery =
+      query(
+
+        collection(
+          db,
+          "customers"
+        ),
+
+        where(
+          "memberId",
+          "==",
+          memberId
+        )
+
+      );
+
+
+    const snapshot =
+      await getDocs(
+        customerQuery
+      );
+
+
+    // -------------------------------------------------
+    // CUSTOMER NOT FOUND
+    // -------------------------------------------------
+
+    if (
+      snapshot.empty
+    ) {
+
+      alert(
+        "❌ Customer Not Found"
+      );
+
+      resetCustomerPreview();
+
+      return;
+
+    }
+
+
+    // -------------------------------------------------
+    // GET CUSTOMER DOCUMENT
+    // -------------------------------------------------
+
+    let foundCustomer =
+      null;
+
+
+    snapshot.forEach(
+      (documentSnapshot) => {
+
+        // Only select first valid result
+
+        if (
+          foundCustomer
+        ) {
+
+          return;
+
+        }
+
+
+        foundCustomer = {
+
+          ...documentSnapshot.data(),
+
+          uid:
+            documentSnapshot.id
+
+        };
+
+      }
+    );
+
+
+    // Safety check
+
+    if (!foundCustomer) {
+
+      alert(
+        "❌ Unable To Load Customer"
+      );
+
+      return;
+
+    }
+
+
+    // -------------------------------------------------
+    // NORMALIZE CUSTOMER DATA
+    // -------------------------------------------------
+
+    foundCustomer.stamps =
+      Number(
+        foundCustomer.stamps ||
+        0
+      );
+
+
+    // -------------------------------------------------
+    // STORE CURRENT CUSTOMER
+    // -------------------------------------------------
+
+    currentCustomer =
+      foundCustomer;
+
+
+    // -------------------------------------------------
+    // SHOW CUSTOMER
+    // -------------------------------------------------
+
+    showCustomer(
+      foundCustomer
+    );
+
+
+    // -------------------------------------------------
+    // INCREMENT TODAY'S SCAN COUNT
+    // -------------------------------------------------
+
+    todayScanCount++;
+
+
+    if (todayScans) {
+
+      todayScans.textContent =
+        todayScanCount;
+
+    }
+
+
+    // -------------------------------------------------
+    // SUCCESS MESSAGE
+    // -------------------------------------------------
+
+    console.log(
+      "Customer QR Scan Successful:",
+      foundCustomer.memberId
+    );
+
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "QR Scan Processing Error:",
+      error
+    );
+
+
+    alert(
+      "❌ Unable To Process QR Code"
+    );
+
+  }
+
+  finally {
+
+    // Allow next QR scan
+
+    processingQr =
+      false;
+
+  }
 
 }
 
 
+// =====================================================
+// SCANNER MENU
+// =====================================================
 
-const memberId =
+scannerMenu?.addEventListener(
+  "click",
+  () => {
 
-decodedText.replace(
+    const scannerSection =
+      document.getElementById(
+        "scannerSection"
+      );
 
-"RIO-MAGGI::",
 
-""
+    if (scannerSection) {
 
+      scannerSection.scrollIntoView({
+
+        behavior:
+          "smooth",
+
+        block:
+          "start"
+
+      });
+
+    }
+
+  }
 );
 
 
+// =====================================================
+// STAMP MENU
+// =====================================================
 
-const q = query(
+stampMenu?.addEventListener(
+  "click",
+  () => {
 
-collection(db,"customers"),
+    const scannerSection =
+      document.getElementById(
+        "scannerSection"
+      );
 
-where(
 
-"memberId",
+    if (scannerSection) {
 
-"==",
+      scannerSection.scrollIntoView({
 
-memberId
+        behavior:
+          "smooth",
 
-)
+        block:
+          "start"
 
+      });
+
+    }
+
+  }
 );
 
 
-
-const snapshot =
-
-await getDocs(q);
-
-
-
-if(snapshot.empty){
-
-
-alert("Customer Not Found");
-
-
-return;
-
-
-}
-
-
-
-snapshot.forEach((document)=>{
-
-
-currentCustomer=document.data();
-
-
-currentCustomer.uid=document.id;
-
-
-
-});
-
-
-
-showCustomer(currentCustomer);
-
-
-
-}
 // =====================================================
-// GIVE STAMP
+// DASHBOARD MENU
 // =====================================================
 
+dashboardMenu?.addEventListener(
+  "click",
+  () => {
+
+    window.scrollTo({
+
+      top:
+        0,
+
+      behavior:
+        "smooth"
+
+    });
+
+  }
+);
+
+
+// =====================================================
+// END OF PART 3
+// =====================================================
+// =====================================================
+// RIO MAGGI POINT
+// PREMIUM ADMIN DASHBOARD V4
+// PART 4
+// GIVE STAMP + DAILY PROTECTION + REWARD UNLOCK
+// =====================================================
+
+
+// =====================================================
+// GIVE STAMP BUTTON
+// =====================================================
 
 giveStampBtn?.addEventListener(
+  "click",
+  async () => {
 
-"click",
+    // -------------------------------------------------
+    // CHECK CUSTOMER
+    // -------------------------------------------------
 
-async()=>{
+    if (!currentCustomer) {
 
+      alert(
+        "❌ Please scan or select a customer first."
+      );
 
-if(!currentCustomer){
+      return;
 
-return;
-
-}
-
-
-
-try{
-
-
-let stamp =
-
-currentCustomer.stamps || 0;
+    }
 
 
+    // -------------------------------------------------
+    // PREVENT DOUBLE CLICK
+    // -------------------------------------------------
 
-if(stamp < 6){
+    if (
+      giveStampBtn.dataset.processing ===
+      "true"
+    ) {
 
-stamp++;
+      return;
 
-}
-
-
-
-const rewardUnlocked =
-
-stamp >= 6;
-
-
-
-await updateDoc(
-
-doc(
-
-db,
-
-"customers",
-
-currentCustomer.uid
-
-),
-
-{
+    }
 
 
-stamps:stamp,
+    // Lock button
+
+    giveStampBtn.dataset.processing =
+      "true";
 
 
-rewardUnlocked:rewardUnlocked,
+    giveStampBtn.disabled =
+      true;
 
 
-lastStampAt:serverTimestamp(),
+    try {
+
+      // -------------------------------------------------
+      // GET CUSTOMER DOCUMENT
+      // -------------------------------------------------
+
+      const customerRef =
+        doc(
+          db,
+          "customers",
+          currentCustomer.uid
+        );
 
 
-updatedAt:serverTimestamp()
+      // -------------------------------------------------
+      // GET LATEST CUSTOMER DATA
+      // -------------------------------------------------
+      // This is important because another admin/device
+      // may have changed the customer's stamps after
+      // the dashboard was loaded.
+      // -------------------------------------------------
+
+      const customerSnapshot =
+        await getDoc(
+          customerRef
+        );
 
 
-}
+      // Customer document no longer exists
 
+      if (
+        !customerSnapshot.exists()
+      ) {
+
+        alert(
+          "❌ Customer account not found."
+        );
+
+        resetCustomerPreview();
+
+        return;
+
+      }
+
+
+      // -------------------------------------------------
+      // GET FRESH FIREBASE DATA
+      // -------------------------------------------------
+
+      const latestCustomer =
+        customerSnapshot.data();
+
+
+      latestCustomer.uid =
+        currentCustomer.uid;
+
+
+      latestCustomer.stamps =
+        Number(
+          latestCustomer.stamps ||
+          0
+        );
+
+
+      // -------------------------------------------------
+      // CHECK TODAY'S STAMP
+      // -------------------------------------------------
+
+      if (
+        hasStampToday(
+          latestCustomer
+        )
+      ) {
+
+        alert(
+          "⚠️ This customer has already received today's stamp."
+        );
+
+
+        // Update local customer data
+
+        currentCustomer =
+          latestCustomer;
+
+
+        showCustomer(
+          latestCustomer
+        );
+
+
+        return;
+
+      }
+
+
+      // -------------------------------------------------
+      // CHECK MAXIMUM STAMPS
+      // -------------------------------------------------
+
+      let currentStamps =
+        latestCustomer.stamps;
+
+
+      if (
+        currentStamps >=
+        MAX_STAMPS
+      ) {
+
+        alert(
+          "🎁 This customer already has a reward ready."
+        );
+
+
+        currentCustomer =
+          latestCustomer;
+
+
+        showCustomer(
+          latestCustomer
+        );
+
+
+        return;
+
+      }
+
+
+      // -------------------------------------------------
+      // ADD ONE STAMP
+      // -------------------------------------------------
+
+      const newStampCount =
+        currentStamps + 1;
+
+
+      // -------------------------------------------------
+      // CHECK REWARD UNLOCK
+      // -------------------------------------------------
+
+      const rewardUnlocked =
+        newStampCount >=
+        MAX_STAMPS;
+
+
+      // -------------------------------------------------
+      // TODAY'S DATE
+      // -------------------------------------------------
+
+      const todayKey =
+        getTodayKey();
+
+
+      // -------------------------------------------------
+      // UPDATE FIREBASE
+      // -------------------------------------------------
+
+      await updateDoc(
+
+        customerRef,
+
+        {
+
+          // Current stamp count
+
+          stamps:
+            newStampCount,
+
+
+          // Unlock reward on 6th stamp
+
+          rewardUnlocked:
+            rewardUnlocked,
+
+
+          // Store today's stamp date
+
+          dailyStampDate:
+            todayKey,
+
+
+          // Backup date field
+
+          lastStampDate:
+            todayKey,
+
+
+          // Exact timestamp
+
+          lastStampAt:
+            serverTimestamp(),
+
+
+          // Last updated timestamp
+
+          updatedAt:
+            serverTimestamp()
+
+        }
+
+      );
+
+
+      // -------------------------------------------------
+      // UPDATE LOCAL CUSTOMER
+      // -------------------------------------------------
+
+      currentCustomer =
+        {
+
+          ...latestCustomer,
+
+          uid:
+            currentCustomer.uid,
+
+          stamps:
+            newStampCount,
+
+          rewardUnlocked:
+            rewardUnlocked,
+
+          dailyStampDate:
+            todayKey,
+
+          lastStampDate:
+            todayKey
+
+        };
+
+
+      // -------------------------------------------------
+      // SHOW UPDATED CUSTOMER
+      // -------------------------------------------------
+
+      showCustomer(
+        currentCustomer
+      );
+
+
+      // -------------------------------------------------
+      // UPDATE TODAY SCAN COUNT
+      // -------------------------------------------------
+
+      todayScanCount++;
+
+
+      if (todayScans) {
+
+        todayScans.textContent =
+          todayScanCount;
+
+      }
+
+
+      // -------------------------------------------------
+      // SUCCESS MESSAGE
+      // -------------------------------------------------
+
+      if (
+        rewardUnlocked
+      ) {
+
+        alert(
+
+          "🎉 Congratulations!\n\n" +
+
+          "6 Stamps Completed!\n\n" +
+
+          "🎁 Free Veg Maggi Reward Unlocked!"
+
+        );
+
+      }
+
+      else {
+
+        alert(
+
+          "✅ Stamp Added Successfully!\n\n" +
+
+          `Current Stamps: ${newStampCount}/${MAX_STAMPS}`
+
+        );
+
+      }
+
+
+      // -------------------------------------------------
+      // REFRESH DASHBOARD DATA
+      // -------------------------------------------------
+
+      await loadDashboard();
+
+
+      // -------------------------------------------------
+      // RESTORE CURRENT CUSTOMER
+      // -------------------------------------------------
+
+      const refreshedCustomer =
+        customers.find(
+
+          (customer) =>
+
+            customer.uid ===
+            currentCustomer.uid
+
+        );
+
+
+      if (
+        refreshedCustomer
+      ) {
+
+        currentCustomer =
+          refreshedCustomer;
+
+
+        showCustomer(
+          refreshedCustomer
+        );
+
+      }
+
+
+    }
+
+    catch (error) {
+
+      console.error(
+        "Give Stamp Error:",
+        error
+      );
+
+
+      alert(
+
+        "❌ Failed To Give Stamp.\n\n" +
+
+        "Please check your internet connection and try again."
+
+      );
+
+    }
+
+    finally {
+
+      // -------------------------------------------------
+      // UNLOCK BUTTON
+      // -------------------------------------------------
+
+      giveStampBtn.dataset.processing =
+        "false";
+
+
+      // Re-enable only if customer
+      // is allowed to receive stamp
+
+      if (
+        currentCustomer &&
+        !hasStampToday(
+          currentCustomer
+        ) &&
+        Number(
+          currentCustomer.stamps ||
+          0
+        ) <
+        MAX_STAMPS
+      ) {
+
+        giveStampBtn.disabled =
+          false;
+
+      }
+
+      else {
+
+        giveStampBtn.disabled =
+          true;
+
+      }
+
+    }
+
+  }
 );
 
 
+// =====================================================
+// REWARD UNLOCK CHECK
+// =====================================================
 
-currentCustomer.stamps=stamp;
+function checkRewardStatus(
+  customer
+) {
 
+  if (!customer) {
 
-currentCustomer.rewardUnlocked=
+    return false;
 
-rewardUnlocked;
-
-
-
-showCustomer(currentCustomer);
-
-
-
-await loadDashboard();
+  }
 
 
-
-alert(
-
-"✅ Stamp Added Successfully"
-
-);
-
+  const stamps =
+    Number(
+      customer.stamps ||
+      0
+    );
 
 
-}
+  return (
 
-catch(error){
+    stamps >=
+    MAX_STAMPS
 
-
-console.error(error);
-
-
-alert(
-
-"❌ Failed To Give Stamp"
-
-);
-
+  );
 
 }
 
 
-}
-
-);
-
-
-
 // =====================================================
-// RESET CUSTOMER
+// CUSTOMER REWARD STATUS
 // =====================================================
 
+function getRewardStatusText(
+  customer
+) {
 
-cancelScanBtn?.addEventListener(
+  if (!customer) {
 
-"click",
+    return "Locked";
 
-()=>{
+  }
 
 
-currentCustomer=null;
+  if (
+    customer.rewardUnlocked ===
+    true
+  ) {
 
+    return "🎁 Reward Ready";
 
+  }
 
-scanCustomerPhoto.src=
 
-"assets/avatars/male.png";
+  const stamps =
+    Number(
+      customer.stamps ||
+      0
+    );
 
 
+  if (
+    stamps >=
+    MAX_STAMPS
+  ) {
 
-scanCustomerName.textContent=
+    return "🎁 Reward Ready";
 
-"Waiting For Scan...";
+  }
 
 
+  return (
 
-scanMemberId.textContent=
+    `${stamps}/${MAX_STAMPS} Stamps`
 
-"RIO-000000000";
-
-
-
-scanStampCount.textContent=
-
-"0/6";
-
-
-
-todayStatus.textContent=
-
-"Waiting";
-
-
-
-todayStatus.className=
-
-"pending";
-
-
-
-giveStampBtn.disabled=true;
-
-
-
-}
-
-);
-
-
-
-// =====================================================
-// REFRESH
-// =====================================================
-
-
-refreshBtn?.addEventListener(
-
-"click",
-
-async()=>{
-
-
-await loadDashboard();
-
-
-
-}
-
-);
-
-
-
-// =====================================================
-// EXPORT
-// =====================================================
-
-
-exportBtn?.addEventListener(
-
-"click",
-
-()=>{
-
-
-location.href=
-
-"admin-export.html";
-
-
-}
-
-);
-
-
-
-// =====================================================
-// REWARD MANAGER
-// =====================================================
-
-
-rewardBtn?.addEventListener(
-
-"click",
-
-()=>{
-
-
-location.href=
-
-"admin-rewards.html";
-
-
-}
-
-);
-
-
-
-// =====================================================
-// REPORT
-// =====================================================
-
-
-document
-
-.getElementById("reportMenu")
-
-?.addEventListener(
-
-"click",
-
-()=>{
-
-
-location.href=
-
-"admin-reports.html";
-
-
-}
-
-);
-
-
-
-// =====================================================
-// SETTINGS
-// =====================================================
-
-
-settingsBtn?.addEventListener(
-
-"click",
-
-()=>{
-
-
-location.href=
-
-"admin-settings.html";
-
-
-}
-
-);
-
-
-
-document
-
-.getElementById("settingMenu")
-
-?.addEventListener(
-
-"click",
-
-()=>{
-
-
-location.href=
-
-"admin-settings.html";
-
-
-}
-
-);
-
-
-
-// =====================================================
-// NAVIGATION
-// =====================================================
-
-
-document
-
-.getElementById("dashboardMenu")
-
-?.addEventListener(
-
-"click",
-
-()=>{
-
-
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
-
-
-}
-
-);
-
-
-
-document
-
-.getElementById("customersMenu")
-
-?.addEventListener(
-
-"click",
-
-()=>{
-
-
-location.href=
-
-"admin-customers.html";
-
-
-}
-
-);
-
-
-
-document
-
-.getElementById("stampMenu")
-
-?.addEventListener(
-
-"click",
-
-()=>{
-
-
-document
-
-.querySelector(".scanner-section")
-
-?.scrollIntoView({
-
-behavior:"smooth"
-
-});
-
-
-}
-
-);
-
-
-
-// =====================================================
-// LOGOUT
-// =====================================================
-
-
-logoutBtn?.addEventListener(
-
-"click",
-
-async()=>{
-
-
-try{
-
-
-if(scannerRunning){
-
-await stopScanner();
+  );
 
 }
 
 
-}
-
-catch(error){
-
-
-console.log(error);
-
-
-}
-
-
-
-await signOut(auth);
-
-
-
-location.href=
-
-"admin-login.html";
-
-
-}
-
-);
-
-
-
 // =====================================================
-// READY
+// END OF PART 4
 // =====================================================
-
-
-console.log("==============================");
-
-console.log("🍜 Rio Maggi Point");
-
-console.log("Premium Admin Dashboard V3 Fixed");
-
-console.log("Firebase Ready");
-
-console.log("Scanner Ready");
-
-console.log("==============================");
