@@ -1,854 +1,2320 @@
 /* =======================================================
    RIO MAGGI POINT
-   PREMIUM ADMIN DASHBOARD V3
-   PART 1
+   PREMIUM ADMIN DASHBOARD V4
+   PART 1 / 6
+   GLOBAL RESET + THEME + BASE LAYOUT
 ======================================================= */
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:"Poppins",sans-serif;
+:root{
+
+    --bg:#090909;
+    --surface:#141414;
+    --surface-2:#1c1c1c;
+
+    --gold:#D4AF37;
+    --gold-light:#F7DE8B;
+
+    --white:#ffffff;
+    --text:#e8e8e8;
+    --muted:#9f9f9f;
+
+    --success:#2ecc71;
+    --danger:#ff4d4f;
+
+    --border:rgba(212,175,55,.16);
+
+    --radius:22px;
+
+    --shadow:
+        0 12px 35px rgba(0,0,0,.45);
+
+    --transition:.35s ease;
+
 }
+
+
+*,
+*::before,
+*::after{
+
+    margin:0;
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
 
 body{
 
-background:#0f1117;
+    font-family:"Poppins",sans-serif;
 
-color:#ffffff;
+    background:
+        radial-gradient(circle at top,#242424 0%,#101010 38%,#090909 100%);
 
-overflow-x:hidden;
+    color:var(--text);
+
+    overflow-x:hidden;
+
+    min-height:100vh;
 
 }
+
+
+img{
+
+    display:block;
+
+    max-width:100%;
+
+}
+
+
+button{
+
+    font-family:inherit;
+
+}
+
+
+input{
+
+    font-family:inherit;
+
+}
+
+
+a{
+
+    color:inherit;
+
+    text-decoration:none;
+
+}
+
+
+/* =======================================================
+   CUSTOM SCROLLBAR
+======================================================= */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#101010;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--gold);
+
+    border-radius:50px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:var(--gold-light);
+
+}
+
+
+/* =======================================================
+   APP
+======================================================= */
 
 .admin-app{
 
-width:100%;
+    width:100%;
 
-min-height:100vh;
+    min-height:100vh;
 
-display:flex;
+    display:flex;
 
-flex-direction:column;
+    flex-direction:column;
 
 }
 
-/* ===========================
+
+/* =======================================================
+   GLASS CARD
+======================================================= */
+
+.scanner-card,
+.customer-card,
+.stat-card,
+.customer-section,
+.status-card{
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.04),
+            rgba(255,255,255,.02)
+        );
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    backdrop-filter:blur(14px);
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition),
+        border-color var(--transition);
+
+}
+
+
+.scanner-card:hover,
+.customer-card:hover,
+.stat-card:hover,
+.customer-section:hover,
+.status-card:hover{
+
+    transform:translateY(-4px);
+
+    border-color:rgba(212,175,55,.35);
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.55);
+
+}
+
+
+/* =======================================================
+   FADE ANIMATION
+======================================================= */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+.dashboard-wrapper>*{
+
+    animation:
+        fadeUp .6s ease both;
+
+}
+
+.dashboard-wrapper>*:nth-child(2){
+
+    animation-delay:.08s;
+
+}
+
+.dashboard-wrapper>*:nth-child(3){
+
+    animation-delay:.16s;
+
+}
+
+.dashboard-wrapper>*:nth-child(4){
+
+    animation-delay:.24s;
+
+}
+
+.dashboard-wrapper>*:nth-child(5){
+
+    animation-delay:.32s;
+
+}
+
+/* =======================================================
+   END PART 1
+======================================================= */
+/* =======================================================
+   PREMIUM ADMIN DASHBOARD V4
+   PART 2 / 6
+   HEADER + NAVIGATION + MAIN LAYOUT
+======================================================= */
+
+
+/* =======================================================
    HEADER
-=========================== */
+======================================================= */
 
 .app-header{
 
-background:#181d25;
+    position:sticky;
 
-padding:18px 22px;
+    top:0;
 
-display:flex;
+    z-index:999;
 
-align-items:center;
+    display:flex;
 
-justify-content:space-between;
+    align-items:center;
 
-border-bottom:1px solid rgba(255,255,255,.08);
+    justify-content:space-between;
 
-position:sticky;
+    gap:20px;
 
-top:0;
+    padding:18px 28px;
 
-z-index:999;
+    background:rgba(14,14,14,.92);
+
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid rgba(212,175,55,.18);
 
 }
+
 
 .logo-area{
 
-display:flex;
+    display:flex;
 
-align-items:center;
+    align-items:center;
 
-gap:15px;
+    gap:18px;
 
 }
+
 
 .logo-area img{
 
-width:62px;
+    width:68px;
 
-height:62px;
+    height:68px;
 
-border-radius:16px;
+    object-fit:cover;
+
+    border-radius:18px;
+
+    border:2px solid rgba(212,175,55,.25);
+
+    background:#111;
+
+    transition:.35s;
 
 }
+
+
+.logo-area img:hover{
+
+    transform:rotate(-4deg) scale(1.04);
+
+    border-color:var(--gold);
+
+}
+
 
 .logo-area h2{
 
-font-size:22px;
+    font-size:24px;
 
-font-weight:700;
+    font-weight:700;
 
-color:#FFD54F;
+    color:var(--gold);
+
+    letter-spacing:.5px;
 
 }
+
 
 .logo-area p{
 
-font-size:13px;
+    margin-top:4px;
 
-color:#bbb;
+    color:var(--muted);
 
-margin-top:2px;
+    font-size:13px;
 
 }
+
+
+.header-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+}
+
 
 .live-indicator{
 
-background:#133d20;
+    display:flex;
 
-color:#61ff7d;
+    align-items:center;
 
-padding:8px 14px;
+    justify-content:center;
 
-border-radius:50px;
+    gap:8px;
 
-font-size:13px;
+    padding:10px 18px;
 
-font-weight:600;
+    border-radius:999px;
+
+    background:rgba(46,204,113,.14);
+
+    color:#7dffac;
+
+    border:1px solid rgba(46,204,113,.28);
+
+    font-weight:600;
+
+    animation:livePulse 1.8s infinite;
 
 }
 
-/* ===========================
+
+@keyframes livePulse{
+
+    0%{
+
+        box-shadow:0 0 0 rgba(46,204,113,0);
+
+    }
+
+    50%{
+
+        box-shadow:0 0 20px rgba(46,204,113,.35);
+
+    }
+
+    100%{
+
+        box-shadow:0 0 0 rgba(46,204,113,0);
+
+    }
+
+}
+
+
+/* =======================================================
    NAVIGATION
-=========================== */
+======================================================= */
 
 .app-nav{
 
-display:flex;
+    display:flex;
 
-justify-content:center;
+    flex-wrap:wrap;
 
-align-items:center;
+    justify-content:center;
 
-gap:14px;
+    gap:14px;
 
-padding:16px;
+    padding:18px 22px;
 
-background:#141820;
+    background:#111111;
 
-flex-wrap:wrap;
-
-border-bottom:1px solid rgba(255,255,255,.08);
+    border-bottom:1px solid rgba(212,175,55,.12);
 
 }
+
 
 .app-nav button{
 
-background:#222833;
+    position:relative;
 
-border:none;
+    overflow:hidden;
 
-color:#fff;
+    display:flex;
 
-padding:12px 18px;
+    align-items:center;
 
-border-radius:16px;
+    justify-content:center;
 
-cursor:pointer;
+    gap:10px;
 
-display:flex;
+    min-width:145px;
 
-align-items:center;
+    height:58px;
 
-gap:10px;
+    padding:0 22px;
 
-font-size:14px;
+    background:#1a1a1a;
 
-font-weight:600;
+    color:#f1f1f1;
 
-transition:.30s;
+    border:1px solid rgba(255,255,255,.06);
+
+    border-radius:18px;
+
+    cursor:pointer;
+
+    transition:.30s;
 
 }
+
+
+.app-nav button i{
+
+    font-size:18px;
+
+    color:var(--gold);
+
+    transition:.30s;
+
+}
+
+
+.app-nav button span{
+
+    font-size:14px;
+
+    font-weight:600;
+
+    letter-spacing:.3px;
+
+}
+
 
 .app-nav button:hover{
 
-background:#D4AF37;
+    transform:translateY(-3px);
 
-color:#111;
+    background:var(--gold);
 
-transform:translateY(-2px);
+    color:#111;
+
+    border-color:transparent;
 
 }
+
+
+.app-nav button:hover i{
+
+    color:#111;
+
+}
+
+
+.app-nav button::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:-120%;
+
+    top:0;
+
+    width:60%;
+
+    height:100%;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            rgba(255,255,255,.35),
+
+            transparent
+
+        );
+
+    transition:.7s;
+
+}
+
+
+.app-nav button:hover::before{
+
+    left:150%;
+
+}
+
 
 .logout-nav{
 
-background:#d62b2b !important;
+    background:#8b1f1f !important;
 
-color:#fff !important;
+    color:#fff !important;
+
+    border:none !important;
 
 }
-/* ===========================
-   MAIN DASHBOARD
-=========================== */
+
+
+.logout-nav i{
+
+    color:#fff !important;
+
+}
+
+
+.logout-nav:hover{
+
+    background:#d32f2f !important;
+
+    color:#fff !important;
+
+}
+
+
+/* =======================================================
+   MAIN LAYOUT
+======================================================= */
 
 .dashboard-wrapper{
 
-width:100%;
+    width:min(1700px,100%);
 
-padding:24px;
+    margin:auto;
 
-display:flex;
+    padding:30px;
 
-flex-direction:column;
+    display:flex;
 
-gap:24px;
+    flex-direction:column;
+
+    gap:28px;
 
 }
 
-/* ===========================
+
+/* =======================================================
+   SECTION TITLE
+======================================================= */
+
+.section-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+
+.section-header h2{
+
+    font-size:26px;
+
+    font-weight:700;
+
+    color:var(--gold);
+
+}
+/* =======================================================
+   PREMIUM ADMIN DASHBOARD V4
+   PART 3 / 6
+   SCANNER + CUSTOMER + BUTTONS
+======================================================= */
+
+
+/* =======================================================
    SCANNER SECTION
-=========================== */
+======================================================= */
 
 .scanner-section{
 
-display:grid;
+    display:grid;
 
-grid-template-columns:1.2fr .8fr;
+    grid-template-columns:1.35fr .85fr;
 
-gap:24px;
+    gap:28px;
+
+    align-items:start;
 
 }
+
 
 .scanner-card,
 .customer-card{
 
-background:#181d25;
-
-border-radius:22px;
-
-padding:22px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.30);
-
-border:1px solid rgba(255,255,255,.05);
+    padding:28px;
 
 }
+
+
+/* =======================================================
+   CARD TITLE
+======================================================= */
 
 .card-title{
 
-margin-bottom:20px;
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+
+    margin-bottom:22px;
 
 }
+
 
 .card-title h2{
 
-font-size:22px;
+    display:flex;
 
-color:#FFD54F;
+    align-items:center;
 
-margin-bottom:6px;
+    gap:12px;
+
+    font-size:26px;
+
+    color:var(--gold);
 
 }
+
+
+.card-title h2 i{
+
+    font-size:24px;
+
+}
+
 
 .card-title p{
 
-color:#999;
+    color:var(--muted);
 
-font-size:14px;
+    font-size:14px;
 
 }
 
-/* ===========================
-   CAMERA
-=========================== */
+
+/* =======================================================
+   QR CAMERA
+======================================================= */
 
 .scanner-box{
 
-position:relative;
+    position:relative;
 
-height:360px;
+    width:100%;
 
-border-radius:18px;
+    height:430px;
 
-overflow:hidden;
+    overflow:hidden;
 
-background:#0d0f15;
+    border-radius:24px;
 
-border:2px dashed rgba(212,175,55,.35);
+    background:#050505;
+
+    border:2px solid rgba(212,175,55,.25);
+
+    transition:.35s;
 
 }
+
+
+.scanner-box:hover{
+
+    border-color:var(--gold);
+
+    box-shadow:
+
+        0 0 35px rgba(212,175,55,.20);
+
+}
+
 
 #qr-reader{
 
-width:100%;
+    width:100%;
 
-height:100%;
+    height:100%;
 
 }
+
 
 #qr-reader video{
 
-width:100% !important;
+    width:100% !important;
 
-height:100% !important;
+    height:100% !important;
 
-object-fit:cover;
+    object-fit:cover;
 
-border-radius:18px;
+    border-radius:24px;
 
 }
+
+
+/* =======================================================
+   CAMERA OVERLAY
+======================================================= */
 
 .camera-overlay{
 
-position:absolute;
+    position:absolute;
 
-inset:0;
+    inset:0;
 
-display:flex;
+    display:flex;
 
-flex-direction:column;
+    flex-direction:column;
 
-align-items:center;
+    align-items:center;
 
-justify-content:center;
+    justify-content:center;
 
-gap:14px;
+    gap:18px;
 
-background:#10131a;
+    background:
 
-z-index:10;
+        linear-gradient(
+
+            rgba(0,0,0,.75),
+
+            rgba(0,0,0,.82)
+
+        );
+
+    z-index:20;
 
 }
+
 
 .camera-overlay i{
 
-font-size:60px;
+    font-size:74px;
 
-color:#FFD54F;
+    color:var(--gold);
+
+    animation:scannerFloat 2.2s ease-in-out infinite;
 
 }
+
 
 .camera-overlay h3{
 
-font-size:24px;
+    font-size:28px;
+
+    color:#fff;
 
 }
+
 
 .camera-overlay p{
 
-color:#aaa;
+    color:#b9b9b9;
 
 }
 
-/* ===========================
-   BUTTONS
-=========================== */
+
+@keyframes scannerFloat{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-8px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+/* =======================================================
+   BUTTON GROUP
+======================================================= */
 
 .scanner-controls,
 .customer-buttons{
 
-display:flex;
+    display:flex;
 
-gap:14px;
+    gap:16px;
 
-margin-top:20px;
+    margin-top:22px;
 
 }
+
 
 .gold-btn,
 .red-btn,
 .gray-btn{
 
-flex:1;
+    flex:1;
 
-height:54px;
+    height:58px;
 
-border:none;
+    border:none;
 
-border-radius:16px;
+    border-radius:18px;
 
-font-size:15px;
+    cursor:pointer;
 
-font-weight:700;
+    font-size:15px;
 
-cursor:pointer;
+    font-weight:700;
 
-transition:.25s;
+    transition:.30s;
 
 }
+
 
 .gold-btn{
 
-background:#D4AF37;
+    background:linear-gradient(
 
-color:#111;
+        135deg,
+
+        #FFD95A,
+
+        #D4AF37
+
+    );
+
+    color:#111;
 
 }
 
-.gold-btn:hover{
-
-transform:translateY(-2px);
-
-}
 
 .red-btn{
 
-background:#d62b2b;
+    background:#d63031;
 
-color:#fff;
+    color:#fff;
 
 }
+
 
 .gray-btn{
 
-background:#2b313d;
+    background:#303744;
 
-color:#fff;
+    color:#fff;
 
 }
 
-/* ===========================
-   CUSTOMER
-=========================== */
+
+.gold-btn:hover,
+.red-btn:hover,
+.gray-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+
+        0 14px 28px rgba(0,0,0,.35);
+
+}
+
+
+.gold-btn:disabled,
+.red-btn:disabled,
+.gray-btn:disabled{
+
+    opacity:.45;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+    box-shadow:none;
+
+}
+
+
+/* =======================================================
+   CUSTOMER PREVIEW
+======================================================= */
 
 .customer-preview{
 
-display:flex;
+    display:flex;
 
-align-items:center;
+    align-items:center;
 
-gap:18px;
+    gap:20px;
 
-margin-bottom:22px;
+    margin-bottom:24px;
 
 }
+
 
 .customer-photo{
 
-width:90px;
+    width:100px;
 
-height:90px;
+    height:100px;
 
-border-radius:50%;
+    border-radius:50%;
 
-border:3px solid #D4AF37;
+    object-fit:cover;
 
-object-fit:cover;
+    border:4px solid var(--gold);
+
+    background:#111;
+
+    box-shadow:
+
+        0 0 25px rgba(212,175,55,.25);
 
 }
+
+
+.customer-info{
+
+    flex:1;
+
+}
+
 
 .customer-info h3{
 
-font-size:22px;
+    font-size:24px;
 
-margin-bottom:6px;
+    margin-bottom:6px;
+
+    color:#fff;
 
 }
+
 
 .customer-info p{
 
-color:#aaa;
+    color:var(--muted);
+
+    font-size:14px;
 
 }
+
+
+/* =======================================================
+   STAMP GRID
+======================================================= */
 
 .stamp-grid{
 
-display:grid;
+    display:grid;
 
-grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(2,1fr);
 
-gap:14px;
+    gap:16px;
+
+    margin-top:18px;
 
 }
+
 
 .stamp-box{
 
-background:#11151d;
+    background:#111;
 
-padding:18px;
+    border:1px solid rgba(212,175,55,.12);
 
-border-radius:16px;
+    border-radius:18px;
 
-text-align:center;
+    padding:20px;
+
+    text-align:center;
+
+    transition:.30s;
 
 }
+
+
+.stamp-box:hover{
+
+    transform:translateY(-4px);
+
+    border-color:rgba(212,175,55,.35);
+
+}
+
 
 .stamp-box span{
 
-display:block;
+    display:block;
 
-color:#999;
+    color:var(--muted);
 
-font-size:13px;
+    font-size:13px;
 
-margin-bottom:8px;
+    margin-bottom:8px;
 
 }
+
 
 .stamp-box strong{
 
-font-size:22px;
+    display:block;
 
-color:#FFD54F;
+    font-size:26px;
+
+    color:var(--gold);
 
 }
 
-/* ===========================
+
+/* =======================================================
+   STATUS COLORS
+======================================================= */
+
+.pending{
+
+    color:#ffb300 !important;
+
+}
+
+.success{
+
+    color:#57ff8c !important;
+
+}
+
+.failed{
+
+    color:#ff5d5d !important;
+
+}
+
+
+/* =======================================================
+   END PART 3
+======================================================= */
+/* =======================================================
+   PREMIUM ADMIN DASHBOARD V4
+   PART 4 / 6
+   STATS + TABLE + SEARCH + QUICK ACTIONS
+======================================================= */
+
+
+/* =======================================================
    STATS
-=========================== */
+======================================================= */
 
 .stats-section{
 
-display:grid;
+    display:grid;
 
-grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(4,1fr);
 
-gap:20px;
+    gap:22px;
 
 }
+
 
 .stat-card{
 
-background:#181d25;
+    position:relative;
 
-padding:24px;
+    overflow:hidden;
 
-border-radius:20px;
+    padding:28px;
 
-text-align:center;
+    text-align:center;
+
+    cursor:pointer;
 
 }
+
+
+.stat-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            rgba(212,175,55,.08),
+
+            transparent 65%
+
+        );
+
+    pointer-events:none;
+
+}
+
 
 .stat-card i{
 
-font-size:34px;
+    font-size:42px;
 
-color:#FFD54F;
+    color:var(--gold);
 
-margin-bottom:14px;
+    margin-bottom:18px;
+
+    transition:.35s;
 
 }
+
+
+.stat-card:hover i{
+
+    transform:scale(1.15) rotate(-8deg);
+
+}
+
 
 .stat-card h4{
 
-font-size:15px;
+    font-size:15px;
 
-color:#bbb;
+    color:var(--muted);
 
-margin-bottom:10px;
+    margin-bottom:10px;
 
 }
+
 
 .stat-card strong{
 
-font-size:34px;
+    display:block;
 
-color:#fff;
+    font-size:38px;
+
+    color:#fff;
+
+    font-weight:700;
 
 }
-/* ===========================
-   CUSTOMER TABLE
-=========================== */
+
+
+/* =======================================================
+   CUSTOMER SECTION
+======================================================= */
 
 .customer-section{
 
-background:#181d25;
-
-padding:24px;
-
-border-radius:22px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.30);
+    padding:28px;
 
 }
+
 
 .section-header{
 
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-margin-bottom:20px;
-
-flex-wrap:wrap;
-
-gap:15px;
+    margin-bottom:24px;
 
 }
 
-.section-header h2{
-
-color:#FFD54F;
-
-font-size:24px;
-
-}
 
 .search-box{
 
-display:flex;
+    display:flex;
 
-align-items:center;
+    align-items:center;
 
-gap:10px;
+    gap:12px;
 
-background:#10131a;
+    min-width:320px;
 
-padding:12px 18px;
+    background:#111;
 
-border-radius:14px;
+    border:1px solid rgba(212,175,55,.12);
+
+    border-radius:16px;
+
+    padding:14px 18px;
+
+    transition:.30s;
 
 }
+
+
+.search-box:focus-within{
+
+    border-color:var(--gold);
+
+    box-shadow:
+
+        0 0 18px rgba(212,175,55,.20);
+
+}
+
+
+.search-box i{
+
+    color:var(--gold);
+
+}
+
 
 .search-box input{
 
-background:none;
+    flex:1;
 
-border:none;
+    background:transparent;
 
-outline:none;
+    border:none;
 
-color:#fff;
+    outline:none;
 
-font-size:15px;
+    color:#fff;
 
-width:250px;
+    font-size:15px;
 
 }
+
+
+/* =======================================================
+   TABLE
+======================================================= */
 
 .table-card{
 
-overflow:auto;
+    overflow:auto;
 
-border-radius:16px;
+    border-radius:18px;
+
+    border:1px solid rgba(212,175,55,.10);
 
 }
+
 
 table{
 
-width:100%;
+    width:100%;
 
-border-collapse:collapse;
+    min-width:1050px;
 
-min-width:900px;
+    border-collapse:collapse;
 
 }
+
 
 thead{
 
-background:#202733;
+    position:sticky;
+
+    top:0;
+
+    z-index:5;
+
+    background:#1b1b1b;
 
 }
+
 
 thead th{
 
-padding:16px;
+    padding:18px;
 
-color:#FFD54F;
+    text-align:left;
 
-font-size:14px;
+    color:var(--gold);
 
-text-align:left;
+    font-size:14px;
+
+    font-weight:700;
+
+    white-space:nowrap;
+
+    border-bottom:1px solid rgba(212,175,55,.18);
+
+}
+
+
+tbody tr{
+
+    transition:.25s;
 
 }
 
-tbody td{
 
-padding:16px;
+tbody tr:nth-child(even){
 
-border-bottom:1px solid rgba(255,255,255,.06);
-
-font-size:14px;
+    background:rgba(255,255,255,.015);
 
 }
+
 
 tbody tr:hover{
 
-background:#212834;
+    background:rgba(212,175,55,.08);
 
 }
 
-/* ===========================
+
+tbody td{
+
+    padding:16px 18px;
+
+    border-bottom:1px solid rgba(255,255,255,.05);
+
+    color:#f3f3f3;
+
+    font-size:14px;
+
+    vertical-align:middle;
+
+}
+
+
+/* =======================================================
+   TABLE BUTTON
+======================================================= */
+
+tbody button{
+
+    border:none;
+
+    background:linear-gradient(
+
+        135deg,
+
+        #FFD95A,
+
+        #D4AF37
+
+    );
+
+    color:#111;
+
+    font-weight:700;
+
+    padding:10px 18px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    transition:.30s;
+
+}
+
+
+tbody button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+/* =======================================================
    QUICK ACTIONS
-=========================== */
+======================================================= */
 
 .quick-actions{
 
-display:grid;
+    display:grid;
 
-grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(4,1fr);
 
-gap:18px;
+    gap:20px;
 
 }
+
 
 .quick-actions button{
 
-height:58px;
+    position:relative;
 
-border:none;
+    overflow:hidden;
 
-border-radius:18px;
+    height:62px;
 
-background:#D4AF37;
+    border:none;
 
-color:#111;
+    border-radius:18px;
 
-font-size:15px;
+    cursor:pointer;
 
-font-weight:700;
+    font-size:15px;
 
-cursor:pointer;
+    font-weight:700;
 
-transition:.30s;
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            #FFD95A,
+
+            #D4AF37
+
+        );
+
+    color:#111;
+
+    transition:.30s;
 
 }
+
 
 .quick-actions button:hover{
 
-transform:translateY(-3px);
+    transform:translateY(-4px);
+
+    box-shadow:
+
+        0 14px 32px rgba(212,175,55,.28);
 
 }
 
-/* ===========================
-   STATUS
-=========================== */
+
+.quick-actions button::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-120%;
+
+    width:60%;
+
+    height:100%;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            rgba(255,255,255,.35),
+
+            transparent
+
+        );
+
+    transition:.7s;
+
+}
+
+
+.quick-actions button:hover::after{
+
+    left:150%;
+
+}
+
+
+/* =======================================================
+   STATUS SECTION
+======================================================= */
 
 .status-card{
 
-background:#181d25;
-
-padding:24px;
-
-border-radius:22px;
+    padding:28px;
 
 }
+
 
 .status-card h2{
 
-margin-bottom:20px;
+    margin-bottom:22px;
 
-color:#FFD54F;
+    color:var(--gold);
+
+    font-size:24px;
 
 }
+
 
 .status-row{
 
-display:flex;
+    display:flex;
 
-justify-content:space-between;
+    justify-content:space-between;
 
-padding:14px 0;
+    align-items:center;
 
-border-bottom:1px solid rgba(255,255,255,.05);
+    padding:16px 0;
+
+    border-bottom:1px solid rgba(255,255,255,.06);
 
 }
+
+
+.status-row:last-child{
+
+    border-bottom:none;
+
+}
+
+
+.status-row span{
+
+    color:var(--muted);
+
+}
+
+
+.status-row strong{
+
+    font-weight:700;
+
+}
+
 
 .online{
 
-color:#61ff7d;
+    color:#5dff93;
 
 }
 
-/* ===========================
+
+/* =======================================================
+   END PART 4
+======================================================= */
+/* =======================================================
+   PREMIUM ADMIN DASHBOARD V4
+   PART 5 / 6
+   RESPONSIVE DESIGN
+======================================================= */
+
+
+/* =======================================================
+   LARGE LAPTOP
+======================================================= */
+
+@media (max-width:1400px){
+
+    .dashboard-wrapper{
+
+        padding:24px;
+
+    }
+
+    .stats-section{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+}
+
+
+/* =======================================================
+   TABLET
+======================================================= */
+
+@media (max-width:1100px){
+
+    .scanner-section{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .customer-preview{
+
+        align-items:center;
+
+    }
+
+    .quick-actions{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .app-nav{
+
+        justify-content:center;
+
+    }
+
+    .app-nav button{
+
+        flex:1 1 calc(33.33% - 14px);
+
+        min-width:180px;
+
+    }
+
+}
+
+
+/* =======================================================
    MOBILE
-=========================== */
+======================================================= */
 
-@media(max-width:1000px){
+@media (max-width:768px){
 
-.scanner-section{
+    .app-header{
 
-grid-template-columns:1fr;
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:18px;
+
+        padding:18px;
+
+    }
+
+    .header-right{
+
+        width:100%;
+
+        justify-content:flex-end;
+
+    }
+
+    .logo-area{
+
+        width:100%;
+
+    }
+
+    .logo-area img{
+
+        width:58px;
+
+        height:58px;
+
+    }
+
+    .logo-area h2{
+
+        font-size:20px;
+
+    }
+
+    .logo-area p{
+
+        font-size:12px;
+
+    }
+
+    .dashboard-wrapper{
+
+        padding:16px;
+
+        gap:20px;
+
+    }
+
+    .scanner-card,
+    .customer-card,
+    .customer-section,
+    .status-card,
+    .stat-card{
+
+        padding:18px;
+
+    }
+
+    .scanner-box{
+
+        height:300px;
+
+    }
+
+    .stats-section{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .quick-actions{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .stamp-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .section-header{
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+    }
+
+    .search-box{
+
+        width:100%;
+
+        min-width:unset;
+
+    }
+
+    .search-box input{
+
+        width:100%;
+
+    }
+
+    .customer-preview{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+    .customer-info{
+
+        text-align:center;
+
+    }
+
+    .scanner-controls,
+    .customer-buttons{
+
+        flex-direction:column;
+
+    }
+
+    .gold-btn,
+    .gray-btn,
+    .red-btn{
+
+        width:100%;
+
+    }
+
+    .app-nav{
+
+        gap:10px;
+
+    }
+
+    .app-nav button{
+
+        min-width:unset;
+
+        flex:1 1 calc(50% - 10px);
+
+        height:54px;
+
+    }
 
 }
 
-.stats-section{
 
-grid-template-columns:repeat(2,1fr);
+/* =======================================================
+   SMALL MOBILE
+======================================================= */
+
+@media (max-width:480px){
+
+    .dashboard-wrapper{
+
+        padding:14px;
+
+    }
+
+    .app-header{
+
+        padding:16px;
+
+    }
+
+    .logo-area{
+
+        gap:12px;
+
+    }
+
+    .logo-area img{
+
+        width:50px;
+
+        height:50px;
+
+    }
+
+    .logo-area h2{
+
+        font-size:18px;
+
+    }
+
+    .card-title h2{
+
+        font-size:20px;
+
+    }
+
+    .card-title p{
+
+        font-size:13px;
+
+    }
+
+    .scanner-box{
+
+        height:260px;
+
+    }
+
+    .customer-photo{
+
+        width:85px;
+
+        height:85px;
+
+    }
+
+    .customer-info h3{
+
+        font-size:20px;
+
+    }
+
+    .stamp-box strong{
+
+        font-size:22px;
+
+    }
+
+    .stat-card strong{
+
+        font-size:30px;
+
+    }
+
+    .quick-actions button{
+
+        height:56px;
+
+    }
+
+    .status-card h2{
+
+        font-size:20px;
+
+    }
 
 }
 
-.quick-actions{
 
-grid-template-columns:repeat(2,1fr);
+/* =======================================================
+   TOUCH DEVICES
+======================================================= */
 
-}
+@media (hover:none){
 
-}
+    .stat-card:hover,
+    .scanner-card:hover,
+    .customer-card:hover,
+    .customer-section:hover,
+    .status-card:hover{
 
-@media(max-width:700px){
+        transform:none;
 
-.dashboard-wrapper{
+    }
 
-padding:16px;
+    .app-nav button:hover{
 
-}
+        transform:none;
 
-.logo-area img{
+    }
 
-width:52px;
+    .quick-actions button:hover{
 
-height:52px;
+        transform:none;
 
-}
-
-.logo-area h2{
-
-font-size:18px;
-
-}
-
-.app-nav{
-
-gap:10px;
+    }
 
 }
 
-.app-nav button{
 
-flex:1 1 calc(50% - 10px);
+/* =======================================================
+   END PART 5
+======================================================= */
+/* =======================================================
+   PREMIUM ADMIN DASHBOARD V4
+   PART 6 / 6
+   FINAL POLISH + ANIMATIONS + ACCESSIBILITY
+======================================================= */
 
-justify-content:center;
 
-padding:14px;
+/* =======================================================
+   BUTTON RIPPLE
+======================================================= */
 
-}
+.app-nav button,
+.quick-actions button,
+.gold-btn,
+.red-btn,
+.gray-btn{
 
-.stats-section{
+    position:relative;
 
-grid-template-columns:1fr;
+    overflow:hidden;
 
-}
-
-.quick-actions{
-
-grid-template-columns:1fr;
-
-}
-
-.search-box{
-
-width:100%;
-
-}
-
-.search-box input{
-
-width:100%;
+    isolation:isolate;
 
 }
 
-.customer-preview{
 
-flex-direction:column;
+.app-nav button::after,
+.quick-actions button::before,
+.gold-btn::before,
+.red-btn::before,
+.gray-btn::before{
 
-text-align:center;
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            rgba(255,255,255,.28),
+
+            transparent 70%
+
+        );
+
+    transform:scale(0);
+
+    opacity:0;
+
+    transition:
+
+        transform .45s ease,
+
+        opacity .45s ease;
+
+    z-index:-1;
 
 }
 
-.stamp-grid{
 
-grid-template-columns:1fr;
+.app-nav button:active::after,
+.quick-actions button:active::before,
+.gold-btn:active::before,
+.red-btn:active::before,
+.gray-btn:active::before{
+
+    transform:scale(3);
+
+    opacity:1;
 
 }
 
+
+/* =======================================================
+   FLOAT ANIMATION
+======================================================= */
+
+@keyframes floating{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-5px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
 }
+
+
+.customer-photo{
+
+    animation:floating 4s ease-in-out infinite;
+
+}
+
+
+/* =======================================================
+   CARD SHINE
+======================================================= */
+
+.scanner-card,
+.customer-card,
+.stat-card,
+.customer-section,
+.status-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+.scanner-card::after,
+.customer-card::after,
+.stat-card::after,
+.customer-section::after,
+.status-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-120%;
+
+    width:45%;
+
+    height:100%;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            rgba(255,255,255,.08),
+
+            transparent
+
+        );
+
+    transition:1.2s;
+
+}
+
+
+.scanner-card:hover::after,
+.customer-card:hover::after,
+.stat-card:hover::after,
+.customer-section:hover::after,
+.status-card:hover::after{
+
+    left:160%;
+
+}
+
+
+/* =======================================================
+   INPUT PLACEHOLDER
+======================================================= */
+
+::placeholder{
+
+    color:#888;
+
+}
+
+
+/* =======================================================
+   FOCUS STATES
+======================================================= */
+
+button:focus-visible,
+input:focus-visible{
+
+    outline:2px solid var(--gold);
+
+    outline-offset:3px;
+
+}
+
+
+/* =======================================================
+   SELECTION
+======================================================= */
+
+::selection{
+
+    background:var(--gold);
+
+    color:#111;
+
+}
+
+
+/* =======================================================
+   LOADING CLASS
+======================================================= */
+
+.loading{
+
+    pointer-events:none;
+
+    opacity:.6;
+
+    filter:grayscale(.25);
+
+}
+
+
+.loading::after{
+
+    content:"";
+
+    width:18px;
+
+    height:18px;
+
+    margin-left:10px;
+
+    display:inline-block;
+
+    border-radius:50%;
+
+    border:2px solid rgba(255,255,255,.25);
+
+    border-top-color:#fff;
+
+    animation:spin .8s linear infinite;
+
+}
+
+
+@keyframes spin{
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+
+/* =======================================================
+   IMAGE TRANSITION
+======================================================= */
+
+img{
+
+    transition:
+
+        transform .35s ease,
+
+        opacity .35s ease;
+
+}
+
+
+img:hover{
+
+    transform:scale(1.03);
+
+}
+
+
+/* =======================================================
+   REDUCE MOTION
+======================================================= */
+
+@media (prefers-reduced-motion:reduce){
+
+    *{
+
+        animation:none !important;
+
+        transition:none !important;
+
+        scroll-behavior:auto !important;
+
+    }
+
+}
+
+
+/* =======================================================
+   PRINT
+======================================================= */
+
+@media print{
+
+    .app-nav,
+    .scanner-controls,
+    .customer-buttons,
+    .quick-actions{
+
+        display:none !important;
+
+    }
+
+    body{
+
+        background:#fff;
+
+        color:#000;
+
+    }
+
+}
+
+
+/* =======================================================
+   READY CLASS
+======================================================= */
+
+.admin-ready{
+
+    animation:fadeUp .5s ease;
+
+}
+
+
+/* =======================================================
+   END OF FILE
+
+   RIO MAGGI POINT
+   PREMIUM ADMIN DASHBOARD CSS V4
+   COMPLETE
+======================================================= */
