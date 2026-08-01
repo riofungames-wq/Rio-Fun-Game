@@ -13,9 +13,9 @@
 <title>Rio Maggi Point - Admin Panel</title>
 
 
-<!-- ============================= -->
-<!-- PWA -->
-<!-- ============================= -->
+<!-- =========================================
+     PWA
+========================================= -->
 
 <link
     rel="manifest"
@@ -53,9 +53,9 @@
 >
 
 
-<!-- ============================= -->
-<!-- FONT AWESOME -->
-<!-- ============================= -->
+<!-- =========================================
+     FONT AWESOME
+========================================= -->
 
 <link
     rel="stylesheet"
@@ -63,9 +63,9 @@
 >
 
 
-<!-- ============================= -->
-<!-- QR SCANNER -->
-<!-- ============================= -->
+<!-- =========================================
+     QR SCANNER
+========================================= -->
 
 <script
     src="https://unpkg.com/html5-qrcode"
@@ -78,13 +78,13 @@
    RESET
 ========================================= */
 
-*{
+* {
 
-    margin:0;
+    margin: 0;
 
-    padding:0;
+    padding: 0;
 
-    box-sizing:border-box;
+    box-sizing: border-box;
 
     font-family:
         Arial,
@@ -98,12 +98,11 @@
    BODY
 ========================================= */
 
-body{
+body {
 
-    min-height:100vh;
+    min-height: 100vh;
 
     background:
-
         radial-gradient(
             circle at top,
             #263525 0%,
@@ -111,7 +110,7 @@ body{
             #050505 75%
         );
 
-    padding:20px;
+    padding: 20px;
 
 }
 
@@ -120,27 +119,27 @@ body{
    MAIN CONTAINER
 ========================================= */
 
-.container{
+.container {
 
-    width:100%;
+    width: 100%;
 
-    max-width:600px;
+    max-width: 600px;
 
-    margin:auto;
+    margin: auto;
 
-    background:#f5d99b;
+    background: #f5d99b;
 
     border:
         3px solid
         #d19b4a;
 
-    border-radius:22px;
+    border-radius: 22px;
 
-    overflow:hidden;
+    overflow: hidden;
 
     box-shadow:
         0 20px 60px
-        rgba(0,0,0,.65);
+        rgba(0, 0, 0, 0.65);
 
 }
 
@@ -149,63 +148,62 @@ body{
    HEADER
 ========================================= */
 
-.header{
+.header {
 
     background:
-
         linear-gradient(
             135deg,
             #f8dda0,
             #edc77d
         );
 
-    padding:25px 20px;
+    padding: 25px 20px;
 
-    text-align:center;
-
-}
-
-
-.brand{
-
-    font-size:16px;
-
-    font-weight:900;
-
-    letter-spacing:2px;
-
-    color:#222;
-
-    margin-bottom:8px;
+    text-align: center;
 
 }
 
 
-.title{
+.brand {
 
-    font-size:32px;
+    font-size: 16px;
 
-    font-weight:900;
+    font-weight: 900;
 
-    color:#111;
+    letter-spacing: 2px;
 
-}
+    color: #222;
 
-
-.title span{
-
-    color:#c62828;
+    margin-bottom: 8px;
 
 }
 
 
-.subtitle{
+.title {
 
-    margin-top:8px;
+    font-size: 32px;
 
-    font-size:14px;
+    font-weight: 900;
 
-    color:#444;
+    color: #111;
+
+}
+
+
+.title span {
+
+    color: #c62828;
+
+}
+
+
+.subtitle {
+
+    margin-top: 8px;
+
+    font-size: 14px;
+
+    color: #444;
 
 }
 
@@ -214,24 +212,24 @@ body{
    ADMIN STATUS
 ========================================= */
 
-.admin-status{
+.admin-status {
 
     margin:
         18px 20px;
 
-    padding:12px;
+    padding: 12px;
 
-    border-radius:12px;
+    border-radius: 12px;
 
-    background:#263525;
+    background: #263525;
 
-    color:#ffd54f;
+    color: #ffd54f;
 
-    text-align:center;
+    text-align: center;
 
-    font-size:13px;
+    font-size: 13px;
 
-    font-weight:bold;
+    font-weight: bold;
 
 }
 
@@ -240,33 +238,33 @@ body{
    COMMON SECTION
 ========================================= */
 
-.section{
+.section {
 
     margin:
         0 20px 20px;
 
-    padding:18px;
+    padding: 18px;
 
-    background:#fff7df;
+    background: #fff7df;
 
     border:
         2px solid
         #d19b4a;
 
-    border-radius:15px;
+    border-radius: 15px;
 
 }
 
 
-.section h2{
+.section h2 {
 
-    text-align:center;
+    text-align: center;
 
-    color:#263525;
+    color: #263525;
 
-    font-size:20px;
+    font-size: 20px;
 
-    margin-bottom:15px;
+    margin-bottom: 15px;
 
 }
 
@@ -275,32 +273,32 @@ body{
    QR READER
 ========================================= */
 
-#reader{
+#reader {
 
-    width:100%;
+    width: 100%;
 
-    max-width:400px;
+    max-width: 400px;
 
-    margin:auto;
+    margin: auto;
 
-    border-radius:12px;
+    border-radius: 12px;
 
-    overflow:hidden;
+    overflow: hidden;
 
 }
 
 
-.scan-message{
+.scan-message {
 
-    text-align:center;
+    text-align: center;
 
-    margin-top:12px;
+    margin-top: 12px;
 
-    font-size:14px;
+    font-size: 14px;
 
-    color:#555;
+    color: #555;
 
-    line-height:1.5;
+    line-height: 1.5;
 
 }
 
@@ -309,47 +307,47 @@ body{
    CUSTOMER CARD
 ========================================= */
 
-.customer-card{
+.customer-card {
 
-    display:none;
+    display: none;
 
     margin:
         0 20px 20px;
 
-    padding:20px;
+    padding: 20px;
 
-    background:#263525;
+    background: #263525;
 
-    color:white;
+    color: white;
 
-    border-radius:16px;
-
-}
-
-
-.customer-card h2{
-
-    color:#ffd54f;
-
-    text-align:center;
-
-    margin-bottom:15px;
+    border-radius: 16px;
 
 }
 
 
-.customer-info{
+.customer-card h2 {
 
-    font-size:16px;
+    color: #ffd54f;
 
-    line-height:1.8;
+    text-align: center;
+
+    margin-bottom: 15px;
 
 }
 
 
-.customer-info strong{
+.customer-info {
 
-    color:#f5d99b;
+    font-size: 16px;
+
+    line-height: 1.8;
+
+}
+
+
+.customer-info strong {
+
+    color: #f5d99b;
 
 }
 
@@ -358,15 +356,15 @@ body{
    STAMP COUNT
 ========================================= */
 
-.stamp-count{
+.stamp-count {
 
-    text-align:center;
+    text-align: center;
 
-    font-size:28px;
+    font-size: 28px;
 
-    font-weight:900;
+    font-weight: 900;
 
-    color:#ffd54f;
+    color: #ffd54f;
 
     margin:
         15px 0;
@@ -378,14 +376,14 @@ body{
    STAMP PROGRESS
 ========================================= */
 
-.stamp-progress{
+.stamp-progress {
 
-    display:grid;
+    display: grid;
 
     grid-template-columns:
-        repeat(6,1fr);
+        repeat(6, 1fr);
 
-    gap:8px;
+    gap: 8px;
 
     margin:
         15px 0 20px;
@@ -393,44 +391,44 @@ body{
 }
 
 
-.stamp-dot{
+.stamp-dot {
 
-    aspect-ratio:1;
+    aspect-ratio: 1;
 
-    border-radius:50%;
+    border-radius: 50%;
 
-    background:#fff7df;
+    background: #fff7df;
 
     border:
         2px solid
         #d19b4a;
 
-    display:flex;
+    display: flex;
 
-    justify-content:center;
+    justify-content: center;
 
-    align-items:center;
+    align-items: center;
 
-    color:#555;
+    color: #555;
 
-    font-weight:bold;
+    font-weight: bold;
 
-    font-size:12px;
+    font-size: 12px;
 
 }
 
 
-.stamp-dot.done{
+.stamp-dot.done {
 
-    background:#ffd54f;
+    background: #ffd54f;
 
-    color:#263525;
+    color: #263525;
 
-    border-color:#ffd54f;
+    border-color: #ffd54f;
 
     box-shadow:
         0 3px 8px
-        rgba(0,0,0,.25);
+        rgba(0, 0, 0, 0.25);
 
 }
 
@@ -439,74 +437,77 @@ body{
    BUTTONS
 ========================================= */
 
-button{
+button {
 
-    width:100%;
+    width: 100%;
 
-    padding:14px;
+    padding: 14px;
 
-    border:none;
+    border: none;
 
-    border-radius:10px;
+    border-radius: 10px;
 
-    font-size:16px;
+    font-size: 16px;
 
-    font-weight:bold;
+    font-weight: bold;
 
-    cursor:pointer;
+    cursor: pointer;
 
-    margin-top:10px;
+    margin-top: 10px;
 
     transition:
-        .2s;
+        transform 0.2s,
+        opacity 0.2s;
 
 }
 
 
-button:hover{
+button:hover {
 
     transform:
         translateY(-1px);
 
-    opacity:.92;
+    opacity: 0.92;
 
 }
 
 
-button:disabled{
+button:disabled {
 
-    background:#777 !important;
+    background: #777 !important;
 
-    cursor:not-allowed;
+    cursor: not-allowed;
 
-    transform:none;
+    transform: none;
 
-}
-
-
-.stamp-btn{
-
-    background:#c62828;
-
-    color:white;
+    opacity: 0.8;
 
 }
 
 
-.reset-btn{
+.stamp-btn {
 
-    background:#8e24aa;
+    background: #c62828;
 
-    color:white;
+    color: white;
 
 }
 
 
-.scan-again-btn{
+.reset-btn {
 
-    background:#263525;
+    background: #8e24aa;
 
-    color:#ffd54f;
+    color: white;
+
+}
+
+
+.scan-again-btn {
+
+    background: #263525;
+
+    color: #ffd54f;
 
 }
 
@@ -515,7 +516,7 @@ button:disabled{
    LOGOUT
 ========================================= */
 
-.logout-btn{
+.logout-btn {
 
     margin:
         0 20px 20px;
@@ -523,9 +524,9 @@ button:disabled{
     width:
         calc(100% - 40px);
 
-    background:#555;
+    background: #555;
 
-    color:white;
+    color: white;
 
 }
 
@@ -534,26 +535,26 @@ button:disabled{
    SUCCESS MESSAGE
 ========================================= */
 
-.success-message{
+.success-message {
 
-    display:none;
+    display: none;
 
     margin:
         0 20px 15px;
 
-    padding:15px;
+    padding: 15px;
 
-    background:#2e7d32;
+    background: #2e7d32;
 
-    color:white;
+    color: white;
 
-    border-radius:10px;
+    border-radius: 10px;
 
-    text-align:center;
+    text-align: center;
 
-    font-weight:bold;
+    font-weight: bold;
 
-    line-height:1.5;
+    line-height: 1.5;
 
 }
 
@@ -562,26 +563,26 @@ button:disabled{
    REWARD MESSAGE
 ========================================= */
 
-.reward-message{
+.reward-message {
 
-    display:none;
+    display: none;
 
     margin:
         0 20px 15px;
 
-    padding:15px;
+    padding: 15px;
 
-    background:#c62828;
+    background: #c62828;
 
-    color:white;
+    color: white;
 
-    border-radius:10px;
+    border-radius: 10px;
 
-    text-align:center;
+    text-align: center;
 
-    font-weight:bold;
+    font-weight: bold;
 
-    line-height:1.6;
+    line-height: 1.6;
 
 }
 
@@ -590,34 +591,34 @@ button:disabled{
    DAILY STAMP POLICY
 ========================================= */
 
-.daily-policy{
+.daily-policy {
 
-    margin-top:15px;
+    margin-top: 15px;
 
-    padding:12px;
+    padding: 12px;
 
-    background:#fff1c7;
+    background: #fff1c7;
 
     border:
         1px solid
         #d19b4a;
 
-    border-radius:10px;
+    border-radius: 10px;
 
-    color:#5d461c;
+    color: #5d461c;
 
-    font-size:13px;
+    font-size: 13px;
 
-    line-height:1.6;
+    line-height: 1.6;
 
-    text-align:center;
+    text-align: center;
 
 }
 
 
-.daily-policy strong{
+.daily-policy strong {
 
-    color:#263525;
+    color: #263525;
 
 }
 
@@ -626,20 +627,20 @@ button:disabled{
    ANNOUNCEMENT ADMIN
 ========================================= */
 
-.announcement-admin-section{
+.announcement-admin-section {
 
     margin:
         0 20px 20px;
 
-    padding:18px;
+    padding: 18px;
 
-    background:#fff7df;
+    background: #fff7df;
 
     border:
         2px solid
         #d19b4a;
 
-    border-radius:15px;
+    border-radius: 15px;
 
 }
 
@@ -648,30 +649,30 @@ button:disabled{
    ANNOUNCEMENT TITLE
 ========================================= */
 
-.announcement-section-title{
+.announcement-section-title {
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
-    justify-content:center;
+    justify-content: center;
 
-    gap:8px;
+    gap: 8px;
 
-    color:#263525;
+    color: #263525;
 
-    font-size:20px;
+    font-size: 20px;
 
-    font-weight:bold;
+    font-weight: bold;
 
-    margin-bottom:18px;
+    margin-bottom: 18px;
 
 }
 
 
-.announcement-section-title i{
+.announcement-section-title i {
 
-    color:#c62828;
+    color: #c62828;
 
 }
 
@@ -680,77 +681,73 @@ button:disabled{
    FORM GROUP
 ========================================= */
 
-.announcement-form-group{
+.announcement-form-group {
 
-    margin-bottom:14px;
+    margin-bottom: 14px;
 
 }
 
 
-.announcement-form-group label{
+.announcement-form-group label {
 
-    display:block;
+    display: block;
 
-    margin-bottom:6px;
+    margin-bottom: 6px;
 
-    color:#263525;
+    color: #263525;
 
-    font-size:14px;
+    font-size: 14px;
 
-    font-weight:bold;
+    font-weight: bold;
 
 }
 
 
 .announcement-form-group input,
-
 .announcement-form-group select,
+.announcement-form-group textarea {
 
-.announcement-form-group textarea{
+    width: 100%;
 
-    width:100%;
-
-    padding:12px;
+    padding: 12px;
 
     border:
         1px solid
         #d19b4a;
 
-    border-radius:9px;
+    border-radius: 9px;
 
-    background:white;
+    background: white;
 
-    color:#222;
+    color: #222;
 
-    font-size:14px;
+    font-size: 14px;
 
-    outline:none;
+    outline: none;
 
 }
 
 
 .announcement-form-group input:focus,
-
 .announcement-form-group select:focus,
+.announcement-form-group textarea:focus {
 
-.announcement-form-group textarea:focus{
-
-    border-color:#263525;
+    border-color: #263525;
 
     box-shadow:
         0 0 0 2px
-        rgba(38,53,37,.12);
+        rgba(38, 53, 37, 0.12);
 
 }
 
 
-.announcement-form-group textarea{
+.announcement-form-group textarea {
 
-    min-height:110px;
+    min-height: 110px;
 
-    resize:vertical;
+    resize: vertical;
 
-    line-height:1.5;
+    line-height: 1.5;
 
 }
 
@@ -759,26 +756,26 @@ button:disabled{
    PUBLISH ANNOUNCEMENT BUTTON
 ========================================= */
 
-.publish-announcement-btn{
+.publish-announcement-btn {
 
-    background:#263525;
+    background: #263525;
 
-    color:#ffd54f;
+    color: #ffd54f;
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
-    justify-content:center;
+    justify-content: center;
 
-    gap:8px;
+    gap: 8px;
 
 }
 
 
-.publish-announcement-btn i{
+.publish-announcement-btn i {
 
-    font-size:16px;
+    font-size: 16px;
 
 }
 
@@ -787,43 +784,43 @@ button:disabled{
    ANNOUNCEMENT STATUS
 ========================================= */
 
-.announcement-admin-status{
+.announcement-admin-status {
 
-    display:none;
+    display: none;
 
-    margin-top:12px;
+    margin-top: 12px;
 
-    padding:11px;
+    padding: 11px;
 
-    border-radius:9px;
+    border-radius: 9px;
 
-    text-align:center;
+    text-align: center;
 
-    font-size:13px;
+    font-size: 13px;
 
-    font-weight:bold;
-
-}
-
-
-.announcement-admin-status.success{
-
-    display:block;
-
-    background:#dff2df;
-
-    color:#2e7d32;
+    font-weight: bold;
 
 }
 
 
-.announcement-admin-status.error{
+.announcement-admin-status.success {
 
-    display:block;
+    display: block;
 
-    background:#ffe1e1;
+    background: #dff2df;
 
-    color:#c62828;
+    color: #2e7d32;
+
+}
+
+
+.announcement-admin-status.error {
+
+    display: block;
+
+    background: #ffe1e1;
+
+    color: #c62828;
 
 }
 
@@ -832,111 +829,111 @@ button:disabled{
    ACTIVE ANNOUNCEMENTS
 ========================================= */
 
-.active-announcements-section{
+.active-announcements-section {
 
-    margin-top:22px;
-
-}
-
-
-.active-announcements-title{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    color:#263525;
-
-    font-size:17px;
-
-    font-weight:bold;
-
-    margin-bottom:12px;
+    margin-top: 22px;
 
 }
 
 
-.active-announcements-title i{
+.active-announcements-title {
 
-    color:#c62828;
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #263525;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    margin-bottom: 12px;
 
 }
 
 
-.admin-announcement-list{
+.active-announcements-title i {
 
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
+    color: #c62828;
 
 }
 
 
-.announcement-item{
+.admin-announcement-list {
 
-    padding:13px;
+    display: flex;
 
-    background:white;
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+
+.announcement-item {
+
+    padding: 13px;
+
+    background: white;
 
     border:
         1px solid
         #d19b4a;
 
-    border-radius:10px;
+    border-radius: 10px;
 
 }
 
 
-.announcement-item-title{
+.announcement-item-title {
 
-    font-weight:bold;
+    font-weight: bold;
 
-    color:#263525;
+    color: #263525;
 
-    font-size:15px;
-
-}
-
-
-.announcement-item-message{
-
-    margin-top:6px;
-
-    color:#555;
-
-    font-size:13px;
-
-    line-height:1.5;
+    font-size: 15px;
 
 }
 
 
-.announcement-item-meta{
+.announcement-item-message {
 
-    margin-top:8px;
+    margin-top: 6px;
 
-    color:#888;
+    color: #555;
 
-    font-size:11px;
+    font-size: 13px;
+
+    line-height: 1.5;
 
 }
 
 
-.delete-announcement-btn{
+.announcement-item-meta {
 
-    margin-top:10px;
+    margin-top: 8px;
 
-    padding:9px;
+    color: #888;
 
-    background:#c62828;
+    font-size: 11px;
 
-    color:white;
+}
 
-    font-size:13px;
+
+.delete-announcement-btn {
+
+    margin-top: 10px;
+
+    padding: 9px;
+
+    background: #c62828;
+
+    color: white;
+
+    font-size: 13px;
 
 }
 
@@ -945,43 +942,43 @@ button:disabled{
    MOBILE
 ========================================= */
 
-@media(max-width:450px){
+@media (max-width: 450px) {
 
-    body{
+    body {
 
-        padding:10px;
-
-    }
-
-
-    .stamp-progress{
-
-        gap:5px;
+        padding: 10px;
 
     }
 
 
-    .customer-card{
+    .stamp-progress {
 
-        padding:15px;
-
-    }
-
-
-    .title{
-
-        font-size:28px;
+        gap: 5px;
 
     }
 
 
-    .announcement-admin-section{
+    .customer-card {
 
-        margin-left:20px;
+        padding: 15px;
 
-        margin-right:20px;
+    }
 
-        padding:15px;
+
+    .title {
+
+        font-size: 28px;
+
+    }
+
+
+    .announcement-admin-section {
+
+        margin-left: 20px;
+
+        margin-right: 20px;
+
+        padding: 15px;
 
     }
 
@@ -1068,7 +1065,7 @@ button:disabled{
 
     <br>
 
-    🎁 7th Veg Maggi is FREE!
+    🎁 Free Veg Maggi is Ready to Redeem!
 
 </div>
 
@@ -1149,12 +1146,12 @@ button:disabled{
     <div
         class="stamp-progress"
         id="stampProgress"
-    >
-
-    </div>
+    ></div>
 
 
-    <!-- DAILY PURCHASE POLICY -->
+    <!-- =====================================
+         DAILY PURCHASE POLICY
+    ====================================== -->
 
     <div class="daily-policy">
 
@@ -1176,9 +1173,12 @@ button:disabled{
     </div>
 
 
-    <!-- ADD STAMP -->
+    <!-- =====================================
+         ADD STAMP
+    ====================================== -->
 
     <button
+        type="button"
         class="stamp-btn"
         id="addStampBtn"
     >
@@ -1188,26 +1188,31 @@ button:disabled{
     </button>
 
 
-    <!-- RESET REWARD -->
+    <!-- =====================================
+         RESET REWARD
+    ====================================== -->
 
     <button
+        type="button"
         class="reset-btn"
         id="resetBtn"
-        style="display:none;"
+        style="display: none;"
     >
 
-        🎁 Free Maggi Given —
-        Reset to 0
+        🎁 Free Maggi Given — Reset to 0
 
     </button>
 
 
-    <!-- SCAN AGAIN -->
+    <!-- =====================================
+         SCAN AGAIN
+    ====================================== -->
 
     <button
+        type="button"
         class="scan-again-btn"
         id="scanAgainBtn"
-        style="display:none;"
+        style="display: none;"
     >
 
         📱 Scan Another Customer
@@ -1263,7 +1268,9 @@ button:disabled{
     </div>
 
 
-    <!-- ANNOUNCEMENT TYPE -->
+    <!-- =====================================
+         ANNOUNCEMENT TYPE
+    ====================================== -->
 
     <div class="announcement-form-group">
 
@@ -1301,7 +1308,9 @@ button:disabled{
     </div>
 
 
-    <!-- ANNOUNCEMENT MESSAGE -->
+    <!-- =====================================
+         ANNOUNCEMENT MESSAGE
+    ====================================== -->
 
     <div class="announcement-form-group">
 
@@ -1323,7 +1332,9 @@ button:disabled{
     </div>
 
 
-    <!-- PUBLISH -->
+    <!-- =====================================
+         PUBLISH
+    ====================================== -->
 
     <button
         type="button"
@@ -1338,14 +1349,14 @@ button:disabled{
     </button>
 
 
-    <!-- STATUS -->
+    <!-- =====================================
+         STATUS
+    ====================================== -->
 
     <div
         id="announcementAdminStatus"
         class="announcement-admin-status"
-    >
-
-    </div>
+    ></div>
 
 
     <!-- =====================================
@@ -1393,6 +1404,7 @@ button:disabled{
 ========================================= -->
 
 <button
+    type="button"
     class="logout-btn"
     id="logoutBtn"
 >
@@ -1403,16 +1415,19 @@ button:disabled{
 
 
 </div>
+
+
 <!-- =========================================
      JAVASCRIPT
-     PART 2 OF 3
+     PART 1 OF 3
 ========================================= -->
 
 <script type="module">
 
 
 /* =========================================
-   FIREBASE IMPORT
+   FIREBASE IMPORTS
+   ALL FIRESTORE IMPORTS KEPT IN ONE PLACE
 ========================================= */
 
 import {
@@ -1430,9 +1445,15 @@ from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 
 import {
+    collection,
+    addDoc,
     doc,
     getDoc,
+    getDocs,
     updateDoc,
+    query,
+    where,
+    orderBy,
     serverTimestamp
 }
 from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
@@ -1551,23 +1572,16 @@ const adminAnnouncementList =
 
 
 /* =========================================
-   VARIABLES
+   GLOBAL VARIABLES
 ========================================= */
 
-let selectedCustomerUID =
-    null;
+let selectedCustomerUID = null;
 
+let selectedCustomerData = null;
 
-let selectedCustomerData =
-    null;
+let scanner = null;
 
-
-let scanner =
-    null;
-
-
-let scannerRunning =
-    false;
+let scannerRunning = false;
 
 
 /* =========================================
@@ -1579,7 +1593,6 @@ onAuthStateChanged(
     auth,
 
     async (user) => {
-
 
         if (!user) {
 
@@ -1593,12 +1606,11 @@ onAuthStateChanged(
 
         try {
 
-
             adminStatus.textContent =
                 "🔐 Checking Admin Access...";
 
 
-            /* ================================
+            /* =================================
                CHECK ADMIN DOCUMENT
             ================================= */
 
@@ -1619,7 +1631,6 @@ onAuthStateChanged(
             if (
                 !adminSnap.exists()
             ) {
-
 
                 adminStatus.textContent =
                     "❌ Access Denied";
@@ -1644,7 +1655,7 @@ onAuthStateChanged(
             }
 
 
-            /* ================================
+            /* =================================
                ADMIN VERIFIED
             ================================= */
 
@@ -1652,17 +1663,16 @@ onAuthStateChanged(
                 "✅ Admin Verified";
 
 
-            /* ================================
+            /* =================================
                START QR SCANNER
             ================================= */
 
-            startScanner();
+            await startScanner();
 
 
         }
 
         catch (error) {
-
 
             console.error(
                 "Admin Verification Error:",
@@ -1672,7 +1682,6 @@ onAuthStateChanged(
 
             adminStatus.textContent =
                 "❌ Admin Verification Failed";
-
 
         }
 
@@ -1685,8 +1694,7 @@ onAuthStateChanged(
    START QR SCANNER
 ========================================= */
 
-function startScanner() {
-
+async function startScanner() {
 
     if (
         scannerRunning
@@ -1699,11 +1707,14 @@ function startScanner() {
 
     try {
 
+        if (!scanner) {
 
-        scanner =
-            new Html5Qrcode(
-                "reader"
-            );
+            scanner =
+                new Html5Qrcode(
+                    "reader"
+                );
+
+        }
 
 
         const config = {
@@ -1721,7 +1732,7 @@ function startScanner() {
         };
 
 
-        scanner.start(
+        await scanner.start(
 
             {
                 facingMode:
@@ -1734,59 +1745,34 @@ function startScanner() {
 
             onScanFailure
 
-        )
-
-
-        .then(
-
-            () => {
-
-
-                scannerRunning =
-                    true;
-
-
-                console.log(
-                    "QR Scanner Started"
-                );
-
-
-            }
-
-        )
-
-
-        .catch(
-
-            (error) => {
-
-
-                console.error(
-                    "Scanner Start Error:",
-                    error
-                );
-
-
-                alert(
-                    "Camera access failed. Please allow camera permission."
-                );
-
-
-            }
-
         );
 
+
+        scannerRunning =
+            true;
+
+
+        console.log(
+            "QR Scanner Started"
+        );
 
     }
 
     catch (error) {
 
-
         console.error(
-            "Scanner Error:",
+            "Scanner Start Error:",
             error
         );
 
+
+        scannerRunning =
+            false;
+
+
+        alert(
+            "Camera access failed. Please allow camera permission and try again."
+        );
 
     }
 
@@ -1802,8 +1788,8 @@ function onScanFailure(
 ) {
 
     /*
-       Continuous scan errors
-       intentionally ignored.
+       Continuous QR scan failures
+       are intentionally ignored.
     */
 
 }
@@ -1817,14 +1803,13 @@ async function onScanSuccess(
     decodedText
 ) {
 
-
     console.log(
         "QR Scanned:",
         decodedText
     );
 
 
-    /* ================================
+    /* =================================
        PREVENT DUPLICATE SCAN
     ================================= */
 
@@ -1837,7 +1822,7 @@ async function onScanSuccess(
     }
 
 
-    /* ================================
+    /* =================================
        EXPECTED QR PREFIX
     ================================= */
 
@@ -1851,7 +1836,6 @@ async function onScanSuccess(
         )
     ) {
 
-
         alert(
             "❌ Invalid Rio Maggi Point QR Code."
         );
@@ -1862,21 +1846,19 @@ async function onScanSuccess(
     }
 
 
-    /* ================================
+    /* =================================
        EXTRACT CUSTOMER UID
     ================================= */
 
     const uid =
         decodedText
-            .replace(
-                prefix,
-                ""
+            .slice(
+                prefix.length
             )
             .trim();
 
 
     if (!uid) {
-
 
         alert(
             "❌ Invalid Customer QR."
@@ -1892,14 +1874,14 @@ async function onScanSuccess(
         uid;
 
 
-    /* ================================
+    /* =================================
        STOP SCANNER
     ================================= */
 
     await stopScanner();
 
 
-    /* ================================
+    /* =================================
        LOAD CUSTOMER
     ================================= */
 
@@ -1916,15 +1898,12 @@ async function onScanSuccess(
 
 async function stopScanner() {
 
-
     if (
         scanner &&
         scannerRunning
     ) {
 
-
         try {
-
 
             await scanner.stop();
 
@@ -1937,17 +1916,14 @@ async function stopScanner() {
                 "QR Scanner Stopped"
             );
 
-
         }
 
         catch (error) {
-
 
             console.error(
                 "Scanner Stop Error:",
                 error
             );
-
 
         }
 
@@ -1964,9 +1940,7 @@ async function loadCustomer(
     uid
 ) {
 
-
     try {
-
 
         const customerRef =
             doc(
@@ -1986,7 +1960,6 @@ async function loadCustomer(
             !customerSnap.exists()
         ) {
 
-
             alert(
                 "❌ Customer account not found."
             );
@@ -2004,7 +1977,7 @@ async function loadCustomer(
             customerSnap.data();
 
 
-        /* ================================
+        /* =================================
            CUSTOMER DETAILS
         ================================= */
 
@@ -2018,7 +1991,7 @@ async function loadCustomer(
             "Not Available";
 
 
-        /* ================================
+        /* =================================
            SHOW CUSTOMER CARD
         ================================= */
 
@@ -2026,14 +1999,13 @@ async function loadCustomer(
             "block";
 
 
-        /* ================================
+        /* =================================
            UPDATE STAMPS
         ================================= */
 
         const stamps =
             Number(
-                selectedCustomerData.stamps ||
-                0
+                selectedCustomerData.stamps || 0
             );
 
 
@@ -2042,7 +2014,7 @@ async function loadCustomer(
         );
 
 
-        /* ================================
+        /* =================================
            HIDE OLD MESSAGES
         ================================= */
 
@@ -2054,7 +2026,7 @@ async function loadCustomer(
             "none";
 
 
-        /* ================================
+        /* =================================
            REWARD CHECK
         ================================= */
 
@@ -2067,14 +2039,11 @@ async function loadCustomer(
 
         ) {
 
-
             showRewardReady();
-
 
         }
 
         else {
-
 
             addStampBtn.style.display =
                 "block";
@@ -2091,21 +2060,18 @@ async function loadCustomer(
             resetBtn.style.display =
                 "none";
 
-
         }
 
 
-        /* ================================
+        /* =================================
            DAILY STAMP CHECK
         ================================= */
 
         checkDailyStampStatus();
 
-
     }
 
     catch (error) {
-
 
         console.error(
             "Customer Load Error:",
@@ -2120,7 +2086,6 @@ async function loadCustomer(
 
         resetAdminPanel();
 
-
     }
 
 }
@@ -2133,7 +2098,6 @@ async function loadCustomer(
 function updateStampDisplay(
     stamps
 ) {
-
 
     const safeStamps =
         Math.min(
@@ -2171,7 +2135,6 @@ function updateStampDisplay(
 
     ) {
 
-
         const dot =
             document.createElement(
                 "div"
@@ -2186,7 +2149,6 @@ function updateStampDisplay(
             i <= safeStamps
         ) {
 
-
             dot.classList.add(
                 "done"
             );
@@ -2195,15 +2157,12 @@ function updateStampDisplay(
             dot.textContent =
                 "✓";
 
-
         }
 
         else {
 
-
             dot.textContent =
                 i;
-
 
         }
 
@@ -2211,7 +2170,6 @@ function updateStampDisplay(
         stampProgress.appendChild(
             dot
         );
-
 
     }
 
@@ -2224,18 +2182,15 @@ function updateStampDisplay(
 
 function checkDailyStampStatus() {
 
-
-    /* ================================
-       NO LAST STAMP
+    /* =================================
+       NO PREVIOUS STAMP
     ================================= */
 
     if (
         !selectedCustomerData.lastStampAt
     ) {
 
-
         enableStampButton();
-
 
         return;
 
@@ -2247,38 +2202,35 @@ function checkDailyStampStatus() {
 
     try {
 
-
         if (
 
-            selectedCustomerData.lastStampAt
-                .toDate
+            typeof
+                selectedCustomerData
+                    .lastStampAt
+                    .toDate ===
+                "function"
 
         ) {
-
 
             lastStampDate =
                 selectedCustomerData
                     .lastStampAt
                     .toDate();
 
-
         }
 
         else {
-
 
             lastStampDate =
                 new Date(
                     selectedCustomerData.lastStampAt
                 );
 
-
         }
 
     }
 
     catch (error) {
-
 
         console.error(
             "Last Stamp Date Error:",
@@ -2287,7 +2239,6 @@ function checkDailyStampStatus() {
 
 
         enableStampButton();
-
 
         return;
 
@@ -2298,7 +2249,7 @@ function checkDailyStampStatus() {
         new Date();
 
 
-    /* ================================
+    /* =================================
        SAME CALENDAR DAY CHECK
     ================================= */
 
@@ -2322,7 +2273,6 @@ function checkDailyStampStatus() {
         sameDay
     ) {
 
-
         addStampBtn.disabled =
             true;
 
@@ -2338,14 +2288,11 @@ function checkDailyStampStatus() {
         successMessage.textContent =
             "ℹ️ This customer has already received today's stamp. Next stamp is available tomorrow.";
 
-
     }
 
     else {
 
-
         enableStampButton();
-
 
     }
 
@@ -2357,7 +2304,6 @@ function checkDailyStampStatus() {
 ========================================= */
 
 function enableStampButton() {
-
 
     addStampBtn.style.display =
         "block";
@@ -2383,6 +2329,876 @@ function enableStampButton() {
 
 function showRewardReady() {
 
+    rewardMessage.style.display =
+        "block";
+
+
+    rewardMessage.innerHTML = `
+
+        🎉 Customer has completed 6 Stamps!
+
+        <br>
+
+        🎁 Free Veg Maggi is Ready to Redeem!
+
+    `;
+
+
+    addStampBtn.style.display =
+        "none";
+
+
+    resetBtn.style.display =
+        "block";
+
+
+    resetBtn.disabled =
+        false;
+
+}
+
+
+/* =========================================
+   RESET ADMIN PANEL
+========================================= */
+
+function resetAdminPanel() {
+
+    selectedCustomerUID =
+        null;
+
+
+    selectedCustomerData =
+        null;
+
+
+    customerCard.style.display =
+        "none";
+
+
+    customerName.textContent =
+        "-";
+
+
+    customerMobile.textContent =
+        "-";
+
+
+    stampNumber.textContent =
+        "0";
+
+
+    stampProgress.innerHTML =
+        "";
+
+
+    successMessage.style.display =
+        "none";
+
+
+    rewardMessage.style.display =
+        "none";
+
+
+    addStampBtn.style.display =
+        "block";
+
+
+    addStampBtn.disabled =
+        false;
+
+
+    addStampBtn.textContent =
+        "✅ Accept & Add 1 Stamp";
+
+
+    resetBtn.style.display =
+        "none";
+
+
+    resetBtn.disabled =
+        false;
+
+
+    resetBtn.textContent =
+        "🎁 Free Maggi Given — Reset to 0";
+
+
+    scanAgainBtn.style.display =
+        "none";
+
+}
+    /* =========================================
+   FIREBASE IMPORTS
+========================================= */
+
+import {
+    auth,
+    db
+} from "./js/firebase-config.js";
+
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+import {
+    doc,
+    getDoc,
+    updateDoc,
+    serverTimestamp,
+    collection,
+    addDoc,
+    query,
+    where,
+    orderBy,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+
+/* =========================================
+   HTML ELEMENT REFERENCES
+========================================= */
+
+const adminStatus =
+    document.getElementById("adminStatus");
+
+const customerCard =
+    document.getElementById("customerCard");
+
+const customerName =
+    document.getElementById("customerName");
+
+const customerMobile =
+    document.getElementById("customerMobile");
+
+const stampNumber =
+    document.getElementById("stampNumber");
+
+const stampProgress =
+    document.getElementById("stampProgress");
+
+const addStampBtn =
+    document.getElementById("addStampBtn");
+
+const resetBtn =
+    document.getElementById("resetBtn");
+
+const scanAgainBtn =
+    document.getElementById("scanAgainBtn");
+
+const logoutBtn =
+    document.getElementById("logoutBtn");
+
+const successMessage =
+    document.getElementById("successMessage");
+
+const rewardMessage =
+    document.getElementById("rewardMessage");
+
+const announcementTitle =
+    document.getElementById("announcementTitle");
+
+const announcementType =
+    document.getElementById("announcementType");
+
+const announcementMessage =
+    document.getElementById("announcementMessage");
+
+const publishAnnouncementBtn =
+    document.getElementById("publishAnnouncementBtn");
+
+const announcementAdminStatus =
+    document.getElementById("announcementAdminStatus");
+
+const adminAnnouncementList =
+    document.getElementById("adminAnnouncementList");
+
+
+/* =========================================
+   APPLICATION STATE
+========================================= */
+
+let selectedCustomerUID = null;
+
+let selectedCustomerData = null;
+
+let scanner = null;
+
+let scannerRunning = false;
+
+
+/* =========================================
+   ADMIN AUTHENTICATION CHECK
+========================================= */
+
+onAuthStateChanged(
+    auth,
+    async (user) => {
+
+        if (!user) {
+
+            window.location.href =
+                "admin-login.html";
+
+            return;
+        }
+
+        try {
+
+            adminStatus.textContent =
+                "🔐 Checking Admin Access...";
+
+
+            const adminRef =
+                doc(
+                    db,
+                    "admins",
+                    user.uid
+                );
+
+
+            const adminSnap =
+                await getDoc(adminRef);
+
+
+            if (!adminSnap.exists()) {
+
+                adminStatus.textContent =
+                    "❌ Access Denied";
+
+                alert(
+                    "Access Denied. Admin account not found."
+                );
+
+                await signOut(auth);
+
+                window.location.href =
+                    "admin-login.html";
+
+                return;
+            }
+
+
+            adminStatus.textContent =
+                "✅ Admin Verified";
+
+
+            await initializeAdminPanel();
+
+            await startScanner();
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Admin Verification Error:",
+                error
+            );
+
+            adminStatus.textContent =
+                "❌ Admin Verification Failed";
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   START QR SCANNER
+========================================= */
+
+async function startScanner() {
+
+    if (scannerRunning) {
+        return;
+    }
+
+    if (
+        typeof Html5Qrcode ===
+        "undefined"
+    ) {
+
+        console.error(
+            "Html5Qrcode library not loaded."
+        );
+
+        alert(
+            "❌ QR Scanner library failed to load."
+        );
+
+        return;
+    }
+
+
+    try {
+
+        if (!scanner) {
+
+            scanner =
+                new Html5Qrcode(
+                    "reader"
+                );
+
+        }
+
+
+        const config = {
+
+            fps: 10,
+
+            qrbox: {
+                width: 250,
+                height: 250
+            }
+
+        };
+
+
+        await scanner.start(
+
+            {
+                facingMode:
+                    "environment"
+            },
+
+            config,
+
+            onScanSuccess,
+
+            onScanFailure
+
+        );
+
+
+        scannerRunning = true;
+
+
+        console.log(
+            "QR Scanner Started"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Scanner Start Error:",
+            error
+        );
+
+        scannerRunning = false;
+
+        alert(
+            "Camera access failed. Please allow camera permission and try again."
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   QR SCAN FAILURE
+========================================= */
+
+function onScanFailure() {
+
+    /*
+        Continuous QR scan failures
+        are intentionally ignored.
+    */
+
+}
+
+
+/* =========================================
+   QR SCAN SUCCESS
+========================================= */
+
+async function onScanSuccess(decodedText) {
+
+    if (selectedCustomerUID) {
+        return;
+    }
+
+
+    console.log(
+        "QR Scanned:",
+        decodedText
+    );
+
+
+    const prefix =
+        "RIO_MAGGI_CUSTOMER:";
+
+
+    if (
+        !decodedText.startsWith(prefix)
+    ) {
+
+        alert(
+            "❌ Invalid Rio Maggi Point QR Code."
+        );
+
+        return;
+    }
+
+
+    const uid =
+        decodedText
+            .slice(prefix.length)
+            .trim();
+
+
+    if (!uid) {
+
+        alert(
+            "❌ Invalid Customer QR."
+        );
+
+        return;
+    }
+
+
+    selectedCustomerUID =
+        uid;
+
+
+    await stopScanner();
+
+
+    await loadCustomer(uid);
+
+}
+
+
+/* =========================================
+   STOP QR SCANNER
+========================================= */
+
+async function stopScanner() {
+
+    if (
+        !scanner ||
+        !scannerRunning
+    ) {
+
+        return;
+    }
+
+
+    try {
+
+        await scanner.stop();
+
+        scannerRunning = false;
+
+        console.log(
+            "QR Scanner Stopped"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Scanner Stop Error:",
+            error
+        );
+
+        scannerRunning = false;
+
+    }
+
+}
+
+
+/* =========================================
+   LOAD CUSTOMER DATA
+========================================= */
+
+async function loadCustomer(uid) {
+
+    try {
+
+        const customerRef =
+            doc(
+                db,
+                "customers",
+                uid
+            );
+
+
+        const customerSnap =
+            await getDoc(
+                customerRef
+            );
+
+
+        if (
+            !customerSnap.exists()
+        ) {
+
+            alert(
+                "❌ Customer account not found."
+            );
+
+            resetAdminPanel();
+
+            await startScanner();
+
+            return;
+        }
+
+
+        selectedCustomerData =
+            customerSnap.data();
+
+
+        customerName.textContent =
+            selectedCustomerData.name ||
+            "Customer";
+
+
+        customerMobile.textContent =
+            selectedCustomerData.mobile ||
+            "Not Available";
+
+
+        customerCard.style.display =
+            "block";
+
+
+        const stamps =
+            Math.max(
+                0,
+                Number(
+                    selectedCustomerData.stamps || 0
+                )
+            );
+
+
+        updateStampDisplay(stamps);
+
+
+        successMessage.style.display =
+            "none";
+
+
+        rewardMessage.style.display =
+            "none";
+
+
+        if (
+
+            stamps >= 6 ||
+
+            selectedCustomerData.rewardUnlocked ===
+                true
+
+        ) {
+
+            showRewardReady();
+
+        }
+
+        else {
+
+            resetBtn.style.display =
+                "none";
+
+            enableStampButton();
+
+        }
+
+
+        checkDailyStampStatus();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Customer Load Error:",
+            error
+        );
+
+        alert(
+            "❌ Unable to load customer data."
+        );
+
+        resetAdminPanel();
+
+        await startScanner();
+
+    }
+
+}
+
+
+/* =========================================
+   UPDATE STAMP DISPLAY
+========================================= */
+
+function updateStampDisplay(stamps) {
+
+    const safeStamps =
+        Math.min(
+            Math.max(
+                Number(stamps) || 0,
+                0
+            ),
+            6
+        );
+
+
+    stampNumber.textContent =
+        safeStamps;
+
+
+    stampProgress.innerHTML =
+        "";
+
+
+    for (
+        let i = 1;
+        i <= 6;
+        i++
+    ) {
+
+        const dot =
+            document.createElement(
+                "div"
+            );
+
+
+        dot.className =
+            "stamp-dot";
+
+
+        if (
+            i <= safeStamps
+        ) {
+
+            dot.classList.add(
+                "done"
+            );
+
+            dot.textContent =
+                "✓";
+
+        }
+
+        else {
+
+            dot.textContent =
+                i;
+
+        }
+
+
+        stampProgress.appendChild(
+            dot
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   CONVERT FIRESTORE DATE
+========================================= */
+
+function getDateValue(timestamp) {
+
+    if (!timestamp) {
+        return null;
+    }
+
+
+    try {
+
+        if (
+            typeof timestamp.toDate ===
+            "function"
+        ) {
+
+            return timestamp.toDate();
+
+        }
+
+
+        if (
+            timestamp instanceof Date
+        ) {
+
+            return timestamp;
+
+        }
+
+
+        const parsedDate =
+            new Date(timestamp);
+
+
+        if (
+            Number.isNaN(
+                parsedDate.getTime()
+            )
+        ) {
+
+            return null;
+
+        }
+
+
+        return parsedDate;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Date Conversion Error:",
+            error
+        );
+
+        return null;
+
+    }
+
+}
+
+
+/* =========================================
+   CHECK SAME CALENDAR DAY
+========================================= */
+
+function isSameCalendarDay(
+    dateA,
+    dateB = new Date()
+) {
+
+    if (
+        !dateA ||
+        !dateB
+    ) {
+
+        return false;
+
+    }
+
+
+    return (
+
+        dateA.getFullYear() ===
+        dateB.getFullYear()
+
+        &&
+
+        dateA.getMonth() ===
+        dateB.getMonth()
+
+        &&
+
+        dateA.getDate() ===
+        dateB.getDate()
+
+    );
+
+}
+
+
+/* =========================================
+   DAILY STAMP CHECK
+========================================= */
+
+function checkDailyStampStatus() {
+
+    const lastStampDate =
+        getDateValue(
+            selectedCustomerData?.lastStampAt
+        );
+
+
+    if (!lastStampDate) {
+
+        enableStampButton();
+
+        return;
+
+    }
+
+
+    if (
+        isSameCalendarDay(
+            lastStampDate
+        )
+    ) {
+
+        addStampBtn.disabled =
+            true;
+
+
+        addStampBtn.style.display =
+            "block";
+
+
+        addStampBtn.textContent =
+            "📅 Today's Stamp Already Added";
+
+
+        successMessage.style.display =
+            "block";
+
+
+        successMessage.textContent =
+            "ℹ️ This customer has already received today's stamp. Next stamp is available tomorrow.";
+
+    }
+
+    else {
+
+        enableStampButton();
+
+    }
+
+}
+
+
+/* =========================================
+   ENABLE STAMP BUTTON
+========================================= */
+
+function enableStampButton() {
+
+    addStampBtn.style.display =
+        "block";
+
+
+    addStampBtn.disabled =
+        false;
+
+
+    addStampBtn.textContent =
+        "✅ Accept & Add 1 Stamp";
+
+
+    successMessage.style.display =
+        "none";
+
+}
+
+
+/* =========================================
+   SHOW REWARD READY
+========================================= */
+
+function showRewardReady() {
 
     rewardMessage.style.display =
         "block";
@@ -2410,6 +3226,10 @@ function showRewardReady() {
     resetBtn.disabled =
         false;
 
+
+    scanAgainBtn.style.display =
+        "none";
+
 }
 
 
@@ -2418,7 +3238,6 @@ function showRewardReady() {
 ========================================= */
 
 function resetAdminPanel() {
-
 
     selectedCustomerUID =
         null;
@@ -2487,162 +3306,93 @@ function resetAdminPanel() {
 
 
 /* =========================================
-   SCAN AGAIN
+   SCAN ANOTHER CUSTOMER
 ========================================= */
 
 scanAgainBtn.addEventListener(
-
     "click",
-
     async () => {
-
 
         resetAdminPanel();
 
-
-        scanAgainBtn.style.display =
-            "none";
-
-
         await startScanner();
 
-
     }
-
 );
 
 
 /* =========================================
-   ADD STAMP BUTTON
+   ADD DAILY STAMP
 ========================================= */
 
 addStampBtn.addEventListener(
-
     "click",
-
     async () => {
 
-
-        if (
-            !selectedCustomerUID
-        ) {
-
+        if (!selectedCustomerUID) {
 
             alert(
                 "Please scan a customer QR first."
             );
 
-
             return;
-
         }
 
 
-        if (
-            !selectedCustomerData
-        ) {
-
+        if (!selectedCustomerData) {
 
             alert(
                 "Customer data not loaded."
             );
 
-
             return;
-
         }
 
 
-        /* ================================
-           CHECK CURRENT STAMPS
-        ================================= */
-
         const currentStamps =
-            Number(
-                selectedCustomerData.stamps ||
-                0
+            Math.min(
+                Math.max(
+                    Number(
+                        selectedCustomerData.stamps || 0
+                    ),
+                    0
+                ),
+                6
             );
 
 
         if (
-            currentStamps >= 6
+            currentStamps >= 6 ||
+            selectedCustomerData.rewardUnlocked === true
         ) {
-
 
             showRewardReady();
 
-
             return;
-
         }
 
 
-        /* ================================
-           DAILY DOUBLE CHECK
-        ================================= */
+        const lastStampDate =
+            getDateValue(
+                selectedCustomerData.lastStampAt
+            );
+
 
         if (
-            selectedCustomerData.lastStampAt
+            isSameCalendarDay(
+                lastStampDate
+            )
         ) {
 
+            alert(
+                "📅 Today's stamp has already been given. Only one stamp is allowed per day."
+            );
 
-            const lastStamp =
-                selectedCustomerData
-                    .lastStampAt
-                    .toDate
-                    ? selectedCustomerData
-                        .lastStampAt
-                        .toDate()
+            checkDailyStampStatus();
 
-                    : new Date(
-                        selectedCustomerData
-                            .lastStampAt
-                    );
-
-
-            const today =
-                new Date();
-
-
-            const sameDay =
-
-                lastStamp.getFullYear() ===
-                    today.getFullYear()
-
-                &&
-
-                lastStamp.getMonth() ===
-                    today.getMonth()
-
-                &&
-
-                lastStamp.getDate() ===
-                    today.getDate();
-
-
-            if (
-                sameDay
-            ) {
-
-
-                alert(
-                    "📅 Today's stamp has already been given. Only one stamp is allowed per day."
-                );
-
-
-                checkDailyStampStatus();
-
-
-                return;
-
-            }
-
+            return;
         }
 
-
-        /* ================================
-           DISABLE BUTTON
-        ================================= */
 
         addStampBtn.disabled =
             true;
@@ -2653,7 +3403,6 @@ addStampBtn.addEventListener(
 
 
         try {
-
 
             const newStampCount =
                 currentStamps + 1;
@@ -2666,10 +3415,6 @@ addStampBtn.addEventListener(
                     selectedCustomerUID
                 );
 
-
-            /* ================================
-               UPDATE FIRESTORE
-            ================================= */
 
             await updateDoc(
 
@@ -2697,10 +3442,6 @@ addStampBtn.addEventListener(
             );
 
 
-            /* ================================
-               UPDATE LOCAL DATA
-            ================================= */
-
             selectedCustomerData.stamps =
                 newStampCount;
 
@@ -2717,18 +3458,10 @@ addStampBtn.addEventListener(
                 new Date();
 
 
-            /* ================================
-               UPDATE DISPLAY
-            ================================= */
-
             updateStampDisplay(
                 newStampCount
             );
 
-
-            /* ================================
-               SUCCESS
-            ================================= */
 
             successMessage.style.display =
                 "block";
@@ -2738,102 +3471,72 @@ addStampBtn.addEventListener(
                 "✅ Today's stamp added successfully!";
 
 
-            /* ================================
-               REWARD COMPLETE
-            ================================= */
-
             if (
                 newStampCount >= 6
             ) {
 
-
                 showRewardReady();
-
 
             }
 
             else {
 
-
                 addStampBtn.disabled =
                     true;
-
 
                 addStampBtn.textContent =
                     "📅 Today's Stamp Already Added";
 
-
             }
-
 
         }
 
         catch (error) {
-
 
             console.error(
                 "Add Stamp Error:",
                 error
             );
 
-
             alert(
                 "❌ Unable to add stamp. Please try again."
             );
 
-
             addStampBtn.disabled =
                 false;
-
 
             addStampBtn.textContent =
                 "✅ Accept & Add 1 Stamp";
 
-
         }
 
     }
-
 );
-    <!-- =========================================
-     PART 3 OF 3
-========================================= */
-
-
 /* =========================================
-   RESET AFTER FREE MAGGI
+   RESET AFTER FREE MAGGI REDEMPTION
 ========================================= */
 
 resetBtn.addEventListener(
-
     "click",
-
     async () => {
 
-
-        if (
-            !selectedCustomerUID
-        ) {
+        if (!selectedCustomerUID) {
 
             alert(
                 "Please scan a customer QR first."
             );
 
             return;
-
         }
 
 
-        if (
-            !selectedCustomerData
-        ) {
+        if (!selectedCustomerData) {
 
             alert(
                 "Customer data not loaded."
             );
 
             return;
-
         }
 
 
@@ -2847,12 +3550,8 @@ resetBtn.addEventListener(
             );
 
 
-        if (
-            !confirmed
-        ) {
-
+        if (!confirmed) {
             return;
-
         }
 
 
@@ -2866,7 +3565,6 @@ resetBtn.addEventListener(
 
         try {
 
-
             const customerRef =
                 doc(
                     db,
@@ -2875,8 +3573,8 @@ resetBtn.addEventListener(
                 );
 
 
-            /* ================================
-               RESET LOYALTY
+            /* =================================
+               RESET LOYALTY CYCLE
             ================================= */
 
             await updateDoc(
@@ -2911,8 +3609,8 @@ resetBtn.addEventListener(
             );
 
 
-            /* ================================
-               UPDATE LOCAL DATA
+            /* =================================
+               UPDATE LOCAL CUSTOMER DATA
             ================================= */
 
             selectedCustomerData.stamps =
@@ -2931,16 +3629,14 @@ resetBtn.addEventListener(
                 null;
 
 
-            /* ================================
-               UPDATE DISPLAY
+            /* =================================
+               UPDATE STAMP DISPLAY
             ================================= */
 
-            updateStampDisplay(
-                0
-            );
+            updateStampDisplay(0);
 
 
-            /* ================================
+            /* =================================
                HIDE REWARD
             ================================= */
 
@@ -2952,7 +3648,7 @@ resetBtn.addEventListener(
                 "none";
 
 
-            /* ================================
+            /* =================================
                SUCCESS MESSAGE
             ================================= */
 
@@ -2969,8 +3665,8 @@ resetBtn.addEventListener(
                 "✅ Loyalty Card Reset to 0.";
 
 
-            /* ================================
-               ADD STAMP BUTTON
+            /* =================================
+               DAILY STAMP RULE
             ================================= */
 
             addStampBtn.style.display =
@@ -2985,8 +3681,8 @@ resetBtn.addEventListener(
                 "📅 Today's Stamp Already Used";
 
 
-            /* ================================
-               SCAN ANOTHER
+            /* =================================
+               SHOW SCAN AGAIN
             ================================= */
 
             scanAgainBtn.style.display =
@@ -2996,7 +3692,6 @@ resetBtn.addEventListener(
         }
 
         catch (error) {
-
 
             console.error(
                 "Reset Reward Error:",
@@ -3016,11 +3711,9 @@ resetBtn.addEventListener(
             resetBtn.textContent =
                 "🎁 Free Maggi Given — Reset to 0";
 
-
         }
 
     }
-
 );
 
 
@@ -3029,24 +3722,16 @@ resetBtn.addEventListener(
 ========================================= */
 
 function showAnnouncementStatus(
-
     message,
-
     type
-
 ) {
-
 
     announcementAdminStatus.textContent =
         message;
 
 
     announcementAdminStatus.className =
-
-        "announcement-admin-status " +
-
-        type;
-
+        `announcement-admin-status ${type}`;
 
 }
 
@@ -3056,11 +3741,8 @@ function showAnnouncementStatus(
 ========================================= */
 
 publishAnnouncementBtn.addEventListener(
-
     "click",
-
     async () => {
-
 
         const title =
             announcementTitle.value.trim();
@@ -3074,14 +3756,11 @@ publishAnnouncementBtn.addEventListener(
             announcementMessage.value.trim();
 
 
-        /* ================================
+        /* =================================
            VALIDATION
         ================================= */
 
-        if (
-            !title
-        ) {
-
+        if (!title) {
 
             showAnnouncementStatus(
 
@@ -3091,19 +3770,13 @@ publishAnnouncementBtn.addEventListener(
 
             );
 
-
             announcementTitle.focus();
 
-
             return;
-
         }
 
 
-        if (
-            !message
-        ) {
-
+        if (!message) {
 
             showAnnouncementStatus(
 
@@ -3113,18 +3786,11 @@ publishAnnouncementBtn.addEventListener(
 
             );
 
-
             announcementMessage.focus();
 
-
             return;
-
         }
 
-
-        /* ================================
-           DISABLE BUTTON
-        ================================= */
 
         publishAnnouncementBtn.disabled =
             true;
@@ -3141,20 +3807,9 @@ publishAnnouncementBtn.addEventListener(
 
         try {
 
-
-            /*
-               IMPORTANT:
-
-               This version uses a Firestore
-               "announcements" collection.
-
-               Each published announcement
-               is saved as a separate document.
-
-               Customer app can read active
-               announcements from this collection.
-            */
-
+            /* =================================
+               CREATE ANNOUNCEMENT
+            ================================= */
 
             const announcementData = {
 
@@ -3176,35 +3831,11 @@ publishAnnouncementBtn.addEventListener(
             };
 
 
-            /*
-               Firestore addDoc is required here.
-               It is loaded dynamically below
-               to keep this section compatible
-               with the existing imports.
-            */
-
-
-            const {
-
-                collection,
-
-                addDoc
-
-            } = await import(
-
-                "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js"
-
-            );
-
-
             await addDoc(
 
                 collection(
-
                     db,
-
                     "announcements"
-
                 ),
 
                 announcementData
@@ -3212,7 +3843,7 @@ publishAnnouncementBtn.addEventListener(
             );
 
 
-            /* ================================
+            /* =================================
                SUCCESS
             ================================= */
 
@@ -3225,7 +3856,7 @@ publishAnnouncementBtn.addEventListener(
             );
 
 
-            /* ================================
+            /* =================================
                CLEAR FORM
             ================================= */
 
@@ -3241,24 +3872,19 @@ publishAnnouncementBtn.addEventListener(
                 "offer";
 
 
-            /* ================================
-               RELOAD LIST
+            /* =================================
+               REFRESH ANNOUNCEMENT LIST
             ================================= */
 
             await loadAnnouncements();
-
 
         }
 
         catch (error) {
 
-
             console.error(
-
                 "Announcement Publish Error:",
-
                 error
-
             );
 
 
@@ -3270,12 +3896,9 @@ publishAnnouncementBtn.addEventListener(
 
             );
 
-
         }
 
-
         finally {
-
 
             publishAnnouncementBtn.disabled =
                 false;
@@ -3289,23 +3912,19 @@ publishAnnouncementBtn.addEventListener(
 
             `;
 
-
         }
 
     }
-
 );
 
 
 /* =========================================
-   LOAD ANNOUNCEMENTS
+   LOAD ACTIVE ANNOUNCEMENTS
 ========================================= */
 
 async function loadAnnouncements() {
 
-
     try {
-
 
         adminAnnouncementList.innerHTML = `
 
@@ -3322,32 +3941,10 @@ async function loadAnnouncements() {
         `;
 
 
-        const {
-
-            collection,
-
-            query,
-
-            where,
-
-            orderBy,
-
-            getDocs
-
-        } = await import(
-
-            "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js"
-
-        );
-
-
         const announcementsRef =
             collection(
-
                 db,
-
                 "announcements"
-
             );
 
 
@@ -3372,9 +3969,7 @@ async function loadAnnouncements() {
 
         const snapshot =
             await getDocs(
-
                 announcementsQuery
-
             );
 
 
@@ -3382,10 +3977,7 @@ async function loadAnnouncements() {
             "";
 
 
-        if (
-            snapshot.empty
-        ) {
-
+        if (snapshot.empty) {
 
             adminAnnouncementList.innerHTML = `
 
@@ -3401,20 +3993,20 @@ async function loadAnnouncements() {
 
             `;
 
-
             return;
-
         }
 
 
         snapshot.forEach(
-
             (announcementDoc) => {
-
 
                 const data =
                     announcementDoc.data();
 
+
+                /* =================================
+                   MAIN ITEM
+                ================================= */
 
                 const item =
                     document.createElement(
@@ -3425,6 +4017,10 @@ async function loadAnnouncements() {
                 item.className =
                     "announcement-item";
 
+
+                /* =================================
+                   TITLE
+                ================================= */
 
                 const title =
                     document.createElement(
@@ -3437,6 +4033,7 @@ async function loadAnnouncements() {
 
 
                 title.textContent =
+
                     getAnnouncementIcon(
                         data.type
                     ) +
@@ -3448,6 +4045,10 @@ async function loadAnnouncements() {
                         "Announcement"
                     );
 
+
+                /* =================================
+                   MESSAGE
+                ================================= */
 
                 const message =
                     document.createElement(
@@ -3464,6 +4065,10 @@ async function loadAnnouncements() {
                     "";
 
 
+                /* =================================
+                   META
+                ================================= */
+
                 const meta =
                     document.createElement(
                         "div"
@@ -3477,6 +4082,10 @@ async function loadAnnouncements() {
                 meta.textContent =
                     "Status: Active";
 
+
+                /* =================================
+                   DELETE BUTTON
+                ================================= */
 
                 const deleteBtn =
                     document.createElement(
@@ -3509,6 +4118,10 @@ async function loadAnnouncements() {
                 );
 
 
+                /* =================================
+                   BUILD ITEM
+                ================================= */
+
                 item.appendChild(
                     title
                 );
@@ -3533,23 +4146,16 @@ async function loadAnnouncements() {
                     item
                 );
 
-
             }
-
         );
-
 
     }
 
     catch (error) {
 
-
         console.error(
-
             "Load Announcements Error:",
-
             error
-
         );
 
 
@@ -3567,7 +4173,6 @@ async function loadAnnouncements() {
 
         `;
 
-
     }
 
 }
@@ -3577,15 +4182,9 @@ async function loadAnnouncements() {
    ANNOUNCEMENT ICON
 ========================================= */
 
-function getAnnouncementIcon(
-    type
-) {
+function getAnnouncementIcon(type) {
 
-
-    switch (
-        type
-    ) {
-
+    switch (type) {
 
         case "offer":
 
@@ -3618,12 +4217,12 @@ function getAnnouncementIcon(
 
 /* =========================================
    DELETE ANNOUNCEMENT
+   SOFT DELETE
 ========================================= */
 
 async function deleteAnnouncement(
     announcementId
 ) {
-
 
     const confirmed =
         confirm(
@@ -3635,30 +4234,12 @@ async function deleteAnnouncement(
         );
 
 
-    if (
-        !confirmed
-    ) {
-
+    if (!confirmed) {
         return;
-
     }
 
 
     try {
-
-
-        const {
-
-            doc,
-
-            updateDoc
-
-        } = await import(
-
-            "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js"
-
-        );
-
 
         const announcementRef =
             doc(
@@ -3672,15 +4253,9 @@ async function deleteAnnouncement(
             );
 
 
-        /*
-           Soft delete:
-
-           Instead of permanently deleting
-           the document, active becomes false.
-
-           This is safer for history/audit.
-        */
-
+        /* =================================
+           SOFT DELETE
+        ================================= */
 
         await updateDoc(
 
@@ -3710,18 +4285,13 @@ async function deleteAnnouncement(
 
         await loadAnnouncements();
 
-
     }
 
     catch (error) {
 
-
         console.error(
-
             "Delete Announcement Error:",
-
             error
-
         );
 
 
@@ -3733,7 +4303,6 @@ async function deleteAnnouncement(
 
         );
 
-
     }
 
 }
@@ -3744,11 +4313,8 @@ async function deleteAnnouncement(
 ========================================= */
 
 logoutBtn.addEventListener(
-
     "click",
-
     async () => {
-
 
         const confirmed =
             confirm(
@@ -3758,17 +4324,12 @@ logoutBtn.addEventListener(
             );
 
 
-        if (
-            !confirmed
-        ) {
-
+        if (!confirmed) {
             return;
-
         }
 
 
         try {
-
 
             await stopScanner();
 
@@ -3781,32 +4342,23 @@ logoutBtn.addEventListener(
             window.location.href =
                 "admin-login.html";
 
-
         }
 
         catch (error) {
 
-
             console.error(
-
                 "Admin Logout Error:",
-
                 error
-
             );
 
 
             alert(
-
                 "❌ Logout failed. Please try again."
-
             );
-
 
         }
 
     }
-
 );
 
 
@@ -3815,91 +4367,17 @@ logoutBtn.addEventListener(
 ========================================= */
 
 document.addEventListener(
-
     "visibilitychange",
-
     async () => {
 
+        if (document.hidden) {
 
-        if (
-            document.hidden
-        ) {
-
-
-            if (
-
-                scanner &&
-
-                scannerRunning
-
-            ) {
-
-
-                try {
-
-
-                    await scanner.stop();
-
-
-                    scannerRunning =
-                        false;
-
-
-                }
-
-                catch (error) {
-
-
-                    console.error(
-
-                        "Scanner Visibility Stop Error:",
-
-                        error
-
-                    );
-
-
-                }
-
-            }
+            await stopScanner();
 
         }
 
     }
-
 );
-
-
-/* =========================================
-   LOAD ANNOUNCEMENTS AFTER ADMIN LOGIN
-========================================= */
-
-async function initializeAdminPanel() {
-
-
-    try {
-
-
-        await loadAnnouncements();
-
-
-    }
-
-    catch (error) {
-
-
-        console.error(
-
-            "Admin Initialization Error:",
-
-            error
-
-        );
-
-
-    }
-
-}
 
 
 /* =========================================
@@ -3910,105 +4388,73 @@ if (
     "serviceWorker" in navigator
 ) {
 
-
     window.addEventListener(
-
         "load",
-
         () => {
 
-
             navigator.serviceWorker
-
                 .register(
-
                     "./service-worker.js"
-
                 )
 
                 .then(
-
                     () => {
 
-
                         console.log(
-
                             "Service Worker Registered"
-
                         );
 
-
                     }
-
                 )
 
                 .catch(
-
                     (error) => {
 
-
                         console.error(
-
                             "Service Worker Error:",
-
                             error
-
                         );
 
-
                     }
-
                 );
 
-
         }
-
     );
 
 }
 
 
 /* =========================================
-   STARTUP
+   FINAL STARTUP LOG
 ========================================= */
-
-initializeAdminPanel();
-
 
 console.log(
     "==================================="
 );
 
-
 console.log(
-    "RIO MAGGI POINT ADMIN PANEL"
+    "RIO MAGGI POINT ADMIN PANEL READY"
 );
-
 
 console.log(
     "QR SCANNER READY"
 );
 
-
 console.log(
     "DAILY ONE-STAMP RULE READY"
 );
-
 
 console.log(
     "REWARD SYSTEM READY"
 );
 
-
 console.log(
     "ANNOUNCEMENT SYSTEM READY"
 );
 
-
 console.log(
     "==================================="
 );
-
 
 </script>
 
