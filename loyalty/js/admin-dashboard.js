@@ -2606,3 +2606,267 @@ function getRewardStatusText(
 // =====================================================
 // END OF PART 4
 // =====================================================
+// =====================================================
+// RESET CUSTOMER
+// =====================================================
+
+cancelScanBtn?.addEventListener(
+  "click",
+  () => {
+
+    currentCustomer = null;
+
+    scanCustomerPhoto.src =
+      "assets/avatars/male.png";
+
+    scanCustomerName.textContent =
+      "Waiting For Scan...";
+
+    scanMemberId.textContent =
+      "RIO-000000000";
+
+    scanStampCount.textContent =
+      "0/6";
+
+    todayStatus.textContent =
+      "Waiting";
+
+    todayStatus.className =
+      "pending";
+
+    giveStampBtn.disabled = true;
+
+  }
+);
+
+
+// =====================================================
+// REFRESH DASHBOARD
+// =====================================================
+
+refreshBtn?.addEventListener(
+  "click",
+  async () => {
+
+    await loadDashboard();
+
+  }
+);
+
+
+// =====================================================
+// EXPORT
+// =====================================================
+
+exportBtn?.addEventListener(
+  "click",
+  () => {
+
+    location.href =
+      "admin-export.html";
+
+  }
+);
+
+
+// =====================================================
+// REWARD MANAGER
+// =====================================================
+
+rewardBtn?.addEventListener(
+  "click",
+  () => {
+
+    location.href =
+      "admin-rewards.html";
+
+  }
+);
+
+
+// =====================================================
+// REPORT NAVIGATION
+// =====================================================
+
+document
+  .getElementById("reportMenu")
+  ?.addEventListener(
+    "click",
+    () => {
+
+      location.href =
+        "admin-reports.html";
+
+    }
+  );
+
+
+// =====================================================
+// SETTINGS BUTTON
+// =====================================================
+
+settingsBtn?.addEventListener(
+  "click",
+  () => {
+
+    location.href =
+      "admin-settings.html";
+
+  }
+);
+
+
+// =====================================================
+// SETTINGS NAVIGATION
+// =====================================================
+
+document
+  .getElementById("settingMenu")
+  ?.addEventListener(
+    "click",
+    () => {
+
+      location.href =
+        "admin-settings.html";
+
+    }
+  );
+
+
+// =====================================================
+// DASHBOARD NAVIGATION
+// =====================================================
+
+document
+  .getElementById("dashboardMenu")
+  ?.addEventListener(
+    "click",
+    () => {
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+  );
+
+
+// =====================================================
+// CUSTOMER NAVIGATION
+// =====================================================
+
+document
+  .getElementById("customersMenu")
+  ?.addEventListener(
+    "click",
+    () => {
+
+      location.href =
+        "admin-customers.html";
+
+    }
+  );
+
+
+// =====================================================
+// STAMP NAVIGATION
+// =====================================================
+
+document
+  .getElementById("stampMenu")
+  ?.addEventListener(
+    "click",
+    () => {
+
+      document
+        .querySelector(".scanner-section")
+        ?.scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+  );
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+logoutBtn?.addEventListener(
+  "click",
+  async () => {
+
+    try {
+
+      if (scannerRunning) {
+
+        await stopScanner();
+
+      }
+
+    }
+
+    catch (error) {
+
+      console.log(
+        "Scanner Stop Error:",
+        error
+      );
+
+    }
+
+
+    try {
+
+      await signOut(auth);
+
+      location.href =
+        "admin-login.html";
+
+    }
+
+    catch (error) {
+
+      console.error(
+        "Logout Error:",
+        error
+      );
+
+      alert(
+        "❌ Logout Failed"
+      );
+
+    }
+
+  }
+);
+
+
+// =====================================================
+// READY
+// =====================================================
+
+console.log(
+  "=============================="
+);
+
+console.log(
+  "🍜 Rio Maggi Point"
+);
+
+console.log(
+  "Premium Admin Dashboard V3 Fixed"
+);
+
+console.log(
+  "Firebase Ready"
+);
+
+console.log(
+  "Scanner Ready"
+);
+
+console.log(
+  "=============================="
+);
