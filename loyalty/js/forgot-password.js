@@ -1,7 +1,7 @@
 // =====================================================
 // RIO MAGGI POINT
 // FORGOT PASSWORD
-// PART 1
+// FINAL FIXED VERSION
 // =====================================================
 
 import { auth } from "./firebase-config.js";
@@ -10,131 +10,214 @@ import {
     sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
+
 // =====================================================
 // ELEMENTS
 // =====================================================
 
 const forgotForm =
-document.getElementById("forgotForm");
+    document.getElementById("forgotForm");
 
 const resetEmail =
-document.getElementById("resetEmail");
+    document.getElementById("resetEmail");
 
 const resetBtn =
-document.getElementById("resetBtn");
+    document.getElementById("resetBtn");
 
 const successBox =
-document.getElementById("successBox");
+    document.getElementById("successBox");
 
 const backLoginBtn =
-document.getElementById("backLoginBtn");
+    document.getElementById("backLoginBtn");
+
 
 // =====================================================
 // SEND RESET EMAIL
 // =====================================================
 
-forgotForm.addEventListener("submit", async(e)=>{
+if (forgotForm) {
 
-    e.preventDefault();
+    forgotForm.addEventListener(
+        "submit",
+        async (e) => {
 
-    const email =
-    resetEmail.value.trim();
+            e.preventDefault();
 
-    if(!email){
 
-        alert("Please Enter Your Email");
+            const email =
+                resetEmail
+                    ? resetEmail.value.trim()
+                    : "";
 
-        return;
 
-    }
+            if (!email) {
 
-    resetBtn.disabled = true;
+                alert(
+                    "Please enter your registered email address."
+                );
 
-    resetBtn.innerHTML =
-    "Sending...";
+                return;
+            }
 
-    try{
 
-        await sendPasswordResetEmail(
+            if (resetBtn) {
 
-            auth,
+                resetBtn.disabled = true;
 
-            email
+                resetBtn.innerHTML = `
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    &nbsp;
+                    Sending...
+                `;
 
-        );
+            }
 
-        forgotForm.style.display =
-        "none";
 
-        successBox.style.display =
-        "block";
+            try {
 
-    }
+                await sendPasswordResetEmail(
+                    auth,
+                    email
+                );
 
-    catch(error){
 
-        console.error(error);
+                // =========================================
+                // HIDE FORM
+                // =========================================
 
-        let message =
-        "Unable To Send Reset Email";
+                forgotForm.style.display =
+                    "none";
 
-        switch(error.code){
 
-            case "auth/user-not-found":
+                // =========================================
+                // SHOW SUCCESS MESSAGE
+                // =========================================
 
-                message =
-                "No Account Found With This Email";
+                if (successBox) {
 
-                break;
+                    successBox.style.display =
+                        "block";
 
-            case "auth/invalid-email":
+                }
 
-                message =
-                "Invalid Email Address";
+            }
 
-                break;
 
-            case "auth/too-many-requests":
+            catch (error) {
 
-                message =
-                "Too Many Requests. Try Again Later.";
+                console.error(
+                    "Password Reset Error:",
+                    error
+                );
 
-                break;
+
+                let message =
+                    "Unable to send password reset email. Please try again.";
+
+
+                switch (error.code) {
+
+                    case "auth/user-not-found":
+
+                        message =
+                            "No account found with this email address.";
+
+                        break;
+
+
+                    case "auth/invalid-email":
+
+                        message =
+                            "Please enter a valid email address.";
+
+                        break;
+
+
+                    case "auth/too-many-requests":
+
+                        message =
+                            "Too many requests. Please try again later.";
+
+                        break;
+
+
+                    case "auth/network-request-failed":
+
+                        message =
+                            "No Internet Connection.";
+
+                        break;
+
+                }
+
+
+                alert(message);
+
+            }
+
+
+            finally {
+
+                if (resetBtn) {
+
+                    resetBtn.disabled =
+                        false;
+
+                    resetBtn.innerHTML = `
+                        <i class="fa-solid fa-paper-plane"></i>
+                        &nbsp;
+                        Send Reset Link
+                    `;
+
+                }
+
+            }
 
         }
+    );
 
-        alert(message);
+}
 
-    }
 
-    finally{
-
-        resetBtn.disabled = false;
-
-        resetBtn.innerHTML =
-        "Send Reset Link";
-
-    }
-
-});
 // =====================================================
 // BACK TO LOGIN
 // =====================================================
 
-backLoginBtn.addEventListener("click",()=>{
+if (backLoginBtn) {
 
-    window.location.href="login.html";
+    backLoginBtn.addEventListener(
+        "click",
+        () => {
 
-});
+            window.location.href =
+                "login.html";
+
+        }
+    );
+
+}
+
 
 // =====================================================
 // READY
 // =====================================================
 
-console.log("================================");
+console.log(
+    "================================"
+);
 
-console.log("🍜 Rio Maggi Point");
+console.log(
+    "🍜 Rio Maggi Point"
+);
 
-console.log("Forgot Password Ready");
+console.log(
+    "Forgot Password Ready"
+);
 
-console.log("================================");
+console.log(
+    "Firebase Password Reset Connected"
+);
+
+console.log(
+    "================================"
+);
