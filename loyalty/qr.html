@@ -1,25 +1,41 @@
+<!-- =========================================
+     RIO MAGGI POINT
+     QR.HTML
+     PART 1/3
+     PREMIUM RED + BLACK LOYALTY QR PAGE
+     DUPLICATE-FREE VERSION
+========================================= -->
+
 <!DOCTYPE html>
-<html lang="en">
+
+<html
+    lang="en">
 
 <head>
 
+
     <!-- =====================================
          BASIC META
-    ===================================== -->
+    ====================================== -->
 
-    <meta charset="UTF-8">
+    <meta
+        charset="UTF-8">
+
 
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
+
     <title>
         Rio Maggi Point • Premium Loyalty QR
     </title>
 
+
     <meta
         name="theme-color"
-        content="#111111">
+        content="#000000">
+
 
     <meta
         name="description"
@@ -28,16 +44,18 @@
 
     <!-- =====================================
          PWA
-    ===================================== -->
+    ====================================== -->
 
     <link
         rel="manifest"
         href="manifest.json">
 
+
     <link
         rel="icon"
         href="favicon.ico"
         type="image/x-icon">
+
 
     <link
         rel="apple-touch-icon"
@@ -46,16 +64,18 @@
 
     <!-- =====================================
          GOOGLE FONT
-    ===================================== -->
+    ====================================== -->
 
     <link
         rel="preconnect"
         href="https://fonts.googleapis.com">
 
+
     <link
         rel="preconnect"
         href="https://fonts.gstatic.com"
         crossorigin>
+
 
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
@@ -64,7 +84,7 @@
 
     <!-- =====================================
          FONT AWESOME
-    ===================================== -->
+    ====================================== -->
 
     <link
         rel="stylesheet"
@@ -73,7 +93,7 @@
 
     <!-- =====================================
          COMMON WEBSITE CSS
-    ===================================== -->
+    ====================================== -->
 
     <link
         rel="stylesheet"
@@ -82,11 +102,1446 @@
 
     <!-- =====================================
          QR PAGE CSS
-    ===================================== -->
+    ====================================== -->
 
     <link
         rel="stylesheet"
         href="css/qr.css">
+
+
+    <!-- =====================================
+         QR PAGE RED + BLACK THEME
+         PAGE-SPECIFIC OVERRIDES
+    ====================================== -->
+
+    <style>
+
+
+        /* =================================
+           QR PAGE COLOR SYSTEM
+        ================================= */
+
+        :root {
+
+            --qr-black:
+                #000000;
+
+            --qr-black-soft:
+                #0b0b0b;
+
+            --qr-black-card:
+                #111111;
+
+            --qr-red:
+                #d90429;
+
+            --qr-red-dark:
+                #a90320;
+
+            --qr-red-light:
+                #ff1e3c;
+
+            --qr-white:
+                #ffffff;
+
+            --qr-white-soft:
+                #f5f5f5;
+
+            --qr-gray:
+                #bdbdbd;
+
+            --qr-border:
+                rgba(
+                    217,
+                    4,
+                    41,
+                    .55
+                );
+
+            --qr-red-glow:
+                rgba(
+                    217,
+                    4,
+                    41,
+                    .35
+                );
+
+        }
+
+
+        /* =================================
+           PAGE BACKGROUND
+        ================================= */
+
+        body {
+
+            background:
+                var(--qr-black);
+
+            color:
+                var(--qr-white);
+
+        }
+
+
+        /* =================================
+           QR PAGE
+        ================================= */
+
+        .qr-page {
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #000000 0%,
+                    #080808 50%,
+                    #000000 100%
+                );
+
+            color:
+                var(--qr-white);
+
+        }
+
+
+        /* =================================
+           MAIN QR CARD
+        ================================= */
+
+        .qr-card {
+
+            position:
+                relative;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #111111,
+                    #050505
+                );
+
+            border:
+                1px solid
+                var(--qr-border);
+
+            box-shadow:
+                0 20px 60px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .65
+                ),
+                0 0 35px
+                rgba(
+                    217,
+                    4,
+                    41,
+                    .12
+                );
+
+            overflow:
+                hidden;
+
+        }
+
+
+        /* =================================
+           PREMIUM CARD GLOW
+        ================================= */
+
+        .card-glow {
+
+            position:
+                absolute;
+
+            inset:
+                0;
+
+            pointer-events:
+                none;
+
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(
+                        217,
+                        4,
+                        41,
+                        .18
+                    ),
+                    transparent 45%
+                );
+
+            z-index:
+                0;
+
+        }
+
+
+        /* =================================
+           CARD SHINE
+        ================================= */
+
+        .card-shine {
+
+            position:
+                absolute;
+
+            top:
+                0;
+
+            left:
+                -120%;
+
+            width:
+                60%;
+
+            height:
+                100%;
+
+            pointer-events:
+                none;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(
+                        255,
+                        255,
+                        255,
+                        .05
+                    ),
+                    transparent
+                );
+
+            transform:
+                skewX(
+                    -20deg
+                );
+
+            animation:
+                cardShine
+                7s
+                ease-in-out
+                infinite;
+
+            z-index:
+                1;
+
+        }
+
+
+        @keyframes cardShine {
+
+            0% {
+
+                left:
+                    -120%;
+
+            }
+
+            45%,
+            100% {
+
+                left:
+                    160%;
+
+            }
+
+        }
+
+
+        /* =================================
+           QR HEADER
+        ================================= */
+
+        .qr-header {
+
+            position:
+                relative;
+
+            z-index:
+                2;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                14px;
+
+            padding:
+                20px;
+
+            border-bottom:
+                1px solid
+                rgba(
+                    217,
+                    4,
+                    41,
+                    .25
+                );
+
+        }
+
+
+        /* =================================
+           BRAND ICON
+        ================================= */
+
+        .qr-brand-icon {
+
+            width:
+                52px;
+
+            height:
+                52px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            flex:
+                0 0 52px;
+
+            border-radius:
+                14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--qr-red),
+                    var(--qr-red-dark)
+                );
+
+            color:
+                var(--qr-white);
+
+            font-size:
+                23px;
+
+            box-shadow:
+                0 8px 25px
+                var(--qr-red-glow);
+
+        }
+
+
+        /* =================================
+           HEADER CONTENT
+        ================================= */
+
+        .qr-header-content {
+
+            min-width:
+                0;
+
+        }
+
+
+        .qr-header-content h1 {
+
+            margin:
+                0;
+
+            color:
+                var(--qr-white);
+
+            font-size:
+                clamp(
+                    18px,
+                    4vw,
+                    25px
+                );
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                .8px;
+
+        }
+
+
+        .qr-header-content p {
+
+            margin:
+                4px
+                0
+                0;
+
+            color:
+                var(--qr-red-light);
+
+            font-size:
+                12px;
+
+            font-weight:
+                600;
+
+            letter-spacing:
+                1px;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+        /* =================================
+           CUSTOMER SECTION
+        ================================= */
+
+        .customer-section {
+
+            position:
+                relative;
+
+            z-index:
+                2;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            align-items:
+                center;
+
+            text-align:
+                center;
+
+            padding:
+                24px
+                20px
+                18px;
+
+        }
+
+
+        /* =================================
+           AVATAR FRAME
+        ================================= */
+
+        .avatar-frame {
+
+            width:
+                92px;
+
+            height:
+                92px;
+
+            padding:
+                3px;
+
+            border-radius:
+                50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--qr-red),
+                    var(--qr-red-light),
+                    var(--qr-red-dark)
+                );
+
+            box-shadow:
+                0 0 30px
+                var(--qr-red-glow);
+
+        }
+
+
+        .avatar-frame img {
+
+            width:
+                100%;
+
+            height:
+                100%;
+
+            display:
+                block;
+
+            object-fit:
+                cover;
+
+            border-radius:
+                50%;
+
+            border:
+                3px solid
+                var(--qr-black);
+
+            background:
+                var(--qr-black-card);
+
+        }
+
+
+        /* =================================
+           CUSTOMER NAME
+        ================================= */
+
+        .customer-name {
+
+            margin:
+                14px
+                0
+                4px;
+
+            color:
+                var(--qr-white);
+
+            font-size:
+                clamp(
+                    18px,
+                    4vw,
+                    23px
+                );
+
+            font-weight:
+                700;
+
+        }
+
+
+        /* =================================
+           MEMBER ID
+        ================================= */
+
+        .customer-id {
+
+            margin:
+                0;
+
+            color:
+                var(--qr-gray);
+
+            font-size:
+                12px;
+
+            font-weight:
+                500;
+
+            letter-spacing:
+                .7px;
+
+        }
+
+
+        .customer-id span {
+
+            color:
+                var(--qr-red-light);
+
+            font-weight:
+                700;
+
+        }
+
+
+        /* =================================
+           PREMIUM QR SECTION
+        ================================= */
+
+        .premium-qr-section {
+
+            position:
+                relative;
+
+            z-index:
+                2;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            align-items:
+                center;
+
+            padding:
+                10px
+                20px
+                24px;
+
+        }
+
+
+        /* =================================
+           SCAN TITLE
+        ================================= */
+
+        .scan-title {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            gap:
+                9px;
+
+            margin-bottom:
+                15px;
+
+            color:
+                var(--qr-white);
+
+            font-size:
+                13px;
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                1px;
+
+            text-align:
+                center;
+
+        }
+
+
+        .scan-title i {
+
+            color:
+                var(--qr-red-light);
+
+            font-size:
+                18px;
+
+        }
+
+
+        /* =================================
+           PREMIUM QR CARD
+        ================================= */
+
+        .premium-qr-card {
+
+            position:
+                relative;
+
+            width:
+                min(
+                    280px,
+                    82vw
+                );
+
+            aspect-ratio:
+                1 / 1;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding:
+                18px;
+
+            background:
+                #ffffff;
+
+            border:
+                4px solid
+                var(--qr-red);
+
+            border-radius:
+                18px;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    217,
+                    4,
+                    41,
+                    .18
+                ),
+                0 15px 45px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .55
+                );
+
+            overflow:
+                hidden;
+
+            transition:
+                transform
+                .3s
+                ease,
+                box-shadow
+                .3s
+                ease;
+
+        }
+
+
+        /* =================================
+           QR BOX
+        ================================= */
+
+        .qr-box {
+
+            position:
+                relative;
+
+            z-index:
+                3;
+
+            width:
+                100%;
+
+            height:
+                100%;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            background:
+                #ffffff;
+
+        }
+
+
+        .qr-box img,
+        .qr-box canvas {
+
+            display:
+                block;
+
+            max-width:
+                100%;
+
+            max-height:
+                100%;
+
+        }
+
+
+        /* =================================
+           QR CORNERS
+        ================================= */
+
+        .qr-corner {
+
+            position:
+                absolute;
+
+            width:
+                28px;
+
+            height:
+                28px;
+
+            z-index:
+                5;
+
+            pointer-events:
+                none;
+
+            border-color:
+                var(--qr-red);
+
+            border-style:
+                solid;
+
+            animation:
+                qrCornerPulse
+                2s
+                ease-in-out
+                infinite;
+
+        }
+
+
+        .qr-corner-top-left {
+
+            top:
+                7px;
+
+            left:
+                7px;
+
+            border-width:
+                4px
+                0
+                0
+                4px;
+
+        }
+
+
+        .qr-corner-top-right {
+
+            top:
+                7px;
+
+            right:
+                7px;
+
+            border-width:
+                4px
+                4px
+                0
+                0;
+
+        }
+
+
+        .qr-corner-bottom-left {
+
+            bottom:
+                7px;
+
+            left:
+                7px;
+
+            border-width:
+                0
+                0
+                4px
+                4px;
+
+        }
+
+
+        .qr-corner-bottom-right {
+
+            right:
+                7px;
+
+            bottom:
+                7px;
+
+            border-width:
+                0
+                4px
+                4px
+                0;
+
+        }
+
+
+        @keyframes qrCornerPulse {
+
+            0%,
+            100% {
+
+                opacity:
+                    .65;
+
+            }
+
+            50% {
+
+                opacity:
+                    1;
+
+            }
+
+        }
+
+
+        /* =================================
+           QR STATUS
+        ================================= */
+
+        .qr-status {
+
+            margin:
+                14px
+                0
+                0;
+
+            color:
+                var(--qr-gray);
+
+            font-size:
+                12px;
+
+            font-weight:
+                500;
+
+            text-align:
+                center;
+
+        }
+
+
+        /* =================================
+           QR SCAN LINE
+        ================================= */
+
+        .qr-scan-line {
+
+            position:
+                absolute;
+
+            top:
+                0;
+
+            left:
+                10%;
+
+            width:
+                80%;
+
+            height:
+                2px;
+
+            z-index:
+                6;
+
+            background:
+                var(--qr-red);
+
+            box-shadow:
+                0 0 12px
+                var(--qr-red);
+
+            opacity:
+                0;
+
+            pointer-events:
+                none;
+
+        }
+
+
+        /* =================================
+           DAILY LOYALTY RULE
+           SINGLE INSTANCE ONLY
+        ================================= */
+
+        .daily-stamp-rule {
+
+            position:
+                relative;
+
+            z-index:
+                2;
+
+            width:
+                100%;
+
+            margin:
+                24px
+                auto
+                0;
+
+            padding:
+                24px
+                20px;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            align-items:
+                center;
+
+            text-align:
+                center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #151515,
+                    #050505
+                );
+
+            border:
+                2px solid
+                var(--qr-red);
+
+            border-radius:
+                20px;
+
+            box-shadow:
+                0 10px 35px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    .5
+                ),
+                0 0 25px
+                rgba(
+                    217,
+                    4,
+                    41,
+                    .12
+                );
+
+        }
+
+
+        /* =================================
+           RULE ICON
+        ================================= */
+
+        .daily-rule-icon {
+
+            width:
+                58px;
+
+            height:
+                58px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            margin-bottom:
+                12px;
+
+            border-radius:
+                50%;
+
+            background:
+                var(--qr-red);
+
+            color:
+                var(--qr-white);
+
+            font-size:
+                24px;
+
+            box-shadow:
+                0 0 25px
+                var(--qr-red-glow);
+
+        }
+
+
+        /* =================================
+           RULE BADGE
+        ================================= */
+
+        .daily-rule-badge {
+
+            display:
+                inline-block;
+
+            padding:
+                6px
+                13px;
+
+            margin-bottom:
+                10px;
+
+            border:
+                1px solid
+                var(--qr-red);
+
+            border-radius:
+                20px;
+
+            color:
+                var(--qr-red-light);
+
+            font-size:
+                11px;
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                1.5px;
+
+        }
+
+
+        /* =================================
+           RULE HEADING
+        ================================= */
+
+        .daily-rule-content h2 {
+
+            margin:
+                0
+                0
+                14px;
+
+            color:
+                var(--qr-white);
+
+            font-size:
+                clamp(
+                    19px,
+                    4vw,
+                    27px
+                );
+
+            line-height:
+                1.3;
+
+            font-weight:
+                800;
+
+        }
+
+
+        /* =================================
+           RULE MAIN TEXT
+        ================================= */
+
+        .rule-main-text {
+
+            margin:
+                0
+                0
+                12px;
+
+            color:
+                var(--qr-white-soft);
+
+            font-size:
+                clamp(
+                    14px,
+                    3vw,
+                    17px
+                );
+
+            line-height:
+                1.7;
+
+            font-weight:
+                500;
+
+        }
+
+
+        .rule-main-text strong {
+
+            color:
+                var(--qr-red-light);
+
+            font-weight:
+                800;
+
+        }
+
+
+        /* =================================
+           RULE HIGHLIGHT
+        ================================= */
+
+        .rule-highlight {
+
+            width:
+                100%;
+
+            margin:
+                8px
+                0;
+
+            padding:
+                12px
+                10px;
+
+            border-top:
+                1px solid
+                rgba(
+                    217,
+                    4,
+                    41,
+                    .35
+                );
+
+            border-bottom:
+                1px solid
+                rgba(
+                    217,
+                    4,
+                    41,
+                    .35
+                );
+
+            color:
+                var(--qr-white);
+
+            font-size:
+                clamp(
+                    14px,
+                    3vw,
+                    17px
+                );
+
+            line-height:
+                1.6;
+
+            font-weight:
+                700;
+
+        }
+
+
+        /* =================================
+           RULE REWARD
+        ================================= */
+
+        .rule-reward {
+
+            margin:
+                10px
+                0
+                0;
+
+            color:
+                var(--qr-red-light);
+
+            font-size:
+                clamp(
+                    15px,
+                    3.2vw,
+                    19px
+                );
+
+            line-height:
+                1.6;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .rule-reward strong {
+
+            color:
+                var(--qr-white);
+
+        }
+
+
+        /* =================================
+           IMPORTANT RULE
+        ================================= */
+
+        .rule-important {
+
+            width:
+                100%;
+
+            display:
+                flex;
+
+            align-items:
+                flex-start;
+
+            gap:
+                10px;
+
+            margin-top:
+                18px;
+
+            padding:
+                14px;
+
+            text-align:
+                left;
+
+            background:
+                rgba(
+                    217,
+                    4,
+                    41,
+                    .08
+                );
+
+            border:
+                1px solid
+                rgba(
+                    217,
+                    4,
+                    41,
+                    .35
+                );
+
+            border-radius:
+                12px;
+
+            color:
+                var(--qr-white-soft);
+
+            font-size:
+                clamp(
+                    12px,
+                    2.7vw,
+                    15px
+                );
+
+            line-height:
+                1.65;
+
+        }
+
+
+        .rule-important i {
+
+            flex:
+                0
+                0
+                auto;
+
+            margin-top:
+                3px;
+
+            color:
+                var(--qr-red-light);
+
+            font-size:
+                18px;
+
+        }
+
+
+        /* =================================
+           MOBILE RESPONSIVE
+        ================================= */
+
+        @media (
+            max-width: 480px
+        ) {
+
+            .qr-header {
+
+                padding:
+                    17px
+                    15px;
+
+            }
+
+
+            .customer-section {
+
+                padding:
+                    20px
+                    15px
+                    15px;
+
+            }
+
+
+            .premium-qr-section {
+
+                padding:
+                    8px
+                    15px
+                    20px;
+
+            }
+
+
+            .premium-qr-card {
+
+                width:
+                    min(
+                        270px,
+                        82vw
+                    );
+
+                padding:
+                    14px;
+
+                border-radius:
+                    16px;
+
+            }
+
+
+            .daily-stamp-rule {
+
+                margin-top:
+                    20px;
+
+                padding:
+                    20px
+                    15px;
+
+                border-radius:
+                    18px;
+
+            }
+
+
+            .daily-rule-content h2 {
+
+                font-size:
+                    19px;
+
+            }
+
+
+            .rule-important {
+
+                font-size:
+                    13px;
+
+            }
+
+        }
+
+
+        /* =================================
+           REDUCED MOTION
+        ================================= */
+
+        @media (
+            prefers-reduced-motion: reduce
+        ) {
+
+            .card-shine,
+            .qr-corner {
+
+                animation:
+                    none !important;
+
+            }
+
+        }
+
+
+    </style>
+
 
 </head>
 
@@ -95,15 +1550,17 @@
 
 
 <!-- =========================================
-     QR PAGE MAIN WRAPPER
+     MAIN QR PAGE
 ========================================= -->
 
-<main class="qr-page app-page">
+<main
+    class="qr-page app-page">
 
 
     <!-- =====================================
          PREMIUM QR DASHBOARD
-    ===================================== -->
+         SINGLE INSTANCE
+    ====================================== -->
 
     <section
         class="qr-card app-card"
@@ -130,27 +1587,34 @@
              QR DASHBOARD HEADER
         ================================= -->
 
-        <header class="qr-header">
+        <header
+            class="qr-header">
 
 
             <div
                 class="qr-brand-icon"
                 aria-hidden="true">
 
-                <i class="fa-solid fa-qrcode"></i>
+                <i
+                    class="fa-solid fa-qrcode">
+                </i>
 
             </div>
 
 
-            <div class="qr-header-content">
+            <div
+                class="qr-header-content">
+
 
                 <h1>
                     RIO MAGGI POINT
                 </h1>
 
+
                 <p>
                     Premium Loyalty QR
                 </p>
+
 
             </div>
 
@@ -159,7 +1623,8 @@
 
 
         <!-- =================================
-             CUSTOMER PROFILE SECTION
+             CUSTOMER PROFILE
+             SINGLE INSTANCE
         ================================= -->
 
         <section
@@ -169,7 +1634,8 @@
 
             <!-- CUSTOMER PHOTO -->
 
-            <div class="avatar-frame">
+            <div
+                class="avatar-frame">
 
 
                 <img
@@ -195,11 +1661,13 @@
 
             <!-- MEMBER ID -->
 
-            <p class="customer-id">
+            <p
+                class="customer-id">
 
                 ID :
-                
-                <span id="memberId">
+
+                <span
+                    id="memberId">
 
                     RIO-000000
 
@@ -213,6 +1681,7 @@
 
         <!-- =================================
              PREMIUM QR SECTION
+             SINGLE INSTANCE
         ================================= -->
 
         <section
@@ -220,9 +1689,10 @@
             aria-label="Loyalty QR Code">
 
 
-            <!-- SCAN HEADING -->
+            <!-- SCAN TITLE -->
 
-            <div class="scan-title">
+            <div
+                class="scan-title">
 
 
                 <i
@@ -239,14 +1709,7 @@
             </div>
 
 
-            <!-- =================================
-                 QR CODE FRAME
-
-                 Scan animation will run only
-                 once when page opens.
-
-                 Border animation remains active.
-            ================================= -->
+            <!-- QR CODE FRAME -->
 
             <div
                 class="premium-qr-card"
@@ -262,7 +1725,7 @@
                 </div>
 
 
-                <!-- ANIMATED QR CORNERS -->
+                <!-- QR CORNERS -->
 
                 <div
                     class="qr-corner qr-corner-top-left"
@@ -288,13 +1751,12 @@
                 </div>
 
 
-                <!-- QR CODE WILL BE GENERATED HERE -->
+                <!-- QR CODE GENERATED BY qr.js -->
 
                 <div
                     id="qrcode"
                     class="qr-box"
                     aria-label="Customer Loyalty QR Code">
-
                 </div>
 
 
@@ -319,11 +1781,12 @@
 
         <!-- =================================
              DAILY LOYALTY RULE
+             SINGLE INSTANCE ONLY
         ================================= -->
 
         <section
             class="daily-stamp-rule"
-            aria-label="Daily Loyalty Rule">
+            aria-labelledby="dailyRuleTitle">
 
 
             <!-- RULE ICON -->
@@ -332,19 +1795,23 @@
                 class="daily-rule-icon"
                 aria-hidden="true">
 
-                <i class="fa-solid fa-calendar-check"></i>
+                <i
+                    class="fa-solid fa-calendar-check">
+                </i>
 
             </div>
 
 
             <!-- RULE CONTENT -->
 
-            <div class="daily-rule-content">
+            <div
+                class="daily-rule-content">
 
 
                 <!-- RULE BADGE -->
 
-                <div class="daily-rule-badge">
+                <div
+                    class="daily-rule-badge">
 
                     DAILY LOYALTY RULE
 
@@ -353,7 +1820,8 @@
 
                 <!-- RULE TITLE -->
 
-                <h2>
+                <h2
+                    id="dailyRuleTitle">
 
                     ONE PURCHASE DAY = ONE STAMP ONLY
 
@@ -362,7 +1830,8 @@
 
                 <!-- MAIN RULE -->
 
-                <p class="rule-main-text">
+                <p
+                    class="rule-main-text">
 
                     एक दिन में आप कितनी भी Maggi खरीदें,
                     आपको सिर्फ
@@ -376,9 +1845,10 @@
                 </p>
 
 
-                <!-- STAMP PROGRESS RULE -->
+                <!-- STAMP PROGRESS -->
 
-                <p class="rule-highlight">
+                <p
+                    class="rule-highlight">
 
                     6 अलग-अलग दिनों में Purchase करें
                     और 6 Stamps Complete करें।
@@ -388,7 +1858,8 @@
 
                 <!-- FREE REWARD -->
 
-                <p class="rule-reward">
+                <p
+                    class="rule-reward">
 
                     🎁 6 Stamps Complete होने के बाद
                     आपकी
@@ -404,7 +1875,8 @@
 
                 <!-- IMPORTANT RULE -->
 
-                <div class="rule-important">
+                <div
+                    class="rule-important">
 
 
                     <i
@@ -433,7 +1905,21 @@
 
 
         <!-- =================================
-             SECURITY NOTE
+             END OF PART 1 CONTENT
+             PART 2 WILL CONTINUE HERE
+        ================================= -->
+        <!-- =========================================
+     RIO MAGGI POINT
+     QR.HTML
+     PART 2/3
+     INSTRUCTIONS + SECURITY + NAVIGATION
+     DUPLICATE-FREE VERSION
+========================================= -->
+
+
+        <!-- =================================
+             QR SECURITY NOTE
+             SINGLE INSTANCE ONLY
         ================================= -->
 
         <section
@@ -459,7 +1945,114 @@
 
 
         <!-- =================================
+             QR INSTRUCTIONS
+             SINGLE INSTANCE ONLY
+        ================================= -->
+
+        <section
+            class="instruction-box"
+            aria-label="QR Instructions">
+
+
+            <!-- =================================
+                 INSTRUCTION 1
+            ================================= -->
+
+            <div
+                class="instruction-item">
+
+
+                <div
+                    class="instruction-icon"
+                    aria-hidden="true">
+
+                    <i
+                        class="fa-solid fa-qrcode">
+                    </i>
+
+                </div>
+
+
+                <div
+                    class="instruction-text">
+
+                    अपना QR Code
+                    Counter पर दिखाएँ।
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================
+                 INSTRUCTION 2
+            ================================= -->
+
+            <div
+                class="instruction-item">
+
+
+                <div
+                    class="instruction-icon"
+                    aria-hidden="true">
+
+                    <i
+                        class="fa-solid fa-user-check">
+                    </i>
+
+                </div>
+
+
+                <div
+                    class="instruction-text">
+
+                    Staff आपके
+                    Loyalty Account को verify करेगा।
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================
+                 INSTRUCTION 3
+            ================================= -->
+
+            <div
+                class="instruction-item">
+
+
+                <div
+                    class="instruction-icon"
+                    aria-hidden="true">
+
+                    <i
+                        class="fa-solid fa-stamp">
+                    </i>
+
+                </div>
+
+
+                <div
+                    class="instruction-text">
+
+                    Eligible Purchase पर
+                    आपका Daily Loyalty Stamp Add होगा।
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================
              NAVIGATION SAFE SPACE
+             SINGLE INSTANCE ONLY
         ================================= -->
 
         <div
@@ -475,1377 +2068,14 @@
 
 
 <!-- =========================================
-     END QR PAGE PART 1
+     END QR PAGE PART 2
 ========================================= -->
-     <!-- =========================================
-     RIO MAGGI POINT
-     QR.HTML
-     PART 2/3
-     DAILY LOYALTY RULE + INSTRUCTIONS
-========================================= -->
-
-
-<!-- =========================================
-     DAILY STAMP RULE
-========================================= -->
-
-<section
-    class="daily-stamp-rule"
-    aria-labelledby="dailyRuleTitle">
-
-
-    <!-- =====================================
-         RULE ICON
-    ====================================== -->
-
-    <div
-        class="daily-rule-icon"
-        aria-hidden="true">
-
-        <i class="fa-solid fa-calendar-check"></i>
-
-    </div>
-
-
-    <!-- =====================================
-         RULE CONTENT
-    ====================================== -->
-
-    <div
-        class="daily-rule-content">
-
-
-        <!-- RULE BADGE -->
-
-        <div
-            class="daily-rule-badge">
-
-            DAILY LOYALTY RULE
-
-        </div>
-
-
-        <!-- RULE HEADING -->
-
-        <h2
-            id="dailyRuleTitle">
-
-            ONE PURCHASE DAY = ONE STAMP ONLY
-
-        </h2>
-
-
-        <!-- MAIN RULE -->
-
-        <p
-            class="rule-main-text">
-
-            एक दिन में आप कितनी भी Maggi खरीदें,
-            आपको सिर्फ
-            <strong>1 Loyalty Stamp</strong>
-            मिलेगा।
-
-        </p>
-
-
-        <!-- HIGHLIGHT -->
-
-        <p
-            class="rule-highlight">
-
-            6 अलग-अलग दिनों में Purchase करें
-            और 6 Stamps Complete करें।
-
-        </p>
-
-
-        <!-- REWARD -->
-
-        <p
-            class="rule-reward">
-
-            🎁 6 Stamps Complete होने के बाद
-            आपकी
-            <strong>7th Veg Maggi FREE</strong>
-            होगी।
-
-        </p>
-
-
-        <!-- IMPORTANT NOTE -->
-
-        <div
-            class="rule-important">
-
-
-            <i
-                class="fa-solid fa-circle-info"
-                aria-hidden="true">
-            </i>
-
-
-            <span>
-
-                एक ही दिन में 6 Maggi खरीदने पर
-                6 Stamps नहीं मिलेंगे।
-                हर नए Stamp के लिए अगला Purchase Day
-                होना जरूरी है।
-
-            </span>
-
-
-        </div>
-
-
-    </div>
-
-
-</section>
-
-
-
-<!-- =========================================
-     INSTRUCTIONS
-========================================= -->
-
-<section
-    class="instruction-box"
-    aria-label="QR Instructions">
-
-
-    <!-- =====================================
-         INSTRUCTION 1
-    ====================================== -->
-
-    <div
-        class="instruction-item">
-
-
-        <div
-            class="instruction-icon"
-            aria-hidden="true">
-
-            <i class="fa-solid fa-qrcode"></i>
-
-        </div>
-
-
-        <div
-            class="instruction-text">
-
-            अपना QR Code
-            Counter पर दिखाएँ।
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- =====================================
-         INSTRUCTION 2
-    ====================================== -->
-
-    <div
-        class="instruction-item">
-
-
-        <div
-            class="instruction-icon"
-            aria-hidden="true">
-
-            <i class="fa-solid fa-user-check"></i>
-
-        </div>
-
-
-        <div
-            class="instruction-text">
-
-            Staff आपके
-            Loyalty Account को verify करेगा।
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- =====================================
-         INSTRUCTION 3
-    ====================================== -->
-
-    <div
-        class="instruction-item">
-
-
-        <div
-            class="instruction-icon"
-            aria-hidden="true">
-
-            <i class="fa-solid fa-stamp"></i>
-
-        </div>
-
-
-        <div
-            class="instruction-text">
-
-            Eligible Purchase पर
-            आपका Daily Loyalty Stamp Add होगा।
-
-        </div>
-
-
-    </div>
-
-
-</section>
-
-
-
-<!-- =========================================
-     SECURITY NOTE
-========================================= -->
-
-<section
-    class="security-note"
-    aria-label="QR Security Information">
-
-
-    <i
-        class="fa-solid fa-shield-halved"
-        aria-hidden="true">
-    </i>
-
-
-    <span>
-
-        This QR is securely linked to your
-        Rio Maggi Point Loyalty Account.
-
-    </span>
-
-
-</section>
-
-
-
-<!-- =========================================
-     NAVIGATION SAFE SPACE
-========================================= -->
-
-<div
-    class="nav-space">
-</div>
-
-
-
-<!-- =========================================
-     QR PAGE CUSTOM STYLE
-     PART 2 ONLY
-========================================= -->
-
-<style>
-
-
-/* =========================================
-   DAILY STAMP RULE
-========================================= */
-
-.daily-stamp-rule {
-
-    position:
-        relative;
-
-    z-index:
-        2;
-
-    width:
-        100%;
-
-    margin:
-        28px
-        auto
-        0;
-
-    padding:
-        24px
-        20px;
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    align-items:
-        center;
-
-    text-align:
-        center;
-
-    background:
-        linear-gradient(
-            135deg,
-            #263525,
-            #344a32
-        );
-
-    border:
-        3px solid
-        #d19b4a;
-
-    border-radius:
-        20px;
-
-    box-shadow:
-        0 10px 30px
-        rgba(
-            38,
-            53,
-            37,
-            .25
-        );
-
-    overflow:
-        hidden;
-
-    animation:
-        ruleEntrance
-        .8s
-        ease
-        both;
-
-}
-
-
-/* =========================================
-   RULE ENTRANCE
-========================================= */
-
-@keyframes ruleEntrance {
-
-    from {
-
-        opacity:
-            0;
-
-        transform:
-            translateY(20px);
-
-    }
-
-    to {
-
-        opacity:
-            1;
-
-        transform:
-            translateY(0);
-
-    }
-
-}
-
-
-
-/* =========================================
-   RULE ICON
-========================================= */
-
-.daily-rule-icon {
-
-    width:
-        58px;
-
-    height:
-        58px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    margin-bottom:
-        12px;
-
-    border-radius:
-        50%;
-
-    background:
-        #ffd54f;
-
-    color:
-        #263525;
-
-    font-size:
-        25px;
-
-    animation:
-        ruleIconPulse
-        2.5s
-        ease-in-out
-        infinite;
-
-}
-
-
-/* =========================================
-   RULE ICON ANIMATION
-========================================= */
-
-@keyframes ruleIconPulse {
-
-    0%,
-    100% {
-
-        transform:
-            scale(1);
-
-        box-shadow:
-            0 0 0
-            rgba(
-                255,
-                213,
-                79,
-                0
-            );
-
-    }
-
-    50% {
-
-        transform:
-            scale(1.08);
-
-        box-shadow:
-            0 0 25px
-            rgba(
-                255,
-                213,
-                79,
-                .45
-            );
-
-    }
-
-}
-
-
-
-/* =========================================
-   RULE BADGE
-========================================= */
-
-.daily-rule-badge {
-
-    display:
-        inline-block;
-
-    padding:
-        6px
-        12px;
-
-    margin-bottom:
-        10px;
-
-    border:
-        1px solid
-        rgba(
-            255,
-            213,
-            79,
-            .7
-        );
-
-    border-radius:
-        20px;
-
-    color:
-        #ffd54f;
-
-    font-size:
-        11px;
-
-    font-weight:
-        700;
-
-    letter-spacing:
-        1.5px;
-
-    animation:
-        badgePulse
-        3s
-        ease-in-out
-        infinite;
-
-}
-
-
-/* =========================================
-   BADGE ANIMATION
-========================================= */
-
-@keyframes badgePulse {
-
-    0%,
-    100% {
-
-        opacity:
-            .75;
-
-    }
-
-    50% {
-
-        opacity:
-            1;
-
-        transform:
-            scale(1.03);
-
-    }
-
-}
-
-
-
-/* =========================================
-   MAIN RULE HEADING
-========================================= */
-
-.daily-rule-content h2 {
-
-    font-size:
-        clamp(
-            20px,
-            4vw,
-            28px
-        );
-
-    line-height:
-        1.25;
-
-    font-weight:
-        800;
-
-    color:
-        #ffd54f;
-
-    letter-spacing:
-        .5px;
-
-    margin-bottom:
-        14px;
-
-}
-
-
-
-/* =========================================
-   MAIN RULE TEXT
-========================================= */
-
-.rule-main-text {
-
-    font-size:
-        clamp(
-            15px,
-            3vw,
-            18px
-        );
-
-    line-height:
-        1.7;
-
-    color:
-        #fff8e7;
-
-    font-weight:
-        500;
-
-    margin-bottom:
-        12px;
-
-}
-
-
-.rule-main-text strong {
-
-    color:
-        #ffd54f;
-
-    font-weight:
-        800;
-
-}
-
-
-
-/* =========================================
-   HIGHLIGHT TEXT
-========================================= */
-
-.rule-highlight {
-
-    font-size:
-        clamp(
-            15px,
-            3vw,
-            18px
-        );
-
-    line-height:
-        1.6;
-
-    color:
-        #ffffff;
-
-    font-weight:
-        700;
-
-    padding:
-        12px
-        10px;
-
-    margin:
-        8px
-        0;
-
-    border-top:
-        1px solid
-        rgba(
-            255,
-            255,
-            255,
-            .15
-        );
-
-    border-bottom:
-        1px solid
-        rgba(
-            255,
-            255,
-            255,
-            .15
-        );
-
-}
-
-
-
-/* =========================================
-   REWARD TEXT
-========================================= */
-
-.rule-reward {
-
-    margin-top:
-        10px;
-
-    font-size:
-        clamp(
-            16px,
-            3.2vw,
-            20px
-        );
-
-    line-height:
-        1.6;
-
-    color:
-        #ffd54f;
-
-    font-weight:
-        700;
-
-}
-
-
-.rule-reward strong {
-
-    color:
-        #ffffff;
-
-    font-size:
-        1.08em;
-
-}
-
-
-
-/* =========================================
-   IMPORTANT NOTE
-========================================= */
-
-.rule-important {
-
-    width:
-        100%;
-
-    display:
-        flex;
-
-    align-items:
-        flex-start;
-
-    gap:
-        10px;
-
-    margin-top:
-        18px;
-
-    padding:
-        14px;
-
-    text-align:
-        left;
-
-    background:
-        rgba(
-            0,
-            0,
-            0,
-            .18
-        );
-
-    border:
-        1px solid
-        rgba(
-            255,
-            213,
-            79,
-            .35
-        );
-
-    border-radius:
-        12px;
-
-    color:
-        #fff8e7;
-
-    font-size:
-        clamp(
-            13px,
-            2.7vw,
-            16px
-        );
-
-    line-height:
-        1.65;
-
-}
-
-
-.rule-important i {
-
-    flex:
-        0
-        0
-        auto;
-
-    margin-top:
-        3px;
-
-    color:
-        #ffd54f;
-
-    font-size:
-        18px;
-
-}
-
-
-
-/* =========================================
-   INSTRUCTION BOX
-========================================= */
-
-.instruction-box {
-
-    position:
-        relative;
-
-    z-index:
-        2;
-
-    width:
-        100%;
-
-    margin:
-        24px
-        auto
-        0;
-
-    padding:
-        20px;
-
-    background:
-        #fffdf5;
-
-    border:
-        2px solid
-        #e0be7b;
-
-    border-radius:
-        18px;
-
-    box-shadow:
-        0 8px 20px
-        rgba(
-            38,
-            53,
-            37,
-            .08
-        );
-
-    animation:
-        instructionBoxEnter
-        .8s
-        ease
-        both;
-
-}
-
-
-@keyframes instructionBoxEnter {
-
-    from {
-
-        opacity:
-            0;
-
-        transform:
-            translateY(20px);
-
-    }
-
-    to {
-
-        opacity:
-            1;
-
-        transform:
-            translateY(0);
-
-    }
-
-}
-
-
-
-/* =========================================
-   INSTRUCTION ITEM
-========================================= */
-
-.instruction-item {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        14px;
-
-    padding:
-        13px
-        0;
-
-    border-bottom:
-        1px solid
-        rgba(
-            209,
-            155,
-            74,
-            .25
-        );
-
-    animation:
-        instructionAppear
-        .6s
-        ease
-        both;
-
-}
-
-
-.instruction-item:nth-child(1) {
-
-    animation-delay:
-        .1s;
-
-}
-
-
-.instruction-item:nth-child(2) {
-
-    animation-delay:
-        .25s;
-
-}
-
-
-.instruction-item:nth-child(3) {
-
-    animation-delay:
-        .4s;
-
-}
-
-
-.instruction-item:last-child {
-
-    border-bottom:
-        none;
-
-}
-
-
-@keyframes instructionAppear {
-
-    from {
-
-        opacity:
-            0;
-
-        transform:
-            translateX(-15px);
-
-    }
-
-    to {
-
-        opacity:
-            1;
-
-        transform:
-            translateX(0);
-
-    }
-
-}
-
-
-
-/* =========================================
-   INSTRUCTION ICON
-========================================= */
-
-.instruction-icon {
-
-    flex:
-        0
-        0
-        42px;
-
-    width:
-        42px;
-
-    height:
-        42px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    border-radius:
-        50%;
-
-    background:
-        #263525;
-
-    color:
-        #ffd54f;
-
-    font-size:
-        17px;
-
-    font-weight:
-        800;
-
-    transition:
-        transform
-        .3s
-        ease,
-        box-shadow
-        .3s
-        ease;
-
-}
-
-
-.instruction-item:hover
-.instruction-icon {
-
-    transform:
-        scale(1.08)
-        rotate(5deg);
-
-    box-shadow:
-        0 5px 15px
-        rgba(
-            38,
-            53,
-            37,
-            .25
-        );
-
-}
-
-
-
-/* =========================================
-   INSTRUCTION TEXT
-========================================= */
-
-.instruction-text {
-
-    font-size:
-        clamp(
-            14px,
-            2.8vw,
-            17px
-        );
-
-    line-height:
-        1.5;
-
-    color:
-        #3a2e2b;
-
-    font-weight:
-        500;
-
-}
-
-
-
-/* =========================================
-   SECURITY NOTE
-========================================= */
-
-.security-note {
-
-    position:
-        relative;
-
-    z-index:
-        2;
-
-    width:
-        100%;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    gap:
-        10px;
-
-    margin:
-        20px
-        auto
-        0;
-
-    padding:
-        14px
-        16px;
-
-    text-align:
-        center;
-
-    background:
-        rgba(
-            38,
-            53,
-            37,
-            .08
-        );
-
-    border:
-        1px solid
-        rgba(
-            38,
-            53,
-            37,
-            .2
-        );
-
-    border-radius:
-        14px;
-
-    color:
-        #3a2e2b;
-
-    font-size:
-        clamp(
-            12px,
-            2.5vw,
-            14px
-        );
-
-    line-height:
-        1.5;
-
-    animation:
-        securityAppear
-        .8s
-        ease
-        both;
-
-}
-
-
-.security-note i {
-
-    color:
-        #263525;
-
-    font-size:
-        18px;
-
-}
-
-
-@keyframes securityAppear {
-
-    from {
-
-        opacity:
-            0;
-
-        transform:
-            translateY(15px);
-
-    }
-
-    to {
-
-        opacity:
-            1;
-
-        transform:
-            translateY(0);
-
-    }
-
-}
-
-
-
-/* =========================================
-   MOBILE RESPONSIVE
-========================================= */
-
-@media (
-    max-width: 480px
-) {
-
-
-    .daily-stamp-rule {
-
-        margin-top:
-            22px;
-
-        padding:
-            20px
-            15px;
-
-        border-radius:
-            18px;
-
-    }
-
-
-    .daily-rule-content h2 {
-
-        font-size:
-            20px;
-
-    }
-
-
-    .rule-important {
-
-        font-size:
-            13px;
-
-    }
-
-
-    .instruction-box {
-
-        padding:
-            15px;
-
-        border-radius:
-            16px;
-
-    }
-
-
-    .instruction-item {
-
-        gap:
-            11px;
-
-    }
-
-
-    .instruction-icon {
-
-        flex-basis:
-            38px;
-
-        width:
-            38px;
-
-        height:
-            38px;
-
-        font-size:
-            15px;
-
-    }
-
-
-    .security-note {
-
-        font-size:
-            12px;
-
-        padding:
-            12px;
-
-    }
-
-}
-
-
-
-/* =========================================
-   TABLET RESPONSIVE
-========================================= */
-
-@media (
-    min-width: 481px
-)
-and (
-    max-width: 1024px
-) {
-
-
-    .daily-stamp-rule {
-
-        padding:
-            28px
-            24px;
-
-    }
-
-
-    .daily-rule-content h2 {
-
-        font-size:
-            25px;
-
-    }
-
-}
-
-
-
-/* =========================================
-   DESKTOP RESPONSIVE
-========================================= */
-
-@media (
-    min-width: 1025px
-) {
-
-
-    .daily-stamp-rule {
-
-        padding:
-            30px
-            26px;
-
-    }
-
-
-    .daily-rule-content h2 {
-
-        font-size:
-            27px;
-
-    }
-
-}
-
-
-
-/* =========================================
-   REDUCED MOTION
-========================================= */
-
-@media (
-    prefers-reduced-motion: reduce
-) {
-
-
-    .daily-stamp-rule,
-    .daily-rule-icon,
-    .daily-rule-badge,
-    .instruction-box,
-    .instruction-item,
-    .security-note {
-
-        animation:
-            none !important;
-
-    }
-
-
-    .instruction-icon {
-
-        transition:
-            none !important;
-
-    }
-
-}
-
-
-</style>
-
-
-<!-- =========================================
-     END QR.HTML PART 2/3
-========================================= -->
-     <!-- =========================================
+    <!-- =========================================
      RIO MAGGI POINT
      QR.HTML
      PART 3/3
      QR LIBRARY + JAVASCRIPT + FINALIZATION
+     DUPLICATE-FREE VERSION
 ========================================= -->
 
 
@@ -1858,7 +2088,6 @@ and (
 </script>
 
 
-
 <!-- =========================================
      QR PAGE JAVASCRIPT
 ========================================= -->
@@ -1867,7 +2096,6 @@ and (
     type="module"
     src="js/qr.js">
 </script>
-
 
 
 <!-- =========================================
@@ -1882,57 +2110,40 @@ if (
 ) {
 
     window.addEventListener(
-
         "load",
-
         async () => {
 
             try {
 
                 const registration =
-
                     await navigator.serviceWorker.register(
-
                         "./service-worker.js"
-
                     );
 
-
                 console.log(
-
                     "Rio Maggi Point Service Worker Registered:",
-
                     registration.scope
-
                 );
 
             }
 
-
             catch (
-
                 error
-
             ) {
 
                 console.error(
-
                     "Service Worker Registration Failed:",
-
                     error
-
                 );
 
             }
 
         }
-
     );
 
 }
 
 </script>
-
 
 
 <!-- =========================================
@@ -1941,51 +2152,26 @@ if (
 
 <script>
 
-
 /* =========================================
    PREVENT IMAGE DRAGGING
 ========================================= */
 
 document
-
-    .querySelectorAll(
-
-        "img"
-
-    )
-
+    .querySelectorAll("img")
     .forEach(
-
-        (
-
-            image
-
-        ) => {
-
+        (image) => {
 
             image.addEventListener(
-
                 "dragstart",
-
-                (
-
-                    event
-
-                ) => {
-
+                (event) => {
 
                     event.preventDefault();
 
-
                 }
-
             );
 
-
         }
-
     );
-
 
 
 /* =========================================
@@ -1993,50 +2179,34 @@ document
 ========================================= */
 
 document.addEventListener(
-
     "DOMContentLoaded",
-
     () => {
 
-
         document.body.classList.add(
-
             "qr-page-ready"
-
         );
 
-
     }
-
 );
-
 
 
 /* =========================================
    QR SCAN ANIMATION
-   RUN ONLY ONCE WHEN PAGE OPENS
+   RUNS ONLY ONCE
 ========================================= */
 
 document.addEventListener(
-
     "DOMContentLoaded",
-
     () => {
 
-
         const qrCard =
-
             document.querySelector(
-
                 ".premium-qr-card"
-
             );
 
 
         if (
-
             !qrCard
-
         ) {
 
             return;
@@ -2044,81 +2214,52 @@ document.addEventListener(
         }
 
 
-
         /*
-
-        Remove the scan animation class
-
-        first so the animation always starts
-
-        from a clean state.
-
-        */
-
+         * Reset animation state
+         * before starting the one-time animation.
+         */
 
         qrCard.classList.remove(
-
             "qr-scan-once"
-
         );
-
 
 
         /*
-
-        Small delay allows the QR container
-
-        to render before animation starts.
-
-        */
-
+         * Wait for browser rendering
+         * before starting animation.
+         */
 
         requestAnimationFrame(
-
             () => {
 
-
                 requestAnimationFrame(
-
                     () => {
 
-
                         qrCard.classList.add(
-
                             "qr-scan-once"
-
                         );
 
-
                     }
-
                 );
 
-
             }
-
         );
 
-
     }
-
 );
-
-
 
 </script>
 
 
-
 <!-- =========================================
-     QR SCAN ONCE OVERRIDE
+     QR SCAN + PREMIUM BORDER EFFECT
+     SINGLE STYLE BLOCK
 ========================================= -->
 
 <style>
 
-
 /* =========================================
-   DEFAULT
+   DEFAULT QR SCAN STATE
    NO INFINITE SCAN
 ========================================= */
 
@@ -2133,10 +2274,8 @@ document.addEventListener(
 }
 
 
-
 /* =========================================
-   SCAN ANIMATION
-   PLAYS ONLY ONCE
+   ONE-TIME QR SCAN
 ========================================= */
 
 .premium-qr-card.qr-scan-once::after {
@@ -2150,9 +2289,8 @@ document.addEventListener(
 }
 
 
-
 /* =========================================
-   SINGLE QR SCAN
+   QR SCAN ANIMATION
 ========================================= */
 
 @keyframes qrScanOnce {
@@ -2207,10 +2345,8 @@ document.addEventListener(
 }
 
 
-
 /* =========================================
-   QR BORDER ANIMATION
-   CONTINUOUS PREMIUM EFFECT
+   PREMIUM QR CARD INTERACTION
 ========================================= */
 
 .premium-qr-card {
@@ -2243,7 +2379,6 @@ document.addEventListener(
 }
 
 
-
 /* =========================================
    MOBILE TOUCH EFFECT
 ========================================= */
@@ -2251,7 +2386,6 @@ document.addEventListener(
 @media (
     max-width: 480px
 ) {
-
 
     .premium-qr-card:active {
 
@@ -2263,7 +2397,6 @@ document.addEventListener(
 }
 
 
-
 /* =========================================
    REDUCED MOTION
 ========================================= */
@@ -2271,7 +2404,6 @@ document.addEventListener(
 @media (
     prefers-reduced-motion: reduce
 ) {
-
 
     .premium-qr-card::after {
 
@@ -2296,37 +2428,19 @@ document.addEventListener(
 </style>
 
 
-
 <!-- =========================================
-     END QR PAGE CONTENT
+     END QR.HTML
+     PART 3/3
 ========================================= -->
 
-
-</div>
-
-
-<!-- =========================================
-     END MAIN PAGE
-========================================= -->
-
-
-<!-- =========================================
-     END BODY
-========================================= -->
 
 </body>
 
-
-
-<!-- =========================================
-     END HTML
-========================================= -->
-
 </html>
-
 
 
 <!-- =========================================
      QR.HTML COMPLETE
      TOTAL PARTS: 3/3
+     DUPLICATES REMOVED
 ========================================= -->
