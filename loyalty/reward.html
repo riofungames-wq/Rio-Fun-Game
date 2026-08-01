@@ -1,315 +1,1035 @@
+<!-- =========================================================
+     RIO MAGGI POINT
+     PREMIUM REWARD PAGE
+
+     FILE : reward.html
+     PART : 1/4 FIXED
+
+     FIREBASE READY
+     CUSTOMER PROFILE
+     REWARD HEADER
+========================================================= -->
+
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
 
-<title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-My Reward
 
-</title>
+    <title>
+        My Reward | Rio Maggi Point
+    </title>
 
-<meta
-name="theme-color"
-content="#111111">
 
-<link
-rel="manifest"
-href="manifest.json">
+    <meta
+        name="theme-color"
+        content="#111111">
 
-<link
-rel="stylesheet"
-href="css/reward.css">
 
-<link
-rel="preconnect"
-href="https://fonts.googleapis.com">
+    <!-- =====================================================
+         PWA MANIFEST
+    ====================================================== -->
 
-<link
-rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
+    <link
+        rel="manifest"
+        href="manifest.json">
 
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- =====================================================
+         REWARD CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="css/reward.css">
+
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 
+
 <body>
+
+
+<!-- =========================================================
+     PAGE WRAPPER
+========================================================= -->
 
 <div class="page">
 
-<!-- ================================= -->
-<!-- HEADER -->
-<!-- ================================= -->
 
-<header class="reward-header">
+<!-- =========================================================
+     PAGE LOADER
+========================================================= -->
 
-<h1>
+<div
+    id="rewardLoader"
+    class="reward-loader">
 
-🎁 My Reward
+    <div class="loader-ring"></div>
 
-</h1>
+    <h2>
+        RIO MAGGI POINT
+    </h2>
 
-<p>
+    <p>
+        Checking Your Reward...
+    </p>
 
-Rio Maggi Point Loyalty Reward
+</div>
 
-</p>
+
+<!-- =========================================================
+     REWARD HEADER
+========================================================= -->
+
+<header
+    class="reward-header">
+
+    <div class="header-icon">
+
+        <i class="fa-solid fa-gift"></i>
+
+    </div>
+
+
+    <div>
+
+        <h1>
+            My Reward
+        </h1>
+
+        <p>
+            Rio Maggi Point Loyalty Reward
+        </p>
+
+    </div>
 
 </header>
 
-<!-- ================================= -->
-<!-- CUSTOMER -->
-<!-- ================================= -->
 
-<section class="reward-profile">
+<!-- =========================================================
+     CUSTOMER PROFILE
+========================================================= -->
 
-<img
+<section
+    class="reward-profile">
 
-id="rewardPhoto"
 
-src="assets/avatars/default.png"
+    <!-- CUSTOMER PHOTO -->
 
-alt="Customer">
+    <div class="reward-avatar-wrapper">
 
-<h2 id="rewardName">
+        <img
 
-Loading...
+            id="rewardPhoto"
 
-</h2>
+            src="assets/avatars/default.png"
 
-<p id="rewardMemberId">
+            alt="Customer Profile Photo"
 
-RIO-000000000
+            loading="lazy">
 
-</p>
+    </div>
 
-</section>
 
-<!-- ================================= -->
-<!-- REWARD CARD -->
-<!-- ================================= -->
+    <!-- CUSTOMER NAME -->
 
-<section class="reward-card">
+    <h2
+        id="rewardName">
 
-<div class="reward-image">
+        Loading...
 
-<img
+    </h2>
 
-src="assets/icons/veg-maggi.png"
 
-alt="Veg Maggi">
+    <!-- MEMBER ID -->
 
-</div>
+    <p
+        id="rewardMemberId">
 
-<h2>
+        RIO-000000000
 
-FREE VEG MAGGI
+    </p>
 
-</h2>
-
-<p id="rewardStatus">
-
-Reward Locked
-
-</p>
-
-<div class="reward-progress">
-
-<div
-class="progress-bar">
-
-<div
-id="rewardProgressFill"
-class="progress-fill">
-
-</div>
-
-</div>
-
-<p>
-
-<span id="rewardStampCount">
-
-0
-
-</span>
-
-/ 6 Stamps
-
-</p>
-
-</div>
 
 </section>
 
-<!-- ================================= -->
-<!-- CLAIM AREA -->
-<!-- ================================= -->
 
-<section class="claim-section">
+<!-- =========================================================
+     REWARD CARD
+========================================================= -->
 
-<button
+<section
+    class="reward-card">
 
-id="claimRewardBtn"
 
-class="claim-btn"
+    <!-- REWARD IMAGE -->
 
-disabled>
+    <div
+        class="reward-image">
 
-🎁 Claim Reward
+        <img
 
-</button>
+            src="assets/icons/veg-maggi.png"
 
-<p
-id="claimMessage">
+            alt="Free Veg Maggi"
 
-Collect 6 stamps to unlock your reward.
+            loading="lazy">
 
-</p>
+    </div>
+
+
+    <!-- REWARD TITLE -->
+
+    <h2>
+
+        FREE VEG MAGGI
+
+    </h2>
+
+
+    <!-- IMPORTANT:
+         JS WILL UPDATE THIS -->
+
+    <p
+        id="rewardStatus">
+
+        Checking Reward Status...
+
+    </p>
+
+
+    <!-- =====================================================
+         REWARD PROGRESS
+    ====================================================== -->
+
+    <div
+        class="reward-progress">
+
+
+        <div
+            class="progress-bar"
+
+            role="progressbar"
+
+            aria-valuemin="0"
+
+            aria-valuemax="6"
+
+            aria-valuenow="0"
+
+            aria-label="Reward stamp progress">
+
+
+            <div
+
+                id="rewardProgressFill"
+
+                class="progress-fill">
+
+            </div>
+
+
+        </div>
+
+
+        <!-- STAMP COUNT -->
+
+        <p>
+
+            <span
+                id="rewardStampCount">
+
+                0
+
+            </span>
+
+            / 6 Stamps
+
+        </p>
+
+
+    </div>
+
 
 </section>
-<!-- ================================= -->
-<!-- REWARD RULES -->
-<!-- ================================= -->
 
-<section class="reward-rules">
 
-<h2>
+<!-- =========================================================
+     FILE : reward.html
+     PART : 1/4 FIXED END
 
-Reward Rules
+     NEXT:
+     PART 2/4
+     CLAIM AREA
+     REWARD RULES
+========================================================= -->
+  <!-- =========================================================
+     RIO MAGGI POINT
+     PREMIUM REWARD PAGE
 
-</h2>
+     FILE : reward.html
+     PART : 2/4 FIXED
 
-<ul>
+     CLAIM AREA
+     REWARD RULES
+========================================================= -->
 
-<li>
 
-⭐ Every Maggi Purchase = 1 Stamp
+<!-- =========================================================
+     CLAIM REWARD SECTION
+========================================================= -->
 
-</li>
+<section
+    class="claim-section">
 
-<li>
 
-⭐ Collect Total 6 Stamps
+    <!-- =====================================================
+         CLAIM HEADER
+    ====================================================== -->
 
-</li>
+    <div
+        class="claim-header">
 
-<li>
+        <div
+            class="claim-icon">
 
-🎁 Unlock 1 FREE VEG MAGGI
+            <i class="fa-solid fa-gift"></i>
 
-</li>
+        </div>
 
-<li>
 
-📅 Reward Can Be Redeemed At Shop
+        <div>
 
-</li>
+            <span
+                class="section-label">
 
-<li>
+                YOUR REWARD
 
-📱 Show This Page To Admin
+            </span>
 
-</li>
 
-</ul>
+            <h2>
+
+                Claim Your Free Veg Maggi
+
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CLAIM STATUS MESSAGE
+
+         JavaScript will update this dynamically.
+    ====================================================== -->
+
+    <p
+        id="claimMessage"
+        class="claim-message">
+
+        Collect 6 stamps to unlock your reward.
+
+    </p>
+
+
+    <!-- =====================================================
+         CLAIM REWARD BUTTON
+
+         Initially disabled.
+
+         reward.js will enable this button
+         only when the user has 6 valid stamps.
+    ====================================================== -->
+
+    <button
+
+        id="claimRewardBtn"
+
+        class="claim-btn"
+
+        type="button"
+
+        disabled
+
+        aria-disabled="true">
+
+        <i
+            class="fa-solid fa-gift">
+
+        </i>
+
+
+        <span>
+
+            Claim Reward
+
+        </span>
+
+    </button>
+
+
+    <!-- =====================================================
+         CLAIM PROCESSING INDICATOR
+
+         Hidden by default.
+    ====================================================== -->
+
+    <div
+        id="claimProcessing"
+
+        class="claim-processing"
+
+        hidden>
+
+        <i
+            class="fa-solid fa-spinner fa-spin">
+
+        </i>
+
+
+        <span>
+
+            Processing Your Reward...
+
+        </span>
+
+    </div>
+
 
 </section>
 
-<!-- ================================= -->
-<!-- REDEEM STATUS -->
-<!-- ================================= -->
 
-<section class="redeem-status">
+<!-- =========================================================
+     REWARD RULES
+========================================================= -->
 
-<div class="status-card">
+<section
+    class="reward-rules">
 
-<h3>
 
-Reward Status
+    <div
+        class="rules-header">
 
-</h3>
+        <div
+            class="rules-icon">
 
-<p id="redeemStatus">
+            <i
+                class="fa-solid fa-circle-info">
 
-Waiting...
+            </i>
 
-</p>
+        </div>
 
-</div>
+
+        <h2>
+
+            Reward Rules
+
+        </h2>
+
+    </div>
+
+
+    <!-- =====================================================
+         RULE LIST
+    ====================================================== -->
+
+    <ul>
+
+
+        <li>
+
+            <span
+                class="rule-icon">
+
+                ⭐
+
+            </span>
+
+            <span>
+
+                Every eligible Maggi purchase earns 1 stamp.
+
+            </span>
+
+        </li>
+
+
+        <li>
+
+            <span
+                class="rule-icon">
+
+                ⭐
+
+            </span>
+
+            <span>
+
+                Collect a total of 6 valid stamps.
+
+            </span>
+
+        </li>
+
+
+        <li>
+
+            <span
+                class="rule-icon">
+
+                🎁
+
+            </span>
+
+            <span>
+
+                6 stamps unlock 1 Free Veg Maggi reward.
+
+            </span>
+
+        </li>
+
+
+        <li>
+
+            <span
+                class="rule-icon">
+
+                📅
+
+            </span>
+
+            <span>
+
+                The reward can be redeemed at Rio Maggi Point.
+
+            </span>
+
+        </li>
+
+
+        <li>
+
+            <span
+                class="rule-icon">
+
+                📱
+
+            </span>
+
+            <span>
+
+                Show your reward page to the shop admin when redeeming.
+
+            </span>
+
+        </li>
+
+
+    </ul>
+
 
 </section>
 
-<!-- ================================= -->
-<!-- BOTTOM NAVIGATION -->
-<!-- ================================= -->
 
-<nav class="bottom-nav">
+<!-- =========================================================
+     FILE : reward.html
+     PART : 2/4 FIXED END
 
-<a href="card.html">
+     NEXT:
+     PART 3/4
+     REDEEM STATUS
+     REWARD INFORMATION
+========================================================= -->
+  <!-- =========================================================
+     RIO MAGGI POINT
+     PREMIUM REWARD PAGE
 
-<i class="fa-solid fa-house"></i>
+     FILE : reward.html
+     PART : 3/4 FIXED
 
-<span>Home</span>
+     REDEEM STATUS
+     REWARD VERIFICATION
+========================================================= -->
 
-</a>
 
-<a href="qr.html">
+<!-- =========================================================
+     REDEEM STATUS SECTION
+========================================================= -->
 
-<i class="fa-solid fa-qrcode"></i>
+<section
+    class="redeem-status">
 
-<span>QR</span>
 
-</a>
+    <!-- =====================================================
+         STATUS CARD
+    ====================================================== -->
 
-<a href="history.html">
+    <div
+        id="rewardStatusCard"
+        class="status-card">
 
-<i class="fa-solid fa-clock-rotate-left"></i>
 
-<span>History</span>
+        <!-- STATUS ICON -->
 
-</a>
+        <div
+            id="redeemStatusIcon"
+            class="status-icon">
 
-<a href="feedback.html">
+            <i
+                class="fa-solid fa-clock">
 
-<i class="fa-solid fa-heart"></i>
+            </i>
 
-<span>Review</span>
+        </div>
 
-</a>
 
-<a href="profile.html">
+        <!-- STATUS CONTENT -->
 
-<i class="fa-solid fa-user"></i>
+        <div
+            class="status-content">
 
-<span>Profile</span>
 
-</a>
+            <span
+                class="section-label">
+
+                REWARD STATUS
+
+            </span>
+
+
+            <h3>
+
+                Redemption Status
+
+            </h3>
+
+
+            <!-- IMPORTANT:
+                 JavaScript updates this -->
+
+            <p
+                id="redeemStatus">
+
+                Checking...
+
+            </p>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================================
+     REWARD INFORMATION
+========================================================= -->
+
+<section
+    class="reward-info-card">
+
+
+    <!-- =====================================================
+         INFO HEADER
+    ====================================================== -->
+
+    <div
+        class="info-header">
+
+
+        <div
+            class="info-icon">
+
+            <i
+                class="fa-solid fa-shield-halved">
+
+            </i>
+
+        </div>
+
+
+        <div>
+
+            <span
+                class="section-label">
+
+                SECURE REWARD
+
+            </span>
+
+
+            <h2>
+
+                Your Reward Information
+
+            </h2>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         INFORMATION ITEMS
+    ====================================================== -->
+
+    <div
+        class="reward-info-list">
+
+
+        <!-- STAMP STATUS -->
+
+        <div
+            class="reward-info-item">
+
+
+            <span>
+
+                <i
+                    class="fa-solid fa-star">
+
+                </i>
+
+                Stamp Progress
+
+            </span>
+
+
+            <strong
+                id="infoStampCount">
+
+                0 / 6
+
+            </strong>
+
+
+        </div>
+
+
+        <!-- REWARD STATUS -->
+
+        <div
+            class="reward-info-item">
+
+
+            <span>
+
+                <i
+                    class="fa-solid fa-gift">
+
+                </i>
+
+                Reward
+
+            </span>
+
+
+            <strong
+                id="infoRewardStatus">
+
+                Locked
+
+            </strong>
+
+
+        </div>
+
+
+        <!-- MEMBER ID -->
+
+        <div
+            class="reward-info-item">
+
+
+            <span>
+
+                <i
+                    class="fa-solid fa-id-card">
+
+                </i>
+
+                Member ID
+
+            </span>
+
+
+            <strong
+                id="infoMemberId">
+
+                RIO-000000000
+
+            </strong>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================================
+     REWARD SECURITY NOTICE
+========================================================= -->
+
+<section
+    class="reward-security-notice">
+
+
+    <div
+        class="security-icon">
+
+        <i
+            class="fa-solid fa-lock">
+
+        </i>
+
+    </div>
+
+
+    <div
+        class="security-content">
+
+
+        <h3>
+
+            Reward Security
+
+        </h3>
+
+
+        <p>
+
+            Your reward status is linked to your
+            verified Rio Maggi Point account.
+            Do not share your account credentials
+            with anyone.
+
+        </p>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =========================================================
+     FILE : reward.html
+     PART : 3/4 FIXED END
+
+     NEXT:
+     PART 4/4
+     BOTTOM NAVIGATION
+     JAVASCRIPT
+     HTML END
+========================================================= -->
+  <!-- =========================================================
+     RIO MAGGI POINT
+     PREMIUM REWARD PAGE
+
+     FILE : reward.html
+     PART : 4/4 FIXED
+
+     BOTTOM NAVIGATION
+     JAVASCRIPT
+     HTML END
+========================================================= -->
+
+
+<!-- =========================================================
+     FIXED BOTTOM NAVIGATION
+========================================================= -->
+
+<nav
+    class="bottom-nav"
+    id="rewardBottomNavigation"
+    aria-label="Main Navigation">
+
+
+    <!-- HOME -->
+
+    <a
+        href="card.html"
+        data-nav="home"
+        aria-label="Home">
+
+        <i
+            class="fa-solid fa-house">
+
+        </i>
+
+        <span>
+
+            Home
+
+        </span>
+
+    </a>
+
+
+    <!-- QR -->
+
+    <a
+        href="qr.html"
+        data-nav="qr"
+        aria-label="Scan QR">
+
+        <i
+            class="fa-solid fa-qrcode">
+
+        </i>
+
+        <span>
+
+            QR
+
+        </span>
+
+    </a>
+
+
+    <!-- HISTORY -->
+
+    <a
+        href="history.html"
+        data-nav="history"
+        aria-label="History">
+
+        <i
+            class="fa-solid fa-clock-rotate-left">
+
+        </i>
+
+        <span>
+
+            History
+
+        </span>
+
+    </a>
+
+
+    <!-- REVIEW -->
+
+    <a
+        href="feedback.html"
+        data-nav="review"
+        aria-label="Review">
+
+        <i
+            class="fa-solid fa-star">
+
+        </i>
+
+        <span>
+
+            Review
+
+        </span>
+
+    </a>
+
+
+    <!-- PROFILE -->
+
+    <a
+        href="profile.html"
+        data-nav="profile"
+        aria-label="Profile">
+
+        <i
+            class="fa-solid fa-user">
+
+        </i>
+
+        <span>
+
+            Profile
+
+        </span>
+
+    </a>
+
 
 </nav>
 
+
+<!-- =========================================================
+     PAGE WRAPPER END
+========================================================= -->
+
 </div>
 
-<!-- ================================= -->
-<!-- REWARD JS -->
-<!-- ================================= -->
+
+<!-- =========================================================
+     REWARD JAVASCRIPT
+========================================================= -->
 
 <script
-type="module"
-src="js/reward.js"></script>
+    type="module"
+    src="js/reward.js">
+</script>
+
+
+<!-- =========================================================
+     FILE : reward.html
+     PART : 4/4 FIXED END
+
+     RIO MAGGI POINT
+     PREMIUM REWARD PAGE
+
+     COMPLETE FIXED HTML
+========================================================= -->
+
 
 </body>
+
 </html>
