@@ -1,1 +1,1113 @@
+/* =========================================================
+   RIO MAGGI POINT
+   MALE PREMIUM DASHBOARD
 
+   FILE : male.css
+   PART : 1/4
+
+   ROOT + RESET + LOADER + WELCOME
+========================================================= */
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root{
+
+    --primary:#0b1f45;
+    --secondary:#133b74;
+    --accent:#2f80ed;
+
+    --gold:#d4af37;
+    --gold-light:#f8e8a3;
+
+    --bg:#07111f;
+    --surface:#102645;
+    --card:#16355d;
+
+    --white:#ffffff;
+    --text:#eef4ff;
+    --muted:#b7c6df;
+
+    --border:rgba(255,255,255,.08);
+
+    --radius:22px;
+
+    --shadow:
+        0 15px 40px rgba(0,0,0,.30);
+
+    --transition:.35s ease;
+
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    font-family:"Poppins",sans-serif;
+
+    background:
+        linear-gradient(
+            180deg,
+            #07111f,
+            #0d2342,
+            #133b74
+        );
+
+    color:var(--text);
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#08131f;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--gold);
+
+    border-radius:50px;
+
+}
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.male-dashboard{
+
+    width:100%;
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:
+        30px
+        20px
+        120px;
+
+}
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+.male-loader{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(7,17,31,.96);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:18px;
+
+    z-index:9999;
+
+    transition:.4s;
+
+}
+
+.male-loader.hidden{
+
+    opacity:0;
+
+    visibility:hidden;
+
+}
+
+.loader-ring{
+
+    width:75px;
+
+    height:75px;
+
+    border-radius:50%;
+
+    border:
+        6px solid rgba(255,255,255,.12);
+
+    border-top:
+        6px solid var(--gold);
+
+    animation:
+        loaderSpin
+        1s linear infinite;
+
+}
+
+@keyframes loaderSpin{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+.male-loader p{
+
+    color:var(--gold-light);
+
+    font-size:15px;
+
+    letter-spacing:1px;
+
+}
+
+/* =========================================================
+   FLOATING BACKGROUND
+========================================================= */
+
+.male-floating-bg{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+
+    z-index:-1;
+
+}
+
+.male-floating-bg span{
+
+    position:absolute;
+
+    width:180px;
+
+    height:180px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            rgba(212,175,55,.25),
+            transparent
+        );
+
+    animation:
+        floatingOrb
+        18s linear infinite;
+
+}
+
+.male-floating-bg span:nth-child(1){
+
+    top:8%;
+    left:5%;
+
+}
+
+.male-floating-bg span:nth-child(2){
+
+    top:18%;
+    right:8%;
+
+}
+
+.male-floating-bg span:nth-child(3){
+
+    bottom:12%;
+    left:18%;
+
+}
+
+.male-floating-bg span:nth-child(4){
+
+    bottom:8%;
+    right:12%;
+
+}
+
+@keyframes floatingOrb{
+
+    0%{
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+    50%{
+
+        transform:
+            translateY(-40px)
+            scale(1.15);
+
+    }
+
+    100%{
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+/* =========================================================
+   WELCOME SECTION
+========================================================= */
+
+.male-welcome{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:25px;
+
+    padding:30px;
+
+    margin-bottom:25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(22,53,93,.96),
+            rgba(11,31,69,.96)
+        );
+
+    border:
+        1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+}
+
+.welcome-left{
+
+    flex:1;
+
+}
+
+.welcome-left h5{
+
+    color:var(--gold);
+
+    font-size:14px;
+
+    margin-bottom:8px;
+
+}
+
+.welcome-left h1{
+
+    font-size:34px;
+
+    font-weight:700;
+
+    margin-bottom:12px;
+
+    line-height:1.25;
+
+}
+
+#maleUserName{
+
+    color:var(--gold-light);
+
+}
+
+.welcome-left p{
+
+    color:var(--muted);
+
+    line-height:1.8;
+
+    max-width:520px;
+
+}
+
+.welcome-right{
+
+    flex-shrink:0;
+
+}
+
+#maleUserAvatar{
+
+    width:150px;
+
+    height:150px;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:
+        4px solid var(--gold);
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.35);
+
+}
+
+/* =========================================================
+   FILE : male.css
+   PART : 2/4 CONTINUES...
+========================================================= */
+/* =========================================================
+   RIO MAGGI POINT
+   MALE PREMIUM DASHBOARD
+
+   FILE : male.css
+   PART : 2/4
+
+   PROFILE + SUMMARY + PROGRESS
+========================================================= */
+
+/* =========================================================
+   PROFILE CARD
+========================================================= */
+
+.male-profile-card{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:25px;
+
+    margin-bottom:25px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.profile-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+.profile-header h2{
+
+    color:var(--gold);
+
+    font-size:20px;
+
+    font-weight:700;
+
+}
+
+.profile-content h3{
+
+    font-size:26px;
+
+    font-weight:700;
+
+    color:var(--white);
+
+    margin-bottom:8px;
+
+}
+
+.profile-content p{
+
+    color:var(--muted);
+
+    font-size:15px;
+
+}
+
+/* =========================================================
+   LOYALTY SUMMARY
+========================================================= */
+
+.male-loyalty-summary{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:20px;
+
+    margin-bottom:25px;
+
+}
+
+.summary-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:22px;
+
+    box-shadow:var(--shadow);
+
+    transition:var(--transition);
+
+}
+
+.summary-card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.summary-icon{
+
+    width:62px;
+
+    height:62px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:rgba(212,175,55,.15);
+
+    color:var(--gold);
+
+    font-size:24px;
+
+}
+
+.summary-content h3{
+
+    font-size:28px;
+
+    color:var(--white);
+
+    margin-bottom:4px;
+
+}
+
+.summary-content p{
+
+    color:var(--muted);
+
+    font-size:14px;
+
+}
+
+/* =========================================================
+   STAMP PROGRESS
+========================================================= */
+
+.male-progress-card{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:25px;
+
+    margin-bottom:25px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.section-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+.section-title h2{
+
+    color:var(--gold);
+
+    font-size:22px;
+
+    font-weight:700;
+
+}
+
+.section-title span{
+
+    color:var(--gold-light);
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+.progress-track{
+
+    width:100%;
+
+    height:16px;
+
+    border-radius:50px;
+
+    background:rgba(255,255,255,.08);
+
+    overflow:hidden;
+
+}
+
+.progress-fill{
+
+    width:0;
+
+    height:100%;
+
+    border-radius:50px;
+
+    background:linear-gradient(
+        90deg,
+        var(--gold),
+        var(--gold-light)
+    );
+
+    transition:width .6s ease;
+
+}
+
+/* =========================================================
+   FILE : male.css
+   PART : 3/4 CONTINUES...
+========================================================= */
+/* =========================================================
+   RIO MAGGI POINT
+   MALE PREMIUM DASHBOARD
+
+   FILE : male.css
+   PART : 3/4
+
+   REWARD + PERSONAL + TIPS + NAVIGATION
+========================================================= */
+
+/* =========================================================
+   REWARD CARD
+========================================================= */
+
+.male-reward-card{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:25px;
+
+    margin-bottom:25px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.reward-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+.reward-header h2{
+
+    font-size:22px;
+
+    color:var(--gold);
+
+    font-weight:700;
+
+}
+
+#maleRewardStampStatus{
+
+    color:var(--gold-light);
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+.reward-progress{
+
+    width:100%;
+
+    height:14px;
+
+    border-radius:50px;
+
+    overflow:hidden;
+
+    background:rgba(255,255,255,.08);
+
+    margin-bottom:18px;
+
+}
+
+.reward-progress-fill{
+
+    width:0;
+
+    height:100%;
+
+    border-radius:50px;
+
+    background:linear-gradient(
+        90deg,
+        #d4af37,
+        #f8e8a3
+    );
+
+    transition:width .6s ease;
+
+}
+
+#maleRewardMessage{
+
+    color:var(--muted);
+
+    line-height:1.8;
+
+    margin-bottom:20px;
+
+}
+
+.reward-btn{
+
+    border:none;
+
+    outline:none;
+
+    cursor:pointer;
+
+    padding:14px 28px;
+
+    border-radius:14px;
+
+    background:linear-gradient(
+        135deg,
+        var(--gold),
+        var(--gold-light)
+    );
+
+    color:#111;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    transition:var(--transition);
+
+}
+
+.reward-btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/* =========================================================
+   PERSONAL CARD
+========================================================= */
+
+.male-personal-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:25px;
+
+    margin-bottom:25px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.personal-icon{
+
+    width:72px;
+
+    height:72px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:rgba(212,175,55,.15);
+
+    color:var(--gold);
+
+    font-size:30px;
+
+}
+
+.personal-content h2{
+
+    color:var(--gold);
+
+    margin-bottom:8px;
+
+}
+
+.personal-content p{
+
+    color:var(--muted);
+
+    line-height:1.8;
+
+}
+
+/* =========================================================
+   TIPS CARD
+========================================================= */
+
+.male-tips-card{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius);
+
+    padding:25px;
+
+    margin-bottom:30px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.male-tips-card h2{
+
+    color:var(--gold);
+
+    margin-bottom:12px;
+
+}
+
+.male-tips-card p{
+
+    color:var(--muted);
+
+    line-height:1.8;
+
+}
+
+/* =========================================================
+   BOTTOM NAVIGATION
+========================================================= */
+
+.bottom-navigation{
+
+    position:fixed;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    z-index:999;
+
+}
+
+/* =========================================================
+   FILE : male.css
+   PART : 4/4 CONTINUES...
+========================================================= */
+/* =========================================================
+   RIO MAGGI POINT
+   MALE PREMIUM DASHBOARD
+
+   FILE : male.css
+   PART : 4/4
+
+   RESPONSIVE + ANIMATIONS + END
+========================================================= */
+
+/* =========================================================
+   HOVER EFFECTS
+========================================================= */
+
+.summary-card,
+.male-profile-card,
+.male-progress-card,
+.male-reward-card,
+.male-personal-card,
+.male-tips-card{
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+
+}
+
+.summary-card:hover,
+.male-profile-card:hover,
+.male-progress-card:hover,
+.male-reward-card:hover,
+.male-personal-card:hover,
+.male-tips-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.35);
+
+}
+
+/* =========================================================
+   FADE ANIMATION
+========================================================= */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+.male-dashboard > *{
+
+    animation:
+        fadeUp .6s ease both;
+
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width:992px){
+
+    .male-welcome{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+    .welcome-left p{
+
+        max-width:100%;
+
+    }
+
+    .male-loyalty-summary{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width:768px){
+
+    .male-dashboard{
+
+        padding:
+            20px
+            15px
+            110px;
+
+    }
+
+    .welcome-left h1{
+
+        font-size:28px;
+
+    }
+
+    #maleUserAvatar{
+
+        width:120px;
+
+        height:120px;
+
+    }
+
+    .section-title{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:8px;
+
+    }
+
+    .reward-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:10px;
+
+    }
+
+    .male-personal-card{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width:480px){
+
+    .welcome-left h1{
+
+        font-size:24px;
+
+    }
+
+    .profile-content h3{
+
+        font-size:22px;
+
+    }
+
+    .summary-content h3{
+
+        font-size:24px;
+
+    }
+
+    .reward-btn{
+
+        width:100%;
+
+    }
+
+}
+
+/* =========================================================
+   FILE : male.css
+   PART : 4/4 END
+
+   RIO MAGGI POINT
+   MALE PREMIUM DASHBOARD
+========================================================= */
