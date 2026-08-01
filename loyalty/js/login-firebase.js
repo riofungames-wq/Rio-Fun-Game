@@ -1,138 +1,102 @@
 // ======================================
-// RIO LOYALTY CLUB
-// LOGIN FIREBASE
-// PART 1
+// RIO MAGGI POINT
+// FIREBASE CORE
+// FIREBASE.JS - FINAL FIXED VERSION
+// ======================================
+
+
+// ======================================
+// FIREBASE CONFIG
 // ======================================
 
 import { firebaseConfig } from "./firebase-config.js";
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+
+// ======================================
+// FIREBASE APP
+// ======================================
 
 import {
-    getAuth,
-    signInWithEmailAndPassword
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+
+
+// ======================================
+// FIREBASE AUTH
+// ======================================
+
+import {
+    getAuth
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
+
+// ======================================
+// FIRESTORE
+// ======================================
+
 import {
-    getFirestore,
-    doc,
-    getDoc
+    getFirestore
 } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-// --------------------------------------
-// Firebase Initialize
-// --------------------------------------
 
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-
-const db = getFirestore(app);
 // ======================================
-// PART 2
-// LOGIN EVENT
+// INITIALIZE FIREBASE
 // ======================================
 
-document.addEventListener("login-ready", async () => {
+const app = initializeApp(
+    firebaseConfig
+);
 
-    const data = window.loginData;
 
-    if (!data) {
-        alert("Login data not found.");
-        return;
-    }
-
-    try {
-
-        // --------------------------------------
-        // Firebase Authentication Login
-        // --------------------------------------
-
-        const userCredential = await signInWithEmailAndPassword(
-            auth,
-            data.email,
-            data.password
-        );
-
-        const user = userCredential.user;
-
-        // --------------------------------------
-        // Read Customer Data
-        // --------------------------------------
-
-        const userRef = doc(db, "customers", user.uid);
-
-        const userSnap = await getDoc(userRef);
-
-        if (!userSnap.exists()) {
-
-            alert("Customer record not found.");
-
-            return;
-
-        }
-
-        // --------------------------------------
-        // Save User Data
-        // --------------------------------------
-
-        window.currentUser = userSnap.data();
-      // ======================================
-// PART 3
-// LOGIN SUCCESS + ERROR HANDLING
+// ======================================
+// INITIALIZE AUTH
 // ======================================
 
-        // --------------------------------------
-        // Login Success
-        // --------------------------------------
+const auth = getAuth(
+    app
+);
 
-        alert("🎉 Login Successful!");
 
-        if (typeof window.loginSuccess === "function") {
+// ======================================
+// INITIALIZE FIRESTORE
+// ======================================
 
-            window.loginSuccess();
+const db = getFirestore(
+    app
+);
 
-        } else {
 
-            window.location.href = "dashboard.html";
+// ======================================
+// GLOBAL FIREBASE REFERENCES
+// ======================================
 
-        }
+window.rioFirebaseApp = app;
 
-    } catch (error) {
+window.rioFirebaseAuth = auth;
 
-        console.error("Login Error:", error);
+window.rioFirebaseDB = db;
 
-        switch (error.code) {
 
-            case "auth/user-not-found":
-                alert("No account found with this email.");
-                break;
+// ======================================
+// EXPORT FIREBASE REFERENCES
+// ======================================
 
-            case "auth/invalid-credential":
-                alert("Incorrect email or password.");
-                break;
+export {
+    app,
+    auth,
+    db
+};
 
-            case "auth/wrong-password":
-                alert("Incorrect email or password.");
-                break;
 
-            case "auth/invalid-email":
-                alert("Invalid email address.");
-                break;
+// ======================================
+// FIREBASE READY
+// ======================================
 
-            case "auth/network-request-failed":
-                alert("No internet connection.");
-                break;
+console.log(
+    "🔥 Rio Maggi Point Firebase initialized successfully."
+);
 
-            case "auth/too-many-requests":
-                alert("Too many failed attempts. Please try again later.");
-                break;
 
-            default:
-                alert("Login Failed: " + error.message);
-
-        }
-
-    }
-
-});
+// ======================================
+// END OF FIREBASE.JS
+// ======================================
