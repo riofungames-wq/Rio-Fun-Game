@@ -1,11 +1,15 @@
-<!-- ======================================================
+<!-- =========================================================
      RIO MAGGI POINT
      MALE PREMIUM DASHBOARD
-     MALE-DASHBOARD.HTML
-     PART 1/4
-======================================================= -->
+
+     FILE : male-dashboard.html
+     PART : 1/4
+
+     PREMIUM STRUCTURE + LOADER + WELCOME
+========================================================= -->
 
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -16,21 +20,15 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
-    <title>Rio Maggi Point | Male Dashboard</title>
+    <title>
 
-    <meta
-        name="theme-color"
-        content="#163d73">
+        Rio Maggi Point | Male Dashboard
 
-    <link
-        rel="manifest"
-        href="../../manifest.json">
+    </title>
 
     <link
-        rel="icon"
-        href="../../assets/logo/favicon.png">
-
-    <!-- Google Font -->
+        rel="stylesheet"
+        href="male.css">
 
     <link
         rel="preconnect"
@@ -45,25 +43,17 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
-    <!-- Font Awesome -->
-
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
-    <!-- CSS -->
-
-    <link
-        rel="stylesheet"
-        href="male.css">
 
 </head>
 
 <body>
 
-<!-- ======================================================
+<!-- =========================================================
      LOADER
-======================================================= -->
+========================================================= -->
 
 <div
     id="maleDashboardLoader"
@@ -71,34 +61,45 @@
 
     <div class="loader-ring"></div>
 
+    <h2>
+
+        RIO MAGGI POINT
+
+    </h2>
+
     <p>
-        Loading Dashboard...
+
+        Preparing Your Premium Dashboard...
+
     </p>
 
 </div>
 
-<!-- ======================================================
+<!-- =========================================================
      FLOATING BACKGROUND
-======================================================= -->
+========================================================= -->
 
 <div class="male-floating-bg">
 
     <span></span>
+
     <span></span>
+
     <span></span>
+
     <span></span>
 
 </div>
 
-<!-- ======================================================
-     MAIN CONTAINER
-======================================================= -->
+<!-- =========================================================
+     MAIN DASHBOARD
+========================================================= -->
 
-<div class="male-dashboard">
+<main class="male-dashboard">
 
-<!-- ======================================================
+<!-- =========================================================
      WELCOME SECTION
-======================================================= -->
+========================================================= -->
 
 <section
     id="maleWelcomeSection"
@@ -107,7 +108,9 @@
     <div class="welcome-left">
 
         <h5>
+
             Welcome Back 👋
+
         </h5>
 
         <h1
@@ -115,8 +118,7 @@
 
             Hello,
 
-            <span
-                id="maleUserName">
+            <span id="maleUserName">
 
                 Customer
 
@@ -126,8 +128,7 @@
 
         <p>
 
-            Keep collecting loyalty stamps
-            and unlock your Free Veg Maggi.
+            Welcome to your Premium Rio Maggi Point Loyalty Dashboard.
 
         </p>
 
@@ -135,125 +136,54 @@
 
     <div class="welcome-right">
 
-        <img
+        <div class="avatar-wrapper">
 
-            id="maleUserAvatar"
+            <div class="avatar-ring"></div>
 
-            src="assets/male-avatar.png"
+            <img
+                id="maleUserAvatar"
+                src="../assets/default-avatar.png"
+                alt="Customer">
 
-            alt="Male Customer">
-
-    </div>
-
-</section>
-
-<!-- ======================================================
-     PROFILE CARD
-======================================================= -->
-
-<section
-    class="male-profile-card">
-
-    <div class="profile-header">
-
-        <h2>
-
-            Premium Member
-
-        </h2>
-
-    </div>
-
-    <div class="profile-content">
-
-        <h3
-            id="maleProfileName">
-
-            Customer Name
-
-        </h3>
-
-        <p
-            id="maleMemberSince">
-
-            Member Since
-
-        </p>
+        </div>
 
     </div>
 
 </section>
 
-<!-- ======================================================
-     PART 2/4 CONTINUES...
-======================================================= -->
-  <!-- ======================================================
+<!-- =========================================================
+     FILE : male-dashboard.html
+     PART : 2/4 CONTINUES...
+========================================================= -->
+     <!-- =========================================================
      RIO MAGGI POINT
      MALE PREMIUM DASHBOARD
-     MALE-DASHBOARD.HTML
-     PART 2/4
-======================================================= -->
 
-<!-- ======================================================
-     LOYALTY SUMMARY
-======================================================= -->
+     FILE : male-dashboard.html
+     PART : 2/4
 
-<section class="male-loyalty-summary">
+     STAMP PROGRESS + QUICK ACTIONS
+========================================================= -->
 
-    <div class="summary-card">
-
-        <div class="summary-icon">
-            <i class="fa-solid fa-star"></i>
-        </div>
-
-        <div class="summary-content">
-
-            <h3 id="maleStampCount">
-                0 / 6
-            </h3>
-
-            <p>
-                Loyalty Stamps
-            </p>
-
-        </div>
-
-    </div>
-
-    <div class="summary-card">
-
-        <div class="summary-icon">
-            <i class="fa-solid fa-gift"></i>
-        </div>
-
-        <div class="summary-content">
-
-            <h3 id="maleRewardStatus">
-                Locked
-            </h3>
-
-            <p>
-                Reward Status
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- ======================================================
-     STAMP PROGRESS
-======================================================= -->
+<!-- =========================================================
+     LOYALTY PROGRESS
+========================================================= -->
 
 <section class="male-progress-card">
 
     <div class="section-title">
 
-        <h2>Loyalty Progress</h2>
+        <h2>
 
-        <span id="maleProgressText">
+            Loyalty Progress
+
+        </h2>
+
+        <span
+            id="maleProgressText">
+
             0 of 6 Stamps
+
         </span>
 
     </div>
@@ -261,7 +191,9 @@
     <div class="progress-track">
 
         <div
+
             id="maleStampProgress"
+
             class="progress-fill">
 
         </div>
@@ -270,94 +202,136 @@
 
 </section>
 
-<!-- ======================================================
-     QUICK ACCESS
-======================================================= -->
+<!-- =========================================================
+     QUICK ACTIONS
+========================================================= -->
 
-<section class="male-quick-access">
-
-    <a
-        href="../menu/menu.html"
-        class="quick-card">
-
-        <i class="fa-solid fa-utensils"></i>
-
-        <span>Menu</span>
-
-    </a>
+<section class="male-quick-actions">
 
     <a
-        href="../reward/reward.html"
-        class="quick-card">
 
-        <i class="fa-solid fa-gift"></i>
-
-        <span>Reward</span>
-
-    </a>
-
-    <a
-        href="../history/history.html"
-        class="quick-card">
-
-        <i class="fa-solid fa-clock-rotate-left"></i>
-
-        <span>History</span>
-
-    </a>
-
-    <a
-        href="../review/review.html"
-        class="quick-card">
-
-        <i class="fa-solid fa-star"></i>
-
-        <span>Review</span>
-
-    </a>
-
-    <a
-        href="../game/game.html"
-        class="quick-card">
-
-        <i class="fa-solid fa-gamepad"></i>
-
-        <span>Game</span>
-
-    </a>
-
-    <a
         href="../qr/qr.html"
-        class="quick-card">
+
+        class="action-card">
 
         <i class="fa-solid fa-qrcode"></i>
 
-        <span>My QR</span>
+        <span>
+
+            Scan QR
+
+        </span>
+
+    </a>
+
+    <a
+
+        href="../history/history.html"
+
+        class="action-card">
+
+        <i class="fa-solid fa-clock-rotate-left"></i>
+
+        <span>
+
+            History
+
+        </span>
+
+    </a>
+
+    <a
+
+        href="../menu/menu.html"
+
+        class="action-card">
+
+        <i class="fa-solid fa-bowl-food"></i>
+
+        <span>
+
+            Menu
+
+        </span>
+
+    </a>
+
+    <a
+
+        href="../review/review.html"
+
+        class="action-card">
+
+        <i class="fa-solid fa-star"></i>
+
+        <span>
+
+            Review
+
+        </span>
+
+    </a>
+
+    <a
+
+        href="../game/game.html"
+
+        class="action-card">
+
+        <i class="fa-solid fa-gamepad"></i>
+
+        <span>
+
+            Play Game
+
+        </span>
+
+    </a>
+
+    <a
+
+        href="../profile/profile.html"
+
+        class="action-card">
+
+        <i class="fa-solid fa-user"></i>
+
+        <span>
+
+            Profile
+
+        </span>
 
     </a>
 
 </section>
 
-<!-- ======================================================
-     PART 3/4 CONTINUES...
-======================================================= -->
-  <!-- ======================================================
+<!-- =========================================================
+     FILE : male-dashboard.html
+     PART : 3/4 CONTINUES...
+========================================================= -->
+     <!-- =========================================================
      RIO MAGGI POINT
      MALE PREMIUM DASHBOARD
-     MALE-DASHBOARD.HTML
-     PART 3/4
-======================================================= -->
 
-<!-- ======================================================
-     REWARD SECTION
-======================================================= -->
+     FILE : male-dashboard.html
+     PART : 3/4
+
+     REWARD + PERSONAL SECTION
+========================================================= -->
+
+<!-- =========================================================
+     REWARD CARD
+========================================================= -->
 
 <section class="male-reward-card">
 
     <div class="reward-header">
 
         <h2>
+
             🎁 Free Veg Maggi Reward
+
         </h2>
 
         <span
@@ -372,7 +346,9 @@
     <div class="reward-progress">
 
         <div
+
             id="maleRewardProgressFill"
+
             class="reward-progress-fill">
 
         </div>
@@ -382,7 +358,8 @@
     <p
         id="maleRewardMessage">
 
-        Collect 6 stamps to unlock your Free Veg Maggi.
+        Collect 6 stamps to unlock
+        your Free Veg Maggi.
 
     </p>
 
@@ -400,9 +377,9 @@
 
 </section>
 
-<!-- ======================================================
-     PERSONALIZED SECTION
-======================================================= -->
+<!-- =========================================================
+     PERSONAL SECTION
+========================================================= -->
 
 <section class="male-personal-card">
 
@@ -424,7 +401,8 @@
         <p
             id="malePersonalMessage">
 
-            Every visit brings you closer to your
+            Every visit brings you
+            closer to your
             Free Veg Maggi reward.
 
         </p>
@@ -433,9 +411,9 @@
 
 </section>
 
-<!-- ======================================================
-     PREMIUM TIPS
-======================================================= -->
+<!-- =========================================================
+     TODAY'S TIP
+========================================================= -->
 
 <section class="male-tips-card">
 
@@ -447,18 +425,32 @@
 
     <p>
 
-        Purchase your favourite Maggi,
-        scan your QR,
-        collect stamps,
-        and unlock rewards faster.
+        Visit Rio Maggi Point every day,
+        scan your QR code,
+        collect loyalty stamps,
+        and unlock exciting rewards faster.
 
     </p>
 
 </section>
 
-<!-- ======================================================
-     BOTTOM NAVIGATION
-======================================================= -->
+<!-- =========================================================
+     FILE : male-dashboard.html
+     PART : 4/4 CONTINUES...
+========================================================= -->
+     <!-- =========================================================
+     RIO MAGGI POINT
+     MALE PREMIUM DASHBOARD
+
+     FILE : male-dashboard.html
+     PART : 4/4
+
+     BOTTOM NAVIGATION + SCRIPTS
+========================================================= -->
+
+<!-- =========================================================
+     FIXED BOTTOM NAVIGATION
+========================================================= -->
 
 <div
 
@@ -468,25 +460,30 @@
 
 </div>
 
-<!-- ======================================================
-     PART 4/4 CONTINUES...
-======================================================= -->
-  <!-- ======================================================
-     RIO MAGGI POINT
-     MALE PREMIUM DASHBOARD
-     MALE-DASHBOARD.HTML
-     PART 4/4
-======================================================= -->
+</main>
 
-</div>
-
-<!-- SCRIPTS -->
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
 
 <script
+
     type="module"
+
     src="male.js">
+
 </script>
 
 </body>
 
 </html>
+
+<!-- =========================================================
+     FILE : male-dashboard.html
+     PART : 4/4 END
+
+     RIO MAGGI POINT
+     MALE PREMIUM DASHBOARD
+
+     COMPLETE
+========================================================= -->
