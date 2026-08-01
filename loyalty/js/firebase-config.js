@@ -1,17 +1,12 @@
 // ======================================
-// RIO LOYALTY CLUB
+// RIO MAGGI POINT
 // FIREBASE CONFIG
-// CENTRAL FIREBASE INITIALIZATION
+// FIREBASE-CONFIG.JS - FINAL FIXED
 // ======================================
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-
-import { getAuth } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // ======================================
-// FIREBASE CONFIG
+// FIREBASE CONFIGURATION
 // ======================================
 
 const firebaseConfig = {
@@ -30,29 +25,27 @@ const firebaseConfig = {
 
 };
 
-// ======================================
-// INITIALIZE FIREBASE
-// ======================================
-
-const app = initializeApp(firebaseConfig);
 
 // ======================================
-// FIREBASE SERVICES
-// ======================================
-
-const auth = getAuth(app);
-
-const db = getFirestore(app);
-
-// ======================================
-// EXPORT
+// EXPORT CONFIG ONLY
 // ======================================
 
 export {
-    firebaseConfig,
-    app,
-    auth,
-    db
+
+    firebaseConfig
+
 };
 
-console.log("RIO MAGGI POINT - FIREBASE READY");
+
+// ======================================
+// FIREBASE CONFIG READY
+// ======================================
+
+console.log(
+    "RIO MAGGI POINT - FIREBASE CONFIG READY"
+);
+
+
+// ======================================
+// END OF FIREBASE-CONFIG.JS
+// ======================================
