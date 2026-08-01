@@ -5,241 +5,114 @@
    CORRECTED FINAL VERSION
 ========================================= */
 
-
-/* =========================================
-   ROOT VARIABLES
-========================================= */
-
 :root {
-
     --bg: #080808;
-
     --card: #171717;
-
     --card-dark: #111111;
-
     --gold: #d4af37;
-
     --gold-light: #f7de8b;
-
     --gold-pale: #fff6d4;
-
     --white: #ffffff;
-
     --text: #ececec;
-
     --muted: #bdbdbd;
-
     --border: rgba(212,175,55,.35);
-
     --shadow: rgba(0,0,0,.55);
-
     --game-blue: #00e5ff;
-
     --game-purple: #7c4dff;
-
 }
-
-
-/* =========================================
-   GLOBAL RESET
-========================================= */
 
 * {
-
     margin: 0;
-
     padding: 0;
-
     box-sizing: border-box;
-
     font-family: "Poppins", sans-serif;
-
 }
-
-
-/* =========================================
-   HTML
-========================================= */
 
 html {
-
     min-height: 100%;
-
-    background: #080808;
-
+    background: var(--bg);
 }
 
-
-/* =========================================
-   BODY
-========================================= */
-
 body {
-
     min-height: 100vh;
-
     background:
-
         radial-gradient(
             circle at top,
             rgba(212,175,55,.08),
             transparent 35%
         ),
-
-        #080808;
-
+        var(--bg);
     color: var(--white);
-
     display: flex;
-
     justify-content: center;
-
     padding: 18px 12px 100px;
-
 }
-
-
-/* =========================================
-   MAIN PAGE
-========================================= */
 
 .page {
-
     width: 100%;
-
     max-width: 430px;
-
     padding-bottom: 110px;
-
 }
 
-
-/* =========================================
-   PREMIUM CARD
-========================================= */
-
 .premium-card {
-
     position: relative;
-
     width: 100%;
-
     background:
-
         linear-gradient(
             180deg,
             #1c1c1c,
             #121212
         );
-
     border: 2px solid var(--gold);
-
     border-radius: 28px;
-
     padding: 22px;
-
     overflow: hidden;
-
     isolation: isolate;
-
     box-shadow:
-
         0 0 18px
         rgba(212,175,55,.18),
-
         0 20px 50px
         var(--shadow);
-
 }
-
-
-/* =========================================
-   CARD GLOW
-========================================= */
 
 .card-glow {
-
     position: absolute;
-
     right: -80px;
-
     top: -80px;
-
     width: 220px;
-
     height: 220px;
-
     border-radius: 50%;
-
     background:
-
         radial-gradient(
-
             circle,
-
             rgba(212,175,55,.22),
-
             transparent 70%
-
         );
-
     pointer-events: none;
-
     z-index: 0;
-
 }
-
-
-/* =========================================
-   CARD SHINE
-========================================= */
 
 .card-shine {
-
     position: absolute;
-
     left: -40%;
-
     top: -25%;
-
     width: 55%;
-
     height: 180%;
-
     transform: rotate(25deg);
-
     background:
-
         linear-gradient(
-
             to right,
-
             transparent,
-
             rgba(255,255,255,.08),
-
             transparent
-
         );
-
     pointer-events: none;
-
     z-index: 1;
-
 }
 
-
-/* =========================================
-   CARD CONTENT LAYER
-========================================= */
-
 .premium-card > *:not(.card-glow):not(.card-shine) {
-
     position: relative;
-
     z-index: 2;
-
 }
 
 
@@ -248,65 +121,34 @@ body {
 ========================================= */
 
 .card-header {
-
     text-align: center;
-
     margin-bottom: 20px;
-
 }
-
-
-/* =========================================
-   BRAND TITLE
-========================================= */
 
 .brand-title {
-
     font-size: 30px;
-
     font-weight: 800;
-
     line-height: 1.2;
-
     letter-spacing: 1px;
-
     background:
-
         linear-gradient(
-
             90deg,
-
             var(--gold-pale),
-
             var(--gold),
-
             var(--gold-pale)
-
         );
-
     -webkit-background-clip: text;
-
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-
+    color: transparent;
 }
 
-
-/* =========================================
-   BRAND SUBTITLE
-========================================= */
-
 .brand-subtitle {
-
     margin-top: 5px;
-
     font-size: 11px;
-
     font-weight: 600;
-
     color: #d8c27a;
-
     letter-spacing: .8px;
-
 }
 
 
@@ -315,187 +157,89 @@ body {
 ========================================= */
 
 .customer-section {
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
-
     margin-bottom: 22px;
-
 }
-
-
-/* =========================================
-   AVATAR FRAME
-========================================= */
 
 .avatar-frame {
-
     position: relative;
-
     width: 120px;
-
     height: 120px;
-
     border-radius: 50%;
-
     padding: 4px;
-
     background:
-
         linear-gradient(
-
             135deg,
-
             var(--gold-light),
-
             var(--gold)
-
         );
-
     box-shadow:
-
         0 0 18px
         rgba(212,175,55,.45);
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     margin-bottom: 14px;
-
 }
-
-
-/* =========================================
-   AVATAR OUTER RING
-========================================= */
 
 .avatar-frame::after {
-
     content: "";
-
     position: absolute;
-
     inset: -4px;
-
     border-radius: 50%;
-
     border:
-
         1px solid
         rgba(255,240,184,.45);
-
     pointer-events: none;
-
 }
-
-
-/* =========================================
-   CUSTOMER IMAGE
-========================================= */
 
 .avatar-frame img {
-
     width: 100%;
-
     height: 100%;
-
     border-radius: 50%;
-
     object-fit: cover;
-
     background: #222;
-
     display: block;
-
 }
-
-
-/* =========================================
-   CUSTOMER NAME
-========================================= */
 
 .customer-name {
-
     font-family: Georgia, serif;
-
     font-size: 24px;
-
     font-weight: 700;
-
     line-height: 1.25;
-
     letter-spacing: .5px;
-
     color: #ffffff;
-
     text-align: center;
-
     margin-bottom: 6px;
-
     word-break: break-word;
-
 }
-
-
-/* =========================================
-   MEMBER ID
-========================================= */
 
 .customer-id {
-
     font-size: 14px;
-
     font-weight: 600;
-
     color: #e7cb74;
-
     margin-bottom: 10px;
-
 }
 
-
-/* =========================================
-   PREMIUM MEMBER BADGE
-========================================= */
-
 .premium-member {
-
     padding: 6px 18px;
-
     border-radius: 999px;
-
     background:
-
         rgba(212,175,55,.12);
-
     border:
-
         1px solid
         rgba(212,175,55,.45);
-
     box-shadow:
-
         0 0 12px
         rgba(212,175,55,.08);
-
     font-size: 11px;
-
     font-weight: 700;
-
     letter-spacing: 1px;
-
     color: #f7de8b;
-
     margin-bottom: 16px;
-
 }
 
 
@@ -504,308 +248,147 @@ body {
 ========================================= */
 
 .game-button {
-
     position: relative;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 9px;
-
     min-width: 205px;
-
     padding: 11px 18px;
-
     border: 1px solid
         rgba(255,255,255,.28);
-
     border-radius: 999px;
-
     background:
-
         linear-gradient(
-
             135deg,
-
             #7b2cff 0%,
-
             #4c1d95 45%,
-
             #111 100%
-
         );
-
     color: #ffffff;
-
     font-size: 12px;
-
     font-weight: 800;
-
     letter-spacing: .6px;
-
     cursor: pointer;
-
     overflow: hidden;
-
     box-shadow:
-
         0 0 0 1px
         rgba(123,44,255,.25),
-
         0 8px 20px
         rgba(90,30,180,.35),
-
         inset 0 1px 0
         rgba(255,255,255,.2);
-
     animation:
-
         gameButtonGlow
         2s
         ease-in-out
         infinite;
-
     transition:
-
         transform .25s ease,
-
         box-shadow .25s ease;
-
     -webkit-tap-highlight-color: transparent;
-
 }
 
-
-/* =========================================
-   GAME BUTTON SHINE
-========================================= */
-
 .game-button::before {
-
     content: "";
-
     position: absolute;
-
     top: 0;
-
     left: -120%;
-
     width: 70%;
-
     height: 100%;
-
     background:
-
         linear-gradient(
-
             90deg,
-
             transparent,
-
             rgba(255,255,255,.35),
-
             transparent
-
         );
-
     transform: skewX(-20deg);
-
     animation:
-
         gameButtonShine
         3s
         ease-in-out
         infinite;
-
     pointer-events: none;
-
 }
-
-
-/* =========================================
-   GAME BUTTON INNER BORDER
-========================================= */
 
 .game-button::after {
-
     content: "";
-
     position: absolute;
-
     inset: 0;
-
     border-radius: 999px;
-
     border:
-
         1px solid
         rgba(255,255,255,.15);
-
     pointer-events: none;
-
 }
-
-
-/* =========================================
-   GAME ICON
-========================================= */
 
 .game-button .game-icon {
-
     position: relative;
-
     z-index: 2;
-
     width: 27px;
-
     height: 27px;
-
     border-radius: 50%;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     background:
-
         rgba(255,255,255,.14);
-
 }
-
-
-/* =========================================
-   GAME ICON SYMBOL
-========================================= */
 
 .game-button .game-icon i {
-
     font-size: 13px;
-
     color: #ffffff;
-
 }
-
-
-/* =========================================
-   GAME TEXT
-========================================= */
 
 .game-button .game-text {
-
     position: relative;
-
     z-index: 2;
-
     white-space: nowrap;
-
     font-size: 12px;
-
     font-weight: 800;
-
     letter-spacing: .7px;
-
     text-shadow:
-
         0 1px 4px
         rgba(0,0,0,.5);
-
 }
-
-
-/* =========================================
-   GAME ARROW
-========================================= */
 
 .game-button .game-arrow {
-
     position: relative;
-
     z-index: 2;
-
     width: 22px;
-
     height: 22px;
-
     border-radius: 50%;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     background:
-
         rgba(255,255,255,.16);
-
 }
-
-
-/* =========================================
-   GAME ARROW ICON
-========================================= */
 
 .game-button .game-arrow i {
-
     font-size: 11px;
-
     color: #ffe66d;
-
 }
-
-
-/* =========================================
-   GAME BUTTON HOVER
-========================================= */
 
 .game-button:hover {
-
     transform:
-
         translateY(-3px)
         scale(1.02);
-
     box-shadow:
-
         0 0 18px
         rgba(123,44,255,.55),
-
         0 12px 28px
         rgba(90,30,180,.45);
-
 }
-
-
-/* =========================================
-   GAME BUTTON ACTIVE
-========================================= */
 
 .game-button:active {
-
-    transform:
-
-        scale(.96);
-
+    transform: scale(.96);
 }
 
-
-/* =========================================
-   GAME BUTTON CLICKED
-========================================= */
-
 .game-button-clicked {
-
     animation: none;
-
-    transform:
-
-        scale(.94);
-
+    transform: scale(.94);
 }
 
 
@@ -817,48 +400,34 @@ body {
 
     0%,
     100% {
-
         box-shadow:
-
             0 0 0 1px
             rgba(123,44,255,.25),
-
             0 8px 20px
             rgba(90,30,180,.35);
-
     }
 
     50% {
-
         box-shadow:
-
             0 0 0 2px
             rgba(123,44,255,.35),
-
             0 0 22px
             rgba(123,44,255,.5),
-
             0 10px 26px
             rgba(90,30,180,.45);
-
     }
 
 }
 
-
 @keyframes gameButtonShine {
 
     0% {
-
         left: -120%;
-
     }
 
     45%,
     100% {
-
         left: 150%;
-
     }
 
 }
@@ -869,50 +438,28 @@ body {
 ========================================= */
 
 .stamp-title {
-
     width: 100%;
-
     text-align: center;
-
     padding: 9px 12px;
-
     border-radius: 14px;
-
     background:
-
         linear-gradient(
-
             90deg,
-
             var(--gold),
-
             var(--gold-light),
-
             var(--gold)
-
         );
-
     color: #111;
-
     font-size: 11px;
-
     font-weight: 700;
-
     letter-spacing: .3px;
-
     white-space: nowrap;
-
     overflow: hidden;
-
     text-overflow: ellipsis;
-
     margin-bottom: 18px;
-
     box-shadow:
-
         0 5px 14px
         rgba(212,175,55,.30);
-
 }
 
 
@@ -923,6 +470,7 @@ body {
    RIO MAGGI POINT
    PREMIUM LOYALTY CARD
    CARD.CSS - PART 2 OF 3
+   CORRECTED FINAL VERSION
 ========================================= */
 
 
@@ -931,17 +479,11 @@ body {
 ========================================= */
 
 .stamp-section {
-
     position: relative;
-
     width: 100%;
-
     display: flex;
-
     justify-content: center;
-
     margin-bottom: 20px;
-
 }
 
 
@@ -950,19 +492,12 @@ body {
 ========================================= */
 
 .stamp-row {
-
     width: 100%;
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: flex-start;
-
     gap: 4px;
-
     overflow: visible;
-
 }
 
 
@@ -971,23 +506,14 @@ body {
 ========================================= */
 
 .stamp-item {
-
     flex: 1;
-
     min-width: 0;
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: flex-start;
-
     gap: 5px;
-
     flex-shrink: 1;
-
 }
 
 
@@ -996,62 +522,35 @@ body {
 ========================================= */
 
 .stamp-circle {
-
     position: relative;
-
     width: 40px;
-
     height: 40px;
-
     min-width: 40px;
-
     border-radius: 50%;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     background:
-
         linear-gradient(
-
             145deg,
-
             #292929,
-
             #181818
-
         );
-
     border:
-
         2px solid
         rgba(212,175,55,.35);
-
     color: #d8c17b;
-
     font-size: 15px;
-
     font-weight: 700;
-
     box-shadow:
-
         inset 0 2px 6px
         rgba(0,0,0,.55),
-
         0 2px 5px
         rgba(0,0,0,.25);
-
     transition:
-
         transform .3s ease,
-
         box-shadow .3s ease,
-
         background .3s ease;
-
 }
 
 
@@ -1060,11 +559,8 @@ body {
 ========================================= */
 
 .stamp-circle span {
-
     position: relative;
-
     z-index: 2;
-
 }
 
 
@@ -1073,47 +569,26 @@ body {
 ========================================= */
 
 .stamp-circle.active {
-
-    position: relative;
-
     background:
-
         radial-gradient(
-
             circle at 30% 25%,
-
             #fff8d8 0%,
-
             #f7de8b 25%,
-
             #d4af37 65%,
-
             #9b7620 100%
-
         );
-
     color: #111;
-
     border:
-
         2px solid
         #ffeaa7;
-
     box-shadow:
-
         0 0 0 3px
         rgba(212,175,55,.12),
-
         0 0 14px
         rgba(212,175,55,.65),
-
         0 5px 12px
         rgba(0,0,0,.45);
-
-    transform:
-
-        scale(1.04);
-
+    transform: scale(1.04);
 }
 
 
@@ -1122,16 +597,11 @@ body {
 ========================================= */
 
 .stamp-circle.active span {
-
     font-weight: 800;
-
     color: #171717;
-
     text-shadow:
-
         0 1px 0
         rgba(255,255,255,.45);
-
 }
 
 
@@ -1140,31 +610,17 @@ body {
 ========================================= */
 
 .stamp-circle.active::after {
-
     content: "";
-
     position: absolute;
-
     top: 5px;
-
     left: 7px;
-
     width: 10px;
-
     height: 6px;
-
     border-radius: 50%;
-
     background:
-
         rgba(255,255,255,.65);
-
-    transform:
-
-        rotate(-25deg);
-
+    transform: rotate(-25deg);
     pointer-events: none;
-
 }
 
 
@@ -1173,11 +629,7 @@ body {
 ========================================= */
 
 .stamp-circle.stamp-collected {
-
-    transform:
-
-        scale(1.05);
-
+    transform: scale(1.05);
 }
 
 
@@ -1186,43 +638,30 @@ body {
 ========================================= */
 
 .stamp-circle.stamp-pop {
-
     animation:
-
         stampPop
         .5s
         ease-out;
-
 }
-
 
 @keyframes stampPop {
 
     0% {
-
         transform:
-
             scale(.75)
             rotate(-15deg);
-
     }
 
     60% {
-
         transform:
-
             scale(1.15)
             rotate(5deg);
-
     }
 
     100% {
-
         transform:
-
             scale(1.05)
             rotate(0);
-
     }
 
 }
@@ -1233,29 +672,17 @@ body {
 ========================================= */
 
 .stamp-date {
-
     width: 100%;
-
     min-height: 16px;
-
     margin-top: 1px;
-
     text-align: center;
-
     color: #777;
-
     font-size: 7px;
-
     font-weight: 600;
-
     line-height: 1;
-
     white-space: nowrap;
-
     opacity: .75;
-
     letter-spacing: .2px;
-
 }
 
 
@@ -1263,13 +690,9 @@ body {
    ACTIVE STAMP DATE
 ========================================= */
 
-.stamp-item:has(.stamp-circle.active)
-.stamp-date {
-
+.stamp-item:has(.stamp-circle.active) .stamp-date {
     color: #d8c17b;
-
     opacity: 1;
-
 }
 
 
@@ -1278,11 +701,8 @@ body {
 ========================================= */
 
 .reward-item {
-
     position: relative;
-
     margin-left: 2px;
-
 }
 
 
@@ -1291,52 +711,30 @@ body {
 ========================================= */
 
 .reward-circle {
-
     position: relative;
-
     width: 40px;
-
     height: 40px;
-
     min-width: 40px;
-
+    border-radius: 50%;
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     overflow: hidden;
-
     background:
-
         linear-gradient(
-
             135deg,
-
             #fff0b8,
-
             var(--gold)
-
         );
-
     color: #111;
-
     font-size: 7px;
-
     font-weight: 800;
-
     line-height: 8px;
-
     text-align: center;
-
     padding: 2px;
-
     border:
-
         2px solid
         var(--gold-light);
-
 }
 
 
@@ -1345,21 +743,13 @@ body {
 ========================================= */
 
 .reward-label {
-
     position: relative;
-
     z-index: 2;
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
-
     line-height: 7px;
-
 }
 
 
@@ -1368,11 +758,8 @@ body {
 ========================================= */
 
 .reward-label i {
-
     font-size: 9px;
-
     margin-bottom: 2px;
-
 }
 
 
@@ -1381,48 +768,30 @@ body {
 ========================================= */
 
 .reward-circle.active {
-
     background:
-
         radial-gradient(
-
             circle at 30% 25%,
-
             #ffffff 0%,
-
             #fff0b8 20%,
-
             #f7de8b 45%,
-
             #d4af37 75%,
-
             #9b7620 100%
-
         );
-
     border:
-
         2px solid
         #fff0b8;
-
     box-shadow:
-
         0 0 0 3px
         rgba(212,175,55,.15),
-
         0 0 20px
         rgba(255,215,80,.75),
-
         0 0 35px
         rgba(212,175,55,.35);
-
     animation:
-
         rewardPulse
         1.8s
         ease-in-out
         infinite;
-
 }
 
 
@@ -1431,20 +800,14 @@ body {
 ========================================= */
 
 .reward-circle.active::before {
-
     content: "";
-
     position: absolute;
-
     inset: 3px;
-
     border-radius: 50%;
-
     border:
-
         1px dashed
         rgba(80,55,5,.65);
-
+    pointer-events: none;
 }
 
 
@@ -1453,14 +816,11 @@ body {
 ========================================= */
 
 .reward-circle.reward-unlocked {
-
     animation:
-
         rewardGlow
         1.5s
         ease-in-out
         infinite;
-
 }
 
 
@@ -1472,43 +832,28 @@ body {
 
     0%,
     100% {
-
-        transform:
-
-            scale(1);
-
+        transform: scale(1);
     }
 
     50% {
-
-        transform:
-
-            scale(1.08);
-
+        transform: scale(1.08);
     }
 
 }
-
 
 @keyframes rewardGlow {
 
     0%,
     100% {
-
         box-shadow:
-
             0 0 10px
             rgba(212,175,55,.5);
-
     }
 
     50% {
-
         box-shadow:
-
             0 0 25px
             rgba(212,175,55,.95);
-
     }
 
 }
@@ -1519,48 +864,27 @@ body {
 ========================================= */
 
 .countdown-box {
-
     position: relative;
-
     width: 100%;
-
     min-height: 58px;
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 3px;
-
     margin-bottom: 20px;
-
     padding: 10px;
-
     border:
-
         1px solid
         rgba(212,175,55,.35);
-
     border-radius: 15px;
-
     background:
-
         linear-gradient(
-
             180deg,
-
             rgba(212,175,55,.10),
-
             rgba(212,175,55,.04)
-
         );
-
     overflow: hidden;
-
 }
 
 
@@ -1569,42 +893,25 @@ body {
 ========================================= */
 
 .countdown-box::before {
-
     content: "";
-
     position: absolute;
-
     top: 0;
-
     left: -100%;
-
     width: 60%;
-
     height: 100%;
-
     background:
-
         linear-gradient(
-
             90deg,
-
             transparent,
-
             rgba(255,255,255,.05),
-
             transparent
-
         );
-
     animation:
-
         countdownShine
         4s
         ease-in-out
         infinite;
-
     pointer-events: none;
-
 }
 
 
@@ -1613,19 +920,12 @@ body {
 ========================================= */
 
 .countdown-text {
-
     position: relative;
-
     z-index: 2;
-
     color: #a99b72;
-
     font-size: 9px;
-
     font-weight: 600;
-
     letter-spacing: 1px;
-
 }
 
 
@@ -1634,24 +934,15 @@ body {
 ========================================= */
 
 .countdown-days {
-
     position: relative;
-
     z-index: 2;
-
     color: #f7de8b;
-
     font-size: 17px;
-
     font-weight: 800;
-
     letter-spacing: .5px;
-
     text-shadow:
-
         0 0 10px
         rgba(255,255,255,.15);
-
 }
 
 
@@ -1662,16 +953,12 @@ body {
 @keyframes countdownShine {
 
     0% {
-
         left: -100%;
-
     }
 
     50%,
     100% {
-
         left: 150%;
-
     }
 
 }
@@ -1682,21 +969,13 @@ body {
 ========================================= */
 
 .quick-buttons {
-
     width: 100%;
-
     display: grid;
-
     grid-template-columns:
-
-        repeat(4, 1fr);
-
+        repeat(4, minmax(0, 1fr));
     gap: 7px;
-
     margin-top: 20px;
-
     margin-bottom: 4px;
-
 }
 
 
@@ -1705,64 +984,35 @@ body {
 ========================================= */
 
 .quick-buttons button {
-
     position: relative;
-
     min-width: 0;
-
     min-height: 72px;
-
     padding: 9px 4px;
-
     border-radius: 14px;
-
     border:
-
         1px solid
         rgba(212,175,55,.30);
-
     background:
-
         linear-gradient(
-
             180deg,
-
             #202020,
-
             #151515
-
         );
-
     color: #ffffff;
-
     font-size: 10px;
-
     font-weight: 600;
-
     cursor: pointer;
-
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 5px;
-
     transition:
-
         transform .25s ease,
-
         background .25s ease,
-
         box-shadow .25s ease;
-
     overflow: hidden;
-
     -webkit-tap-highlight-color: transparent;
-
 }
 
 
@@ -1771,17 +1021,11 @@ body {
 ========================================= */
 
 .quick-buttons button i {
-
     font-size: 18px;
-
     color: #f7de8b;
-
     transition:
-
         transform .25s ease,
-
         color .25s ease;
-
 }
 
 
@@ -1790,28 +1034,16 @@ body {
 ========================================= */
 
 .quick-buttons button:hover {
-
     background:
-
         linear-gradient(
-
             180deg,
-
             #292929,
-
             #191919
-
         );
-
-    transform:
-
-        translateY(-3px);
-
+    transform: translateY(-3px);
     box-shadow:
-
         0 8px 18px
         rgba(0,0,0,.35);
-
 }
 
 
@@ -1820,13 +1052,8 @@ body {
 ========================================= */
 
 .quick-buttons button:hover i {
-
-    transform:
-
-        scale(1.12);
-
+    transform: scale(1.12);
     color: #ffffff;
-
 }
 
 
@@ -1835,9 +1062,7 @@ body {
 ========================================= */
 
 #callBtn i {
-
     color: #7ee787;
-
 }
 
 
@@ -1846,9 +1071,7 @@ body {
 ========================================= */
 
 #whatsappBtn i {
-
     color: #25d366;
-
 }
 
 
@@ -1857,9 +1080,7 @@ body {
 ========================================= */
 
 #mapBtn i {
-
     color: #f7de8b;
-
 }
 
 
@@ -1868,9 +1089,7 @@ body {
 ========================================= */
 
 #deliveryBtn i {
-
     color: #f7de8b;
-
 }
 
 
@@ -1878,8 +1097,10 @@ body {
    PART 2 END
 ========================================= */
 /* =========================================
-   RIO MAGGI POINT PREMIUM CARD
-   CSS PART 3 — FINAL
+   RIO MAGGI POINT
+   PREMIUM LOYALTY CARD
+   CARD.CSS - PART 3 OF 3
+   CORRECTED FINAL VERSION
 ========================================= */
 
 
@@ -1887,24 +1108,16 @@ body {
    STAMP ROW MOBILE SAFETY
 ========================================= */
 
-.stamp-row{
-
-    overflow:visible;
-
+.stamp-row {
+    overflow: visible;
 }
 
-
-.stamp-item{
-
-    flex-shrink:1;
-
+.stamp-item {
+    flex-shrink: 1;
 }
 
-
-.stamp-circle{
-
-    position:relative;
-
+.stamp-circle {
+    position: relative;
 }
 
 
@@ -1912,29 +1125,21 @@ body {
    EMPTY STAMP DESIGN
 ========================================= */
 
-.stamp-circle:not(.active):not(.reward-circle){
-
+.stamp-circle:not(.active):not(.reward-circle) {
     background:
-
         linear-gradient(
             145deg,
             #292929,
             #181818
         );
-
     border:
-
         2px solid
         rgba(212,175,55,.35);
-
     box-shadow:
-
         inset 0 2px 6px
         rgba(0,0,0,.55),
-
         0 2px 5px
         rgba(0,0,0,.25);
-
 }
 
 
@@ -1942,20 +1147,13 @@ body {
    STAMP DATE EMPTY STATE
 ========================================= */
 
-.stamp-date{
-
-    color:#777;
-
+.stamp-date {
+    color: #777;
 }
 
-
-.stamp-item:has(.stamp-circle.active)
-.stamp-date{
-
-    color:#d8c17b;
-
-    opacity:1;
-
+.stamp-item:has(.stamp-circle.active) .stamp-date {
+    color: #d8c17b;
+    opacity: 1;
 }
 
 
@@ -1963,13 +1161,10 @@ body {
    COUNTDOWN NUMBER
 ========================================= */
 
-.countdown-days{
-
+.countdown-days {
     text-shadow:
-
         0 0 10px
         rgba(255,255,255,.15);
-
 }
 
 
@@ -1977,21 +1172,14 @@ body {
    COUNTDOWN WHEN ACTIVE
 ========================================= */
 
-.countdown-box.active{
-
+.countdown-box.active {
     border-color:
-
         rgba(212,175,55,.65);
-
     background:
-
         rgba(212,175,55,.15);
-
     box-shadow:
-
         0 0 18px
         rgba(212,175,55,.12);
-
 }
 
 
@@ -1999,32 +1187,19 @@ body {
    REWARD UNLOCKED
 ========================================= */
 
-.countdown-box.reward-unlocked{
-
+.countdown-box.reward-unlocked {
     border-color:
-
         rgba(255,215,80,.7);
-
     background:
-
         linear-gradient(
-
             135deg,
-
             rgba(212,175,55,.18),
-
             rgba(255,240,184,.08)
-
         );
-
 }
 
-
-.countdown-box.reward-unlocked
-.countdown-days{
-
-    color:#f7de8b;
-
+.countdown-box.reward-unlocked .countdown-days {
+    color: #f7de8b;
 }
 
 
@@ -2032,13 +1207,10 @@ body {
    PREMIUM MEMBER BADGE
 ========================================= */
 
-.premium-member{
-
+.premium-member {
     box-shadow:
-
         0 0 12px
         rgba(212,175,55,.08);
-
 }
 
 
@@ -2046,30 +1218,19 @@ body {
    CUSTOMER PHOTO PREMIUM EFFECT
 ========================================= */
 
-.avatar-frame{
-
-    position:relative;
-
+.avatar-frame {
+    position: relative;
 }
 
-
-.avatar-frame::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:-4px;
-
-    border-radius:50%;
-
+.avatar-frame::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
     border:
-
         1px solid
         rgba(255,240,184,.45);
-
-    pointer-events:none;
-
+    pointer-events: none;
 }
 
 
@@ -2077,12 +1238,9 @@ body {
    CARD CONTENT SAFETY
 ========================================= */
 
-.premium-card > *:not(.card-glow):not(.card-shine){
-
-    position:relative;
-
-    z-index:2;
-
+.premium-card > *:not(.card-glow):not(.card-shine) {
+    position: relative;
+    z-index: 2;
 }
 
 
@@ -2092,12 +1250,9 @@ body {
 
 .game-button,
 .quick-buttons button,
-.bottom-nav a{
-
-    user-select:none;
-
-    -webkit-user-select:none;
-
+.bottom-nav a {
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 
@@ -2106,12 +1261,8 @@ body {
 ========================================= */
 
 .game-button:active,
-.quick-buttons button:active{
-
-    transform:
-
-        scale(.96);
-
+.quick-buttons button:active {
+    transform: scale(.96);
 }
 
 
@@ -2119,23 +1270,17 @@ body {
    DELIVERY COMING SOON
 ========================================= */
 
-#deliveryBtn{
-
+#deliveryBtn {
     background:
-
         linear-gradient(
             180deg,
             #202020,
             #151515
         );
-
 }
 
-
-#deliveryBtn small{
-
-    color:#d8c17b;
-
+#deliveryBtn small {
+    color: #d8c17b;
 }
 
 
@@ -2143,23 +1288,17 @@ body {
    MAP COMING SOON
 ========================================= */
 
-#mapBtn{
-
+#mapBtn {
     background:
-
         linear-gradient(
             180deg,
             #202020,
             #151515
         );
-
 }
 
-
-#mapBtn small{
-
-    color:#d8c17b;
-
+#mapBtn small {
+    color: #d8c17b;
 }
 
 
@@ -2167,20 +1306,14 @@ body {
    BOTTOM NAV PREMIUM ACTIVE EFFECT
 ========================================= */
 
-.bottom-nav a.active{
-
+.bottom-nav a.active {
     text-shadow:
-
         0 0 8px
         rgba(247,222,139,.25);
-
 }
 
-
-.bottom-nav a.active i{
-
-    color:#f7de8b;
-
+.bottom-nav a.active i {
+    color: #f7de8b;
 }
 
 
@@ -2188,12 +1321,8 @@ body {
    BOTTOM NAV TOUCH
 ========================================= */
 
-.bottom-nav a:active{
-
-    transform:
-
-        scale(.94);
-
+.bottom-nav a:active {
+    transform: scale(.94);
 }
 
 
@@ -2201,142 +1330,80 @@ body {
    SMALL MOBILE WIDTH
 ========================================= */
 
-@media (max-width:350px){
+@media (max-width: 350px) {
 
-    .premium-card{
-
-        padding:17px;
-
-        border-radius:24px;
-
+    .premium-card {
+        padding: 17px;
+        border-radius: 24px;
     }
 
-
-    .brand-title{
-
-        font-size:23px;
-
+    .brand-title {
+        font-size: 23px;
     }
 
-
-    .stamp-row{
-
-        gap:2px;
-
+    .stamp-row {
+        gap: 2px;
     }
 
-
-    .stamp-circle{
-
-        width:34px;
-
-        height:34px;
-
-        min-width:34px;
-
-        font-size:12px;
-
+    .stamp-circle {
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        font-size: 12px;
     }
 
-
-    .reward-circle{
-
-        width:34px;
-
-        height:34px;
-
-        min-width:34px;
-
-        font-size:6px;
-
-        line-height:7px;
-
+    .reward-circle {
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        font-size: 6px;
+        line-height: 7px;
     }
 
-
-    .stamp-date{
-
-        font-size:5px;
-
+    .stamp-date {
+        font-size: 5px;
     }
 
-
-    .quick-buttons{
-
-        gap:3px;
-
+    .quick-buttons {
+        gap: 3px;
     }
 
-
-    .quick-buttons button{
-
-        min-height:64px;
-
-        font-size:8px;
-
+    .quick-buttons button {
+        min-height: 64px;
+        font-size: 8px;
     }
 
-
-    .quick-buttons button i{
-
-        font-size:15px;
-
+    .quick-buttons button i {
+        font-size: 15px;
     }
 
-
-    .quick-buttons button small{
-
-        font-size:4px;
-
+    .quick-buttons button small {
+        font-size: 4px;
     }
 
-
-    .game-button{
-
-        min-width:165px;
-
-        padding:9px 12px;
-
+    .game-button {
+        min-width: 165px;
+        padding: 9px 12px;
     }
 
-
-    .game-button .game-text{
-
-        font-size:10px;
-
-        letter-spacing:.4px;
-
+    .game-button .game-text {
+        font-size: 10px;
+        letter-spacing: .4px;
     }
 
-
-    /* BOTTOM NAV */
-
-    .bottom-nav{
-
-        width:
-
-            calc(100% - 12px);
-
-        height:64px;
-
-        bottom:6px;
-
-        border-radius:19px;
-
+    .bottom-nav {
+        width: calc(100% - 12px);
+        height: 64px;
+        bottom: 6px;
+        border-radius: 19px;
     }
 
-
-    .bottom-nav a{
-
-        font-size:8px;
-
+    .bottom-nav a {
+        font-size: 8px;
     }
 
-
-    .bottom-nav a i{
-
-        font-size:15px;
-
+    .bottom-nav a i {
+        font-size: 15px;
     }
 
 }
@@ -2346,33 +1413,22 @@ body {
    LARGE DESKTOP SAFETY
 ========================================= */
 
-@media (min-width:1200px){
+@media (min-width: 1200px) {
 
-    body{
-
-        padding-top:30px;
-
+    body {
+        padding-top: 30px;
     }
 
-
-    .premium-card{
-
-        padding:25px;
-
+    .premium-card {
+        padding: 25px;
     }
 
-
-    .quick-buttons{
-
-        gap:10px;
-
+    .quick-buttons {
+        gap: 10px;
     }
 
-
-    .quick-buttons button{
-
-        min-height:80px;
-
+    .quick-buttons button {
+        min-height: 80px;
     }
 
 }
@@ -2382,20 +1438,15 @@ body {
    REDUCED MOTION
 ========================================= */
 
-@media (prefers-reduced-motion:reduce){
+@media (prefers-reduced-motion: reduce) {
 
     *,
     *::before,
-    *::after{
-
-        animation-duration:.01ms !important;
-
-        animation-iteration-count:1 !important;
-
-        transition-duration:.01ms !important;
-
-        scroll-behavior:auto !important;
-
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
     }
 
 }
@@ -2405,31 +1456,20 @@ body {
    FINAL CARD POLISH
 ========================================= */
 
-.premium-card{
-
-    isolation:isolate;
-
+.premium-card {
+    isolation: isolate;
 }
 
-
-.card-glow{
-
-    pointer-events:none;
-
+.card-glow {
+    pointer-events: none;
 }
 
-
-.card-shine{
-
-    z-index:3;
-
+.card-shine {
+    z-index: 3;
 }
 
-
-.game-button{
-
-    z-index:4;
-
+.game-button {
+    z-index: 4;
 }
 
 
