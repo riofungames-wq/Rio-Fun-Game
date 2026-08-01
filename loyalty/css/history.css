@@ -1,1265 +1,2187 @@
-/* =========================================
+/* =========================================================
    RIO MAGGI POINT
    HISTORY.CSS
-   PART 1
-========================================= */
+   PREMIUM RESPONSIVE LOYALTY HISTORY DASHBOARD
+   VERSION: CLEAN / CONSOLIDATED / RESPONSIVE
+   ---------------------------------------------------------
+   Supports:
+   • Mobile Phones
+   • Small Mobile
+   • Tablets
+   • Laptops
+   • Desktop / PC
+   • Large Desktop
+   ---------------------------------------------------------
+   Duplicate styles removed
+   Conflicting selectors consolidated
+   Matches history.html structure
+========================================================= */
 
 
-/* =========================================
+/* =========================================================
    ROOT VARIABLES
-========================================= */
+========================================================= */
 
 :root {
 
-    --primary-bg: #f5d99b;
+    --history-bg:
+        #f5d99b;
 
-    --card-bg: #fff8e7;
+    --history-card:
+        #fff8e7;
 
-    --dark-green: #263525;
+    --history-card-light:
+        #fffdf5;
 
-    --accent: #d19b4a;
+    --history-dark:
+        #263525;
 
-    --gold: #ffd54f;
+    --history-dark-soft:
+        #344a32;
 
-    --red: #c62828;
+    --history-gold:
+        #ffd54f;
 
-    --text-dark: #3a2e2b;
+    --history-accent:
+        #d19b4a;
 
-    --text-muted: #7a6855;
+    --history-border:
+        #e0be7b;
 
-    --white: #ffffff;
+    --history-red:
+        #c62828;
 
-    --border-light: #ead19e;
+    --history-text:
+        #3a2e2b;
+
+    --history-muted:
+        #7a6855;
+
+    --history-white:
+        #ffffff;
+
+    --history-shadow:
+        0 15px 40px
+        rgba(
+            38,
+            53,
+            37,
+            .16
+        );
+
+    --history-shadow-soft:
+        0 10px 25px
+        rgba(
+            38,
+            53,
+            37,
+            .12
+        );
+
+    --history-radius:
+        24px;
+
+    --history-transition:
+        .3s
+        ease;
 
 }
 
 
-/* =========================================
-   RESET
-========================================= */
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
 
 * {
 
-    margin: 0;
+    margin:
+        0;
 
-    padding: 0;
+    padding:
+        0;
 
-    box-sizing: border-box;
+    box-sizing:
+        border-box;
 
 }
 
 
-/* =========================================
+/* =========================================================
+   HTML
+========================================================= */
+
+html {
+
+    width:
+        100%;
+
+    min-height:
+        100%;
+
+    scroll-behavior:
+        smooth;
+
+}
+
+
+/* =========================================================
    BODY
-========================================= */
+========================================================= */
 
 body {
 
-    width: 100%;
+    width:
+        100%;
 
-    min-height: 100vh;
+    min-height:
+        100vh;
 
-    margin: 0;
+    margin:
+        0;
 
-    padding: 0;
+    padding:
+        0;
 
-    background: var(--primary-bg);
-
-    color: var(--text-dark);
+    overflow-x:
+        hidden;
 
     font-family:
-
         'Poppins',
-
         Arial,
-
         Helvetica,
-
         sans-serif;
 
-}
+    background:
+        var(--history-bg);
 
-
-/* =========================================
-   APP WRAPPER
-========================================= */
-
-.app-wrapper {
-
-    width: 100%;
-
-    min-height: 100vh;
-
-    display: flex;
-
-    justify-content: center;
+    color:
+        var(--history-text);
 
 }
 
 
-/* =========================================
+/* =========================================================
+   LINKS
+========================================================= */
+
+a {
+
+    color:
+        inherit;
+
+}
+
+
+/* =========================================================
    HISTORY PAGE
-========================================= */
+========================================================= */
 
 .history-page {
 
-    width: 100%;
+    position:
+        relative;
 
-    max-width: 520px;
+    width:
+        100%;
 
-    min-height: 100vh;
+    min-height:
+        100vh;
+
+    margin:
+        0
+        auto;
 
     padding:
-
-        24px
-
         20px
+        16px
+        120px;
 
-        110px;
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    gap:
+        20px;
 
 }
 
 
-/* =========================================
-   PAGE HEADER
-========================================= */
+/* =========================================================
+   COMMON APP CARD
+   Used by:
+   • Header
+   • Summary
+   • Information
+   • History
+   • Reward
+   • Timeline
+   • Reminder
+========================================================= */
 
-.page-header {
+.history-page .app-card {
 
-    width: 100%;
+    position:
+        relative;
 
-    min-height: 86px;
+    width:
+        100%;
 
-    display: flex;
+    max-width:
+        680px;
 
-    align-items: center;
-
-    gap: 15px;
-
-    padding:
-
-        18px
-
-        20px;
+    overflow:
+        hidden;
 
     background:
-
-        var(--dark-green);
-
-    color:
-
-        var(--white);
-
-    border-radius:
-
-        20px;
-
-    box-shadow:
-
-        0 10px 25px
-
-        rgba(0, 0, 0, .15);
-
-}
-
-
-/* =========================================
-   HEADER ICON
-========================================= */
-
-.header-icon {
-
-    width: 52px;
-
-    height: 52px;
-
-    min-width: 52px;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    background:
-
-        var(--gold);
-
-    color:
-
-        var(--dark-green);
-
-    border-radius:
-
-        15px;
-
-    font-size:
-
-        24px;
-
-}
-
-
-/* =========================================
-   HEADER CONTENT
-========================================= */
-
-.header-content {
-
-    min-width: 0;
-
-}
-
-
-.header-content h1 {
-
-    margin: 0;
-
-    font-size:
-
-        23px;
-
-    font-weight:
-
-        800;
-
-    line-height:
-
-        1.2;
-
-}
-
-
-.header-content p {
-
-    margin-top:
-
-        4px;
-
-    font-size:
-
-        12px;
-
-    color:
-
-        #e9e9e9;
-
-    line-height:
-
-        1.4;
-
-}
-
-
-/* =========================================
-   SUMMARY CARD
-========================================= */
-
-.summary-card {
-
-    width: 100%;
-
-    margin-top:
-
-        20px;
-
-    padding:
-
-        20px;
-
-    background:
-
-        var(--card-bg);
+        var(--history-card);
 
     border:
-
         2px solid
-
-        var(--accent);
+        var(--history-accent);
 
     border-radius:
-
-        20px;
+        var(--history-radius);
 
     box-shadow:
-
-        0 10px 25px
-
-        rgba(0, 0, 0, .10);
+        var(--history-shadow);
 
 }
 
 
-/* =========================================
-   SUMMARY PROFILE
-========================================= */
+/* =========================================================
+   HEADER
+========================================================= */
 
-.summary-profile {
+.profile-header {
 
-    width: 100%;
+    display:
+        flex;
 
-    display: flex;
+    align-items:
+        center;
 
-    align-items: center;
-
-    gap: 14px;
-
-}
-
-
-/* =========================================
-   SUMMARY AVATAR
-========================================= */
-
-.summary-avatar {
-
-    width: 62px;
-
-    height: 62px;
-
-    min-width: 62px;
-
-    overflow: hidden;
-
-    background:
-
-        var(--white);
-
-    border:
-
-        2px solid
-
-        var(--accent);
-
-    border-radius:
-
-        50%;
-
-}
-
-
-.summary-avatar img {
-
-    width: 100%;
-
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
-
-}
-
-
-/* =========================================
-   SUMMARY USER
-========================================= */
-
-.summary-user {
-
-    min-width: 0;
-
-}
-
-
-.summary-user h2 {
-
-    margin: 0;
-
-    overflow: hidden;
-
-    font-size:
-
+    gap:
         18px;
 
-    font-weight:
+    padding:
+        24px;
 
-        700;
-
-    line-height:
-
-        1.3;
-
-    text-overflow:
-
-        ellipsis;
-
-    white-space:
-
-        nowrap;
+    background:
+        var(--history-card);
 
 }
 
 
-.summary-user p {
+/* =========================================================
+   HEADER ICON
+========================================================= */
 
-    margin-top:
+.profile-header-icon {
 
-        4px;
+    flex:
+        0
+        0
+        62px;
 
-    overflow: hidden;
+    width:
+        62px;
 
-    font-size:
+    height:
+        62px;
 
-        12px;
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        18px;
+
+    background:
+        var(--history-dark);
 
     color:
+        var(--history-gold);
 
-        var(--text-muted);
+    font-size:
+        26px;
 
-    text-overflow:
+    box-shadow:
+        0 8px 20px
+        rgba(
+            38,
+            53,
+            37,
+            .25
+        );
 
-        ellipsis;
-
-    white-space:
-
-        nowrap;
+    animation:
+        historyIconPulse
+        3s
+        ease-in-out
+        infinite;
 
 }
 
 
-/* =========================================
-   STAMP SUMMARY
-========================================= */
+/* =========================================================
+   HEADER ICON ANIMATION
+========================================================= */
 
-.stamp-summary {
+@keyframes historyIconPulse {
 
-    width: 100%;
+    0%,
+    100% {
 
-    display: grid;
+        transform:
+            scale(
+                1
+            );
 
-    grid-template-columns:
+    }
 
-        repeat(3, 1fr);
+    50% {
 
-    gap: 10px;
+        transform:
+            scale(
+                1.06
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   HEADER CONTENT
+========================================================= */
+
+.profile-header-content {
+
+    flex:
+        1;
+
+    min-width:
+        0;
+
+}
+
+
+.profile-header-content h1 {
+
+    margin:
+        0;
+
+    font-size:
+        clamp(
+            21px,
+            4vw,
+            30px
+        );
+
+    line-height:
+        1.2;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1px;
+
+    color:
+        var(--history-dark);
+
+}
+
+
+.profile-header-content h1 span {
+
+    color:
+        var(--history-red);
+
+}
+
+
+.profile-header-content p {
 
     margin-top:
+        6px;
 
+    font-size:
+        clamp(
+            12px,
+            2.5vw,
+            15px
+        );
+
+    line-height:
+        1.5;
+
+    font-weight:
+        500;
+
+    color:
+        var(--history-muted);
+
+}
+
+
+/* =========================================================
+   LOYALTY SUMMARY
+========================================================= */
+
+.history-summary {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap:
+        15px;
+
+    padding:
         20px;
 
 }
 
 
-/* =========================================
+/* =========================================================
    SUMMARY ITEM
-========================================= */
+========================================================= */
 
 .summary-item {
 
-    min-width: 0;
+    position:
+        relative;
+
+    min-width:
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
 
     padding:
+        16px;
 
-        12px
-
-        6px;
-
-    text-align: center;
+    overflow:
+        hidden;
 
     background:
-
-        var(--white);
+        var(--history-card-light);
 
     border:
-
-        1px solid
-
-        var(--accent);
+        2px solid
+        var(--history-border);
 
     border-radius:
+        18px;
 
-        12px;
+    transition:
+        transform
+        var(--history-transition),
+
+        box-shadow
+        var(--history-transition);
+
+}
+
+
+/* =========================================================
+   SUMMARY ITEM HOVER
+========================================================= */
+
+.summary-item:hover {
+
+    transform:
+        translateY(
+            -4px
+        );
+
+    box-shadow:
+        var(--history-shadow-soft);
+
+}
+
+
+/* =========================================================
+   SUMMARY ICON
+========================================================= */
+
+.summary-icon {
+
+    flex:
+        0
+        0
+        48px;
+
+    width:
+        48px;
+
+    height:
+        48px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        14px;
+
+    background:
+        var(--history-dark);
+
+    color:
+        var(--history-gold);
+
+    font-size:
+        20px;
+
+}
+
+
+/* =========================================================
+   SUMMARY CONTENT
+========================================================= */
+
+.summary-content {
+
+    min-width:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
 
 }
 
 
 .summary-label {
 
-    display: block;
+    display:
+        block;
 
-    overflow: hidden;
+    overflow:
+        hidden;
 
     font-size:
-
         10px;
 
-    color:
-
-        var(--text-muted);
-
-    text-overflow:
-
-        ellipsis;
-
-    white-space:
-
-        nowrap;
-
-}
-
-
-.summary-item strong {
-
-    display: block;
-
-    margin-top:
-
-        5px;
-
-    font-size:
-
-        17px;
-
     font-weight:
-
         700;
 
-    color:
-
-        var(--dark-green);
-
-}
-
-
-/* =========================================
-   HISTORY SECTION
-========================================= */
-
-.history-section {
-
-    width: 100%;
-
-    margin-top:
-
-        20px;
-
-    padding:
-
-        20px;
-
-    background:
-
-        var(--card-bg);
-
-    border:
-
-        2px solid
-
-        var(--accent);
-
-    border-radius:
-
-        20px;
-
-}
-
-
-/* =========================================
-   SECTION HEADING
-========================================= */
-
-.section-heading {
-
-    width: 100%;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    gap: 12px;
-
-    margin-bottom:
-
-        18px;
-
-}
-
-
-.section-heading h2 {
-
-    margin: 0;
-
-    font-size:
-
-        19px;
-
-    font-weight:
-
-        700;
-
-    color:
-
-        var(--dark-green);
-
-}
-
-
-.section-heading p {
-
-    margin-top:
-
-        3px;
-
-    font-size:
-
-        11px;
-
-    color:
-
-        var(--text-muted);
-
-}
-
-
-.section-heading > i {
-
-    flex-shrink: 0;
-
-    font-size:
-
-        22px;
-
-    color:
-
-        var(--accent);
-
-}
-
-
-/* =========================================
-   HISTORY LIST
-========================================= */
-
-.history-list {
-
-    width: 100%;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 10px;
-
-}
-
-
-/* =========================================
-   HISTORY ITEM
-========================================= */
-
-.history-item {
-
-    width: 100%;
-
-    min-height: 70px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    padding:
-
-        14px;
-
-    background:
-
-        var(--white);
-
-    border:
-
-        1px solid
-
-        var(--border-light);
-
-    border-radius:
-
-        14px;
-
-}
-
-
-/* =========================================
-   HISTORY ICON
-========================================= */
-
-.history-icon {
-
-    width: 44px;
-
-    height: 44px;
-
-    min-width: 44px;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    background:
-
-        var(--dark-green);
-
-    color:
-
-        var(--gold);
-
-    border-radius:
-
-        12px;
-
-    font-size:
-
-        18px;
-
-}
-
-
-/* =========================================
-   HISTORY DETAILS
-========================================= */
-
-.history-details {
-
-    flex: 1;
-
-    min-width: 0;
-
-}
-
-
-.history-details h3 {
-
-    overflow: hidden;
-
-    font-size:
-
-        14px;
-
-    font-weight:
-
-        700;
+    letter-spacing:
+        1px;
 
     line-height:
-
         1.3;
 
-    text-overflow:
+    color:
+        var(--history-muted);
 
+    text-overflow:
         ellipsis;
 
     white-space:
-
         nowrap;
 
 }
 
 
-.history-details p {
+.summary-content strong {
+
+    display:
+        block;
 
     margin-top:
-
-        4px;
-
-    font-size:
-
-        10px;
-
-    color:
-
-        var(--text-muted);
-
-}
-
-
-/* =========================================
-   HISTORY VALUE
-========================================= */
-
-.history-value {
-
-    flex-shrink: 0;
+        2px;
 
     font-size:
+        25px;
 
-        13px;
+    line-height:
+        1.2;
 
     font-weight:
-
-        700;
+        800;
 
     color:
-
-        var(--red);
+        var(--history-dark);
 
 }
 
 
-/* =========================================
-   LOADING / EMPTY MESSAGE
-========================================= */
+/* =========================================================
+   HISTORY INFORMATION CARD
+========================================================= */
 
-.history-message {
+.history-info {
 
-    width: 100%;
+    display:
+        flex;
 
-    padding:
+    align-items:
+        flex-start;
 
-        28px
-
+    gap:
         15px;
 
-    text-align:
+    padding:
+        22px;
 
+    background:
+        linear-gradient(
+            135deg,
+            var(--history-dark),
+            var(--history-dark-soft)
+        );
+
+    border-color:
+        var(--history-accent);
+
+}
+
+
+/* =========================================================
+   INFORMATION ICON
+========================================================= */
+
+.history-info-icon {
+
+    flex:
+        0
+        0
+        52px;
+
+    width:
+        52px;
+
+    height:
+        52px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        15px;
+
+    background:
+        var(--history-gold);
+
+    color:
+        var(--history-dark);
+
+    font-size:
+        22px;
+
+    animation:
+        infoIconPulse
+        2.5s
+        ease-in-out
+        infinite;
+
+}
+
+
+/* =========================================================
+   INFORMATION ICON ANIMATION
+========================================================= */
+
+@keyframes infoIconPulse {
+
+    0%,
+    100% {
+
+        transform:
+            scale(
+                1
+            );
+
+        box-shadow:
+            0 0 0
+            rgba(
+                255,
+                213,
+                79,
+                0
+            );
+
+    }
+
+    50% {
+
+        transform:
+            scale(
+                1.06
+            );
+
+        box-shadow:
+            0 0 22px
+            rgba(
+                255,
+                213,
+                79,
+                .4
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   INFORMATION CONTENT
+========================================================= */
+
+.history-info-content {
+
+    flex:
+        1;
+
+    min-width:
+        0;
+
+}
+
+
+.history-info-content h2 {
+
+    margin:
+        0;
+
+    font-size:
+        clamp(
+            18px,
+            3.5vw,
+            23px
+        );
+
+    line-height:
+        1.3;
+
+    font-weight:
+        800;
+
+    color:
+        var(--history-gold);
+
+}
+
+
+.history-info-content p {
+
+    margin-top:
+        8px;
+
+    font-size:
+        clamp(
+            13px,
+            2.7vw,
+            15px
+        );
+
+    line-height:
+        1.65;
+
+    font-weight:
+        400;
+
+    color:
+        var(--history-card);
+
+}
+
+
+/* =========================================================
+   HISTORY LIST SECTION
+========================================================= */
+
+.history-list-section {
+
+    padding:
+        22px;
+
+}
+
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
+.history-section-title {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+    margin-bottom:
+        20px;
+
+}
+
+
+.history-section-icon {
+
+    flex:
+        0
+        0
+        46px;
+
+    width:
+        46px;
+
+    height:
+        46px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        14px;
+
+    background:
+        var(--history-dark);
+
+    color:
+        var(--history-gold);
+
+    font-size:
+        19px;
+
+}
+
+
+.history-section-title h2 {
+
+    margin:
+        0;
+
+    font-size:
+        clamp(
+            18px,
+            3.5vw,
+            24px
+        );
+
+    line-height:
+        1.3;
+
+    font-weight:
+        800;
+
+    color:
+        var(--history-dark);
+
+}
+
+
+/* =========================================================
+   LOADING STATE
+========================================================= */
+
+.history-loading {
+
+    min-height:
+        120px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        10px;
+
+    text-align:
         center;
 
     color:
-
-        var(--text-muted);
+        var(--history-muted);
 
     font-size:
-
-        13px;
+        14px;
 
 }
 
 
-.history-message i {
-
-    display: block;
-
-    margin-bottom:
-
-        10px;
+.history-loading i {
 
     font-size:
-
         26px;
 
     color:
-
-        var(--accent);
-
-}
-
-
-.history-message p {
-
-    margin: 0;
-
-    font-size:
-
-        13px;
-
-    font-weight:
-
-        600;
+        var(--history-red);
 
 }
 
 
-.history-message span {
+/* =========================================================
+   EMPTY STATE
+========================================================= */
 
-    display: block;
+.history-empty {
 
-    margin-top:
+    min-height:
+        180px;
 
-        6px;
+    display:
+        flex;
 
-    font-size:
+    flex-direction:
+        column;
 
-        10px;
+    align-items:
+        center;
 
-    line-height:
-
-        1.5;
-
-}
-
-
-/* =========================================
-   NAVIGATION SAFE SPACE
-========================================= */
-
-.nav-space {
-
-    width: 100%;
-
-    height: 90px;
-
-}
-
-
-/* =========================================
-   END OF PART 1
-========================================= */
-/* =========================================
-   RIO MAGGI POINT
-   HISTORY.CSS
-   PART 2
-   FIXED BOTTOM NAVIGATION
-========================================= */
-
-
-/* =========================================
-   BOTTOM NAVIGATION
-========================================= */
-
-.bottom-nav {
-
-    position: fixed;
-
-    left: 50%;
-
-    bottom: 0;
-
-    transform: translateX(-50%);
-
-    width: 100%;
-
-    max-width: 520px;
-
-    height: 76px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-around;
+    justify-content:
+        center;
 
     padding:
+        25px;
 
-        8px
+    text-align:
+        center;
 
-        8px
+}
 
-        calc(8px + env(safe-area-inset-bottom));
+
+.empty-icon {
+
+    width:
+        62px;
+
+    height:
+        62px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    margin-bottom:
+        12px;
+
+    border-radius:
+        50%;
 
     background:
-
-        #263525;
-
-    border-top:
-
-        2px solid
-
-        #d19b4a;
-
-    box-shadow:
-
-        0 -8px 25px
-
-        rgba(0, 0, 0, .18);
-
-    z-index: 9999;
-
-}
-
-
-/* =========================================
-   NAVIGATION ITEM
-========================================= */
-
-.bottom-nav a {
-
-    width: 70px;
-
-    height: 60px;
-
-    flex: 1;
-
-    max-width: 82px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 4px;
+        var(--history-dark);
 
     color:
+        var(--history-gold);
 
-        rgba(255, 213, 79, .72);
-
-    text-decoration: none;
-
-    border-radius: 12px;
-
-    transition:
-
-        background .2s ease,
-
-        color .2s ease,
-
-        transform .2s ease;
+    font-size:
+        25px;
 
 }
 
 
-/* =========================================
-   NAV ICON
-========================================= */
+.history-empty h3 {
 
-.bottom-nav a i {
-
-    display: block;
+    margin:
+        0;
 
     font-size:
-
-        20px;
-
-    line-height:
-
-        1;
-
-}
-
-
-/* =========================================
-   NAV TEXT
-========================================= */
-
-.bottom-nav a span {
-
-    display: block;
-
-    font-size:
-
-        10px;
+        18px;
 
     font-weight:
+        700;
 
-        600;
+    color:
+        var(--history-dark);
+
+}
+
+
+.history-empty p {
+
+    max-width:
+        420px;
+
+    margin-top:
+        7px;
+
+    font-size:
+        13px;
 
     line-height:
+        1.6;
 
+    color:
+        var(--history-muted);
+
+}
+
+
+/* =========================================================
+   HISTORY CONTAINER
+========================================================= */
+
+.history-container {
+
+    width:
+        100%;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        12px;
+
+}
+
+
+/* =========================================================
+   HISTORY ITEM
+========================================================= */
+
+.history-item {
+
+    width:
+        100%;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        14px;
+
+    padding:
+        15px;
+
+    background:
+        var(--history-card-light);
+
+    border:
+        2px solid
+        var(--history-border);
+
+    border-radius:
+        16px;
+
+    animation:
+        historyItemAppear
+        .5s
+        ease
+        both;
+
+}
+
+
+/* =========================================================
+   HISTORY ITEM ANIMATION
+========================================================= */
+
+@keyframes historyItemAppear {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateX(
+                -15px
+            );
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateX(
+                0
+            );
+
+    }
+
+}
+
+
+/* =========================================================
+   HISTORY ITEM ICON
+========================================================= */
+
+.history-item-icon {
+
+    flex:
+        0
+        0
+        44px;
+
+    width:
+        44px;
+
+    height:
+        44px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--history-dark);
+
+    color:
+        var(--history-gold);
+
+    font-size:
+        17px;
+
+}
+
+
+/* =========================================================
+   HISTORY ITEM CONTENT
+========================================================= */
+
+.history-item-content {
+
+    flex:
         1;
 
-    white-space:
+    min-width:
+        0;
 
+}
+
+
+.history-item-content h3 {
+
+    margin:
+        0;
+
+    overflow:
+        hidden;
+
+    font-size:
+        15px;
+
+    font-weight:
+        700;
+
+    line-height:
+        1.3;
+
+    color:
+        var(--history-dark);
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
         nowrap;
 
 }
 
 
-/* =========================================
-   ACTIVE NAV
-========================================= */
+.history-item-content p {
 
-.bottom-nav a.active {
+    margin-top:
+        3px;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.5;
 
     color:
+        var(--history-muted);
 
-        #ffffff;
+}
+
+
+.history-item-content span {
+
+    display:
+        block;
+
+    margin-top:
+        5px;
+
+    font-size:
+        11px;
+
+    font-weight:
+        600;
+
+    color:
+        var(--history-red);
+
+}
+
+
+/* =========================================================
+   NAVIGATION SAFE SPACE
+========================================================= */
+
+.nav-space {
+
+    width:
+        100%;
+
+    height:
+        80px;
+
+}
+
+
+/* =========================================================
+   END OF HISTORY.CSS PART 1/2
+========================================================= */
+/* =========================================================
+   RIO MAGGI POINT
+   HISTORY.CSS
+   PART 2/2
+   PREMIUM COMPONENTS + BOTTOM NAV + RESPONSIVE
+========================================================= */
+
+
+/* =========================================================
+   REWARD UNLOCKED CARD
+========================================================= */
+
+.reward-unlocked-card {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        18px;
+
+    padding:
+        22px;
 
     background:
+        linear-gradient(
+            135deg,
+            var(--history-dark),
+            var(--history-dark-soft)
+        ) !important;
 
-        rgba(255, 213, 79, .16);
-
-}
-
-
-/* =========================================
-   ACTIVE ICON
-========================================= */
-
-.bottom-nav a.active i {
-
-    color:
-
-        #ffd54f;
+    border-color:
+        var(--history-gold) !important;
 
 }
 
 
-/* =========================================
-   HOVER
-========================================= */
+.reward-unlocked-icon {
 
-.bottom-nav a:hover {
+    flex:
+        0
+        0
+        58px;
 
-    color:
+    width:
+        58px;
 
-        #ffffff;
+    height:
+        58px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        18px;
 
     background:
+        var(--history-gold);
 
-        rgba(255, 213, 79, .12);
+    color:
+        var(--history-dark);
+
+    font-size:
+        25px;
 
 }
 
 
-/* =========================================
-   ACTIVE INDICATOR
-========================================= */
+.reward-unlocked-content {
 
-.bottom-nav a.active::after {
+    flex:
+        1;
+
+    min-width:
+        0;
+
+}
+
+
+.reward-unlocked-content h2 {
+
+    margin:
+        0;
+
+    font-size:
+        clamp(
+            17px,
+            3.5vw,
+            23px
+        );
+
+    line-height:
+        1.3;
+
+    font-weight:
+        800;
+
+    color:
+        var(--history-gold);
+
+}
+
+
+.reward-unlocked-content p {
+
+    margin-top:
+        6px;
+
+    font-size:
+        clamp(
+            12px,
+            2.5vw,
+            14px
+        );
+
+    line-height:
+        1.5;
+
+    color:
+        var(--history-white);
+
+}
+
+
+.reward-unlocked-content span {
+
+    display:
+        block;
+
+    margin-top:
+        6px;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.5;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .78
+        );
+
+}
+
+
+/* =========================================================
+   LOYALTY TIMELINE SECTION
+========================================================= */
+
+.history-timeline-section {
+
+    padding:
+        22px;
+
+}
+
+
+/* =========================================================
+   TIMELINE CONTAINER
+========================================================= */
+
+.history-timeline {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    padding:
+        5px
+        0;
+
+}
+
+
+/* =========================================================
+   TIMELINE VERTICAL LINE
+========================================================= */
+
+.history-timeline::before {
 
     content:
-
         "";
 
     position:
-
         absolute;
 
-    bottom:
+    top:
+        15px;
 
+    bottom:
+        15px;
+
+    left:
+        22px;
+
+    width:
+        2px;
+
+    background:
+        var(--history-accent);
+
+    opacity:
+        .65;
+
+}
+
+
+/* =========================================================
+   TIMELINE ITEM
+========================================================= */
+
+.timeline-item {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    min-height:
+        58px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        16px;
+
+    padding:
+        8px
+        0;
+
+}
+
+
+/* =========================================================
+   TIMELINE DOT
+========================================================= */
+
+.timeline-dot {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    flex:
+        0
+        0
+        46px;
+
+    width:
+        46px;
+
+    height:
+        46px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        3px solid
+        var(--history-card);
+
+    border-radius:
+        50%;
+
+    background:
+        var(--history-dark);
+
+    color:
+        var(--history-gold);
+
+    font-size:
+        16px;
+
+    box-shadow:
+        0 5px 15px
+        rgba(
+            38,
+            53,
+            37,
+            .18
+        );
+
+}
+
+
+/* =========================================================
+   TIMELINE CONTENT
+========================================================= */
+
+.timeline-content {
+
+    flex:
+        1;
+
+    min-width:
+        0;
+
+    padding:
+        11px
+        14px;
+
+    background:
+        var(--history-card-light);
+
+    border:
+        1px solid
+        var(--history-border);
+
+    border-radius:
+        12px;
+
+}
+
+
+.timeline-content strong {
+
+    display:
+        block;
+
+    overflow:
+        hidden;
+
+    font-size:
+        13px;
+
+    font-weight:
+        700;
+
+    line-height:
+        1.3;
+
+    color:
+        var(--history-dark);
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+
+}
+
+
+.timeline-content span {
+
+    display:
+        block;
+
+    margin-top:
+        4px;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.4;
+
+    color:
+        var(--history-muted);
+
+}
+
+
+/* =========================================================
+   DAILY REMINDER CARD
+========================================================= */
+
+.daily-reminder-card {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        15px;
+
+    padding:
+        20px;
+
+    background:
+        var(--history-card);
+
+}
+
+
+/* =========================================================
+   DAILY REMINDER ICON
+========================================================= */
+
+.daily-reminder-icon {
+
+    flex:
+        0
+        0
+        52px;
+
+    width:
+        52px;
+
+    height:
+        52px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        15px;
+
+    background:
+        var(--history-dark);
+
+    color:
+        var(--history-gold);
+
+    font-size:
+        22px;
+
+}
+
+
+/* =========================================================
+   DAILY REMINDER CONTENT
+========================================================= */
+
+.daily-reminder-content {
+
+    flex:
+        1;
+
+    min-width:
+        0;
+
+}
+
+
+.daily-reminder-content h3 {
+
+    margin:
+        0;
+
+    font-size:
+        17px;
+
+    font-weight:
+        800;
+
+    line-height:
+        1.3;
+
+    color:
+        var(--history-dark);
+
+}
+
+
+.daily-reminder-content p {
+
+    margin-top:
+        5px;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.6;
+
+    color:
+        var(--history-muted);
+
+}
+
+
+/* =========================================================
+   FIXED COMMON BOTTOM NAVIGATION
+========================================================= */
+
+.bottom-nav {
+
+    position:
+        fixed;
+
+    left:
+        50%;
+
+    bottom:
+        0;
+
+    z-index:
+        9999;
+
+    width:
+        100%;
+
+    max-width:
+        680px;
+
+    min-height:
+        76px;
+
+    transform:
+        translateX(
+            -50%
+        );
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-around;
+
+    gap:
+        4px;
+
+    padding:
+        8px
+        8px
+        calc(
+            8px
+            +
+            env(
+                safe-area-inset-bottom
+            )
+        );
+
+    background:
+        var(--history-dark);
+
+    border-top:
+        2px solid
+        var(--history-accent);
+
+    box-shadow:
+        0 -8px 25px
+        rgba(
+            0,
+            0,
+            0,
+            .18
+        );
+
+}
+
+
+/* =========================================================
+   NAV ITEM
+========================================================= */
+
+.bottom-nav .nav-item {
+
+    position:
+        relative;
+
+    flex:
+        1;
+
+    min-width:
+        0;
+
+    max-width:
+        105px;
+
+    height:
+        60px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        5px;
+
+    padding:
+        5px;
+
+    color:
+        rgba(
+            255,
+            213,
+            79,
+            .72
+        );
+
+    text-decoration:
+        none;
+
+    border-radius:
+        12px;
+
+    transition:
+        background
+        var(--history-transition),
+
+        color
+        var(--history-transition),
+
+        transform
+        var(--history-transition);
+
+}
+
+
+/* =========================================================
+   NAV ICON
+========================================================= */
+
+.bottom-nav .nav-item i {
+
+    display:
+        block;
+
+    font-size:
+        20px;
+
+    line-height:
+        1;
+
+}
+
+
+/* =========================================================
+   NAV TEXT
+========================================================= */
+
+.bottom-nav .nav-item span {
+
+    display:
+        block;
+
+    overflow:
+        hidden;
+
+    max-width:
+        100%;
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
+
+    line-height:
+        1.2;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+
+}
+
+
+/* =========================================================
+   ACTIVE NAV ITEM
+========================================================= */
+
+.bottom-nav .nav-item.active {
+
+    color:
+        var(--history-white);
+
+    background:
+        rgba(
+            255,
+            213,
+            79,
+            .16
+        );
+
+}
+
+
+/* =========================================================
+   ACTIVE NAV ICON
+========================================================= */
+
+.bottom-nav .nav-item.active i {
+
+    color:
+        var(--history-gold);
+
+}
+
+
+/* =========================================================
+   ACTIVE INDICATOR
+========================================================= */
+
+.bottom-nav .nav-item.active::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        50%;
+
+    bottom:
         3px;
 
     width:
-
         24px;
 
     height:
-
         3px;
 
-    background:
+    transform:
+        translateX(
+            -50%
+        );
 
-        #ffd54f;
+    background:
+        var(--history-gold);
 
     border-radius:
-
         10px;
 
 }
 
 
-/* =========================================
-   MOBILE
-   UP TO 480px
-========================================= */
+/* =========================================================
+   NAV HOVER
+========================================================= */
 
-@media (max-width: 480px) {
+.bottom-nav .nav-item:hover {
+
+    color:
+        var(--history-white);
+
+    background:
+        rgba(
+            255,
+            213,
+            79,
+            .12
+        );
+
+    transform:
+        translateY(
+            -2px
+        );
+
+}
+
+
+/* =========================================================
+   NAV FOCUS
+========================================================= */
+
+.bottom-nav .nav-item:focus-visible {
+
+    outline:
+        2px solid
+        var(--history-gold);
+
+    outline-offset:
+        2px;
+
+}
+
+
+/* =========================================================
+   MOBILE
+   481px AND BELOW
+========================================================= */
+
+@media (
+    max-width: 480px
+) {
+
 
     .history-page {
 
-        max-width:
-
-            100%;
-
         padding:
+            12px
+            10px
+            105px;
 
-            16px
-
-            14px
-
-            100px;
-
-    }
-
-
-    .page-header {
-
-        min-height:
-
-            78px;
-
-        padding:
-
+        gap:
             15px;
 
+    }
+
+
+    .history-page .app-card {
+
         border-radius:
-
-            18px;
-
-    }
-
-
-    .header-icon {
-
-        width:
-
-            46px;
-
-        height:
-
-            46px;
-
-        min-width:
-
-            46px;
-
-        font-size:
-
-            21px;
-
-    }
-
-
-    .header-content h1 {
-
-        font-size:
-
             20px;
 
     }
 
 
-    .header-content p {
-
-        font-size:
-
-            10px;
-
-    }
-
-
-    .summary-card,
-
-    .history-section {
+    .profile-header {
 
         padding:
-
-            16px;
-
-        border-radius:
-
-            17px;
-
-    }
-
-
-    .summary-avatar {
-
-        width:
-
-            56px;
-
-        height:
-
-            56px;
-
-        min-width:
-
-            56px;
-
-    }
-
-
-    .summary-user h2 {
-
-        font-size:
-
-            16px;
-
-    }
-
-
-    .stamp-summary {
+            18px;
 
         gap:
+            12px;
 
-            7px;
+    }
+
+
+    .profile-header-icon {
+
+        flex-basis:
+            52px;
+
+        width:
+            52px;
+
+        height:
+            52px;
+
+        border-radius:
+            15px;
+
+        font-size:
+            21px;
+
+    }
+
+
+    .history-summary {
+
+        padding:
+            15px;
+
+        gap:
+            10px;
 
     }
 
@@ -1267,66 +2189,252 @@ body {
     .summary-item {
 
         padding:
-
-            10px
-
-            4px;
+            14px
+            10px;
 
     }
 
 
-    .summary-item strong {
+    .summary-icon {
+
+        flex-basis:
+            42px;
+
+        width:
+            42px;
+
+        height:
+            42px;
 
         font-size:
+            17px;
 
+    }
+
+
+    .summary-content strong {
+
+        font-size:
+            22px;
+
+    }
+
+
+    .history-info {
+
+        padding:
+            18px;
+
+        gap:
+            12px;
+
+    }
+
+
+    .history-info-icon {
+
+        flex-basis:
+            46px;
+
+        width:
+            46px;
+
+        height:
+            46px;
+
+        font-size:
+            19px;
+
+    }
+
+
+    .history-list-section,
+
+    .history-timeline-section {
+
+        padding:
+            18px;
+
+    }
+
+
+    .history-section-title {
+
+        gap:
+            10px;
+
+        margin-bottom:
+            16px;
+
+    }
+
+
+    .history-section-icon {
+
+        flex-basis:
+            42px;
+
+        width:
+            42px;
+
+        height:
+            42px;
+
+        font-size:
+            17px;
+
+    }
+
+
+    .history-item {
+
+        gap:
+            10px;
+
+        padding:
+            13px;
+
+    }
+
+
+    .history-item-icon {
+
+        flex-basis:
+            40px;
+
+        width:
+            40px;
+
+        height:
+            40px;
+
+        font-size:
             15px;
+
+    }
+
+
+    .history-item-content h3 {
+
+        font-size:
+            13px;
+
+    }
+
+
+    .history-item-content p {
+
+        font-size:
+            11px;
+
+    }
+
+
+    .history-item-content span {
+
+        font-size:
+            10px;
+
+    }
+
+
+    .reward-unlocked-card {
+
+        gap:
+            12px;
+
+        padding:
+            18px;
+
+    }
+
+
+    .reward-unlocked-icon {
+
+        flex-basis:
+            48px;
+
+        width:
+            48px;
+
+        height:
+            48px;
+
+        border-radius:
+            14px;
+
+        font-size:
+            20px;
+
+    }
+
+
+    .daily-reminder-card {
+
+        padding:
+            18px;
+
+    }
+
+
+    .daily-reminder-icon {
+
+        flex-basis:
+            46px;
+
+        width:
+            46px;
+
+        height:
+            46px;
+
+        font-size:
+            19px;
 
     }
 
 
     .bottom-nav {
 
-        height:
-
+        min-height:
             72px;
 
         padding:
-
             6px
-
             5px
-
-            calc(6px + env(safe-area-inset-bottom));
+            calc(
+                6px
+                +
+                env(
+                    safe-area-inset-bottom
+                )
+            );
 
     }
 
 
-    .bottom-nav a {
+    .bottom-nav .nav-item {
 
         height:
-
             58px;
 
         max-width:
-
             70px;
 
     }
 
 
-    .bottom-nav a i {
+    .bottom-nav .nav-item i {
 
         font-size:
-
             19px;
 
     }
 
 
-    .bottom-nav a span {
+    .bottom-nav .nav-item span {
 
         font-size:
-
             9px;
 
     }
@@ -1334,136 +2442,272 @@ body {
 }
 
 
-/* =========================================
+/* =========================================================
    SMALL MOBILE
-   UP TO 360px
-========================================= */
+   360px AND BELOW
+========================================================= */
 
-@media (max-width: 360px) {
+@media (
+    max-width: 360px
+) {
+
 
     .history-page {
 
         padding-left:
-
-            10px;
+            8px;
 
         padding-right:
-
-            10px;
-
-    }
-
-
-    .bottom-nav a {
-
-        max-width:
-
-            62px;
-
-    }
-
-
-    .bottom-nav a i {
-
-        font-size:
-
-            17px;
-
-    }
-
-
-    .bottom-nav a span {
-
-        font-size:
-
             8px;
 
     }
 
 
-    .page-header {
+    .profile-header {
 
         padding:
-
-            13px;
+            15px;
 
     }
 
 
-    .header-content h1 {
+    .profile-header-icon {
+
+        flex-basis:
+            46px;
+
+        width:
+            46px;
+
+        height:
+            46px;
 
         font-size:
+            19px;
 
-            18px;
+    }
+
+
+    .profile-header-content h1 {
+
+        font-size:
+            19px;
+
+    }
+
+
+    .profile-header-content p {
+
+        font-size:
+            10px;
+
+    }
+
+
+    .history-summary {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(
+                    0,
+                    1fr
+                )
+            );
+
+        padding:
+            12px;
+
+    }
+
+
+    .summary-item {
+
+        flex-direction:
+            column;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        text-align:
+            center;
+
+        padding:
+            12px
+            6px;
+
+    }
+
+
+    .summary-content {
+
+        align-items:
+            center;
+
+    }
+
+
+    .summary-label {
+
+        font-size:
+            9px;
+
+    }
+
+
+    .summary-content strong {
+
+        font-size:
+            20px;
+
+    }
+
+
+    .history-info {
+
+        padding:
+            15px;
+
+    }
+
+
+    .history-info-icon {
+
+        flex-basis:
+            42px;
+
+        width:
+            42px;
+
+        height:
+            42px;
+
+        font-size:
+            17px;
+
+    }
+
+
+    .history-item {
+
+        padding:
+            11px;
+
+    }
+
+
+    .history-item-icon {
+
+        flex-basis:
+            38px;
+
+        width:
+            38px;
+
+        height:
+            38px;
+
+    }
+
+
+    .bottom-nav .nav-item {
+
+        max-width:
+            60px;
+
+    }
+
+
+    .bottom-nav .nav-item i {
+
+        font-size:
+            17px;
+
+    }
+
+
+    .bottom-nav .nav-item span {
+
+        font-size:
+            8px;
 
     }
 
 }
 
 
-/* =========================================
+/* =========================================================
    TABLET
    481px - 768px
-========================================= */
+========================================================= */
 
-@media (min-width: 481px) and (max-width: 768px) {
+@media (
+    min-width: 481px
+)
+and (
+    max-width: 768px
+) {
+
 
     .history-page {
 
         max-width:
-
-            600px;
+            720px;
 
         padding:
-
             28px
-
             24px
+            125px;
 
-            120px;
+        gap:
+            22px;
 
     }
 
 
-    .page-header {
+    .history-page .app-card {
 
-        min-height:
+        max-width:
+            680px;
 
-            92px;
+    }
+
+
+    .profile-header {
 
         padding:
-
-            20px
-
+            22px
             24px;
 
     }
 
 
-    .header-content h1 {
+    .profile-header-content h1 {
 
         font-size:
-
             26px;
 
     }
 
 
-    .header-content p {
+    .profile-header-content p {
 
         font-size:
-
             13px;
 
     }
 
 
-    .summary-card,
+    .history-summary,
 
-    .history-section {
+    .history-list-section,
+
+    .history-timeline-section {
 
         padding:
-
             22px;
 
     }
@@ -1472,169 +2716,233 @@ body {
     .bottom-nav {
 
         max-width:
-
-            600px;
-
-        height:
-
-            82px;
-
-    }
-
-
-    .bottom-nav a {
-
-        height:
-
-            66px;
-
-        max-width:
-
-            95px;
-
-    }
-
-
-    .bottom-nav a i {
-
-        font-size:
-
-            22px;
-
-    }
-
-
-    .bottom-nav a span {
-
-        font-size:
-
-            11px;
-
-    }
-
-}
-
-
-/* =========================================
-   LAPTOP
-   769px - 1199px
-========================================= */
-
-@media (min-width: 769px) and (max-width: 1199px) {
-
-    .history-page {
-
-        max-width:
-
-            620px;
-
-        padding:
-
-            30px
-
-            25px
-
-            125px;
-
-    }
-
-
-    .bottom-nav {
-
-        max-width:
-
-            620px;
-
-        height:
-
-            82px;
-
-    }
-
-
-    .bottom-nav a {
-
-        max-width:
-
-            100px;
-
-    }
-
-
-    .bottom-nav a i {
-
-        font-size:
-
-            22px;
-
-    }
-
-
-    .bottom-nav a span {
-
-        font-size:
-
-            11px;
-
-    }
-
-}
-
-
-/* =========================================
-   DESKTOP / PC
-   1200px AND ABOVE
-========================================= */
-
-@media (min-width: 1200px) {
-
-    .history-page {
-
-        max-width:
-
-            640px;
-
-        padding:
-
-            35px
-
-            25px
-
-            130px;
-
-    }
-
-
-    .page-header {
+            680px;
 
         min-height:
+            82px;
 
-            100px;
+    }
+
+
+    .bottom-nav .nav-item {
+
+        height:
+            66px;
+
+    }
+
+
+    .bottom-nav .nav-item i {
+
+        font-size:
+            22px;
+
+    }
+
+
+    .bottom-nav .nav-item span {
+
+        font-size:
+            11px;
+
+    }
+
+}
+
+
+/* =========================================================
+   LAPTOP
+   769px - 1199px
+========================================================= */
+
+@media (
+    min-width: 769px
+)
+and (
+    max-width: 1199px
+) {
+
+
+    .history-page {
+
+        max-width:
+            760px;
 
         padding:
+            32px
+            30px
+            130px;
 
-            22px
+        gap:
+            24px;
 
+    }
+
+
+    .history-page .app-card {
+
+        max-width:
+            700px;
+
+    }
+
+
+    .profile-header {
+
+        padding:
             25px;
 
     }
 
 
-    .header-content h1 {
+    .history-summary,
+
+    .history-list-section,
+
+    .history-timeline-section {
+
+        padding:
+            25px;
+
+    }
+
+
+    .bottom-nav {
+
+        max-width:
+            700px;
+
+        min-height:
+            82px;
+
+    }
+
+
+    .bottom-nav .nav-item {
+
+        height:
+            66px;
+
+    }
+
+
+    .bottom-nav .nav-item i {
 
         font-size:
+            22px;
 
+    }
+
+
+    .bottom-nav .nav-item span {
+
+        font-size:
+            11px;
+
+    }
+
+}
+
+
+/* =========================================================
+   DESKTOP / PC
+   1200px AND ABOVE
+========================================================= */
+
+@media (
+    min-width: 1200px
+) {
+
+
+    .history-page {
+
+        max-width:
+            820px;
+
+        padding:
+            40px
+            30px
+            140px;
+
+        gap:
+            25px;
+
+    }
+
+
+    .history-page .app-card {
+
+        max-width:
+            720px;
+
+    }
+
+
+    .profile-header {
+
+        padding:
+            26px
             28px;
 
     }
 
 
-    .summary-card,
+    .profile-header-icon {
 
-    .history-section {
+        flex-basis:
+            66px;
+
+        width:
+            66px;
+
+        height:
+            66px;
+
+        font-size:
+            28px;
+
+    }
+
+
+    .history-summary,
+
+    .history-list-section,
+
+    .history-timeline-section {
 
         padding:
+            26px;
 
+    }
+
+
+    .summary-item {
+
+        padding:
+            18px;
+
+    }
+
+
+    .history-info {
+
+        padding:
+            26px;
+
+    }
+
+
+    .reward-unlocked-card {
+
+        padding:
+            26px;
+
+    }
+
+
+    .daily-reminder-card {
+
+        padding:
             24px;
 
     }
@@ -1643,42 +2951,33 @@ body {
     .bottom-nav {
 
         max-width:
+            720px;
 
-            640px;
-
-        height:
-
+        min-height:
             84px;
 
     }
 
 
-    .bottom-nav a {
+    .bottom-nav .nav-item {
 
         height:
-
             68px;
-
-        max-width:
-
-            105px;
 
     }
 
 
-    .bottom-nav a i {
+    .bottom-nav .nav-item i {
 
         font-size:
-
             23px;
 
     }
 
 
-    .bottom-nav a span {
+    .bottom-nav .nav-item span {
 
         font-size:
-
             11px;
 
     }
@@ -1686,25 +2985,85 @@ body {
 }
 
 
-/* =========================================
-   ACCESSIBILITY
-========================================= */
+/* =========================================================
+   LARGE DESKTOP
+   1600px AND ABOVE
+========================================================= */
 
-.bottom-nav a:focus-visible {
+@media (
+    min-width: 1600px
+) {
 
-    outline:
 
-        2px solid
+    .history-page {
 
-        #ffd54f;
+        max-width:
+            900px;
 
-    outline-offset:
+        padding-top:
+            50px;
 
-        2px;
+    }
+
+
+    .history-page .app-card {
+
+        max-width:
+            760px;
+
+    }
+
+
+    .bottom-nav {
+
+        max-width:
+            760px;
+
+    }
 
 }
 
 
-/* =========================================
-   END HISTORY.CSS PART 2
-========================================= */
+/* =========================================================
+   REDUCED MOTION
+   ACCESSIBILITY
+========================================================= */
+
+@media (
+    prefers-reduced-motion: reduce
+) {
+
+
+    html {
+
+        scroll-behavior:
+            auto;
+
+    }
+
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            0.01ms !important;
+
+        scroll-behavior:
+            auto !important;
+
+    }
+
+}
+
+
+/* =========================================================
+   HISTORY.CSS COMPLETE
+   PART 2/2
+========================================================= */
