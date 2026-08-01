@@ -1,49 +1,88 @@
 /* =======================================================
    RIO MAGGI POINT
-   PREMIUM ADMIN DASHBOARD V5
+   PREMIUM ADMIN DASHBOARD
+   ADMIN-DASHBOARD.CSS
    PART 1 / 6
-   GLOBAL RESET + THEME + BASE LAYOUT
+   GLOBAL RESET + THEME + BASE FOUNDATION
+======================================================= */
+
+
+/* =======================================================
+   ROOT THEME
 ======================================================= */
 
 :root{
+
+    /* ---------- BACKGROUND ---------- */
 
     --bg:#090909;
     --surface:#141414;
     --surface-2:#1c1c1c;
 
+
+    /* ---------- BRAND COLORS ---------- */
+
     --gold:#D4AF37;
     --gold-light:#F7DE8B;
+
+
+    /* ---------- TEXT ---------- */
 
     --white:#ffffff;
     --text:#e8e8e8;
     --muted:#9f9f9f;
 
+
+    /* ---------- STATUS COLORS ---------- */
+
     --success:#2ecc71;
     --danger:#ff4d4f;
+    --warning:#ffb300;
+
+
+    /* ---------- BORDERS ---------- */
 
     --border:rgba(212,175,55,.16);
 
+
+    /* ---------- RADIUS ---------- */
+
     --radius:22px;
+
+
+    /* ---------- SHADOW ---------- */
 
     --shadow:
         0 12px 35px rgba(0,0,0,.45);
+
+
+    /* ---------- TRANSITION ---------- */
 
     --transition:.35s ease;
 
 }
 
 
+/* =======================================================
+   GLOBAL RESET
+======================================================= */
+
 *,
 *::before,
 *::after{
 
     margin:0;
+
     padding:0;
 
     box-sizing:border-box;
 
 }
 
+
+/* =======================================================
+   HTML
+======================================================= */
 
 html{
 
@@ -52,23 +91,39 @@ html{
 }
 
 
+/* =======================================================
+   BODY
+======================================================= */
+
 body{
-
-    font-family:"Poppins",sans-serif;
-
-    background:
-        radial-gradient(circle at top,#242424 0%,#101010 38%,#090909 100%);
-
-    color:var(--text);
-
-    overflow-x:hidden;
 
     min-height:100vh;
 
-    padding-bottom:env(safe-area-inset-bottom);
+    width:100%;
+
+    overflow-x:hidden;
+
+    font-family:"Poppins",sans-serif;
+
+    color:var(--text);
+
+    background:
+        radial-gradient(
+            circle at top,
+            #242424 0%,
+            #101010 38%,
+            #090909 100%
+        );
+
+    padding-bottom:
+        env(safe-area-inset-bottom);
 
 }
 
+
+/* =======================================================
+   IMAGES
+======================================================= */
 
 img{
 
@@ -76,12 +131,12 @@ img{
 
     max-width:100%;
 
-    transition:
-        transform .35s ease,
-        opacity .35s ease;
-
 }
 
+
+/* =======================================================
+   BUTTONS
+======================================================= */
 
 button{
 
@@ -90,12 +145,22 @@ button{
 }
 
 
-input{
+/* =======================================================
+   INPUTS
+======================================================= */
+
+input,
+textarea,
+select{
 
     font-family:inherit;
 
 }
 
+
+/* =======================================================
+   LINKS
+======================================================= */
 
 a{
 
@@ -116,11 +181,13 @@ a{
 
 }
 
+
 ::-webkit-scrollbar-track{
 
     background:#101010;
 
 }
+
 
 ::-webkit-scrollbar-thumb{
 
@@ -130,6 +197,7 @@ a{
 
 }
 
+
 ::-webkit-scrollbar-thumb:hover{
 
     background:var(--gold-light);
@@ -138,7 +206,33 @@ a{
 
 
 /* =======================================================
-   APP
+   TEXT SELECTION
+======================================================= */
+
+::selection{
+
+    background:var(--gold);
+
+    color:#111;
+
+}
+
+
+/* =======================================================
+   PLACEHOLDER
+======================================================= */
+
+::placeholder{
+
+    color:#888;
+
+    opacity:1;
+
+}
+
+
+/* =======================================================
+   ADMIN APP
 ======================================================= */
 
 .admin-app{
@@ -155,7 +249,14 @@ a{
 
 
 /* =======================================================
-   PREMIUM GLASS CARD
+   COMMON PREMIUM CARD FOUNDATION
+
+   Used by:
+   - Scanner Card
+   - Customer Card
+   - Stat Card
+   - Customer Section
+   - Status Card
 ======================================================= */
 
 .scanner-card,
@@ -183,6 +284,8 @@ a{
 
     backdrop-filter:blur(14px);
 
+    -webkit-backdrop-filter:blur(14px);
+
     transition:
         transform var(--transition),
         box-shadow var(--transition),
@@ -190,6 +293,10 @@ a{
 
 }
 
+
+/* =======================================================
+   COMMON CARD HOVER
+======================================================= */
 
 .scanner-card:hover,
 .customer-card:hover,
@@ -199,13 +306,21 @@ a{
 
     transform:translateY(-4px);
 
-    border-color:rgba(212,175,55,.35);
+    border-color:
+        rgba(212,175,55,.35);
 
     box-shadow:
         0 18px 45px rgba(0,0,0,.55);
 
 }
 
+
+/* =======================================================
+   COMMON CARD SHINE EFFECT
+
+   Defined ONCE only.
+   No duplicate ::after definitions elsewhere.
+======================================================= */
 
 .scanner-card::after,
 .customer-card::after,
@@ -218,10 +333,14 @@ a{
     position:absolute;
 
     top:0;
+
     left:-120%;
 
     width:45%;
+
     height:100%;
+
+    pointer-events:none;
 
     background:
         linear-gradient(
@@ -231,10 +350,15 @@ a{
             transparent
         );
 
-    transition:1.2s;
+    transition:
+        left 1.2s ease;
 
 }
 
+
+/* =======================================================
+   CARD SHINE HOVER
+======================================================= */
 
 .scanner-card:hover::after,
 .customer-card:hover::after,
@@ -248,7 +372,7 @@ a{
 
 
 /* =======================================================
-   FADE ANIMATION
+   FADE UP ANIMATION
 ======================================================= */
 
 @keyframes fadeUp{
@@ -272,37 +396,59 @@ a{
 }
 
 
-.dashboard-wrapper>*{
+/* =======================================================
+   DASHBOARD CHILD ANIMATION
+======================================================= */
 
-    animation:fadeUp .6s ease both;
+.dashboard-wrapper > *{
+
+    animation:
+        fadeUp .6s ease both;
 
 }
 
 
-.dashboard-wrapper>*:nth-child(2){
+.dashboard-wrapper > *:nth-child(2){
 
     animation-delay:.08s;
 
 }
 
 
-.dashboard-wrapper>*:nth-child(3){
+.dashboard-wrapper > *:nth-child(3){
 
     animation-delay:.16s;
 
 }
 
 
-.dashboard-wrapper>*:nth-child(4){
+.dashboard-wrapper > *:nth-child(4){
 
     animation-delay:.24s;
 
 }
 
 
-.dashboard-wrapper>*:nth-child(5){
+.dashboard-wrapper > *:nth-child(5){
 
     animation-delay:.32s;
+
+}
+
+
+/* =======================================================
+   FOCUS ACCESSIBILITY
+======================================================= */
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible{
+
+    outline:
+        2px solid var(--gold);
+
+    outline-offset:3px;
 
 }
 
@@ -312,14 +458,15 @@ a{
 ======================================================= */
 /* =======================================================
    RIO MAGGI POINT
-   PREMIUM ADMIN DASHBOARD V5
+   PREMIUM ADMIN DASHBOARD
+   ADMIN-DASHBOARD.CSS
    PART 2 / 6
    HEADER + NAVIGATION + MAIN LAYOUT
 ======================================================= */
 
 
 /* =======================================================
-   HEADER
+   APP HEADER
 ======================================================= */
 
 .app-header{
@@ -342,16 +489,26 @@ a{
 
     gap:20px;
 
+    width:100%;
+
     padding:18px 28px;
 
-    background:rgba(14,14,14,.92);
+    background:
+        rgba(14,14,14,.92);
 
     backdrop-filter:blur(18px);
 
-    border-bottom:1px solid rgba(212,175,55,.18);
+    -webkit-backdrop-filter:blur(18px);
+
+    border-bottom:
+        1px solid rgba(212,175,55,.18);
 
 }
 
+
+/* =======================================================
+   LOGO AREA
+======================================================= */
 
 .logo-area{
 
@@ -361,8 +518,14 @@ a{
 
     gap:18px;
 
+    min-width:0;
+
 }
 
+
+/* =======================================================
+   LOGO IMAGE
+======================================================= */
 
 .logo-area img{
 
@@ -370,27 +533,38 @@ a{
 
     height:68px;
 
+    flex-shrink:0;
+
     object-fit:cover;
 
     border-radius:18px;
 
-    border:2px solid rgba(212,175,55,.25);
+    border:
+        2px solid rgba(212,175,55,.25);
 
     background:#111;
 
-    transition:.35s;
+    transition:
+        transform .35s ease,
+        border-color .35s ease;
 
 }
 
 
 .logo-area img:hover{
 
-    transform:rotate(-4deg) scale(1.04);
+    transform:
+        rotate(-4deg) scale(1.04);
 
-    border-color:var(--gold);
+    border-color:
+        var(--gold);
 
 }
 
+
+/* =======================================================
+   LOGO TITLE
+======================================================= */
 
 .logo-area h2{
 
@@ -398,12 +572,18 @@ a{
 
     font-weight:700;
 
+    line-height:1.25;
+
     color:var(--gold);
 
     letter-spacing:.5px;
 
 }
 
+
+/* =======================================================
+   LOGO SUBTITLE
+======================================================= */
 
 .logo-area p{
 
@@ -413,8 +593,14 @@ a{
 
     font-size:13px;
 
+    line-height:1.5;
+
 }
 
+
+/* =======================================================
+   HEADER RIGHT AREA
+======================================================= */
 
 .header-right{
 
@@ -422,10 +608,16 @@ a{
 
     align-items:center;
 
+    justify-content:flex-end;
+
     gap:14px;
 
 }
 
+
+/* =======================================================
+   LIVE STATUS INDICATOR
+======================================================= */
 
 .live-indicator{
 
@@ -437,40 +629,57 @@ a{
 
     gap:8px;
 
-    padding:10px 18px;
+    min-height:42px;
+
+    padding:
+        10px 18px;
 
     border-radius:999px;
 
-    background:rgba(46,204,113,.14);
+    background:
+        rgba(46,204,113,.14);
 
     color:#7dffac;
 
-    border:1px solid rgba(46,204,113,.28);
+    border:
+        1px solid rgba(46,204,113,.28);
+
+    font-size:14px;
 
     font-weight:600;
 
-    animation:livePulse 1.8s infinite;
+    white-space:nowrap;
+
+    animation:
+        livePulse 1.8s infinite;
 
 }
 
+
+/* =======================================================
+   LIVE PULSE
+======================================================= */
 
 @keyframes livePulse{
 
     0%{
 
-        box-shadow:0 0 0 rgba(46,204,113,0);
+        box-shadow:
+            0 0 0 rgba(46,204,113,0);
 
     }
 
     50%{
 
-        box-shadow:0 0 20px rgba(46,204,113,.35);
+        box-shadow:
+            0 0 20px rgba(46,204,113,.35);
 
     }
 
     100%{
 
-        box-shadow:0 0 0 rgba(46,204,113,0);
+        box-shadow:
+            0 0 0 rgba(46,204,113,0);
 
     }
 
@@ -478,7 +687,7 @@ a{
 
 
 /* =======================================================
-   NAVIGATION
+   MAIN NAVIGATION
 ======================================================= */
 
 .app-nav{
@@ -491,20 +700,26 @@ a{
 
     gap:14px;
 
-    padding:18px 22px;
+    width:100%;
+
+    padding:
+        18px 22px;
 
     background:#111111;
 
-    border-bottom:1px solid rgba(212,175,55,.12);
+    border-bottom:
+        1px solid rgba(212,175,55,.12);
 
 }
 
 
+/* =======================================================
+   NAVIGATION BUTTON
+======================================================= */
+
 .app-nav button{
 
     position:relative;
-
-    overflow:hidden;
 
     display:flex;
 
@@ -516,39 +731,56 @@ a{
 
     min-width:145px;
 
-    height:58px;
+    min-height:58px;
 
-    padding:0 22px;
+    padding:
+        0 22px;
+
+    overflow:hidden;
 
     background:#1a1a1a;
 
     color:#f1f1f1;
 
-    border:1px solid rgba(255,255,255,.06);
+    border:
+        1px solid rgba(255,255,255,.06);
 
     border-radius:18px;
 
     cursor:pointer;
 
     transition:
-        transform .30s,
-        background .30s,
-        color .30s,
-        box-shadow .30s;
+        transform .30s ease,
+        background .30s ease,
+        color .30s ease,
+        box-shadow .30s ease,
+        border-color .30s ease;
 
 }
 
 
+/* =======================================================
+   NAV ICON
+======================================================= */
+
 .app-nav button i{
+
+    flex-shrink:0;
 
     font-size:18px;
 
     color:var(--gold);
 
-    transition:.30s;
+    transition:
+        color .30s ease,
+        transform .30s ease;
 
 }
 
+
+/* =======================================================
+   NAV TEXT
+======================================================= */
 
 .app-nav button span{
 
@@ -556,20 +788,34 @@ a{
 
     font-weight:600;
 
+    line-height:1;
+
     letter-spacing:.3px;
+
+    white-space:nowrap;
 
 }
 
 
+/* =======================================================
+   NAV HOVER
+======================================================= */
+
 .app-nav button:hover{
 
-    transform:translateY(-3px);
+    transform:
+        translateY(-3px);
 
-    background:var(--gold);
+    background:
+        var(--gold);
 
     color:#111;
 
-    border-color:transparent;
+    border-color:
+        transparent;
+
+    box-shadow:
+        0 10px 25px rgba(212,175,55,.18);
 
 }
 
@@ -581,19 +827,25 @@ a{
 }
 
 
+/* =======================================================
+   NAVIGATION SHINE
+======================================================= */
+
 .app-nav button::before{
 
     content:"";
 
     position:absolute;
 
-    left:-120%;
-
     top:0;
+
+    left:-120%;
 
     width:60%;
 
     height:100%;
+
+    pointer-events:none;
 
     background:
         linear-gradient(
@@ -603,7 +855,8 @@ a{
             transparent
         );
 
-    transition:.7s;
+    transition:
+        left .7s ease;
 
 }
 
@@ -615,42 +868,57 @@ a{
 }
 
 
+/* =======================================================
+   LOGOUT BUTTON
+======================================================= */
+
 .logout-nav{
 
-    background:#8b1f1f !important;
+    background:
+        #8b1f1f !important;
 
-    color:#fff !important;
+    color:
+        #ffffff !important;
 
-    border:none !important;
+    border:
+        none !important;
 
 }
 
 
 .logout-nav i{
 
-    color:#fff !important;
+    color:
+        #ffffff !important;
 
 }
 
 
 .logout-nav:hover{
 
-    background:#d32f2f !important;
+    background:
+        #d32f2f !important;
+
+    box-shadow:
+        0 10px 25px rgba(211,47,47,.25);
 
 }
 
 
 /* =======================================================
-   MAIN LAYOUT
+   MAIN DASHBOARD WRAPPER
 ======================================================= */
 
 .dashboard-wrapper{
 
-    width:min(1700px,100%);
+    width:
+        min(1700px,100%);
 
-    margin:auto;
+    margin:
+        0 auto;
 
-    padding:30px;
+    padding:
+        30px;
 
     display:flex;
 
@@ -669,22 +937,30 @@ a{
 
     display:flex;
 
-    justify-content:space-between;
-
     align-items:center;
+
+    justify-content:space-between;
 
     gap:20px;
 
     flex-wrap:wrap;
 
+    margin-bottom:24px;
+
 }
 
+
+/* =======================================================
+   SECTION TITLE
+======================================================= */
 
 .section-header h2{
 
     font-size:26px;
 
     font-weight:700;
+
+    line-height:1.3;
 
     color:var(--gold);
 
@@ -696,9 +972,10 @@ a{
 ======================================================= */
 /* =======================================================
    RIO MAGGI POINT
-   PREMIUM ADMIN DASHBOARD V5
+   PREMIUM ADMIN DASHBOARD
+   ADMIN-DASHBOARD.CSS
    PART 3 / 6
-   SCANNER + CUSTOMER PREVIEW
+   SCANNER + CUSTOMER PREVIEW + STAMP GRID
 ======================================================= */
 
 
@@ -710,7 +987,9 @@ a{
 
     display:grid;
 
-    grid-template-columns:1.35fr .85fr;
+    grid-template-columns:
+        minmax(0,1.35fr)
+        minmax(320px,.85fr);
 
     gap:28px;
 
@@ -718,6 +997,10 @@ a{
 
 }
 
+
+/* =======================================================
+   SCANNER & CUSTOMER CARD PADDING
+======================================================= */
 
 .scanner-card,
 .customer-card{
@@ -744,6 +1027,10 @@ a{
 }
 
 
+/* =======================================================
+   CARD TITLE HEADING
+======================================================= */
+
 .card-title h2{
 
     display:flex;
@@ -754,17 +1041,31 @@ a{
 
     font-size:26px;
 
+    font-weight:700;
+
+    line-height:1.3;
+
     color:var(--gold);
 
 }
 
 
+/* =======================================================
+   CARD TITLE ICON
+======================================================= */
+
 .card-title h2 i{
+
+    flex-shrink:0;
 
     font-size:24px;
 
 }
 
+
+/* =======================================================
+   CARD TITLE DESCRIPTION
+======================================================= */
 
 .card-title p{
 
@@ -772,11 +1073,13 @@ a{
 
     font-size:14px;
 
+    line-height:1.6;
+
 }
 
 
 /* =======================================================
-   QR SCANNER
+   QR SCANNER CONTAINER
 ======================================================= */
 
 .scanner-box{
@@ -793,25 +1096,38 @@ a{
 
     background:#050505;
 
-    border:2px solid rgba(212,175,55,.25);
+    border:
+        2px solid rgba(212,175,55,.25);
 
-    transition:.35s;
+    transition:
+        border-color .35s ease,
+        box-shadow .35s ease;
 
 }
 
 
+/* =======================================================
+   SCANNER HOVER
+======================================================= */
+
 .scanner-box:hover{
 
-    border-color:var(--gold);
+    border-color:
+        var(--gold);
 
     box-shadow:
-
         0 0 35px rgba(212,175,55,.20);
 
 }
 
 
+/* =======================================================
+   QR READER
+======================================================= */
+
 #qr-reader{
+
+    position:relative;
 
     width:100%;
 
@@ -820,15 +1136,23 @@ a{
 }
 
 
+/* =======================================================
+   QR READER VIDEO
+======================================================= */
+
 #qr-reader video{
+
+    display:block;
 
     width:100% !important;
 
     height:100% !important;
 
+    min-height:430px;
+
     object-fit:cover;
 
-    border-radius:24px;
+    border-radius:22px;
 
 }
 
@@ -843,6 +1167,8 @@ a{
 
     inset:0;
 
+    z-index:20;
+
     display:flex;
 
     flex-direction:column;
@@ -853,65 +1179,95 @@ a{
 
     gap:18px;
 
+    padding:30px;
+
+    text-align:center;
+
     background:
-
         linear-gradient(
-
             rgba(0,0,0,.75),
-
             rgba(0,0,0,.82)
-
         );
-
-    z-index:20;
 
 }
 
+
+/* =======================================================
+   CAMERA ICON
+======================================================= */
 
 .camera-overlay i{
 
     font-size:74px;
 
+    line-height:1;
+
     color:var(--gold);
 
-    animation:scannerFloat 2.2s ease-in-out infinite;
+    animation:
+        scannerFloat 2.2s ease-in-out infinite;
 
 }
 
+
+/* =======================================================
+   CAMERA OVERLAY TITLE
+======================================================= */
 
 .camera-overlay h3{
 
     font-size:28px;
 
-    color:#fff;
+    font-weight:700;
+
+    line-height:1.3;
+
+    color:#ffffff;
 
 }
 
+
+/* =======================================================
+   CAMERA OVERLAY DESCRIPTION
+======================================================= */
 
 .camera-overlay p{
 
+    max-width:500px;
+
     color:#b9b9b9;
+
+    font-size:14px;
+
+    line-height:1.6;
 
 }
 
+
+/* =======================================================
+   SCANNER FLOAT ANIMATION
+======================================================= */
 
 @keyframes scannerFloat{
 
     0%{
 
-        transform:translateY(0);
+        transform:
+            translateY(0);
 
     }
 
     50%{
 
-        transform:translateY(-8px);
+        transform:
+            translateY(-8px);
 
     }
 
     100%{
 
-        transform:translateY(0);
+        transform:
+            translateY(0);
 
     }
 
@@ -919,7 +1275,7 @@ a{
 
 
 /* =======================================================
-   BUTTON GROUP
+   SCANNER CONTROLS
 ======================================================= */
 
 .scanner-controls,
@@ -934,17 +1290,24 @@ a{
 }
 
 
+/* =======================================================
+   COMMON ACTION BUTTONS
+======================================================= */
+
 .gold-btn,
 .red-btn,
 .gray-btn{
 
     position:relative;
 
-    overflow:hidden;
-
     flex:1;
 
-    height:58px;
+    min-height:58px;
+
+    padding:
+        0 20px;
+
+    overflow:hidden;
 
     border:none;
 
@@ -952,33 +1315,34 @@ a{
 
     cursor:pointer;
 
+    font-family:inherit;
+
     font-size:15px;
 
     font-weight:700;
 
+    line-height:1.2;
+
     transition:
-
-        transform .30s,
-
-        box-shadow .30s,
-
-        background .30s;
+        transform .30s ease,
+        box-shadow .30s ease,
+        background .30s ease,
+        opacity .30s ease;
 
 }
 
 
+/* =======================================================
+   GOLD BUTTON
+======================================================= */
+
 .gold-btn{
 
     background:
-
         linear-gradient(
-
             135deg,
-
             #FFD95A,
-
             #D4AF37
-
         );
 
     color:#111;
@@ -986,36 +1350,54 @@ a{
 }
 
 
+/* =======================================================
+   RED BUTTON
+======================================================= */
+
 .red-btn{
 
-    background:#d63031;
+    background:
+        #d63031;
 
-    color:#fff;
+    color:#ffffff;
 
 }
 
+
+/* =======================================================
+   GRAY BUTTON
+======================================================= */
 
 .gray-btn{
 
-    background:#303744;
+    background:
+        #303744;
 
-    color:#fff;
+    color:#ffffff;
 
 }
 
+
+/* =======================================================
+   BUTTON HOVER
+======================================================= */
 
 .gold-btn:hover,
 .red-btn:hover,
 .gray-btn:hover{
 
-    transform:translateY(-3px);
+    transform:
+        translateY(-3px);
 
     box-shadow:
-
         0 14px 28px rgba(0,0,0,.35);
 
 }
 
+
+/* =======================================================
+   DISABLED BUTTON
+======================================================= */
 
 .gold-btn:disabled,
 .red-btn:disabled,
@@ -1049,6 +1431,10 @@ a{
 }
 
 
+/* =======================================================
+   CUSTOMER PHOTO
+======================================================= */
+
 .customer-photo{
 
     width:100px;
@@ -1061,42 +1447,63 @@ a{
 
     border-radius:50%;
 
-    border:4px solid var(--gold);
+    border:
+        4px solid var(--gold);
 
     background:#111;
 
     box-shadow:
-
         0 0 25px rgba(212,175,55,.25);
 
-    animation:floating 4s ease-in-out infinite;
+    animation:
+        floating 4s ease-in-out infinite;
 
 }
 
+
+/* =======================================================
+   CUSTOMER INFO
+======================================================= */
 
 .customer-info{
 
     flex:1;
 
+    min-width:0;
+
 }
 
+
+/* =======================================================
+   CUSTOMER NAME
+======================================================= */
 
 .customer-info h3{
 
-    font-size:24px;
-
     margin-bottom:6px;
 
-    color:#fff;
+    font-size:24px;
+
+    font-weight:700;
+
+    line-height:1.3;
+
+    color:#ffffff;
 
 }
 
+
+/* =======================================================
+   CUSTOMER DETAILS
+======================================================= */
 
 .customer-info p{
 
     color:var(--muted);
 
     font-size:14px;
+
+    line-height:1.6;
 
 }
 
@@ -1109,7 +1516,8 @@ a{
 
     display:grid;
 
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
 
     gap:16px;
 
@@ -1118,44 +1526,71 @@ a{
 }
 
 
+/* =======================================================
+   STAMP BOX
+======================================================= */
+
 .stamp-box{
-
-    background:#111;
-
-    border:1px solid rgba(212,175,55,.12);
-
-    border-radius:18px;
 
     padding:20px;
 
     text-align:center;
 
-    transition:.30s;
+    background:#111;
+
+    border:
+        1px solid rgba(212,175,55,.12);
+
+    border-radius:18px;
+
+    transition:
+        transform .30s ease,
+        border-color .30s ease,
+        box-shadow .30s ease;
 
 }
 
+
+/* =======================================================
+   STAMP BOX HOVER
+======================================================= */
 
 .stamp-box:hover{
 
-    transform:translateY(-4px);
+    transform:
+        translateY(-4px);
 
-    border-color:rgba(212,175,55,.35);
+    border-color:
+        rgba(212,175,55,.35);
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.25);
 
 }
 
+
+/* =======================================================
+   STAMP LABEL
+======================================================= */
 
 .stamp-box span{
 
     display:block;
 
+    margin-bottom:8px;
+
     color:var(--muted);
 
     font-size:13px;
 
-    margin-bottom:8px;
+    line-height:1.4;
 
 }
 
+
+/* =======================================================
+   STAMP VALUE
+======================================================= */
 
 .stamp-box strong{
 
@@ -1163,28 +1598,69 @@ a{
 
     font-size:26px;
 
+    font-weight:700;
+
+    line-height:1.2;
+
     color:var(--gold);
 
 }
 
 
+/* =======================================================
+   STATUS COLORS
+======================================================= */
+
 .pending{
 
-    color:#ffb300 !important;
+    color:
+        var(--warning) !important;
 
 }
 
 
 .success{
 
-    color:#57ff8c !important;
+    color:
+        #57ff8c !important;
 
 }
 
 
 .failed{
 
-    color:#ff5d5d !important;
+    color:
+        #ff5d5d !important;
+
+}
+
+
+/* =======================================================
+   FLOATING ANIMATION
+======================================================= */
+
+@keyframes floating{
+
+    0%{
+
+        transform:
+            translateY(0);
+
+    }
+
+    50%{
+
+        transform:
+            translateY(-5px);
+
+    }
+
+    100%{
+
+        transform:
+            translateY(0);
+
+    }
 
 }
 
@@ -1237,15 +1713,10 @@ a{
     inset:0;
 
     background:
-
         linear-gradient(
-
             135deg,
-
             rgba(212,175,55,.08),
-
             transparent 65%
-
         );
 
     pointer-events:none;
@@ -1349,7 +1820,6 @@ a{
     border-color:var(--gold);
 
     box-shadow:
-
         0 0 18px rgba(212,175,55,.20);
 
 }
@@ -1389,16 +1859,22 @@ a{
 
 
 /* =======================================================
-   TABLE
+   CUSTOMER TABLE
 ======================================================= */
 
 .table-card{
 
-    overflow:auto;
+    width:100%;
+
+    overflow-x:auto;
+
+    overflow-y:hidden;
 
     border-radius:18px;
 
     border:1px solid rgba(212,175,55,.10);
+
+    -webkit-overflow-scrolling:touch;
 
 }
 
@@ -1406,6 +1882,8 @@ a{
 table{
 
     width:100%;
+
+    min-width:760px;
 
     border-collapse:collapse;
 
@@ -1446,7 +1924,7 @@ thead th{
 
 tbody tr{
 
-    transition:.25s;
+    transition:background .25s ease;
 
 }
 
@@ -1496,7 +1974,7 @@ tbody img{
 
 
 /* =======================================================
-   TABLE BUTTON
+   TABLE ACTION BUTTON
 ======================================================= */
 
 tbody button{
@@ -1504,15 +1982,10 @@ tbody button{
     border:none;
 
     background:
-
         linear-gradient(
-
             135deg,
-
             #FFD95A,
-
             #D4AF37
-
         );
 
     color:#111;
@@ -1525,7 +1998,9 @@ tbody button{
 
     cursor:pointer;
 
-    transition:.30s;
+    transition:
+        transform .30s,
+        box-shadow .30s;
 
 }
 
@@ -1533,6 +2008,16 @@ tbody button{
 tbody button:hover{
 
     transform:translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(212,175,55,.20);
+
+}
+
+
+tbody button:active{
+
+    transform:translateY(0);
 
 }
 
@@ -1571,23 +2056,16 @@ tbody button:hover{
     font-weight:700;
 
     background:
-
         linear-gradient(
-
             135deg,
-
             #FFD95A,
-
             #D4AF37
-
         );
 
     color:#111;
 
     transition:
-
         transform .30s,
-
         box-shadow .30s;
 
 }
@@ -1598,8 +2076,14 @@ tbody button:hover{
     transform:translateY(-4px);
 
     box-shadow:
-
         0 14px 32px rgba(212,175,55,.28);
+
+}
+
+
+.quick-actions button:active{
+
+    transform:translateY(0);
 
 }
 
@@ -1634,6 +2118,8 @@ tbody button:hover{
 
     align-items:center;
 
+    gap:20px;
+
     padding:16px 0;
 
     border-bottom:1px solid rgba(255,255,255,.06);
@@ -1658,6 +2144,10 @@ tbody button:hover{
 .status-row strong{
 
     font-weight:700;
+
+    text-align:right;
+
+    word-break:break-word;
 
 }
 
@@ -1760,6 +2250,7 @@ tbody button:hover{
 
     }
 
+
     .header-right{
 
         width:100%;
@@ -1768,11 +2259,13 @@ tbody button:hover{
 
     }
 
+
     .logo-area{
 
         width:100%;
 
     }
+
 
     .logo-area img{
 
@@ -1782,17 +2275,20 @@ tbody button:hover{
 
     }
 
+
     .logo-area h2{
 
         font-size:20px;
 
     }
 
+
     .logo-area p{
 
         font-size:12px;
 
     }
+
 
     .dashboard-wrapper{
 
@@ -1801,6 +2297,7 @@ tbody button:hover{
         gap:20px;
 
     }
+
 
     .scanner-card,
     .customer-card,
@@ -1812,11 +2309,13 @@ tbody button:hover{
 
     }
 
+
     .scanner-box{
 
         min-height:300px;
 
     }
+
 
     .stats-section{
 
@@ -1824,17 +2323,20 @@ tbody button:hover{
 
     }
 
+
     .quick-actions{
 
         grid-template-columns:1fr;
 
     }
 
+
     .stamp-grid{
 
         grid-template-columns:1fr;
 
     }
+
 
     .section-header{
 
@@ -1844,19 +2346,22 @@ tbody button:hover{
 
     }
 
+
     .search-box{
 
         width:100%;
 
-        min-width:unset;
+        min-width:0;
 
     }
+
 
     .search-box input{
 
         width:100%;
 
     }
+
 
     .customer-preview{
 
@@ -1866,11 +2371,13 @@ tbody button:hover{
 
     }
 
+
     .customer-info{
 
         text-align:center;
 
     }
+
 
     .scanner-controls,
     .customer-buttons{
@@ -1878,6 +2385,7 @@ tbody button:hover{
         flex-direction:column;
 
     }
+
 
     .gold-btn,
     .gray-btn,
@@ -1887,19 +2395,30 @@ tbody button:hover{
 
     }
 
+
     .app-nav{
 
         gap:10px;
 
     }
 
+
     .app-nav button{
 
-        min-width:unset;
+        min-width:0;
 
         flex:1 1 calc(50% - 10px);
 
         height:54px;
+
+    }
+
+
+    .table-card{
+
+        margin-left:0;
+
+        margin-right:0;
 
     }
 
@@ -1918,17 +2437,20 @@ tbody button:hover{
 
     }
 
+
     .app-header{
 
         padding:16px;
 
     }
 
+
     .logo-area{
 
         gap:12px;
 
     }
+
 
     .logo-area img{
 
@@ -1938,11 +2460,13 @@ tbody button:hover{
 
     }
 
+
     .logo-area h2{
 
         font-size:18px;
 
     }
+
 
     .card-title h2{
 
@@ -1950,17 +2474,20 @@ tbody button:hover{
 
     }
 
+
     .card-title p{
 
         font-size:13px;
 
     }
 
+
     .scanner-box{
 
         min-height:260px;
 
     }
+
 
     .customer-photo{
 
@@ -1970,11 +2497,13 @@ tbody button:hover{
 
     }
 
+
     .customer-info h3{
 
         font-size:20px;
 
     }
+
 
     .stamp-box strong{
 
@@ -1982,11 +2511,13 @@ tbody button:hover{
 
     }
 
+
     .stat-card strong{
 
         font-size:30px;
 
     }
+
 
     .quick-actions button{
 
@@ -1994,9 +2525,24 @@ tbody button:hover{
 
     }
 
+
     .status-card h2{
 
         font-size:20px;
+
+    }
+
+
+    .app-nav button{
+
+        font-size:13px;
+
+    }
+
+
+    .app-nav button span{
+
+        font-size:13px;
 
     }
 
@@ -2019,15 +2565,26 @@ tbody button:hover{
 
     }
 
+
     .app-nav button:hover{
 
         transform:none;
 
     }
 
+
     .quick-actions button:hover{
 
         transform:none;
+
+    }
+
+
+    tbody button:hover{
+
+        transform:none;
+
+        box-shadow:none;
 
     }
 
@@ -2077,15 +2634,10 @@ tbody button:hover{
     inset:0;
 
     background:
-
         radial-gradient(
-
             circle,
-
             rgba(255,255,255,.28),
-
             transparent 70%
-
         );
 
     transform:scale(0);
@@ -2093,9 +2645,7 @@ tbody button:hover{
     opacity:0;
 
     transition:
-
         transform .45s ease,
-
         opacity .45s ease;
 
     z-index:-1;
@@ -2139,18 +2689,6 @@ tbody button:hover{
         transform:translateY(0);
 
     }
-
-}
-
-
-/* =======================================================
-   IMAGE HOVER
-======================================================= */
-
-.customer-photo:hover,
-.logo-area img:hover{
-
-    transform:scale(1.03);
 
 }
 
@@ -2278,6 +2816,7 @@ input:focus-visible{
 
     }
 
+
     body{
 
         background:#ffffff;
@@ -2304,218 +2843,6 @@ input:focus-visible{
    END OF FILE
 
    RIO MAGGI POINT
-   PREMIUM ADMIN DASHBOARD CSS V5
+   PREMIUM ADMIN DASHBOARD V5
    COMPLETE
-======================================================= */
-/* =======================================================
-   RIO MAGGI POINT
-   PREMIUM ADMIN DASHBOARD V4
-   PART 6 / 6
-   FINAL POLISH + ANIMATIONS + ACCESSIBILITY
-======================================================= */
-
-/* =======================================================
-   BUTTON RIPPLE
-======================================================= */
-
-.app-nav button,
-.quick-actions button,
-.gold-btn,
-.red-btn,
-.gray-btn{
-    position:relative;
-    overflow:hidden;
-    isolation:isolate;
-}
-
-.app-nav button::after,
-.quick-actions button::before,
-.gold-btn::before,
-.red-btn::before,
-.gray-btn::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:radial-gradient(circle,rgba(255,255,255,.28),transparent 70%);
-    transform:scale(0);
-    opacity:0;
-    transition:transform .45s ease,opacity .45s ease;
-    z-index:-1;
-}
-
-.app-nav button:active::after,
-.quick-actions button:active::before,
-.gold-btn:active::before,
-.red-btn:active::before,
-.gray-btn:active::before{
-    transform:scale(3);
-    opacity:1;
-}
-
-/* =======================================================
-   FLOATING IMAGE
-======================================================= */
-
-@keyframes floating{
-    0%{transform:translateY(0);}
-    50%{transform:translateY(-5px);}
-    100%{transform:translateY(0);}
-}
-
-.customer-photo{
-    animation:floating 4s ease-in-out infinite;
-}
-
-/* =======================================================
-   CARD SHINE EFFECT
-======================================================= */
-
-.scanner-card,
-.customer-card,
-.stat-card,
-.customer-section,
-.status-card{
-    position:relative;
-    overflow:hidden;
-}
-
-.scanner-card::after,
-.customer-card::after,
-.stat-card::after,
-.customer-section::after,
-.status-card::after{
-    content:"";
-    position:absolute;
-    top:0;
-    left:-120%;
-    width:45%;
-    height:100%;
-    background:linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.08),
-        transparent
-    );
-    transition:1.2s;
-}
-
-.scanner-card:hover::after,
-.customer-card:hover::after,
-.stat-card:hover::after,
-.customer-section:hover::after,
-.status-card:hover::after{
-    left:160%;
-}
-
-/* =======================================================
-   PLACEHOLDER
-======================================================= */
-
-::placeholder{
-    color:#888;
-}
-
-/* =======================================================
-   ACCESSIBILITY
-======================================================= */
-
-button:focus-visible,
-input:focus-visible{
-    outline:2px solid var(--gold);
-    outline-offset:3px;
-}
-
-/* =======================================================
-   TEXT SELECTION
-======================================================= */
-
-::selection{
-    background:var(--gold);
-    color:#111;
-}
-
-/* =======================================================
-   LOADING
-======================================================= */
-
-.loading{
-    pointer-events:none;
-    opacity:.6;
-    filter:grayscale(.25);
-}
-
-.loading::after{
-    content:"";
-    display:inline-block;
-    width:18px;
-    height:18px;
-    margin-left:10px;
-    border-radius:50%;
-    border:2px solid rgba(255,255,255,.25);
-    border-top-color:#fff;
-    animation:spin .8s linear infinite;
-}
-
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-/* =======================================================
-   IMAGE EFFECT
-======================================================= */
-
-img{
-    transition:transform .35s ease,opacity .35s ease;
-}
-
-img:hover{
-    transform:scale(1.03);
-}
-
-/* =======================================================
-   REDUCED MOTION
-======================================================= */
-
-@media (prefers-reduced-motion:reduce){
-
-    *{
-        animation:none !important;
-        transition:none !important;
-        scroll-behavior:auto !important;
-    }
-
-}
-
-/* =======================================================
-   PRINT MODE
-======================================================= */
-
-@media print{
-
-    .app-nav,
-    .scanner-controls,
-    .customer-buttons,
-    .quick-actions{
-        display:none !important;
-    }
-
-    body{
-        background:#fff;
-        color:#000;
-    }
-
-}
-
-/* =======================================================
-   READY STATE
-======================================================= */
-
-.admin-ready{
-    animation:fadeUp .5s ease;
-}
-
-/* =======================================================
-   END OF FILE
 ======================================================= */
