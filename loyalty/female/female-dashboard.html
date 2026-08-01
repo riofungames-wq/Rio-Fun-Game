@@ -1,1 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+    <!-- =================================================
+         BASIC META
+    ================================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <meta
+        name="theme-color"
+        content="#d94f8a"
+    >
+
+    <meta
+        name="description"
+        content="Rio Maggi Point Premium Female Customer Dashboard"
+    >
+
+
+    <!-- =================================================
+         PAGE TITLE
+    ================================================== -->
+
+    <title>
+        Rio Maggi Point | Premium Dashboard
+    </title>
+
+
+    <!-- =================================================
+         COMMON CSS
+    ================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../common.css"
+    >
+
+
+    <!-- =================================================
+         FEMALE DASHBOARD CSS
+    ================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="female.css"
+    >
+
+
+    <!-- =================================================
+         GOOGLE FONT
+    ================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =================================================
+         FIREBASE / COMMON SYSTEM
+         Existing project scripts will be connected later.
+    ================================================== -->
+
+</head>
+
+
+<body class="female-dashboard-page">
+
+
+    <!-- =================================================
+         MAIN FEMALE DASHBOARD WRAPPER
+    ================================================== -->
+
+    <main
+        id="femaleDashboard"
+        class="female-dashboard"
+    >
+
+
+        <!-- =================================================
+             PREMIUM BACKGROUND DECORATION
+        ================================================== -->
+
+        <div
+            class="female-background"
+            aria-hidden="true"
+        >
+
+            <span class="female-glow female-glow-one"></span>
+
+            <span class="female-glow female-glow-two"></span>
+
+            <span class="female-glow female-glow-three"></span>
+
+        </div>
+
+
+
+        <!-- =================================================
+             WELCOME SECTION
+        ================================================== -->
+
+        <section
+            class="female-welcome-section"
+            id="femaleWelcomeSection"
+        >
+
+
+            <!-- Female welcome character
+                 PNG बाद में assets folder से आएगा -->
+
+            <div
+                class="female-welcome-character"
+                id="femaleWelcomeCharacter"
+            >
+
+                <img
+                    src="assets/welcome-character.png"
+                    alt="Welcome"
+                    class="female-character-image"
+                >
+
+            </div>
+
+
+            <!-- Welcome text -->
+
+            <div
+                class="female-welcome-content"
+            >
+
+                <p
+                    class="female-welcome-small"
+                >
+                    Welcome to
+                </p>
+
+
+                <h1
+                    class="female-welcome-title"
+                    id="femaleWelcomeTitle"
+                >
+                    Rio Maggi Point
+                </h1>
+
+
+                <p
+                    class="female-welcome-user"
+                    id="femaleWelcomeUser"
+                >
+                    Welcome, <span id="femaleUserName">Customer</span>
+                </p>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             PREMIUM CUSTOMER PROFILE CARD
+        ================================================== -->
+
+        <section
+            class="female-profile-card"
+            id="femaleProfileCard"
+        >
+
+
+            <!-- Profile Avatar -->
+
+            <div
+                class="female-avatar-wrapper"
+            >
+
+                <div
+                    class="female-avatar-ring"
+                >
+
+                    <img
+                        src="assets/female-avatar.png"
+                        alt="Customer Profile"
+                        id="femaleUserAvatar"
+                        class="female-user-avatar"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- Customer Information -->
+
+            <div
+                class="female-profile-info"
+            >
+
+                <h2
+                    id="femaleProfileName"
+                >
+                    Customer
+                </h2>
+
+
+                <p
+                    id="femaleMemberSince"
+                >
+                    Premium Member
+                </p>
+
+            </div>
+
+
+            <!-- Profile Button -->
+
+            <a
+                href="../profile.html"
+                class="female-profile-button"
+            >
+
+                View Profile
+
+            </a>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             LOYALTY SUMMARY
+        ================================================== -->
+
+        <section
+            class="female-loyalty-card"
+            id="femaleLoyaltyCard"
+        >
+
+            <div
+                class="female-card-heading"
+            >
+
+                <span>
+                    Loyalty Summary
+                </span>
+
+                <span
+                    class="female-loyalty-icon"
+                >
+                    ✨
+                </span>
+
+            </div>
+
+
+            <div
+                class="female-stamp-summary"
+            >
+
+                <span
+                    class="female-stamp-label"
+                >
+                    Current Stamps
+                </span>
+
+
+                <strong
+                    id="femaleStampCount"
+                >
+                    0 / 6
+                </strong>
+
+            </div>
+
+
+            <div
+                class="female-stamp-progress"
+                aria-hidden="true"
+            >
+
+                <div
+                    id="femaleStampProgress"
+                    class="female-stamp-progress-fill"
+                ></div>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =================================================
+         FEMALE DASHBOARD JAVASCRIPT
+    ================================================== -->
+
+    <script
+        src="female.js"
+        defer
+    ></script>
+
+
+</body>
+</html>
+<!-- =====================================================
+     RIO MAGGI POINT
+     FEMALE DASHBOARD
+     PART 2/4
+
+     PREMIUM QUICK ACCESS
+===================================================== -->
+
+
+<!-- =================================================
+     QUICK ACCESS SECTION
+================================================== -->
+
+<section
+    class="female-quick-access"
+    id="femaleQuickAccess"
+>
+
+
+    <!-- =================================================
+         SECTION TITLE
+    ================================================== -->
+
+    <div
+        class="female-section-header"
+    >
+
+        <p
+            class="female-section-kicker"
+        >
+            Explore
+        </p>
+
+
+        <h2
+            class="female-section-title"
+        >
+            Your Premium Space
+        </h2>
+
+    </div>
+
+
+
+    <!-- =================================================
+         QUICK ACCESS GRID
+    ================================================== -->
+
+    <div
+        class="female-feature-grid"
+    >
+
+
+        <!-- =============================================
+             QR CARD
+        ============================================== -->
+
+        <a
+            href="../qr.html"
+            class="female-feature-card female-feature-qr"
+            data-feature="qr"
+        >
+
+            <span
+                class="female-feature-icon"
+                aria-hidden="true"
+            >
+                ✦
+            </span>
+
+
+            <span
+                class="female-feature-content"
+            >
+
+                <strong>
+                    My QR
+                </strong>
+
+                <small>
+                    Show your loyalty QR
+                </small>
+
+            </span>
+
+
+            <span
+                class="female-feature-arrow"
+                aria-hidden="true"
+            >
+                →
+            </span>
+
+        </a>
+
+
+
+        <!-- =============================================
+             HISTORY CARD
+        ============================================== -->
+
+        <a
+            href="../history.html"
+            class="female-feature-card female-feature-history"
+            data-feature="history"
+        >
+
+            <span
+                class="female-feature-icon"
+                aria-hidden="true"
+            >
+                ♡
+            </span>
+
+
+            <span
+                class="female-feature-content"
+            >
+
+                <strong>
+                    My History
+                </strong>
+
+                <small>
+                    View your loyalty activity
+                </small>
+
+            </span>
+
+
+            <span
+                class="female-feature-arrow"
+                aria-hidden="true"
+            >
+                →
+            </span>
+
+        </a>
+
+
+
+        <!-- =============================================
+             MENU CARD
+        ============================================== -->
+
+        <a
+            href="../menu.html"
+            class="female-feature-card female-feature-menu"
+            data-feature="menu"
+        >
+
+            <span
+                class="female-feature-icon"
+                aria-hidden="true"
+            >
+                ✿
+            </span>
+
+
+            <span
+                class="female-feature-content"
+            >
+
+                <strong>
+                    Rio Maggi Menu
+                </strong>
+
+                <small>
+                    Explore your favourite food
+                </small>
+
+            </span>
+
+
+            <span
+                class="female-feature-arrow"
+                aria-hidden="true"
+            >
+                →
+            </span>
+
+        </a>
+
+
+
+        <!-- =============================================
+             REVIEW CARD
+        ============================================== -->
+
+        <a
+            href="../feedback.html"
+            class="female-feature-card female-feature-review"
+            data-feature="review"
+        >
+
+            <span
+                class="female-feature-icon"
+                aria-hidden="true"
+            >
+                ★
+            </span>
+
+
+            <span
+                class="female-feature-content"
+            >
+
+                <strong>
+                    Share Your Review
+                </strong>
+
+                <small>
+                    Tell us about your experience
+                </small>
+
+            </span>
+
+
+            <span
+                class="female-feature-arrow"
+                aria-hidden="true"
+            >
+                →
+            </span>
+
+        </a>
+
+
+
+        <!-- =============================================
+             FREE GAME CARD
+        ============================================== -->
+
+        <a
+            href="../index.html"
+            class="female-feature-card female-feature-game"
+            data-feature="game"
+        >
+
+            <span
+                class="female-feature-icon"
+                aria-hidden="true"
+            >
+                ♡
+            </span>
+
+
+            <span
+                class="female-feature-content"
+            >
+
+                <strong>
+                    Click to Play Game
+                </strong>
+
+                <small>
+                    Enjoy a quick game while you wait
+                </small>
+
+            </span>
+
+
+            <span
+                class="female-feature-arrow"
+                aria-hidden="true"
+            >
+                →
+            </span>
+
+        </a>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     END FEMALE DASHBOARD PART 2/4
+===================================================== -->
+<!-- =====================================================
+     RIO MAGGI POINT
+     FEMALE DASHBOARD
+     PART 3/4
+
+     PREMIUM REWARD SECTION
+===================================================== -->
+
+
+<!-- =================================================
+     REWARD SECTION
+================================================== -->
+
+<section
+    class="female-reward-section"
+    id="femaleRewardSection"
+>
+
+
+    <!-- =================================================
+         SECTION HEADER
+    ================================================== -->
+
+    <div
+        class="female-section-header"
+    >
+
+        <p
+            class="female-section-kicker"
+        >
+            Your Reward
+        </p>
+
+
+        <h2
+            class="female-section-title"
+        >
+            Premium Reward Status
+        </h2>
+
+    </div>
+
+
+
+    <!-- =================================================
+         REWARD CARD
+    ================================================== -->
+
+    <div
+        class="female-reward-card"
+        id="femaleRewardCard"
+    >
+
+
+        <!-- =============================================
+             REWARD ICON
+        ============================================== -->
+
+        <div
+            class="female-reward-icon"
+            aria-hidden="true"
+        >
+            ✨
+        </div>
+
+
+
+        <!-- =============================================
+             REWARD CONTENT
+        ============================================== -->
+
+        <div
+            class="female-reward-content"
+        >
+
+            <h3>
+                Collect 6 Stamps
+            </h3>
+
+
+            <p>
+                Complete your loyalty stamps and unlock your Free Veg Maggi reward.
+            </p>
+
+
+            <!-- =========================================
+                 STAMP STATUS
+            ========================================== -->
+
+            <div
+                class="female-reward-status"
+            >
+
+                <span>
+                    Progress
+                </span>
+
+
+                <strong
+                    id="femaleRewardStampStatus"
+                >
+                    0 / 6
+                </strong>
+
+            </div>
+
+
+            <!-- =========================================
+                 REWARD PROGRESS
+            ========================================== -->
+
+            <div
+                class="female-reward-progress"
+                aria-hidden="true"
+            >
+
+                <div
+                    id="femaleRewardProgressFill"
+                    class="female-reward-progress-fill"
+                ></div>
+
+            </div>
+
+
+            <!-- =========================================
+                 REWARD MESSAGE
+            ========================================== -->
+
+            <p
+                id="femaleRewardMessage"
+                class="female-reward-message"
+            >
+                Keep collecting stamps to unlock your reward.
+            </p>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         REWARD UNLOCKED STATE
+         JavaScript इसे जरूरत पड़ने पर दिखाएगा
+    ================================================== -->
+
+    <div
+        id="femaleRewardUnlocked"
+        class="female-reward-unlocked"
+        hidden
+    >
+
+        <div
+            class="female-reward-unlocked-icon"
+            aria-hidden="true"
+        >
+            🎁
+        </div>
+
+
+        <h3>
+            Reward Unlocked!
+        </h3>
+
+
+        <p>
+            Your Free Veg Maggi reward is ready.
+        </p>
+
+
+        <button
+            type="button"
+            id="femaleClaimRewardButton"
+            class="female-claim-reward-button"
+        >
+            Claim Reward
+        </button>
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     END FEMALE DASHBOARD PART 3/4
+===================================================== -->
+<!-- =====================================================
+     RIO MAGGI POINT
+     FEMALE DASHBOARD
+     PART 4/4
+
+     FINAL DASHBOARD SECTION
+===================================================== -->
+
+
+<!-- =================================================
+     PERSONALIZED ACTION SECTION
+================================================== -->
+
+<section
+    class="female-action-section"
+    id="femaleActionSection"
+>
+
+
+    <!-- =================================================
+         SECTION HEADER
+    ================================================== -->
+
+    <div
+        class="female-section-header"
+    >
+
+        <p
+            class="female-section-kicker"
+        >
+            Your Space
+        </p>
+
+
+        <h2
+            class="female-section-title"
+        >
+            Made For You
+        </h2>
+
+    </div>
+
+
+
+    <!-- =================================================
+         ACTION CARD
+    ================================================== -->
+
+    <div
+        class="female-personal-card"
+        id="femalePersonalCard"
+    >
+
+
+        <!-- Decorative glow -->
+
+        <span
+            class="female-personal-glow"
+            aria-hidden="true"
+        ></span>
+
+
+        <!-- Content -->
+
+        <div
+            class="female-personal-content"
+        >
+
+            <span
+                class="female-personal-kicker"
+            >
+                Premium Customer
+            </span>
+
+
+            <h3
+                id="femalePersonalGreeting"
+            >
+                Welcome to your Rio Maggi space
+            </h3>
+
+
+            <p
+                id="femalePersonalMessage"
+            >
+                Your loyalty journey, rewards and favourite experiences are all in one place.
+            </p>
+
+        </div>
+
+
+        <!-- Decorative icon -->
+
+        <div
+            class="female-personal-icon"
+            aria-hidden="true"
+        >
+            ✿
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =================================================
+     COMMON NAVIGATION LOADER AREA
+================================================== -->
+
+<div
+    id="commonNavigationContainer"
+    class="common-navigation-container"
+></div>
+
+
+
+<!-- =================================================
+     DASHBOARD PAGE LOADING OVERLAY
+================================================== -->
+
+<div
+    id="femaleDashboardLoader"
+    class="female-dashboard-loader"
+    aria-hidden="true"
+>
+
+    <div
+        class="female-loader-content"
+    >
+
+        <span
+            class="female-loader-ring"
+        ></span>
+
+
+        <p>
+            Loading your premium space...
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     END FEMALE DASHBOARD PART 4/4
+===================================================== -->
