@@ -6,800 +6,3132 @@
 <meta charset="UTF-8">
 
 <meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <meta
-name="theme-color"
-content="#111111">
+  name="theme-color"
+  content="#111111"
+>
 
 <meta
-name="color-scheme"
-content="dark">
+  name="color-scheme"
+  content="dark"
+>
+
+<meta
+  name="description"
+  content="Rio Maggi Point Premium Admin Dashboard"
+>
 
 <title>
-
 Rio Maggi Point • Premium Admin Dashboard
-
 </title>
 
-<link
-rel="manifest"
-href="manifest.json">
+
+<!-- ================================================= -->
+<!-- PWA MANIFEST -->
+<!-- ================================================= -->
 
 <link
-rel="preconnect"
-href="https://fonts.googleapis.com">
+  rel="manifest"
+  href="manifest.json"
+>
+
+
+<!-- ================================================= -->
+<!-- FAVICON -->
+<!-- ================================================= -->
 
 <link
-rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
+  rel="icon"
+  href="favicon.ico"
+  type="image/x-icon"
+>
 
 <link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
+  rel="apple-touch-icon"
+  href="icon-192.png"
+>
+
+
+<!-- ================================================= -->
+<!-- GOOGLE FONTS -->
+<!-- ================================================= -->
 
 <link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+>
 
 <link
-rel="stylesheet"
-href="css/admin-dashboard.css">
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+  rel="stylesheet"
+>
+
+
+<!-- ================================================= -->
+<!-- FONT AWESOME -->
+<!-- ================================================= -->
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+>
+
+
+<!-- ================================================= -->
+<!-- ADMIN DASHBOARD CSS -->
+<!-- ================================================= -->
+
+<link
+  rel="stylesheet"
+  href="css/admin-dashboard.css"
+>
 
 </head>
 
+
 <body>
 
-<div class="admin-app">
+
+<!-- ================================================= -->
+<!-- ADMIN APP -->
+<!-- ================================================= -->
+
+<div
+  class="admin-app"
+  id="adminApp"
+>
+
 
 <!-- ================================================= -->
 <!-- APP HEADER -->
 <!-- ================================================= -->
 
-<header class="app-header">
+<header
+  class="app-header"
+>
 
-<div class="logo-area">
 
-<img
-src="assets/logo/logo.png"
-alt="Rio Maggi Point Logo"
-loading="eager">
+  <!-- =============================================== -->
+  <!-- LOGO AREA -->
+  <!-- =============================================== -->
 
-<div>
+  <div
+    class="logo-area"
+  >
 
-<h1>
+    <img
+      src="assets/logo/logo.png"
+      alt="Rio Maggi Point Logo"
+      loading="eager"
+    >
 
-RIO MAGGI POINT
 
-</h1>
+    <div>
 
-<p>
+      <h1>
+        RIO MAGGI POINT
+      </h1>
 
-Premium Admin Dashboard
+      <p>
+        Premium Admin Dashboard
+      </p>
 
-</p>
+    </div>
 
-</div>
+  </div>
 
-</div>
 
-<div class="header-right">
+  <!-- =============================================== -->
+  <!-- HEADER RIGHT -->
+  <!-- =============================================== -->
 
-<span
-class="live-indicator"
-id="liveIndicator">
+  <div
+    class="header-right"
+  >
 
-🟢 LIVE
+    <span
+      class="live-indicator"
+      id="liveIndicator"
+      aria-live="polite"
+    >
+      🟢 LIVE
+    </span>
 
-</span>
+  </div>
 
-</div>
 
 </header>
 
+
 <!-- ================================================= -->
-<!-- NAVIGATION -->
+<!-- ADMIN NAVIGATION -->
 <!-- ================================================= -->
 
 <nav
-class="app-nav"
-aria-label="Admin Navigation">
+  class="app-nav"
+  aria-label="Admin Navigation"
+>
 
-<button
-id="dashboardMenu"
-type="button">
 
-<i class="fa-solid fa-chart-line"></i>
+  <!-- =============================================== -->
+  <!-- DASHBOARD -->
+  <!-- =============================================== -->
 
-<span>
+  <button
+    id="dashboardMenu"
+    type="button"
+  >
 
-Dashboard
+    <i
+      class="fa-solid fa-chart-line"
+      aria-hidden="true"
+    ></i>
 
-</span>
+    <span>
+      Dashboard
+    </span>
 
-</button>
+  </button>
 
-<button
-id="scannerMenu"
-type="button">
 
-<i class="fa-solid fa-camera"></i>
+  <!-- =============================================== -->
+  <!-- SCANNER -->
+  <!-- =============================================== -->
 
-<span>
+  <button
+    id="scannerMenu"
+    type="button"
+  >
 
-Scanner
+    <i
+      class="fa-solid fa-camera"
+      aria-hidden="true"
+    ></i>
 
-</span>
+    <span>
+      Scanner
+    </span>
 
-</button>
+  </button>
 
-<button
-id="customersMenu"
-type="button">
 
-<i class="fa-solid fa-users"></i>
+  <!-- =============================================== -->
+  <!-- CUSTOMERS -->
+  <!-- =============================================== -->
 
-<span>
+  <button
+    id="customersMenu"
+    type="button"
+  >
 
-Customers
+    <i
+      class="fa-solid fa-users"
+      aria-hidden="true"
+    ></i>
 
-</span>
+    <span>
+      Customers
+    </span>
 
-</button>
+  </button>
 
-<button
-id="stampMenu"
-type="button">
 
-<i class="fa-solid fa-star"></i>
+  <!-- =============================================== -->
+  <!-- STAMPS -->
+  <!-- =============================================== -->
 
-<span>
+  <button
+    id="stampMenu"
+    type="button"
+  >
 
-Stamps
+    <i
+      class="fa-solid fa-star"
+      aria-hidden="true"
+    ></i>
 
-</span>
+    <span>
+      Stamps
+    </span>
 
-</button>
+  </button>
 
-<button
-id="rewardMenu"
-type="button">
 
-<i class="fa-solid fa-gift"></i>
+  <!-- =============================================== -->
+  <!-- REWARDS -->
+  <!-- =============================================== -->
 
-<span>
+  <button
+    id="rewardMenu"
+    type="button"
+  >
 
-Rewards
+    <i
+      class="fa-solid fa-gift"
+      aria-hidden="true"
+    ></i>
 
-</span>
+    <span>
+      Rewards
+    </span>
 
-</button>
+  </button>
 
-<button
-id="reportMenu"
-type="button">
 
-<i class="fa-solid fa-chart-column"></i>
+  <!-- =============================================== -->
+  <!-- REPORTS -->
+  <!-- =============================================== -->
 
-<span>
+  <button
+    id="reportMenu"
+    type="button"
+  >
 
-Reports
+    <i
+      class="fa-solid fa-chart-column"
+      aria-hidden="true"
+    ></i>
 
-</span>
+    <span>
+      Reports
+    </span>
 
-</button>
+  </button>
 
-<button
-id="settingMenu"
-type="button">
 
-<i class="fa-solid fa-gear"></i>
+  <!-- =============================================== -->
+  <!-- SETTINGS -->
+  <!-- =============================================== -->
 
-<span>
+  <button
+    id="settingMenu"
+    type="button"
+  >
 
-Settings
+    <i
+      class="fa-solid fa-gear"
+      aria-hidden="true"
+    ></i>
 
-</span>
+    <span>
+      Settings
+    </span>
 
-</button>
+  </button>
 
-<button
-id="logoutBtn"
-type="button"
-class="logout-nav">
 
-<i class="fa-solid fa-right-from-bracket"></i>
+  <!-- =============================================== -->
+  <!-- LOGOUT -->
+  <!-- =============================================== -->
 
-<span>
+  <button
+    id="logoutBtn"
+    type="button"
+    class="logout-nav"
+  >
 
-Logout
+    <i
+      class="fa-solid fa-right-from-bracket"
+      aria-hidden="true"
+    ></i>
 
-</span>
+    <span>
+      Logout
+    </span>
 
-</button>
+  </button>
+
 
 </nav>
 
+
 <!-- ================================================= -->
-<!-- MAIN CONTENT -->
+<!-- MAIN DASHBOARD CONTENT -->
 <!-- ================================================= -->
 
 <main
-class="dashboard-wrapper"
-id="dashboardWrapper">
+  class="dashboard-wrapper"
+  id="dashboardWrapper"
+>
+
+
+<!-- ================================================= -->
+<!-- LIVE QR SCANNER SECTION -->
+<!-- ================================================= -->
+
+<section
+  class="scanner-section"
+  id="scannerSection"
+>
+
+
+  <!-- =============================================== -->
+  <!-- SCANNER CARD -->
+  <!-- =============================================== -->
+
+  <div
+    class="scanner-card"
+  >
+
+
+    <!-- ============================================= -->
+    <!-- CARD TITLE -->
+    <!-- ============================================= -->
+
+    <div
+      class="card-title"
+    >
+
+      <h2>
+
+        <i
+          class="fa-solid fa-camera"
+          aria-hidden="true"
+        ></i>
+
+        Live QR Scanner
+
+      </h2>
+
+      <p>
+        Scan Customer QR To Give Stamp
+      </p>
+
+    </div>
+
+
+    <!-- ============================================= -->
+    <!-- SCANNER BOX -->
+    <!-- ============================================= -->
+
+    <div
+      class="scanner-box"
+    >
+
+
+      <!-- =========================================== -->
+      <!-- CAMERA OVERLAY -->
+      <!-- =========================================== -->
+
+      <div
+        id="cameraOverlay"
+        class="camera-overlay"
+      >
+
+        <i
+          class="fa-solid fa-camera-retro"
+          aria-hidden="true"
+        ></i>
+
+        <h3>
+          Camera Off
+        </h3>
+
+        <p>
+          Tap Start Scanner
+        </p>
+
+      </div>
+
+
+      <!-- =========================================== -->
+      <!-- QR READER -->
+      <!-- =========================================== -->
+
+      <div
+        id="qr-reader"
+        class="qr-reader"
+      ></div>
+
+
+    </div>
+
+
+    <!-- ============================================= -->
+    <!-- SCANNER CONTROLS -->
+    <!-- ============================================= -->
+
+    <div
+      class="scanner-controls"
+    >
+
+
+      <!-- =========================================== -->
+      <!-- START SCANNER -->
+      <!-- =========================================== -->
+
+      <button
+        id="startScannerBtn"
+        type="button"
+        class="gold-btn"
+      >
+
+        <i
+          class="fa-solid fa-play"
+          aria-hidden="true"
+        ></i>
+
+        Start Scanner
+
+      </button>
+
+
+      <!-- =========================================== -->
+      <!-- STOP SCANNER -->
+      <!-- =========================================== -->
+
+      <button
+        id="stopScannerBtn"
+        type="button"
+        class="red-btn"
+        disabled
+      >
+
+        <i
+          class="fa-solid fa-stop"
+          aria-hidden="true"
+        ></i>
+
+        Stop Scanner
+
+      </button>
+
+
+    </div>
+
+
+  </div>
+
+
   <!-- ================================================= -->
-<!-- LIVE QR SCANNER -->
-<!-- ================================================= -->
-
-<section
-class="scanner-section"
-id="scannerSection">
-
-<div class="scanner-card">
-
-<div class="card-title">
-
-<h2>
-
-<i class="fa-solid fa-camera"></i>
-
-Live QR Scanner
-
-</h2>
-
-<p>
-
-Scan Customer QR To Give Stamp
-
-</p>
-
-</div>
-
-<div class="scanner-box">
-
-<div
-id="cameraOverlay"
-class="camera-overlay">
-
-<i class="fa-solid fa-camera-retro"></i>
-
-<h3>
-
-Camera Off
-
-</h3>
-
-<p>
-
-Tap Start Scanner
-
-</p>
-
-</div>
-
-<div
-id="qr-reader"
-class="qr-reader">
-
-</div>
-
-</div>
-
-<div class="scanner-controls">
-
-<button
-id="startScannerBtn"
-type="button"
-class="gold-btn">
-
-<i class="fa-solid fa-play"></i>
-
-Start Scanner
-
-</button>
-
-<button
-id="stopScannerBtn"
-type="button"
-class="red-btn"
-disabled>
-
-<i class="fa-solid fa-stop"></i>
-
-Stop Scanner
-
-</button>
-
-</div>
-
-</div>
-
-<!-- ================================================= -->
-<!-- CUSTOMER PREVIEW -->
-<!-- ================================================= -->
-
-<div class="customer-card">
-
-<div class="card-title">
-
-<h2>
-
-<i class="fa-solid fa-user"></i>
-
-Customer Preview
-
-</h2>
-
-</div>
-
-<div class="customer-preview">
-
-<img
-id="scanCustomerPhoto"
-src="assets/avatars/male.png"
-alt="Customer Photo"
-class="customer-photo"
-loading="lazy">
-
-<div class="customer-info">
-
-<h3 id="scanCustomerName">
-
-Waiting For Scan...
-
-</h3>
-
-<p id="scanMemberId">
-
-RIO-000000000
-
-</p>
-
-</div>
-
-</div>
-
-<div class="stamp-grid">
-
-<div class="stamp-box">
-
-<span>
-
-Current Stamps
-
-</span>
-
-<strong id="scanStampCount">
-
-0 / 6
-
-</strong>
-
-</div>
-
-<div class="stamp-box">
-
-<span>
-
-Today's Status
-
-</span>
-
-<strong
-id="todayStatus"
-class="pending">
-
-Waiting
-
-</strong>
-
-</div>
-
-</div>
-
-<div class="customer-buttons">
-
-<button
-id="giveStampBtn"
-type="button"
-class="gold-btn"
-disabled>
-
-<i class="fa-solid fa-star"></i>
-
-Give Stamp
-
-</button>
-
-<button
-id="cancelScanBtn"
-type="button"
-class="gray-btn">
-
-<i class="fa-solid fa-rotate"></i>
-
-Reset
-
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================================================= -->
-<!-- DASHBOARD STATS -->
-<!-- ================================================= -->
-
-<section
-class="stats-section"
-id="statsSection">
+  <!-- CUSTOMER PREVIEW CARD -->
   <!-- ================================================= -->
-<!-- DASHBOARD STATS -->
-<!-- ================================================= -->
 
-<section
-class="stats-section"
-id="statsSection">
+  <div
+    class="customer-card"
+  >
 
-<div class="stat-card">
 
-<div class="stat-icon">
+    <!-- =============================================== -->
+    <!-- CARD TITLE -->
+    <!-- =============================================== -->
 
-<i class="fa-solid fa-users"></i>
+    <div
+      class="card-title"
+    >
 
-</div>
+      <h2>
 
-<div class="stat-content">
+        <i
+          class="fa-solid fa-user"
+          aria-hidden="true"
+        ></i>
 
-<h4>
+        Customer Preview
 
-Total Customers
+      </h2>
 
-</h4>
+    </div>
 
-<strong id="totalCustomers">
 
-0
+    <!-- =============================================== -->
+    <!-- CUSTOMER PREVIEW -->
+    <!-- =============================================== -->
 
-</strong>
+    <div
+      class="customer-preview"
+    >
 
-</div>
 
-</div>
+      <!-- ============================================= -->
+      <!-- CUSTOMER PHOTO -->
+      <!-- ============================================= -->
 
-<div class="stat-card">
+      <img
+        id="scanCustomerPhoto"
+        src="assets/avatars/male.png"
+        alt="Customer Photo"
+        class="customer-photo"
+        loading="lazy"
+      >
 
-<div class="stat-icon">
 
-<i class="fa-solid fa-star"></i>
+      <!-- ============================================= -->
+      <!-- CUSTOMER INFORMATION -->
+      <!-- ============================================= -->
 
-</div>
+      <div
+        class="customer-info"
+      >
 
-<div class="stat-content">
+        <h3
+          id="scanCustomerName"
+        >
+          Waiting For Scan...
+        </h3>
 
-<h4>
+        <p
+          id="scanMemberId"
+        >
+          RIO-000000000
+        </p>
 
-Total Stamps
+      </div>
 
-</h4>
 
-<strong id="totalStamps">
+    </div>
 
-0
 
-</strong>
+    <!-- =============================================== -->
+    <!-- STAMP INFORMATION -->
+    <!-- =============================================== -->
 
-</div>
+    <div
+      class="stamp-grid"
+    >
 
-</div>
 
-<div class="stat-card">
+      <!-- ============================================= -->
+      <!-- CURRENT STAMPS -->
+      <!-- ============================================= -->
 
-<div class="stat-icon">
+      <div
+        class="stamp-box"
+      >
 
-<i class="fa-solid fa-gift"></i>
+        <span>
+          Current Stamps
+        </span>
 
-</div>
+        <strong
+          id="scanStampCount"
+        >
+          0 / 6
+        </strong>
 
-<div class="stat-content">
+      </div>
 
-<h4>
 
-Rewards Ready
+      <!-- ============================================= -->
+      <!-- TODAY STATUS -->
+      <!-- ============================================= -->
 
-</h4>
+      <div
+        class="stamp-box"
+      >
 
-<strong id="totalRewards">
+        <span>
+          Today's Status
+        </span>
 
-0
+        <strong
+          id="todayStatus"
+          class="pending"
+        >
+          Waiting
+        </strong>
 
-</strong>
+      </div>
 
-</div>
 
-</div>
+    </div>
 
-<div class="stat-card">
 
-<div class="stat-icon">
+    <!-- =============================================== -->
+    <!-- CUSTOMER ACTION BUTTONS -->
+    <!-- =============================================== -->
 
-<i class="fa-solid fa-camera"></i>
+    <div
+      class="customer-buttons"
+    >
 
-</div>
 
-<div class="stat-content">
+      <!-- ============================================= -->
+      <!-- GIVE STAMP -->
+      <!-- ============================================= -->
 
-<h4>
+      <button
+        id="giveStampBtn"
+        type="button"
+        class="gold-btn"
+        disabled
+      >
 
-Today's Scan
+        <i
+          class="fa-solid fa-star"
+          aria-hidden="true"
+        ></i>
 
-</h4>
+        Give Stamp
 
-<strong id="todayScans">
+      </button>
 
-0
 
-</strong>
+      <!-- ============================================= -->
+      <!-- RESET -->
+      <!-- ============================================= -->
 
-</div>
+      <button
+        id="cancelScanBtn"
+        type="button"
+        class="gray-btn"
+      >
 
-</div>
+        <i
+          class="fa-solid fa-rotate"
+          aria-hidden="true"
+        ></i>
+
+        Reset
+
+      </button>
+
+
+    </div>
+
+
+  </div>
+
 
 </section>
 
+
 <!-- ================================================= -->
-<!-- CUSTOMER LIST -->
+<!-- END OF PART 1 -->
 <!-- ================================================= -->
-
-<section
-class="customer-section"
-id="customerSection">
-
-<div class="section-header">
-
-<h2>
-
-<i class="fa-solid fa-users"></i>
-
-Customer List
-
-</h2>
-
-<div class="search-box">
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-<input
-type="search"
-id="searchCustomer"
-placeholder="Search by Name, Member ID or Mobile"
-autocomplete="off"
-spellcheck="false">
-
-</div>
-
-</div>
-
-<div class="table-card">
-
-<div class="table-responsive">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Photo</th>
-
-<th>Name</th>
-
-<th>Member ID</th>
-
-<th>Mobile</th>
-
-<th>Stamps</th>
-
-<th>Reward</th>
-
-<th>Action</th>
-
-</tr>
-
-</thead>
-
-<tbody id="customerTable">
-
-<!-- Firebase Customer Data -->
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section>
 <!-- ================================================= -->
-<!-- QUICK ACTIONS -->
+<!-- DASHBOARD STATS SECTION -->
 <!-- ================================================= -->
 
 <section
-class="quick-actions"
-id="quickActions">
+  class="stats-section"
+  id="statsSection"
+>
 
-<button
-id="refreshBtn"
-type="button">
 
-<i class="fa-solid fa-rotate"></i>
+  <!-- =============================================== -->
+  <!-- TOTAL CUSTOMERS -->
+  <!-- =============================================== -->
 
-<span>
+  <div
+    class="stat-card"
+  >
 
-Refresh
+    <div
+      class="stat-icon"
+    >
 
-</span>
+      <i
+        class="fa-solid fa-users"
+        aria-hidden="true"
+      ></i>
 
-</button>
+    </div>
 
-<button
-id="exportBtn"
-type="button">
 
-<i class="fa-solid fa-file-export"></i>
+    <div
+      class="stat-content"
+    >
 
-<span>
+      <h4>
+        Total Customers
+      </h4>
 
-Export
+      <strong
+        id="totalCustomers"
+      >
+        0
+      </strong>
 
-</span>
+    </div>
 
-</button>
+  </div>
 
-<button
-id="rewardBtn"
-type="button">
 
-<i class="fa-solid fa-gift"></i>
+  <!-- =============================================== -->
+  <!-- TOTAL STAMPS -->
+  <!-- =============================================== -->
 
-<span>
+  <div
+    class="stat-card"
+  >
 
-Reward Manager
+    <div
+      class="stat-icon"
+    >
 
-</span>
+      <i
+        class="fa-solid fa-star"
+        aria-hidden="true"
+      ></i>
 
-</button>
+    </div>
 
-<button
-id="settingsBtn"
-type="button">
 
-<i class="fa-solid fa-gear"></i>
+    <div
+      class="stat-content"
+    >
 
-<span>
+      <h4>
+        Total Stamps
+      </h4>
 
-Settings
+      <strong
+        id="totalStamps"
+      >
+        0
+      </strong>
 
-</span>
+    </div>
 
-</button>
+  </div>
+
+
+  <!-- =============================================== -->
+  <!-- REWARDS READY -->
+  <!-- =============================================== -->
+
+  <div
+    class="stat-card"
+  >
+
+    <div
+      class="stat-icon"
+    >
+
+      <i
+        class="fa-solid fa-gift"
+        aria-hidden="true"
+      ></i>
+
+    </div>
+
+
+    <div
+      class="stat-content"
+    >
+
+      <h4>
+        Rewards Ready
+      </h4>
+
+      <strong
+        id="totalRewards"
+      >
+        0
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <!-- =============================================== -->
+  <!-- TODAY'S SCANS -->
+  <!-- =============================================== -->
+
+  <div
+    class="stat-card"
+  >
+
+    <div
+      class="stat-icon"
+    >
+
+      <i
+        class="fa-solid fa-camera"
+        aria-hidden="true"
+      ></i>
+
+    </div>
+
+
+    <div
+      class="stat-content"
+    >
+
+      <h4>
+        Today's Scan
+      </h4>
+
+      <strong
+        id="todayScans"
+      >
+        0
+      </strong>
+
+    </div>
+
+  </div>
+
 
 </section>
 
+
 <!-- ================================================= -->
-<!-- SYSTEM STATUS -->
+<!-- CUSTOMER LIST SECTION -->
 <!-- ================================================= -->
 
 <section
-class="status-section"
-id="statusSection">
+  class="customer-section"
+  id="customerSection"
+>
 
-<div class="status-card">
 
-<h2>
+  <!-- =============================================== -->
+  <!-- SECTION HEADER -->
+  <!-- =============================================== -->
 
-System Status
+  <div
+    class="section-header"
+  >
 
-</h2>
 
-<div class="status-row">
+    <!-- ============================================= -->
+    <!-- SECTION TITLE -->
+    <!-- ============================================= -->
 
-<span>
+    <h2>
 
-Firebase
+      <i
+        class="fa-solid fa-users"
+        aria-hidden="true"
+      ></i>
 
-</span>
+      Customer List
 
-<strong
-class="online">
+    </h2>
 
-🟢 Connected
 
-</strong>
+    <!-- ============================================= -->
+    <!-- SEARCH BOX -->
+    <!-- ============================================= -->
 
-</div>
+    <div
+      class="search-box"
+    >
 
-<div class="status-row">
+      <i
+        class="fa-solid fa-magnifying-glass"
+        aria-hidden="true"
+      ></i>
 
-<span>
 
-Admin
+      <input
+        type="search"
+        id="searchCustomer"
+        placeholder="Search by Name, Member ID or Mobile"
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="Search customers"
+      >
 
-</span>
+    </div>
 
-<strong
-class="online">
 
-🟢 Verified
+  </div>
 
-</strong>
 
-</div>
+  <!-- =============================================== -->
+  <!-- CUSTOMER TABLE CARD -->
+  <!-- =============================================== -->
 
-<div class="status-row">
+  <div
+    class="table-card"
+  >
 
-<span>
 
-Scanner
+    <!-- ============================================= -->
+    <!-- RESPONSIVE TABLE -->
+    <!-- ============================================= -->
 
-</span>
+    <div
+      class="table-responsive"
+    >
 
-<strong
-id="scannerStatus">
 
-🟡 Ready
+      <table>
 
-</strong>
 
-</div>
+        <!-- =========================================== -->
+        <!-- TABLE HEADER -->
+        <!-- =========================================== -->
 
-<div class="status-row">
+        <thead>
 
-<span>
+          <tr>
 
-Last Refresh
+            <th>
+              Photo
+            </th>
 
-</span>
+            <th>
+              Name
+            </th>
 
-<strong
-id="lastRefresh">
+            <th>
+              Member ID
+            </th>
 
---
+            <th>
+              Mobile
+            </th>
 
-</strong>
+            <th>
+              Stamps
+            </th>
 
-</div>
+            <th>
+              Reward
+            </th>
 
-</div>
+            <th>
+              Action
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <!-- =========================================== -->
+        <!-- TABLE BODY -->
+        <!-- =========================================== -->
+
+        <tbody
+          id="customerTable"
+        >
+
+          <!-- Firebase Customer Data Will Load Here -->
+
+        </tbody>
+
+
+      </table>
+
+
+    </div>
+
+
+  </div>
+
 
 </section>
 
-</main>
-
-</div>
 
 <!-- ================================================= -->
-<!-- HTML5 QR SCANNER -->
+<!-- QUICK ACTIONS SECTION -->
 <!-- ================================================= -->
 
-<script
-src="https://unpkg.com/html5-qrcode">
-</script>
+<section
+  class="quick-actions"
+  id="quickActions"
+>
+
+
+  <!-- =============================================== -->
+  <!-- REFRESH -->
+  <!-- =============================================== -->
+
+  <button
+    id="refreshBtn"
+    type="button"
+  >
+
+    <i
+      class="fa-solid fa-rotate"
+      aria-hidden="true"
+    ></i>
+
+    <span>
+      Refresh
+    </span>
+
+  </button>
+
+
+  <!-- =============================================== -->
+  <!-- EXPORT -->
+  <!-- =============================================== -->
+
+  <button
+    id="exportBtn"
+    type="button"
+  >
+
+    <i
+      class="fa-solid fa-file-export"
+      aria-hidden="true"
+    ></i>
+
+    <span>
+      Export
+    </span>
+
+  </button>
+
+
+  <!-- =============================================== -->
+  <!-- REWARD MANAGER -->
+  <!-- =============================================== -->
+
+  <button
+    id="rewardBtn"
+    type="button"
+  >
+
+    <i
+      class="fa-solid fa-gift"
+      aria-hidden="true"
+    ></i>
+
+    <span>
+      Reward Manager
+    </span>
+
+  </button>
+
+
+  <!-- =============================================== -->
+  <!-- SETTINGS -->
+  <!-- =============================================== -->
+
+  <button
+    id="settingsBtn"
+    type="button"
+  >
+
+    <i
+      class="fa-solid fa-gear"
+      aria-hidden="true"
+    ></i>
+
+    <span>
+      Settings
+    </span>
+
+  </button>
+
+
+</section>
+
 
 <!-- ================================================= -->
-<!-- ADMIN DASHBOARD JS -->
+<!-- SYSTEM STATUS SECTION -->
 <!-- ================================================= -->
 
-<script
-type="module"
-src="js/admin-dashboard.js">
-</script>
+<section
+  class="status-section"
+  id="statusSection"
+>
 
-</body>
 
-</html>
+  <!-- =============================================== -->
+  <!-- STATUS CARD -->
+  <!-- =============================================== -->
+
+  <div
+    class="status-card"
+  >
+
+
+    <h2>
+      System Status
+    </h2>
+
+
+    <!-- ============================================= -->
+    <!-- FIREBASE STATUS -->
+    <!-- ============================================= -->
+
+    <div
+      class="status-row"
+    >
+
+      <span>
+        Firebase
+      </span>
+
+      <strong
+        id="firebaseStatus"
+        class="online"
+      >
+        🟢 Connected
+      </strong>
+
+    </div>
+
+
+    <!-- ============================================= -->
+    <!-- ADMIN STATUS -->
+    <!-- ============================================= -->
+
+    <div
+      class="status-row"
+    >
+
+      <span>
+        Admin
+      </span>
+
+      <strong
+        id="adminStatus"
+        class="online"
+      >
+        🟢 Verified
+      </strong>
+
+    </div>
+
+
+    <!-- ============================================= -->
+    <!-- SCANNER STATUS -->
+    <!-- ============================================= -->
+
+    <div
+      class="status-row"
+    >
+
+      <span>
+        Scanner
+      </span>
+
+      <strong
+        id="scannerStatus"
+      >
+        🟡 Ready
+      </strong>
+
+    </div>
+
+
+    <!-- ============================================= -->
+    <!-- LAST REFRESH -->
+    <!-- ============================================= -->
+
+    <div
+      class="status-row"
+    >
+
+      <span>
+        Last Refresh
+      </span>
+
+      <strong
+        id="lastRefresh"
+      >
+        --
+      </strong>
+
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
+<!-- ================================================= -->
+<!-- END OF PART 2 -->
+<!-- ================================================= -->
+  // =====================================================
+// RIO MAGGI POINT
+// PREMIUM ADMIN DASHBOARD V4
+// PART 2
+// CUSTOMER TABLE + SEARCH + CUSTOMER SELECTION
+// =====================================================
+
+
+// =====================================================
+// CREATE CUSTOMER TABLE ROW
+// =====================================================
+
+function createCustomerRow(customer) {
+
+  if (!customerTable) {
+    return;
+  }
+
+
+  const tr =
+    document.createElement("tr");
+
+
+  // ===================================================
+  // CUSTOMER AVATAR
+  // ===================================================
+
+  const avatar =
+    getCustomerAvatar(customer);
+
+
+  // ===================================================
+  // CUSTOMER INFORMATION
+  // ===================================================
+
+  const customerName =
+    customer.name || "-";
+
+
+  const memberId =
+    customer.memberId ||
+    "RIO-000000000";
+
+
+  const mobile =
+    customer.mobile ||
+    customer.phone ||
+    customer.phoneNumber ||
+    "-";
+
+
+  const stamps =
+    Number(
+      customer.stamps || 0
+    );
+
+
+  const rewardUnlocked =
+    customer.rewardUnlocked === true;
+
+
+  // ===================================================
+  // TODAY'S STAMP STATUS
+  // ===================================================
+
+  const stampedToday =
+    hasStampToday(customer);
+
+
+  // ===================================================
+  // REWARD STATUS
+  // ===================================================
+
+  let rewardText =
+    "❌ Locked";
+
+
+  if (rewardUnlocked) {
+
+    rewardText =
+      "✅ Ready";
+
+  }
+
+
+  // ===================================================
+  // CREATE CUSTOMER ROW
+  // ===================================================
+
+  tr.innerHTML = `
+
+    <td>
+
+      <img
+        src="${escapeHtml(avatar)}"
+        alt="Customer Photo"
+        style="
+          width:45px;
+          height:45px;
+          border-radius:50%;
+          object-fit:cover;
+        "
+        loading="lazy"
+      >
+
+    </td>
+
+
+    <td>
+
+      ${escapeHtml(customerName)}
+
+    </td>
+
+
+    <td>
+
+      ${escapeHtml(memberId)}
+
+    </td>
+
+
+    <td>
+
+      ${escapeHtml(mobile)}
+
+    </td>
+
+
+    <td>
+
+      <strong>
+
+        ${stamps}/${MAX_STAMPS}
+
+      </strong>
+
+    </td>
+
+
+    <td>
+
+      ${rewardText}
+
+    </td>
+
+
+    <td>
+
+      <button
+        type="button"
+        class="customer-view-btn"
+        data-customer-id="${escapeHtml(customer.uid)}"
+      >
+
+        View
+
+      </button>
+
+    </td>
+
+  `;
+
+
+  // ===================================================
+  // VIEW BUTTON
+  // ===================================================
+
+  const viewButton =
+    tr.querySelector(
+      ".customer-view-btn"
+    );
+
+
+  if (viewButton) {
+
+    viewButton.addEventListener(
+      "click",
+      () => {
+
+        selectCustomer(
+          customer.uid
+        );
+
+      }
+    );
+
+  }
+
+
+  // ===================================================
+  // ADD ROW TO TABLE
+  // ===================================================
+
+  customerTable.appendChild(
+    tr
+  );
+
+}
+
+
+// =====================================================
+// HTML ESCAPE PROTECTION
+// =====================================================
+// Protects customer data from HTML / JS injection.
+// =====================================================
+
+function escapeHtml(value) {
+
+  if (
+    value === null ||
+    value === undefined
+  ) {
+
+    return "";
+
+  }
+
+
+  return String(value)
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+// =====================================================
+// CUSTOMER SEARCH
+// =====================================================
+
+searchCustomer?.addEventListener(
+  "input",
+  (event) => {
+
+    const keyword =
+      event.target.value
+        .trim()
+        .toLowerCase();
+
+
+    // ---------------------------------------------------
+    // CLEAR CURRENT TABLE
+    // ---------------------------------------------------
+
+    customerTable.innerHTML = "";
+
+
+    // ---------------------------------------------------
+    // EMPTY SEARCH
+    // ---------------------------------------------------
+    // If search is empty,
+    // show all customers.
+    // ---------------------------------------------------
+
+    if (!keyword) {
+
+      customers.forEach(
+        createCustomerRow
+      );
+
+      return;
+
+    }
+
+
+    // ===================================================
+    // FILTER CUSTOMERS
+    // ===================================================
+
+    const filteredCustomers =
+      customers.filter(
+        (customer) => {
+
+          const name =
+            String(
+              customer.name || ""
+            )
+            .toLowerCase();
+
+
+          const memberId =
+            String(
+              customer.memberId || ""
+            )
+            .toLowerCase();
+
+
+          const mobile =
+            String(
+              customer.mobile ||
+              customer.phone ||
+              customer.phoneNumber ||
+              ""
+            )
+            .toLowerCase();
+
+
+          return (
+
+            name.includes(
+              keyword
+            )
+
+            ||
+
+            memberId.includes(
+              keyword
+            )
+
+            ||
+
+            mobile.includes(
+              keyword
+            )
+
+          );
+
+        }
+      );
+
+
+    // ===================================================
+    // DISPLAY SEARCH RESULTS
+    // ===================================================
+
+    filteredCustomers.forEach(
+      createCustomerRow
+    );
+
+
+    // ===================================================
+    // NO CUSTOMER FOUND
+    // ===================================================
+
+    if (
+      filteredCustomers.length === 0
+    ) {
+
+      const emptyRow =
+        document.createElement("tr");
+
+
+      emptyRow.innerHTML = `
+
+        <td
+          colspan="7"
+          style="
+            text-align:center;
+            padding:25px;
+          "
+        >
+
+          No Customer Found
+
+        </td>
+
+      `;
+
+
+      customerTable.appendChild(
+        emptyRow
+      );
+
+    }
+
+  }
+);
+
+
+// =====================================================
+// SELECT CUSTOMER
+// =====================================================
+
+function selectCustomer(uid) {
+
+  // ---------------------------------------------------
+  // VALIDATE UID
+  // ---------------------------------------------------
+
+  if (!uid) {
+
+    return;
+
+  }
+
+
+  // ---------------------------------------------------
+  // FIND CUSTOMER
+  // ---------------------------------------------------
+
+  const customer =
+    customers.find(
+      (item) =>
+        item.uid === uid
+    );
+
+
+  // ---------------------------------------------------
+  // CUSTOMER NOT FOUND
+  // ---------------------------------------------------
+
+  if (!customer) {
+
+    alert(
+      "❌ Customer Not Found"
+    );
+
+    return;
+
+  }
+
+
+  // ---------------------------------------------------
+  // SHOW CUSTOMER PREVIEW
+  // ---------------------------------------------------
+
+  showCustomer(
+    customer
+  );
+
+
+  // ---------------------------------------------------
+  // SCROLL TO CUSTOMER PREVIEW
+  // ---------------------------------------------------
+
+  const scannerSection =
+    document.getElementById(
+      "scannerSection"
+    );
+
+
+  if (scannerSection) {
+
+    scannerSection.scrollIntoView({
+
+      behavior:
+        "smooth",
+
+      block:
+        "start"
+
+    });
+
+  }
+
+}
+
+
+// =====================================================
+// GLOBAL SELECT CUSTOMER
+// =====================================================
+// Keeps compatibility with any old HTML code
+// that may call selectCustomer().
+// =====================================================
+
+window.selectCustomer =
+  selectCustomer;
+
+
+// =====================================================
+// RESET CUSTOMER PREVIEW
+// =====================================================
+
+cancelScanBtn?.addEventListener(
+  "click",
+  () => {
+
+    resetCustomerPreview();
+
+  }
+);
+
+
+// =====================================================
+// REFRESH DASHBOARD
+// =====================================================
+
+refreshBtn?.addEventListener(
+  "click",
+  async () => {
+
+    if (refreshBtn) {
+
+      refreshBtn.disabled =
+        true;
+
+    }
+
+
+    try {
+
+      await loadDashboard();
+
+    }
+
+    catch (error) {
+
+      console.error(
+        "Refresh Error:",
+        error
+      );
+
+    }
+
+    finally {
+
+      if (refreshBtn) {
+
+        refreshBtn.disabled =
+          false;
+
+      }
+
+    }
+
+  }
+);
+
+
+// =====================================================
+// MODULE READY LOGS
+// =====================================================
+
+console.log(
+  "Customer Table Module Ready"
+);
+
+
+console.log(
+  "Customer Search Module Ready"
+);
+
+
+console.log(
+  "Customer Selection Module Ready"
+);
+
+
+// =====================================================
+// END OF PART 2
+// =====================================================
+  // =====================================================
+// RIO MAGGI POINT
+// PREMIUM ADMIN DASHBOARD V4
+// PART 3
+// LIVE QR SCANNER + QR VALIDATION
+// =====================================================
+
+
+// =====================================================
+// START CAMERA QR SCANNER
+// =====================================================
+
+async function startScanner() {
+
+  // ---------------------------------------------------
+  // PREVENT MULTIPLE SCANNER INSTANCES
+  // ---------------------------------------------------
+
+  if (scannerRunning) {
+
+    return;
+
+  }
+
+
+  // ---------------------------------------------------
+  // CHECK QR SCANNER LIBRARY
+  // ---------------------------------------------------
+
+  if (
+    typeof Html5Qrcode ===
+    "undefined"
+  ) {
+
+    alert(
+      "❌ QR Scanner Library Not Loaded"
+    );
+
+    console.error(
+      "Html5Qrcode library is not available."
+    );
+
+    return;
+
+  }
+
+
+  // ---------------------------------------------------
+  // RESET QR PROCESSING LOCK
+  // ---------------------------------------------------
+
+  processingQr =
+    false;
+
+
+  // ---------------------------------------------------
+  // UPDATE SCANNER STATUS
+  // ---------------------------------------------------
+
+  if (scannerStatus) {
+
+    scannerStatus.textContent =
+      "🟡 Opening Camera...";
+
+  }
+
+
+  // ---------------------------------------------------
+  // HIDE CAMERA OVERLAY
+  // ---------------------------------------------------
+
+  if (cameraOverlay) {
+
+    cameraOverlay.style.display =
+      "none";
+
+  }
+
+
+  try {
+
+    // =================================================
+    // CREATE NEW QR SCANNER INSTANCE
+    // =================================================
+
+    html5QrCode =
+      new Html5Qrcode(
+        "qr-reader"
+      );
+
+
+    // =================================================
+    // START DEVICE CAMERA
+    // =================================================
+
+    await html5QrCode.start(
+
+      {
+        facingMode:
+          "environment"
+      },
+
+      {
+        fps:
+          10,
+
+        qrbox: {
+          width:
+            250,
+
+          height:
+            250
+        }
+
+      },
+
+      onScanSuccess,
+
+      onScanError
+
+    );
+
+
+    // =================================================
+    // SCANNER SUCCESSFULLY STARTED
+    // =================================================
+
+    scannerRunning =
+      true;
+
+
+    // ---------------------------------------------------
+    // UPDATE STATUS
+    // ---------------------------------------------------
+
+    if (scannerStatus) {
+
+      scannerStatus.textContent =
+        "🟢 Scanner Running";
+
+    }
+
+
+    // ---------------------------------------------------
+    // UPDATE START BUTTON
+    // ---------------------------------------------------
+
+    if (startScannerBtn) {
+
+      startScannerBtn.disabled =
+        true;
+
+    }
+
+
+    // ---------------------------------------------------
+    // UPDATE STOP BUTTON
+    // ---------------------------------------------------
+
+    if (stopScannerBtn) {
+
+      stopScannerBtn.disabled =
+        false;
+
+    }
+
+
+    console.log(
+      "QR Scanner Started Successfully"
+    );
+
+  }
+
+  catch (error) {
+
+    // =================================================
+    // CAMERA START ERROR
+    // =================================================
+
+    console.error(
+      "Scanner Start Error:",
+      error
+    );
+
+
+    scannerRunning =
+      false;
+
+
+    html5QrCode =
+      null;
+
+
+    // ---------------------------------------------------
+    // SHOW CAMERA OVERLAY AGAIN
+    // ---------------------------------------------------
+
+    if (cameraOverlay) {
+
+      cameraOverlay.style.display =
+        "flex";
+
+    }
+
+
+    // ---------------------------------------------------
+    // UPDATE STATUS
+    // ---------------------------------------------------
+
+    if (scannerStatus) {
+
+      scannerStatus.textContent =
+        "🔴 Camera Error";
+
+    }
+
+
+    // ---------------------------------------------------
+    // RESET BUTTONS
+    // ---------------------------------------------------
+
+    if (startScannerBtn) {
+
+      startScannerBtn.disabled =
+        false;
+
+    }
+
+
+    if (stopScannerBtn) {
+
+      stopScannerBtn.disabled =
+        true;
+
+    }
+
+
+    alert(
+      "❌ Unable to start camera.\n\nPlease allow camera permission and try again."
+    );
+
+  }
+
+}
+
+
+// =====================================================
+// QR SCAN ERROR HANDLER
+// =====================================================
+// html5-qrcode continuously calls this function while
+// searching for a QR code.
+//
+// We intentionally do not show alerts here.
+// =====================================================
+
+function onScanError(
+  errorMessage
+) {
+
+  // No action required.
+
+}
+
+
+// =====================================================
+// STOP CAMERA QR SCANNER
+// =====================================================
+
+async function stopScanner() {
+
+  // ---------------------------------------------------
+  // NOTHING TO STOP
+  // ---------------------------------------------------
+
+  if (
+    !html5QrCode ||
+    !scannerRunning
+  ) {
+
+    return;
+
+  }
+
+
+  try {
+
+    // -------------------------------------------------
+    // STOP CAMERA
+    // -------------------------------------------------
+
+    await html5QrCode.stop();
+
+
+    // -------------------------------------------------
+    // CLEAR CAMERA VIEW
+    // -------------------------------------------------
+
+    try {
+
+      await html5QrCode.clear();
+
+    }
+
+    catch (clearError) {
+
+      console.log(
+        "Scanner Clear Warning:",
+        clearError
+      );
+
+    }
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Scanner Stop Error:",
+      error
+    );
+
+  }
+
+
+  // ===================================================
+  // RESET SCANNER STATE
+  // ===================================================
+
+  scannerRunning =
+    false;
+
+
+  html5QrCode =
+    null;
+
+
+  processingQr =
+    false;
+
+
+  // ---------------------------------------------------
+  // UPDATE STATUS
+  // ---------------------------------------------------
+
+  if (scannerStatus) {
+
+    scannerStatus.textContent =
+      "⚪ Camera Stopped";
+
+  }
+
+
+  // ---------------------------------------------------
+  // SHOW CAMERA OVERLAY
+  // ---------------------------------------------------
+
+  if (cameraOverlay) {
+
+    cameraOverlay.style.display =
+      "flex";
+
+  }
+
+
+  // ---------------------------------------------------
+  // RESET START BUTTON
+  // ---------------------------------------------------
+
+  if (startScannerBtn) {
+
+    startScannerBtn.disabled =
+      false;
+
+  }
+
+
+  // ---------------------------------------------------
+  // RESET STOP BUTTON
+  // ---------------------------------------------------
+
+  if (stopScannerBtn) {
+
+    stopScannerBtn.disabled =
+      true;
+
+  }
+
+
+  console.log(
+    "QR Scanner Stopped"
+  );
+
+}
+
+
+// =====================================================
+// START SCANNER BUTTON
+// =====================================================
+
+startScannerBtn?.addEventListener(
+  "click",
+  startScanner
+);
+
+
+// =====================================================
+// STOP SCANNER BUTTON
+// =====================================================
+
+stopScannerBtn?.addEventListener(
+  "click",
+  stopScanner
+);
+
+
+// =====================================================
+// QR SCAN SUCCESS
+// =====================================================
+
+async function onScanSuccess(
+  decodedText
+) {
+
+  // ---------------------------------------------------
+  // PREVENT DUPLICATE QR PROCESSING
+  // ---------------------------------------------------
+
+  if (processingQr) {
+
+    return;
+
+  }
+
+
+  processingQr =
+    true;
+
+
+  try {
+
+    // =================================================
+    // STOP CAMERA IMMEDIATELY
+    // =================================================
+
+    await stopScanner();
+
+
+    // =================================================
+    // VALIDATE QR CODE
+    // =================================================
+
+    if (
+      !decodedText ||
+      !decodedText.startsWith(
+        QR_PREFIX
+      )
+    ) {
+
+      alert(
+        "❌ Invalid Rio Maggi Point QR Code"
+      );
+
+      return;
+
+    }
+
+
+    // =================================================
+    // EXTRACT MEMBER ID
+    // =================================================
+
+    const memberId =
+      decodedText
+        .replace(
+          QR_PREFIX,
+          ""
+        )
+        .trim();
+
+
+    // ---------------------------------------------------
+    // VALIDATE MEMBER ID
+    // ---------------------------------------------------
+
+    if (!memberId) {
+
+      alert(
+        "❌ Invalid Member ID"
+      );
+
+      return;
+
+    }
+
+
+    console.log(
+      "Scanned Member ID:",
+      memberId
+    );
+
+
+    // =================================================
+    // SEARCH CUSTOMER IN FIREBASE
+    // =================================================
+
+    const customerQuery =
+      query(
+
+        collection(
+          db,
+          "customers"
+        ),
+
+        where(
+          "memberId",
+          "==",
+          memberId
+        )
+
+      );
+
+
+    const snapshot =
+      await getDocs(
+        customerQuery
+      );
+
+
+    // =================================================
+    // CUSTOMER NOT FOUND
+    // =================================================
+
+    if (
+      snapshot.empty
+    ) {
+
+      alert(
+        "❌ Customer Not Found"
+      );
+
+      resetCustomerPreview();
+
+      return;
+
+    }
+
+
+    // =================================================
+    // GET FIRST CUSTOMER DOCUMENT
+    // =================================================
+
+    let foundCustomer =
+      null;
+
+
+    snapshot.forEach(
+      (documentSnapshot) => {
+
+        // Only use the first valid result.
+
+        if (
+          foundCustomer
+        ) {
+
+          return;
+
+        }
+
+
+        foundCustomer = {
+
+          ...documentSnapshot.data(),
+
+          uid:
+            documentSnapshot.id
+
+        };
+
+      }
+    );
+
+
+    // =================================================
+    // SAFETY CHECK
+    // =================================================
+
+    if (!foundCustomer) {
+
+      alert(
+        "❌ Unable To Load Customer"
+      );
+
+      return;
+
+    }
+
+
+    // =================================================
+    // NORMALIZE STAMP VALUE
+    // =================================================
+
+    foundCustomer.stamps =
+      Number(
+        foundCustomer.stamps ||
+        0
+      );
+
+
+    // =================================================
+    // STORE CURRENT CUSTOMER
+    // =================================================
+
+    currentCustomer =
+      foundCustomer;
+
+
+    // =================================================
+    // SHOW CUSTOMER PREVIEW
+    // =================================================
+
+    showCustomer(
+      foundCustomer
+    );
+
+
+    // =================================================
+    // SCROLL TO CUSTOMER PREVIEW
+    // =================================================
+
+    const scannerSection =
+      document.getElementById(
+        "scannerSection"
+      );
+
+
+    if (scannerSection) {
+
+      scannerSection.scrollIntoView({
+
+        behavior:
+          "smooth",
+
+        block:
+          "start"
+
+      });
+
+    }
+
+
+    console.log(
+      "Customer QR Scan Successful:",
+      foundCustomer.memberId
+    );
+
+  }
+
+  catch (error) {
+
+    // =================================================
+    // QR PROCESSING ERROR
+    // =================================================
+
+    console.error(
+      "QR Scan Processing Error:",
+      error
+    );
+
+
+    alert(
+      "❌ Unable To Process QR Code"
+    );
+
+  }
+
+  finally {
+
+    // ---------------------------------------------------
+    // ALLOW NEXT QR SCAN
+    // ---------------------------------------------------
+
+    processingQr =
+      false;
+
+  }
+
+}
+
+
+// =====================================================
+// SCANNER MENU
+// =====================================================
+
+scannerMenu?.addEventListener(
+  "click",
+  () => {
+
+    const scannerSection =
+      document.getElementById(
+        "scannerSection"
+      );
+
+
+    if (scannerSection) {
+
+      scannerSection.scrollIntoView({
+
+        behavior:
+          "smooth",
+
+        block:
+          "start"
+
+      });
+
+    }
+
+  }
+);
+
+
+// =====================================================
+// STAMP MENU
+// =====================================================
+
+stampMenu?.addEventListener(
+  "click",
+  () => {
+
+    const scannerSection =
+      document.getElementById(
+        "scannerSection"
+      );
+
+
+    if (scannerSection) {
+
+      scannerSection.scrollIntoView({
+
+        behavior:
+          "smooth",
+
+        block:
+          "start"
+
+      });
+
+    }
+
+  }
+);
+
+
+// =====================================================
+// DASHBOARD MENU
+// =====================================================
+
+dashboardMenu?.addEventListener(
+  "click",
+  () => {
+
+    window.scrollTo({
+
+      top:
+        0,
+
+      behavior:
+        "smooth"
+
+    });
+
+  }
+);
+
+
+// =====================================================
+// END OF PART 3
+// =====================================================
+  // =====================================================
+// RIO MAGGI POINT
+// PREMIUM ADMIN DASHBOARD V4
+// PART 4
+// GIVE STAMP + DAILY PROTECTION + REWARD UNLOCK
+// =====================================================
+
+
+// =====================================================
+// GIVE STAMP BUTTON
+// =====================================================
+
+giveStampBtn?.addEventListener(
+  "click",
+  async () => {
+
+    // ---------------------------------------------------
+    // CHECK CUSTOMER
+    // ---------------------------------------------------
+
+    if (!currentCustomer) {
+
+      alert(
+        "❌ Please scan or select a customer first."
+      );
+
+      return;
+
+    }
+
+
+    // ---------------------------------------------------
+    // PREVENT DOUBLE CLICK
+    // ---------------------------------------------------
+
+    if (
+      giveStampBtn.dataset.processing ===
+      "true"
+    ) {
+
+      return;
+
+    }
+
+
+    // Lock button
+
+    giveStampBtn.dataset.processing =
+      "true";
+
+
+    giveStampBtn.disabled =
+      true;
+
+
+    try {
+
+      // =================================================
+      // GET CUSTOMER DOCUMENT REFERENCE
+      // =================================================
+
+      const customerRef =
+        doc(
+          db,
+          "customers",
+          currentCustomer.uid
+        );
+
+
+      // =================================================
+      // GET LATEST FIREBASE CUSTOMER DATA
+      // =================================================
+      // This prevents an old dashboard value from
+      // overwriting a newer value changed by another
+      // admin or device.
+      // =================================================
+
+      const customerSnapshot =
+        await getDoc(
+          customerRef
+        );
+
+
+      // ---------------------------------------------------
+      // CUSTOMER DOES NOT EXIST
+      // ---------------------------------------------------
+
+      if (
+        !customerSnapshot.exists()
+      ) {
+
+        alert(
+          "❌ Customer account not found."
+        );
+
+        resetCustomerPreview();
+
+        return;
+
+      }
+
+
+      // =================================================
+      // GET FRESH CUSTOMER DATA
+      // =================================================
+
+      const latestCustomer =
+        customerSnapshot.data();
+
+
+      latestCustomer.uid =
+        currentCustomer.uid;
+
+
+      // Ensure stamps is always a number
+
+      latestCustomer.stamps =
+        Number(
+          latestCustomer.stamps ||
+          0
+        );
+
+
+      // =================================================
+      // CHECK TODAY'S STAMP
+      // =================================================
+
+      if (
+        hasStampToday(
+          latestCustomer
+        )
+      ) {
+
+        alert(
+          "⚠️ This customer has already received today's stamp."
+        );
+
+
+        // Update local customer
+
+        currentCustomer =
+          latestCustomer;
+
+
+        showCustomer(
+          latestCustomer
+        );
+
+
+        return;
+
+      }
+
+
+      // =================================================
+      // CHECK MAXIMUM STAMPS
+      // =================================================
+
+      let currentStamps =
+        latestCustomer.stamps;
+
+
+      if (
+        currentStamps >=
+        MAX_STAMPS
+      ) {
+
+        alert(
+          "🎁 This customer already has a reward ready."
+        );
+
+
+        currentCustomer =
+          latestCustomer;
+
+
+        showCustomer(
+          latestCustomer
+        );
+
+
+        return;
+
+      }
+
+
+      // =================================================
+      // ADD ONE STAMP
+      // =================================================
+
+      const newStampCount =
+        currentStamps + 1;
+
+
+      // =================================================
+      // CHECK REWARD UNLOCK
+      // =================================================
+
+      const rewardUnlocked =
+        newStampCount >=
+        MAX_STAMPS;
+
+
+      // =================================================
+      // GET TODAY'S DATE
+      // =================================================
+
+      const todayKey =
+        getTodayKey();
+
+
+      // =================================================
+      // UPDATE CUSTOMER IN FIREBASE
+      // =================================================
+
+      await updateDoc(
+
+        customerRef,
+
+        {
+
+          // Current stamp count
+
+          stamps:
+            newStampCount,
+
+
+          // Unlock Free Veg Maggi reward
+          // when 6 stamps are completed
+
+          rewardUnlocked:
+            rewardUnlocked,
+
+
+          // Daily stamp protection
+
+          dailyStampDate:
+            todayKey,
+
+
+          // Backup daily stamp date
+
+          lastStampDate:
+            todayKey,
+
+
+          // Exact last stamp timestamp
+
+          lastStampAt:
+            serverTimestamp(),
+
+
+          // Last update timestamp
+
+          updatedAt:
+            serverTimestamp()
+
+        }
+
+      );
+
+
+      // =================================================
+      // UPDATE CURRENT CUSTOMER LOCALLY
+      // =================================================
+
+      currentCustomer =
+        {
+
+          ...latestCustomer,
+
+          uid:
+            currentCustomer.uid,
+
+          stamps:
+            newStampCount,
+
+          rewardUnlocked:
+            rewardUnlocked,
+
+          dailyStampDate:
+            todayKey,
+
+          lastStampDate:
+            todayKey
+
+        };
+
+
+      // =================================================
+      // SHOW UPDATED CUSTOMER
+      // =================================================
+
+      showCustomer(
+        currentCustomer
+      );
+
+
+      // =================================================
+      // UPDATE TODAY'S SCAN COUNT
+      // =================================================
+
+      todayScanCount++;
+
+
+      if (todayScans) {
+
+        todayScans.textContent =
+          todayScanCount;
+
+      }
+
+
+      // =================================================
+      // SUCCESS MESSAGE
+      // =================================================
+
+      if (
+        rewardUnlocked
+      ) {
+
+        alert(
+
+          "🎉 Congratulations!\n\n" +
+
+          "6 Stamps Completed!\n\n" +
+
+          "🎁 Free Veg Maggi Reward Unlocked!"
+
+        );
+
+      }
+
+      else {
+
+        alert(
+
+          "✅ Stamp Added Successfully!\n\n" +
+
+          `Current Stamps: ${newStampCount}/${MAX_STAMPS}`
+
+        );
+
+      }
+
+
+      // =================================================
+      // REFRESH DASHBOARD DATA
+      // =================================================
+
+      await loadDashboard();
+
+
+      // =================================================
+      // RESTORE CURRENT CUSTOMER AFTER REFRESH
+      // =================================================
+
+      const refreshedCustomer =
+        customers.find(
+
+          (customer) =>
+
+            customer.uid ===
+            currentCustomer.uid
+
+        );
+
+
+      if (
+        refreshedCustomer
+      ) {
+
+        currentCustomer =
+          refreshedCustomer;
+
+
+        showCustomer(
+          refreshedCustomer
+        );
+
+      }
+
+    }
+
+    catch (error) {
+
+      // =================================================
+      // GIVE STAMP ERROR
+      // =================================================
+
+      console.error(
+        "Give Stamp Error:",
+        error
+      );
+
+
+      alert(
+
+        "❌ Failed To Give Stamp.\n\n" +
+
+        "Please check your internet connection and try again."
+
+      );
+
+    }
+
+    finally {
+
+      // =================================================
+      // UNLOCK PROCESSING STATE
+      // =================================================
+
+      giveStampBtn.dataset.processing =
+        "false";
+
+
+      // =================================================
+      // BUTTON STATE
+      // =================================================
+
+      if (
+        currentCustomer &&
+        !hasStampToday(
+          currentCustomer
+        ) &&
+        Number(
+          currentCustomer.stamps ||
+          0
+        ) <
+        MAX_STAMPS
+      ) {
+
+        giveStampBtn.disabled =
+          false;
+
+      }
+
+      else {
+
+        giveStampBtn.disabled =
+          true;
+
+      }
+
+    }
+
+  }
+);
+
+
+// =====================================================
+// REWARD UNLOCK CHECK
+// =====================================================
+
+function checkRewardStatus(
+  customer
+) {
+
+  if (!customer) {
+
+    return false;
+
+  }
+
+
+  const stamps =
+    Number(
+      customer.stamps ||
+      0
+    );
+
+
+  return (
+
+    stamps >=
+    MAX_STAMPS
+
+  );
+
+}
+
+
+// =====================================================
+// CUSTOMER REWARD STATUS TEXT
+// =====================================================
+
+function getRewardStatusText(
+  customer
+) {
+
+  if (!customer) {
+
+    return "Locked";
+
+  }
+
+
+  // ---------------------------------------------------
+  // REWARD ALREADY UNLOCKED
+  // ---------------------------------------------------
+
+  if (
+    customer.rewardUnlocked ===
+    true
+  ) {
+
+    return "🎁 Reward Ready";
+
+  }
+
+
+  // ---------------------------------------------------
+  // FALLBACK CHECK
+  // ---------------------------------------------------
+
+  const stamps =
+    Number(
+      customer.stamps ||
+      0
+    );
+
+
+  if (
+    stamps >=
+    MAX_STAMPS
+  ) {
+
+    return "🎁 Reward Ready";
+
+  }
+
+
+  // ---------------------------------------------------
+  // STAMPS REMAINING
+  // ---------------------------------------------------
+
+  return (
+
+    `${stamps}/${MAX_STAMPS} Stamps`
+
+  );
+
+}
+
+
+// =====================================================
+// END OF PART 4
+// =====================================================
