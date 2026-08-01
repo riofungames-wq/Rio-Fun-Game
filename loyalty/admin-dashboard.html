@@ -9,23 +9,23 @@
 name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>
-
-Rio Maggi Point • Premium Admin V3
-
-</title>
-
 <meta
 name="theme-color"
 content="#111111">
 
+<meta
+name="color-scheme"
+content="dark">
+
+<title>
+
+Rio Maggi Point • Premium Admin Dashboard
+
+</title>
+
 <link
 rel="manifest"
 href="manifest.json">
-
-<link
-rel="stylesheet"
-href="css/admin-dashboard.css">
 
 <link
 rel="preconnect"
@@ -44,6 +44,10 @@ rel="stylesheet">
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
+<link
+rel="stylesheet"
+href="css/admin-dashboard.css">
+
 </head>
 
 <body>
@@ -60,15 +64,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 <img
 src="assets/logo/logo.png"
-alt="Rio Logo">
+alt="Rio Maggi Point Logo"
+loading="eager">
 
 <div>
 
-<h2>
+<h1>
 
 RIO MAGGI POINT
 
-</h2>
+</h1>
 
 <p>
 
@@ -82,7 +87,9 @@ Premium Admin Dashboard
 
 <div class="header-right">
 
-<span class="live-indicator">
+<span
+class="live-indicator"
+id="liveIndicator">
 
 🟢 LIVE
 
@@ -93,13 +100,16 @@ Premium Admin Dashboard
 </header>
 
 <!-- ================================================= -->
-<!-- APP NAVIGATION -->
+<!-- NAVIGATION -->
 <!-- ================================================= -->
 
-<nav class="app-nav">
+<nav
+class="app-nav"
+aria-label="Admin Navigation">
 
 <button
-id="dashboardMenu">
+id="dashboardMenu"
+type="button">
 
 <i class="fa-solid fa-chart-line"></i>
 
@@ -112,7 +122,8 @@ Dashboard
 </button>
 
 <button
-id="scannerMenu">
+id="scannerMenu"
+type="button">
 
 <i class="fa-solid fa-camera"></i>
 
@@ -125,7 +136,8 @@ Scanner
 </button>
 
 <button
-id="customersMenu">
+id="customersMenu"
+type="button">
 
 <i class="fa-solid fa-users"></i>
 
@@ -138,7 +150,8 @@ Customers
 </button>
 
 <button
-id="stampMenu">
+id="stampMenu"
+type="button">
 
 <i class="fa-solid fa-star"></i>
 
@@ -151,7 +164,8 @@ Stamps
 </button>
 
 <button
-id="rewardMenu">
+id="rewardMenu"
+type="button">
 
 <i class="fa-solid fa-gift"></i>
 
@@ -164,7 +178,8 @@ Rewards
 </button>
 
 <button
-id="reportMenu">
+id="reportMenu"
+type="button">
 
 <i class="fa-solid fa-chart-column"></i>
 
@@ -177,7 +192,8 @@ Reports
 </button>
 
 <button
-id="settingMenu">
+id="settingMenu"
+type="button">
 
 <i class="fa-solid fa-gear"></i>
 
@@ -191,6 +207,7 @@ Settings
 
 <button
 id="logoutBtn"
+type="button"
 class="logout-nav">
 
 <i class="fa-solid fa-right-from-bracket"></i>
@@ -206,15 +223,19 @@ Logout
 </nav>
 
 <!-- ================================================= -->
-<!-- MAIN CONTENT START -->
+<!-- MAIN CONTENT -->
 <!-- ================================================= -->
 
-<main class="dashboard-wrapper">
+<main
+class="dashboard-wrapper"
+id="dashboardWrapper">
   <!-- ================================================= -->
 <!-- LIVE QR SCANNER -->
 <!-- ================================================= -->
 
-<section class="scanner-section">
+<section
+class="scanner-section"
+id="scannerSection">
 
 <div class="scanner-card">
 
@@ -238,11 +259,17 @@ Scan Customer QR To Give Stamp
 
 <div class="scanner-box">
 
-<div id="cameraOverlay" class="camera-overlay">
+<div
+id="cameraOverlay"
+class="camera-overlay">
 
 <i class="fa-solid fa-camera-retro"></i>
 
-<h3>Camera Off</h3>
+<h3>
+
+Camera Off
+
+</h3>
 
 <p>
 
@@ -252,7 +279,11 @@ Tap Start Scanner
 
 </div>
 
-<div id="qr-reader"></div>
+<div
+id="qr-reader"
+class="qr-reader">
+
+</div>
 
 </div>
 
@@ -260,6 +291,7 @@ Tap Start Scanner
 
 <button
 id="startScannerBtn"
+type="button"
 class="gold-btn">
 
 <i class="fa-solid fa-play"></i>
@@ -270,6 +302,7 @@ Start Scanner
 
 <button
 id="stopScannerBtn"
+type="button"
 class="red-btn"
 disabled>
 
@@ -283,9 +316,9 @@ Stop Scanner
 
 </div>
 
-<!-- ============================================= -->
+<!-- ================================================= -->
 <!-- CUSTOMER PREVIEW -->
-<!-- ============================================= -->
+<!-- ================================================= -->
 
 <div class="customer-card">
 
@@ -304,14 +337,11 @@ Customer Preview
 <div class="customer-preview">
 
 <img
-
 id="scanCustomerPhoto"
-
 src="assets/avatars/male.png"
-
+alt="Customer Photo"
 class="customer-photo"
-
-alt="Customer">
+loading="lazy">
 
 <div class="customer-info">
 
@@ -373,6 +403,7 @@ Waiting
 
 <button
 id="giveStampBtn"
+type="button"
 class="gold-btn"
 disabled>
 
@@ -384,6 +415,7 @@ Give Stamp
 
 <button
 id="cancelScanBtn"
+type="button"
 class="gray-btn">
 
 <i class="fa-solid fa-rotate"></i>
@@ -397,49 +429,123 @@ Reset
 </div>
 
 </section>
+
 <!-- ================================================= -->
 <!-- DASHBOARD STATS -->
 <!-- ================================================= -->
 
-<section class="stats-section">
+<section
+class="stats-section"
+id="statsSection">
+  <!-- ================================================= -->
+<!-- DASHBOARD STATS -->
+<!-- ================================================= -->
+
+<section
+class="stats-section"
+id="statsSection">
 
 <div class="stat-card">
+
+<div class="stat-icon">
 
 <i class="fa-solid fa-users"></i>
 
-<h4>Total Customers</h4>
+</div>
 
-<strong id="totalCustomers">0</strong>
+<div class="stat-content">
+
+<h4>
+
+Total Customers
+
+</h4>
+
+<strong id="totalCustomers">
+
+0
+
+</strong>
+
+</div>
 
 </div>
 
 <div class="stat-card">
+
+<div class="stat-icon">
 
 <i class="fa-solid fa-star"></i>
 
-<h4>Total Stamps</h4>
+</div>
 
-<strong id="totalStamps">0</strong>
+<div class="stat-content">
+
+<h4>
+
+Total Stamps
+
+</h4>
+
+<strong id="totalStamps">
+
+0
+
+</strong>
+
+</div>
 
 </div>
 
 <div class="stat-card">
+
+<div class="stat-icon">
 
 <i class="fa-solid fa-gift"></i>
 
-<h4>Rewards</h4>
+</div>
 
-<strong id="totalRewards">0</strong>
+<div class="stat-content">
+
+<h4>
+
+Rewards Ready
+
+</h4>
+
+<strong id="totalRewards">
+
+0
+
+</strong>
+
+</div>
 
 </div>
 
 <div class="stat-card">
 
+<div class="stat-icon">
+
 <i class="fa-solid fa-camera"></i>
 
-<h4>Today's Scan</h4>
+</div>
 
-<strong id="todayScans">0</strong>
+<div class="stat-content">
+
+<h4>
+
+Today's Scan
+
+</h4>
+
+<strong id="todayScans">
+
+0
+
+</strong>
+
+</div>
 
 </div>
 
@@ -449,7 +555,9 @@ Reset
 <!-- CUSTOMER LIST -->
 <!-- ================================================= -->
 
-<section class="customer-section">
+<section
+class="customer-section"
+id="customerSection">
 
 <div class="section-header">
 
@@ -466,15 +574,19 @@ Customer List
 <i class="fa-solid fa-magnifying-glass"></i>
 
 <input
-type="text"
+type="search"
 id="searchCustomer"
-placeholder="Search Customer">
+placeholder="Search by Name, Member ID or Mobile"
+autocomplete="off"
+spellcheck="false">
 
 </div>
 
 </div>
 
 <div class="table-card">
+
+<div class="table-responsive">
 
 <table>
 
@@ -502,11 +614,13 @@ placeholder="Search Customer">
 
 <tbody id="customerTable">
 
-<!-- Firebase Data -->
+<!-- Firebase Customer Data -->
 
 </tbody>
 
 </table>
+
+</div>
 
 </div>
 
@@ -515,37 +629,63 @@ placeholder="Search Customer">
 <!-- QUICK ACTIONS -->
 <!-- ================================================= -->
 
-<section class="quick-actions">
+<section
+class="quick-actions"
+id="quickActions">
 
-<button id="refreshBtn">
+<button
+id="refreshBtn"
+type="button">
 
 <i class="fa-solid fa-rotate"></i>
 
+<span>
+
 Refresh
+
+</span>
 
 </button>
 
-<button id="exportBtn">
+<button
+id="exportBtn"
+type="button">
 
 <i class="fa-solid fa-file-export"></i>
 
+<span>
+
 Export
+
+</span>
 
 </button>
 
-<button id="rewardBtn">
+<button
+id="rewardBtn"
+type="button">
 
 <i class="fa-solid fa-gift"></i>
 
+<span>
+
 Reward Manager
+
+</span>
 
 </button>
 
-<button id="settingsBtn">
+<button
+id="settingsBtn"
+type="button">
 
 <i class="fa-solid fa-gear"></i>
 
+<span>
+
 Settings
+
+</span>
 
 </button>
 
@@ -555,7 +695,9 @@ Settings
 <!-- SYSTEM STATUS -->
 <!-- ================================================= -->
 
-<section class="status-section">
+<section
+class="status-section"
+id="statusSection">
 
 <div class="status-card">
 
@@ -567,9 +709,14 @@ System Status
 
 <div class="status-row">
 
-<span>Firebase</span>
+<span>
 
-<strong class="online">
+Firebase
+
+</span>
+
+<strong
+class="online">
 
 🟢 Connected
 
@@ -579,9 +726,14 @@ System Status
 
 <div class="status-row">
 
-<span>Admin</span>
+<span>
 
-<strong class="online">
+Admin
+
+</span>
+
+<strong
+class="online">
 
 🟢 Verified
 
@@ -591,9 +743,14 @@ System Status
 
 <div class="status-row">
 
-<span>Scanner</span>
+<span>
 
-<strong id="scannerStatus">
+Scanner
+
+</span>
+
+<strong
+id="scannerStatus">
 
 🟡 Ready
 
@@ -603,9 +760,14 @@ System Status
 
 <div class="status-row">
 
-<span>Last Refresh</span>
+<span>
 
-<strong id="lastRefresh">
+Last Refresh
+
+</span>
+
+<strong
+id="lastRefresh">
 
 --
 
@@ -625,15 +787,18 @@ System Status
 <!-- HTML5 QR SCANNER -->
 <!-- ================================================= -->
 
-<script src="https://unpkg.com/html5-qrcode"></script>
+<script
+src="https://unpkg.com/html5-qrcode">
+</script>
 
 <!-- ================================================= -->
-<!-- ADMIN JS -->
+<!-- ADMIN DASHBOARD JS -->
 <!-- ================================================= -->
 
 <script
 type="module"
-src="js/admin-dashboard.js"></script>
+src="js/admin-dashboard.js">
+</script>
 
 </body>
 
