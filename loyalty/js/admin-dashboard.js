@@ -1,8 +1,9 @@
 // =====================================================
 // RIO MAGGI POINT
-// PREMIUM ADMIN DASHBOARD V4
-// FIXED & SECURE STRUCTURE
+// PREMIUM ADMIN DASHBOARD V5
+// CLEAN & DUPLICATE-FREE
 // PART 1
+// FIREBASE + DOM + GLOBALS + CONSTANTS
 // =====================================================
 
 
@@ -15,7 +16,6 @@ import {
   db
 } from "./firebase-config.js";
 
-
 import {
   collection,
   getDocs,
@@ -26,7 +26,6 @@ import {
   updateDoc,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
 
 import {
   onAuthStateChanged,
@@ -46,14 +45,11 @@ import {
 const totalCustomers =
   document.getElementById("totalCustomers");
 
-
 const totalStamps =
   document.getElementById("totalStamps");
 
-
 const totalRewards =
   document.getElementById("totalRewards");
-
 
 const todayScans =
   document.getElementById("todayScans");
@@ -66,7 +62,6 @@ const todayScans =
 const customerTable =
   document.getElementById("customerTable");
 
-
 const searchCustomer =
   document.getElementById("searchCustomer");
 
@@ -78,14 +73,11 @@ const searchCustomer =
 const refreshBtn =
   document.getElementById("refreshBtn");
 
-
 const exportBtn =
   document.getElementById("exportBtn");
 
-
 const rewardBtn =
   document.getElementById("rewardBtn");
-
 
 const settingsBtn =
   document.getElementById("settingsBtn");
@@ -98,14 +90,11 @@ const settingsBtn =
 const startScannerBtn =
   document.getElementById("startScannerBtn");
 
-
 const stopScannerBtn =
   document.getElementById("stopScannerBtn");
 
-
 const giveStampBtn =
   document.getElementById("giveStampBtn");
-
 
 const cancelScanBtn =
   document.getElementById("cancelScanBtn");
@@ -118,7 +107,6 @@ const cancelScanBtn =
 const scannerStatus =
   document.getElementById("scannerStatus");
 
-
 const lastRefresh =
   document.getElementById("lastRefresh");
 
@@ -130,18 +118,14 @@ const lastRefresh =
 const scanCustomerPhoto =
   document.getElementById("scanCustomerPhoto");
 
-
 const scanCustomerName =
   document.getElementById("scanCustomerName");
-
 
 const scanMemberId =
   document.getElementById("scanMemberId");
 
-
 const scanStampCount =
   document.getElementById("scanStampCount");
-
 
 const todayStatus =
   document.getElementById("todayStatus");
@@ -170,26 +154,20 @@ const logoutBtn =
 const dashboardMenu =
   document.getElementById("dashboardMenu");
 
-
 const scannerMenu =
   document.getElementById("scannerMenu");
-
 
 const customersMenu =
   document.getElementById("customersMenu");
 
-
 const stampMenu =
   document.getElementById("stampMenu");
-
 
 const rewardMenu =
   document.getElementById("rewardMenu");
 
-
 const reportMenu =
   document.getElementById("reportMenu");
-
 
 const settingMenu =
   document.getElementById("settingMenu");
@@ -208,7 +186,7 @@ let customers = [];
 let currentCustomer = null;
 
 
-// Number of scans made today
+// Number of customers who received today's stamp
 let todayScanCount = 0;
 
 
@@ -238,16 +216,48 @@ const QR_PREFIX = "RIO-MAGGI::";
 
 
 // =====================================================
-// HELPER FUNCTIONS
+// PART 1 READY
+// =====================================================
+
+console.log(
+  "🍜 Rio Maggi Point Admin Dashboard V5"
+);
+
+console.log(
+  "✅ Firebase Imports Ready"
+);
+
+console.log(
+  "✅ DOM Elements Ready"
+);
+
+console.log(
+  "✅ Global Variables Ready"
+);
+
+console.log(
+  "✅ Constants Ready"
+);
+
+console.log(
+  "➡️ Waiting for Part 2..."
+);
+
+
+// =====================================================
+// END OF PART 1
+// =====================================================
+// =====================================================
+// RIO MAGGI POINT
+// PREMIUM ADMIN DASHBOARD V5
+// PART 2
+// HELPER FUNCTIONS + CUSTOMER TABLE + SEARCH
 // =====================================================
 
 
-// -----------------------------------------------------
+// =====================================================
 // GET TODAY DATE KEY
-// -----------------------------------------------------
-// Example:
-// 2026-08-02
-// -----------------------------------------------------
+// =====================================================
 
 function getTodayKey() {
 
@@ -271,16 +281,14 @@ function getTodayKey() {
 }
 
 
-// -----------------------------------------------------
+// =====================================================
 // GET CUSTOMER AVATAR
-// -----------------------------------------------------
+// =====================================================
 
 function getCustomerAvatar(customer) {
 
-  // If customer has an uploaded photo,
-  // use it first.
-
   if (
+    customer &&
     customer.photoURL &&
     typeof customer.photoURL === "string" &&
     customer.photoURL.trim() !== ""
@@ -292,6 +300,7 @@ function getCustomerAvatar(customer) {
 
 
   if (
+    customer &&
     customer.photoUrl &&
     typeof customer.photoUrl === "string" &&
     customer.photoUrl.trim() !== ""
@@ -303,6 +312,7 @@ function getCustomerAvatar(customer) {
 
 
   if (
+    customer &&
     customer.photo &&
     typeof customer.photo === "string" &&
     customer.photo.trim() !== ""
@@ -313,11 +323,12 @@ function getCustomerAvatar(customer) {
   }
 
 
-  // Otherwise use gender avatar.
-
   if (
+    customer &&
     customer.gender &&
-    customer.gender.toLowerCase() === "female"
+    String(
+      customer.gender
+    ).toLowerCase() === "female"
   ) {
 
     return "assets/avatars/female.png";
@@ -330,18 +341,22 @@ function getCustomerAvatar(customer) {
 }
 
 
-// -----------------------------------------------------
-// CHECK IF CUSTOMER ALREADY GOT TODAY'S STAMP
-// -----------------------------------------------------
+// =====================================================
+// CHECK TODAY'S STAMP
+// =====================================================
 
 function hasStampToday(customer) {
+
+  if (!customer) {
+
+    return false;
+
+  }
+
 
   const todayKey =
     getTodayKey();
 
-
-  // New recommended field
-  // dailyStampDate
 
   if (
     customer.dailyStampDate &&
@@ -352,9 +367,6 @@ function hasStampToday(customer) {
 
   }
 
-
-  // Backup field
-  // lastStampDate
 
   if (
     customer.lastStampDate &&
@@ -371,9 +383,9 @@ function hasStampToday(customer) {
 }
 
 
-// -----------------------------------------------------
-// GET STAMP STATUS TEXT
-// -----------------------------------------------------
+// =====================================================
+// GET STAMP STATUS
+// =====================================================
 
 function getStampStatus(customer) {
 
@@ -384,7 +396,9 @@ function getStampStatus(customer) {
   }
 
 
-  if (hasStampToday(customer)) {
+  if (
+    hasStampToday(customer)
+  ) {
 
     return "Already Stamped Today";
 
@@ -392,7 +406,9 @@ function getStampStatus(customer) {
 
 
   if (
-    Number(customer.stamps || 0) >= MAX_STAMPS
+    Number(
+      customer.stamps || 0
+    ) >= MAX_STAMPS
   ) {
 
     return "Reward Ready";
@@ -405,13 +421,60 @@ function getStampStatus(customer) {
 }
 
 
-// -----------------------------------------------------
+// =====================================================
+// HTML ESCAPE PROTECTION
+// =====================================================
+
+function escapeHtml(value) {
+
+  if (
+    value === null ||
+    value === undefined
+  ) {
+
+    return "";
+
+  }
+
+
+  return String(value)
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+// =====================================================
 // RESET CUSTOMER PREVIEW
-// -----------------------------------------------------
+// =====================================================
 
 function resetCustomerPreview() {
 
-  currentCustomer = null;
+  currentCustomer =
+    null;
 
 
   if (scanCustomerPhoto) {
@@ -459,16 +522,17 @@ function resetCustomerPreview() {
 
   if (giveStampBtn) {
 
-    giveStampBtn.disabled = true;
+    giveStampBtn.disabled =
+      true;
 
   }
 
 }
 
 
-// -----------------------------------------------------
+// =====================================================
 // SHOW CUSTOMER PREVIEW
-// -----------------------------------------------------
+// =====================================================
 
 function showCustomer(customer) {
 
@@ -511,13 +575,17 @@ function showCustomer(customer) {
   if (scanStampCount) {
 
     scanStampCount.textContent =
-      `${Number(customer.stamps || 0)}/${MAX_STAMPS}`;
+      `${Number(
+        customer.stamps || 0
+      )}/${MAX_STAMPS}`;
 
   }
 
 
   const status =
-    getStampStatus(customer);
+    getStampStatus(
+      customer
+    );
 
 
   if (todayStatus) {
@@ -526,7 +594,9 @@ function showCustomer(customer) {
       status;
 
 
-    if (hasStampToday(customer)) {
+    if (
+      hasStampToday(customer)
+    ) {
 
       todayStatus.className =
         "pending";
@@ -534,7 +604,9 @@ function showCustomer(customer) {
     }
 
     else if (
-      Number(customer.stamps || 0) >= MAX_STAMPS
+      Number(
+        customer.stamps || 0
+      ) >= MAX_STAMPS
     ) {
 
       todayStatus.className =
@@ -552,267 +624,21 @@ function showCustomer(customer) {
   }
 
 
-  // Disable Give Stamp button
-  // if customer already received
-  // today's stamp.
-
   if (giveStampBtn) {
 
-    giveStampBtn.disabled =
-      hasStampToday(customer);
+    giveStampBtn.disabled = (
+
+      hasStampToday(customer) ||
+
+      Number(
+        customer.stamps || 0
+      ) >= MAX_STAMPS
+
+    );
 
   }
 
 }
-
-
-// =====================================================
-// AUTHENTICATION
-// =====================================================
-
-onAuthStateChanged(
-  auth,
-  async (user) => {
-
-    if (!user) {
-
-      location.href =
-        "admin-login.html";
-
-      return;
-
-    }
-
-
-    try {
-
-      await loadDashboard();
-
-    }
-
-    catch (error) {
-
-      console.error(
-        "Admin Dashboard Initialization Error:",
-        error
-      );
-
-    }
-
-  }
-);
-
-
-// =====================================================
-// LOAD DASHBOARD
-// =====================================================
-
-async function loadDashboard() {
-
-  try {
-
-    // Clear old data
-
-    customerTable.innerHTML = "";
-
-    customers = [];
-
-    todayScanCount = 0;
-
-
-    let stampCount = 0;
-
-    let rewardCount = 0;
-
-
-    // Prevent duplicate customer IDs
-
-    const uniqueCustomers =
-      new Set();
-
-
-    // Get today's date
-
-    const todayKey =
-      getTodayKey();
-
-
-    // Get all customers
-
-    const snapshot =
-      await getDocs(
-        collection(
-          db,
-          "customers"
-        )
-      );
-
-
-    snapshot.forEach(
-      (documentSnapshot) => {
-
-        // Prevent duplicate records
-
-        if (
-          uniqueCustomers.has(
-            documentSnapshot.id
-          )
-        ) {
-
-          return;
-
-        }
-
-
-        uniqueCustomers.add(
-          documentSnapshot.id
-        );
-
-
-        const customer =
-          documentSnapshot.data();
-
-
-        // Store Firebase document ID
-
-        customer.uid =
-          documentSnapshot.id;
-
-
-        // Ensure stamps is a number
-
-        customer.stamps =
-          Number(
-            customer.stamps || 0
-          );
-
-
-        // Add customer to array
-
-        customers.push(
-          customer
-        );
-
-
-        // Total stamps
-
-        stampCount +=
-          customer.stamps;
-
-
-        // Reward count
-
-        if (
-          customer.rewardUnlocked === true
-        ) {
-
-          rewardCount++;
-
-        }
-
-
-        // Count today's stamps
-
-        if (
-          customer.dailyStampDate === todayKey ||
-          customer.lastStampDate === todayKey
-        ) {
-
-          todayScanCount++;
-
-        }
-
-
-        // Create customer table row
-
-        createCustomerRow(
-          customer
-        );
-
-      }
-    );
-
-
-    // Update dashboard stats
-
-    if (totalCustomers) {
-
-      totalCustomers.textContent =
-        customers.length;
-
-    }
-
-
-    if (totalStamps) {
-
-      totalStamps.textContent =
-        stampCount;
-
-    }
-
-
-    if (totalRewards) {
-
-      totalRewards.textContent =
-        rewardCount;
-
-    }
-
-
-    if (todayScans) {
-
-      todayScans.textContent =
-        todayScanCount;
-
-    }
-
-
-    // Update last refresh time
-
-    if (lastRefresh) {
-
-      lastRefresh.textContent =
-        new Date().toLocaleString();
-
-    }
-
-
-    console.log(
-      "Dashboard Loaded Successfully"
-    );
-
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "Dashboard Load Error:",
-      error
-    );
-
-
-    if (scannerStatus) {
-
-      scannerStatus.textContent =
-        "🔴 Dashboard Error";
-
-    }
-
-  }
-
-}
-
-
-// =====================================================
-// END OF PART 1
-// =====================================================
-// =====================================================
-// RIO MAGGI POINT
-// PREMIUM ADMIN DASHBOARD V4
-// PART 2
-// CUSTOMER TABLE + SEARCH + CUSTOMER SELECTION
-// =====================================================
 
 
 // =====================================================
@@ -832,17 +658,11 @@ function createCustomerRow(customer) {
     document.createElement("tr");
 
 
-  // ---------------------------------------------------
-  // CUSTOMER AVATAR
-  // ---------------------------------------------------
-
   const avatar =
-    getCustomerAvatar(customer);
+    getCustomerAvatar(
+      customer
+    );
 
-
-  // ---------------------------------------------------
-  // CUSTOMER DATA
-  // ---------------------------------------------------
 
   const customerName =
     customer.name || "-";
@@ -870,17 +690,11 @@ function createCustomerRow(customer) {
     customer.rewardUnlocked === true;
 
 
-  // ---------------------------------------------------
-  // TODAY'S STAMP STATUS
-  // ---------------------------------------------------
-
   const stampedToday =
-    hasStampToday(customer);
+    hasStampToday(
+      customer
+    );
 
-
-  // ---------------------------------------------------
-  // REWARD STATUS
-  // ---------------------------------------------------
 
   let rewardText =
     "❌ Locked";
@@ -894,10 +708,6 @@ function createCustomerRow(customer) {
   }
 
 
-  // ---------------------------------------------------
-  // DAILY STATUS
-  // ---------------------------------------------------
-
   let stampStatusText =
     "Give Stamp";
 
@@ -909,10 +719,6 @@ function createCustomerRow(customer) {
 
   }
 
-
-  // ---------------------------------------------------
-  // CREATE ROW
-  // ---------------------------------------------------
 
   tr.innerHTML = `
 
@@ -932,52 +738,35 @@ function createCustomerRow(customer) {
 
     </td>
 
-
     <td>
-
       ${escapeHtml(customerName)}
-
     </td>
 
-
     <td>
-
       ${escapeHtml(memberId)}
-
     </td>
-
 
     <td>
-
       ${escapeHtml(mobile)}
-
     </td>
-
 
     <td>
 
       <strong>
-
         ${stamps}/${MAX_STAMPS}
-
       </strong>
 
     </td>
 
-
     <td>
-
       ${rewardText}
-
     </td>
-
 
     <td>
 
       <button
         type="button"
         class="customer-view-btn"
-        data-customer-id="${escapeHtml(customer.uid)}"
       >
 
         View
@@ -988,10 +777,6 @@ function createCustomerRow(customer) {
 
   `;
 
-
-  // ---------------------------------------------------
-  // VIEW BUTTON
-  // ---------------------------------------------------
 
   const viewButton =
     tr.querySelector(
@@ -1015,10 +800,6 @@ function createCustomerRow(customer) {
   }
 
 
-  // ---------------------------------------------------
-  // ADD ROW TO TABLE
-  // ---------------------------------------------------
-
   customerTable.appendChild(
     tr
   );
@@ -1027,60 +808,86 @@ function createCustomerRow(customer) {
 
 
 // =====================================================
-// HTML ESCAPE PROTECTION
-// =====================================================
-// Prevent customer data from injecting HTML/JS
+// SELECT CUSTOMER
 // =====================================================
 
-function escapeHtml(value) {
+function selectCustomer(uid) {
 
-  if (
-    value === null ||
-    value === undefined
-  ) {
+  if (!uid) {
 
-    return "";
+    return;
 
   }
 
 
-  return String(value)
-
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
+  const customer =
+    customers.find(
+      (item) =>
+        item.uid === uid
     );
+
+
+  if (!customer) {
+
+    alert(
+      "❌ Customer Not Found"
+    );
+
+    return;
+
+  }
+
+
+  showCustomer(
+    customer
+  );
+
+
+  const scannerSection =
+    document.getElementById(
+      "scannerSection"
+    );
+
+
+  if (scannerSection) {
+
+    scannerSection.scrollIntoView({
+
+      behavior:
+        "smooth",
+
+      block:
+        "start"
+
+    });
+
+  }
 
 }
 
 
 // =====================================================
-// SEARCH CUSTOMER
+// GLOBAL COMPATIBILITY
+// =====================================================
+
+window.selectCustomer =
+  selectCustomer;
+
+
+// =====================================================
+// CUSTOMER SEARCH
 // =====================================================
 
 searchCustomer?.addEventListener(
   "input",
   (event) => {
+
+    if (!customerTable) {
+
+      return;
+
+    }
+
 
     const keyword =
       event.target.value
@@ -1088,13 +895,9 @@ searchCustomer?.addEventListener(
         .toLowerCase();
 
 
-    // Clear current table
+    customerTable.innerHTML =
+      "";
 
-    customerTable.innerHTML = "";
-
-
-    // If search box is empty,
-    // show all customers.
 
     if (!keyword) {
 
@@ -1107,10 +910,6 @@ searchCustomer?.addEventListener(
     }
 
 
-    // -------------------------------------------------
-    // FILTER CUSTOMERS
-    // -------------------------------------------------
-
     const filteredCustomers =
       customers.filter(
         (customer) => {
@@ -1118,25 +917,27 @@ searchCustomer?.addEventListener(
           const name =
             String(
               customer.name || ""
-            )
-            .toLowerCase();
+            ).toLowerCase();
 
 
           const memberId =
             String(
               customer.memberId || ""
-            )
-            .toLowerCase();
+            ).toLowerCase();
 
 
           const mobile =
             String(
+
               customer.mobile ||
+
               customer.phone ||
+
               customer.phoneNumber ||
+
               ""
-            )
-            .toLowerCase();
+
+            ).toLowerCase();
 
 
           return (
@@ -1163,18 +964,10 @@ searchCustomer?.addEventListener(
       );
 
 
-    // -------------------------------------------------
-    // DISPLAY RESULTS
-    // -------------------------------------------------
-
     filteredCustomers.forEach(
       createCustomerRow
     );
 
-
-    // -------------------------------------------------
-    // NO RESULT MESSAGE
-    // -------------------------------------------------
 
     if (
       filteredCustomers.length === 0
@@ -1212,66 +1005,292 @@ searchCustomer?.addEventListener(
 
 
 // =====================================================
-// SELECT CUSTOMER
+// PART 2 READY
 // =====================================================
 
-function selectCustomer(uid) {
+console.log(
+  "✅ Helper Functions Ready"
+);
 
-  if (!uid) {
+console.log(
+  "✅ Customer Preview Ready"
+);
 
-    return;
+console.log(
+  "✅ Customer Table Ready"
+);
+
+console.log(
+  "✅ Customer Search Ready"
+);
+
+console.log(
+  "➡️ Waiting for Part 3..."
+);
+
+
+// =====================================================
+// END OF PART 2
+// =====================================================
+// =====================================================
+// RIO MAGGI POINT
+// PREMIUM ADMIN DASHBOARD V5
+// PART 3
+// LOAD DASHBOARD + AUTHENTICATION
+// =====================================================
+
+
+// =====================================================
+// LOAD DASHBOARD
+// =====================================================
+
+async function loadDashboard() {
+
+  try {
+
+    // -------------------------------------------------
+    // RESET LOCAL DATA
+    // -------------------------------------------------
+
+    if (customerTable) {
+
+      customerTable.innerHTML =
+        "";
+
+    }
+
+
+    customers =
+      [];
+
+
+    todayScanCount =
+      0;
+
+
+    let stampCount =
+      0;
+
+
+    let rewardCount =
+      0;
+
+
+    // -------------------------------------------------
+    // TODAY'S DATE
+    // -------------------------------------------------
+
+    const todayKey =
+      getTodayKey();
+
+
+    // -------------------------------------------------
+    // GET CUSTOMERS FROM FIREBASE
+    // -------------------------------------------------
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "customers"
+        )
+      );
+
+
+    // -------------------------------------------------
+    // PROCESS CUSTOMERS
+    // -------------------------------------------------
+
+    snapshot.forEach(
+      (documentSnapshot) => {
+
+        const customer = {
+
+          ...documentSnapshot.data(),
+
+          uid:
+            documentSnapshot.id
+
+        };
+
+
+        // ------------------------------------------------
+        // NORMALIZE STAMPS
+        // ------------------------------------------------
+
+        customer.stamps =
+          Number(
+            customer.stamps || 0
+          );
+
+
+        // ------------------------------------------------
+        // STORE CUSTOMER
+        // ------------------------------------------------
+
+        customers.push(
+          customer
+        );
+
+
+        // ------------------------------------------------
+        // TOTAL STAMPS
+        // ------------------------------------------------
+
+        stampCount +=
+          customer.stamps;
+
+
+        // ------------------------------------------------
+        // TOTAL REWARDS
+        // ------------------------------------------------
+
+        if (
+          customer.rewardUnlocked === true
+        ) {
+
+          rewardCount++;
+
+        }
+
+
+        // ------------------------------------------------
+        // TODAY'S STAMP COUNT
+        // ------------------------------------------------
+
+        if (
+
+          customer.dailyStampDate ===
+          todayKey
+
+          ||
+
+          customer.lastStampDate ===
+          todayKey
+
+        ) {
+
+          todayScanCount++;
+
+        }
+
+
+        // ------------------------------------------------
+        // CREATE CUSTOMER ROW
+        // ------------------------------------------------
+
+        createCustomerRow(
+          customer
+        );
+
+      }
+    );
+
+
+    // =================================================
+    // UPDATE DASHBOARD STATS
+    // =================================================
+
+    if (totalCustomers) {
+
+      totalCustomers.textContent =
+        customers.length;
+
+    }
+
+
+    if (totalStamps) {
+
+      totalStamps.textContent =
+        stampCount;
+
+    }
+
+
+    if (totalRewards) {
+
+      totalRewards.textContent =
+        rewardCount;
+
+    }
+
+
+    if (todayScans) {
+
+      todayScans.textContent =
+        todayScanCount;
+
+    }
+
+
+    // =================================================
+    // UPDATE LAST REFRESH
+    // =================================================
+
+    if (lastRefresh) {
+
+      lastRefresh.textContent =
+        new Date().toLocaleString();
+
+    }
+
+
+    // =================================================
+    // UPDATE STATUS
+    // =================================================
+
+    if (scannerStatus) {
+
+      scannerStatus.textContent =
+        "🟢 Dashboard Ready";
+
+    }
+
+
+    console.log(
+      "✅ Dashboard Loaded Successfully"
+    );
+
+
+    console.log(
+      "Total Customers:",
+      customers.length
+    );
+
+
+    console.log(
+      "Total Stamps:",
+      stampCount
+    );
+
+
+    console.log(
+      "Total Rewards:",
+      rewardCount
+    );
+
+
+    console.log(
+      "Today's Stamps:",
+      todayScanCount
+    );
 
   }
 
+  catch (error) {
 
-  // Find customer in local array
-
-  const customer =
-    customers.find(
-      (item) =>
-        item.uid === uid
+    console.error(
+      "❌ Dashboard Load Error:",
+      error
     );
 
 
-  // Customer not found
+    if (scannerStatus) {
 
-  if (!customer) {
+      scannerStatus.textContent =
+        "🔴 Dashboard Error";
 
-    alert(
-      "Customer Not Found"
-    );
-
-    return;
-
-  }
-
-
-  // Show selected customer
-
-  showCustomer(
-    customer
-  );
-
-
-  // Scroll to scanner/customer preview
-
-  const scannerSection =
-    document.getElementById(
-      "scannerSection"
-    );
-
-
-  if (scannerSection) {
-
-    scannerSection.scrollIntoView({
-
-      behavior:
-        "smooth",
-
-      block:
-        "start"
-
-    });
+    }
 
   }
 
@@ -1279,43 +1298,87 @@ function selectCustomer(uid) {
 
 
 // =====================================================
-// GLOBAL SELECT CUSTOMER
-// =====================================================
-// Allows compatibility with old HTML code
+// AUTHENTICATION
 // =====================================================
 
-window.selectCustomer =
-  selectCustomer;
+onAuthStateChanged(
+  auth,
+  async (user) => {
+
+    // -------------------------------------------------
+    // USER NOT LOGGED IN
+    // -------------------------------------------------
+
+    if (!user) {
+
+      location.href =
+        "admin-login.html";
+
+      return;
+
+    }
 
 
-// =====================================================
-// CUSTOMER PREVIEW BUTTON RESET
-// =====================================================
+    // -------------------------------------------------
+    // USER LOGGED IN
+    // -------------------------------------------------
 
-cancelScanBtn?.addEventListener(
-  "click",
-  () => {
+    console.log(
+      "✅ Admin Authentication Verified"
+    );
 
-    resetCustomerPreview();
+
+    console.log(
+      "Admin UID:",
+      user.uid
+    );
+
+
+    try {
+
+      await loadDashboard();
+
+    }
+
+    catch (error) {
+
+      console.error(
+        "❌ Admin Dashboard Initialization Error:",
+        error
+      );
+
+    }
 
   }
 );
 
 
 // =====================================================
-// REFRESH BUTTON
+// REFRESH DASHBOARD
 // =====================================================
 
 refreshBtn?.addEventListener(
   "click",
   async () => {
 
-    if (refreshBtn) {
+    // Prevent multiple refresh clicks
 
-      refreshBtn.disabled =
-        true;
+    if (
+      refreshBtn.dataset.processing ===
+      "true"
+    ) {
+
+      return;
 
     }
+
+
+    refreshBtn.dataset.processing =
+      "true";
+
+
+    refreshBtn.disabled =
+      true;
 
 
     try {
@@ -1331,16 +1394,21 @@ refreshBtn?.addEventListener(
         error
       );
 
+
+      alert(
+        "❌ Unable To Refresh Dashboard"
+      );
+
     }
 
     finally {
 
-      if (refreshBtn) {
+      refreshBtn.dataset.processing =
+        "false";
 
-        refreshBtn.disabled =
-          false;
 
-      }
+      refreshBtn.disabled =
+        false;
 
     }
 
@@ -1349,47 +1417,68 @@ refreshBtn?.addEventListener(
 
 
 // =====================================================
-// AUTO REFRESH STATUS
+// RESET CUSTOMER BUTTON
 // =====================================================
 
-console.log(
-  "Customer Table Module Ready"
-);
+cancelScanBtn?.addEventListener(
+  "click",
+  () => {
 
+    resetCustomerPreview();
 
-console.log(
-  "Customer Search Module Ready"
-);
-
-
-console.log(
-  "Customer Selection Module Ready"
+  }
 );
 
 
 // =====================================================
-// END OF PART 2
+// PART 3 READY
+// =====================================================
+
+console.log(
+  "✅ Firebase Authentication Ready"
+);
+
+console.log(
+  "✅ Dashboard Data Loading Ready"
+);
+
+console.log(
+  "✅ Dashboard Statistics Ready"
+);
+
+console.log(
+  "✅ Customer Data Loading Ready"
+);
+
+console.log(
+  "✅ Refresh Button Ready"
+);
+
+console.log(
+  "➡️ Waiting for Part 4..."
+);
+
+
+// =====================================================
+// END OF PART 3
 // =====================================================
 // =====================================================
 // RIO MAGGI POINT
-// PREMIUM ADMIN DASHBOARD V4
-// PART 3
-// LIVE QR SCANNER + QR VALIDATION
+// PREMIUM ADMIN DASHBOARD V5
+// PART 4
+// QR SCANNER + QR VALIDATION + CUSTOMER SELECTION
 // =====================================================
 
 
 // =====================================================
-// CAMERA QR SCANNER
+// START QR SCANNER
 // =====================================================
-
-
-// -----------------------------------------------------
-// START SCANNER
-// -----------------------------------------------------
 
 async function startScanner() {
 
-  // Prevent multiple scanner instances
+  // ---------------------------------------------------
+  // PREVENT MULTIPLE SCANNER INSTANCES
+  // ---------------------------------------------------
 
   if (scannerRunning) {
 
@@ -1398,7 +1487,9 @@ async function startScanner() {
   }
 
 
-  // Check HTML5 QR Scanner library
+  // ---------------------------------------------------
+  // CHECK QR SCANNER LIBRARY
+  // ---------------------------------------------------
 
   if (
     typeof Html5Qrcode ===
@@ -1406,7 +1497,7 @@ async function startScanner() {
   ) {
 
     alert(
-      "QR Scanner Library Not Loaded"
+      "❌ QR Scanner Library Not Loaded"
     );
 
     console.error(
@@ -1418,12 +1509,17 @@ async function startScanner() {
   }
 
 
-  // Prevent duplicate QR processing
+  // ---------------------------------------------------
+  // RESET PROCESSING STATE
+  // ---------------------------------------------------
 
-  processingQr = false;
+  processingQr =
+    false;
 
 
-  // Update status
+  // ---------------------------------------------------
+  // UPDATE STATUS
+  // ---------------------------------------------------
 
   if (scannerStatus) {
 
@@ -1433,7 +1529,9 @@ async function startScanner() {
   }
 
 
-  // Hide camera overlay
+  // ---------------------------------------------------
+  // HIDE CAMERA OVERLAY
+  // ---------------------------------------------------
 
   if (cameraOverlay) {
 
@@ -1446,7 +1544,7 @@ async function startScanner() {
   try {
 
     // -------------------------------------------------
-    // CREATE SCANNER INSTANCE
+    // CREATE SCANNER
     // -------------------------------------------------
 
     html5QrCode =
@@ -1467,11 +1565,17 @@ async function startScanner() {
       },
 
       {
-        fps: 10,
+        fps:
+          10,
 
         qrbox: {
-          width: 250,
-          height: 250
+
+          width:
+            250,
+
+          height:
+            250
+
         }
 
       },
@@ -1483,13 +1587,13 @@ async function startScanner() {
     );
 
 
-    // Scanner successfully started
+    // -------------------------------------------------
+    // SCANNER SUCCESSFULLY STARTED
+    // -------------------------------------------------
 
     scannerRunning =
       true;
 
-
-    // Update status
 
     if (scannerStatus) {
 
@@ -1499,7 +1603,9 @@ async function startScanner() {
     }
 
 
-    // Update buttons
+    // -------------------------------------------------
+    // UPDATE BUTTONS
+    // -------------------------------------------------
 
     if (startScannerBtn) {
 
@@ -1518,7 +1624,7 @@ async function startScanner() {
 
 
     console.log(
-      "QR Scanner Started"
+      "✅ QR Scanner Started"
     );
 
   }
@@ -1526,7 +1632,7 @@ async function startScanner() {
   catch (error) {
 
     console.error(
-      "Scanner Start Error:",
+      "❌ Scanner Start Error:",
       error
     );
 
@@ -1539,7 +1645,9 @@ async function startScanner() {
       null;
 
 
-    // Show overlay again
+    // -------------------------------------------------
+    // SHOW CAMERA OVERLAY
+    // -------------------------------------------------
 
     if (cameraOverlay) {
 
@@ -1549,7 +1657,9 @@ async function startScanner() {
     }
 
 
-    // Update status
+    // -------------------------------------------------
+    // UPDATE STATUS
+    // -------------------------------------------------
 
     if (scannerStatus) {
 
@@ -1559,7 +1669,9 @@ async function startScanner() {
     }
 
 
-    // Reset buttons
+    // -------------------------------------------------
+    // RESET BUTTONS
+    // -------------------------------------------------
 
     if (startScannerBtn) {
 
@@ -1578,7 +1690,13 @@ async function startScanner() {
 
 
     alert(
-      "Unable to start camera. Please allow camera permission and try again."
+
+      "❌ Unable To Start Camera.\n\n" +
+
+      "Please allow camera permission " +
+
+      "and try again."
+
     );
 
   }
@@ -1587,29 +1705,34 @@ async function startScanner() {
 
 
 // =====================================================
-// SCANNER ERROR HANDLER
+// QR SCANNER ERROR HANDLER
 // =====================================================
 
-function onScanError(errorMessage) {
+function onScanError(
+  errorMessage
+) {
 
-  // QR scanner continuously reports
-  // "QR code not found" while searching.
-  //
-  // We intentionally do not show alerts here.
-  //
-  // This prevents hundreds of alerts
-  // while the camera is running.
+  // ---------------------------------------------------
+  // DO NOT SHOW ALERTS HERE
+  // ---------------------------------------------------
+  // QR scanner continuously reports errors
+  // while searching for a QR code.
+  // Showing alerts here would create hundreds
+  // of popup messages.
+  // ---------------------------------------------------
 
 }
 
 
 // =====================================================
-// STOP SCANNER
+// STOP QR SCANNER
 // =====================================================
 
 async function stopScanner() {
 
-  // Nothing to stop
+  // ---------------------------------------------------
+  // NOTHING TO STOP
+  // ---------------------------------------------------
 
   if (
     !html5QrCode ||
@@ -1623,10 +1746,16 @@ async function stopScanner() {
 
   try {
 
+    // -------------------------------------------------
+    // STOP CAMERA
+    // -------------------------------------------------
+
     await html5QrCode.stop();
 
 
-    // Clear scanner camera area
+    // -------------------------------------------------
+    // CLEAR SCANNER
+    // -------------------------------------------------
 
     try {
 
@@ -1643,20 +1772,21 @@ async function stopScanner() {
 
     }
 
-
   }
 
   catch (error) {
 
     console.error(
-      "Scanner Stop Error:",
+      "❌ Scanner Stop Error:",
       error
     );
 
   }
 
 
-  // Reset scanner state
+  // ---------------------------------------------------
+  // RESET SCANNER STATE
+  // ---------------------------------------------------
 
   scannerRunning =
     false;
@@ -1670,7 +1800,9 @@ async function stopScanner() {
     false;
 
 
-  // Update status
+  // ---------------------------------------------------
+  // UPDATE STATUS
+  // ---------------------------------------------------
 
   if (scannerStatus) {
 
@@ -1680,7 +1812,9 @@ async function stopScanner() {
   }
 
 
-  // Show camera overlay
+  // ---------------------------------------------------
+  // SHOW CAMERA OVERLAY
+  // ---------------------------------------------------
 
   if (cameraOverlay) {
 
@@ -1690,7 +1824,9 @@ async function stopScanner() {
   }
 
 
-  // Reset buttons
+  // ---------------------------------------------------
+  // RESET BUTTONS
+  // ---------------------------------------------------
 
   if (startScannerBtn) {
 
@@ -1709,14 +1845,14 @@ async function stopScanner() {
 
 
   console.log(
-    "QR Scanner Stopped"
+    "✅ QR Scanner Stopped"
   );
 
 }
 
 
 // =====================================================
-// START / STOP BUTTON EVENTS
+// START SCANNER BUTTON
 // =====================================================
 
 startScannerBtn?.addEventListener(
@@ -1724,6 +1860,10 @@ startScannerBtn?.addEventListener(
   startScanner
 );
 
+
+// =====================================================
+// STOP SCANNER BUTTON
+// =====================================================
 
 stopScannerBtn?.addEventListener(
   "click",
@@ -1739,9 +1879,9 @@ async function onScanSuccess(
   decodedText
 ) {
 
-  // Prevent duplicate processing
-  // while the same QR is detected
-  // multiple times by the camera.
+  // ---------------------------------------------------
+  // PREVENT DUPLICATE PROCESSING
+  // ---------------------------------------------------
 
   if (processingQr) {
 
@@ -1757,14 +1897,14 @@ async function onScanSuccess(
   try {
 
     // -------------------------------------------------
-    // STOP CAMERA IMMEDIATELY
+    // STOP CAMERA
     // -------------------------------------------------
 
     await stopScanner();
 
 
     // -------------------------------------------------
-    // VALIDATE QR PREFIX
+    // VALIDATE QR CODE
     // -------------------------------------------------
 
     if (
@@ -1777,6 +1917,8 @@ async function onScanSuccess(
       alert(
         "❌ Invalid Rio Maggi Point QR Code"
       );
+
+      resetCustomerPreview();
 
       return;
 
@@ -1796,13 +1938,17 @@ async function onScanSuccess(
         .trim();
 
 
-    // Validate Member ID
+    // -------------------------------------------------
+    // VALIDATE MEMBER ID
+    // -------------------------------------------------
 
     if (!memberId) {
 
       alert(
         "❌ Invalid Member ID"
       );
+
+      resetCustomerPreview();
 
       return;
 
@@ -1816,7 +1962,7 @@ async function onScanSuccess(
 
 
     // -------------------------------------------------
-    // SEARCH CUSTOMER IN FIREBASE
+    // SEARCH CUSTOMER
     // -------------------------------------------------
 
     const customerQuery =
@@ -1862,7 +2008,7 @@ async function onScanSuccess(
 
 
     // -------------------------------------------------
-    // GET CUSTOMER DOCUMENT
+    // GET FIRST MATCHING CUSTOMER
     // -------------------------------------------------
 
     let foundCustomer =
@@ -1871,8 +2017,6 @@ async function onScanSuccess(
 
     snapshot.forEach(
       (documentSnapshot) => {
-
-        // Only select first valid result
 
         if (
           foundCustomer
@@ -1896,7 +2040,9 @@ async function onScanSuccess(
     );
 
 
-    // Safety check
+    // -------------------------------------------------
+    // SAFETY CHECK
+    // -------------------------------------------------
 
     if (!foundCustomer) {
 
@@ -1904,13 +2050,15 @@ async function onScanSuccess(
         "❌ Unable To Load Customer"
       );
 
+      resetCustomerPreview();
+
       return;
 
     }
 
 
     // -------------------------------------------------
-    // NORMALIZE CUSTOMER DATA
+    // NORMALIZE STAMP COUNT
     // -------------------------------------------------
 
     foundCustomer.stamps =
@@ -1921,7 +2069,7 @@ async function onScanSuccess(
 
 
     // -------------------------------------------------
-    // STORE CURRENT CUSTOMER
+    // STORE CUSTOMER
     // -------------------------------------------------
 
     currentCustomer =
@@ -1929,7 +2077,42 @@ async function onScanSuccess(
 
 
     // -------------------------------------------------
-    // SHOW CUSTOMER
+    // ADD/UPDATE CUSTOMER IN LOCAL ARRAY
+    // -------------------------------------------------
+
+    const existingIndex =
+      customers.findIndex(
+
+        (customer) =>
+
+          customer.uid ===
+          foundCustomer.uid
+
+      );
+
+
+    if (
+      existingIndex >= 0
+    ) {
+
+      customers[
+        existingIndex
+      ] =
+        foundCustomer;
+
+    }
+
+    else {
+
+      customers.push(
+        foundCustomer
+      );
+
+    }
+
+
+    // -------------------------------------------------
+    // SHOW CUSTOMER PREVIEW
     // -------------------------------------------------
 
     showCustomer(
@@ -1938,36 +2121,28 @@ async function onScanSuccess(
 
 
     // -------------------------------------------------
-    // INCREMENT TODAY'S SCAN COUNT
+    // UPDATE STATUS
     // -------------------------------------------------
 
-    todayScanCount++;
+    if (scannerStatus) {
 
-
-    if (todayScans) {
-
-      todayScans.textContent =
-        todayScanCount;
+      scannerStatus.textContent =
+        "🟢 Customer Found";
 
     }
 
 
-    // -------------------------------------------------
-    // SUCCESS MESSAGE
-    // -------------------------------------------------
-
     console.log(
-      "Customer QR Scan Successful:",
+      "✅ Customer QR Scan Successful:",
       foundCustomer.memberId
     );
-
 
   }
 
   catch (error) {
 
     console.error(
-      "QR Scan Processing Error:",
+      "❌ QR Scan Processing Error:",
       error
     );
 
@@ -1980,7 +2155,9 @@ async function onScanSuccess(
 
   finally {
 
-    // Allow next QR scan
+    // -------------------------------------------------
+    // ALLOW NEXT SCAN
+    // -------------------------------------------------
 
     processingQr =
       false;
@@ -1991,7 +2168,7 @@ async function onScanSuccess(
 
 
 // =====================================================
-// SCANNER MENU
+// SCANNER MENU NAVIGATION
 // =====================================================
 
 scannerMenu?.addEventListener(
@@ -2023,7 +2200,7 @@ scannerMenu?.addEventListener(
 
 
 // =====================================================
-// STAMP MENU
+// STAMP MENU NAVIGATION
 // =====================================================
 
 stampMenu?.addEventListener(
@@ -2055,7 +2232,7 @@ stampMenu?.addEventListener(
 
 
 // =====================================================
-// DASHBOARD MENU
+// DASHBOARD MENU NAVIGATION
 // =====================================================
 
 dashboardMenu?.addEventListener(
@@ -2077,1262 +2254,30 @@ dashboardMenu?.addEventListener(
 
 
 // =====================================================
-// END OF PART 3
+// PART 4 READY
 // =====================================================
-// =====================================================
-// RIO MAGGI POINT
-// PREMIUM ADMIN DASHBOARD V4
-// PART 4
-// GIVE STAMP + DAILY PROTECTION + REWARD UNLOCK
-// =====================================================
-
-
-// =====================================================
-// GIVE STAMP BUTTON
-// =====================================================
-
-giveStampBtn?.addEventListener(
-  "click",
-  async () => {
-
-    // -------------------------------------------------
-    // CHECK CUSTOMER
-    // -------------------------------------------------
-
-    if (!currentCustomer) {
-
-      alert(
-        "❌ Please scan or select a customer first."
-      );
-
-      return;
-
-    }
-
-
-    // -------------------------------------------------
-    // PREVENT DOUBLE CLICK
-    // -------------------------------------------------
-
-    if (
-      giveStampBtn.dataset.processing ===
-      "true"
-    ) {
-
-      return;
-
-    }
-
-
-    // Lock button
-
-    giveStampBtn.dataset.processing =
-      "true";
-
-
-    giveStampBtn.disabled =
-      true;
-
-
-    try {
-
-      // -------------------------------------------------
-      // GET CUSTOMER DOCUMENT
-      // -------------------------------------------------
-
-      const customerRef =
-        doc(
-          db,
-          "customers",
-          currentCustomer.uid
-        );
-
-
-      // -------------------------------------------------
-      // GET LATEST CUSTOMER DATA
-      // -------------------------------------------------
-      // This is important because another admin/device
-      // may have changed the customer's stamps after
-      // the dashboard was loaded.
-      // -------------------------------------------------
-
-      const customerSnapshot =
-        await getDoc(
-          customerRef
-        );
-
-
-      // Customer document no longer exists
-
-      if (
-        !customerSnapshot.exists()
-      ) {
-
-        alert(
-          "❌ Customer account not found."
-        );
-
-        resetCustomerPreview();
-
-        return;
-
-      }
-
-
-      // -------------------------------------------------
-      // GET FRESH FIREBASE DATA
-      // -------------------------------------------------
-
-      const latestCustomer =
-        customerSnapshot.data();
-
-
-      latestCustomer.uid =
-        currentCustomer.uid;
-
-
-      latestCustomer.stamps =
-        Number(
-          latestCustomer.stamps ||
-          0
-        );
-
-
-      // -------------------------------------------------
-      // CHECK TODAY'S STAMP
-      // -------------------------------------------------
-
-      if (
-        hasStampToday(
-          latestCustomer
-        )
-      ) {
-
-        alert(
-          "⚠️ This customer has already received today's stamp."
-        );
-
-
-        // Update local customer data
-
-        currentCustomer =
-          latestCustomer;
-
-
-        showCustomer(
-          latestCustomer
-        );
-
-
-        return;
-
-      }
-
-
-      // -------------------------------------------------
-      // CHECK MAXIMUM STAMPS
-      // -------------------------------------------------
-
-      let currentStamps =
-        latestCustomer.stamps;
-
-
-      if (
-        currentStamps >=
-        MAX_STAMPS
-      ) {
-
-        alert(
-          "🎁 This customer already has a reward ready."
-        );
-
-
-        currentCustomer =
-          latestCustomer;
-
-
-        showCustomer(
-          latestCustomer
-        );
-
-
-        return;
-
-      }
-
-
-      // -------------------------------------------------
-      // ADD ONE STAMP
-      // -------------------------------------------------
-
-      const newStampCount =
-        currentStamps + 1;
-
-
-      // -------------------------------------------------
-      // CHECK REWARD UNLOCK
-      // -------------------------------------------------
-
-      const rewardUnlocked =
-        newStampCount >=
-        MAX_STAMPS;
-
-
-      // -------------------------------------------------
-      // TODAY'S DATE
-      // -------------------------------------------------
-
-      const todayKey =
-        getTodayKey();
-
-
-      // -------------------------------------------------
-      // UPDATE FIREBASE
-      // -------------------------------------------------
-
-      await updateDoc(
-
-        customerRef,
-
-        {
-
-          // Current stamp count
-
-          stamps:
-            newStampCount,
-
-
-          // Unlock reward on 6th stamp
-
-          rewardUnlocked:
-            rewardUnlocked,
-
-
-          // Store today's stamp date
-
-          dailyStampDate:
-            todayKey,
-
-
-          // Backup date field
-
-          lastStampDate:
-            todayKey,
-
-
-          // Exact timestamp
-
-          lastStampAt:
-            serverTimestamp(),
-
-
-          // Last updated timestamp
-
-          updatedAt:
-            serverTimestamp()
-
-        }
-
-      );
-
-
-      // -------------------------------------------------
-      // UPDATE LOCAL CUSTOMER
-      // -------------------------------------------------
-
-      currentCustomer =
-        {
-
-          ...latestCustomer,
-
-          uid:
-            currentCustomer.uid,
-
-          stamps:
-            newStampCount,
-
-          rewardUnlocked:
-            rewardUnlocked,
-
-          dailyStampDate:
-            todayKey,
-
-          lastStampDate:
-            todayKey
-
-        };
-
-
-      // -------------------------------------------------
-      // SHOW UPDATED CUSTOMER
-      // -------------------------------------------------
-
-      showCustomer(
-        currentCustomer
-      );
-
-
-      // -------------------------------------------------
-      // UPDATE TODAY SCAN COUNT
-      // -------------------------------------------------
-
-      todayScanCount++;
-
-
-      if (todayScans) {
-
-        todayScans.textContent =
-          todayScanCount;
-
-      }
-
-
-      // -------------------------------------------------
-      // SUCCESS MESSAGE
-      // -------------------------------------------------
-
-      if (
-        rewardUnlocked
-      ) {
-
-        alert(
-
-          "🎉 Congratulations!\n\n" +
-
-          "6 Stamps Completed!\n\n" +
-
-          "🎁 Free Veg Maggi Reward Unlocked!"
-
-        );
-
-      }
-
-      else {
-
-        alert(
-
-          "✅ Stamp Added Successfully!\n\n" +
-
-          `Current Stamps: ${newStampCount}/${MAX_STAMPS}`
-
-        );
-
-      }
-
-
-      // -------------------------------------------------
-      // REFRESH DASHBOARD DATA
-      // -------------------------------------------------
-
-      await loadDashboard();
-
-
-      // -------------------------------------------------
-      // RESTORE CURRENT CUSTOMER
-      // -------------------------------------------------
-
-      const refreshedCustomer =
-        customers.find(
-
-          (customer) =>
-
-            customer.uid ===
-            currentCustomer.uid
-
-        );
-
-
-      if (
-        refreshedCustomer
-      ) {
-
-        currentCustomer =
-          refreshedCustomer;
-
-
-        showCustomer(
-          refreshedCustomer
-        );
-
-      }
-
-
-    }
-
-    catch (error) {
-
-      console.error(
-        "Give Stamp Error:",
-        error
-      );
-
-
-      alert(
-
-        "❌ Failed To Give Stamp.\n\n" +
-
-        "Please check your internet connection and try again."
-
-      );
-
-    }
-
-    finally {
-
-      // -------------------------------------------------
-      // UNLOCK BUTTON
-      // -------------------------------------------------
-
-      giveStampBtn.dataset.processing =
-        "false";
-
-
-      // Re-enable only if customer
-      // is allowed to receive stamp
-
-      if (
-        currentCustomer &&
-        !hasStampToday(
-          currentCustomer
-        ) &&
-        Number(
-          currentCustomer.stamps ||
-          0
-        ) <
-        MAX_STAMPS
-      ) {
-
-        giveStampBtn.disabled =
-          false;
-
-      }
-
-      else {
-
-        giveStampBtn.disabled =
-          true;
-
-      }
-
-    }
-
-  }
-);
-
-
-// =====================================================
-// REWARD UNLOCK CHECK
-// =====================================================
-
-function checkRewardStatus(
-  customer
-) {
-
-  if (!customer) {
-
-    return false;
-
-  }
-
-
-  const stamps =
-    Number(
-      customer.stamps ||
-      0
-    );
-
-
-  return (
-
-    stamps >=
-    MAX_STAMPS
-
-  );
-
-}
-
-
-// =====================================================
-// CUSTOMER REWARD STATUS
-// =====================================================
-
-function getRewardStatusText(
-  customer
-) {
-
-  if (!customer) {
-
-    return "Locked";
-
-  }
-
-
-  if (
-    customer.rewardUnlocked ===
-    true
-  ) {
-
-    return "🎁 Reward Ready";
-
-  }
-
-
-  const stamps =
-    Number(
-      customer.stamps ||
-      0
-    );
-
-
-  if (
-    stamps >=
-    MAX_STAMPS
-  ) {
-
-    return "🎁 Reward Ready";
-
-  }
-
-
-  return (
-
-    `${stamps}/${MAX_STAMPS} Stamps`
-
-  );
-
-}
-
-
-// =====================================================
-// END OF PART 4
-// =====================================================
-// =====================================================
-// RESET CUSTOMER
-// =====================================================
-
-cancelScanBtn?.addEventListener(
-  "click",
-  () => {
-
-    currentCustomer = null;
-
-    scanCustomerPhoto.src =
-      "assets/avatars/male.png";
-
-    scanCustomerName.textContent =
-      "Waiting For Scan...";
-
-    scanMemberId.textContent =
-      "RIO-000000000";
-
-    scanStampCount.textContent =
-      "0/6";
-
-    todayStatus.textContent =
-      "Waiting";
-
-    todayStatus.className =
-      "pending";
-
-    giveStampBtn.disabled = true;
-
-  }
-);
-
-
-// =====================================================
-// REFRESH DASHBOARD
-// =====================================================
-
-refreshBtn?.addEventListener(
-  "click",
-  async () => {
-
-    await loadDashboard();
-
-  }
-);
-
-
-// =====================================================
-// EXPORT
-// =====================================================
-
-exportBtn?.addEventListener(
-  "click",
-  () => {
-
-    location.href =
-      "admin-export.html";
-
-  }
-);
-
-
-// =====================================================
-// REWARD MANAGER
-// =====================================================
-
-rewardBtn?.addEventListener(
-  "click",
-  () => {
-
-    location.href =
-      "admin-rewards.html";
-
-  }
-);
-
-
-// =====================================================
-// REPORT NAVIGATION
-// =====================================================
-
-document
-  .getElementById("reportMenu")
-  ?.addEventListener(
-    "click",
-    () => {
-
-      location.href =
-        "admin-reports.html";
-
-    }
-  );
-
-
-// =====================================================
-// SETTINGS BUTTON
-// =====================================================
-
-settingsBtn?.addEventListener(
-  "click",
-  () => {
-
-    location.href =
-      "admin-settings.html";
-
-  }
-);
-
-
-// =====================================================
-// SETTINGS NAVIGATION
-// =====================================================
-
-document
-  .getElementById("settingMenu")
-  ?.addEventListener(
-    "click",
-    () => {
-
-      location.href =
-        "admin-settings.html";
-
-    }
-  );
-
-
-// =====================================================
-// DASHBOARD NAVIGATION
-// =====================================================
-
-document
-  .getElementById("dashboardMenu")
-  ?.addEventListener(
-    "click",
-    () => {
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
-    }
-  );
-
-
-// =====================================================
-// CUSTOMER NAVIGATION
-// =====================================================
-
-document
-  .getElementById("customersMenu")
-  ?.addEventListener(
-    "click",
-    () => {
-
-      location.href =
-        "admin-customers.html";
-
-    }
-  );
-
-
-// =====================================================
-// STAMP NAVIGATION
-// =====================================================
-
-document
-  .getElementById("stampMenu")
-  ?.addEventListener(
-    "click",
-    () => {
-
-      document
-        .querySelector(".scanner-section")
-        ?.scrollIntoView({
-          behavior: "smooth"
-        });
-
-    }
-  );
-
-
-// =====================================================
-// LOGOUT
-// =====================================================
-
-logoutBtn?.addEventListener(
-  "click",
-  async () => {
-
-    try {
-
-      if (scannerRunning) {
-
-        await stopScanner();
-
-      }
-
-    }
-
-    catch (error) {
-
-      console.log(
-        "Scanner Stop Error:",
-        error
-      );
-
-    }
-
-
-    try {
-
-      await signOut(auth);
-
-      location.href =
-        "admin-login.html";
-
-    }
-
-    catch (error) {
-
-      console.error(
-        "Logout Error:",
-        error
-      );
-
-      alert(
-        "❌ Logout Failed"
-      );
-
-    }
-
-  }
-);
-
-
-// =====================================================
-// READY
-// =====================================================
-
-console.log(
-  "=============================="
-);
-
-console.log(
-  "🍜 Rio Maggi Point"
-);
-
-console.log(
-  "Premium Admin Dashboard V3 Fixed"
-);
-
-console.log(
-  "Firebase Ready"
-);
-
-console.log(
-  "Scanner Ready"
-);
-
-console.log(
-  "=============================="
-);
-// =====================================================
-// RIO MAGGI POINT
-// PREMIUM ADMIN DASHBOARD V4
-// PART 5
-// RESET + NAVIGATION + LOGOUT + FINAL READY
-// =====================================================
-
-
-// =====================================================
-// RESET CUSTOMER PREVIEW
-// =====================================================
-
-cancelScanBtn?.addEventListener(
-  "click",
-  () => {
-
-    resetCustomerPreview();
-
-  }
-);
-
-
-// =====================================================
-// REFRESH DASHBOARD
-// =====================================================
-
-refreshBtn?.addEventListener(
-  "click",
-  async () => {
-
-    if (
-      refreshBtn.dataset.processing ===
-      "true"
-    ) {
-
-      return;
-
-    }
-
-
-    refreshBtn.dataset.processing =
-      "true";
-
-
-    refreshBtn.disabled =
-      true;
-
-
-    try {
-
-      await loadDashboard();
-
-    }
-
-    catch (error) {
-
-      console.error(
-        "Refresh Dashboard Error:",
-        error
-      );
-
-
-      alert(
-        "❌ Unable To Refresh Dashboard"
-      );
-
-    }
-
-    finally {
-
-      refreshBtn.dataset.processing =
-        "false";
-
-
-      refreshBtn.disabled =
-        false;
-
-    }
-
-  }
-);
-
-
-// =====================================================
-// EXPORT BUTTON
-// =====================================================
-
-exportBtn?.addEventListener(
-  "click",
-  () => {
-
-    location.href =
-      "admin-export.html";
-
-  }
-);
-
-
-// =====================================================
-// REWARD MANAGER
-// =====================================================
-
-rewardBtn?.addEventListener(
-  "click",
-  () => {
-
-    location.href =
-      "admin-rewards.html";
-
-  }
-);
-
-
-// =====================================================
-// REPORT NAVIGATION
-// =====================================================
-
-reportMenu?.addEventListener(
-  "click",
-  () => {
-
-    location.href =
-      "admin-reports.html";
-
-  }
-);
-
-
-// =====================================================
-// SETTINGS BUTTON
-// =====================================================
-
-settingsBtn?.addEventListener(
-  "click",
-  () => {
-
-    location.href =
-      "admin-settings.html";
-
-  }
-);
-
-
-// =====================================================
-// SETTINGS NAVIGATION
-// =====================================================
-
-settingMenu?.addEventListener(
-  "click",
-  () => {
-
-    location.href =
-      "admin-settings.html";
-
-  }
-);
-
-
-// =====================================================
-// CUSTOMER NAVIGATION
-// =====================================================
-
-customersMenu?.addEventListener(
-  "click",
-  () => {
-
-    location.href =
-      "admin-customers.html";
-
-  }
-);
-
-
-// =====================================================
-// DASHBOARD NAVIGATION
-// =====================================================
-
-dashboardMenu?.addEventListener(
-  "click",
-  () => {
-
-    window.scrollTo({
-
-      top:
-        0,
-
-      behavior:
-        "smooth"
-
-    });
-
-  }
-);
-
-
-// =====================================================
-// SCANNER NAVIGATION
-// =====================================================
-
-scannerMenu?.addEventListener(
-  "click",
-  () => {
-
-    const scannerSection =
-      document.getElementById(
-        "scannerSection"
-      );
-
-
-    if (scannerSection) {
-
-      scannerSection.scrollIntoView({
-
-        behavior:
-          "smooth",
-
-        block:
-          "start"
-
-      });
-
-    }
-
-  }
-);
-
-
-// =====================================================
-// STAMP NAVIGATION
-// =====================================================
-
-stampMenu?.addEventListener(
-  "click",
-  () => {
-
-    const scannerSection =
-      document.getElementById(
-        "scannerSection"
-      );
-
-
-    if (scannerSection) {
-
-      scannerSection.scrollIntoView({
-
-        behavior:
-          "smooth",
-
-        block:
-          "start"
-
-      });
-
-    }
-
-  }
-);
-
-
-// =====================================================
-// LOGOUT
-// =====================================================
-
-logoutBtn?.addEventListener(
-  "click",
-  async () => {
-
-    // ---------------------------------------------------
-    // PREVENT MULTIPLE LOGOUT CLICKS
-    // ---------------------------------------------------
-
-    if (
-      logoutBtn.dataset.processing ===
-      "true"
-    ) {
-
-      return;
-
-    }
-
-
-    logoutBtn.dataset.processing =
-      "true";
-
-
-    logoutBtn.disabled =
-      true;
-
-
-    try {
-
-      // =================================================
-      // STOP CAMERA BEFORE LOGOUT
-      // =================================================
-
-      if (
-        scannerRunning
-      ) {
-
-        await stopScanner();
-
-      }
-
-
-      // =================================================
-      // SIGN OUT FROM FIREBASE
-      // =================================================
-
-      await signOut(
-        auth
-      );
-
-
-      // =================================================
-      // REDIRECT TO ADMIN LOGIN
-      // =================================================
-
-      location.href =
-        "admin-login.html";
-
-    }
-
-    catch (error) {
-
-      console.error(
-        "Logout Error:",
-        error
-      );
-
-
-      alert(
-        "❌ Logout Failed. Please try again."
-      );
-
-
-      logoutBtn.dataset.processing =
-        "false";
-
-
-      logoutBtn.disabled =
-        false;
-
-    }
-
-  }
-);
-
-
-// =====================================================
-// PAGE VISIBILITY PROTECTION
-// =====================================================
-// If admin leaves the dashboard tab while scanner is
-// running, we keep the scanner state controlled.
-// =====================================================
-
-document.addEventListener(
-  "visibilitychange",
-  async () => {
-
-    if (
-      document.hidden &&
-      scannerRunning
-    ) {
-
-      console.log(
-        "Dashboard hidden while scanner is running."
-      );
-
-    }
-
-  }
-);
-
-
-// =====================================================
-// FINAL DASHBOARD READY
-// =====================================================
-
-console.log(
-  "========================================"
-);
-
-
-console.log(
-  "🍜 RIO MAGGI POINT"
-);
-
-
-console.log(
-  "Premium Admin Dashboard V4"
-);
-
-
-console.log(
-  "========================================"
-);
-
-
-console.log(
-  "✅ Firebase Authentication Ready"
-);
-
-
-console.log(
-  "✅ Firebase Firestore Ready"
-);
-
-
-console.log(
-  "✅ Customer Dashboard Ready"
-);
-
-
-console.log(
-  "✅ Customer Search Ready"
-);
-
-
-console.log(
-  "✅ Customer Selection Ready"
-);
-
 
 console.log(
   "✅ QR Scanner Ready"
 );
 
-
 console.log(
-  "✅ Daily Stamp Protection Ready"
+  "✅ QR Validation Ready"
 );
 
-
 console.log(
-  "✅ 6 Stamp Reward Unlock Ready"
+  "✅ Customer QR Lookup Ready"
 );
 
-
 console.log(
-  "✅ Navigation Ready"
+  "✅ Customer Selection Ready"
 );
 
-
 console.log(
-  "✅ Logout Ready"
-);
-
-
-console.log(
-  "========================================"
-);
-
-
-console.log(
-  "🚀 Admin Dashboard V4 Fully Loaded"
-);
-
-
-console.log(
-  "========================================"
+  "➡️ Waiting for Part 5..."
 );
 
 
 // =====================================================
-// END OF ADMIN-DASHBOARD.JS
+// END OF PART 4
 // =====================================================
