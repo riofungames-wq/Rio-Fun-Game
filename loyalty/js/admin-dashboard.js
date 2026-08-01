@@ -2870,3 +2870,469 @@ console.log(
 console.log(
   "=============================="
 );
+// =====================================================
+// RIO MAGGI POINT
+// PREMIUM ADMIN DASHBOARD V4
+// PART 5
+// RESET + NAVIGATION + LOGOUT + FINAL READY
+// =====================================================
+
+
+// =====================================================
+// RESET CUSTOMER PREVIEW
+// =====================================================
+
+cancelScanBtn?.addEventListener(
+  "click",
+  () => {
+
+    resetCustomerPreview();
+
+  }
+);
+
+
+// =====================================================
+// REFRESH DASHBOARD
+// =====================================================
+
+refreshBtn?.addEventListener(
+  "click",
+  async () => {
+
+    if (
+      refreshBtn.dataset.processing ===
+      "true"
+    ) {
+
+      return;
+
+    }
+
+
+    refreshBtn.dataset.processing =
+      "true";
+
+
+    refreshBtn.disabled =
+      true;
+
+
+    try {
+
+      await loadDashboard();
+
+    }
+
+    catch (error) {
+
+      console.error(
+        "Refresh Dashboard Error:",
+        error
+      );
+
+
+      alert(
+        "❌ Unable To Refresh Dashboard"
+      );
+
+    }
+
+    finally {
+
+      refreshBtn.dataset.processing =
+        "false";
+
+
+      refreshBtn.disabled =
+        false;
+
+    }
+
+  }
+);
+
+
+// =====================================================
+// EXPORT BUTTON
+// =====================================================
+
+exportBtn?.addEventListener(
+  "click",
+  () => {
+
+    location.href =
+      "admin-export.html";
+
+  }
+);
+
+
+// =====================================================
+// REWARD MANAGER
+// =====================================================
+
+rewardBtn?.addEventListener(
+  "click",
+  () => {
+
+    location.href =
+      "admin-rewards.html";
+
+  }
+);
+
+
+// =====================================================
+// REPORT NAVIGATION
+// =====================================================
+
+reportMenu?.addEventListener(
+  "click",
+  () => {
+
+    location.href =
+      "admin-reports.html";
+
+  }
+);
+
+
+// =====================================================
+// SETTINGS BUTTON
+// =====================================================
+
+settingsBtn?.addEventListener(
+  "click",
+  () => {
+
+    location.href =
+      "admin-settings.html";
+
+  }
+);
+
+
+// =====================================================
+// SETTINGS NAVIGATION
+// =====================================================
+
+settingMenu?.addEventListener(
+  "click",
+  () => {
+
+    location.href =
+      "admin-settings.html";
+
+  }
+);
+
+
+// =====================================================
+// CUSTOMER NAVIGATION
+// =====================================================
+
+customersMenu?.addEventListener(
+  "click",
+  () => {
+
+    location.href =
+      "admin-customers.html";
+
+  }
+);
+
+
+// =====================================================
+// DASHBOARD NAVIGATION
+// =====================================================
+
+dashboardMenu?.addEventListener(
+  "click",
+  () => {
+
+    window.scrollTo({
+
+      top:
+        0,
+
+      behavior:
+        "smooth"
+
+    });
+
+  }
+);
+
+
+// =====================================================
+// SCANNER NAVIGATION
+// =====================================================
+
+scannerMenu?.addEventListener(
+  "click",
+  () => {
+
+    const scannerSection =
+      document.getElementById(
+        "scannerSection"
+      );
+
+
+    if (scannerSection) {
+
+      scannerSection.scrollIntoView({
+
+        behavior:
+          "smooth",
+
+        block:
+          "start"
+
+      });
+
+    }
+
+  }
+);
+
+
+// =====================================================
+// STAMP NAVIGATION
+// =====================================================
+
+stampMenu?.addEventListener(
+  "click",
+  () => {
+
+    const scannerSection =
+      document.getElementById(
+        "scannerSection"
+      );
+
+
+    if (scannerSection) {
+
+      scannerSection.scrollIntoView({
+
+        behavior:
+          "smooth",
+
+        block:
+          "start"
+
+      });
+
+    }
+
+  }
+);
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+logoutBtn?.addEventListener(
+  "click",
+  async () => {
+
+    // ---------------------------------------------------
+    // PREVENT MULTIPLE LOGOUT CLICKS
+    // ---------------------------------------------------
+
+    if (
+      logoutBtn.dataset.processing ===
+      "true"
+    ) {
+
+      return;
+
+    }
+
+
+    logoutBtn.dataset.processing =
+      "true";
+
+
+    logoutBtn.disabled =
+      true;
+
+
+    try {
+
+      // =================================================
+      // STOP CAMERA BEFORE LOGOUT
+      // =================================================
+
+      if (
+        scannerRunning
+      ) {
+
+        await stopScanner();
+
+      }
+
+
+      // =================================================
+      // SIGN OUT FROM FIREBASE
+      // =================================================
+
+      await signOut(
+        auth
+      );
+
+
+      // =================================================
+      // REDIRECT TO ADMIN LOGIN
+      // =================================================
+
+      location.href =
+        "admin-login.html";
+
+    }
+
+    catch (error) {
+
+      console.error(
+        "Logout Error:",
+        error
+      );
+
+
+      alert(
+        "❌ Logout Failed. Please try again."
+      );
+
+
+      logoutBtn.dataset.processing =
+        "false";
+
+
+      logoutBtn.disabled =
+        false;
+
+    }
+
+  }
+);
+
+
+// =====================================================
+// PAGE VISIBILITY PROTECTION
+// =====================================================
+// If admin leaves the dashboard tab while scanner is
+// running, we keep the scanner state controlled.
+// =====================================================
+
+document.addEventListener(
+  "visibilitychange",
+  async () => {
+
+    if (
+      document.hidden &&
+      scannerRunning
+    ) {
+
+      console.log(
+        "Dashboard hidden while scanner is running."
+      );
+
+    }
+
+  }
+);
+
+
+// =====================================================
+// FINAL DASHBOARD READY
+// =====================================================
+
+console.log(
+  "========================================"
+);
+
+
+console.log(
+  "🍜 RIO MAGGI POINT"
+);
+
+
+console.log(
+  "Premium Admin Dashboard V4"
+);
+
+
+console.log(
+  "========================================"
+);
+
+
+console.log(
+  "✅ Firebase Authentication Ready"
+);
+
+
+console.log(
+  "✅ Firebase Firestore Ready"
+);
+
+
+console.log(
+  "✅ Customer Dashboard Ready"
+);
+
+
+console.log(
+  "✅ Customer Search Ready"
+);
+
+
+console.log(
+  "✅ Customer Selection Ready"
+);
+
+
+console.log(
+  "✅ QR Scanner Ready"
+);
+
+
+console.log(
+  "✅ Daily Stamp Protection Ready"
+);
+
+
+console.log(
+  "✅ 6 Stamp Reward Unlock Ready"
+);
+
+
+console.log(
+  "✅ Navigation Ready"
+);
+
+
+console.log(
+  "✅ Logout Ready"
+);
+
+
+console.log(
+  "========================================"
+);
+
+
+console.log(
+  "🚀 Admin Dashboard V4 Fully Loaded"
+);
+
+
+console.log(
+  "========================================"
+);
+
+
+// =====================================================
+// END OF ADMIN-DASHBOARD.JS
+// =====================================================
