@@ -470,17 +470,9 @@
 
                 const correctUrl =
 
-                    new URL(
+    window.RIO_CONFIG.basePath +
 
-                        pages[pageName],
-
-                        window.location.origin
-
-                        +
-
-                        window.RIO_CONFIG.basePath
-
-                    ).href;
+    pages[pageName];
 
 
                 /* -----------------------------------------
@@ -710,19 +702,35 @@
                         --------------------------------- */
 
                         if (
-                            link.dataset.navigating ===
-                            "true"
-                        ) {
+    link.dataset.navigating ===
+    "true"
+) {
 
-                            event.preventDefault();
+    event.preventDefault();
 
-                            return;
+    return;
 
-                        }
+}
 
+link.dataset.navigating =
+    "true";
 
-                        link.dataset.navigating =
-                            "true";
+/* ---------------------------------
+   FAILSAFE
+   Unlock after 3 seconds
+--------------------------------- */
+
+setTimeout(
+
+    function () {
+
+        delete link.dataset.navigating;
+
+    },
+
+    3000
+
+);
 
 
                         /* ---------------------------------
