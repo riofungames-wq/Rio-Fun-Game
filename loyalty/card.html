@@ -1,111 +1,220 @@
 <!-- =========================================
      RIO MAGGI POINT
-     MENU.HTML
-     PART 1/4
-     PREMIUM MENU CATEGORY DASHBOARD
-     EXACTLY 8 MAIN CATEGORIES
+     CARD.HTML
+     PART 1/3
+     PREMIUM LOYALTY HOME CARD
+     CLEAN VERSION
+     NO DUPLICATE NAVIGATION
+     NO DUPLICATE SERVICE WORKER
 ========================================= -->
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html
+lang="en"
+>
 
 <head>
 
-<meta charset="UTF-8">
+
+<!-- =========================================
+     BASIC META
+========================================= -->
+
+<meta
+charset="UTF-8"
+>
+
 
 <meta
 name="viewport"
-content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0"
+>
+
 
 <title>
-Rio Maggi Point • Menu
+Rio Maggi Point • Loyalty Card
 </title>
 
-<meta
-name="theme-color"
-content="#263525">
 
 <meta
 name="description"
-content="Rio Maggi Point Premium Pure Veg Menu">
+content="Rio Maggi Point Premium Loyalty Club"
+>
+
+
+<meta
+name="theme-color"
+content="#263525"
+>
+
+
+<!-- =========================================
+     PWA
+========================================= -->
 
 <link
 rel="manifest"
-href="manifest.json">
+href="manifest.json"
+>
+
 
 <link
 rel="icon"
 href="favicon.ico"
-type="image/x-icon">
+type="image/x-icon"
+>
+
+
+<link
+rel="apple-touch-icon"
+href="icon-192.png"
+>
+
+
+<!-- =========================================
+     GOOGLE FONT
+========================================= -->
 
 <link
 rel="preconnect"
-href="https://fonts.googleapis.com">
+href="https://fonts.googleapis.com"
+>
+
 
 <link
 rel="preconnect"
 href="https://fonts.gstatic.com"
-crossorigin>
+crossorigin
+>
+
 
 <link
 href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
+rel="stylesheet"
+>
+
+
+<!-- =========================================
+     FONT AWESOME
+========================================= -->
 
 <link
 rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+>
+
+
+<!-- =========================================
+     COMMON CSS
+========================================= -->
 
 <link
 rel="stylesheet"
-href="css/common.css">
+href="css/common.css"
+>
+
+
+<!-- =========================================
+     CARD PAGE CSS
+========================================= -->
 
 <link
 rel="stylesheet"
-href="css/menu.css">
+href="css/card.css"
+>
+
 
 </head>
 
 
-<body>
+<body
+class="card-page-body"
+>
 
 
 <!-- =========================================
-     MAIN MENU PAGE
+     PAGE LOADER
 ========================================= -->
-
-<main
-class="menu-page app-page">
-
-
-<!-- =========================================
-     PREMIUM MENU DASHBOARD
-========================================= -->
-
-<header
-class="menu-dashboard app-card">
-
-
-<!-- DASHBOARD ICON -->
 
 <div
-class="menu-dashboard-icon">
+id="pageLoader"
+class="page-loader"
+aria-hidden="true"
+>
 
-<i class="fa-solid fa-utensils"></i>
+
+<div
+class="loader-logo"
+>
+
+<i
+class="fa-solid fa-bowl-food"
+></i>
 
 </div>
 
 
-<!-- DASHBOARD CONTENT -->
+<div
+class="loader-spinner"
+></div>
+
+
+<p>
+Loading Rio Maggi Point...
+</p>
+
+
+</div>
+
+
+
+<!-- =========================================
+     MAIN PAGE
+========================================= -->
+
+<main
+class="card-page app-page"
+>
+
+
+<!-- =========================================
+     PREMIUM TOP HEADER
+========================================= -->
+
+<header
+class="card-page-header app-card"
+>
+
 
 <div
-class="menu-dashboard-content">
+class="brand-icon"
+>
+
+<i
+class="fa-solid fa-bowl-food"
+></i>
+
+</div>
+
+
+<div
+class="brand-content"
+>
+
+
+<span
+class="brand-small-text"
+>
+
+RIO MAGGI POINT
+
+</span>
 
 
 <h1>
 
-RIO MAGGI
-<span>MENU</span>
+Premium Loyalty Club
 
 </h1>
 
@@ -125,35 +234,53 @@ RIO MAGGI
 
 
 <!-- =========================================
-     MENU INTRO
+     WELCOME SECTION
 ========================================= -->
 
 <section
-class="menu-intro-card app-card">
+class="welcome-section app-card"
+>
 
 
 <div
-class="menu-intro-icon">
+class="welcome-icon"
+>
 
-<i class="fa-solid fa-bowl-food"></i>
+<i
+class="fa-solid fa-hand-sparkles"
+></i>
 
 </div>
 
 
 <div
-class="menu-intro-content">
+class="welcome-content"
+>
 
 
-<h2>
+<p
+class="welcome-label"
+>
 
-Choose Your Favourite
+WELCOME BACK
+
+</p>
+
+
+<h2
+id="welcomeUserName"
+>
+
+Premium Member
 
 </h2>
 
 
-<p>
+<p
+id="welcomeMessage"
+>
 
-Tap a category to explore our delicious menu.
+Keep collecting stamps and enjoy your reward.
 
 </p>
 
@@ -166,39 +293,48 @@ Tap a category to explore our delicious menu.
 
 
 <!-- =========================================
-     CATEGORY SECTION
+     LOYALTY CARD SECTION
 ========================================= -->
 
 <section
-class="menu-category-section">
+class="loyalty-card-section"
+>
 
 
 <div
-class="menu-section-heading app-card">
+class="section-heading"
+>
 
 
 <div
-class="menu-section-heading-icon">
+class="section-heading-icon"
+>
 
-<i class="fa-solid fa-layer-group"></i>
+<i
+class="fa-solid fa-id-card"
+></i>
 
 </div>
 
 
-<div>
+<div
+class="section-heading-content"
+>
+
 
 <h2>
 
-Our Menu
+Your Loyalty Card
 
 </h2>
 
 
 <p>
 
-8 Premium Categories
+Collect 6 stamps & get 1 Veg Maggi FREE
 
 </p>
+
 
 </div>
 
@@ -208,48 +344,117 @@ Our Menu
 
 
 <!-- =========================================
-     EXACTLY 8 CATEGORY CARDS
+     PREMIUM LOYALTY CARD
 ========================================= -->
 
 <div
-id="menuCategoryGrid"
-class="menu-category-grid">
+id="loyaltyCard"
+class="loyalty-card"
+>
+
+
+<!-- =====================================
+     CARD TOP
+===================================== -->
+
+<div
+class="loyalty-card-top"
+>
+
+
+<div
+class="loyalty-card-brand"
+>
+
+
+<div
+class="loyalty-bowl-logo"
+>
+
+<i
+class="fa-solid fa-bowl-food"
+></i>
+
+</div>
+
+
+<div
+class="loyalty-brand-text"
+>
+
+
+<strong>
+
+RIO MAGGI POINT
+
+</strong>
+
+
+<span>
+
+Premium Loyalty Club
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+<div
+class="premium-badge"
+>
+
+PREMIUM
+
+</div>
+
+
+</div>
 
 
 
 <!-- =====================================
-     01
-     EVERYDAY MAGIC MAGGI
+     CARD MAIN CONTENT
 ===================================== -->
 
-<button
+<div
+class="loyalty-card-main"
+>
 
-type="button"
 
-class="menu-category-card app-card"
+<!-- =================================
+     CUSTOMER PHOTO
+================================= -->
 
-data-category="everyday-magic-maggi">
+<div
+class="customer-photo-wrapper"
+>
 
 
 <div
-class="menu-category-image-wrapper">
+class="customer-photo"
+>
 
 
 <img
-
-src="assets/menu/everyday-magic-maggi.png"
-
-alt="Everyday Magic Maggi"
-
-class="menu-category-image"
-
-loading="lazy">
+id="customerPhoto"
+src="icon-192.png"
+alt="Customer Photo"
+>
 
 
 <div
-class="menu-category-image-overlay">
+class="customer-photo-overlay"
+>
 
-<i class="fa-solid fa-arrow-right"></i>
+
+<i
+class="fa-solid fa-user"
+></i>
+
 
 </div>
 
@@ -257,466 +462,390 @@ class="menu-category-image-overlay">
 </div>
 
 
+</div>
+
+
+
+<!-- =================================
+     CUSTOMER DETAILS
+================================= -->
+
 <div
-class="menu-category-content">
+class="customer-details"
+>
+
+
+<h2
+id="customerName"
+>
+
+Premium Member
+
+</h2>
+
+
+<p
+class="member-label"
+>
+
+LOYALTY MEMBER
+
+</p>
+
+
+<p
+class="member-since"
+>
+
+
+<span>
+
+Member Since
+
+</span>
+
+
+<strong
+id="memberSince"
+>
+
+2026
+
+</strong>
+
+
+</p>
+
+
+</div>
+
+
+
+<!-- =================================
+     FREE GAME BUTTON
+================================= -->
+
+<button
+type="button"
+id="freeGameBtn"
+class="free-game-btn"
+>
+
+
+<i
+class="fa-solid fa-gamepad"
+></i>
+
+
+<span>
+
+Rio Fun Game Play
+
+</span>
+
+
+<i
+class="fa-solid fa-arrow-right"
+></i>
+
+
+</button>
+
+
+</div>
+
+
+
+<!-- =====================================
+     STAMP SUMMARY
+===================================== -->
+
+<div
+class="loyalty-summary"
+>
+
+
+<div
+class="summary-title"
+>
+
+
+<span>
+
+LOYALTY SUMMARY
+
+</span>
 
 
 <span
-class="menu-category-number">
+id="stampStatusText"
+>
+
+0 / 6 STAMPS
+
+</span>
+
+
+</div>
+
+
+<div
+class="stamp-progress-wrapper"
+>
+
+
+<div
+class="stamp-progress-track"
+>
+
+
+<div
+id="stampProgressBar"
+class="stamp-progress-bar"
+style="width: 0%;"
+></div>
+
+
+</div>
+
+
+</div>
+
+
+<div
+class="stamp-count-display"
+>
+
+
+<strong
+id="currentStampCount"
+>
+
+0
+
+</strong>
+
+
+<span>
+
+/
+
+</span>
+
+
+<strong>
+
+6
+
+</strong>
+
+
+<span>
+
+Stamps
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+<!-- =====================================
+     SIX STAMP CIRCLES
+===================================== -->
+
+<div
+id="stampGrid"
+class="stamp-grid"
+>
+
+
+<!-- STAMP 01 -->
+
+<div
+class="stamp-item"
+data-stamp="1"
+>
+
+
+<span>
 
 01
 
 </span>
 
 
-<h3>
-
-EVERYDAY MAGIC MAGGI
-
-</h3>
-
-
-<p>
-
-Classic • Veg • Garlic • Corn • Schezwan
-
-</p>
+<i
+class="fa-solid fa-star"
+></i>
 
 
 </div>
 
 
-</button>
-
-
-
-<!-- =====================================
-     02
-     CHEESE MAGIC MAGGI
-===================================== -->
-
-<button
-
-type="button"
-
-class="menu-category-card app-card"
-
-data-category="cheese-magic-maggi">
-
+<!-- STAMP 02 -->
 
 <div
-class="menu-category-image-wrapper">
+class="stamp-item"
+data-stamp="2"
+>
 
 
-<img
-
-src="assets/menu/cheese-magic-maggi.png"
-
-alt="Cheese Magic Maggi"
-
-class="menu-category-image"
-
-loading="lazy">
-
-
-<div
-class="menu-category-image-overlay">
-
-<i class="fa-solid fa-arrow-right"></i>
-
-</div>
-
-
-</div>
-
-
-<div
-class="menu-category-content">
-
-
-<span
-class="menu-category-number">
+<span>
 
 02
 
 </span>
 
 
-<h3>
-
-CHEESE MAGIC MAGGI
-
-</h3>
-
-
-<p>
-
-Cheese Classic • Veg • Garlic • Corn • Schezwan
-
-</p>
+<i
+class="fa-solid fa-star"
+></i>
 
 
 </div>
 
 
-</button>
-
-
-
-<!-- =====================================
-     03
-     CHEESE BUTTER MAGIC MAGGI
-===================================== -->
-
-<button
-
-type="button"
-
-class="menu-category-card app-card"
-
-data-category="cheese-butter-magic-maggi">
-
+<!-- STAMP 03 -->
 
 <div
-class="menu-category-image-wrapper">
+class="stamp-item"
+data-stamp="3"
+>
 
 
-<img
-
-src="assets/menu/cheese-butter-magic-maggi.png"
-
-alt="Cheese Butter Magic Maggi"
-
-class="menu-category-image"
-
-loading="lazy">
-
-
-<div
-class="menu-category-image-overlay">
-
-<i class="fa-solid fa-arrow-right"></i>
-
-</div>
-
-
-</div>
-
-
-<div
-class="menu-category-content">
-
-
-<span
-class="menu-category-number">
+<span>
 
 03
 
 </span>
 
 
-<h3>
-
-CHEESE BUTTER MAGIC MAGGI
-
-</h3>
-
-
-<p>
-
-Cheese Butter • Veg • Garlic • Corn • Schezwan
-
-</p>
+<i
+class="fa-solid fa-star"
+></i>
 
 
 </div>
 
 
-</button>
-
-
-
-<!-- =====================================
-     04
-     UFO BURGER
-===================================== -->
-
-<button
-
-type="button"
-
-class="menu-category-card app-card"
-
-data-category="ufo-burger">
-
+<!-- STAMP 04 -->
 
 <div
-class="menu-category-image-wrapper">
+class="stamp-item"
+data-stamp="4"
+>
 
 
-<img
-
-src="assets/menu/ufo-burger.png"
-
-alt="UFO Burger"
-
-class="menu-category-image"
-
-loading="lazy">
-
-
-<div
-class="menu-category-image-overlay">
-
-<i class="fa-solid fa-arrow-right"></i>
-
-</div>
-
-
-</div>
-
-
-<div
-class="menu-category-content">
-
-
-<span
-class="menu-category-number">
+<span>
 
 04
 
 </span>
 
 
-<h3>
-
-UFO BURGER
-
-</h3>
-
-
-<p>
-
-Veg • Cheese • Veg Cheese • Garlic • Schezwan
-
-</p>
+<i
+class="fa-solid fa-star"
+></i>
 
 
 </div>
 
 
-</button>
-
-
-
-<!-- =====================================
-     05
-     DELICIOUS MOMOS
-===================================== -->
-
-<button
-
-type="button"
-
-class="menu-category-card app-card"
-
-data-category="delicious-momos">
-
+<!-- STAMP 05 -->
 
 <div
-class="menu-category-image-wrapper">
+class="stamp-item"
+data-stamp="5"
+>
 
 
-<img
-
-src="assets/menu/delicious-momos.png"
-
-alt="Delicious Momos"
-
-class="menu-category-image"
-
-loading="lazy">
-
-
-<div
-class="menu-category-image-overlay">
-
-<i class="fa-solid fa-arrow-right"></i>
-
-</div>
-
-
-</div>
-
-
-<div
-class="menu-category-content">
-
-
-<span
-class="menu-category-number">
+<span>
 
 05
 
 </span>
 
 
-<h3>
-
-DELICIOUS MOMOS
-
-</h3>
-
-
-<p>
-
-Steam • Fried • Schezwan • Cheese Schezwan
-
-</p>
+<i
+class="fa-solid fa-star"
+></i>
 
 
 </div>
 
 
-</button>
-
-
-
-<!-- =====================================
-     06
-     HOT SOUPS
-===================================== -->
-
-<button
-
-type="button"
-
-class="menu-category-card app-card"
-
-data-category="hot-soups">
-
+<!-- STAMP 06 -->
 
 <div
-class="menu-category-image-wrapper">
+class="stamp-item"
+data-stamp="6"
+>
 
 
-<img
-
-src="assets/menu/hot-soups.png"
-
-alt="Hot Soups"
-
-class="menu-category-image"
-
-loading="lazy">
-
-
-<div
-class="menu-category-image-overlay">
-
-<i class="fa-solid fa-arrow-right"></i>
-
-</div>
-
-
-</div>
-
-
-<div
-class="menu-category-content">
-
-
-<span
-class="menu-category-number">
+<span>
 
 06
 
 </span>
 
 
-<h3>
-
-HOT SOUPS
-
-</h3>
-
-
-<p>
-
-Corn • Tomato • Chatpata Tomato • Magic Maggi • Manchow
-
-</p>
+<i
+class="fa-solid fa-star"
+></i>
 
 
 </div>
 
 
-</button>
+</div>
 
 
 
 <!-- =====================================
-     07
-     CRISPY SWEET CORN
+     REWARD MESSAGE
 ===================================== -->
 
-<button
-
-type="button"
-
-class="menu-category-card app-card"
-
-data-category="crispy-sweet-corn">
+<div
+id="rewardStatus"
+class="reward-status"
+>
 
 
 <div
-class="menu-category-image-wrapper">
+class="reward-status-icon"
+>
 
-
-<img
-
-src="assets/menu/crispy-sweet-corn.png"
-
-alt="Crispy Sweet Corn"
-
-class="menu-category-image"
-
-loading="lazy">
-
-
-<div
-class="menu-category-image-overlay">
-
-<i class="fa-solid fa-arrow-right"></i>
-
-</div>
-
+<i
+class="fa-solid fa-gift"
+></i>
 
 </div>
 
 
 <div
-class="menu-category-content">
+class="reward-status-content"
+>
 
 
-<span
-class="menu-category-number">
+<strong
+id="rewardStatusTitle"
+>
 
-07
+Your Free Veg Maggi is waiting!
 
-</span>
-
-
-<h3>
-
-CRISPY SWEET CORN
-
-</h3>
+</strong>
 
 
-<p>
+<p
+id="rewardStatusMessage"
+>
 
-Peri Peri • Butter • Masala • Cheese • Schezwan
+Collect all 6 stamps to unlock your reward.
 
 </p>
 
@@ -724,81 +853,36 @@ Peri Peri • Butter • Masala • Cheese • Schezwan
 </div>
 
 
-</button>
+</div>
 
 
 
 <!-- =====================================
-     08
-     CHIPS BHEL
+     CARD FOOTER
 ===================================== -->
 
-<button
-
-type="button"
-
-class="menu-category-card app-card"
-
-data-category="chips-bhel">
-
-
 <div
-class="menu-category-image-wrapper">
+class="loyalty-card-footer"
+>
 
 
-<img
+<span>
 
-src="assets/menu/chips-bhel.png"
-
-alt="Chips Bhel"
-
-class="menu-category-image"
-
-loading="lazy">
-
-
-<div
-class="menu-category-image-overlay">
-
-<i class="fa-solid fa-arrow-right"></i>
-
-</div>
-
-
-</div>
-
-
-<div
-class="menu-category-content">
-
-
-<span
-class="menu-category-number">
-
-08
+MAGIC NEEDS A FEW MINUTES
 
 </span>
 
 
-<h3>
+<span
+id="memberIdDisplay"
+>
 
-CHIPS BHEL
+MEMBER
 
-</h3>
-
-
-<p>
-
-Chips Bhel • Kurkure Bhel
-
-</p>
+</span>
 
 
 </div>
-
-
-</button>
-
 
 
 </div>
@@ -809,69 +893,45 @@ Chips Bhel • Kurkure Bhel
 
 
 <!-- =========================================
-     CATEGORY DETAIL AREA
-     HIDDEN UNTIL CATEGORY IS CLICKED
+     QUICK ACTIONS
 ========================================= -->
 
 <section
-id="categoryDetailSection"
-class="category-detail-section app-card"
-style="display:none;">
+class="quick-actions-section"
+>
 
 
 <div
-class="category-detail-header">
-
-
-<button
-
-type="button"
-
-id="backToCategoriesBtn"
-
-class="back-category-btn">
-
-
-<i class="fa-solid fa-arrow-left"></i>
-
-
-<span>
-
-Back to Categories
-
-</span>
-
-
-</button>
+class="section-heading"
+>
 
 
 <div
-id="categoryDetailIcon"
-class="category-detail-icon">
+class="section-heading-icon"
+>
 
-
-<i class="fa-solid fa-bowl-food"></i>
-
+<i
+class="fa-solid fa-bolt"
+></i>
 
 </div>
 
 
 <div
-class="category-detail-title">
+class="section-heading-content"
+>
 
 
-<h2
-id="categoryDetailTitle">
+<h2>
 
-Menu Category
+Quick Actions
 
 </h2>
 
 
-<p
-id="categoryDetailSubtitle">
+<p>
 
-Select your favourite item
+Everything you need in one place
 
 </p>
 
@@ -884,13 +944,1371 @@ Select your favourite item
 
 
 <div
-id="categoryItemsContainer"
-class="category-items-container">
+class="quick-actions-grid"
+>
 
 
-<!-- ITEMS WILL BE LOADED HERE -->
+<!-- =====================================
+     MENU
+===================================== -->
+
+<a
+href="menu.html"
+class="quick-action-card app-card"
+>
+
+
+<div
+class="quick-action-icon"
+>
+
+<i
+class="fa-solid fa-utensils"
+></i>
 
 </div>
+
+
+<div
+class="quick-action-content"
+>
+
+
+<strong>
+
+View Menu
+
+</strong>
+
+
+<span>
+
+Explore delicious food
+
+</span>
+
+
+</div>
+
+
+<i
+class="fa-solid fa-chevron-right"
+></i>
+
+
+</a>
+
+
+
+<!-- =====================================
+     QR
+===================================== -->
+
+<a
+href="qr.html"
+class="quick-action-card app-card"
+>
+
+
+<div
+class="quick-action-icon"
+>
+
+<i
+class="fa-solid fa-qrcode"
+></i>
+
+</div>
+
+
+<div
+class="quick-action-content"
+>
+
+
+<strong>
+
+My QR Code
+
+</strong>
+
+
+<span>
+
+Show your loyalty QR
+
+</span>
+
+
+</div>
+
+
+<i
+class="fa-solid fa-chevron-right"
+></i>
+
+
+</a>
+
+
+
+<!-- =====================================
+     HISTORY
+===================================== -->
+
+<a
+href="history.html"
+class="quick-action-card app-card"
+>
+
+
+<div
+class="quick-action-icon"
+>
+
+<i
+class="fa-solid fa-clock-rotate-left"
+></i>
+
+</div>
+
+
+<div
+class="quick-action-content"
+>
+
+
+<strong>
+
+Stamp History
+
+</strong>
+
+
+<span>
+
+View your activity
+
+</span>
+
+
+</div>
+
+
+<i
+class="fa-solid fa-chevron-right"
+></i>
+
+
+</a>
+
+
+
+<!-- =====================================
+     PROFILE
+===================================== -->
+
+<a
+href="profile.html"
+class="quick-action-card app-card"
+>
+
+
+<div
+class="quick-action-icon"
+>
+
+<i
+class="fa-solid fa-user"
+></i>
+
+</div>
+
+
+<div
+class="quick-action-content"
+>
+
+
+<strong>
+
+My Profile
+
+</strong>
+
+
+<span>
+
+Manage your account
+
+</span>
+
+
+</div>
+
+
+<i
+class="fa-solid fa-chevron-right"
+></i>
+
+
+</a>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =========================================
+     REWARD PREVIEW
+========================================= -->
+
+<section
+class="reward-preview-section app-card"
+>
+
+
+<div
+class="reward-preview-icon"
+>
+
+<i
+class="fa-solid fa-gift"
+></i>
+
+</div>
+
+
+<div
+class="reward-preview-content"
+>
+
+
+<span>
+
+YOUR LOYALTY REWARD
+
+</span>
+
+
+<h2>
+
+FREE VEG MAGGI
+
+</h2>
+
+
+<p>
+
+Collect 6 stamps from your daily purchases and unlock your free Veg Maggi reward.
+
+</p>
+
+
+</div>
+
+
+<div
+class="reward-preview-arrow"
+>
+
+<i
+class="fa-solid fa-arrow-right"
+></i>
+
+</div>
+
+
+</section>
+
+
+
+<!-- =========================================
+     CONTACT / SHOP ACTIONS
+========================================= -->
+
+<section
+class="shop-actions-section"
+>
+
+
+<div
+class="section-heading"
+>
+
+
+<div
+class="section-heading-icon"
+>
+
+<i
+class="fa-solid fa-store"
+></i>
+
+</div>
+
+
+<div
+class="section-heading-content"
+>
+
+
+<h2>
+
+Visit Rio Maggi Point
+
+</h2>
+
+
+<p>
+
+We are happy to serve you
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+<div
+class="shop-actions-grid"
+>
+
+
+<!-- CALL -->
+
+<a
+href="tel:+91XXXXXXXXXX"
+class="shop-action-card call-action"
+>
+
+
+<i
+class="fa-solid fa-phone"
+></i>
+
+
+<span>
+
+Call
+
+</span>
+
+
+</a>
+
+
+
+<!-- WHATSAPP -->
+
+<a
+href="https://wa.me/91XXXXXXXXXX"
+class="shop-action-card whatsapp-action"
+target="_blank"
+rel="noopener"
+>
+
+
+<i
+class="fa-brands fa-whatsapp"
+></i>
+
+
+<span>
+
+WhatsApp
+
+</span>
+
+
+</a>
+
+
+
+<!-- MAP -->
+
+<a
+href="#"
+class="shop-action-card map-action"
+id="shopMapBtn"
+>
+
+
+<i
+class="fa-solid fa-location-dot"
+></i>
+
+
+<span>
+
+Map
+
+</span>
+
+
+</a>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- =========================================
+     BOTTOM SAFE SPACE
+========================================= -->
+
+<div
+class="nav-space"
+></div>
+
+
+<!-- =========================================
+     END PART 1
+========================================= -->
+     <!-- =========================================
+     RIO MAGGI POINT
+     CARD.HTML
+     PART 2/3
+     PREMIUM LOYALTY CARD + STAMP SYSTEM
+========================================= -->
+
+
+<!-- =========================================
+     LOYALTY CARD SECTION
+========================================= -->
+
+<section
+class="loyalty-card-section app-section">
+
+
+    <!-- =====================================
+         SECTION HEADING
+    ====================================== -->
+
+    <div
+    class="section-heading-card app-card reveal-animation">
+
+        <div
+        class="section-heading-icon">
+
+            <i class="fa-solid fa-id-card"></i>
+
+        </div>
+
+        <div>
+
+            <h2>
+                My Loyalty Card
+            </h2>
+
+            <p>
+                Collect 6 stamps & get 1 Veg Maggi FREE
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         PREMIUM LOYALTY CARD
+    ====================================== -->
+
+    <div
+    id="loyaltyCard"
+    class="premium-loyalty-card app-card reveal-animation">
+
+
+        <!-- =================================
+             CARD TOP
+        ================================== -->
+
+        <div
+        class="loyalty-card-top">
+
+
+            <div
+            class="loyalty-brand">
+
+
+                <div
+                class="loyalty-brand-icon">
+
+                    <i class="fa-solid fa-bowl-food"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h2>
+                        RIO MAGGI POINT
+                    </h2>
+
+                    <span>
+                        PREMIUM LOYALTY CLUB
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div
+            class="loyalty-member-badge">
+
+                <i class="fa-solid fa-crown"></i>
+
+                <span>
+                    Premium Member
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             CUSTOMER PROFILE AREA
+        ================================== -->
+
+        <div
+        class="loyalty-customer-area">
+
+
+            <div
+            class="loyalty-customer-photo-wrapper">
+
+
+                <img
+                id="loyaltyCustomerPhoto"
+                src="assets/default-avatar.png"
+                alt="Customer Photo"
+                class="loyalty-customer-photo">
+
+
+                <div
+                class="loyalty-photo-shine">
+                </div>
+
+
+            </div>
+
+
+
+            <div
+            class="loyalty-customer-info">
+
+
+                <span
+                class="loyalty-customer-label">
+
+                    Member
+
+                </span>
+
+
+                <h3
+                id="loyaltyCustomerName">
+
+                    Rio Maggi Member
+
+                </h3>
+
+
+                <p>
+
+                    <i class="fa-regular fa-calendar"></i>
+
+                    Member since
+
+                    <strong
+                    id="memberSinceDate">
+
+                        --
+
+                    </strong>
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             LOYALTY STAMP SUMMARY
+        ================================== -->
+
+        <div
+        class="loyalty-summary">
+
+
+            <div
+            class="loyalty-summary-title">
+
+
+                <div>
+
+                    <span>
+                        Loyalty Summary
+                    </span>
+
+                    <h3>
+                        Collect Your Stamps
+                    </h3>
+
+                </div>
+
+
+                <div
+                class="stamp-count-badge">
+
+
+                    <i class="fa-solid fa-star"></i>
+
+
+                    <strong
+                    id="stampCountText">
+
+                        0/6
+
+                    </strong>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================
+                 STAMP PROGRESS BAR
+            ================================== -->
+
+            <div
+            class="stamp-progress-wrapper">
+
+
+                <div
+                class="stamp-progress-track">
+
+
+                    <div
+                    id="stampProgressBar"
+                    class="stamp-progress-fill">
+
+                    </div>
+
+
+                </div>
+
+
+                <span
+                id="stampProgressText">
+
+                    0 of 6 stamps collected
+
+                </span>
+
+
+            </div>
+
+
+
+            <!-- =================================
+                 SIX STAMP BOXES
+            ================================== -->
+
+            <div
+            id="stampContainer"
+            class="stamp-container">
+
+
+                <!-- STAMP 1 -->
+
+                <div
+                class="stamp-box"
+                data-stamp="1">
+
+                    <div
+                    class="stamp-icon">
+
+                        <i class="fa-solid fa-star"></i>
+
+                    </div>
+
+                    <span>
+                        1
+                    </span>
+
+                </div>
+
+
+
+                <!-- STAMP 2 -->
+
+                <div
+                class="stamp-box"
+                data-stamp="2">
+
+                    <div
+                    class="stamp-icon">
+
+                        <i class="fa-solid fa-star"></i>
+
+                    </div>
+
+                    <span>
+                        2
+                    </span>
+
+                </div>
+
+
+
+                <!-- STAMP 3 -->
+
+                <div
+                class="stamp-box"
+                data-stamp="3">
+
+                    <div
+                    class="stamp-icon">
+
+                        <i class="fa-solid fa-star"></i>
+
+                    </div>
+
+                    <span>
+                        3
+                    </span>
+
+                </div>
+
+
+
+                <!-- STAMP 4 -->
+
+                <div
+                class="stamp-box"
+                data-stamp="4">
+
+                    <div
+                    class="stamp-icon">
+
+                        <i class="fa-solid fa-star"></i>
+
+                    </div>
+
+                    <span>
+                        4
+                    </span>
+
+                </div>
+
+
+
+                <!-- STAMP 5 -->
+
+                <div
+                class="stamp-box"
+                data-stamp="5">
+
+                    <div
+                    class="stamp-icon">
+
+                        <i class="fa-solid fa-star"></i>
+
+                    </div>
+
+                    <span>
+                        5
+                    </span>
+
+                </div>
+
+
+
+                <!-- STAMP 6 -->
+
+                <div
+                class="stamp-box"
+                data-stamp="6">
+
+                    <div
+                    class="stamp-icon">
+
+                        <i class="fa-solid fa-gift"></i>
+
+                    </div>
+
+                    <span>
+                        FREE
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             REWARD MESSAGE
+        ================================== -->
+
+        <div
+        id="rewardStatus"
+        class="reward-status">
+
+
+            <div
+            class="reward-status-icon">
+
+                <i class="fa-solid fa-lock"></i>
+
+            </div>
+
+
+            <div
+            class="reward-status-content">
+
+                <strong>
+                    Reward Locked
+                </strong>
+
+                <span>
+                    Collect all 6 stamps to unlock your FREE Veg Maggi.
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             CARD FOOTER
+        ================================== -->
+
+        <div
+        class="loyalty-card-footer">
+
+
+            <div>
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                Digital Loyalty Card
+
+            </div>
+
+
+            <div>
+
+                <i class="fa-solid fa-leaf"></i>
+
+                100% Pure Veg
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================
+         REWARD ACTION AREA
+    ====================================== -->
+
+    <div
+    id="rewardActionArea"
+    class="reward-action-area reveal-animation">
+
+
+        <button
+        type="button"
+        id="claimRewardBtn"
+        class="premium-action-btn reward-locked-btn"
+        disabled>
+
+
+            <i class="fa-solid fa-gift"></i>
+
+
+            <span>
+                Collect 6 Stamps to Unlock
+            </span>
+
+
+        </button>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================
+     QUICK ACTIONS SECTION
+========================================= -->
+
+<section
+class="quick-actions-section app-section">
+
+
+    <div
+    class="section-heading-card app-card reveal-animation">
+
+
+        <div
+        class="section-heading-icon">
+
+            <i class="fa-solid fa-bolt"></i>
+
+        </div>
+
+
+        <div>
+
+            <h2>
+                Quick Actions
+            </h2>
+
+            <p>
+                Everything you need in one place
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================
+         QUICK ACTION GRID
+    ====================================== -->
+
+    <div
+    class="quick-actions-grid">
+
+
+        <!-- =================================
+             MENU
+        ================================== -->
+
+        <a
+        href="menu.html"
+        class="quick-action-card app-card reveal-animation">
+
+
+            <div
+            class="quick-action-icon">
+
+                <i class="fa-solid fa-utensils"></i>
+
+            </div>
+
+
+            <div
+            class="quick-action-content">
+
+                <h3>
+                    View Menu
+                </h3>
+
+                <p>
+                    Explore our delicious menu
+                </p>
+
+            </div>
+
+
+            <i
+            class="fa-solid fa-chevron-right quick-action-arrow">
+            </i>
+
+
+        </a>
+
+
+
+        <!-- =================================
+             QR CODE
+        ================================== -->
+
+        <a
+        href="qr.html"
+        class="quick-action-card app-card reveal-animation">
+
+
+            <div
+            class="quick-action-icon">
+
+                <i class="fa-solid fa-qrcode"></i>
+
+            </div>
+
+
+            <div
+            class="quick-action-content">
+
+                <h3>
+                    My QR Code
+                </h3>
+
+                <p>
+                    Show your loyalty QR code
+                </p>
+
+            </div>
+
+
+            <i
+            class="fa-solid fa-chevron-right quick-action-arrow">
+            </i>
+
+
+        </a>
+
+
+
+        <!-- =================================
+             HISTORY
+        ================================== -->
+
+        <a
+        href="history.html"
+        class="quick-action-card app-card reveal-animation">
+
+
+            <div
+            class="quick-action-icon">
+
+                <i class="fa-solid fa-clock-rotate-left"></i>
+
+            </div>
+
+
+            <div
+            class="quick-action-content">
+
+                <h3>
+                    Stamp History
+                </h3>
+
+                <p>
+                    View your purchase history
+                </p>
+
+            </div>
+
+
+            <i
+            class="fa-solid fa-chevron-right quick-action-arrow">
+            </i>
+
+
+        </a>
+
+
+
+        <!-- =================================
+             REVIEW
+        ================================== -->
+
+        <a
+        href="feedback.html"
+        class="quick-action-card app-card reveal-animation">
+
+
+            <div
+            class="quick-action-icon">
+
+                <i class="fa-solid fa-heart"></i>
+
+            </div>
+
+
+            <div
+            class="quick-action-content">
+
+                <h3>
+                    Give a Review
+                </h3>
+
+                <p>
+                    Share your experience with us
+                </p>
+
+            </div>
+
+
+            <i
+            class="fa-solid fa-chevron-right quick-action-arrow">
+            </i>
+
+
+        </a>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================
+     SHOP CONTACT SECTION
+========================================= -->
+
+<section
+class="shop-contact-section app-section">
+
+
+    <div
+    class="section-heading-card app-card reveal-animation">
+
+
+        <div
+        class="section-heading-icon">
+
+            <i class="fa-solid fa-store"></i>
+
+        </div>
+
+
+        <div>
+
+            <h2>
+                Visit Rio Maggi Point
+            </h2>
+
+            <p>
+                We are happy to serve you
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================
+         CONTACT ACTIONS
+    ====================================== -->
+
+    <div
+    class="shop-contact-grid">
+
+
+        <!-- CALL -->
+
+        <a
+        id="callShopBtn"
+        href="tel:"
+        class="shop-contact-card app-card reveal-animation">
+
+
+            <div
+            class="shop-contact-icon">
+
+                <i class="fa-solid fa-phone"></i>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Call Us
+                </h3>
+
+                <p>
+                    Contact Rio Maggi Point
+                </p>
+
+            </div>
+
+
+        </a>
+
+
+
+        <!-- WHATSAPP -->
+
+        <a
+        id="whatsappShopBtn"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="shop-contact-card app-card reveal-animation">
+
+
+            <div
+            class="shop-contact-icon">
+
+                <i class="fa-brands fa-whatsapp"></i>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    WhatsApp
+                </h3>
+
+                <p>
+                    Chat with us
+                </p>
+
+            </div>
+
+
+        </a>
+
+
+
+        <!-- MAP -->
+
+        <a
+        id="mapShopBtn"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="shop-contact-card app-card reveal-animation">
+
+
+            <div
+            class="shop-contact-icon">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Find Us
+                </h3>
+
+                <p>
+                    Open Google Maps
+                </p>
+
+            </div>
+
+
+        </a>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================
+     FREE GAME PROMOTION
+========================================= -->
+
+<section
+class="free-game-section app-section">
+
+
+    <div
+    class="free-game-card app-card reveal-animation">
+
+
+        <div
+        class="free-game-decoration">
+
+            <i class="fa-solid fa-gamepad"></i>
+
+        </div>
+
+
+        <div
+        class="free-game-content">
+
+
+            <span
+            class="free-game-label">
+
+                RIO FUN GAME
+
+            </span>
+
+
+            <h2>
+
+                Play While You Wait!
+
+            </h2>
+
+
+            <p>
+
+                Enjoy free games while your delicious food is being prepared.
+
+            </p>
+
+
+            <a
+            href="../index.html"
+            class="free-game-btn">
+
+
+                <i class="fa-solid fa-play"></i>
+
+
+                <span>
+                    Play Free Games
+                </span>
+
+
+            </a>
+
+
+        </div>
+
+
+    </div>
 
 
 </section>
@@ -908,2021 +2326,1073 @@ class="nav-space">
 
 
 <!-- =========================================
-     END MENU.HTML PART 1/4
+     END CARD.HTML PART 2/3
 ========================================= -->
      <!-- =========================================
      RIO MAGGI POINT
-     MENU.HTML
-     PART 2/4
-     EXACT MENU ITEMS + EXACT PRICING
-========================================= -->
-
-
-<!-- =========================================
-     CATEGORY DATA
+     CARD.HTML
+     PART 3/3
+     FINAL JAVASCRIPT
+     SINGLE CONSOLIDATED SCRIPT
 ========================================= -->
 
 <script>
 
-const menuData = {
+/* =====================================================
+   RIO MAGGI POINT - CARD PAGE CONTROLLER
+   SINGLE SCRIPT ONLY
+===================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* =================================================
+       ELEMENT REFERENCES
+    ================================================= */
+
+    const loyaltyCard =
+        document.getElementById("loyaltyCard");
+
+    const customerPhoto =
+        document.getElementById("loyaltyCustomerPhoto");
+
+    const customerName =
+        document.getElementById("loyaltyCustomerName");
+
+    const memberSinceDate =
+        document.getElementById("memberSinceDate");
+
+    const stampCountText =
+        document.getElementById("stampCountText");
+
+    const stampProgressBar =
+        document.getElementById("stampProgressBar");
+
+    const stampProgressText =
+        document.getElementById("stampProgressText");
+
+    const stampContainer =
+        document.getElementById("stampContainer");
+
+    const rewardStatus =
+        document.getElementById("rewardStatus");
+
+    const rewardActionArea =
+        document.getElementById("rewardActionArea");
+
+    const claimRewardBtn =
+        document.getElementById("claimRewardBtn");
+
+    const callShopBtn =
+        document.getElementById("callShopBtn");
+
+    const whatsappShopBtn =
+        document.getElementById("whatsappShopBtn");
+
+    const mapShopBtn =
+        document.getElementById("mapShopBtn");
 
 
-/* =========================================
-   01. EVERYDAY MAGIC MAGGI
-========================================= */
+    /* =================================================
+       BASIC CONFIGURATION
 
-"everyday-magic-maggi": {
+       IMPORTANT:
+       Replace these placeholder values with your
+       real business details when available.
+    ================================================= */
 
-    title:
-        "EVERYDAY MAGIC MAGGI",
+    const SHOP_PHONE =
+        "";
 
-    image:
-        "assets/menu/everyday-magic-maggi.png",
+    const SHOP_WHATSAPP =
+        "";
 
-    icon:
-        "fa-bowl-food",
+    const SHOP_MAP =
+        "";
 
-    subtitle:
-        "Choose your favourite Magic Maggi",
 
-    items: [
+    /* =================================================
+       LOYALTY SETTINGS
+    ================================================= */
 
-        {
-            name:
-                "Classic",
-            half:
-                "₹30",
-            full:
-                "₹50"
-        },
+    const TOTAL_STAMPS = 6;
 
-        {
-            name:
-                "Veg",
-            half:
-                "₹40",
-            full:
-                "₹70"
-        },
+    const DEFAULT_STAMPS = 0;
 
-        {
-            name:
-                "Garlic",
-            half:
-                "₹40",
-            full:
-                "₹70"
-        },
 
-        {
-            name:
-                "Corn",
-            half:
-                "₹40",
-            full:
-                "₹70"
-        },
+    /* =================================================
+       LOCAL STORAGE KEYS
 
-        {
-            name:
-                "Schezwan",
-            half:
-                "₹40",
-            full:
-                "₹70"
-        },
+       ONE STANDARD KEY SYSTEM
+       NO DUPLICATE STORAGE LOGIC
+    ================================================= */
 
-        {
-            name:
-                "Veg Corn",
-            half:
-                "₹50",
-            full:
-                "₹80"
-        },
+    const STORAGE_KEYS = {
 
-        {
-            name:
-                "Veg Lemon",
-            half:
-                "₹80",
-            full:
-                "₹120"
-        },
+        stamps:
+            "rioMaggi_stamps",
 
-        {
-            name:
-                "Korean",
-            half:
-                "₹100",
-            full:
-                "₹150"
+        rewardUnlocked:
+            "rioMaggi_rewardUnlocked",
+
+        rewardClaimed:
+            "rioMaggi_rewardClaimed"
+
+    };
+
+
+    /* =================================================
+       SAFE NUMBER FUNCTION
+    ================================================= */
+
+    function getSafeStampCount(value) {
+
+        const number =
+            Number(value);
+
+        if (
+            !Number.isFinite(number)
+        ) {
+
+            return DEFAULT_STAMPS;
+
         }
 
-    ]
-
-},
-
-
-
-/* =========================================
-   02. CHEESE MAGIC MAGGI
-========================================= */
-
-"cheese-magic-maggi": {
-
-    title:
-        "CHEESE MAGIC MAGGI",
-
-    image:
-        "assets/menu/cheese-magic-maggi.png",
-
-    icon:
-        "fa-bowl-food",
-
-    subtitle:
-        "Cheesy Magic Maggi collection",
-
-    items: [
-
-        {
-            name:
-                "Cheese Classic",
-            half:
-                "₹40",
-            full:
-                "₹70"
-        },
-
-        {
-            name:
-                "Cheese Veg",
-            half:
-                "₹50",
-            full:
-                "₹80"
-        },
-
-        {
-            name:
-                "Cheese Garlic",
-            half:
-                "₹50",
-            full:
-                "₹80"
-        },
-
-        {
-            name:
-                "Cheese Corn",
-            half:
-                "₹50",
-            full:
-                "₹80"
-        },
-
-        {
-            name:
-                "Cheese Schezwan",
-            half:
-                "₹50",
-            full:
-                "₹80"
-        },
-
-        {
-            name:
-                "Cheese Veg Corn",
-            half:
-                "₹60",
-            full:
-                "₹100"
-        },
-
-        {
-            name:
-                "Cheese Veg Schezwan",
-            half:
-                "₹60",
-            full:
-                "₹100"
-        },
-
-        {
-            name:
-                "Cheese Korean",
-            half:
-                "₹120",
-            full:
-                "₹180"
-        }
-
-    ]
-
-},
-
-
-
-/* =========================================
-   03. CHEESE BUTTER MAGIC MAGGI
-========================================= */
-
-"cheese-butter-magic-maggi": {
-
-    title:
-        "CHEESE BUTTER MAGIC MAGGI",
-
-    image:
-        "assets/menu/cheese-butter-magic-maggi.png",
-
-    icon:
-        "fa-bowl-food",
-
-    subtitle:
-        "Rich cheese butter Magic Maggi",
-
-    items: [
-
-        {
-            name:
-                "Cheese Butter Classic",
-            half:
-                "₹50",
-            full:
-                "₹80"
-        },
-
-        {
-            name:
-                "Cheese Butter Veg",
-            half:
-                "₹60",
-            full:
-                "₹100"
-        },
-
-        {
-            name:
-                "Cheese Butter Garlic",
-            half:
-                "₹60",
-            full:
-                "₹100"
-        },
-
-        {
-            name:
-                "Cheese Butter Corn",
-            half:
-                "₹60",
-            full:
-                "₹100"
-        },
-
-        {
-            name:
-                "Cheese Butter Schezwan",
-            half:
-                "₹60",
-            full:
-                "₹100"
-        },
-
-        {
-            name:
-                "Cheese Butter Veg Corn",
-            half:
-                "₹70",
-            full:
-                "₹120"
-        },
-
-        {
-            name:
-                "Cheese Butter Veg Schezwan",
-            half:
-                "₹70",
-            full:
-                "₹120"
-        },
-
-        {
-            name:
-                "Cheese Butter Korean",
-            half:
-                "₹130",
-            full:
-                "₹200"
-        }
-
-    ]
-
-},
-
-
-
-/* =========================================
-   04. UFO BURGER
-========================================= */
-
-"ufo-burger": {
-
-    title:
-        "UFO BURGER",
-
-    image:
-        "assets/menu/ufo-burger.png",
-
-    icon:
-        "fa-burger",
-
-    subtitle:
-        "Delicious UFO Burger collection",
-
-    items: [
-
-        {
-            name:
-                "Veg Burger",
-            price:
-                "₹40"
-        },
-
-        {
-            name:
-                "Cheese Burger",
-            price:
-                "₹40"
-        },
-
-        {
-            name:
-                "Veg Cheese Burger",
-            price:
-                "₹50"
-        },
-
-        {
-            name:
-                "Cheese Garlic Burger",
-            price:
-                "₹50"
-        },
-
-        {
-            name:
-                "Schezwan Burger",
-            price:
-                "₹50"
-        },
-
-        {
-            name:
-                "Cheese Schezwan Burger",
-            price:
-                "₹60"
-        }
-
-    ]
-
-},
-
-
-
-/* =========================================
-   05. DELICIOUS MOMOS
-========================================= */
-
-"delicious-momos": {
-
-    title:
-        "DELICIOUS MOMOS",
-
-    image:
-        "assets/menu/delicious-momos.png",
-
-    icon:
-        "fa-dumpling",
-
-    subtitle:
-        "Hot and delicious Momos",
-
-    items: [
-
-        {
-            name:
-                "Steam Momos",
-            price:
-                "₹20"
-        },
-
-        {
-            name:
-                "Fried Momos",
-            price:
-                "₹30"
-        },
-
-        {
-            name:
-                "Schezwan Momos",
-            price:
-                "₹50"
-        },
-
-        {
-            name:
-                "Cheese Schezwan Momos",
-            price:
-                "₹60"
-        }
-
-    ]
-
-},
-
-
-
-/* =========================================
-   06. HOT SOUPS
-========================================= */
-
-"hot-soups": {
-
-    title:
-        "HOT SOUPS",
-
-    image:
-        "assets/menu/hot-soups.png",
-
-    icon:
-        "fa-mug-hot",
-
-    subtitle:
-        "Warm and delicious soups",
-
-    items: [
-
-        {
-            name:
-                "Corn Soup",
-            price:
-                "₹40"
-        },
-
-        {
-            name:
-                "Tomato Soup",
-            price:
-                "₹40"
-        },
-
-        {
-            name:
-                "Chatpata Tomato",
-            price:
-                "₹40"
-        },
-
-        {
-            name:
-                "Magic Maggi Soup",
-            price:
-                "₹50"
-        },
-
-        {
-            name:
-                "Manchow Soup",
-            price:
-                "₹50"
-        }
-
-    ]
-
-},
-
-
-
-/* =========================================
-   07. CRISPY SWEET CORN
-========================================= */
-
-"crispy-sweet-corn": {
-
-    title:
-        "CRISPY SWEET CORN",
-
-    image:
-        "assets/menu/crispy-sweet-corn.png",
-
-    icon:
-        "fa-seedling",
-
-    subtitle:
-        "Crispy and delicious sweet corn",
-
-    items: [
-
-        {
-            name:
-                "Peri Peri Corn",
-            price:
-                "₹40"
-        },
-
-        {
-            name:
-                "Butter Corn",
-            price:
-                "₹50"
-        },
-
-        {
-            name:
-                "Masala Corn",
-            price:
-                "₹50"
-        },
-
-        {
-            name:
-                "Cheese Corn",
-            price:
-                "₹50"
-        },
-
-        {
-            name:
-                "Schezwan Corn",
-            price:
-                "₹50"
-        },
-
-        {
-            name:
-                "Butter Cheese Corn",
-            price:
-                "₹60"
-        }
-
-    ]
-
-},
-
-
-
-/* =========================================
-   08. CHIPS BHEL
-========================================= */
-
-"chips-bhel": {
-
-    title:
-        "CHIPS BHEL",
-
-    image:
-        "assets/menu/chips-bhel.png",
-
-    icon:
-        "fa-cookie-bite",
-
-    subtitle:
-        "Crunchy and tasty Bhel",
-
-    items: [
-
-        {
-            name:
-                "Chips Bhel",
-            price:
-                "₹50"
-        },
-
-        {
-            name:
-                "Kurkure Bhel",
-            price:
-                "₹50"
-        }
-
-    ]
-
-}
-
-
-};
-
-
-/* =========================================
-     END MENU DATA
-========================================= */
-
-</script>
-
-
-
-<!-- =========================================
-     END MENU.HTML PART 2/4
-========================================= -->
-     <!-- =========================================
-     RIO MAGGI POINT
-     MENU.HTML
-     PART 3/4
-     CATEGORY CLICK + ITEM LIST + PNG POPUP
-========================================= -->
-
-
-<script>
-
-
-/* =========================================
-   HTML ELEMENTS
-========================================= */
-
-const categoryGrid =
-
-    document.getElementById(
-
-        "menuCategoryGrid"
-
-    );
-
-
-const categoryDetailSection =
-
-    document.getElementById(
-
-        "categoryDetailSection"
-
-    );
-
-
-const categoryItemsContainer =
-
-    document.getElementById(
-
-        "categoryItemsContainer"
-
-    );
-
-
-const categoryDetailTitle =
-
-    document.getElementById(
-
-        "categoryDetailTitle"
-
-    );
-
-
-const categoryDetailSubtitle =
-
-    document.getElementById(
-
-        "categoryDetailSubtitle"
-
-    );
-
-
-const categoryDetailIcon =
-
-    document.getElementById(
-
-        "categoryDetailIcon"
-
-    );
-
-
-const backToCategoriesBtn =
-
-    document.getElementById(
-
-        "backToCategoriesBtn"
-
-    );
-
-
-
-/* =========================================
-   OPEN CATEGORY
-========================================= */
-
-function openCategory(
-
-    categoryId
-
-) {
-
-
-    const category =
-
-        menuData[
-
-            categoryId
-
-        ];
-
-
-    if (
-
-        !category
-
-    ) {
-
-        return;
+        return Math.max(
+            0,
+            Math.min(
+                TOTAL_STAMPS,
+                Math.floor(number)
+            )
+        );
 
     }
 
 
+    /* =================================================
+       GET CURRENT STAMP COUNT
+    ================================================= */
 
-    /* =====================================
-       UPDATE CATEGORY HEADER
-    ===================================== */
+    function getStampCount() {
 
-    categoryDetailTitle.textContent =
+        return getSafeStampCount(
 
-        category.title;
+            localStorage.getItem(
+                STORAGE_KEYS.stamps
+            )
 
+        );
 
-    categoryDetailSubtitle.textContent =
-
-        category.subtitle;
-
-
-    categoryDetailIcon.innerHTML = `
-
-        <i class="fa-solid ${category.icon}"></i>
-
-    `;
+    }
 
 
+    /* =================================================
+       SAVE STAMP COUNT
+    ================================================= */
 
-    /* =====================================
-       CLEAR OLD ITEMS
-    ===================================== */
+    function saveStampCount(count) {
 
-    categoryItemsContainer.innerHTML = "";
+        const safeCount =
+            getSafeStampCount(count);
 
+        localStorage.setItem(
 
+            STORAGE_KEYS.stamps,
 
-    /* =====================================
-       CREATE ITEM CARDS
-    ===================================== */
+            String(safeCount)
 
-    category.items.forEach(
+        );
 
-        (
+        return safeCount;
 
-            item,
-
-            index
-
-        ) => {
+    }
 
 
-            const itemCard =
+    /* =================================================
+       UPDATE STAMP UI
+    ================================================= */
 
-                document.createElement(
+    function updateStampUI() {
 
-                    "button"
+        const currentStamps =
+            getStampCount();
 
+
+        /* ---------------------------------------------
+           COUNT TEXT
+        --------------------------------------------- */
+
+        if (stampCountText) {
+
+            stampCountText.textContent =
+
+                `${currentStamps}/${TOTAL_STAMPS}`;
+
+        }
+
+
+        /* ---------------------------------------------
+           PROGRESS BAR
+        --------------------------------------------- */
+
+        if (stampProgressBar) {
+
+            const percentage =
+
+                (
+                    currentStamps /
+                    TOTAL_STAMPS
+                ) * 100;
+
+
+            stampProgressBar.style.width =
+
+                `${percentage}%`;
+
+        }
+
+
+        /* ---------------------------------------------
+           PROGRESS TEXT
+        --------------------------------------------- */
+
+        if (stampProgressText) {
+
+            stampProgressText.textContent =
+
+                `${currentStamps} of ${TOTAL_STAMPS} stamps collected`;
+
+        }
+
+
+        /* ---------------------------------------------
+           STAMP BOXES
+        --------------------------------------------- */
+
+        if (stampContainer) {
+
+            const stampBoxes =
+
+                stampContainer.querySelectorAll(
+                    ".stamp-box"
                 );
 
 
-            itemCard.type =
+            stampBoxes.forEach(
 
-                "button";
+                (box, index) => {
 
-
-            itemCard.className =
-
-                "category-item-card app-card";
+                    const stampNumber =
+                        index + 1;
 
 
+                    box.classList.toggle(
 
-            /* =================================
-               ITEM IMAGE PATH
-            ================================= */
+                        "stamp-collected",
 
-            const itemImage =
+                        stampNumber <=
+                        currentStamps
 
-                category.image;
-
-
-
-            /* =================================
-               PRICE HTML
-            ================================= */
-
-            let priceHTML = "";
+                    );
 
 
+                    if (
+                        stampNumber <=
+                        currentStamps
+                    ) {
 
-            if (
+                        box.setAttribute(
+                            "aria-label",
+                            `Stamp ${stampNumber} collected`
+                        );
 
-                item.half &&
+                    }
 
-                item.full
+                    else {
 
-            ) {
+                        box.setAttribute(
+                            "aria-label",
+                            `Stamp ${stampNumber} not collected`
+                        );
+
+                    }
+
+                }
+
+            );
+
+        }
 
 
-                priceHTML = `
+        /* ---------------------------------------------
+           REWARD STATUS
+        --------------------------------------------- */
 
-                    <div class="item-size-price">
+        updateRewardUI(
+            currentStamps
+        );
 
-                        <div>
+    }
 
-                            <span>
 
-                                Half
+    /* =================================================
+       UPDATE REWARD UI
+    ================================================= */
 
-                            </span>
+    function updateRewardUI(currentStamps) {
 
-                            <strong>
+        const rewardUnlocked =
 
-                                ${item.half}
+            currentStamps >=
+            TOTAL_STAMPS;
 
-                            </strong>
 
-                        </div>
+        if (
+            rewardUnlocked
+        ) {
 
-                        <div>
+            localStorage.setItem(
 
-                            <span>
+                STORAGE_KEYS.rewardUnlocked,
 
-                                Full
+                "true"
 
-                            </span>
+            );
 
-                            <strong>
+        }
 
-                                ${item.full}
 
-                            </strong>
+        /* ---------------------------------------------
+           UNLOCKED STATE
+        --------------------------------------------- */
 
-                        </div>
+        if (
+            rewardUnlocked
+        ) {
+
+            if (rewardStatus) {
+
+                rewardStatus.classList.add(
+                    "reward-unlocked"
+                );
+
+
+                rewardStatus.innerHTML = `
+
+                    <div class="reward-status-icon">
+
+                        <i class="fa-solid fa-gift"></i>
 
                     </div>
 
-                `;
+                    <div class="reward-status-content">
 
-
-            }
-
-
-            else {
-
-
-                priceHTML = `
-
-                    <div class="single-item-price">
-
-                        ${item.price}
-
-                    </div>
-
-                `;
-
-
-            }
-
-
-
-            /* =================================
-               ITEM CARD HTML
-            ================================= */
-
-            itemCard.innerHTML = `
-
-                <div class="category-item-image-wrapper">
-
-                    <img
-
-                        src="${itemImage}"
-
-                        alt="${item.name}"
-
-                        class="category-item-image"
-
-                        loading="lazy"
-
-                    >
-
-                    <div class="category-item-image-overlay">
-
-                        <i class="fa-solid fa-expand"></i>
+                        <strong>
+                            Reward Unlocked!
+                        </strong>
 
                         <span>
-
-                            View
-
+                            Your FREE Veg Maggi reward is ready.
                         </span>
 
                     </div>
 
-                </div>
+                `;
+
+            }
 
 
-                <div class="category-item-info">
+            if (claimRewardBtn) {
 
-                    <h3>
+                claimRewardBtn.disabled =
+                    false;
 
-                        ${item.name}
+                claimRewardBtn.classList.remove(
+                    "reward-locked-btn"
+                );
 
-                    </h3>
-
-                    ${priceHTML}
-
-                </div>
-
-            `;
-
+                claimRewardBtn.classList.add(
+                    "reward-unlocked-btn"
+                );
 
 
-            /* =================================
-               ITEM CLICK
-            ================================= */
+                claimRewardBtn.innerHTML = `
 
-            itemCard.addEventListener(
+                    <i class="fa-solid fa-gift"></i>
 
-                "click",
+                    <span>
+                        Claim FREE Veg Maggi
+                    </span>
 
-                () => {
+                `;
 
-
-                    openItemPopup(
-
-                        category,
-
-                        item
-
-                    );
-
-
-                }
-
-            );
-
-
-
-            /* =================================
-               STAGGERED ANIMATION
-            ================================= */
-
-            itemCard.style.animationDelay =
-
-                `${index * 0.06}s`;
-
-
-
-            categoryItemsContainer.appendChild(
-
-                itemCard
-
-            );
-
+            }
 
         }
 
-    );
+
+        /* ---------------------------------------------
+           LOCKED STATE
+        --------------------------------------------- */
+
+        else {
+
+            if (rewardStatus) {
+
+                rewardStatus.classList.remove(
+                    "reward-unlocked"
+                );
+
+                rewardStatus.innerHTML = `
+
+                    <div class="reward-status-icon">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                    </div>
+
+                    <div class="reward-status-content">
+
+                        <strong>
+                            Reward Locked
+                        </strong>
+
+                        <span>
+                            Collect all 6 stamps to unlock your FREE Veg Maggi.
+                        </span>
+
+                    </div>
+
+                `;
+
+            }
 
 
+            if (claimRewardBtn) {
 
-    /* =====================================
-       HIDE CATEGORY GRID
-    ===================================== */
+                claimRewardBtn.disabled =
+                    true;
 
-    categoryGrid.style.display =
+                claimRewardBtn.classList.add(
+                    "reward-locked-btn"
+                );
 
-        "none";
-
-
-
-    /* =====================================
-       SHOW DETAIL SECTION
-    ===================================== */
-
-    categoryDetailSection.style.display =
-
-        "block";
+                claimRewardBtn.classList.remove(
+                    "reward-unlocked-btn"
+                );
 
 
+                claimRewardBtn.innerHTML = `
 
-    /* =====================================
-       SCROLL TO DETAIL
-    ===================================== */
+                    <i class="fa-solid fa-lock"></i>
 
-    categoryDetailSection.scrollIntoView({
+                    <span>
+                        Collect 6 Stamps to Unlock
+                    </span>
 
-        behavior:
-            "smooth",
+                `;
 
-        block:
-            "start"
-
-    });
-
-
-}
-
-
-
-/* =========================================
-   CATEGORY CARD CLICK EVENTS
-========================================= */
-
-document
-
-    .querySelectorAll(
-
-        ".menu-category-card"
-
-    )
-
-    .forEach(
-
-        (
-
-            categoryCard
-
-        ) => {
-
-
-            categoryCard.addEventListener(
-
-                "click",
-
-                () => {
-
-
-                    const categoryId =
-
-                        categoryCard.dataset.category;
-
-
-                    openCategory(
-
-                        categoryId
-
-                    );
-
-
-                }
-
-            );
-
+            }
 
         }
 
-    );
-
-
-
-/* =========================================
-   BACK TO CATEGORY BUTTON
-========================================= */
-
-backToCategoriesBtn.addEventListener(
-
-    "click",
-
-    () => {
-
-
-        categoryDetailSection.style.display =
-
-            "none";
-
-
-        categoryGrid.style.display =
-
-            "grid";
-
-
-        categoryGrid.scrollIntoView({
-
-            behavior:
-                "smooth",
-
-            block:
-                "start"
-
-        });
-
-
-    }
-
-);
-
-
-
-/* =========================================
-   CREATE ITEM POPUP
-========================================= */
-
-const itemPopup =
-
-    document.createElement(
-
-        "div"
-
-    );
-
-
-itemPopup.className =
-
-    "menu-item-popup";
-
-
-itemPopup.id =
-
-    "menuItemPopup";
-
-
-itemPopup.innerHTML = `
-
-    <div class="menu-popup-backdrop"></div>
-
-
-    <div class="menu-popup-card">
-
-
-        <button
-
-            type="button"
-
-            class="menu-popup-close"
-
-            id="menuPopupClose">
-
-            <i class="fa-solid fa-xmark"></i>
-
-        </button>
-
-
-
-        <div class="menu-popup-image-wrapper">
-
-
-            <img
-
-                id="popupItemImage"
-
-                src=""
-
-                alt="Menu Item"
-
-            >
-
-
-        </div>
-
-
-
-        <div class="menu-popup-content">
-
-
-            <div
-
-                class="menu-popup-category"
-
-                id="popupItemCategory">
-
-            </div>
-
-
-
-            <h2
-
-                id="popupItemName">
-
-                Menu Item
-
-            </h2>
-
-
-
-            <div
-
-                id="popupItemPrice"
-
-                class="menu-popup-price">
-
-            </div>
-
-
-
-            <button
-
-                type="button"
-
-                class="menu-popup-done-btn"
-
-                id="menuPopupDone">
-
-                <i class="fa-solid fa-check"></i>
-
-
-                Close
-
-            </button>
-
-
-        </div>
-
-
-    </div>
-
-`;
-
-
-
-document.body.appendChild(
-
-    itemPopup
-
-);
-
-
-
-/* =========================================
-   POPUP ELEMENTS
-========================================= */
-
-const popupItemImage =
-
-    document.getElementById(
-
-        "popupItemImage"
-
-    );
-
-
-const popupItemCategory =
-
-    document.getElementById(
-
-        "popupItemCategory"
-
-    );
-
-
-const popupItemName =
-
-    document.getElementById(
-
-        "popupItemName"
-
-    );
-
-
-const popupItemPrice =
-
-    document.getElementById(
-
-        "popupItemPrice"
-
-    );
-
-
-const menuPopupClose =
-
-    document.getElementById(
-
-        "menuPopupClose"
-
-    );
-
-
-const menuPopupDone =
-
-    document.getElementById(
-
-        "menuPopupDone"
-
-    );
-
-
-const menuPopupBackdrop =
-
-    itemPopup.querySelector(
-
-        ".menu-popup-backdrop"
-
-    );
-
-
-
-/* =========================================
-   OPEN ITEM POPUP
-========================================= */
-
-function openItemPopup(
-
-    category,
-
-    item
-
-) {
-
-
-    popupItemImage.src =
-
-        category.image;
-
-
-    popupItemImage.alt =
-
-        item.name;
-
-
-    popupItemCategory.textContent =
-
-        category.title;
-
-
-    popupItemName.textContent =
-
-        item.name;
-
-
-
-    if (
-
-        item.half &&
-
-        item.full
-
-    ) {
-
-
-        popupItemPrice.innerHTML = `
-
-            <div class="popup-price-option">
-
-                <span>
-
-                    Half
-
-                </span>
-
-                <strong>
-
-                    ${item.half}
-
-                </strong>
-
-            </div>
-
-
-            <div class="popup-price-option">
-
-                <span>
-
-                    Full
-
-                </span>
-
-                <strong>
-
-                    ${item.full}
-
-                </strong>
-
-            </div>
-
-        `;
-
-
     }
 
 
-    else {
+    /* =================================================
+       CUSTOMER DATA
+    ================================================= */
+
+    function loadCustomerData() {
+
+        let customerData = null;
 
 
-        popupItemPrice.innerHTML = `
+        try {
 
-            <div class="popup-price-single">
+            const savedData =
 
-                ${item.price}
-
-            </div>
-
-        `;
+                localStorage.getItem(
+                    "rioMaggiUser"
+                );
 
 
-    }
+            if (savedData) {
 
+                customerData =
+                    JSON.parse(savedData);
 
+            }
 
-    itemPopup.classList.add(
+        }
 
-        "show"
+        catch (error) {
 
-    );
+            console.warn(
+                "Customer data could not be loaded.",
+                error
+            );
 
-
-    document.body.classList.add(
-
-        "menu-popup-open"
-
-    );
-
-
-}
-
-
-
-/* =========================================
-   CLOSE ITEM POPUP
-========================================= */
-
-function closeItemPopup() {
-
-
-    itemPopup.classList.remove(
-
-        "show"
-
-    );
-
-
-    document.body.classList.remove(
-
-        "menu-popup-open"
-
-    );
-
-
-}
-
-
-
-/* =========================================
-   CLOSE BUTTON
-========================================= */
-
-menuPopupClose.addEventListener(
-
-    "click",
-
-    closeItemPopup
-
-);
-
-
-
-/* =========================================
-   DONE BUTTON
-========================================= */
-
-menuPopupDone.addEventListener(
-
-    "click",
-
-    closeItemPopup
-
-);
-
-
-
-/* =========================================
-   BACKDROP CLICK
-========================================= */
-
-menuPopupBackdrop.addEventListener(
-
-    "click",
-
-    closeItemPopup
-
-);
-
-
-
-/* =========================================
-   ESCAPE KEY
-========================================= */
-
-document.addEventListener(
-
-    "keydown",
-
-    (
-
-        event
-
-    ) => {
+        }
 
 
         if (
-
-            event.key ===
-
-            "Escape"
-
+            customerData &&
+            typeof customerData === "object"
         ) {
 
+            const name =
 
-            closeItemPopup();
+                customerData.name ||
+                customerData.fullName ||
+                customerData.displayName;
 
+
+            const photo =
+
+                customerData.photoURL ||
+                customerData.photo ||
+                customerData.profilePhoto;
+
+
+            const joinedDate =
+
+                customerData.memberSince ||
+                customerData.createdAt;
+
+
+            if (
+                name &&
+                customerName
+            ) {
+
+                customerName.textContent =
+                    name;
+
+            }
+
+
+            if (
+                photo &&
+                customerPhoto
+            ) {
+
+                customerPhoto.src =
+                    photo;
+
+            }
+
+
+            if (
+                joinedDate &&
+                memberSinceDate
+            ) {
+
+                memberSinceDate.textContent =
+
+                    formatMemberDate(
+                        joinedDate
+                    );
+
+            }
 
         }
 
 
+        /* ---------------------------------------------
+           DEFAULT DATE
+        --------------------------------------------- */
+
+        if (
+            memberSinceDate &&
+            (
+                !memberSinceDate.textContent ||
+                memberSinceDate.textContent === "--"
+            )
+        ) {
+
+            memberSinceDate.textContent =
+
+                new Date().toLocaleDateString(
+
+                    "en-IN",
+
+                    {
+
+                        day:
+                            "2-digit",
+
+                        month:
+                            "short",
+
+                        year:
+                            "numeric"
+
+                    }
+
+                );
+
+        }
+
     }
 
-);
 
+    /* =================================================
+       FORMAT MEMBER DATE
+    ================================================= */
 
-</script>
+    function formatMemberDate(dateValue) {
 
+        try {
 
+            const date =
+                new Date(dateValue);
 
-<!-- =========================================
-     END MENU.HTML PART 3/4
-========================================= -->
-     <!-- =========================================
-     RIO MAGGI POINT
-     MENU.HTML
-     PART 4/4
-     FIXED NAVIGATION + FINAL SCRIPTS
-========================================= -->
 
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
 
-<!-- =========================================
-     FIXED COMMON BOTTOM NAVIGATION
-========================================= -->
+                return "--";
 
-<nav
-class="bottom-nav"
-id="commonBottomNav">
+            }
 
 
-<!-- =====================================
-     HOME
-===================================== -->
+            return date.toLocaleDateString(
 
-<a
-href="card.html"
-class="nav-item">
+                "en-IN",
 
+                {
 
-<i class="fa-solid fa-house"></i>
+                    day:
+                        "2-digit",
 
+                    month:
+                        "short",
 
-<span>
+                    year:
+                        "numeric"
 
-Home
+                }
 
-</span>
+            );
 
+        }
 
-</a>
+        catch (error) {
 
+            return "--";
 
+        }
 
-<!-- =====================================
-     QR
-===================================== -->
+    }
 
-<a
-href="qr.html"
-class="nav-item">
 
+    /* =================================================
+       CUSTOMER PHOTO FALLBACK
+    ================================================= */
 
-<i class="fa-solid fa-qrcode"></i>
+    if (customerPhoto) {
 
+        customerPhoto.addEventListener(
 
-<span>
+            "error",
 
-QR
+            () => {
 
-</span>
+                customerPhoto.src =
+                    "assets/default-avatar.png";
 
+            },
 
-</a>
+            {
+                once:
+                    true
+            }
 
+        );
 
+    }
 
-<!-- =====================================
-     HISTORY
-===================================== -->
 
-<a
-href="history.html"
-class="nav-item">
+    /* =================================================
+       CLAIM REWARD
+    ================================================= */
 
+    if (claimRewardBtn) {
 
-<i class="fa-solid fa-clock-rotate-left"></i>
+        claimRewardBtn.addEventListener(
 
+            "click",
 
-<span>
+            () => {
 
-History
+                const currentStamps =
+                    getStampCount();
 
-</span>
 
+                if (
+                    currentStamps <
+                    TOTAL_STAMPS
+                ) {
 
-</a>
+                    return;
 
+                }
 
 
-<!-- =====================================
-     MENU
-===================================== -->
+                localStorage.setItem(
 
-<a
-href="menu.html"
-class="nav-item active">
+                    STORAGE_KEYS.rewardUnlocked,
 
+                    "true"
 
-<i class="fa-solid fa-utensils"></i>
+                );
 
 
-<span>
+                /* -------------------------------------
+                   PREVENT MULTIPLE CLAIMS
+                ------------------------------------- */
 
-Menu
+                const alreadyClaimed =
 
-</span>
+                    localStorage.getItem(
+                        STORAGE_KEYS.rewardClaimed
+                    ) === "true";
 
 
-</a>
+                if (
+                    alreadyClaimed
+                ) {
 
+                    alert(
+                        "Your reward has already been claimed."
+                    );
 
+                    return;
 
-<!-- =====================================
-     REVIEW
-===================================== -->
+                }
 
-<a
-href="feedback.html"
-class="nav-item">
 
+                /* -------------------------------------
+                   SAVE CLAIM STATE
 
-<i class="fa-solid fa-heart"></i>
+                   IMPORTANT:
+                   In the final Firebase version,
+                   this should be verified server-side
+                   by the admin before issuing reward.
+                ------------------------------------- */
 
+                localStorage.setItem(
 
-<span>
+                    STORAGE_KEYS.rewardClaimed,
 
-Review
+                    "true"
 
-</span>
+                );
 
 
-</a>
+                claimRewardBtn.innerHTML = `
 
+                    <i class="fa-solid fa-check"></i>
 
+                    <span>
+                        Reward Claim Requested
+                    </span>
 
-<!-- =====================================
-     PROFILE
-===================================== -->
+                `;
 
-<a
-href="profile.html"
-class="nav-item">
 
+                claimRewardBtn.disabled =
+                    true;
 
-<i class="fa-solid fa-user"></i>
 
+                if (rewardStatus) {
 
-<span>
+                    rewardStatus.innerHTML = `
 
-Profile
+                        <div class="reward-status-icon">
 
-</span>
+                            <i class="fa-solid fa-check"></i>
 
+                        </div>
 
-</a>
+                        <div class="reward-status-content">
 
+                            <strong>
+                                Reward Claim Requested
+                            </strong>
 
-</nav>
+                            <span>
+                                Show this loyalty card at Rio Maggi Point.
+                            </span>
 
+                        </div>
 
+                    `;
 
-<!-- =========================================
-     FINAL NAVIGATION SPACE
-========================================= -->
+                }
 
-<div
-class="nav-space">
-</div>
+            }
 
+        );
 
+    }
 
-<!-- =========================================
-     SERVICE WORKER
-========================================= -->
 
-<script>
+    /* =================================================
+       SHOP CONTACT LINKS
+    ================================================= */
 
+    if (
+        callShopBtn &&
+        SHOP_PHONE
+    ) {
+
+        callShopBtn.href =
+            `tel:${SHOP_PHONE}`;
+
+    }
+
+
+    if (
+        whatsappShopBtn &&
+        SHOP_WHATSAPP
+    ) {
+
+        whatsappShopBtn.href =
+
+            `https://wa.me/${SHOP_WHATSAPP}`;
+
+    }
+
+
+    if (
+        mapShopBtn &&
+        SHOP_MAP
+    ) {
+
+        mapShopBtn.href =
+            SHOP_MAP;
+
+    }
+
+
+    /* =================================================
+       SCROLL REVEAL ANIMATION
+       SINGLE OBSERVER
+       NO DUPLICATE OBSERVERS
+    ================================================= */
+
+    const animatedElements =
+
+        document.querySelectorAll(
+
+            ".reveal-animation"
+
+        );
+
+
+    if (
+        "IntersectionObserver"
+        in window
+    ) {
+
+        const revealObserver =
+
+            new IntersectionObserver(
+
+                (entries) => {
+
+                    entries.forEach(
+
+                        (entry) => {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    "is-visible"
+                                );
+
+
+                                revealObserver.unobserve(
+
+                                    entry.target
+
+                                );
+
+                            }
+
+                        }
+
+                    );
+
+                },
+
+                {
+
+                    threshold:
+                        0.12
+
+                }
+
+            );
+
+
+        animatedElements.forEach(
+
+            (element) => {
+
+                revealObserver.observe(
+                    element
+                );
+
+            }
+
+        );
+
+    }
+
+    else {
+
+        animatedElements.forEach(
+
+            (element) => {
+
+                element.classList.add(
+                    "is-visible"
+                );
+
+            }
+
+        );
+
+    }
+
+
+    /* =================================================
+       INITIALIZE PAGE
+    ================================================= */
+
+    loadCustomerData();
+
+    updateStampUI();
+
+
+    /* =================================================
+       PAGE READY CLASS
+    ================================================= */
+
+    document.body.classList.add(
+        "card-page-ready"
+    );
+
+});
+
+
+/* =====================================================
+   SERVICE WORKER
+   REGISTER ONLY ONCE
+===================================================== */
 
 if (
-
     "serviceWorker"
-
     in navigator
-
 ) {
-
 
     window.addEventListener(
 
         "load",
 
-        async () => {
+        () => {
 
+            navigator.serviceWorker.register(
 
-            try {
+                "./service-worker.js"
 
+            )
 
-                await navigator.serviceWorker.register(
+            .then(
 
-                    "./service-worker.js"
+                () => {
 
-                );
+                    console.log(
 
+                        "Rio Maggi Point Service Worker Registered"
 
-                console.log(
+                    );
 
-                    "Rio Maggi Point Service Worker Registered"
+                }
 
-                );
+            )
 
+            .catch(
 
-            }
+                (error) => {
 
+                    console.error(
 
-            catch (
+                        "Service Worker Registration Failed:",
 
-                error
+                        error
 
-            ) {
+                    );
 
+                }
 
-                console.error(
+            );
 
-                    "Service Worker Registration Failed:",
+        },
 
-                    error
-
-                );
-
-
-            }
-
-
+        {
+            once:
+                true
         }
 
     );
-
 
 }
 
-
 </script>
 
 
 
 <!-- =========================================
-     MENU PAGE FINAL INITIALIZATION
+     END CARD.HTML PART 3/3
 ========================================= -->
 
-<script>
-
-
-/* =========================================
-   CATEGORY CARD KEYBOARD SUPPORT
-========================================= */
-
-document
-
-    .querySelectorAll(
-
-        ".menu-category-card"
-
-    )
-
-    .forEach(
-
-        (
-
-            card
-
-        ) => {
-
-
-            card.setAttribute(
-
-                "aria-label",
-
-                "Open " +
-
-                card.dataset.category +
-
-                " menu"
-
-            );
-
-
-        }
-
-    );
-
-
-
-/* =========================================
-   IMAGE ERROR FALLBACK
-========================================= */
-
-document
-
-    .querySelectorAll(
-
-        "img"
-
-    )
-
-    .forEach(
-
-        (
-
-            image
-
-        ) => {
-
-
-            image.addEventListener(
-
-                "error",
-
-                () => {
-
-
-                    image.classList.add(
-
-                        "image-load-error"
-
-                    );
-
-
-                }
-
-            );
-
-
-        }
-
-    );
-
-
-
-/* =========================================
-   PREVENT DOUBLE TAP ZOOM
-   ON MENU CATEGORY BUTTONS
-========================================= */
-
-document
-
-    .querySelectorAll(
-
-        ".menu-category-card"
-
-    )
-
-    .forEach(
-
-        (
-
-            card
-
-        ) => {
-
-
-            card.addEventListener(
-
-                "touchstart",
-
-                () => {
-
-
-                    card.classList.add(
-
-                        "menu-card-touching"
-
-                    );
-
-
-                },
-
-                {
-
-                    passive:
-                        true
-
-                }
-
-            );
-
-
-            card.addEventListener(
-
-                "touchend",
-
-                () => {
-
-
-                    setTimeout(
-
-                        () => {
-
-
-                            card.classList.remove(
-
-                                "menu-card-touching"
-
-                            );
-
-
-                        },
-
-                        150
-
-                    );
-
-
-                },
-
-                {
-
-                    passive:
-                        true
-
-                }
-
-            );
-
-
-        }
-
-    );
-
-
-
-/* =========================================
-   PAGE READY
-========================================= */
-
-document.addEventListener(
-
-    "DOMContentLoaded",
-
-    () => {
-
-
-        document.body.classList.add(
-
-            "menu-page-ready"
-
-        );
-
-
-    }
-
-);
-
-
-</script>
-
-
-
-<!-- =========================================
-     END MAIN MENU PAGE
-========================================= -->
 
 </main>
 
 
-
 <!-- =========================================
-     END BODY
+     BODY END
 ========================================= -->
 
 </body>
 
 
-
 <!-- =========================================
-     END HTML
+     HTML END
 ========================================= -->
 
 </html>
 
 
-
 <!-- =========================================
-     MENU.HTML COMPLETE
-     TOTAL PARTS: 4/4
+     CARD.HTML COMPLETE
+     TOTAL PARTS: 3/3
+
+     IMPORTANT:
+     1. Only one HTML document
+     2. Only one DOMContentLoaded controller
+     3. Only one Service Worker registration
+     4. No duplicate bottom navigation
+     5. No duplicate card initialization
+     6. No automatic redirect to menu
+     7. Menu opens only when user clicks menu.html
+     8. Home button should point to card.html
 ========================================= -->
