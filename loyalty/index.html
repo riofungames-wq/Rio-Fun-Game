@@ -26,7 +26,7 @@
 
     <meta
         name="theme-color"
-        content="#f5d99b"
+        content="#263525"
     >
 
     <meta
@@ -86,51 +86,99 @@
 
 
     <!-- =====================================================
-         HOME PAGE CSS
+         PREMIUM HOME DASHBOARD CSS
          ===================================================== -->
 
     <style>
 
-        /* =================================================
-           HOME PAGE ONLY
-           ================================================= */
+        /* =====================================================
+           GLOBAL RESET
+           ===================================================== */
 
+        * {
 
-        body {
+            margin: 0;
 
-            background:
-                #f5d99b;
+            padding: 0;
+
+            box-sizing: border-box;
+
+            -webkit-tap-highlight-color:
+                transparent;
 
         }
 
 
-        /* =================================================
-           HOME CONTAINER
-           ================================================= */
+        html {
+
+            scroll-behavior:
+                smooth;
+
+        }
+
+
+        body {
+
+            width: 100%;
+
+            min-height: 100vh;
+
+            font-family:
+                "Poppins",
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #f5d99b 0%,
+                    #f8e5b8 45%,
+                    #f5d99b 100%
+                );
+
+            color:
+                #3a2e2b;
+
+            overflow-x:
+                hidden;
+
+        }
+
+
+        button,
+        a {
+
+            font-family:
+                inherit;
+
+        }
+
+
+        /* =====================================================
+           HOME PAGE MAIN CONTAINER
+           ===================================================== */
 
         .home-page {
 
             width: 100%;
 
-            max-width: 420px;
+            max-width: 1180px;
 
-            min-height:
-                calc(100vh - 72px);
+            min-height: 100vh;
 
             margin:
                 0 auto;
 
             padding:
-                20px
-                20px
-                30px;
+                24px
+                24px
+                110px;
 
         }
 
 
-        /* =================================================
-           TOP HEADER
-           ================================================= */
+        /* =====================================================
+           PREMIUM HEADER
+           ===================================================== */
 
         .home-header {
 
@@ -142,12 +190,23 @@
 
             justify-content: space-between;
 
-            gap: 12px;
+            gap: 20px;
 
-            margin-bottom: 20px;
+            margin-bottom:
+                24px;
+
+            animation:
+                fadeSlideDown
+                .6s
+                ease
+                both;
 
         }
 
+
+        /* =====================================================
+           BRAND
+           ===================================================== */
 
         .home-brand {
 
@@ -155,7 +214,7 @@
 
             align-items: center;
 
-            gap: 10px;
+            gap: 14px;
 
             min-width: 0;
 
@@ -164,9 +223,9 @@
 
         .home-brand-icon {
 
-            width: 46px;
+            width: 56px;
 
-            height: 46px;
+            height: 56px;
 
             flex-shrink: 0;
 
@@ -176,349 +235,659 @@
 
             justify-content: center;
 
-            border-radius: 14px;
+            border-radius: 18px;
 
             background:
-                #263525;
+                linear-gradient(
+                    135deg,
+                    #263525,
+                    #3d543d
+                );
 
             color:
                 #ffd54f;
 
-            font-size: 22px;
+            font-size:
+                25px;
+
+            box-shadow:
+                0 10px 25px
+                rgba(
+                    38,
+                    53,
+                    37,
+                    .22
+                );
+
+            transition:
+                transform
+                .3s
+                ease;
+
+        }
+
+
+        .home-brand-icon:hover {
+
+            transform:
+                rotate(
+                    -5deg
+                )
+                scale(
+                    1.05
+                );
 
         }
 
 
         .home-brand-text {
 
-            min-width: 0;
+            min-width:
+                0;
 
         }
 
 
         .home-brand-text h1 {
 
-            font-size: 18px;
+            font-size:
+                clamp(
+                    18px,
+                    3vw,
+                    24px
+                );
 
-            line-height: 1.2;
+            line-height:
+                1.2;
 
-            font-weight: 800;
+            font-weight:
+                800;
 
             color:
-                #3a2e2b;
+                #263525;
+
+            letter-spacing:
+                -.3px;
 
         }
 
 
         .home-brand-text p {
 
-            margin-top: 3px;
+            margin-top:
+                4px;
 
-            font-size: 11px;
+            font-size:
+                11px;
+
+            font-weight:
+                500;
 
             color:
                 #7a6855;
 
+            letter-spacing:
+                .4px;
+
         }
 
 
-        /* =================================================
+        /* =====================================================
            PROFILE BUTTON
-           ================================================= */
+           ===================================================== */
 
         .home-profile-btn {
 
-            width: 44px;
+            width:
+                50px;
 
-            height: 44px;
+            height:
+                50px;
 
-            flex-shrink: 0;
+            flex-shrink:
+                0;
 
-            display: flex;
+            display:
+                flex;
 
-            align-items: center;
+            align-items:
+                center;
 
-            justify-content: center;
+            justify-content:
+                center;
 
-            border-radius: 50%;
+            border-radius:
+                50%;
 
             background:
-                #fff8e7;
+                rgba(
+                    255,
+                    248,
+                    231,
+                    .9
+                );
 
             border:
                 2px solid
                 #d19b4a;
 
             color:
-                #3a2e2b;
+                #263525;
 
             text-decoration:
                 none;
+
+            box-shadow:
+                0 6px 18px
+                rgba(
+                    70,
+                    45,
+                    20,
+                    .10
+                );
+
+            transition:
+                all
+                .3s
+                ease;
+
+        }
+
+
+        .home-profile-btn:hover {
+
+            transform:
+                translateY(
+                    -3px
+                );
+
+            background:
+                #263525;
+
+            color:
+                #ffd54f;
+
+            border-color:
+                #263525;
+
+        }
+
+
+        .home-profile-btn:active {
+
+            transform:
+                scale(
+                    .94
+                );
 
         }
 
 
         .home-profile-btn i {
 
-            font-size: 19px;
+            font-size:
+                20px;
 
         }
 
 
-        /* =================================================
-           WELCOME CARD
-           ================================================= */
+        /* =====================================================
+           PREMIUM WELCOME HERO
+           ===================================================== */
 
         .welcome-card {
 
-            width: 100%;
+            position:
+                relative;
 
-            padding: 20px;
+            width:
+                100%;
 
-            margin-bottom: 18px;
+            min-height:
+                190px;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            justify-content:
+                center;
+
+            overflow:
+                hidden;
+
+            padding:
+                28px;
+
+            margin-bottom:
+                20px;
 
             background:
-                #263525;
+                linear-gradient(
+                    135deg,
+                    #263525 0%,
+                    #304630 55%,
+                    #3d543d 100%
+                );
 
             color:
-                white;
+                #ffffff;
 
-            border-radius: 18px;
+            border-radius:
+                24px;
 
             box-shadow:
-                0 8px 22px
-                rgba(0,0,0,.12);
+                0 16px 35px
+                rgba(
+                    38,
+                    53,
+                    37,
+                    .20
+                );
+
+            animation:
+                fadeSlideUp
+                .7s
+                ease
+                both;
+
+        }
+
+
+        /* =====================================================
+           HERO DECORATIVE CIRCLE
+           ===================================================== */
+
+        .welcome-card::before {
+
+            content:
+                "";
+
+            position:
+                absolute;
+
+            width:
+                180px;
+
+            height:
+                180px;
+
+            right:
+                -45px;
+
+            top:
+                -65px;
+
+            border-radius:
+                50%;
+
+            background:
+                rgba(
+                    255,
+                    213,
+                    79,
+                    .10
+                );
+
+        }
+
+
+        .welcome-card::after {
+
+            content:
+                "";
+
+            position:
+                absolute;
+
+            width:
+                100px;
+
+            height:
+                100px;
+
+            right:
+                70px;
+
+            bottom:
+                -55px;
+
+            border-radius:
+                50%;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .05
+                );
 
         }
 
 
         .welcome-card h2 {
 
-            font-size: 21px;
+            position:
+                relative;
 
-            line-height: 1.3;
+            z-index:
+                2;
 
-            margin-bottom: 6px;
+            font-size:
+                clamp(
+                    22px,
+                    4vw,
+                    32px
+                );
+
+            line-height:
+                1.25;
+
+            margin-bottom:
+                8px;
 
             color:
                 #ffd54f;
+
+            font-weight:
+                800;
 
         }
 
 
         .welcome-card p {
 
-            font-size: 13px;
+            position:
+                relative;
 
-            line-height: 1.6;
+            z-index:
+                2;
 
-            color:
-                #f5f5f5;
+            max-width:
+                600px;
 
-        }
+            font-size:
+                clamp(
+                    12px,
+                    2vw,
+                    14px
+                );
 
-
-        /* =================================================
-           LOYALTY SUMMARY
-           ================================================= */
-
-        .loyalty-summary {
-
-            width: 100%;
-
-            padding: 18px;
-
-            margin-bottom: 18px;
-
-            background:
-                #fff8e7;
-
-            border:
-                2px solid
-                #d19b4a;
-
-            border-radius: 16px;
-
-        }
-
-
-        .loyalty-summary-header {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            gap: 10px;
-
-            margin-bottom: 15px;
-
-        }
-
-
-        .loyalty-summary-header h3 {
-
-            font-size: 17px;
+            line-height:
+                1.7;
 
             color:
-                #3a2e2b;
+                rgba(
+                    255,
+                    255,
+                    255,
+                    .88
+                );
 
         }
 
 
-        .stamp-count-label {
+        /* =====================================================
+           ANIMATION KEYFRAMES
+           ===================================================== */
 
-            font-size: 13px;
+        @keyframes fadeSlideDown {
 
-            font-weight: 600;
+            from {
 
-            color:
-                #c62828;
+                opacity:
+                    0;
 
-        }
+                transform:
+                    translateY(
+                        -15px
+                    );
 
+            }
 
-        /* =================================================
-           STAMP GRID
-           ================================================= */
+            to {
 
-        .home-stamp-grid {
+                opacity:
+                    1;
 
-            display: grid;
+                transform:
+                    translateY(
+                        0
+                    );
 
-            grid-template-columns:
-                repeat(6, 1fr);
-
-            gap: 7px;
-
-        }
-
-
-        .home-stamp {
-
-            width: 100%;
-
-            aspect-ratio: 1;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 50%;
-
-            background:
-                #fff;
-
-            border:
-                2px solid
-                #d19b4a;
-
-            color:
-                #7a6855;
-
-            font-size: 12px;
-
-            font-weight: 700;
+            }
 
         }
 
 
-        .home-stamp.active {
+        @keyframes fadeSlideUp {
 
-            background:
-                #c62828;
+            from {
 
-            border-color:
-                #c62828;
+                opacity:
+                    0;
 
-            color:
-                #fff;
+                transform:
+                    translateY(
+                        20px
+                    );
 
-        }
+            }
 
+            to {
 
-        /* =================================================
-           QUICK ACTIONS
-           ================================================= */
+                opacity:
+                    1;
 
-        .quick-actions {
+                transform:
+                    translateY(
+                        0
+                    );
 
-            width: 100%;
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap: 12px;
-
-            margin-bottom: 18px;
+            }
 
         }
 
 
-        .quick-action {
+        @keyframes softPulse {
 
-            min-height: 100px;
+            0%,
+            100% {
 
-            display: flex;
+                transform:
+                    scale(
+                        1
+                    );
 
-            flex-direction: column;
+            }
 
-            align-items: center;
+            50% {
 
-            justify-content: center;
+                transform:
+                    scale(
+                        1.03
+                    );
 
-            gap: 8px;
-
-            padding: 15px;
-
-            background:
-                #fff8e7;
-
-            border:
-                2px solid
-                #e0be7b;
-
-            border-radius: 16px;
-
-            color:
-                #3a2e2b;
-
-            text-decoration:
-                none;
+            }
 
         }
 
 
-        .quick-action i {
+        /* =====================================================
+           TABLET
+           ===================================================== */
 
-            font-size: 24px;
+        @media (
+            min-width: 600px
+        ) {
 
-            color:
-                #c62828;
+            .home-page {
+
+                padding:
+                    30px
+                    30px
+                    110px;
+
+            }
+
+
+            .welcome-card {
+
+                min-height:
+                    210px;
+
+                padding:
+                    36px;
+
+            }
 
         }
 
 
-        .quick-action span {
+        /* =====================================================
+           DESKTOP
+           ===================================================== */
 
-            font-size: 12px;
+        @media (
+            min-width: 900px
+        ) {
 
-            font-weight: 600;
+            .home-page {
 
-            text-align: center;
+                padding:
+                    36px
+                    36px
+                    110px;
+
+            }
+
+
+            .home-header {
+
+                margin-bottom:
+                    28px;
+
+            }
+
+
+            .home-brand-icon {
+
+                width:
+                    62px;
+
+                height:
+                    62px;
+
+                border-radius:
+                    20px;
+
+                font-size:
+                    28px;
+
+            }
+
+
+            .home-profile-btn {
+
+                width:
+                    54px;
+
+                height:
+                    54px;
+
+            }
+
+
+            .welcome-card {
+
+                border-radius:
+                    28px;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           SMALL MOBILE
+           ===================================================== */
+
+        @media (
+            max-width: 380px
+        ) {
+
+            .home-page {
+
+                padding:
+                    16px
+                    16px
+                    105px;
+
+            }
+
+
+            .home-brand {
+
+                gap:
+                    10px;
+
+            }
+
+
+            .home-brand-icon {
+
+                width:
+                    46px;
+
+                height:
+                    46px;
+
+                border-radius:
+                    14px;
+
+                font-size:
+                    20px;
+
+            }
+
+
+            .home-brand-text h1 {
+
+                font-size:
+                    16px;
+
+            }
+
+
+            .home-profile-btn {
+
+                width:
+                    44px;
+
+                height:
+                    44px;
+
+            }
+
+
+            .welcome-card {
+
+                padding:
+                    22px;
+
+                border-radius:
+                    20px;
+
+            }
 
         }
 
     </style>
 
 </head>
-
-
 <body>
 
     <!-- =====================================================
@@ -529,7 +898,7 @@
 
 
         <!-- =================================================
-             HEADER
+             PREMIUM HEADER
              ================================================= -->
 
         <header class="home-header">
@@ -558,10 +927,12 @@
             </div>
 
 
+            <!-- PROFILE -->
+
             <a
                 href="profile.html"
                 class="home-profile-btn"
-                aria-label="Profile"
+                aria-label="Open Profile"
             >
 
                 <i class="fa-solid fa-user"></i>
@@ -572,17 +943,24 @@
 
 
         <!-- =================================================
-             WELCOME
+             WELCOME HERO
              ================================================= -->
 
-        <section class="welcome-card">
+        <section
+            class="welcome-card"
+            aria-label="Welcome"
+        >
 
             <h2 id="welcomeTitle">
                 Welcome!
             </h2>
 
+
             <p id="welcomeSubtitle">
-                Welcome to Rio Maggi Point Premium Loyalty Club.
+
+                Welcome to Rio Maggi Point
+                Premium Loyalty Club.
+
             </p>
 
         </section>
@@ -592,31 +970,69 @@
              LOYALTY SUMMARY
              ================================================= -->
 
-        <section class="loyalty-summary">
+        <section
+            class="loyalty-summary"
+            aria-label="Loyalty Summary"
+        >
 
             <div class="loyalty-summary-header">
 
-                <h3>
-                    Loyalty Summary
-                </h3>
+                <div>
+
+                    <h3>
+                        Loyalty Summary
+                    </h3>
+
+                    <p>
+                        Collect 6 stamps & get 1 Veg Maggi FREE
+                    </p>
+
+                </div>
 
 
                 <span
                     class="stamp-count-label"
                     id="stampCountLabel"
                 >
-                    ⭐ 0/6 Stamps
+
+                    ⭐ 0/6
+
                 </span>
 
             </div>
 
+
+            <!-- =================================================
+                 STAMP GRID
+                 ================================================= -->
 
             <div
                 class="home-stamp-grid"
                 id="homeStampGrid"
             >
 
-                <!-- JavaScript will create 6 stamps -->
+                <!--
+                    JavaScript will automatically
+                    create 6 loyalty stamps here.
+                -->
+
+            </div>
+
+
+            <!-- =================================================
+                 LOYALTY MESSAGE
+                 ================================================= -->
+
+            <div
+                class="loyalty-progress-message"
+                id="loyaltyProgressMessage"
+            >
+
+                <i class="fa-solid fa-gift"></i>
+
+                <span>
+                    Keep collecting stamps to unlock your FREE Veg Maggi!
+                </span>
 
             </div>
 
@@ -627,61 +1043,136 @@
              QUICK ACTIONS
              ================================================= -->
 
-        <section class="quick-actions">
+        <section
+            class="quick-actions"
+            aria-label="Quick Actions"
+        >
 
+
+            <!-- MY QR -->
 
             <a
                 href="qr.html"
                 class="quick-action"
             >
 
-                <i class="fa-solid fa-qrcode"></i>
+                <div class="quick-action-icon">
 
-                <span>
-                    My QR Code
-                </span>
+                    <i class="fa-solid fa-qrcode"></i>
+
+                </div>
+
+
+                <div class="quick-action-content">
+
+                    <strong>
+                        My QR Code
+                    </strong>
+
+                    <span>
+                        Show your loyalty QR
+                    </span>
+
+                </div>
+
+
+                <i class="fa-solid fa-chevron-right quick-action-arrow"></i>
 
             </a>
 
+
+            <!-- HISTORY -->
 
             <a
                 href="history.html"
                 class="quick-action"
             >
 
-                <i class="fa-solid fa-clock-rotate-left"></i>
+                <div class="quick-action-icon">
 
-                <span>
-                    Stamp History
-                </span>
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+
+                </div>
+
+
+                <div class="quick-action-content">
+
+                    <strong>
+                        Stamp History
+                    </strong>
+
+                    <span>
+                        View your purchase stamps
+                    </span>
+
+                </div>
+
+
+                <i class="fa-solid fa-chevron-right quick-action-arrow"></i>
 
             </a>
 
+
+            <!-- MENU -->
 
             <a
                 href="menu.html"
                 class="quick-action"
             >
 
-                <i class="fa-solid fa-utensils"></i>
+                <div class="quick-action-icon">
 
-                <span>
-                    View Menu
-                </span>
+                    <i class="fa-solid fa-utensils"></i>
+
+                </div>
+
+
+                <div class="quick-action-content">
+
+                    <strong>
+                        View Menu
+                    </strong>
+
+                    <span>
+                        Explore Rio Maggi Point menu
+                    </span>
+
+                </div>
+
+
+                <i class="fa-solid fa-chevron-right quick-action-arrow"></i>
 
             </a>
 
+
+            <!-- FEEDBACK -->
 
             <a
                 href="feedback.html"
                 class="quick-action"
             >
 
-                <i class="fa-solid fa-star"></i>
+                <div class="quick-action-icon">
 
-                <span>
-                    Give Feedback
-                </span>
+                    <i class="fa-solid fa-star"></i>
+
+                </div>
+
+
+                <div class="quick-action-content">
+
+                    <strong>
+                        Give Feedback
+                    </strong>
+
+                    <span>
+                        Share your experience
+                    </span>
+
+                </div>
+
+
+                <i class="fa-solid fa-chevron-right quick-action-arrow"></i>
 
             </a>
 
@@ -690,21 +1181,256 @@
 
 
         <!-- =================================================
-             PART 2 WILL CONTINUE HERE
+             CONTACT & SERVICES
+             PART 3 WILL CONTINUE HERE
              ================================================= -->
+                <!-- =====================================================
+             CONTACT & SERVICES
+             ===================================================== -->
+
+        <section
+            class="contact-services"
+            aria-label="Contact and Services"
+        >
+
+
+            <!-- =================================================
+                 CALL US
+                 ================================================= -->
+
+            <a
+                href="tel:+917987827979"
+                class="service-card service-call"
+                aria-label="Call Rio Maggi Point"
+            >
+
+                <div class="service-card-icon">
+
+                    <i class="fa-solid fa-phone"></i>
+
+                </div>
+
+
+                <div class="service-card-content">
+
+                    <strong>
+                        Call Us
+                    </strong>
+
+                    <span>
+                        7987827979
+                    </span>
+
+                </div>
+
+
+                <i class="fa-solid fa-chevron-right service-arrow"></i>
+
+            </a>
+
+
+            <!-- =================================================
+                 WHATSAPP
+                 ================================================= -->
+
+            <a
+                href="https://wa.me/917987827979"
+                class="service-card service-whatsapp"
+                target="_blank"
+                rel="noopener"
+                aria-label="Chat with Rio Maggi Point on WhatsApp"
+            >
+
+                <div class="service-card-icon">
+
+                    <i class="fa-brands fa-whatsapp"></i>
+
+                </div>
+
+
+                <div class="service-card-content">
+
+                    <strong>
+                        WhatsApp
+                    </strong>
+
+                    <span>
+                        Chat with us
+                    </span>
+
+                </div>
+
+
+                <i class="fa-solid fa-chevron-right service-arrow"></i>
+
+            </a>
+
+
+            <!-- =================================================
+                 MAP - COMING SOON
+                 ================================================= -->
+
+            <button
+                type="button"
+                class="service-card service-coming-soon"
+                aria-label="Map Coming Soon"
+                onclick="showComingSoon('Map')"
+            >
+
+                <div class="service-card-icon">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                </div>
+
+
+                <div class="service-card-content">
+
+                    <strong>
+                        Find Our Location
+                    </strong>
+
+                    <span>
+                        Map Coming Soon
+                    </span>
+
+                </div>
+
+
+                <span class="coming-soon-badge">
+                    Coming Soon
+                </span>
+
+            </button>
+
+
+            <!-- =================================================
+                 DELIVERY - COMING SOON
+                 ================================================= -->
+
+            <button
+                type="button"
+                class="service-card service-coming-soon"
+                aria-label="Delivery Coming Soon"
+                onclick="showComingSoon('Delivery')"
+            >
+
+                <div class="service-card-icon">
+
+                    <i class="fa-solid fa-motorcycle"></i>
+
+                </div>
+
+
+                <div class="service-card-content">
+
+                    <strong>
+                        Home Delivery
+                    </strong>
+
+                    <span>
+                        Delivery Service Coming Soon
+                    </span>
+
+                </div>
+
+
+                <span class="coming-soon-badge">
+                    Coming Soon
+                </span>
+
+            </button>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             PREMIUM FOOTER MESSAGE
+             ===================================================== -->
+
+        <section class="home-footer-message">
+
+            <div class="home-footer-icon">
+
+                <i class="fa-solid fa-heart"></i>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Thank you for being a Rio Maggi Point member!
+                </strong>
+
+                <p>
+                    Fresh • Tasty • Hygienic
+                </p>
+
+            </div>
+
+        </section>
+
 
     </main>
-        <!-- =====================================================
+
+
+    <!-- =====================================================
+         COMING SOON POPUP
+         ===================================================== -->
+
+    <div
+        class="coming-soon-popup"
+        id="comingSoonPopup"
+        aria-hidden="true"
+    >
+
+        <div class="coming-soon-popup-box">
+
+            <div class="coming-soon-popup-icon">
+
+                <i class="fa-solid fa-clock"></i>
+
+            </div>
+
+
+            <h3 id="comingSoonTitle">
+                Coming Soon
+            </h3>
+
+
+            <p id="comingSoonText">
+                This feature will be available soon.
+            </p>
+
+
+            <button
+                type="button"
+                onclick="closeComingSoon()"
+            >
+
+                OK
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
          BOTTOM NAVIGATION
-         FIXED MASTER LAYOUT
-         SAME SIZE ON EVERY PAGE
+         
+         NOTE:
+         FINAL NAVIGATION WILL BE FIXED AFTER
+         ALL 5 MAIN PAGES ARE COMPLETED.
          ===================================================== -->
 
     <nav
         class="bottom-nav"
         aria-label="Main Navigation"
     >
-
 
         <a
             href="index.html"
@@ -761,7 +1487,6 @@
 
         </a>
 
-
     </nav>
 
 
@@ -771,38 +1496,32 @@
 
     <script type="module">
 
-
         import {
             firebaseConfig
-        }
-        from "./js/firebase-config.js";
+        } from "./js/firebase-config.js";
 
 
         import {
             initializeApp
-        }
-        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
 
         import {
             getAuth,
             onAuthStateChanged
-        }
-        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 
         import {
             getFirestore,
             doc,
             getDoc
-        }
-        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 
         /* =================================================
            FIREBASE INITIALIZE
            ================================================= */
-
 
         const app =
             initializeApp(
@@ -825,7 +1544,6 @@
         /* =================================================
            HTML ELEMENTS
            ================================================= */
-
 
         const welcomeTitle =
             document.getElementById(
@@ -851,10 +1569,15 @@
             );
 
 
+        const loyaltyProgressMessage =
+            document.getElementById(
+                "loyaltyProgressMessage"
+            );
+
+
         /* =================================================
            AUTH CHECK
            ================================================= */
-
 
         onAuthStateChanged(
 
@@ -866,7 +1589,6 @@
                 /* -----------------------------------------
                    USER NOT LOGGED IN
                    ----------------------------------------- */
-
 
                 if (!user) {
 
@@ -882,7 +1604,6 @@
                    DEFAULT USER NAME
                    ----------------------------------------- */
 
-
                 welcomeTitle.textContent =
                     "Welcome!";
 
@@ -895,9 +1616,7 @@
                    LOAD CUSTOMER DATA
                    ----------------------------------------- */
 
-
                 try {
-
 
                     const userRef =
                         doc(
@@ -917,11 +1636,9 @@
                        CUSTOMER FOUND
                        ------------------------------------- */
 
-
                     if (
                         userSnap.exists()
                     ) {
-
 
                         const data =
                             userSnap.data();
@@ -939,9 +1656,22 @@
 
 
                         /* ---------------------------------
-                           WELCOME NAME
+                           SAFE STAMP VALUE
                            --------------------------------- */
 
+                        const safeStamps =
+                            Math.min(
+                                Math.max(
+                                    stamps,
+                                    0
+                                ),
+                                6
+                            );
+
+
+                        /* ---------------------------------
+                           WELCOME NAME
+                           --------------------------------- */
 
                         welcomeTitle.textContent =
                             "Welcome, " +
@@ -957,46 +1687,36 @@
                            STAMP COUNT
                            --------------------------------- */
 
-
-                        const safeStamps =
-                            Math.min(
-                                Math.max(
-                                    stamps,
-                                    0
-                                ),
-                                6
-                            );
-
-
                         stampCountLabel.textContent =
                             "⭐ " +
                             safeStamps +
-                            "/6 Stamps";
+                            "/6";
 
 
                         /* ---------------------------------
                            RENDER STAMPS
                            --------------------------------- */
 
-
                         renderHomeStamps(
+                            safeStamps
+                        );
+
+
+                        /* ---------------------------------
+                           UPDATE PROGRESS MESSAGE
+                           --------------------------------- */
+
+                        updateLoyaltyMessage(
                             safeStamps
                         );
 
 
                     }
 
-
-                    /* -------------------------------------
-                       CUSTOMER DOCUMENT NOT FOUND
-                       ------------------------------------- */
-
-
                     else {
 
-
                         stampCountLabel.textContent =
-                            "⭐ 0/6 Stamps";
+                            "⭐ 0/6";
 
 
                         renderHomeStamps(
@@ -1004,21 +1724,19 @@
                         );
 
 
+                        updateLoyaltyMessage(
+                            0
+                        );
+
                     }
 
 
                 }
 
 
-                /* -----------------------------------------
-                   FIREBASE ERROR
-                   ----------------------------------------- */
-
-
                 catch (
                     error
                 ) {
-
 
                     console.error(
                         "Home Firebase Error:",
@@ -1027,13 +1745,17 @@
 
 
                     stampCountLabel.textContent =
-                        "⭐ 0/6 Stamps";
+                        "⭐ 0/6";
 
 
                     renderHomeStamps(
                         0
                     );
 
+
+                    updateLoyaltyMessage(
+                        0
+                    );
 
                 }
 
@@ -1046,7 +1768,6 @@
         /* =================================================
            RENDER HOME STAMPS
            ================================================= */
-
 
         function renderHomeStamps(
             count
@@ -1088,7 +1809,6 @@
                    ACTIVE STAMP
                    ----------------------------------------- */
 
-
                 if (
                     i <= safeCount
                 ) {
@@ -1109,7 +1829,6 @@
                 /* -----------------------------------------
                    EMPTY STAMP
                    ----------------------------------------- */
-
 
                 else {
 
@@ -1133,9 +1852,205 @@
 
 
         /* =================================================
-           SERVICE WORKER
+           LOYALTY MESSAGE
            ================================================= */
 
+        function updateLoyaltyMessage(
+            count
+        ) {
+
+
+            const safeCount =
+                Math.min(
+                    Math.max(
+                        Number(count) || 0,
+                        0
+                    ),
+                    6
+                );
+
+
+            if (
+                safeCount >= 6
+            ) {
+
+
+                loyaltyProgressMessage.innerHTML =
+
+                    '<i class="fa-solid fa-gift"></i>' +
+
+                    '<span>' +
+
+                    '🎉 Congratulations! Your FREE Veg Maggi is unlocked!' +
+
+                    '</span>';
+
+
+                loyaltyProgressMessage.classList.add(
+                    "reward-unlocked"
+                );
+
+
+            }
+
+
+            else {
+
+
+                const remaining =
+                    6 -
+                    safeCount;
+
+
+                loyaltyProgressMessage.innerHTML =
+
+                    '<i class="fa-solid fa-gift"></i>' +
+
+                    '<span>' +
+
+                    remaining +
+                    ' more stamp' +
+                    (
+                        remaining !== 1
+                        ? 's'
+                        : ''
+                    ) +
+
+                    ' to unlock your FREE Veg Maggi!' +
+
+                    '</span>';
+
+
+                loyaltyProgressMessage.classList.remove(
+                    "reward-unlocked"
+                );
+
+
+            }
+
+
+        }
+
+
+        /* =================================================
+           COMING SOON POPUP
+           ================================================= */
+
+        window.showComingSoon =
+            function (
+                feature
+            ) {
+
+
+                const popup =
+                    document.getElementById(
+                        "comingSoonPopup"
+                    );
+
+
+                const title =
+                    document.getElementById(
+                        "comingSoonTitle"
+                    );
+
+
+                const text =
+                    document.getElementById(
+                        "comingSoonText"
+                    );
+
+
+                title.textContent =
+                    feature +
+                    " Coming Soon";
+
+
+                text.textContent =
+                    "The " +
+                    feature.toLowerCase() +
+                    " feature will be available soon. Stay tuned!";
+
+
+                popup.classList.add(
+                    "show"
+                );
+
+
+                popup.setAttribute(
+                    "aria-hidden",
+                    "false"
+                );
+
+
+            };
+
+
+        /* =================================================
+           CLOSE COMING SOON
+           ================================================= */
+
+        window.closeComingSoon =
+            function () {
+
+
+                const popup =
+                    document.getElementById(
+                        "comingSoonPopup"
+                    );
+
+
+                popup.classList.remove(
+                    "show"
+                );
+
+
+                popup.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+
+            };
+
+
+        /* =================================================
+           CLOSE POPUP ON BACKDROP CLICK
+           ================================================= */
+
+        document.addEventListener(
+
+            "click",
+
+            function (
+                event
+            ) {
+
+
+                const popup =
+                    document.getElementById(
+                        "comingSoonPopup"
+                    );
+
+
+                if (
+                    event.target === popup
+                ) {
+
+
+                    closeComingSoon();
+
+
+                }
+
+
+            }
+
+        );
+
+
+        /* =================================================
+           SERVICE WORKER
+           ================================================= */
 
         if (
             "serviceWorker"
@@ -1182,7 +2097,6 @@
            STARTUP
            ================================================= */
 
-
         console.log(
             "================================="
         );
@@ -1194,22 +2108,32 @@
 
 
         console.log(
-            "HOME PAGE READY"
+            "PREMIUM HOME UI READY"
         );
 
 
         console.log(
-            "FIREBASE USER LOADING READY"
+            "CALL: 7987827979"
         );
 
 
         console.log(
-            "LOYALTY STAMP DISPLAY READY"
+            "WHATSAPP: +917987827979"
         );
 
 
         console.log(
-            "MASTER BOTTOM NAVIGATION READY"
+            "MAP: COMING SOON"
+        );
+
+
+        console.log(
+            "DELIVERY: COMING SOON"
+        );
+
+
+        console.log(
+            "LOYALTY STAMP SYSTEM READY"
         );
 
 
@@ -1219,12 +2143,9 @@
 
 
     </script>
-        <!-- =====================================================
-         FINAL PAGE END
-         ===================================================== -->
 
 
 </body>
 
-
 </html>
+
