@@ -470,7 +470,7 @@ body {
    RIO MAGGI POINT
    PREMIUM LOYALTY CARD
    CARD.CSS - PART 2 OF 3
-   CORRECTED FINAL VERSION
+   CONTINUED FROM PART 1
 ========================================= */
 
 
@@ -1100,8 +1100,29 @@ body {
    RIO MAGGI POINT
    PREMIUM LOYALTY CARD
    CARD.CSS - PART 3 OF 3
-   CORRECTED FINAL VERSION
+   FINAL RESPONSIVE + COMING SOON
 ========================================= */
+
+
+/* =========================================
+   RESPONSIVE BASE SAFETY
+========================================= */
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
 
 
 /* =========================================
@@ -1109,10 +1130,12 @@ body {
 ========================================= */
 
 .stamp-row {
+    width: 100%;
     overflow: visible;
 }
 
 .stamp-item {
+    min-width: 0;
     flex-shrink: 1;
 }
 
@@ -1125,16 +1148,18 @@ body {
    EMPTY STAMP DESIGN
 ========================================= */
 
-.stamp-circle:not(.active):not(.reward-circle) {
+.stamp-circle:not(.active) {
     background:
         linear-gradient(
             145deg,
             #292929,
             #181818
         );
+
     border:
         2px solid
         rgba(212,175,55,.35);
+
     box-shadow:
         inset 0 2px 6px
         rgba(0,0,0,.55),
@@ -1169,14 +1194,16 @@ body {
 
 
 /* =========================================
-   COUNTDOWN WHEN ACTIVE
+   COUNTDOWN ACTIVE
 ========================================= */
 
 .countdown-box.active {
     border-color:
         rgba(212,175,55,.65);
+
     background:
         rgba(212,175,55,.15);
+
     box-shadow:
         0 0 18px
         rgba(212,175,55,.12);
@@ -1190,6 +1217,7 @@ body {
 .countdown-box.reward-unlocked {
     border-color:
         rgba(255,215,80,.7);
+
     background:
         linear-gradient(
             135deg,
@@ -1227,9 +1255,11 @@ body {
     position: absolute;
     inset: -4px;
     border-radius: 50%;
+
     border:
         1px solid
         rgba(255,240,184,.45);
+
     pointer-events: none;
 }
 
@@ -1245,7 +1275,7 @@ body {
 
 
 /* =========================================
-   DISABLE TEXT SELECTION ON UI BUTTONS
+   DISABLE TEXT SELECTION
 ========================================= */
 
 .game-button,
@@ -1271,16 +1301,23 @@ body {
 ========================================= */
 
 #deliveryBtn {
+    position: relative;
     background:
         linear-gradient(
             180deg,
             #202020,
             #151515
         );
+
+    cursor: default;
 }
 
 #deliveryBtn small {
+    display: block;
+    margin-top: 2px;
     color: #d8c17b;
+    font-size: 8px;
+    font-weight: 600;
 }
 
 
@@ -1289,16 +1326,23 @@ body {
 ========================================= */
 
 #mapBtn {
+    position: relative;
     background:
         linear-gradient(
             180deg,
             #202020,
             #151515
         );
+
+    cursor: default;
 }
 
 #mapBtn small {
+    display: block;
+    margin-top: 2px;
     color: #d8c17b;
+    font-size: 8px;
+    font-weight: 600;
 }
 
 
@@ -1327,18 +1371,48 @@ body {
 
 
 /* =========================================
-   SMALL MOBILE WIDTH
+   SMALL MOBILE
+   UP TO 350PX
 ========================================= */
 
 @media (max-width: 350px) {
 
+    body {
+        padding:
+            12px
+            8px
+            90px;
+    }
+
+    .page {
+        max-width: 100%;
+        padding-bottom: 90px;
+    }
+
     .premium-card {
-        padding: 17px;
-        border-radius: 24px;
+        padding: 15px;
+        border-radius: 22px;
     }
 
     .brand-title {
-        font-size: 23px;
+        font-size: 22px;
+    }
+
+    .brand-subtitle {
+        font-size: 9px;
+    }
+
+    .avatar-frame {
+        width: 95px;
+        height: 95px;
+    }
+
+    .customer-name {
+        font-size: 20px;
+    }
+
+    .customer-id {
+        font-size: 12px;
     }
 
     .stamp-row {
@@ -1370,6 +1444,10 @@ body {
 
     .quick-buttons button {
         min-height: 64px;
+        padding:
+            7px
+            2px;
+
         font-size: 8px;
     }
 
@@ -1378,12 +1456,14 @@ body {
     }
 
     .quick-buttons button small {
-        font-size: 4px;
+        font-size: 6px;
     }
 
     .game-button {
         min-width: 165px;
-        padding: 9px 12px;
+        padding:
+            9px
+            12px;
     }
 
     .game-button .game-text {
@@ -1392,9 +1472,13 @@ body {
     }
 
     .bottom-nav {
-        width: calc(100% - 12px);
+        width:
+            calc(100% - 12px);
+
         height: 64px;
+
         bottom: 6px;
+
         border-radius: 19px;
     }
 
@@ -1410,17 +1494,110 @@ body {
 
 
 /* =========================================
-   LARGE DESKTOP SAFETY
+   MOBILE
+   351PX - 599PX
 ========================================= */
 
-@media (min-width: 1200px) {
+@media (min-width: 351px) and (max-width: 599px) {
 
     body {
-        padding-top: 30px;
+        padding:
+            15px
+            10px
+            95px;
+    }
+
+    .page {
+        width: 100%;
+        max-width: 430px;
     }
 
     .premium-card {
-        padding: 25px;
+        width: 100%;
+    }
+
+    .quick-buttons {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =========================================
+   TABLET
+   600PX - 899PX
+========================================= */
+
+@media (min-width: 600px) and (max-width: 899px) {
+
+    body {
+        padding:
+            28px
+            24px
+            120px;
+    }
+
+    .page {
+        width: 100%;
+        max-width: 650px;
+    }
+
+    .premium-card {
+        padding: 30px;
+        border-radius: 30px;
+    }
+
+    .brand-title {
+        font-size: 36px;
+    }
+
+    .brand-subtitle {
+        font-size: 13px;
+    }
+
+    .avatar-frame {
+        width: 140px;
+        height: 140px;
+    }
+
+    .customer-name {
+        font-size: 28px;
+    }
+
+    .customer-id {
+        font-size: 15px;
+    }
+
+    .game-button {
+        min-width: 230px;
+        padding:
+            13px
+            22px;
+    }
+
+    .game-button .game-text {
+        font-size: 13px;
+    }
+
+    .stamp-circle,
+    .reward-circle {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+    }
+
+    .stamp-circle {
+        font-size: 18px;
+    }
+
+    .reward-circle {
+        font-size: 8px;
+        line-height: 9px;
+    }
+
+    .stamp-date {
+        font-size: 8px;
     }
 
     .quick-buttons {
@@ -1428,7 +1605,202 @@ body {
     }
 
     .quick-buttons button {
-        min-height: 80px;
+        min-height: 85px;
+        font-size: 12px;
+    }
+
+    .quick-buttons button i {
+        font-size: 22px;
+    }
+
+}
+
+
+/* =========================================
+   LAPTOP
+   900PX - 1199PX
+========================================= */
+
+@media (min-width: 900px) and (max-width: 1199px) {
+
+    body {
+        padding:
+            35px
+            30px
+            120px;
+    }
+
+    .page {
+        width: 100%;
+        max-width: 760px;
+    }
+
+    .premium-card {
+        padding: 34px;
+        border-radius: 32px;
+    }
+
+    .brand-title {
+        font-size: 40px;
+    }
+
+    .brand-subtitle {
+        font-size: 14px;
+    }
+
+    .avatar-frame {
+        width: 150px;
+        height: 150px;
+    }
+
+    .customer-name {
+        font-size: 30px;
+    }
+
+    .game-button {
+        min-width: 250px;
+        padding:
+            14px
+            24px;
+    }
+
+    .stamp-circle,
+    .reward-circle {
+        width: 58px;
+        height: 58px;
+        min-width: 58px;
+    }
+
+    .stamp-circle {
+        font-size: 20px;
+    }
+
+    .reward-circle {
+        font-size: 9px;
+        line-height: 10px;
+    }
+
+    .quick-buttons {
+        gap: 12px;
+    }
+
+    .quick-buttons button {
+        min-height: 95px;
+        font-size: 13px;
+    }
+
+    .quick-buttons button i {
+        font-size: 24px;
+    }
+
+}
+
+
+/* =========================================
+   DESKTOP
+   1200PX AND ABOVE
+========================================= */
+
+@media (min-width: 1200px) {
+
+    body {
+        padding:
+            40px
+            40px
+            130px;
+    }
+
+    .page {
+        width: 100%;
+        max-width: 850px;
+    }
+
+    .premium-card {
+        padding: 38px;
+        border-radius: 34px;
+    }
+
+    .brand-title {
+        font-size: 44px;
+    }
+
+    .brand-subtitle {
+        font-size: 15px;
+    }
+
+    .avatar-frame {
+        width: 165px;
+        height: 165px;
+    }
+
+    .customer-name {
+        font-size: 34px;
+    }
+
+    .customer-id {
+        font-size: 16px;
+    }
+
+    .game-button {
+        min-width: 270px;
+        padding:
+            15px
+            26px;
+    }
+
+    .game-button .game-text {
+        font-size: 14px;
+    }
+
+    .stamp-circle,
+    .reward-circle {
+        width: 64px;
+        height: 64px;
+        min-width: 64px;
+    }
+
+    .stamp-circle {
+        font-size: 22px;
+    }
+
+    .reward-circle {
+        font-size: 10px;
+        line-height: 11px;
+    }
+
+    .stamp-date {
+        font-size: 9px;
+    }
+
+    .quick-buttons {
+        gap: 14px;
+    }
+
+    .quick-buttons button {
+        min-height: 105px;
+        font-size: 14px;
+    }
+
+    .quick-buttons button i {
+        font-size: 26px;
+    }
+
+}
+
+
+/* =========================================
+   ULTRA WIDE DESKTOP
+   1600PX AND ABOVE
+========================================= */
+
+@media (min-width: 1600px) {
+
+    .page {
+        max-width: 900px;
+    }
+
+    .premium-card {
+        padding: 42px;
     }
 
 }
@@ -1466,13 +1838,43 @@ body {
 
 .card-shine {
     z-index: 3;
+    pointer-events: none;
 }
 
 .game-button {
+    position: relative;
     z-index: 4;
 }
 
 
 /* =========================================
+   ACCESSIBILITY FOCUS
+========================================= */
+
+.game-button:focus-visible,
+.quick-buttons button:focus-visible,
+.bottom-nav a:focus-visible {
+    outline:
+        2px solid
+        var(--gold-light);
+
+    outline-offset: 3px;
+}
+
+
+/* =========================================
+   PREVENT OVERFLOW
+========================================= */
+
+.premium-card,
+.quick-buttons,
+.stamp-section,
+.stamp-row {
+    max-width: 100%;
+}
+
+
+/* =========================================
    END OF CARD.CSS
+   PART 3 OF 3
 ========================================= */
