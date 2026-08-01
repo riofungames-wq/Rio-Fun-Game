@@ -3,2149 +3,2656 @@
 
 <head>
 
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>
-        Rio Maggi Point - Home
-    </title>
-
-
-    <!-- =====================================================
-         PWA
-         ===================================================== -->
-
-    <link
-        rel="manifest"
-        href="manifest.json"
-    >
-
-    <meta
-        name="theme-color"
-        content="#263525"
-    >
-
-    <meta
-        name="mobile-web-app-capable"
-        content="yes"
-    >
-
-    <meta
-        name="apple-mobile-web-app-capable"
-        content="yes"
-    >
-
-    <meta
-        name="apple-mobile-web-app-status-bar-style"
-        content="default"
-    >
-
-    <link
-        rel="icon"
-        href="favicon.ico"
-    >
-
-    <link
-        rel="apple-touch-icon"
-        href="icon-192.png"
-    >
-
-
-    <!-- =====================================================
-         GOOGLE FONT
-         ===================================================== -->
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
-
-
-    <!-- =====================================================
-         FONT AWESOME
-         ===================================================== -->
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    >
-
-
-    <!-- =====================================================
-         COMMON CSS
-         ===================================================== -->
-
-    <link
-        rel="stylesheet"
-        href="common.css"
-    >
-
-
-    <!-- =====================================================
-         PREMIUM HOME DASHBOARD CSS
-         ===================================================== -->
-
-    <style>
-
-        /* =====================================================
-           GLOBAL RESET
-           ===================================================== */
-
-        * {
-
-            margin: 0;
-
-            padding: 0;
-
-            box-sizing: border-box;
-
-            -webkit-tap-highlight-color:
-                transparent;
-
-        }
-
-
-        html {
-
-            scroll-behavior:
-                smooth;
-
-        }
-
-
-        body {
-
-            width: 100%;
-
-            min-height: 100vh;
-
-            font-family:
-                "Poppins",
-                sans-serif;
-
-            background:
-                linear-gradient(
-                    180deg,
-                    #f5d99b 0%,
-                    #f8e5b8 45%,
-                    #f5d99b 100%
-                );
-
-            color:
-                #3a2e2b;
-
-            overflow-x:
-                hidden;
-
-        }
-
-
-        button,
-        a {
-
-            font-family:
-                inherit;
-
-        }
-
-
-        /* =====================================================
-           HOME PAGE MAIN CONTAINER
-           ===================================================== */
-
-        .home-page {
-
-            width: 100%;
-
-            max-width: 1180px;
-
-            min-height: 100vh;
-
-            margin:
-                0 auto;
-
-            padding:
-                24px
-                24px
-                110px;
-
-        }
-
-
-        /* =====================================================
-           PREMIUM HEADER
-           ===================================================== */
-
-        .home-header {
-
-            width: 100%;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            gap: 20px;
-
-            margin-bottom:
-                24px;
-
-            animation:
-                fadeSlideDown
-                .6s
-                ease
-                both;
-
-        }
-
-
-        /* =====================================================
-           BRAND
-           ===================================================== */
-
-        .home-brand {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 14px;
-
-            min-width: 0;
-
-        }
-
-
-        .home-brand-icon {
-
-            width: 56px;
-
-            height: 56px;
-
-            flex-shrink: 0;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 18px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #263525,
-                    #3d543d
-                );
-
-            color:
-                #ffd54f;
-
-            font-size:
-                25px;
-
-            box-shadow:
-                0 10px 25px
-                rgba(
-                    38,
-                    53,
-                    37,
-                    .22
-                );
-
-            transition:
-                transform
-                .3s
-                ease;
-
-        }
-
-
-        .home-brand-icon:hover {
-
-            transform:
-                rotate(
-                    -5deg
-                )
-                scale(
-                    1.05
-                );
-
-        }
-
-
-        .home-brand-text {
-
-            min-width:
-                0;
-
-        }
-
-
-        .home-brand-text h1 {
-
-            font-size:
-                clamp(
-                    18px,
-                    3vw,
-                    24px
-                );
-
-            line-height:
-                1.2;
-
-            font-weight:
-                800;
-
-            color:
-                #263525;
-
-            letter-spacing:
-                -.3px;
-
-        }
-
-
-        .home-brand-text p {
-
-            margin-top:
-                4px;
-
-            font-size:
-                11px;
-
-            font-weight:
-                500;
-
-            color:
-                #7a6855;
-
-            letter-spacing:
-                .4px;
-
-        }
-
-
-        /* =====================================================
-           PROFILE BUTTON
-           ===================================================== */
-
-        .home-profile-btn {
-
-            width:
-                50px;
-
-            height:
-                50px;
-
-            flex-shrink:
-                0;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            border-radius:
-                50%;
-
-            background:
-                rgba(
-                    255,
-                    248,
-                    231,
-                    .9
-                );
-
-            border:
-                2px solid
-                #d19b4a;
-
-            color:
-                #263525;
-
-            text-decoration:
-                none;
-
-            box-shadow:
-                0 6px 18px
-                rgba(
-                    70,
-                    45,
-                    20,
-                    .10
-                );
-
-            transition:
-                all
-                .3s
-                ease;
-
-        }
-
-
-        .home-profile-btn:hover {
-
-            transform:
-                translateY(
-                    -3px
-                );
-
-            background:
-                #263525;
-
-            color:
-                #ffd54f;
-
-            border-color:
-                #263525;
-
-        }
-
-
-        .home-profile-btn:active {
-
-            transform:
-                scale(
-                    .94
-                );
-
-        }
-
-
-        .home-profile-btn i {
-
-            font-size:
-                20px;
-
-        }
-
-
-        /* =====================================================
-           PREMIUM WELCOME HERO
-           ===================================================== */
-
-        .welcome-card {
-
-            position:
-                relative;
-
-            width:
-                100%;
-
-            min-height:
-                190px;
-
-            display:
-                flex;
-
-            flex-direction:
-                column;
-
-            justify-content:
-                center;
-
-            overflow:
-                hidden;
-
-            padding:
-                28px;
-
-            margin-bottom:
-                20px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #263525 0%,
-                    #304630 55%,
-                    #3d543d 100%
-                );
-
-            color:
-                #ffffff;
-
-            border-radius:
-                24px;
-
-            box-shadow:
-                0 16px 35px
-                rgba(
-                    38,
-                    53,
-                    37,
-                    .20
-                );
-
-            animation:
-                fadeSlideUp
-                .7s
-                ease
-                both;
-
-        }
-
-
-        /* =====================================================
-           HERO DECORATIVE CIRCLE
-           ===================================================== */
-
-        .welcome-card::before {
-
-            content:
-                "";
-
-            position:
-                absolute;
-
-            width:
-                180px;
-
-            height:
-                180px;
-
-            right:
-                -45px;
-
-            top:
-                -65px;
-
-            border-radius:
-                50%;
-
-            background:
-                rgba(
-                    255,
-                    213,
-                    79,
-                    .10
-                );
-
-        }
-
-
-        .welcome-card::after {
-
-            content:
-                "";
-
-            position:
-                absolute;
-
-            width:
-                100px;
-
-            height:
-                100px;
-
-            right:
-                70px;
-
-            bottom:
-                -55px;
-
-            border-radius:
-                50%;
-
-            background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    .05
-                );
-
-        }
-
-
-        .welcome-card h2 {
-
-            position:
-                relative;
-
-            z-index:
-                2;
-
-            font-size:
-                clamp(
-                    22px,
-                    4vw,
-                    32px
-                );
-
-            line-height:
-                1.25;
-
-            margin-bottom:
-                8px;
-
-            color:
-                #ffd54f;
-
-            font-weight:
-                800;
-
-        }
-
-
-        .welcome-card p {
-
-            position:
-                relative;
-
-            z-index:
-                2;
-
-            max-width:
-                600px;
-
-            font-size:
-                clamp(
-                    12px,
-                    2vw,
-                    14px
-                );
-
-            line-height:
-                1.7;
-
-            color:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    .88
-                );
-
-        }
-
-
-        /* =====================================================
-           ANIMATION KEYFRAMES
-           ===================================================== */
-
-        @keyframes fadeSlideDown {
-
-            from {
-
-                opacity:
-                    0;
-
-                transform:
-                    translateY(
-                        -15px
-                    );
-
-            }
-
-            to {
-
-                opacity:
-                    1;
-
-                transform:
-                    translateY(
-                        0
-                    );
-
-            }
-
-        }
-
-
-        @keyframes fadeSlideUp {
-
-            from {
-
-                opacity:
-                    0;
-
-                transform:
-                    translateY(
-                        20px
-                    );
-
-            }
-
-            to {
-
-                opacity:
-                    1;
-
-                transform:
-                    translateY(
-                        0
-                    );
-
-            }
-
-        }
-
-
-        @keyframes softPulse {
-
-            0%,
-            100% {
-
-                transform:
-                    scale(
-                        1
-                    );
-
-            }
-
-            50% {
-
-                transform:
-                    scale(
-                        1.03
-                    );
-
-            }
-
-        }
-
-
-        /* =====================================================
-           TABLET
-           ===================================================== */
-
-        @media (
-            min-width: 600px
-        ) {
-
-            .home-page {
-
-                padding:
-                    30px
-                    30px
-                    110px;
-
-            }
-
-
-            .welcome-card {
-
-                min-height:
-                    210px;
-
-                padding:
-                    36px;
-
-            }
-
-        }
-
-
-        /* =====================================================
-           DESKTOP
-           ===================================================== */
-
-        @media (
-            min-width: 900px
-        ) {
-
-            .home-page {
-
-                padding:
-                    36px
-                    36px
-                    110px;
-
-            }
-
-
-            .home-header {
-
-                margin-bottom:
-                    28px;
-
-            }
-
-
-            .home-brand-icon {
-
-                width:
-                    62px;
-
-                height:
-                    62px;
-
-                border-radius:
-                    20px;
-
-                font-size:
-                    28px;
-
-            }
-
-
-            .home-profile-btn {
-
-                width:
-                    54px;
-
-                height:
-                    54px;
-
-            }
-
-
-            .welcome-card {
-
-                border-radius:
-                    28px;
-
-            }
-
-        }
-
-
-        /* =====================================================
-           SMALL MOBILE
-           ===================================================== */
-
-        @media (
-            max-width: 380px
-        ) {
-
-            .home-page {
-
-                padding:
-                    16px
-                    16px
-                    105px;
-
-            }
-
-
-            .home-brand {
-
-                gap:
-                    10px;
-
-            }
-
-
-            .home-brand-icon {
-
-                width:
-                    46px;
-
-                height:
-                    46px;
-
-                border-radius:
-                    14px;
-
-                font-size:
-                    20px;
-
-            }
-
-
-            .home-brand-text h1 {
-
-                font-size:
-                    16px;
-
-            }
-
-
-            .home-profile-btn {
-
-                width:
-                    44px;
-
-                height:
-                    44px;
-
-            }
-
-
-            .welcome-card {
-
-                padding:
-                    22px;
-
-                border-radius:
-                    20px;
-
-            }
-
-        }
-
-    </style>
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>Rio Maggi Point - Home</title>
+
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#263525">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta
+name="apple-mobile-web-app-capable"
+content="yes"
+>
+
+<meta
+name="apple-mobile-web-app-status-bar-style"
+content="default"
+>
+
+<link rel="icon" href="favicon.ico">
+
+<link
+rel="apple-touch-icon"
+href="icon-192.png"
+>
+
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com"
+>
+
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin
+>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet"
+>
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+>
+
+<link
+rel="stylesheet"
+href="common.css"
+>
+
+
+<style>
+
+/* =====================================================
+   RIO MAGGI POINT
+   PREMIUM HOME + MENU
+   PART 1
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    width:100%;
+    min-height:100vh;
+    font-family:"Poppins",sans-serif;
+    background:
+    linear-gradient(
+        180deg,
+        #f5d99b 0%,
+        #f8e5b8 45%,
+        #f5d99b 100%
+    );
+    color:#3a2e2b;
+    overflow-x:hidden;
+}
+
+button,
+a{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+
+/* =====================================================
+   MAIN PAGE
+===================================================== */
+
+.home-page{
+    width:100%;
+    max-width:1180px;
+    min-height:100vh;
+    margin:0 auto;
+    padding:24px 24px 110px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.home-header{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    margin-bottom:24px;
+    animation:fadeSlideDown .6s ease both;
+}
+
+.home-brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    min-width:0;
+}
+
+.home-brand-icon{
+    width:56px;
+    height:56px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:18px;
+    background:
+    linear-gradient(
+        135deg,
+        #263525,
+        #3d543d
+    );
+    color:#ffd54f;
+    font-size:25px;
+    box-shadow:
+    0 10px 25px
+    rgba(38,53,37,.22);
+    transition:transform .3s ease;
+}
+
+.home-brand-icon:hover{
+    transform:
+    rotate(-5deg)
+    scale(1.05);
+}
+
+.home-brand-text{
+    min-width:0;
+}
+
+.home-brand-text h1{
+    font-size:clamp(18px,3vw,24px);
+    line-height:1.2;
+    font-weight:800;
+    color:#263525;
+    letter-spacing:-.3px;
+}
+
+.home-brand-text p{
+    margin-top:4px;
+    font-size:11px;
+    font-weight:500;
+    color:#7a6855;
+    letter-spacing:.4px;
+}
+
+.home-profile-btn{
+    width:50px;
+    height:50px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:rgba(255,248,231,.9);
+    border:2px solid #d19b4a;
+    color:#263525;
+    text-decoration:none;
+    box-shadow:
+    0 6px 18px
+    rgba(70,45,20,.10);
+    transition:all .3s ease;
+}
+
+.home-profile-btn:hover{
+    transform:translateY(-3px);
+    background:#263525;
+    color:#ffd54f;
+    border-color:#263525;
+}
+
+.home-profile-btn:active{
+    transform:scale(.94);
+}
+
+.home-profile-btn i{
+    font-size:20px;
+}
+
+
+/* =====================================================
+   WELCOME HERO
+===================================================== */
+
+.welcome-card{
+    position:relative;
+    width:100%;
+    min-height:190px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    overflow:hidden;
+    padding:28px;
+    margin-bottom:20px;
+    background:
+    linear-gradient(
+        135deg,
+        #263525 0%,
+        #304630 55%,
+        #3d543d 100%
+    );
+    color:#fff;
+    border-radius:24px;
+    box-shadow:
+    0 16px 35px
+    rgba(38,53,37,.20);
+    animation:
+    fadeSlideUp
+    .7s
+    ease
+    both;
+}
+
+.welcome-card::before{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    right:-45px;
+    top:-65px;
+    border-radius:50%;
+    background:
+    rgba(255,213,79,.10);
+}
+
+.welcome-card::after{
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    right:70px;
+    bottom:-55px;
+    border-radius:50%;
+    background:
+    rgba(255,255,255,.05);
+}
+
+.welcome-card h2{
+    position:relative;
+    z-index:2;
+    font-size:clamp(22px,4vw,32px);
+    line-height:1.25;
+    margin-bottom:8px;
+    color:#ffd54f;
+    font-weight:800;
+}
+
+.welcome-card p{
+    position:relative;
+    z-index:2;
+    max-width:600px;
+    font-size:clamp(12px,2vw,14px);
+    line-height:1.7;
+    color:rgba(255,255,255,.88);
+}
+
+
+/* =====================================================
+   MENU SECTION
+===================================================== */
+
+.menu-section{
+    margin-top:30px;
+    animation:
+    fadeSlideUp
+    .8s
+    ease
+    both;
+}
+
+.menu-section-header{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.menu-section-header h2{
+    font-size:clamp(24px,4vw,34px);
+    color:#263525;
+    font-weight:800;
+}
+
+.menu-section-header p{
+    margin-top:6px;
+    color:#7a6855;
+    font-size:14px;
+}
+
+
+/* =====================================================
+   MENU CATEGORY GRID
+===================================================== */
+
+.menu-category-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(4,1fr);
+    gap:18px;
+}
+
+.menu-category-card{
+    position:relative;
+    overflow:hidden;
+    min-height:210px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-end;
+    text-align:center;
+    padding:18px;
+    border-radius:24px;
+    background:
+    rgba(255,248,231,.88);
+    border:2px solid
+    rgba(209,155,74,.25);
+    box-shadow:
+    0 12px 30px
+    rgba(70,45,20,.10);
+    cursor:pointer;
+    transition:
+    transform .35s ease,
+    box-shadow .35s ease,
+    border-color .35s ease;
+}
+
+.menu-category-card:hover{
+    transform:
+    translateY(-8px);
+    border-color:#d19b4a;
+    box-shadow:
+    0 20px 40px
+    rgba(70,45,20,.18);
+}
+
+.menu-category-card:active{
+    transform:
+    scale(.97);
+}
+
+
+/* =====================================================
+   MENU PNG IMAGE
+===================================================== */
+
+.menu-category-image{
+    width:130px;
+    height:130px;
+    object-fit:contain;
+    margin-bottom:12px;
+    filter:
+    drop-shadow(
+        0 10px 12px
+        rgba(0,0,0,.18)
+    );
+    animation:
+    menuFloat
+    3s
+    ease-in-out
+    infinite;
+    transition:
+    transform .35s ease;
+}
+
+.menu-category-card:hover
+.menu-category-image{
+    transform:
+    scale(1.12)
+    rotate(-3deg);
+}
+
+.menu-category-card:nth-child(2)
+.menu-category-image{
+    animation-delay:.3s;
+}
+
+.menu-category-card:nth-child(3)
+.menu-category-image{
+    animation-delay:.6s;
+}
+
+.menu-category-card:nth-child(4)
+.menu-category-image{
+    animation-delay:.9s;
+}
+
+.menu-category-card:nth-child(5)
+.menu-category-image{
+    animation-delay:1.2s;
+}
+
+.menu-category-card:nth-child(6)
+.menu-category-image{
+    animation-delay:1.5s;
+}
+
+.menu-category-card:nth-child(7)
+.menu-category-image{
+    animation-delay:1.8s;
+}
+
+.menu-category-card:nth-child(8)
+.menu-category-image{
+    animation-delay:2.1s;
+}
+
+
+/* =====================================================
+   MENU TEXT
+===================================================== */
+
+.menu-category-card h3{
+    color:#263525;
+    font-size:17px;
+    font-weight:800;
+    margin-bottom:4px;
+}
+
+.menu-category-card span{
+    color:#8a7258;
+    font-size:12px;
+    font-weight:500;
+}
+
+
+/* =====================================================
+   MENU BUTTON
+===================================================== */
+
+.menu-view-btn{
+    margin-top:10px;
+    padding:9px 15px;
+    border:none;
+    border-radius:30px;
+    background:
+    linear-gradient(
+        135deg,
+        #263525,
+        #3d543d
+    );
+    color:#ffd54f;
+    font-size:11px;
+    font-weight:700;
+    transition:
+    transform .3s ease,
+    box-shadow .3s ease;
+}
+
+.menu-view-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:
+    0 8px 18px
+    rgba(38,53,37,.25);
+}
+
+
+/* =====================================================
+   MENU ITEMS AREA
+===================================================== */
+
+.menu-items-container{
+    margin-top:30px;
+}
+
+.menu-panel{
+    display:none;
+    background:
+    rgba(255,248,231,.92);
+    border-radius:26px;
+    padding:25px;
+    margin-bottom:25px;
+    border:2px solid
+    rgba(209,155,74,.20);
+    box-shadow:
+    0 15px 35px
+    rgba(70,45,20,.10);
+    animation:
+    fadeSlideUp
+    .5s
+    ease
+    both;
+}
+
+.menu-panel.active{
+    display:block;
+}
+
+.menu-panel-header{
+    text-align:center;
+    margin-bottom:22px;
+}
+
+.menu-panel-header h2{
+    color:#263525;
+    font-size:25px;
+    font-weight:800;
+}
+
+.menu-panel-header p{
+    color:#8a7258;
+    font-size:13px;
+    margin-top:5px;
+}
+
+
+/* =====================================================
+   MENU TABLE
+===================================================== */
+
+.menu-table-wrapper{
+    width:100%;
+    overflow-x:auto;
+    border-radius:16px;
+}
+
+.menu-table{
+    width:100%;
+    min-width:420px;
+    border-collapse:collapse;
+    overflow:hidden;
+}
+
+.menu-table th{
+    padding:13px;
+    background:#263525;
+    color:#ffd54f;
+    font-size:13px;
+    text-align:left;
+}
+
+.menu-table td{
+    padding:13px;
+    border-bottom:1px solid
+    rgba(38,53,37,.10);
+    color:#4b3a32;
+    font-size:13px;
+}
+
+.menu-table tr:last-child td{
+    border-bottom:none;
+}
+
+.menu-table tr:hover td{
+    background:
+    rgba(255,213,79,.10);
+}
+
+.menu-price{
+    color:#263525;
+    font-weight:800;
+}
+
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+@keyframes fadeSlideDown{
+
+    from{
+        opacity:0;
+        transform:translateY(-15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+@keyframes fadeSlideUp{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+@keyframes menuFloat{
+
+    0%,
+    100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:900px){
+
+    .menu-category-grid{
+        grid-template-columns:
+        repeat(3,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    .home-page{
+        padding:
+        20px
+        16px
+        110px;
+    }
+
+    .menu-category-grid{
+        grid-template-columns:
+        repeat(2,1fr);
+        gap:12px;
+    }
+
+    .menu-category-card{
+        min-height:190px;
+        padding:14px;
+        border-radius:20px;
+    }
+
+    .menu-category-image{
+        width:105px;
+        height:105px;
+    }
+
+    .menu-category-card h3{
+        font-size:14px;
+    }
+
+    .menu-category-card span{
+        font-size:10px;
+    }
+
+    .menu-view-btn{
+        font-size:10px;
+        padding:8px 12px;
+    }
+
+    .menu-panel{
+        padding:18px 12px;
+    }
+
+}
+
+@media(max-width:380px){
+
+    .menu-category-grid{
+        gap:9px;
+    }
+
+    .menu-category-card{
+        min-height:175px;
+    }
+
+    .menu-category-image{
+        width:90px;
+        height:90px;
+    }
+
+}
+
+</style>
 
 </head>
+
 <body>
 
-    <!-- =====================================================
-         HOME PAGE
-         ===================================================== -->
+<main class="home-page">
 
-    <main class="home-page">
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
+<header class="home-header">
 
-        <!-- =================================================
-             PREMIUM HEADER
-             ================================================= -->
+    <div class="home-brand">
 
-        <header class="home-header">
+        <div class="home-brand-icon">
+            <i class="fa-solid fa-bowl-food"></i>
+        </div>
 
-            <div class="home-brand">
+        <div class="home-brand-text">
 
-                <div class="home-brand-icon">
+            <h1>
+                Rio Maggi Point
+            </h1>
 
-                    <i class="fa-solid fa-bowl-food"></i>
-
-                </div>
-
-
-                <div class="home-brand-text">
-
-                    <h1>
-                        Rio Maggi Point
-                    </h1>
-
-                    <p>
-                        Premium Loyalty Club
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- PROFILE -->
-
-            <a
-                href="profile.html"
-                class="home-profile-btn"
-                aria-label="Open Profile"
-            >
-
-                <i class="fa-solid fa-user"></i>
-
-            </a>
-
-        </header>
-
-
-        <!-- =================================================
-             WELCOME HERO
-             ================================================= -->
-
-        <section
-            class="welcome-card"
-            aria-label="Welcome"
-        >
-
-            <h2 id="welcomeTitle">
-                Welcome!
-            </h2>
-
-
-            <p id="welcomeSubtitle">
-
-                Welcome to Rio Maggi Point
-                Premium Loyalty Club.
-
+            <p>
+                100% Pure Veg • Fresh • Tasty • Hygienic
             </p>
-
-        </section>
-
-
-        <!-- =================================================
-             LOYALTY SUMMARY
-             ================================================= -->
-
-        <section
-            class="loyalty-summary"
-            aria-label="Loyalty Summary"
-        >
-
-            <div class="loyalty-summary-header">
-
-                <div>
-
-                    <h3>
-                        Loyalty Summary
-                    </h3>
-
-                    <p>
-                        Collect 6 stamps & get 1 Veg Maggi FREE
-                    </p>
-
-                </div>
-
-
-                <span
-                    class="stamp-count-label"
-                    id="stampCountLabel"
-                >
-
-                    ⭐ 0/6
-
-                </span>
-
-            </div>
-
-
-            <!-- =================================================
-                 STAMP GRID
-                 ================================================= -->
-
-            <div
-                class="home-stamp-grid"
-                id="homeStampGrid"
-            >
-
-                <!--
-                    JavaScript will automatically
-                    create 6 loyalty stamps here.
-                -->
-
-            </div>
-
-
-            <!-- =================================================
-                 LOYALTY MESSAGE
-                 ================================================= -->
-
-            <div
-                class="loyalty-progress-message"
-                id="loyaltyProgressMessage"
-            >
-
-                <i class="fa-solid fa-gift"></i>
-
-                <span>
-                    Keep collecting stamps to unlock your FREE Veg Maggi!
-                </span>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             QUICK ACTIONS
-             ================================================= -->
-
-        <section
-            class="quick-actions"
-            aria-label="Quick Actions"
-        >
-
-
-            <!-- MY QR -->
-
-            <a
-                href="qr.html"
-                class="quick-action"
-            >
-
-                <div class="quick-action-icon">
-
-                    <i class="fa-solid fa-qrcode"></i>
-
-                </div>
-
-
-                <div class="quick-action-content">
-
-                    <strong>
-                        My QR Code
-                    </strong>
-
-                    <span>
-                        Show your loyalty QR
-                    </span>
-
-                </div>
-
-
-                <i class="fa-solid fa-chevron-right quick-action-arrow"></i>
-
-            </a>
-
-
-            <!-- HISTORY -->
-
-            <a
-                href="history.html"
-                class="quick-action"
-            >
-
-                <div class="quick-action-icon">
-
-                    <i class="fa-solid fa-clock-rotate-left"></i>
-
-                </div>
-
-
-                <div class="quick-action-content">
-
-                    <strong>
-                        Stamp History
-                    </strong>
-
-                    <span>
-                        View your purchase stamps
-                    </span>
-
-                </div>
-
-
-                <i class="fa-solid fa-chevron-right quick-action-arrow"></i>
-
-            </a>
-
-
-            <!-- MENU -->
-
-            <a
-                href="menu.html"
-                class="quick-action"
-            >
-
-                <div class="quick-action-icon">
-
-                    <i class="fa-solid fa-utensils"></i>
-
-                </div>
-
-
-                <div class="quick-action-content">
-
-                    <strong>
-                        View Menu
-                    </strong>
-
-                    <span>
-                        Explore Rio Maggi Point menu
-                    </span>
-
-                </div>
-
-
-                <i class="fa-solid fa-chevron-right quick-action-arrow"></i>
-
-            </a>
-
-
-            <!-- FEEDBACK -->
-
-            <a
-                href="feedback.html"
-                class="quick-action"
-            >
-
-                <div class="quick-action-icon">
-
-                    <i class="fa-solid fa-star"></i>
-
-                </div>
-
-
-                <div class="quick-action-content">
-
-                    <strong>
-                        Give Feedback
-                    </strong>
-
-                    <span>
-                        Share your experience
-                    </span>
-
-                </div>
-
-
-                <i class="fa-solid fa-chevron-right quick-action-arrow"></i>
-
-            </a>
-
-
-        </section>
-
-
-        <!-- =================================================
-             CONTACT & SERVICES
-             PART 3 WILL CONTINUE HERE
-             ================================================= -->
-                <!-- =====================================================
-             CONTACT & SERVICES
-             ===================================================== -->
-
-        <section
-            class="contact-services"
-            aria-label="Contact and Services"
-        >
-
-
-            <!-- =================================================
-                 CALL US
-                 ================================================= -->
-
-            <a
-                href="tel:+917987827979"
-                class="service-card service-call"
-                aria-label="Call Rio Maggi Point"
-            >
-
-                <div class="service-card-icon">
-
-                    <i class="fa-solid fa-phone"></i>
-
-                </div>
-
-
-                <div class="service-card-content">
-
-                    <strong>
-                        Call Us
-                    </strong>
-
-                    <span>
-                        7987827979
-                    </span>
-
-                </div>
-
-
-                <i class="fa-solid fa-chevron-right service-arrow"></i>
-
-            </a>
-
-
-            <!-- =================================================
-                 WHATSAPP
-                 ================================================= -->
-
-            <a
-                href="https://wa.me/917987827979"
-                class="service-card service-whatsapp"
-                target="_blank"
-                rel="noopener"
-                aria-label="Chat with Rio Maggi Point on WhatsApp"
-            >
-
-                <div class="service-card-icon">
-
-                    <i class="fa-brands fa-whatsapp"></i>
-
-                </div>
-
-
-                <div class="service-card-content">
-
-                    <strong>
-                        WhatsApp
-                    </strong>
-
-                    <span>
-                        Chat with us
-                    </span>
-
-                </div>
-
-
-                <i class="fa-solid fa-chevron-right service-arrow"></i>
-
-            </a>
-
-
-            <!-- =================================================
-                 MAP - COMING SOON
-                 ================================================= -->
-
-            <button
-                type="button"
-                class="service-card service-coming-soon"
-                aria-label="Map Coming Soon"
-                onclick="showComingSoon('Map')"
-            >
-
-                <div class="service-card-icon">
-
-                    <i class="fa-solid fa-location-dot"></i>
-
-                </div>
-
-
-                <div class="service-card-content">
-
-                    <strong>
-                        Find Our Location
-                    </strong>
-
-                    <span>
-                        Map Coming Soon
-                    </span>
-
-                </div>
-
-
-                <span class="coming-soon-badge">
-                    Coming Soon
-                </span>
-
-            </button>
-
-
-            <!-- =================================================
-                 DELIVERY - COMING SOON
-                 ================================================= -->
-
-            <button
-                type="button"
-                class="service-card service-coming-soon"
-                aria-label="Delivery Coming Soon"
-                onclick="showComingSoon('Delivery')"
-            >
-
-                <div class="service-card-icon">
-
-                    <i class="fa-solid fa-motorcycle"></i>
-
-                </div>
-
-
-                <div class="service-card-content">
-
-                    <strong>
-                        Home Delivery
-                    </strong>
-
-                    <span>
-                        Delivery Service Coming Soon
-                    </span>
-
-                </div>
-
-
-                <span class="coming-soon-badge">
-                    Coming Soon
-                </span>
-
-            </button>
-
-
-        </section>
-
-
-        <!-- =====================================================
-             PREMIUM FOOTER MESSAGE
-             ===================================================== -->
-
-        <section class="home-footer-message">
-
-            <div class="home-footer-icon">
-
-                <i class="fa-solid fa-heart"></i>
-
-            </div>
-
-
-            <div>
-
-                <strong>
-                    Thank you for being a Rio Maggi Point member!
-                </strong>
-
-                <p>
-                    Fresh • Tasty • Hygienic
-                </p>
-
-            </div>
-
-        </section>
-
-
-    </main>
-
-
-    <!-- =====================================================
-         COMING SOON POPUP
-         ===================================================== -->
-
-    <div
-        class="coming-soon-popup"
-        id="comingSoonPopup"
-        aria-hidden="true"
-    >
-
-        <div class="coming-soon-popup-box">
-
-            <div class="coming-soon-popup-icon">
-
-                <i class="fa-solid fa-clock"></i>
-
-            </div>
-
-
-            <h3 id="comingSoonTitle">
-                Coming Soon
-            </h3>
-
-
-            <p id="comingSoonText">
-                This feature will be available soon.
-            </p>
-
-
-            <button
-                type="button"
-                onclick="closeComingSoon()"
-            >
-
-                OK
-
-            </button>
 
         </div>
 
     </div>
 
-
-    <!-- =====================================================
-         BOTTOM NAVIGATION
-         
-         NOTE:
-         FINAL NAVIGATION WILL BE FIXED AFTER
-         ALL 5 MAIN PAGES ARE COMPLETED.
-         ===================================================== -->
-
-    <nav
-        class="bottom-nav"
-        aria-label="Main Navigation"
+    <a
+        href="profile.html"
+        class="home-profile-btn"
+        aria-label="Open Profile"
     >
 
-        <a
-            href="index.html"
-            class="nav-item active"
+        <i class="fa-solid fa-user"></i>
+
+    </a>
+
+</header>
+
+
+<!-- =====================================================
+     WELCOME
+===================================================== -->
+
+<section class="welcome-card">
+
+    <h2 id="welcomeTitle">
+        Welcome!
+    </h2>
+
+    <p id="welcomeSubtitle">
+        Welcome to Rio Maggi Point Premium Loyalty Club.
+    </p>
+
+</section>
+
+
+<!-- =====================================================
+     MENU HEADER
+===================================================== -->
+
+<section class="menu-section">
+
+    <div class="menu-section-header">
+
+        <h2>
+            Our Menu
+        </h2>
+
+        <p>
+            Tap Your Favourite
+        </p>
+
+    </div>
+
+
+<!-- =====================================================
+     MENU CATEGORY CARDS
+===================================================== -->
+
+<div class="menu-category-grid">
+
+
+    <button
+        class="menu-category-card"
+        type="button"
+        onclick="openMenu('maggi')"
+    >
+
+        <img
+            class="menu-category-image"
+            src="assets/menu/everyday-maggi.png"
+            alt="Everyday Magic Maggi"
         >
 
-            <i class="fa-solid fa-house"></i>
+        <h3>
+            Everyday Magic Maggi
+        </h3>
 
-            <span>
-                Home
-            </span>
+        <span>
+            Classic Rio Maggi Collection
+        </span>
 
-        </a>
+        <span class="menu-view-btn">
+            Tap To View Menu
+        </span>
+
+    </button>
 
 
-        <a
-            href="qr.html"
-            class="nav-item"
+    <button
+        class="menu-category-card"
+        type="button"
+        onclick="openMenu('cheese')"
+    >
+
+        <img
+            class="menu-category-image"
+            src="assets/menu/cheese-maggi.png"
+            alt="Cheese Magic Maggi"
         >
+
+        <h3>
+            Cheese Magic Maggi
+        </h3>
+
+        <span>
+            Cheesy Rio Special Collection
+        </span>
+
+        <span class="menu-view-btn">
+            Tap To View Menu
+        </span>
+
+    </button>
+
+
+    <button
+        class="menu-category-card"
+        type="button"
+        onclick="openMenu('cheese-butter')"
+    >
+
+        <img
+            class="menu-category-image"
+            src="assets/menu/cheese-butter-maggi.png"
+            alt="Cheese Butter Magic Maggi"
+        >
+
+        <h3>
+            Cheese Butter Magic Maggi
+        </h3>
+
+        <span>
+            Premium Cheese Butter Collection
+        </span>
+
+        <span class="menu-view-btn">
+            Tap To View Menu
+        </span>
+
+    </button>
+
+
+    <button
+        class="menu-category-card"
+        type="button"
+        onclick="openMenu('burger')"
+    >
+
+        <img
+            class="menu-category-image"
+            src="assets/menu/ufo-burger.png"
+            alt="UFO Burger"
+        >
+
+        <h3>
+            UFO Burger
+        </h3>
+
+        <span>
+            Premium Burger Collection
+        </span>
+
+        <span class="menu-view-btn">
+            Tap To View Menu
+        </span>
+
+    </button>
+
+
+    <button
+        class="menu-category-card"
+        type="button"
+        onclick="openMenu('momos')"
+    >
+
+        <img
+            class="menu-category-image"
+            src="assets/menu/momos.png"
+            alt="Delicious Momos"
+        >
+
+        <h3>
+            Delicious Momos
+        </h3>
+
+        <span>
+            Hot & Tasty Momos Collection
+        </span>
+
+        <span class="menu-view-btn">
+            Tap To View Menu
+        </span>
+
+    </button>
+
+
+    <button
+        class="menu-category-card"
+        type="button"
+        onclick="openMenu('soups')"
+    >
+
+        <img
+            class="menu-category-image"
+            src="assets/menu/soups.png"
+            alt="Hot Soups"
+        >
+
+        <h3>
+            Hot Soups
+        </h3>
+
+        <span>
+            Hot & Delicious Soup Collection
+        </span>
+
+        <span class="menu-view-btn">
+            Tap To View Menu
+        </span>
+
+    </button>
+
+
+    <button
+        class="menu-category-card"
+        type="button"
+        onclick="openMenu('corn')"
+    >
+
+        <img
+            class="menu-category-image"
+            src="assets/menu/sweet-corn.png"
+            alt="Crispy Sweet Corn"
+        >
+
+        <h3>
+            Crispy Sweet Corn
+        </h3>
+
+        <span>
+            Crunchy Corn Special Collection
+        </span>
+
+        <span class="menu-view-btn">
+            Tap To View Menu
+        </span>
+
+    </button>
+
+
+    <button
+        class="menu-category-card"
+        type="button"
+        onclick="openMenu('bhel')"
+    >
+
+        <img
+            class="menu-category-image"
+            src="assets/menu/chips-bhel.png"
+            alt="Chips Bhel"
+        >
+
+        <h3>
+            Chips Bhel
+        </h3>
+
+        <span>
+            Crispy Snack Collection
+        </span>
+
+        <span class="menu-view-btn">
+            Tap To View Menu
+        </span>
+
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     MENU PANELS
+===================================================== -->
+
+<div class="menu-items-container">
+
+<!-- PART 1 END -->
+    <!-- =====================================================
+     MENU PANEL 1
+     EVERYDAY MAGIC MAGGI
+===================================================== -->
+
+<section
+    class="menu-panel"
+    id="menu-maggi"
+>
+
+    <div class="menu-panel-header">
+
+        <h2>
+            Everyday Magic Maggi
+        </h2>
+
+        <p>
+            Classic Rio Maggi Collection
+        </p>
+
+    </div>
+
+    <div class="menu-table-wrapper">
+
+        <table class="menu-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Item Name
+                    </th>
+
+                    <th>
+                        Half Price
+                    </th>
+
+                    <th>
+                        Full Price
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Classic</td>
+                    <td class="menu-price">₹30</td>
+                    <td class="menu-price">₹50</td>
+                </tr>
+
+                <tr>
+                    <td>Veg</td>
+                    <td class="menu-price">₹40</td>
+                    <td class="menu-price">₹70</td>
+                </tr>
+
+                <tr>
+                    <td>Garlic</td>
+                    <td class="menu-price">₹40</td>
+                    <td class="menu-price">₹70</td>
+                </tr>
+
+                <tr>
+                    <td>Corn</td>
+                    <td class="menu-price">₹40</td>
+                    <td class="menu-price">₹70</td>
+                </tr>
+
+                <tr>
+                    <td>Schezwan</td>
+                    <td class="menu-price">₹40</td>
+                    <td class="menu-price">₹70</td>
+                </tr>
+
+                <tr>
+                    <td>Veg Corn</td>
+                    <td class="menu-price">₹50</td>
+                    <td class="menu-price">₹80</td>
+                </tr>
+
+                <tr>
+                    <td>Veg Lemon</td>
+                    <td class="menu-price">₹80</td>
+                    <td class="menu-price">₹120</td>
+                </tr>
+
+                <tr>
+                    <td>Korean</td>
+                    <td class="menu-price">₹100</td>
+                    <td class="menu-price">₹150</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MENU PANEL 2
+     CHEESE MAGIC MAGGI
+===================================================== -->
+
+<section
+    class="menu-panel"
+    id="menu-cheese"
+>
+
+    <div class="menu-panel-header">
+
+        <h2>
+            Cheese Magic Maggi
+        </h2>
+
+        <p>
+            Cheesy Rio Special Collection
+        </p>
+
+    </div>
+
+    <div class="menu-table-wrapper">
+
+        <table class="menu-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Item Name
+                    </th>
+
+                    <th>
+                        Half Price
+                    </th>
+
+                    <th>
+                        Full Price
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Cheese Classic</td>
+                    <td class="menu-price">₹40</td>
+                    <td class="menu-price">₹70</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Veg</td>
+                    <td class="menu-price">₹50</td>
+                    <td class="menu-price">₹80</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Garlic</td>
+                    <td class="menu-price">₹50</td>
+                    <td class="menu-price">₹80</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Corn</td>
+                    <td class="menu-price">₹50</td>
+                    <td class="menu-price">₹80</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Schezwan</td>
+                    <td class="menu-price">₹50</td>
+                    <td class="menu-price">₹80</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Veg Corn</td>
+                    <td class="menu-price">₹60</td>
+                    <td class="menu-price">₹100</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Veg Schezwan</td>
+                    <td class="menu-price">₹60</td>
+                    <td class="menu-price">₹100</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Korean</td>
+                    <td class="menu-price">₹120</td>
+                    <td class="menu-price">₹180</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MENU PANEL 3
+     CHEESE BUTTER MAGIC MAGGI
+===================================================== -->
+
+<section
+    class="menu-panel"
+    id="menu-cheese-butter"
+>
+
+    <div class="menu-panel-header">
+
+        <h2>
+            Cheese Butter Magic Maggi
+        </h2>
+
+        <p>
+            Premium Cheese Butter Collection
+        </p>
+
+    </div>
+
+    <div class="menu-table-wrapper">
+
+        <table class="menu-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Item Name
+                    </th>
+
+                    <th>
+                        Half Price
+                    </th>
+
+                    <th>
+                        Full Price
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Cheese Butter Classic</td>
+                    <td class="menu-price">₹50</td>
+                    <td class="menu-price">₹80</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Butter Veg</td>
+                    <td class="menu-price">₹60</td>
+                    <td class="menu-price">₹100</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Butter Garlic</td>
+                    <td class="menu-price">₹60</td>
+                    <td class="menu-price">₹100</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Butter Corn</td>
+                    <td class="menu-price">₹60</td>
+                    <td class="menu-price">₹100</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Butter Schezwan</td>
+                    <td class="menu-price">₹60</td>
+                    <td class="menu-price">₹100</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Butter Veg Corn</td>
+                    <td class="menu-price">₹70</td>
+                    <td class="menu-price">₹120</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Butter Veg Schezwan</td>
+                    <td class="menu-price">₹70</td>
+                    <td class="menu-price">₹120</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Butter Korean</td>
+                    <td class="menu-price">₹130</td>
+                    <td class="menu-price">₹200</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MENU PANEL 4
+     UFO BURGER
+===================================================== -->
+
+<section
+    class="menu-panel"
+    id="menu-burger"
+>
+
+    <div class="menu-panel-header">
+
+        <h2>
+            UFO Burger
+        </h2>
+
+        <p>
+            Premium Burger Collection
+        </p>
+
+    </div>
+
+    <div class="menu-table-wrapper">
+
+        <table class="menu-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Item Name
+                    </th>
+
+                    <th>
+                        Price
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Veg Burger</td>
+                    <td class="menu-price">₹40</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Burger</td>
+                    <td class="menu-price">₹40</td>
+                </tr>
+
+                <tr>
+                    <td>Veg Cheese Burger</td>
+                    <td class="menu-price">₹50</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Garlic Burger</td>
+                    <td class="menu-price">₹50</td>
+                </tr>
+
+                <tr>
+                    <td>Schezwan Burger</td>
+                    <td class="menu-price">₹50</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Schezwan Burger</td>
+                    <td class="menu-price">₹60</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MENU PANEL 5
+     DELICIOUS MOMOS
+===================================================== -->
+
+<section
+    class="menu-panel"
+    id="menu-momos"
+>
+
+    <div class="menu-panel-header">
+
+        <h2>
+            Delicious Momos
+        </h2>
+
+        <p>
+            Hot & Tasty Momos Collection
+        </p>
+
+    </div>
+
+    <div class="menu-table-wrapper">
+
+        <table class="menu-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Item Name
+                    </th>
+
+                    <th>
+                        Price
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Steam Momos</td>
+                    <td class="menu-price">₹20</td>
+                </tr>
+
+                <tr>
+                    <td>Fried Momos</td>
+                    <td class="menu-price">₹30</td>
+                </tr>
+
+                <tr>
+                    <td>Schezwan Momos</td>
+                    <td class="menu-price">₹50</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Schezwan Momos</td>
+                    <td class="menu-price">₹60</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MENU PANEL 6
+     HOT SOUPS
+===================================================== -->
+
+<section
+    class="menu-panel"
+    id="menu-soups"
+>
+
+    <div class="menu-panel-header">
+
+        <h2>
+            Hot Soups
+        </h2>
+
+        <p>
+            Hot & Delicious Soup Collection
+        </p>
+
+    </div>
+
+    <div class="menu-table-wrapper">
+
+        <table class="menu-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Item Name
+                    </th>
+
+                    <th>
+                        Price
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Corn Soup</td>
+                    <td class="menu-price">₹40</td>
+                </tr>
+
+                <tr>
+                    <td>Tomato Soup</td>
+                    <td class="menu-price">₹40</td>
+                </tr>
+
+                <tr>
+                    <td>Chatpata Tomato</td>
+                    <td class="menu-price">₹40</td>
+                </tr>
+
+                <tr>
+                    <td>Magic Maggi Soup</td>
+                    <td class="menu-price">₹50</td>
+                </tr>
+
+                <tr>
+                    <td>Manchow Soup</td>
+                    <td class="menu-price">₹50</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MENU PANEL 7
+     CRISPY SWEET CORN
+===================================================== -->
+
+<section
+    class="menu-panel"
+    id="menu-corn"
+>
+
+    <div class="menu-panel-header">
+
+        <h2>
+            Crispy Sweet Corn
+        </h2>
+
+        <p>
+            Crunchy Corn Special Collection
+        </p>
+
+    </div>
+
+    <div class="menu-table-wrapper">
+
+        <table class="menu-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Item Name
+                    </th>
+
+                    <th>
+                        Price
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Peri Peri Corn</td>
+                    <td class="menu-price">₹40</td>
+                </tr>
+
+                <tr>
+                    <td>Butter Corn</td>
+                    <td class="menu-price">₹50</td>
+                </tr>
+
+                <tr>
+                    <td>Masala Corn</td>
+                    <td class="menu-price">₹50</td>
+                </tr>
+
+                <tr>
+                    <td>Cheese Corn</td>
+                    <td class="menu-price">₹50</td>
+                </tr>
+
+                <tr>
+                    <td>Schezwan Corn</td>
+                    <td class="menu-price">₹50</td>
+                </tr>
+
+                <tr>
+                    <td>Butter Cheese Corn</td>
+                    <td class="menu-price">₹60</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MENU PANEL 8
+     CHIPS BHEL
+===================================================== -->
+
+<section
+    class="menu-panel"
+    id="menu-bhel"
+>
+
+    <div class="menu-panel-header">
+
+        <h2>
+            Chips Bhel
+        </h2>
+
+        <p>
+            Crispy Snack Collection
+        </p>
+
+    </div>
+
+    <div class="menu-table-wrapper">
+
+        <table class="menu-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Item Name
+                    </th>
+
+                    <th>
+                        Price
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Chips Bhel</td>
+                    <td class="menu-price">₹50</td>
+                </tr>
+
+                <tr>
+                    <td>Kurkure Bhel</td>
+                    <td class="menu-price">₹50</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+</div>
+
+
+<!-- =====================================================
+     PART 2 END
+===================================================== -->
+    <!-- =====================================================
+     LOYALTY SUMMARY
+===================================================== -->
+
+<section
+    class="loyalty-summary"
+    aria-label="Loyalty Summary"
+>
+
+    <div class="loyalty-summary-header">
+
+        <div>
+
+            <h3>
+                Loyalty Summary
+            </h3>
+
+            <p>
+                Collect 6 stamps & get 1 Veg Maggi FREE
+            </p>
+
+        </div>
+
+        <span
+            class="stamp-count-label"
+            id="stampCountLabel"
+        >
+            ⭐ 0/6
+        </span>
+
+    </div>
+
+
+    <!-- =================================================
+         STAMP GRID
+    ================================================= -->
+
+    <div
+        class="home-stamp-grid"
+        id="homeStampGrid"
+    >
+    </div>
+
+
+    <!-- =================================================
+         LOYALTY MESSAGE
+    ================================================= -->
+
+    <div
+        class="loyalty-progress-message"
+        id="loyaltyProgressMessage"
+    >
+
+        <i class="fa-solid fa-gift"></i>
+
+        <span>
+            Keep collecting stamps to unlock your FREE Veg Maggi!
+        </span>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     QUICK ACTIONS
+===================================================== -->
+
+<section
+    class="quick-actions"
+    aria-label="Quick Actions"
+>
+
+
+    <!-- MY QR -->
+
+    <a
+        href="qr.html"
+        class="quick-action"
+    >
+
+        <div class="quick-action-icon">
 
             <i class="fa-solid fa-qrcode"></i>
 
+        </div>
+
+        <div class="quick-action-content">
+
+            <strong>
+                My QR Code
+            </strong>
+
             <span>
-                QR
+                Show your loyalty QR
             </span>
 
-        </a>
+        </div>
+
+        <i
+            class="fa-solid fa-chevron-right
+            quick-action-arrow"
+        ></i>
+
+    </a>
 
 
-        <a
-            href="history.html"
-            class="nav-item"
-        >
+    <!-- HISTORY -->
+
+    <a
+        href="history.html"
+        class="quick-action"
+    >
+
+        <div class="quick-action-icon">
 
             <i class="fa-solid fa-clock-rotate-left"></i>
 
+        </div>
+
+        <div class="quick-action-content">
+
+            <strong>
+                Stamp History
+            </strong>
+
             <span>
-                History
+                View your purchase stamps
             </span>
 
-        </a>
+        </div>
+
+        <i
+            class="fa-solid fa-chevron-right
+            quick-action-arrow"
+        ></i>
+
+    </a>
 
 
-        <a
-            href="profile.html"
-            class="nav-item"
+    <!-- MENU -->
+
+    <a
+        href="#menu"
+        class="quick-action"
+        onclick="
+            document
+            .querySelector('.menu-section')
+            .scrollIntoView({
+                behavior:'smooth'
+            });
+        "
+    >
+
+        <div class="quick-action-icon">
+
+            <i class="fa-solid fa-utensils"></i>
+
+        </div>
+
+        <div class="quick-action-content">
+
+            <strong>
+                View Menu
+            </strong>
+
+            <span>
+                Explore Rio Maggi Point menu
+            </span>
+
+        </div>
+
+        <i
+            class="fa-solid fa-chevron-right
+            quick-action-arrow"
+        ></i>
+
+    </a>
+
+
+    <!-- FEEDBACK -->
+
+    <a
+        href="feedback.html"
+        class="quick-action"
+    >
+
+        <div class="quick-action-icon">
+
+            <i class="fa-solid fa-star"></i>
+
+        </div>
+
+        <div class="quick-action-content">
+
+            <strong>
+                Give Feedback
+            </strong>
+
+            <span>
+                Share your experience
+            </span>
+
+        </div>
+
+        <i
+            class="fa-solid fa-chevron-right
+            quick-action-arrow"
+        ></i>
+
+    </a>
+
+</section>
+
+
+<!-- =====================================================
+     CONTACT & SERVICES
+===================================================== -->
+
+<section
+    class="contact-services"
+    aria-label="Contact and Services"
+>
+
+
+    <!-- CALL -->
+
+    <a
+        href="tel:+917987827979"
+        class="service-card service-call"
+        aria-label="Call Rio Maggi Point"
+    >
+
+        <div class="service-card-icon">
+
+            <i class="fa-solid fa-phone"></i>
+
+        </div>
+
+        <div class="service-card-content">
+
+            <strong>
+                Call Us
+            </strong>
+
+            <span>
+                7987827979
+            </span>
+
+        </div>
+
+        <i
+            class="fa-solid fa-chevron-right
+            service-arrow"
+        ></i>
+
+    </a>
+
+
+    <!-- WHATSAPP -->
+
+    <a
+        href="https://wa.me/917987827979"
+        class="service-card service-whatsapp"
+        target="_blank"
+        rel="noopener"
+        aria-label="Chat with Rio Maggi Point on WhatsApp"
+    >
+
+        <div class="service-card-icon">
+
+            <i class="fa-brands fa-whatsapp"></i>
+
+        </div>
+
+        <div class="service-card-content">
+
+            <strong>
+                WhatsApp
+            </strong>
+
+            <span>
+                Chat with us
+            </span>
+
+        </div>
+
+        <i
+            class="fa-solid fa-chevron-right
+            service-arrow"
+        ></i>
+
+    </a>
+
+
+    <!-- MAP -->
+
+    <button
+        type="button"
+        class="service-card service-coming-soon"
+        aria-label="Map Coming Soon"
+        onclick="showComingSoon('Map')"
+    >
+
+        <div class="service-card-icon">
+
+            <i class="fa-solid fa-location-dot"></i>
+
+        </div>
+
+        <div class="service-card-content">
+
+            <strong>
+                Find Our Location
+            </strong>
+
+            <span>
+                Map Coming Soon
+            </span>
+
+        </div>
+
+        <span class="coming-soon-badge">
+            Coming Soon
+        </span>
+
+    </button>
+
+
+    <!-- DELIVERY -->
+
+    <button
+        type="button"
+        class="service-card service-coming-soon"
+        aria-label="Delivery Coming Soon"
+        onclick="showComingSoon('Delivery')"
+    >
+
+        <div class="service-card-icon">
+
+            <i class="fa-solid fa-motorcycle"></i>
+
+        </div>
+
+        <div class="service-card-content">
+
+            <strong>
+                Home Delivery
+            </strong>
+
+            <span>
+                Delivery Service Coming Soon
+            </span>
+
+        </div>
+
+        <span class="coming-soon-badge">
+            Coming Soon
+        </span>
+
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER MESSAGE
+===================================================== -->
+
+<section class="home-footer-message">
+
+    <div class="home-footer-icon">
+
+        <i class="fa-solid fa-heart"></i>
+
+    </div>
+
+    <div>
+
+        <strong>
+            Thank you for being a Rio Maggi Point member!
+        </strong>
+
+        <p>
+            Fresh • Tasty • Hygienic
+        </p>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =====================================================
+     COMING SOON POPUP
+===================================================== -->
+
+<div
+    class="coming-soon-popup"
+    id="comingSoonPopup"
+    aria-hidden="true"
+>
+
+    <div class="coming-soon-popup-box">
+
+        <div class="coming-soon-popup-icon">
+
+            <i class="fa-solid fa-clock"></i>
+
+        </div>
+
+        <h3 id="comingSoonTitle">
+            Coming Soon
+        </h3>
+
+        <p id="comingSoonText">
+            This feature will be available soon.
+        </p>
+
+        <button
+            type="button"
+            onclick="closeComingSoon()"
         >
+            OK
+        </button>
 
-            <i class="fa-solid fa-user"></i>
+    </div>
 
-            <span>
-                Profile
-            </span>
+</div>
 
-        </a>
 
-    </nav>
+<!-- =====================================================
+     BOTTOM NAVIGATION
+===================================================== -->
 
+<nav
+    class="bottom-nav"
+    aria-label="Main Navigation"
+>
 
-    <!-- =====================================================
-         FIREBASE
-         ===================================================== -->
+    <a
+        href="index.html"
+        class="nav-item active"
+    >
 
-    <script type="module">
+        <i class="fa-solid fa-house"></i>
 
-        import {
-            firebaseConfig
-        } from "./js/firebase-config.js";
+        <span>
+            Home
+        </span>
 
+    </a>
 
-        import {
-            initializeApp
-        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
+    <a
+        href="qr.html"
+        class="nav-item"
+    >
 
-        import {
-            getAuth,
-            onAuthStateChanged
-        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        <i class="fa-solid fa-qrcode"></i>
 
+        <span>
+            QR
+        </span>
 
-        import {
-            getFirestore,
-            doc,
-            getDoc
-        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    </a>
 
 
-        /* =================================================
-           FIREBASE INITIALIZE
-           ================================================= */
+    <a
+        href="history.html"
+        class="nav-item"
+    >
 
-        const app =
-            initializeApp(
-                firebaseConfig
-            );
+        <i class="fa-solid fa-clock-rotate-left"></i>
 
+        <span>
+            History
+        </span>
 
-        const auth =
-            getAuth(
-                app
-            );
+    </a>
 
 
-        const db =
-            getFirestore(
-                app
-            );
+    <a
+        href="menu.html"
+        class="nav-item"
+    >
 
+        <i class="fa-solid fa-utensils"></i>
 
-        /* =================================================
-           HTML ELEMENTS
-           ================================================= */
+        <span>
+            Menu
+        </span>
 
-        const welcomeTitle =
-            document.getElementById(
-                "welcomeTitle"
-            );
+    </a>
 
 
-        const welcomeSubtitle =
-            document.getElementById(
-                "welcomeSubtitle"
-            );
+    <a
+        href="profile.html"
+        class="nav-item"
+    >
 
+        <i class="fa-solid fa-user"></i>
 
-        const stampCountLabel =
-            document.getElementById(
-                "stampCountLabel"
-            );
+        <span>
+            Profile
+        </span>
 
+    </a>
 
-        const homeStampGrid =
-            document.getElementById(
-                "homeStampGrid"
-            );
+</nav>
 
 
-        const loyaltyProgressMessage =
-            document.getElementById(
-                "loyaltyProgressMessage"
-            );
+<!-- =====================================================
+     PART 3 END
+===================================================== --><!-- =====================================================
+     PART 5
+     MENU DATA + MENU CARDS
+===================================================== -->
 
+<section class="menu-section" id="everyday-magic-maggi">
 
-        /* =================================================
-           AUTH CHECK
-           ================================================= */
-
-        onAuthStateChanged(
-
-            auth,
-
-            async (user) => {
-
-
-                /* -----------------------------------------
-                   USER NOT LOGGED IN
-                   ----------------------------------------- */
-
-                if (!user) {
-
-                    window.location.href =
-                        "login.html";
-
-                    return;
-
-                }
-
-
-                /* -----------------------------------------
-                   DEFAULT USER NAME
-                   ----------------------------------------- */
-
-                welcomeTitle.textContent =
-                    "Welcome!";
-
-
-                welcomeSubtitle.textContent =
-                    "Welcome to Rio Maggi Point Premium Loyalty Club.";
-
-
-                /* -----------------------------------------
-                   LOAD CUSTOMER DATA
-                   ----------------------------------------- */
-
-                try {
-
-                    const userRef =
-                        doc(
-                            db,
-                            "customers",
-                            user.uid
-                        );
-
-
-                    const userSnap =
-                        await getDoc(
-                            userRef
-                        );
-
-
-                    /* -------------------------------------
-                       CUSTOMER FOUND
-                       ------------------------------------- */
-
-                    if (
-                        userSnap.exists()
-                    ) {
-
-                        const data =
-                            userSnap.data();
-
-
-                        const customerName =
-                            data.name ||
-                            "Customer";
-
-
-                        const stamps =
-                            Number(
-                                data.stamps || 0
-                            );
-
-
-                        /* ---------------------------------
-                           SAFE STAMP VALUE
-                           --------------------------------- */
-
-                        const safeStamps =
-                            Math.min(
-                                Math.max(
-                                    stamps,
-                                    0
-                                ),
-                                6
-                            );
-
-
-                        /* ---------------------------------
-                           WELCOME NAME
-                           --------------------------------- */
-
-                        welcomeTitle.textContent =
-                            "Welcome, " +
-                            customerName +
-                            "!";
-
-
-                        welcomeSubtitle.textContent =
-                            "Enjoy your Rio Maggi Point Loyalty Rewards.";
-
-
-                        /* ---------------------------------
-                           STAMP COUNT
-                           --------------------------------- */
-
-                        stampCountLabel.textContent =
-                            "⭐ " +
-                            safeStamps +
-                            "/6";
-
-
-                        /* ---------------------------------
-                           RENDER STAMPS
-                           --------------------------------- */
-
-                        renderHomeStamps(
-                            safeStamps
-                        );
-
-
-                        /* ---------------------------------
-                           UPDATE PROGRESS MESSAGE
-                           --------------------------------- */
-
-                        updateLoyaltyMessage(
-                            safeStamps
-                        );
-
-
-                    }
-
-                    else {
-
-                        stampCountLabel.textContent =
-                            "⭐ 0/6";
-
-
-                        renderHomeStamps(
-                            0
-                        );
-
-
-                        updateLoyaltyMessage(
-                            0
-                        );
-
-                    }
-
-
-                }
-
-
-                catch (
-                    error
-                ) {
-
-                    console.error(
-                        "Home Firebase Error:",
-                        error
-                    );
-
-
-                    stampCountLabel.textContent =
-                        "⭐ 0/6";
-
-
-                    renderHomeStamps(
-                        0
-                    );
-
-
-                    updateLoyaltyMessage(
-                        0
-                    );
-
-                }
-
-
-            }
-
-        );
-
-
-        /* =================================================
-           RENDER HOME STAMPS
-           ================================================= */
-
-        function renderHomeStamps(
-            count
-        ) {
-
-
-            homeStampGrid.innerHTML =
-                "";
-
-
-            const safeCount =
-                Math.min(
-                    Math.max(
-                        Number(count) || 0,
-                        0
-                    ),
-                    6
-                );
-
-
-            for (
-                let i = 1;
-                i <= 6;
-                i++
-            ) {
-
-
-                const stamp =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                stamp.className =
-                    "home-stamp";
-
-
-                /* -----------------------------------------
-                   ACTIVE STAMP
-                   ----------------------------------------- */
-
-                if (
-                    i <= safeCount
-                ) {
-
-
-                    stamp.classList.add(
-                        "active"
-                    );
-
-
-                    stamp.innerHTML =
-                        '<i class="fa-solid fa-check"></i>';
-
-
-                }
-
-
-                /* -----------------------------------------
-                   EMPTY STAMP
-                   ----------------------------------------- */
-
-                else {
-
-
-                    stamp.textContent =
-                        i;
-
-
-                }
-
-
-                homeStampGrid.appendChild(
-                    stamp
-                );
-
-
-            }
-
-
-        }
-
-
-        /* =================================================
-           LOYALTY MESSAGE
-           ================================================= */
-
-        function updateLoyaltyMessage(
-            count
-        ) {
-
-
-            const safeCount =
-                Math.min(
-                    Math.max(
-                        Number(count) || 0,
-                        0
-                    ),
-                    6
-                );
-
-
-            if (
-                safeCount >= 6
-            ) {
-
-
-                loyaltyProgressMessage.innerHTML =
-
-                    '<i class="fa-solid fa-gift"></i>' +
-
-                    '<span>' +
-
-                    '🎉 Congratulations! Your FREE Veg Maggi is unlocked!' +
-
-                    '</span>';
-
-
-                loyaltyProgressMessage.classList.add(
-                    "reward-unlocked"
-                );
-
-
-            }
-
-
-            else {
-
-
-                const remaining =
-                    6 -
-                    safeCount;
-
-
-                loyaltyProgressMessage.innerHTML =
-
-                    '<i class="fa-solid fa-gift"></i>' +
-
-                    '<span>' +
-
-                    remaining +
-                    ' more stamp' +
-                    (
-                        remaining !== 1
-                        ? 's'
-                        : ''
-                    ) +
-
-                    ' to unlock your FREE Veg Maggi!' +
-
-                    '</span>';
-
-
-                loyaltyProgressMessage.classList.remove(
-                    "reward-unlocked"
-                );
-
-
-            }
-
-
-        }
-
-
-        /* =================================================
-           COMING SOON POPUP
-           ================================================= */
-
-        window.showComingSoon =
-            function (
-                feature
-            ) {
-
-
-                const popup =
-                    document.getElementById(
-                        "comingSoonPopup"
-                    );
-
-
-                const title =
-                    document.getElementById(
-                        "comingSoonTitle"
-                    );
-
-
-                const text =
-                    document.getElementById(
-                        "comingSoonText"
-                    );
-
-
-                title.textContent =
-                    feature +
-                    " Coming Soon";
-
-
-                text.textContent =
-                    "The " +
-                    feature.toLowerCase() +
-                    " feature will be available soon. Stay tuned!";
-
-
-                popup.classList.add(
-                    "show"
-                );
-
-
-                popup.setAttribute(
-                    "aria-hidden",
-                    "false"
-                );
-
-
-            };
-
-
-        /* =================================================
-           CLOSE COMING SOON
-           ================================================= */
-
-        window.closeComingSoon =
-            function () {
-
-
-                const popup =
-                    document.getElementById(
-                        "comingSoonPopup"
-                    );
-
-
-                popup.classList.remove(
-                    "show"
-                );
-
-
-                popup.setAttribute(
-                    "aria-hidden",
-                    "true"
-                );
-
-
-            };
-
-
-        /* =================================================
-           CLOSE POPUP ON BACKDROP CLICK
-           ================================================= */
-
-        document.addEventListener(
-
-            "click",
-
-            function (
-                event
-            ) {
-
-
-                const popup =
-                    document.getElementById(
-                        "comingSoonPopup"
-                    );
-
-
-                if (
-                    event.target === popup
-                ) {
-
-
-                    closeComingSoon();
-
-
-                }
-
-
-            }
-
-        );
-
-
-        /* =================================================
-           SERVICE WORKER
-           ================================================= */
-
-        if (
-            "serviceWorker"
-            in navigator
-        ) {
-
-
-            window.addEventListener(
-
-                "load",
-
-                () => {
-
-
-                    navigator.serviceWorker
-                        .register(
-                            "./service-worker.js"
-                        )
-                        .catch(
-
-                            (error) => {
-
-
-                                console.error(
-                                    "Service Worker Error:",
-                                    error
-                                );
-
-
-                            }
-
-                        );
-
-
-                }
-
-            );
-
-
-        }
-
-
-        /* =================================================
-           STARTUP
-           ================================================= */
-
-        console.log(
-            "================================="
-        );
-
-
-        console.log(
-            "RIO MAGGI POINT HOME"
-        );
-
-
-        console.log(
-            "PREMIUM HOME UI READY"
-        );
-
-
-        console.log(
-            "CALL: 7987827979"
-        );
-
-
-        console.log(
-            "WHATSAPP: +917987827979"
-        );
-
-
-        console.log(
-            "MAP: COMING SOON"
-        );
-
-
-        console.log(
-            "DELIVERY: COMING SOON"
-        );
-
-
-        console.log(
-            "LOYALTY STAMP SYSTEM READY"
-        );
-
-
-        console.log(
-            "================================="
-        );
-
-
-    </script>
-
-
-</body>
-
-</html>
-
+    <div class="menu-section-header">
+        <div class="menu-section-image">
+            <img src="assets/menu/everyday-magic-maggi.png"
+                 alt="Everyday Magic Maggi">
+        </div>
+
+        <div>
+            <h2>Everyday Magic Maggi</h2>
+            <p>Classic Rio Maggi Collection</p>
+        </div>
+    </div>
+
+    <div class="menu-table">
+
+        <div class="menu-table-head">
+            <span>Item Name</span>
+            <span>Half Price</span>
+            <span>Full Price</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Classic</span>
+            <span>₹30</span>
+            <span>₹50</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Veg</span>
+            <span>₹40</span>
+            <span>₹70</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Garlic</span>
+            <span>₹40</span>
+            <span>₹70</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Corn</span>
+            <span>₹40</span>
+            <span>₹70</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Schezwan</span>
+            <span>₹40</span>
+            <span>₹70</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Veg Corn</span>
+            <span>₹50</span>
+            <span>₹80</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Veg Lemon</span>
+            <span>₹80</span>
+            <span>₹120</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Korean</span>
+            <span>₹100</span>
+            <span>₹150</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="menu-section" id="cheese-magic-maggi">
+
+    <div class="menu-section-header">
+        <div class="menu-section-image">
+            <img src="assets/menu/cheese-magic-maggi.png"
+                 alt="Cheese Magic Maggi">
+        </div>
+
+        <div>
+            <h2>Cheese Magic Maggi</h2>
+            <p>Cheesy Rio Special Collection</p>
+        </div>
+    </div>
+
+    <div class="menu-table">
+
+        <div class="menu-table-head">
+            <span>Item Name</span>
+            <span>Half Price</span>
+            <span>Full Price</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Classic</span>
+            <span>₹40</span>
+            <span>₹70</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Veg</span>
+            <span>₹50</span>
+            <span>₹80</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Garlic</span>
+            <span>₹50</span>
+            <span>₹80</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Corn</span>
+            <span>₹50</span>
+            <span>₹80</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Schezwan</span>
+            <span>₹50</span>
+            <span>₹80</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Veg Corn</span>
+            <span>₹60</span>
+            <span>₹100</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Veg Schezwan</span>
+            <span>₹60</span>
+            <span>₹100</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Korean</span>
+            <span>₹120</span>
+            <span>₹180</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="menu-section" id="cheese-butter-magic-maggi">
+
+    <div class="menu-section-header">
+        <div class="menu-section-image">
+            <img src="assets/menu/cheese-butter-magic-maggi.png"
+                 alt="Cheese Butter Magic Maggi">
+        </div>
+
+        <div>
+            <h2>Cheese Butter Magic Maggi</h2>
+            <p>Premium Cheese Butter Collection</p>
+        </div>
+    </div>
+
+    <div class="menu-table">
+
+        <div class="menu-table-head">
+            <span>Item Name</span>
+            <span>Half Price</span>
+            <span>Full Price</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Butter Classic</span>
+            <span>₹50</span>
+            <span>₹80</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Butter Veg</span>
+            <span>₹60</span>
+            <span>₹100</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Butter Garlic</span>
+            <span>₹60</span>
+            <span>₹100</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Butter Corn</span>
+            <span>₹60</span>
+            <span>₹100</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Butter Schezwan</span>
+            <span>₹60</span>
+            <span>₹100</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Butter Veg Corn</span>
+            <span>₹70</span>
+            <span>₹120</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Butter Veg Schezwan</span>
+            <span>₹70</span>
+            <span>₹120</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Butter Korean</span>
+            <span>₹130</span>
+            <span>₹200</span>
+        </div>
+
+    </div>
+
+</section>
+<!-- =====================================================
+     PART 5
+     MENU SECTION
+===================================================== -->
+
+<section class="menu-section" id="ufo-burger">
+
+    <div class="menu-section-header">
+
+        <div class="menu-section-image">
+            <img
+                src="assets/menu/ufo-burger.png"
+                alt="UFO Burger"
+            >
+        </div>
+
+        <div>
+            <h2>UFO Burger</h2>
+            <p>Premium Burger Collection</p>
+        </div>
+
+    </div>
+
+
+    <div class="menu-table">
+
+        <div class="menu-table-head">
+            <span>Item Name</span>
+            <span>Price</span>
+        </div>
+
+
+        <div class="menu-row">
+            <span>Veg Burger</span>
+            <span>₹40</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Burger</span>
+            <span>₹40</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Veg Cheese Burger</span>
+            <span>₹50</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Garlic Burger</span>
+            <span>₹50</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Schezwan Burger</span>
+            <span>₹50</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Schezwan Burger</span>
+            <span>₹60</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DELICIOUS MOMOS
+===================================================== -->
+
+<section class="menu-section" id="delicious-momos">
+
+    <div class="menu-section-header">
+
+        <div class="menu-section-image">
+            <img
+                src="assets/menu/delicious-momos.png"
+                alt="Delicious Momos"
+            >
+        </div>
+
+        <div>
+            <h2>Delicious Momos</h2>
+            <p>Hot &amp; Tasty Momos Collection</p>
+        </div>
+
+    </div>
+
+
+    <div class="menu-table">
+
+        <div class="menu-table-head">
+            <span>Item Name</span>
+            <span>Price</span>
+        </div>
+
+
+        <div class="menu-row">
+            <span>Steam Momos</span>
+            <span>₹20</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Fried Momos</span>
+            <span>₹30</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Schezwan Momos</span>
+            <span>₹50</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Cheese Schezwan Momos</span>
+            <span>₹60</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HOT SOUPS
+===================================================== -->
+
+<section class="menu-section" id="hot-soups">
+
+    <div class="menu-section-header">
+
+        <div class="menu-section-image">
+            <img
+                src="assets/menu/hot-soups.png"
+                alt="Hot Soups"
+            >
+        </div>
+
+        <div>
+            <h2>Hot Soups</h2>
+            <p>Hot &amp; Delicious Soup Collection</p>
+        </div>
+
+    </div>
+
+
+    <div class="menu-table">
+
+        <div class="menu-table-head">
+            <span>Item Name</span>
+            <span>Price</span>
+        </div>
+
+
+        <div class="menu-row">
+            <span>Corn Soup</span>
+            <span>₹40</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Tomato Soup</span>
+            <span>₹40</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Chatpata Tomato</span>
+            <span>₹40</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Magic Maggi Soup</span>
+            <span>₹50</span>
+        </div>
+
+        <div class="menu-row">
+            <span>Manchow Soup</span>
+            <span>₹50</span>
+        </div>
+
+    </div>
+
+</section>
