@@ -1,139 +1,326 @@
 // ======================================
-// RIO LOYALTY CLUB
+// RIO MAGGI POINT
 // FIREBASE SIGNUP
-// PART 1
+// FINAL FIXED VERSION
 // ======================================
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-getAuth,
-createUserWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    auth,
+    db
+} from "./firebase-config.js";
 
 import {
-getFirestore,
-doc,
-setDoc,
-serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    createUserWithEmailAndPassword,
+    sendEmailVerification
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-import { firebaseConfig } from "./firebase-config.js";
+import {
+    doc,
+    setDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-// Firebase
 
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-
-const db = getFirestore(app);
 // ======================================
-// PART 2
-// CREATE FIREBASE ACCOUNT
+// SIGNUP EVENT
 // ======================================
 
-document.addEventListener("signup-ready", async () => {
+document.addEventListener(
+    "signup-ready",
+    async () => {
 
-const data = window.signupData;
+        const data =
+            window.signupData;
 
-try{
 
-// Create Firebase Authentication User
+        if(!data){
 
-const userCredential = await createUserWithEmailAndPassword(
+            alert(
+                "Signup data not found."
+            );
 
-auth,
-data.email,
-data.password
+            return;
+
+        }
+
+
+        // ==================================
+        // BASIC VALIDATION
+        // ==================================
+
+        if(
+            !data.name ||
+            !data.mobile ||
+            !data.email ||
+            !data.password ||
+            !data.gender ||
+            !data.avatar
+        ){
+
+            alert(
+                "Please complete all signup details."
+            );
+
+            return;
+
+        }
+
+
+        try{
+
+            // ==================================
+            // CREATE FIREBASE AUTH ACCOUNT
+            // ==================================
+
+            const userCredential =
+                await createUserWithEmailAndPassword(
+
+                    auth,
+
+                    data.email,
+
+                    data.password
+
+                );
+
+
+            const user =
+                userCredential.user;
+
+
+            // ==================================
+            // SEND EMAIL VERIFICATION
+            // ==================================
+
+            await sendEmailVerification(
+                user
+            );
+
+
+            // ==================================
+            // GENERATE MEMBER ID
+            // ==================================
+
+            const memberId =
+
+                "RIO-" +
+
+                Date.now();
+
+
+            // ==================================
+            // SAVE CUSTOMER DATA
+            // ==================================
+
+            await setDoc(
+
+                doc(
+
+                    db,
+
+                    "customers",
+
+                    user.uid
+
+                ),
+
+                {
+
+                    uid:
+                        user.uid,
+
+                    memberId:
+                        memberId,
+
+                    name:
+                        data.name,
+
+                    mobile:
+                        data.mobile,
+
+                    email:
+                        data.email,
+
+                    gender:
+                        data.gender,
+
+                    avatar:
+                        data.avatar,
+
+                    photoURL:
+                        data.avatar,
+
+                    stamps:
+                        0,
+
+                    currentStamps:
+                        0,
+
+                    stampDates:
+                        [],
+
+                    reward:
+                        false,
+
+                    rewardUnlocked:
+                        false,
+
+                    rewardRedeemed:
+                        false,
+
+                    status:
+                        "active",
+
+                    emailVerified:
+                        false,
+
+                    memberSince:
+                        serverTimestamp(),
+
+                    createdAt:
+                        serverTimestamp(),
+
+                    updatedAt:
+                        serverTimestamp()
+
+                }
+
+            );
+
+
+            // ==================================
+            // SUCCESS MESSAGE
+            // ==================================
+
+            alert(
+
+                "🎉 Account Created Successfully!\n\n" +
+
+                "A verification email has been sent to " +
+
+                data.email +
+
+                ".\n\n" +
+
+                "Please verify your email before logging in."
+
+            );
+
+
+            // ==================================
+            // SIGN OUT AFTER REGISTRATION
+            // ==================================
+
+            await auth.signOut();
+
+
+            // ==================================
+            // REDIRECT TO LOGIN
+            // ==================================
+
+            window.location.href =
+                "login.html";
+
+
+        }
+
+        catch(error){
+
+            console.error(
+                "Signup Error:",
+                error
+            );
+
+
+            // ==================================
+            // ERROR HANDLING
+            // ==================================
+
+            switch(
+                error.code
+            ){
+
+                case "auth/email-already-in-use":
+
+                    alert(
+                        "This email is already registered."
+                    );
+
+                    break;
+
+
+                case "auth/invalid-email":
+
+                    alert(
+                        "Invalid email address."
+                    );
+
+                    break;
+
+
+                case "auth/weak-password":
+
+                    alert(
+                        "Password must be at least 6 characters."
+                    );
+
+                    break;
+
+
+                case "auth/network-request-failed":
+
+                    alert(
+                        "Network error. Please check your internet connection."
+                    );
+
+                    break;
+
+
+                case "auth/operation-not-allowed":
+
+                    alert(
+                        "Email and Password signup is not enabled in Firebase."
+                    );
+
+                    break;
+
+
+                default:
+
+                    alert(
+
+                        "Signup Failed: " +
+
+                        (
+                            error.message ||
+
+                            "Unknown error occurred."
+
+                        )
+
+                    );
+
+            }
+
+        }
+
+    }
 
 );
 
-const user = userCredential.user;
 
-// Generate Member ID
-
-const memberId = "RIO-" + Date.now();
-
-// Save Customer
-
-await setDoc(doc(db,"customers",user.uid),{
-
-uid:user.uid,
-
-memberId:memberId,
-
-name:data.name,
-
-mobile:data.mobile,
-
-email:data.email,
-
-gender:data.gender,
-
-avatar:data.avatar,
-
-stamps:0,
-
-reward:false,
-
-rewardUnlocked:false,
-
-rewardRedeemed:false,
-
-status:"active",
-
-createdAt:serverTimestamp(),
-
-updatedAt:serverTimestamp()
-
-});
-  // ======================================
-// PART 3
-// SUCCESS + ERROR + REDIRECT
+// ======================================
+// READY
 // ======================================
 
-alert("🎉 Account Created Successfully!");
+console.log(
+    "🍜 Rio Maggi Point Firebase Signup Ready"
+);
 
-window.location.href = "index.html";
+console.log(
+    "Email Verification Enabled"
+);
 
-}
-
-catch(error){
-
-console.error(error);
-
-switch(error.code){
-
-case "auth/email-already-in-use":
-
-alert("This email is already registered.");
-
-break;
-
-case "auth/invalid-email":
-
-alert("Invalid email address.");
-
-break;
-
-case "auth/weak-password":
-
-alert("Password should be at least 6 characters.");
-
-break;
-
-case "auth/network-request-failed":
-
-alert("Network error. Please check your internet connection.");
-
-break;
-
-default:
-
-alert(error.message);
-
-}
-
-}
-
-});
+console.log(
+    "Customer Registration Enabled"
+);
