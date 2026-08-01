@@ -3135,3 +3135,1416 @@ function getRewardStatusText(
 // =====================================================
 // END OF PART 4
 // =====================================================
+          // =====================================================
+// RIO MAGGI POINT
+// PREMIUM ADMIN DASHBOARD V4
+// PART 5
+// DASHBOARD STATS + CUSTOMER DATA LOADING + REWARD COUNT
+// =====================================================
+
+
+// =====================================================
+// LOAD DASHBOARD DATA
+// =====================================================
+// Loads customer data from Firebase and updates:
+// 1. Customer List
+// 2. Total Customers
+// 3. Total Stamps
+// 4. Rewards Ready
+// 5. Today's Scan Count
+// =====================================================
+
+async function loadDashboard() {
+
+  // ---------------------------------------------------
+  // CHECK FIREBASE DATABASE
+  // ---------------------------------------------------
+
+  if (!db) {
+
+    console.error(
+      "Firebase database is not available."
+    );
+
+    if (firebaseStatus) {
+
+      firebaseStatus.textContent =
+        "🔴 Firebase Not Connected";
+
+      firebaseStatus.className =
+        "offline";
+
+    }
+
+    return;
+
+  }
+
+
+  // ---------------------------------------------------
+  // SHOW LOADING STATUS
+  // ---------------------------------------------------
+
+  if (firebaseStatus) {
+
+    firebaseStatus.textContent =
+      "🟡 Loading...";
+
+    firebaseStatus.className =
+      "loading";
+
+  }
+
+
+  try {
+
+    // =================================================
+    // GET ALL CUSTOMERS
+    // =================================================
+
+    const customersRef =
+      collection(
+        db,
+        "customers"
+      );
+
+
+    const snapshot =
+      await getDocs(
+        customersRef
+      );
+
+
+    // =================================================
+    // CLEAR OLD CUSTOMER DATA
+    // =================================================
+
+    customers =
+      [];
+
+
+    // =================================================
+    // PROCESS FIREBASE CUSTOMER DATA
+    // =================================================
+
+    snapshot.forEach(
+      (documentSnapshot) => {
+
+        const data =
+          documentSnapshot.data();
+
+
+        const customer = {
+
+          ...data,
+
+          uid:
+            documentSnapshot.id,
+
+          stamps:
+            Number(
+              data.stamps ||
+              0
+            )
+
+        };
+
+
+        customers.push(
+          customer
+        );
+
+      }
+    );
+
+
+    // =================================================
+    // UPDATE TOTAL CUSTOMER COUNT
+    // =================================================
+
+    if (totalCustomers) {
+
+      totalCustomers.textContent =
+        customers.length;
+
+    }
+
+
+    // =================================================
+    // CALCULATE TOTAL STAMPS
+    // =================================================
+
+    let stampTotal =
+      0;
+
+
+    customers.forEach(
+      (customer) => {
+
+        stampTotal +=
+          Number(
+            customer.stamps ||
+            0
+          );
+
+      }
+    );
+
+
+    if (totalStamps) {
+
+      totalStamps.textContent =
+        stampTotal;
+
+    }
+
+
+    // =================================================
+    // CALCULATE REWARDS READY
+    // =================================================
+
+    let rewardTotal =
+      0;
+
+
+    customers.forEach(
+      (customer) => {
+
+        const stamps =
+          Number(
+            customer.stamps ||
+            0
+          );
+
+
+        const rewardUnlocked =
+          customer.rewardUnlocked ===
+          true;
+
+
+        if (
+          rewardUnlocked ||
+          stamps >= MAX_STAMPS
+        ) {
+
+          rewardTotal++;
+
+        }
+
+      }
+    );
+
+
+    if (totalRewards) {
+
+      totalRewards.textContent =
+        rewardTotal;
+
+    }
+
+
+    // =================================================
+    // CALCULATE TODAY'S SCANS
+    // =================================================
+    // Uses the dailyStampDate field.
+    // =================================================
+
+    const todayKey =
+      getTodayKey();
+
+
+    let todayCount =
+      0;
+
+
+    customers.forEach(
+      (customer) => {
+
+        if (
+          customer.dailyStampDate ===
+          todayKey
+        ) {
+
+          todayCount++;
+
+        }
+
+        else if (
+          customer.lastStampDate ===
+          todayKey
+        ) {
+
+          todayCount++;
+
+        }
+
+      }
+    );
+
+
+    // =================================================
+    // STORE TODAY SCAN COUNT
+    // =================================================
+
+    todayScanCount =
+      todayCount;
+
+
+    if (todayScans) {
+
+      todayScans.textContent =
+        todayCount;
+
+    }
+
+
+    // =================================================
+    // DISPLAY CUSTOMER TABLE
+    // =================================================
+
+    renderCustomerTable();
+
+
+    // =================================================
+    // FIREBASE ONLINE STATUS
+    // =================================================
+
+    if (firebaseStatus) {
+
+      firebaseStatus.textContent =
+        "🟢 Connected";
+
+      firebaseStatus.className =
+        "online";
+
+    }
+
+
+    // =================================================
+    // UPDATE LAST REFRESH TIME
+    // =================================================
+
+    updateLastRefreshTime();
+
+
+    // =================================================
+    // LOG SUCCESS
+    // =================================================
+
+    console.log(
+      "Dashboard Loaded Successfully"
+    );
+
+
+    console.log(
+      "Total Customers:",
+      customers.length
+    );
+
+
+    console.log(
+      "Total Stamps:",
+      stampTotal
+    );
+
+
+    console.log(
+      "Rewards Ready:",
+      rewardTotal
+    );
+
+
+    console.log(
+      "Today's Scans:",
+      todayCount
+    );
+
+  }
+
+  catch (error) {
+
+    // =================================================
+    // DASHBOARD LOAD ERROR
+    // =================================================
+
+    console.error(
+      "Dashboard Load Error:",
+      error
+    );
+
+
+    // ---------------------------------------------------
+    // UPDATE FIREBASE STATUS
+    // ---------------------------------------------------
+
+    if (firebaseStatus) {
+
+      firebaseStatus.textContent =
+        "🔴 Connection Error";
+
+      firebaseStatus.className =
+        "offline";
+
+    }
+
+
+    // ---------------------------------------------------
+    // SHOW ERROR MESSAGE
+    // ---------------------------------------------------
+
+    console.error(
+      "Unable to load customer data from Firebase."
+    );
+
+  }
+
+}
+
+
+// =====================================================
+// RENDER CUSTOMER TABLE
+// =====================================================
+// Clears and rebuilds the customer table.
+// Uses createCustomerRow() from Part 2.
+// =====================================================
+
+function renderCustomerTable() {
+
+  // ---------------------------------------------------
+  // CHECK CUSTOMER TABLE
+  // ---------------------------------------------------
+
+  if (!customerTable) {
+
+    return;
+
+  }
+
+
+  // ---------------------------------------------------
+  // CLEAR EXISTING ROWS
+  // ---------------------------------------------------
+
+  customerTable.innerHTML =
+    "";
+
+
+  // ---------------------------------------------------
+  // NO CUSTOMERS
+  // ---------------------------------------------------
+
+  if (
+    customers.length ===
+    0
+  ) {
+
+    const emptyRow =
+      document.createElement(
+        "tr"
+      );
+
+
+    emptyRow.innerHTML = `
+
+      <td
+        colspan="7"
+        style="
+          text-align:center;
+          padding:25px;
+        "
+      >
+
+        No Customers Found
+
+      </td>
+
+    `;
+
+
+    customerTable.appendChild(
+      emptyRow
+    );
+
+
+    return;
+
+  }
+
+
+  // ---------------------------------------------------
+  // CREATE CUSTOMER ROWS
+  // ---------------------------------------------------
+
+  customers.forEach(
+    (customer) => {
+
+      createCustomerRow(
+        customer
+      );
+
+    }
+  );
+
+}
+
+
+// =====================================================
+// UPDATE LAST REFRESH TIME
+// =====================================================
+
+function updateLastRefreshTime() {
+
+  if (!lastRefresh) {
+
+    return;
+
+  }
+
+
+  const now =
+    new Date();
+
+
+  const timeString =
+    now.toLocaleTimeString(
+      [],
+      {
+        hour:
+          "2-digit",
+
+        minute:
+          "2-digit",
+
+        second:
+          "2-digit"
+      }
+    );
+
+
+  lastRefresh.textContent =
+    timeString;
+
+}
+
+
+// =====================================================
+// INITIAL DASHBOARD LOAD
+// =====================================================
+// Wait until the page is fully loaded before fetching
+// Firebase customer data.
+// =====================================================
+
+window.addEventListener(
+  "load",
+  () => {
+
+    console.log(
+      "Admin Dashboard Initializing..."
+    );
+
+
+    loadDashboard();
+
+  }
+);
+
+
+// =====================================================
+// CUSTOMER DATA REFRESH EVENT
+// =====================================================
+// Allows other dashboard modules to request a refresh
+// without directly calling internal logic.
+// =====================================================
+
+window.addEventListener(
+  "rioDashboardRefresh",
+  () => {
+
+    loadDashboard();
+
+  }
+);
+
+
+// =====================================================
+// GLOBAL DASHBOARD REFRESH FUNCTION
+// =====================================================
+// Keeps compatibility with other existing scripts.
+// =====================================================
+
+window.loadDashboard =
+  loadDashboard;
+
+
+// =====================================================
+// GLOBAL CUSTOMER TABLE RENDER FUNCTION
+// =====================================================
+
+window.renderCustomerTable =
+  renderCustomerTable;
+
+
+// =====================================================
+// GLOBAL REFRESH TIME FUNCTION
+// =====================================================
+
+window.updateLastRefreshTime =
+  updateLastRefreshTime;
+
+
+// =====================================================
+// MODULE READY LOG
+// =====================================================
+
+console.log(
+  "Dashboard Stats Module Ready"
+);
+
+
+console.log(
+  "Customer Firebase Loader Ready"
+);
+
+
+console.log(
+  "Customer Table Renderer Ready"
+);
+
+
+// =====================================================
+// END OF PART 5
+// =====================================================
+          // =====================================================
+// RIO MAGGI POINT
+// PREMIUM ADMIN DASHBOARD V4
+// PART 6
+// NAVIGATION + REWARD MANAGER + REPORTS + SETTINGS
+// =====================================================
+
+
+// =====================================================
+// HELPER: SCROLL TO SECTION
+// =====================================================
+
+function scrollToSection(
+  sectionId
+) {
+
+  const section =
+    document.getElementById(
+      sectionId
+    );
+
+
+  if (!section) {
+
+    console.warn(
+      "Section not found:",
+      sectionId
+    );
+
+    return;
+
+  }
+
+
+  section.scrollIntoView({
+
+    behavior:
+      "smooth",
+
+    block:
+      "start"
+
+  });
+
+}
+
+
+// =====================================================
+// CUSTOMERS MENU
+// =====================================================
+
+customersMenu?.addEventListener(
+  "click",
+  () => {
+
+    scrollToSection(
+      "customerSection"
+    );
+
+  }
+);
+
+
+// =====================================================
+// REWARDS MENU
+// =====================================================
+
+rewardMenu?.addEventListener(
+  "click",
+  () => {
+
+    scrollToSection(
+      "quickActions"
+    );
+
+  }
+);
+
+
+// =====================================================
+// REPORTS MENU
+// =====================================================
+
+reportMenu?.addEventListener(
+  "click",
+  () => {
+
+    scrollToSection(
+      "statsSection"
+    );
+
+  }
+);
+
+
+// =====================================================
+// SETTINGS MENU
+// =====================================================
+
+settingMenu?.addEventListener(
+  "click",
+  () => {
+
+    scrollToSection(
+      "statusSection"
+    );
+
+  }
+);
+
+
+// =====================================================
+// REWARD MANAGER BUTTON
+// =====================================================
+
+rewardBtn?.addEventListener(
+  "click",
+  () => {
+
+    // ---------------------------------------------------
+    // FIND CUSTOMERS WITH READY REWARDS
+    // ---------------------------------------------------
+
+    const readyRewards =
+      customers.filter(
+        (customer) => {
+
+          const stamps =
+            Number(
+              customer.stamps ||
+              0
+            );
+
+
+          return (
+
+            customer.rewardUnlocked ===
+            true
+
+            ||
+
+            stamps >=
+            MAX_STAMPS
+
+          );
+
+        }
+      );
+
+
+    // ---------------------------------------------------
+    // NO REWARDS READY
+    // ---------------------------------------------------
+
+    if (
+      readyRewards.length ===
+      0
+    ) {
+
+      alert(
+
+        "🎁 Reward Manager\n\n" +
+
+        "No Free Veg Maggi rewards are currently ready."
+
+      );
+
+      return;
+
+    }
+
+
+    // ---------------------------------------------------
+    // CREATE REWARD SUMMARY
+    // ---------------------------------------------------
+
+    let rewardMessage =
+
+      "🎁 REWARD MANAGER\n\n" +
+
+      `Rewards Ready: ${readyRewards.length}\n\n`;
+
+
+    readyRewards.forEach(
+      (customer, index) => {
+
+        rewardMessage +=
+
+          `${index + 1}. ` +
+
+          `${customer.name || "Unknown Customer"}\n` +
+
+          `Member ID: ` +
+
+          `${customer.memberId || "-"}\n\n`;
+
+      }
+    );
+
+
+    // ---------------------------------------------------
+    // SHOW REWARD SUMMARY
+    // ---------------------------------------------------
+
+    alert(
+      rewardMessage
+    );
+
+  }
+);
+
+
+// =====================================================
+// SETTINGS BUTTON
+// =====================================================
+
+settingsBtn?.addEventListener(
+  "click",
+  () => {
+
+    alert(
+
+      "⚙️ ADMIN SETTINGS\n\n" +
+
+      "Firebase: Connected\n" +
+
+      "Admin: Verified\n" +
+
+      "Scanner: Ready\n\n" +
+
+      "Settings panel is ready for future configuration."
+
+    );
+
+  }
+);
+
+
+// =====================================================
+// EXPORT CUSTOMER DATA
+// =====================================================
+// Exports current customer data as CSV.
+// No external library required.
+// =====================================================
+
+exportBtn?.addEventListener(
+  "click",
+  () => {
+
+    // ---------------------------------------------------
+    // CHECK CUSTOMER DATA
+    // ---------------------------------------------------
+
+    if (
+      !customers ||
+      customers.length ===
+      0
+    ) {
+
+      alert(
+        "❌ No customer data available to export."
+      );
+
+      return;
+
+    }
+
+
+    // ---------------------------------------------------
+    // CSV HEADER
+    // ---------------------------------------------------
+
+    const csvRows = [
+
+      [
+
+        "Name",
+
+        "Member ID",
+
+        "Mobile",
+
+        "Stamps",
+
+        "Reward",
+
+        "Daily Stamp Date",
+
+        "Last Stamp Date"
+
+      ]
+
+    ];
+
+
+    // ---------------------------------------------------
+    // ADD CUSTOMER DATA
+    // ---------------------------------------------------
+
+    customers.forEach(
+      (customer) => {
+
+        const stamps =
+          Number(
+            customer.stamps ||
+            0
+          );
+
+
+        const rewardReady =
+
+          customer.rewardUnlocked ===
+          true
+
+          ||
+
+          stamps >=
+          MAX_STAMPS;
+
+
+        csvRows.push([
+
+          csvEscape(
+            customer.name ||
+            ""
+          ),
+
+          csvEscape(
+            customer.memberId ||
+            ""
+          ),
+
+          csvEscape(
+
+            customer.mobile ||
+
+            customer.phone ||
+
+            customer.phoneNumber ||
+
+            ""
+
+          ),
+
+          stamps,
+
+          rewardReady
+            ? "Ready"
+            : "Locked",
+
+          csvEscape(
+            customer.dailyStampDate ||
+            ""
+          ),
+
+          csvEscape(
+            customer.lastStampDate ||
+            ""
+          )
+
+        ]);
+
+      }
+    );
+
+
+    // ---------------------------------------------------
+    // CREATE CSV FILE
+    // ---------------------------------------------------
+
+    const csvContent =
+      csvRows
+        .map(
+          (row) =>
+            row.join(",")
+        )
+        .join("\n");
+
+
+    const blob =
+      new Blob(
+
+        [
+          "\uFEFF" +
+          csvContent
+        ],
+
+        {
+          type:
+            "text/csv;charset=utf-8;"
+
+        }
+
+      );
+
+
+    // ---------------------------------------------------
+    // CREATE DOWNLOAD LINK
+    // ---------------------------------------------------
+
+    const url =
+      URL.createObjectURL(
+        blob
+      );
+
+
+    const link =
+      document.createElement(
+        "a"
+      );
+
+
+    link.href =
+      url;
+
+
+    link.download =
+      "rio-maggi-customers.csv";
+
+
+    document.body.appendChild(
+      link
+    );
+
+
+    link.click();
+
+
+    // ---------------------------------------------------
+    // CLEANUP
+    // ---------------------------------------------------
+
+    document.body.removeChild(
+      link
+    );
+
+
+    URL.revokeObjectURL(
+      url
+    );
+
+
+    // ---------------------------------------------------
+    // SUCCESS MESSAGE
+    // ---------------------------------------------------
+
+    alert(
+
+      "✅ Customer data exported successfully.\n\n" +
+
+      `Total Customers: ${customers.length}`
+
+    );
+
+  }
+);
+
+
+// =====================================================
+// CSV ESCAPE HELPER
+// =====================================================
+
+function csvEscape(
+  value
+) {
+
+  if (
+    value === null ||
+    value === undefined
+  ) {
+
+    return "";
+
+  }
+
+
+  const stringValue =
+    String(
+      value
+    );
+
+
+  return (
+
+    '"' +
+
+    stringValue.replace(
+      /"/g,
+      '""'
+    ) +
+
+    '"'
+
+  );
+
+}
+
+
+// =====================================================
+// LOGOUT FUNCTION
+// =====================================================
+// Uses Firebase signOut if available.
+// =====================================================
+
+async function handleAdminLogout() {
+
+  // ---------------------------------------------------
+  // CONFIRM LOGOUT
+  // ---------------------------------------------------
+
+  const confirmLogout =
+    window.confirm(
+
+      "Are you sure you want to logout from Admin Dashboard?"
+
+    );
+
+
+  if (
+    !confirmLogout
+  ) {
+
+    return;
+
+  }
+
+
+  try {
+
+    // -------------------------------------------------
+    // FIREBASE LOGOUT
+    // -------------------------------------------------
+
+    if (
+      typeof signOut ===
+      "function" &&
+
+      typeof auth !==
+      "undefined"
+    ) {
+
+      await signOut(
+        auth
+      );
+
+    }
+
+
+    // -------------------------------------------------
+    // CLEAR LOCAL ADMIN SESSION
+    // -------------------------------------------------
+
+    try {
+
+      sessionStorage.removeItem(
+        "rioAdminLoggedIn"
+      );
+
+
+      localStorage.removeItem(
+        "rioAdminLoggedIn"
+      );
+
+    }
+
+    catch (
+      storageError
+    ) {
+
+      console.warn(
+        "Storage cleanup warning:",
+        storageError
+      );
+
+    }
+
+
+    // -------------------------------------------------
+    // REDIRECT TO ADMIN LOGIN
+    // -------------------------------------------------
+
+    window.location.href =
+      "admin-login.html";
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+      "Admin Logout Error:",
+      error
+    );
+
+
+    alert(
+
+      "❌ Logout failed.\n\n" +
+
+      "Please try again."
+
+    );
+
+  }
+
+}
+
+
+// =====================================================
+// LOGOUT BUTTON
+// =====================================================
+
+logoutBtn?.addEventListener(
+  "click",
+  handleAdminLogout
+);
+
+
+// =====================================================
+// GLOBAL LOGOUT FUNCTION
+// =====================================================
+
+window.handleAdminLogout =
+  handleAdminLogout;
+
+
+// =====================================================
+// QUICK ACTION: REFRESH
+// =====================================================
+// Existing refresh button already calls loadDashboard()
+// in Part 2.
+// This additional event is intentionally NOT added here
+// to prevent duplicate refresh events.
+// =====================================================
+
+
+// =====================================================
+// QUICK ACTION: SETTINGS
+// =====================================================
+// Reuses the same settings button handler above.
+// =====================================================
+
+
+// =====================================================
+// DASHBOARD MENU ACTIVE STATE
+// =====================================================
+
+const navigationButtons = [
+
+  dashboardMenu,
+
+  scannerMenu,
+
+  customersMenu,
+
+  stampMenu,
+
+  rewardMenu,
+
+  reportMenu,
+
+  settingMenu
+
+];
+
+
+function setActiveNavigation(
+  activeButton
+) {
+
+  navigationButtons.forEach(
+    (button) => {
+
+      if (!button) {
+
+        return;
+
+      }
+
+
+      button.classList.remove(
+        "active"
+      );
+
+    }
+  );
+
+
+  if (
+    activeButton
+  ) {
+
+    activeButton.classList.add(
+      "active"
+    );
+
+  }
+
+}
+
+
+// =====================================================
+// NAVIGATION ACTIVE STATES
+// =====================================================
+
+dashboardMenu?.addEventListener(
+  "click",
+  () => {
+
+    setActiveNavigation(
+      dashboardMenu
+    );
+
+  }
+);
+
+
+scannerMenu?.addEventListener(
+  "click",
+  () => {
+
+    setActiveNavigation(
+      scannerMenu
+    );
+
+  }
+);
+
+
+customersMenu?.addEventListener(
+  "click",
+  () => {
+
+    setActiveNavigation(
+      customersMenu
+    );
+
+  }
+);
+
+
+stampMenu?.addEventListener(
+  "click",
+  () => {
+
+    setActiveNavigation(
+      stampMenu
+    );
+
+  }
+);
+
+
+rewardMenu?.addEventListener(
+  "click",
+  () => {
+
+    setActiveNavigation(
+      rewardMenu
+    );
+
+  }
+);
+
+
+reportMenu?.addEventListener(
+  "click",
+  () => {
+
+    setActiveNavigation(
+      reportMenu
+    );
+
+  }
+);
+
+
+settingMenu?.addEventListener(
+  "click",
+  () => {
+
+    setActiveNavigation(
+      settingMenu
+    );
+
+  }
+);
+
+
+// =====================================================
+// DEFAULT ACTIVE MENU
+// =====================================================
+
+setActiveNavigation(
+  dashboardMenu
+);
+
+
+// =====================================================
+// GLOBAL HELPER
+// =====================================================
+
+window.scrollToSection =
+  scrollToSection;
+
+
+// =====================================================
+// MODULE READY LOGS
+// =====================================================
+
+console.log(
+  "Admin Navigation Module Ready"
+);
+
+
+console.log(
+  "Reward Manager Module Ready"
+);
+
+
+console.log(
+  "CSV Export Module Ready"
+);
+
+
+console.log(
+  "Admin Logout Module Ready"
+);
+
+
+// =====================================================
+// END OF PART 6
+// =====================================================
