@@ -1,946 +1,1256 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+// =====================================================
+// RIO MAGGI POINT
+// PREMIUM ADMIN DASHBOARD V4
+// PART 1
+// =====================================================
 
-    <!-- =================================================
-         BASIC META
-    ================================================== -->
+import { auth, db } from "./firebase-config.js";
 
-    <meta charset="UTF-8">
+import {
+    collection,
+    getDocs,
+    doc,
+    query,
+    where,
+    updateDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    >
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-    <meta
-        name="theme-color"
-        content="#d94f8a"
-    >
 
-    <meta
-        name="description"
-        content="Rio Maggi Point Premium Female Customer Dashboard"
-    >
+// =====================================================
+// ELEMENTS
+// =====================================================
 
+const totalCustomers      = document.getElementById("totalCustomers");
+const totalStamps         = document.getElementById("totalStamps");
+const totalRewards        = document.getElementById("totalRewards");
+const todayScans          = document.getElementById("todayScans");
 
-    <!-- =================================================
-         PAGE TITLE
-    ================================================== -->
+const customerTable       = document.getElementById("customerTable");
+const searchCustomer      = document.getElementById("searchCustomer");
 
-    <title>
-        Rio Maggi Point | Premium Dashboard
-    </title>
+const refreshBtn          = document.getElementById("refreshBtn");
+const exportBtn           = document.getElementById("exportBtn");
+const rewardBtn           = document.getElementById("rewardBtn");
+const settingsBtn         = document.getElementById("settingsBtn");
 
+const giveStampBtn        = document.getElementById("giveStampBtn");
+const cancelScanBtn       = document.getElementById("cancelScanBtn");
 
-    <!-- =================================================
-         COMMON CSS
-    ================================================== -->
+const startScannerBtn     = document.getElementById("startScannerBtn");
+const stopScannerBtn      = document.getElementById("stopScannerBtn");
 
-    <link
-        rel="stylesheet"
-        href="../common.css"
-    >
+const scannerStatus       = document.getElementById("scannerStatus");
+const lastRefresh         = document.getElementById("lastRefresh");
 
+const scanCustomerPhoto   = document.getElementById("scanCustomerPhoto");
+const scanCustomerName    = document.getElementById("scanCustomerName");
+const scanMemberId        = document.getElementById("scanMemberId");
+const scanStampCount      = document.getElementById("scanStampCount");
+const todayStatus         = document.getElementById("todayStatus");
 
-    <!-- =================================================
-         FEMALE DASHBOARD CSS
-    ================================================== -->
+const logoutBtn           = document.getElementById("logoutBtn");
 
-    <link
-        rel="stylesheet"
-        href="female.css"
-    >
 
+// =====================================================
+// VARIABLES
+// =====================================================
 
-    <!-- =================================================
-         GOOGLE FONT
-    ================================================== -->
+let customers = [];
+let currentCustomer = null;
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+let todayScanCount = 0;
 
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
+let html5QrCode = null;
+let scannerRunning = false;
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
+let dashboardLoaded = false;
 
 
-    <!-- =================================================
-         FIREBASE / COMMON SYSTEM
-         Existing project scripts will be connected later.
-    ================================================== -->
+// =====================================================
+// ANIMATED COUNTERS
+// =====================================================
 
-</head>
+function animateCounter(element, target) {
 
+    if (!element) return;
 
-<body class="female-dashboard-page">
+    const start = Number(element.textContent) || 0;
 
+    const duration = 700;
 
-    <!-- =================================================
-         MAIN FEMALE DASHBOARD WRAPPER
-    ================================================== -->
+    const startTime = performance.now();
 
-    <main
-        id="femaleDashboard"
-        class="female-dashboard"
-    >
+    function update(now) {
 
+        const progress = Math.min((now - startTime) / duration, 1);
 
-        <!-- =================================================
-             PREMIUM BACKGROUND DECORATION
-        ================================================== -->
+        const value = Math.floor(
+            start + ((target - start) * progress)
+        );
 
-        <div
-            class="female-background"
-            aria-hidden="true"
-        >
+        element.textContent = value;
 
-            <span class="female-glow female-glow-one"></span>
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        } else {
+            element.textContent = target;
+        }
+    }
 
-            <span class="female-glow female-glow-two"></span>
+    requestAnimationFrame(update);
 
-            <span class="female-glow female-glow-three"></span>
+}
 
-        </div>
 
+// =====================================================
+// AUTH
+// =====================================================
 
+onAuthStateChanged(auth, async (user) => {
 
-        <!-- =================================================
-             WELCOME SECTION
-        ================================================== -->
+    if (!user) {
+        location.href = "admin-login.html";
+        return;
+    }
 
-        <section
-            class="female-welcome-section"
-            id="femaleWelcomeSection"
-        >
+    await loadDashboard();
 
+});
+            function showCustomer(customer){
 
-            <!-- Female welcome character
-                 PNG बाद में assets folder से आएगा -->
+scanCustomerPhoto.src =
 
-            <div
-                class="female-welcome-character"
-                id="femaleWelcomeCharacter"
-            >
+customer.gender==="female"
 
-                <img
-                    src="assets/welcome-character.png"
-                    alt="Welcome"
-                    class="female-character-image"
-                >
+?
 
-            </div>
+"assets/avatars/female.png"
 
+:
 
-            <!-- Welcome text -->
+"assets/avatars/male.png";
 
-            <div
-                class="female-welcome-content"
-            >
 
-                <p
-                    class="female-welcome-small"
-                >
-                    Welcome to
-                </p>
 
+scanCustomerName.textContent =
 
-                <h1
-                    class="female-welcome-title"
-                    id="femaleWelcomeTitle"
-                >
-                    Rio Maggi Point
-                </h1>
+customer.name || "-";
 
 
-                <p
-                    class="female-welcome-user"
-                    id="femaleWelcomeUser"
-                >
-                    Welcome, <span id="femaleUserName">Customer</span>
-                </p>
 
+scanMemberId.textContent =
 
-            </div>
+customer.memberId || "-";
 
 
-        </section>
 
+scanStampCount.textContent =
 
+`${customer.stamps || 0}/6`;
 
-        <!-- =================================================
-             PREMIUM CUSTOMER PROFILE CARD
-        ================================================== -->
 
-        <section
-            class="female-profile-card"
-            id="femaleProfileCard"
-        >
 
+todayStatus.textContent =
 
-            <!-- Profile Avatar -->
+"Ready To Give Stamp";
 
-            <div
-                class="female-avatar-wrapper"
-            >
 
-                <div
-                    class="female-avatar-ring"
-                >
 
-                    <img
-                        src="assets/female-avatar.png"
-                        alt="Customer Profile"
-                        id="femaleUserAvatar"
-                        class="female-user-avatar"
-                    >
+todayStatus.className="success";
 
-                </div>
 
-            </div>
 
+giveStampBtn.disabled=false;
 
-            <!-- Customer Information -->
+}
 
-            <div
-                class="female-profile-info"
-            >
 
-                <h2
-                    id="femaleProfileName"
-                >
-                    Customer
-                </h2>
 
+// =====================================================
+// CAMERA QR SCANNER
+// =====================================================
 
-                <p
-                    id="femaleMemberSince"
-                >
-                    Premium Member
-                </p>
+async function startScanner(){
 
-            </div>
+if(scannerRunning){
 
+return;
 
-            <!-- Profile Button -->
+}
 
-            <a
-                href="../profile.html"
-                class="female-profile-button"
-            >
+scannerRunning=true;
 
-                View Profile
+scannerStatus.textContent=
 
-            </a>
+"🟡 Opening Camera...";
 
+document.getElementById("cameraOverlay")
+.style.display="none";
 
-        </section>
+html5QrCode =
 
+new Html5Qrcode("qr-reader");
 
+try{
 
-        <!-- =================================================
-             LOYALTY SUMMARY
-        ================================================== -->
+await html5QrCode.start(
 
-        <section
-            class="female-loyalty-card"
-            id="femaleLoyaltyCard"
-        >
+{
 
-            <div
-                class="female-card-heading"
-            >
+facingMode:"environment"
 
-                <span>
-                    Loyalty Summary
-                </span>
+},
 
-                <span
-                    class="female-loyalty-icon"
-                >
-                    ✨
-                </span>
+{
 
-            </div>
+fps:10,
 
+qrbox:250
 
-            <div
-                class="female-stamp-summary"
-            >
+},
 
-                <span
-                    class="female-stamp-label"
-                >
-                    Current Stamps
-                </span>
+onScanSuccess,
 
+()=>{}
 
-                <strong
-                    id="femaleStampCount"
-                >
-                    0 / 6
-                </strong>
+);
 
-            </div>
+scannerStatus.textContent=
 
+"🟢 Scanner Running";
 
-            <div
-                class="female-stamp-progress"
-                aria-hidden="true"
-            >
+startScannerBtn.disabled=true;
 
-                <div
-                    id="femaleStampProgress"
-                    class="female-stamp-progress-fill"
-                ></div>
+stopScannerBtn.disabled=false;
 
-            </div>
+}
 
+catch(error){
 
-        </section>
+console.error(error);
 
+scannerStatus.textContent=
 
-    </main>
+"🔴 Camera Error";
 
+scannerRunning=false;
 
-    <!-- =================================================
-         FEMALE DASHBOARD JAVASCRIPT
-    ================================================== -->
+document.getElementById("cameraOverlay")
+.style.display="flex";
 
-    <script
-        src="female.js"
-        defer
-    ></script>
+}
 
+}
 
-</body>
-</html>
-<!-- =====================================================
-     RIO MAGGI POINT
-     FEMALE DASHBOARD
-     PART 2/4
 
-     PREMIUM QUICK ACCESS
-===================================================== -->
 
+// =====================================================
+// STOP SCANNER
+// =====================================================
 
-<!-- =================================================
-     QUICK ACCESS SECTION
-================================================== -->
+async function stopScanner(){
 
-<section
-    class="female-quick-access"
-    id="femaleQuickAccess"
->
+if(!scannerRunning){
 
+return;
 
-    <!-- =================================================
-         SECTION TITLE
-    ================================================== -->
+}
 
-    <div
-        class="female-section-header"
-    >
+try{
 
-        <p
-            class="female-section-kicker"
-        >
-            Explore
-        </p>
+await html5QrCode.stop();
 
+}
 
-        <h2
-            class="female-section-title"
-        >
-            Your Premium Space
-        </h2>
+catch(error){
 
-    </div>
+console.log(error);
 
+}
 
+scannerRunning=false;
 
-    <!-- =================================================
-         QUICK ACCESS GRID
-    ================================================== -->
+scannerStatus.textContent=
 
-    <div
-        class="female-feature-grid"
-    >
+"⚪ Camera Stopped";
 
+document.getElementById("cameraOverlay")
+.style.display="flex";
 
-        <!-- =============================================
-             QR CARD
-        ============================================== -->
+startScannerBtn.disabled=false;
 
-        <a
-            href="../qr.html"
-            class="female-feature-card female-feature-qr"
-            data-feature="qr"
-        >
+stopScannerBtn.disabled=true;
 
-            <span
-                class="female-feature-icon"
-                aria-hidden="true"
-            >
-                ✦
-            </span>
+}
 
 
-            <span
-                class="female-feature-content"
-            >
 
-                <strong>
-                    My QR
-                </strong>
+// =====================================================
+// SCANNER BUTTONS
+// =====================================================
 
-                <small>
-                    Show your loyalty QR
-                </small>
+startScannerBtn?.addEventListener(
 
-            </span>
+"click",
 
+startScanner
 
-            <span
-                class="female-feature-arrow"
-                aria-hidden="true"
-            >
-                →
-            </span>
+);
 
-        </a>
+stopScannerBtn?.addEventListener(
 
+"click",
 
+stopScanner
 
-        <!-- =============================================
-             HISTORY CARD
-        ============================================== -->
+);
 
-        <a
-            href="../history.html"
-            class="female-feature-card female-feature-history"
-            data-feature="history"
-        >
 
-            <span
-                class="female-feature-icon"
-                aria-hidden="true"
-            >
-                ♡
-            </span>
 
+// =====================================================
+// QR SUCCESS
+// =====================================================
 
-            <span
-                class="female-feature-content"
-            >
+async function onScanSuccess(decodedText){
 
-                <strong>
-                    My History
-                </strong>
+await stopScanner();
 
-                <small>
-                    View your loyalty activity
-                </small>
+if(!decodedText.startsWith("RIO-MAGGI::")){
 
-            </span>
+alert("Invalid Rio QR");
 
+return;
 
-            <span
-                class="female-feature-arrow"
-                aria-hidden="true"
-            >
-                →
-            </span>
+}
 
-        </a>
+const memberId =
 
+decodedText.replace(
 
+"RIO-MAGGI::",
 
-        <!-- =============================================
-             MENU CARD
-        ============================================== -->
+""
 
-        <a
-            href="../menu.html"
-            class="female-feature-card female-feature-menu"
-            data-feature="menu"
-        >
+);
 
-            <span
-                class="female-feature-icon"
-                aria-hidden="true"
-            >
-                ✿
-            </span>
+const q = query(
 
+collection(db,"customers"),
 
-            <span
-                class="female-feature-content"
-            >
+where(
 
-                <strong>
-                    Rio Maggi Menu
-                </strong>
+"memberId",
 
-                <small>
-                    Explore your favourite food
-                </small>
+"==",
 
-            </span>
+memberId
 
+)
 
-            <span
-                class="female-feature-arrow"
-                aria-hidden="true"
-            >
-                →
-            </span>
+);
 
-        </a>
+const snapshot =
 
+await getDocs(q);
 
+if(snapshot.empty){
 
-        <!-- =============================================
-             REVIEW CARD
-        ============================================== -->
+alert("Customer Not Found");
 
-        <a
-            href="../feedback.html"
-            class="female-feature-card female-feature-review"
-            data-feature="review"
-        >
+return;
 
-            <span
-                class="female-feature-icon"
-                aria-hidden="true"
-            >
-                ★
-            </span>
+}
 
+snapshot.forEach((document)=>{
 
-            <span
-                class="female-feature-content"
-            >
+currentCustomer=document.data();
 
-                <strong>
-                    Share Your Review
-                </strong>
+currentCustomer.uid=document.id;
 
-                <small>
-                    Tell us about your experience
-                </small>
+});
 
-            </span>
+showCustomer(currentCustomer);
 
+}
+            // =====================================================
+// GIVE STAMP
+// =====================================================
 
-            <span
-                class="female-feature-arrow"
-                aria-hidden="true"
-            >
-                →
-            </span>
+giveStampBtn?.addEventListener(
 
-        </a>
+"click",
 
+async()=>{
 
+if(!currentCustomer){
 
-        <!-- =============================================
-             FREE GAME CARD
-        ============================================== -->
+return;
 
-        <a
-            href="../index.html"
-            class="female-feature-card female-feature-game"
-            data-feature="game"
-        >
+}
 
-            <span
-                class="female-feature-icon"
-                aria-hidden="true"
-            >
-                ♡
-            </span>
+try{
 
+let stamp =
 
-            <span
-                class="female-feature-content"
-            >
+currentCustomer.stamps || 0;
 
-                <strong>
-                    Click to Play Game
-                </strong>
+if(stamp < 6){
 
-                <small>
-                    Enjoy a quick game while you wait
-                </small>
+stamp++;
 
-            </span>
+}
 
+const rewardUnlocked =
 
-            <span
-                class="female-feature-arrow"
-                aria-hidden="true"
-            >
-                →
-            </span>
+stamp >= 6;
 
-        </a>
+await updateDoc(
 
+doc(
 
-    </div>
+db,
 
+"customers",
 
-</section>
+currentCustomer.uid
 
+),
 
-<!-- =====================================================
-     END FEMALE DASHBOARD PART 2/4
-===================================================== -->
-<!-- =====================================================
-     RIO MAGGI POINT
-     FEMALE DASHBOARD
-     PART 3/4
+{
 
-     PREMIUM REWARD SECTION
-===================================================== -->
+stamps:stamp,
 
+rewardUnlocked:rewardUnlocked,
 
-<!-- =================================================
-     REWARD SECTION
-================================================== -->
+lastStampAt:serverTimestamp(),
 
-<section
-    class="female-reward-section"
-    id="femaleRewardSection"
->
+updatedAt:serverTimestamp()
 
+}
 
-    <!-- =================================================
-         SECTION HEADER
-    ================================================== -->
+);
 
-    <div
-        class="female-section-header"
-    >
+currentCustomer.stamps=stamp;
 
-        <p
-            class="female-section-kicker"
-        >
-            Your Reward
-        </p>
+currentCustomer.rewardUnlocked=
 
+rewardUnlocked;
 
-        <h2
-            class="female-section-title"
-        >
-            Premium Reward Status
-        </h2>
+showCustomer(currentCustomer);
 
-    </div>
+await loadDashboard();
 
+alert(
 
+"✅ Stamp Added Successfully"
 
-    <!-- =================================================
-         REWARD CARD
-    ================================================== -->
+);
 
-    <div
-        class="female-reward-card"
-        id="femaleRewardCard"
-    >
+}
 
+catch(error){
 
-        <!-- =============================================
-             REWARD ICON
-        ============================================== -->
+console.error(error);
 
-        <div
-            class="female-reward-icon"
-            aria-hidden="true"
-        >
-            ✨
-        </div>
+alert(
 
+"❌ Failed To Give Stamp"
 
+);
 
-        <!-- =============================================
-             REWARD CONTENT
-        ============================================== -->
+}
 
-        <div
-            class="female-reward-content"
-        >
+}
 
-            <h3>
-                Collect 6 Stamps
-            </h3>
+);
 
 
-            <p>
-                Complete your loyalty stamps and unlock your Free Veg Maggi reward.
-            </p>
 
+// =====================================================
+// RESET CUSTOMER
+// =====================================================
 
-            <!-- =========================================
-                 STAMP STATUS
-            ========================================== -->
+cancelScanBtn?.addEventListener(
 
-            <div
-                class="female-reward-status"
-            >
+"click",
 
-                <span>
-                    Progress
-                </span>
+()=>{
 
+currentCustomer=null;
 
-                <strong
-                    id="femaleRewardStampStatus"
-                >
-                    0 / 6
-                </strong>
+scanCustomerPhoto.src=
 
-            </div>
+"assets/avatars/male.png";
 
+scanCustomerName.textContent=
 
-            <!-- =========================================
-                 REWARD PROGRESS
-            ========================================== -->
+"Waiting For Scan...";
 
-            <div
-                class="female-reward-progress"
-                aria-hidden="true"
-            >
+scanMemberId.textContent=
 
-                <div
-                    id="femaleRewardProgressFill"
-                    class="female-reward-progress-fill"
-                ></div>
+"RIO-000000000";
 
-            </div>
+scanStampCount.textContent=
 
+"0/6";
 
-            <!-- =========================================
-                 REWARD MESSAGE
-            ========================================== -->
+todayStatus.textContent=
 
-            <p
-                id="femaleRewardMessage"
-                class="female-reward-message"
-            >
-                Keep collecting stamps to unlock your reward.
-            </p>
+"Waiting";
 
+todayStatus.className=
 
-        </div>
+"pending";
 
+giveStampBtn.disabled=true;
 
-    </div>
+}
 
+);
 
 
-    <!-- =================================================
-         REWARD UNLOCKED STATE
-         JavaScript इसे जरूरत पड़ने पर दिखाएगा
-    ================================================== -->
 
-    <div
-        id="femaleRewardUnlocked"
-        class="female-reward-unlocked"
-        hidden
-    >
+// =====================================================
+// REFRESH
+// =====================================================
 
-        <div
-            class="female-reward-unlocked-icon"
-            aria-hidden="true"
-        >
-            🎁
-        </div>
+refreshBtn?.addEventListener(
 
+"click",
 
-        <h3>
-            Reward Unlocked!
-        </h3>
+async()=>{
 
+await loadDashboard();
 
-        <p>
-            Your Free Veg Maggi reward is ready.
-        </p>
+}
 
+);
 
-        <button
-            type="button"
-            id="femaleClaimRewardButton"
-            class="female-claim-reward-button"
-        >
-            Claim Reward
-        </button>
 
-    </div>
 
+// =====================================================
+// EXPORT
+// =====================================================
 
-</section>
+exportBtn?.addEventListener(
 
+"click",
 
-<!-- =====================================================
-     END FEMALE DASHBOARD PART 3/4
-===================================================== -->
-<!-- =====================================================
-     RIO MAGGI POINT
-     FEMALE DASHBOARD
-     PART 4/4
+()=>{
 
-     FINAL DASHBOARD SECTION
-===================================================== -->
+location.href=
 
+"admin-export.html";
 
-<!-- =================================================
-     PERSONALIZED ACTION SECTION
-================================================== -->
+}
 
-<section
-    class="female-action-section"
-    id="femaleActionSection"
->
+);
 
 
-    <!-- =================================================
-         SECTION HEADER
-    ================================================== -->
 
-    <div
-        class="female-section-header"
-    >
+// =====================================================
+// REWARD MANAGER
+// =====================================================
 
-        <p
-            class="female-section-kicker"
-        >
-            Your Space
-        </p>
+rewardBtn?.addEventListener(
 
+"click",
 
-        <h2
-            class="female-section-title"
-        >
-            Made For You
-        </h2>
+()=>{
 
-    </div>
+location.href=
 
+"admin-rewards.html";
 
+}
 
-    <!-- =================================================
-         ACTION CARD
-    ================================================== -->
+);
 
-    <div
-        class="female-personal-card"
-        id="femalePersonalCard"
-    >
 
 
-        <!-- Decorative glow -->
+// =====================================================
+// REPORT
+// =====================================================
 
-        <span
-            class="female-personal-glow"
-            aria-hidden="true"
-        ></span>
+document
 
+.getElementById("reportMenu")
 
-        <!-- Content -->
+?.addEventListener(
 
-        <div
-            class="female-personal-content"
-        >
+"click",
 
-            <span
-                class="female-personal-kicker"
-            >
-                Premium Customer
-            </span>
+()=>{
 
+location.href=
 
-            <h3
-                id="femalePersonalGreeting"
-            >
-                Welcome to your Rio Maggi space
-            </h3>
+"admin-reports.html";
 
+}
 
-            <p
-                id="femalePersonalMessage"
-            >
-                Your loyalty journey, rewards and favourite experiences are all in one place.
-            </p>
+);
 
-        </div>
 
 
-        <!-- Decorative icon -->
+// =====================================================
+// SETTINGS
+// =====================================================
 
-        <div
-            class="female-personal-icon"
-            aria-hidden="true"
-        >
-            ✿
-        </div>
+settingsBtn?.addEventListener(
 
+"click",
 
-    </div>
+()=>{
 
+location.href=
 
-</section>
+"admin-settings.html";
 
+}
 
+);
 
-<!-- =================================================
-     COMMON NAVIGATION LOADER AREA
-================================================== -->
+document
 
-<div
-    id="commonNavigationContainer"
-    class="common-navigation-container"
-></div>
+.getElementById("settingMenu")
 
+?.addEventListener(
 
+"click",
 
-<!-- =================================================
-     DASHBOARD PAGE LOADING OVERLAY
-================================================== -->
+()=>{
 
-<div
-    id="femaleDashboardLoader"
-    class="female-dashboard-loader"
-    aria-hidden="true"
->
+location.href=
 
-    <div
-        class="female-loader-content"
-    >
+"admin-settings.html";
 
-        <span
-            class="female-loader-ring"
-        ></span>
+}
 
+);
+    // =====================================================
+// NAVIGATION
+// =====================================================
 
-        <p>
-            Loading your premium space...
-        </p>
+document
 
-    </div>
+.getElementById("dashboardMenu")
 
-</div>
+?.addEventListener(
 
+"click",
 
-<!-- =====================================================
-     END FEMALE DASHBOARD PART 4/4
-===================================================== -->
+()=>{
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+}
+
+);
+
+
+
+document
+
+.getElementById("customersMenu")
+
+?.addEventListener(
+
+"click",
+
+()=>{
+
+location.href=
+
+"admin-customers.html";
+
+}
+
+);
+
+
+
+document
+
+.getElementById("stampMenu")
+
+?.addEventListener(
+
+"click",
+
+()=>{
+
+document
+
+.querySelector(".scanner-section")
+
+?.scrollIntoView({
+
+behavior:"smooth"
+
+});
+
+}
+
+);
+
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+logoutBtn?.addEventListener(
+
+"click",
+
+async()=>{
+
+try{
+
+if(scannerRunning){
+
+await stopScanner();
+
+}
+
+}
+
+catch(error){
+
+console.log(error);
+
+}
+
+await signOut(auth);
+
+location.href=
+
+"admin-login.html";
+
+}
+
+);
+
+
+
+// =====================================================
+// READY
+// =====================================================
+
+console.log("==============================");
+
+console.log("🍜 Rio Maggi Point");
+
+console.log("Premium Admin Dashboard V3 Fixed");
+
+console.log("Firebase Ready");
+
+console.log("Scanner Ready");
+
+console.log("==============================");
+    // =====================================================
+// AUTO REFRESH DASHBOARD
+// =====================================================
+
+setInterval(async()=>{
+
+try{
+
+await loadDashboard();
+
+}
+
+catch(error){
+
+console.log(error);
+
+}
+
+},60000);
+
+
+
+// =====================================================
+// WINDOW FOCUS REFRESH
+// =====================================================
+
+window.addEventListener(
+
+"focus",
+
+async()=>{
+
+try{
+
+await loadDashboard();
+
+}
+
+catch(error){
+
+console.log(error);
+
+}
+
+}
+
+);
+
+
+
+// =====================================================
+// RESPONSIVE TABLE
+// =====================================================
+
+window.addEventListener(
+
+"resize",
+
+()=>{
+
+if(window.innerWidth<768){
+
+customerTable
+
+.parentElement
+
+.classList.add("mobile-table");
+
+}else{
+
+customerTable
+
+.parentElement
+
+.classList.remove("mobile-table");
+
+}
+
+}
+
+);
+
+
+
+// =====================================================
+// INITIAL RESPONSIVE CHECK
+// =====================================================
+
+if(window.innerWidth<768){
+
+customerTable
+
+.parentElement
+
+.classList.add("mobile-table");
+
+}
+
+
+
+// =====================================================
+// LOADING STATE
+// =====================================================
+
+function setLoading(state){
+
+refreshBtn.disabled=state;
+
+exportBtn.disabled=state;
+
+rewardBtn.disabled=state;
+
+settingsBtn.disabled=state;
+
+startScannerBtn.disabled=
+
+state || scannerRunning;
+
+}
+    // =====================================================
+// ANIMATED COUNTERS
+// =====================================================
+
+function animateCounter(element,target){
+
+if(!element) return;
+
+const start=0;
+const duration=800;
+
+const increment=Math.max(
+1,
+Math.ceil(target/40)
+);
+
+let current=start;
+
+const timer=setInterval(()=>{
+
+current+=increment;
+
+if(current>=target){
+
+current=target;
+clearInterval(timer);
+
+}
+
+element.textContent=current;
+
+},duration/40);
+
+}
+
+
+
+// =====================================================
+// UPDATE DASHBOARD COUNTERS
+// =====================================================
+
+function updateDashboardCards(
+
+customersCount,
+stampCount,
+rewardCount,
+scanCount
+
+){
+
+animateCounter(
+
+totalCustomers,
+customersCount
+
+);
+
+animateCounter(
+
+totalStamps,
+stampCount
+
+);
+
+animateCounter(
+
+totalRewards,
+rewardCount
+
+);
+
+animateCounter(
+
+todayScans,
+scanCount
+
+);
+
+}
+
+
+
+// =====================================================
+// DASHBOARD SUMMARY
+// =====================================================
+
+function refreshSummary(
+
+customersCount,
+stampCount,
+rewardCount,
+scanCount
+
+){
+
+updateDashboardCards(
+
+customersCount,
+stampCount,
+rewardCount,
+scanCount
+
+);
+
+lastRefresh.textContent=
+
+new Date().toLocaleString();
+
+}
+
+
+
+// =====================================================
+// SAFE TEXT
+// =====================================================
+
+function safeValue(value){
+
+if(
+
+value===undefined ||
+
+value===null ||
+
+value===""
+
+){
+
+return "-";
+
+}
+
+return value;
+
+}
+
+
+
+// =====================================================
+// SAFE NUMBER
+// =====================================================
+
+function safeNumber(value){
+
+return Number(value)||0;
+
+}
+    // =====================================================
+// AUTO REFRESH
+// =====================================================
+
+setInterval(async () => {
+
+    try {
+
+        await loadDashboard();
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+}, 60000);
+
+
+// =====================================================
+// WINDOW FOCUS REFRESH
+// =====================================================
+
+window.addEventListener("focus", async () => {
+
+    try {
+
+        await loadDashboard();
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
+});
+
+
+// =====================================================
+// UPDATE LAST REFRESH
+// =====================================================
+
+function updateRefreshTime() {
+
+    if (!lastRefresh) return;
+
+    lastRefresh.textContent =
+        new Date().toLocaleString();
+
+}
+
+
+// =====================================================
+// SAFE DASHBOARD REFRESH
+// =====================================================
+
+async function refreshDashboard() {
+
+    try {
+
+        await loadDashboard();
+
+        updateRefreshTime();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+
+// =====================================================
+// TABLE EMPTY STATE
+// =====================================================
+
+function showEmptyTable() {
+
+    customerTable.innerHTML = `
+
+<tr>
+
+<td colspan="7" style="
+text-align:center;
+padding:40px;
+opacity:.7;
+">
+
+No Customers Found
+
+</td>
+
+</tr>
+
+`;
+
+}
+    // =====================================================
+// RESPONSIVE HELPERS
+// =====================================================
+
+function updateResponsiveLayout() {
+
+    const mobile = window.innerWidth <= 768;
+
+    document.body.classList.toggle(
+        "mobile-view",
+        mobile
+    );
+
+    document.body.classList.toggle(
+        "desktop-view",
+        !mobile
+    );
+
+}
+
+updateResponsiveLayout();
+
+window.addEventListener(
+    "resize",
+    updateResponsiveLayout
+);
+
+
+// =====================================================
+// CONNECTION STATUS
+// =====================================================
+
+window.addEventListener(
+    "online",
+    () => {
+
+        scannerStatus.textContent =
+            "🟢 Online";
+
+    }
+);
+
+window.addEventListener(
+    "offline",
+    () => {
+
+        scannerStatus.textContent =
+            "🔴 Offline";
+
+    }
+);
+
+
+// =====================================================
+// PAGE VISIBILITY
+// =====================================================
+
+document.addEventListener(
+    "visibilitychange",
+    async () => {
+
+        if (
+            !document.hidden
+        ) {
+
+            await refreshDashboard();
+
+        }
+
+    }
+);
+
+
+// =====================================================
+// BEFORE UNLOAD
+// =====================================================
+
+window.addEventListener(
+    "beforeunload",
+    async () => {
+
+        try {
+
+            if (
+                scannerRunning &&
+                html5QrCode
+            ) {
+
+                await html5QrCode.stop();
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+        }
+
+    }
+);
+
+
+// =====================================================
+// READY EVENT
+// =====================================================
+
+document.dispatchEvent(
+
+    new CustomEvent(
+        "rioDashboardReady"
+    )
+
+);
+
+
+// =====================================================
+// FINAL LOG
+// =====================================================
+
+console.log("================================");
+console.log("🍜 Rio Maggi Point");
+console.log("Premium Admin Dashboard Ready");
+console.log("Firebase Connected");
+console.log("Responsive Mode Enabled");
+console.log("Scanner Ready");
+console.log("================================");
