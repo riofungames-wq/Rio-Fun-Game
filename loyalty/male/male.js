@@ -5,15 +5,10 @@
    FILE : male.js
    PART : 1/4
 
-   FIREBASE + INITIALIZATION
+   FIREBASE + LOADER + WELCOME
 ========================================================= */
 
-/* =========================================================
-   FIREBASE IMPORTS
-========================================================= */
-
-import { auth, db }
-from "../../js/firebase-config.js";
+import { auth, db } from "../js/firebase-config.js";
 
 import {
 
@@ -24,72 +19,89 @@ import {
 import {
 
     doc,
+
     getDoc
 
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-
 /* =========================================================
-   DOM ELEMENTS
+   DOM
 ========================================================= */
 
 const loader =
-document.getElementById("maleDashboardLoader");
+
+document.getElementById(
+
+    "maleDashboardLoader"
+
+);
 
 const welcomeSection =
-document.getElementById("maleWelcomeSection");
 
-const welcomeTitle =
-document.getElementById("maleWelcomeTitle");
+document.getElementById(
+
+    "maleWelcomeSection"
+
+);
 
 const welcomeUser =
-document.getElementById("maleUserName");
+
+document.getElementById(
+
+    "maleUserName"
+
+);
 
 const profileName =
-document.getElementById("maleProfileName");
+
+document.getElementById(
+
+    "maleProfileName"
+
+);
 
 const memberSince =
-document.getElementById("maleMemberSince");
+
+document.getElementById(
+
+    "maleMemberSince"
+
+);
 
 const avatar =
-document.getElementById("maleUserAvatar");
+
+document.getElementById(
+
+    "maleUserAvatar"
+
+);
 
 const stampCount =
-document.getElementById("maleStampCount");
 
-const progressText =
-document.getElementById("maleProgressText");
+document.getElementById(
+
+    "maleStampCount"
+
+);
 
 const stampProgress =
-document.getElementById("maleStampProgress");
+
+document.getElementById(
+
+    "maleStampProgress"
+
+);
 
 const rewardStatus =
-document.getElementById("maleRewardStatus");
 
-const rewardStampStatus =
-document.getElementById("maleRewardStampStatus");
+document.getElementById(
 
-const rewardProgress =
-document.getElementById("maleRewardProgressFill");
+    "maleRewardStatus"
 
-const rewardMessage =
-document.getElementById("maleRewardMessage");
-
-const claimRewardButton =
-document.getElementById("maleClaimRewardButton");
-
-const personalGreeting =
-document.getElementById("malePersonalGreeting");
-
-const personalMessage =
-document.getElementById("malePersonalMessage");
-
-const navigationContainer =
-document.getElementById("commonNavigationContainer");
-
+);
 
 /* =========================================================
-   DASHBOARD SETTINGS
+   VARIABLES
 ========================================================= */
 
 const MAX_STAMPS = 6;
@@ -97,7 +109,6 @@ const MAX_STAMPS = 6;
 let currentUser = null;
 
 let customerData = null;
-
 
 /* =========================================================
    LOADER
@@ -107,7 +118,11 @@ function showLoader(){
 
     if(!loader) return;
 
-    loader.classList.remove("hidden");
+    loader.classList.remove(
+
+        "hidden"
+
+    );
 
 }
 
@@ -117,12 +132,15 @@ function hideLoader(){
 
     setTimeout(()=>{
 
-        loader.classList.add("hidden");
+        loader.classList.add(
+
+            "hidden"
+
+        );
 
     },500);
 
 }
-
 
 /* =========================================================
    WELCOME ANIMATION
@@ -140,7 +158,9 @@ function playWelcomeAnimation(){
 
                 opacity:0,
 
-                transform:"translateY(25px)"
+                transform:
+
+                "translateY(35px)"
 
             },
 
@@ -148,7 +168,9 @@ function playWelcomeAnimation(){
 
                 opacity:1,
 
-                transform:"translateY(0)"
+                transform:
+
+                "translateY(0)"
 
             }
 
@@ -168,9 +190,8 @@ function playWelcomeAnimation(){
 
 }
 
-
 /* =========================================================
-   START DASHBOARD
+   PAGE READY
 ========================================================= */
 
 document.addEventListener(
@@ -187,8 +208,9 @@ document.addEventListener(
 
 );
 
-
 /* =========================================================
+   AUTH CHECK
+
    FILE : male.js
    PART : 2/4 CONTINUES...
 ========================================================= */
@@ -199,7 +221,7 @@ document.addEventListener(
    FILE : male.js
    PART : 2/4
 
-   AUTH + CUSTOMER DATA + PROFILE
+   AUTH + CUSTOMER DATA
 ========================================================= */
 
 /* =========================================================
@@ -217,7 +239,8 @@ onAuthStateChanged(
             hideLoader();
 
             window.location.href =
-            "../../login.html";
+
+            "../login.html";
 
             return;
 
@@ -235,7 +258,7 @@ onAuthStateChanged(
 
             console.error(
 
-                "Male Dashboard Error:",
+                "Dashboard Error:",
 
                 error
 
@@ -249,9 +272,8 @@ onAuthStateChanged(
 
 );
 
-
 /* =========================================================
-   LOAD CUSTOMER DATA
+   LOAD CUSTOMER
 ========================================================= */
 
 async function loadCustomerData(user){
@@ -270,15 +292,13 @@ async function loadCustomerData(user){
 
     const customerSnap =
 
-    await getDoc(customerRef);
+    await getDoc(
+
+        customerRef
+
+    );
 
     if(!customerSnap.exists()){
-
-        console.warn(
-
-            "Customer document not found."
-
-        );
 
         applyFallbackProfile(user);
 
@@ -292,66 +312,55 @@ async function loadCustomerData(user){
 
     customerSnap.data();
 
-    updateProfile(customerData);
+    updateProfile(
 
-    updateStampSystem(customerData);
+        customerData
 
-    updateRewardSystem(customerData);
+    );
 
-    updatePersonalSection(customerData);
+    updateStampSystem(
 
-    loadNavigation();
+        customerData
+
+    );
+
+    updateRewardStatus(
+
+        customerData
+
+    );
 
     hideLoader();
 
 }
 
-
 /* =========================================================
-   FALLBACK PROFILE
-========================================================= */
-
-function applyFallbackProfile(user){
-
-    const name =
-
-    user.displayName ||
-
-    "Customer";
-
-    welcomeUser.textContent =
-    name;
-
-    profileName.textContent =
-    name;
-
-    memberSince.textContent =
-    "Premium Member";
-
-}
-
-
-/* =========================================================
-   UPDATE PROFILE
+   PROFILE
 ========================================================= */
 
 function updateProfile(data){
 
     const fullName =
 
-        data.fullName ||
+    data.fullName ||
 
-        data.name ||
+    data.name ||
 
-        "Customer";
+    "Customer";
 
     welcomeUser.textContent =
+
     fullName;
 
     profileName.textContent =
+
     fullName;
 
-    if(data.memberSince){
+    if(
+
+        data.memberSince
+
+    ){
 
         memberSince.textContent =
 
@@ -363,22 +372,62 @@ function updateProfile(data){
 
     if(
 
-        data.photoURL &&
+        avatar &&
 
-        avatar
+        data.photoURL
 
     ){
 
         avatar.src =
+
         data.photoURL;
 
     }
 
 }
 
+/* =========================================================
+   FALLBACK
+========================================================= */
+
+function applyFallbackProfile(user){
+
+    const name =
+
+    user.displayName ||
+
+    "Customer";
+
+    welcomeUser.textContent =
+
+    name;
+
+    profileName.textContent =
+
+    name;
+
+    memberSince.textContent =
+
+    "Premium Member";
+
+}
 
 /* =========================================================
-   UPDATE STAMP SYSTEM
+   FILE : male.js
+   PART : 3/4 CONTINUES...
+========================================================= */
+/* =========================================================
+   RIO MAGGI POINT
+   MALE PREMIUM DASHBOARD
+
+   FILE : male.js
+   PART : 3/4
+
+   STAMP + REWARD + PERSONAL SECTION
+========================================================= */
+
+/* =========================================================
+   STAMP SYSTEM
 ========================================================= */
 
 function updateStampSystem(data){
@@ -405,36 +454,17 @@ function updateStampSystem(data){
 
     `${stamps} / ${MAX_STAMPS}`;
 
-    progressText.textContent =
-
-    `${stamps} of ${MAX_STAMPS} Stamps`;
-
     stampProgress.style.width =
 
     progress + "%";
 
 }
 
-
 /* =========================================================
-   FILE : male.js
-   PART : 3/4 CONTINUES...
-========================================================= */
-/* =========================================================
-   RIO MAGGI POINT
-   MALE PREMIUM DASHBOARD
-
-   FILE : male.js
-   PART : 3/4
-
-   REWARD + PERSONAL + ACTIONS
+   REWARD STATUS
 ========================================================= */
 
-/* =========================================================
-   UPDATE REWARD SYSTEM
-========================================================= */
-
-function updateRewardSystem(data){
+function updateRewardStatus(data){
 
     const stamps =
 
@@ -444,131 +474,69 @@ function updateRewardSystem(data){
 
     );
 
-    const progress =
+    if(
 
-    Math.min(
+        stamps >= MAX_STAMPS
 
-        (stamps / MAX_STAMPS) * 100,
-
-        100
-
-    );
-
-    rewardStampStatus.textContent =
-
-    `${stamps} / ${MAX_STAMPS}`;
-
-    rewardProgress.style.width =
-
-    progress + "%";
-
-    if(stamps >= MAX_STAMPS){
+    ){
 
         rewardStatus.textContent =
+
         "Unlocked";
 
-        rewardMessage.textContent =
-
-        "🎉 Congratulations! Your Free Veg Maggi reward is ready.";
-
-        claimRewardButton.hidden =
-        false;
-
     }
 
     else{
 
         rewardStatus.textContent =
+
         "Locked";
 
-        const remaining =
-
-        MAX_STAMPS - stamps;
-
-        rewardMessage.textContent =
-
-        `${remaining} stamp${remaining === 1 ? "" : "s"} left to unlock your Free Veg Maggi.`;
-
-        claimRewardButton.hidden =
-        true;
-
     }
 
 }
-
 
 /* =========================================================
-   PERSONAL SECTION
+   PERSONAL GREETING
 ========================================================= */
 
-function updatePersonalSection(data){
+function getGreeting(){
 
-    const firstName =
+    const hour =
 
-    (
+    new Date().getHours();
 
-        data.name ||
+    if(hour < 12){
 
-        "Customer"
-
-    ).split(" ")[0];
-
-    personalGreeting.textContent =
-
-    `Welcome ${firstName} 👑`;
-
-    const stamps =
-
-    Number(
-
-        data.stamps || 0
-
-    );
-
-    if(stamps >= MAX_STAMPS){
-
-        personalMessage.textContent =
-
-        "Your reward is unlocked. Visit Rio Maggi Point and claim your Free Veg Maggi.";
+        return "Good Morning ☀️";
 
     }
 
-    else{
+    if(hour < 17){
 
-        const remaining =
-
-        MAX_STAMPS - stamps;
-
-        personalMessage.textContent =
-
-        `Only ${remaining} more stamp${remaining === 1 ? "" : "s"} to unlock your Free Veg Maggi reward.`;
+        return "Good Afternoon 🌤️";
 
     }
 
-}
-
-
-/* =========================================================
-   CLAIM REWARD
-========================================================= */
-
-if(claimRewardButton){
-
-    claimRewardButton.addEventListener(
-
-        "click",
-
-        ()=>{
-
-            window.location.href =
-            "../reward/reward.html";
-
-        }
-
-    );
+    return "Good Evening 🌙";
 
 }
 
+const greetingElement =
+
+document.getElementById(
+
+    "malePersonalGreeting"
+
+);
+
+if(greetingElement){
+
+    greetingElement.textContent =
+
+    getGreeting();
+
+}
 
 /* =========================================================
    FILE : male.js
@@ -581,165 +549,104 @@ if(claimRewardButton){
    FILE : male.js
    PART : 4/4
 
-   NAVIGATION + REFRESH + END
+   BUTTON EVENTS + CARD ANIMATION + FINISH
 ========================================================= */
 
 /* =========================================================
-   LOAD BOTTOM NAVIGATION
+   CLAIM REWARD
 ========================================================= */
 
-async function loadNavigation(){
+const claimRewardButton =
 
-    if(!navigationContainer) return;
+document.getElementById(
 
-    try{
-
-        const response =
-
-        await fetch(
-
-            "../components/bottom-nav.html"
-
-        );
-
-        if(!response.ok) return;
-
-        navigationContainer.innerHTML =
-
-        await response.text();
-
-    }
-
-    catch(error){
-
-        console.error(
-
-            "Navigation Load Error:",
-
-            error
-
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   REFRESH DASHBOARD
-========================================================= */
-
-async function refreshDashboard(){
-
-    if(!currentUser) return;
-
-    try{
-
-        await loadCustomerData(
-
-            currentUser
-
-        );
-
-    }
-
-    catch(error){
-
-        console.error(
-
-            "Dashboard Refresh Error:",
-
-            error
-
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   WINDOW EVENTS
-========================================================= */
-
-window.addEventListener(
-
-    "focus",
-
-    ()=>{
-
-        refreshDashboard();
-
-    }
+    "maleClaimRewardButton"
 
 );
 
-window.addEventListener(
+if(claimRewardButton){
 
-    "online",
+    claimRewardButton.addEventListener(
 
-    ()=>{
+        "click",
 
-        refreshDashboard();
+        ()=>{
 
-    }
+            window.location.href =
 
-);
-
-window.addEventListener(
-
-    "offline",
-
-    ()=>{
-
-        console.warn(
-
-            "Internet connection lost."
-
-        );
-
-    }
-
-);
-
-document.addEventListener(
-
-    "visibilitychange",
-
-    ()=>{
-
-        if(
-
-            document.visibilityState ===
-
-            "visible"
-
-        ){
-
-            refreshDashboard();
+            "../reward/reward.html";
 
         }
 
+    );
+
+}
+
+/* =========================================================
+   CARD ENTRY ANIMATION
+========================================================= */
+
+const dashboardCards =
+
+document.querySelectorAll(
+
+    ".summary-card, .male-profile-card, .male-progress-card, .male-quick-actions, .male-reward-card, .male-personal-card, .male-tips-card"
+
+);
+
+dashboardCards.forEach(
+
+    (card,index)=>{
+
+        card.style.opacity="0";
+
+        card.style.animation=
+
+        `cardFade .7s ease forwards`;
+
+        card.style.animationDelay=
+
+        `${index*0.12}s`;
+
     }
 
 );
 
-
 /* =========================================================
-   GLOBAL ERROR HANDLER
+   QUICK ACTION BUTTONS
 ========================================================= */
 
-window.addEventListener(
+document.querySelectorAll(
 
-    "error",
+    ".action-card"
 
-    (event)=>{
+).forEach(
 
-        console.error(
+    (button)=>{
 
-            "Male Dashboard Error:",
+        button.addEventListener(
 
-            event.error
+            "click",
+
+            ()=>{
+
+                button.classList.add(
+
+                    "button-click"
+
+                );
+
+                setTimeout(()=>{
+
+                    button.classList.remove(
+
+                        "button-click"
+
+                    );
+
+                },250);
+
+            }
 
         );
 
@@ -747,9 +654,24 @@ window.addEventListener(
 
 );
 
+/* =========================================================
+   PAGE READY
+========================================================= */
+
+window.addEventListener(
+
+    "load",
+
+    ()=>{
+
+        hideLoader();
+
+    }
+
+);
 
 /* =========================================================
-   INITIALIZED
+   READY
 ========================================================= */
 
 console.log(
@@ -760,7 +682,7 @@ console.log(
 
 console.log(
 
-    "Rio Maggi Point"
+    "RIO MAGGI POINT"
 
 );
 
@@ -776,11 +698,12 @@ console.log(
 
 );
 
-
 /* =========================================================
    FILE : male.js
    PART : 4/4 END
 
    RIO MAGGI POINT
    MALE PREMIUM DASHBOARD
+
+   COMPLETE
 ========================================================= */
