@@ -29,9 +29,7 @@
     content="Rio Maggi Point Premium Admin Dashboard"
   >
 
-  <title>
-    Rio Maggi Point • Premium Admin Dashboard
-  </title>
+  <title>Rio Maggi Point • Premium Admin Dashboard</title>
 
 
   <!-- ================================================= -->
@@ -136,9 +134,9 @@
 
         <div class="logo-text">
 
-          <h1>
+          <h2>
             RIO MAGGI POINT
-          </h1>
+          </h2>
 
           <p>
             Premium Admin Dashboard
@@ -160,7 +158,8 @@
           id="liveIndicator"
           aria-live="polite"
         >
-          🟢 LIVE
+          <span aria-hidden="true">🟢</span>
+          LIVE
         </span>
 
       </div>
@@ -396,7 +395,9 @@
                 aria-hidden="true"
               ></i>
 
-              Live QR Scanner
+              <span>
+                Live QR Scanner
+              </span>
 
             </h2>
 
@@ -528,7 +529,9 @@
                 aria-hidden="true"
               ></i>
 
-              Customer Preview
+              <span>
+                Customer Preview
+              </span>
 
             </h2>
 
@@ -679,7 +682,7 @@
 
 
       <!-- ================================================= -->
-      <!-- END OF PART 1 -->
+      <!-- END OF PART 1 / 3 -->
       <!-- ================================================= -->
             <!-- ================================================= -->
       <!-- DASHBOARD STATS SECTION -->
@@ -843,7 +846,9 @@
                 aria-hidden="true"
               ></i>
 
-              Customer List
+              <span>
+                Customer List
+              </span>
 
             </h2>
 
@@ -1084,7 +1089,9 @@
                 aria-hidden="true"
               ></i>
 
-              System Status
+              <span>
+                System Status
+              </span>
 
             </h2>
 
@@ -1187,14 +1194,15 @@
 
 
   <!-- ================================================= -->
-  <!-- END OF PART 2 -->
+  <!-- END OF PART 2 / 3 -->
   <!-- ================================================= -->
     <!-- ================================================= -->
   <!-- HTML5 QR CODE SCANNER LIBRARY -->
   <!-- ================================================= -->
   <!--
-    This library is required by the existing
-    QR scanner functionality.
+    Required for the existing QR scanner functionality.
+    Loaded before the admin dashboard module so that
+    Html5Qrcode is available when the module executes.
   -->
 
   <script
@@ -1206,12 +1214,9 @@
   <!-- ADMIN DASHBOARD JAVASCRIPT -->
   <!-- ================================================= -->
   <!--
-    IMPORTANT:
-    Keep your existing admin dashboard JavaScript
-    file path here.
-
-    If your JS is stored at another location,
-    change only the src path.
+    Existing JavaScript file.
+    Keep this path unchanged if your file is located at:
+    js/admin-dashboard.js
   -->
 
   <script
@@ -1221,6 +1226,5 @@
 
 
 </body>
-
 
 </html>
