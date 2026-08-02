@@ -1,20 +1,34 @@
 // =====================================================
 // RIO MAGGI POINT
 // PREMIUM ADMIN CUSTOMER MANAGER
-// admin-customers.js — PART 1
+// admin-customers.js — PART 1 OF 4
 //
 // RESPONSIBILITY:
-// Firebase Imports
-// DOM References
-// Constants
-// Global State
-// Safe Helpers
-// Modal Foundation
+// - Firebase Configuration Import
+// - Firestore Imports
+// - Authentication Import
+// - Application Constants
+// - DOM References
+// - Global Application State
+// - Safe Customer Helpers
+// - Date Helpers
+// - Reward Helpers
+// - Modal Foundation
 //
 // IMPORTANT:
-// This file is designed as ONE ES MODULE.
-// Do NOT repeat these imports, constants, or DOM
-// declarations in Part 2 or Part 3.
+// This file is ONE ES MODULE.
+//
+// PART 1 MUST NOT contain:
+// - Event listeners
+// - Authentication listener
+// - Customer loading
+// - Table rendering
+// - Search logic
+// - Customer action handlers
+// - Auto refresh
+// - Duplicate declarations
+//
+// Those responsibilities belong to PART 2, PART 3 and PART 4.
 // =====================================================
 
 
@@ -58,13 +72,31 @@ import {
 // APPLICATION CONSTANTS
 // =====================================================
 
+// Maximum number of loyalty stamps required
+// for one complete reward cycle.
 const MAX_STAMPS = 6;
 
+
+// Admin login page.
+// Used by the final authentication guard.
 const ADMIN_LOGIN_PAGE =
   "admin-login.html";
 
+
+// Admin dashboard page.
 const ADMIN_DASHBOARD_PAGE =
   "admin-dashboard.html";
+
+
+// Customer Firestore collection name.
+const CUSTOMER_COLLECTION =
+  "customers";
+
+
+// Customer manager auto-refresh interval.
+// Part 4 will use this value.
+const CUSTOMER_AUTO_REFRESH_INTERVAL =
+  30000;
 
 
 // =====================================================
@@ -73,6 +105,7 @@ const ADMIN_DASHBOARD_PAGE =
 
 const DEFAULT_MALE_AVATAR =
   "assets/avatars/male.png";
+
 
 const DEFAULT_FEMALE_AVATAR =
   "assets/avatars/female.png";
@@ -94,7 +127,7 @@ const customerTable =
 
 
 // =====================================================
-// SEARCH
+// CUSTOMER SEARCH INPUT
 // =====================================================
 
 const searchCustomer =
@@ -122,10 +155,12 @@ const totalCustomers =
     "totalCustomers"
   );
 
+
 const rewardReady =
   document.getElementById(
     "rewardReady"
   );
+
 
 const todayJoined =
   document.getElementById(
@@ -154,7 +189,7 @@ const closeModalBtn =
 
 
 // =====================================================
-// MODAL PHOTO
+// MODAL CUSTOMER PHOTO
 // =====================================================
 
 const modalPhoto =
@@ -164,7 +199,7 @@ const modalPhoto =
 
 
 // =====================================================
-// MODAL NAME
+// MODAL CUSTOMER NAME
 // =====================================================
 
 const modalName =
@@ -184,7 +219,7 @@ const modalMember =
 
 
 // =====================================================
-// MODAL MOBILE
+// MODAL MOBILE NUMBER
 // =====================================================
 
 const modalMobile =
@@ -217,21 +252,29 @@ const modalReward =
 // MODAL ACTION BUTTONS
 // =====================================================
 
+
+// Give Stamp
 const giveStampBtn =
   document.getElementById(
     "giveStampBtn"
   );
 
+
+// Remove Stamp
 const removeStampBtn =
   document.getElementById(
     "removeStampBtn"
   );
 
+
+// Unlock Reward
 const unlockRewardBtn =
   document.getElementById(
     "unlockRewardBtn"
   );
 
+
+// Delete Customer
 const deleteCustomerBtn =
   document.getElementById(
     "deleteCustomerBtn"
@@ -243,9 +286,10 @@ const deleteCustomerBtn =
 // =====================================================
 //
 // IMPORTANT:
-// These variables are declared ONLY ONCE.
-// Part 2 and Part 3 MUST use these variables.
-// Do NOT declare them again.
+// Every global state variable is declared ONLY ONCE
+// in the entire admin-customers.js file.
+//
+// PART 2, PART 3 and PART 4 MUST NOT redeclare these.
 // =====================================================
 
 
@@ -264,46 +308,65 @@ let selectedCustomer = null;
 
 
 // =====================================================
-// AUTHENTICATION STATE
+// AUTHENTICATED USER
+// =====================================================
+//
+// The actual Firebase auth user.
+// Authentication listener is added only in PART 4.
 // =====================================================
 
 let authenticatedUser = null;
 
 
 // =====================================================
-// LOADING STATE
+// CUSTOMER DATA LOADING STATE
 // =====================================================
 
 let customersLoading = false;
 
 
 // =====================================================
-// REFRESH STATE
+// GENERAL CUSTOMER REFRESH STATE
+// =====================================================
+
+let customerRefreshProcessing = false;
+
+
+// =====================================================
+// MANUAL REFRESH BUTTON STATE
 // =====================================================
 
 let refreshProcessing = false;
 
 
 // =====================================================
-// CUSTOMER ACTION STATE
+// CUSTOMER ACTION STATES
 // =====================================================
 
 let customerActionProcessing = false;
 
+
 let giveStampProcessing = false;
+
 
 let removeStampProcessing = false;
 
+
 let unlockRewardProcessing = false;
+
 
 let deleteCustomerProcessing = false;
 
 
 // =====================================================
-// AUTO REFRESH STATE
+// AUTO REFRESH TIMER
+// =====================================================
+//
+// ONLY ONE auto-refresh timer is allowed.
+// Part 4 will use this variable.
 // =====================================================
 
-let autoRefreshTimer = null;
+let customerAutoRefreshTimer = null;
 
 
 // =====================================================
@@ -319,13 +382,16 @@ let customerPageInitialized = false;
 
 
 // =====================================================
-// GET CUSTOMER MOBILE
+// GET CUSTOMER MOBILE NUMBER
 // =====================================================
 //
-// Supports:
-// mobile
-// phone
-// phoneNumber
+// Supported customer fields:
+// - mobile
+// - phone
+// - phoneNumber
+//
+// Returns:
+// A clean string or "-"
 // =====================================================
 
 function getCustomerMobile(
@@ -352,9 +418,14 @@ function getCustomerMobile(
     "";
 
 
-  return String(
-    mobile
-  ).trim() || "-";
+  const cleanMobile =
+
+    String(
+      mobile
+    ).trim();
+
+
+  return cleanMobile || "-";
 
 }
 
@@ -363,7 +434,14 @@ function getCustomerMobile(
 // GET CUSTOMER STAMP COUNT
 // =====================================================
 //
-// Always returns a safe integer between 0 and 6.
+// Always returns an integer between:
+// 0 and MAX_STAMPS
+//
+// Prevents invalid values such as:
+// - negative numbers
+// - NaN
+// - decimals
+// - values above MAX_STAMPS
 // =====================================================
 
 function getCustomerStamps(
@@ -380,6 +458,7 @@ function getCustomerStamps(
 
 
   const stamps =
+
     Number(
       customer.stamps
     );
@@ -419,12 +498,13 @@ function getCustomerStamps(
 // GET CUSTOMER AVATAR
 // =====================================================
 //
-// Priority:
+// Avatar priority:
 // 1. photoURL
 // 2. photoUrl
 // 3. photo
-// 4. female avatar
-// 5. male avatar
+// 4. avatar
+// 5. Gender-based default avatar
+// 6. Male default avatar
 // =====================================================
 
 function getCustomerAvatar(
@@ -457,7 +537,9 @@ function getCustomerAvatar(
 
     possiblePhotos.find(
 
-      (photo) =>
+      (
+        photo
+      ) =>
 
         typeof photo ===
         "string" &&
@@ -479,16 +561,24 @@ function getCustomerAvatar(
   const gender =
 
     String(
+
       customer.gender || ""
+
     )
+
       .trim()
+
       .toLowerCase();
 
 
   if (
+
     gender === "female" ||
+
     gender === "woman" ||
+
     gender === "girl"
+
   ) {
 
     return DEFAULT_FEMALE_AVATAR;
@@ -505,7 +595,10 @@ function getCustomerAvatar(
 // ESCAPE HTML
 // =====================================================
 //
-// Used before inserting customer data into innerHTML.
+// Used whenever dynamic customer data is inserted
+// into HTML strings.
+//
+// Prevents HTML injection problems.
 // =====================================================
 
 function escapeHtml(
@@ -513,8 +606,11 @@ function escapeHtml(
 ) {
 
   if (
+
     value === null ||
+
     value === undefined
+
   ) {
 
     return "";
@@ -558,8 +654,11 @@ function escapeHtml(
 // GET TODAY DATE KEY
 // =====================================================
 //
-// Returns:
+// Returns local date in:
 // YYYY-MM-DD
+//
+// Example:
+// 2026-08-03
 // =====================================================
 
 function getTodayKey() {
@@ -616,10 +715,13 @@ function getTodayKey() {
 // =====================================================
 //
 // Supports:
-// Firestore Timestamp
-// JavaScript Date
-// String
-// Number
+// - Firestore Timestamp
+// - JavaScript Date
+// - String
+// - Number
+//
+// Returns:
+// Date object or null
 // =====================================================
 
 function toSafeDate(
@@ -627,7 +729,9 @@ function toSafeDate(
 ) {
 
   if (
-    !value
+    value === null ||
+    value === undefined ||
+    value === ""
   ) {
 
     return null;
@@ -646,23 +750,41 @@ function toSafeDate(
 
   ) {
 
-    const date =
-      value.toDate();
+    try {
+
+      const date =
+        value.toDate();
 
 
-    return (
+      return (
 
-      date instanceof Date &&
+        date instanceof Date &&
 
-      !Number.isNaN(
-        date.getTime()
+        !Number.isNaN(
+          date.getTime()
+        )
+
       )
 
-    )
+        ? date
 
-      ? date
+        : null;
 
-      : null;
+    }
+
+    catch (
+      error
+    ) {
+
+      console.warn(
+        "⚠️ Unable to convert Firestore timestamp.",
+        error
+      );
+
+
+      return null;
+
+    }
 
   }
 
@@ -695,6 +817,7 @@ function toSafeDate(
   // ---------------------------------------------------
 
   const parsedDate =
+
     new Date(
       value
     );
@@ -718,6 +841,9 @@ function toSafeDate(
 
 // =====================================================
 // CHECK CUSTOMER CREATED TODAY
+// =====================================================
+//
+// Uses the customer's createdAt field.
 // =====================================================
 
 function isCustomerCreatedToday(
@@ -778,8 +904,9 @@ function isCustomerCreatedToday(
 // =====================================================
 //
 // Reward is considered ready when:
-// rewardUnlocked === true
-// OR stamps reach MAX_STAMPS.
+// 1. rewardUnlocked === true
+// OR
+// 2. stamps >= MAX_STAMPS
 // =====================================================
 
 function isRewardReady(
@@ -812,12 +939,14 @@ function isRewardReady(
 
 
 // =====================================================
-// CHECK TODAY'S STAMP
+// CHECK WHETHER CUSTOMER RECEIVED STAMP TODAY
 // =====================================================
 //
-// Supports both:
-// dailyStampDate
-// lastStampDate
+// Supports:
+// - dailyStampDate
+// - lastStampDate
+//
+// Used to prevent duplicate daily stamps.
 // =====================================================
 
 function hasStampToday(
@@ -853,10 +982,90 @@ function hasStampToday(
 
 
 // =====================================================
+// GET CUSTOMER DISPLAY NAME
+// =====================================================
+//
+// Centralized name fallback.
+// =====================================================
+
+function getCustomerName(
+  customer
+) {
+
+  if (
+    !customer
+  ) {
+
+    return "Unknown Customer";
+
+  }
+
+
+  const name =
+
+    String(
+      customer.name || ""
+    ).trim();
+
+
+  return (
+
+    name ||
+
+    "Unknown Customer"
+
+  );
+
+}
+
+
+// =====================================================
+// GET CUSTOMER MEMBER ID
+// =====================================================
+//
+// Centralized member ID fallback.
+// =====================================================
+
+function getCustomerMemberId(
+  customer
+) {
+
+  if (
+    !customer
+  ) {
+
+    return "RIO-000000";
+
+  }
+
+
+  const memberId =
+
+    String(
+      customer.memberId || ""
+    ).trim();
+
+
+  return (
+
+    memberId ||
+
+    "RIO-000000"
+
+  );
+
+}
+
+
+// =====================================================
 // RESET CUSTOMER MODAL
 // =====================================================
 //
-// This function resets the modal to a clean state.
+// Resets all modal data and action button states.
+//
+// IMPORTANT:
+// This function does NOT close the modal.
+// Modal visibility is handled separately.
 // =====================================================
 
 function resetCustomerModal() {
@@ -876,8 +1085,10 @@ function resetCustomerModal() {
     modalPhoto.src =
       DEFAULT_MALE_AVATAR;
 
+
     modalPhoto.alt =
       "Customer Photo";
+
 
     modalPhoto.dataset.fallbackApplied =
       "false";
@@ -928,7 +1139,7 @@ function resetCustomerModal() {
 
 
   // ---------------------------------------------------
-  // STAMPS
+  // STAMP COUNT
   // ---------------------------------------------------
 
   if (
@@ -943,7 +1154,7 @@ function resetCustomerModal() {
 
 
   // ---------------------------------------------------
-  // REWARD
+  // REWARD STATUS
   // ---------------------------------------------------
 
   if (
@@ -1003,12 +1214,13 @@ function resetCustomerModal() {
 
 
 // =====================================================
-// SET MODAL VISIBILITY
+// SET CUSTOMER MODAL VISIBILITY
 // =====================================================
 //
-// Centralized modal display control.
-// Part 2/3 should use this instead of an undefined
-// variable such as "modal".
+// Centralized modal visibility control.
+//
+// Part 2, Part 3 and Part 4 must use this function
+// instead of directly managing different modal variables.
 // =====================================================
 
 function setCustomerModalVisible(
@@ -1038,6 +1250,14 @@ function setCustomerModalVisible(
 // =====================================================
 // CLOSE CUSTOMER MODAL
 // =====================================================
+//
+// IMPORTANT:
+// This is the ONLY closeCustomerModal() function
+// in the complete file.
+//
+// No duplicate definition is allowed in Part 2,
+// Part 3 or Part 4.
+// =====================================================
 
 function closeCustomerModal() {
 
@@ -1053,6 +1273,11 @@ function closeCustomerModal() {
 
 // =====================================================
 // INITIAL MODAL STATE
+// =====================================================
+//
+// No event listener is registered here.
+// Event listeners will be registered exactly once
+// in the appropriate later part.
 // =====================================================
 
 if (
@@ -1076,73 +1301,91 @@ console.log(
   "========================================"
 );
 
+
 console.log(
   "🍜 RIO MAGGI POINT"
 );
+
 
 console.log(
   "Premium Admin Customer Manager"
 );
 
+
 console.log(
-  "Admin Customers JS — Part 1"
+  "Admin Customers JS — Part 1 of 4"
 );
+
 
 console.log(
   "========================================"
 );
+
 
 console.log(
   "✅ Firebase Config Ready"
 );
 
+
 console.log(
   "✅ Firestore Imports Ready"
 );
+
 
 console.log(
   "✅ Authentication Imports Ready"
 );
 
-console.log(
-  "✅ DOM References Ready"
-);
 
 console.log(
   "✅ Application Constants Ready"
 );
 
+
+console.log(
+  "✅ DOM References Ready"
+);
+
+
 console.log(
   "✅ Global State Ready"
 );
+
 
 console.log(
   "✅ Safe Customer Helpers Ready"
 );
 
+
 console.log(
   "✅ Date Helpers Ready"
 );
 
+
 console.log(
-  "✅ Reward Helper Ready"
+  "✅ Reward Helpers Ready"
 );
+
 
 console.log(
   "✅ Modal Foundation Ready"
 );
 
+
 console.log(
   "========================================"
 );
+
 
 console.log(
   "➡️ Admin Customers JS Part 1 Loaded"
 );
 
+
 console.log(
-  "➡️ Part 2 can now be added"
+  "➡️ Waiting for Part 2"
 );
+
 
 console.log(
   "========================================"
@@ -1155,20 +1398,31 @@ console.log(
 // =====================================================
 // RIO MAGGI POINT
 // PREMIUM ADMIN CUSTOMER MANAGER
-// admin-customers.js — PART 2
+// admin-customers.js — PART 2 OF 4
 //
 // RESPONSIBILITY:
-// Customer Loading
-// Customer Table Rendering
-// Search
-// Statistics
-// Customer Modal
-// Fresh Customer Fetch
-// Local State Management
+// - Load Customers From Firestore
+// - Sort Customers
+// - Customer Table Rendering
+// - Customer Search
+// - Customer Statistics
+// - Fresh Customer Fetch
+// - Local Customer State Update
+// - Customer Modal Data Update
 //
 // IMPORTANT:
 // This is a continuation of PART 1.
-// Do NOT add duplicate imports or declarations.
+//
+// DO NOT ADD HERE:
+// - Duplicate imports
+// - Duplicate constants
+// - Duplicate state variables
+// - Duplicate DOM references
+// - Authentication listener
+// - Auto refresh system
+// - Customer action handlers
+//
+// Those responsibilities belong to PART 3 and PART 4.
 // =====================================================
 
 
@@ -1176,19 +1430,21 @@ console.log(
 // LOAD CUSTOMERS FROM FIRESTORE
 // =====================================================
 //
-// Loads all customers from:
+// Loads all customer documents from:
 // customers
 //
-// Uses the existing:
-// db
-// customers
-// customerTable
+// Uses:
+// - db
+// - CUSTOMER_COLLECTION
+// - customers
+// - customersLoading
+//
 // =====================================================
 
 async function loadCustomers() {
 
   // ---------------------------------------------------
-  // PREVENT DUPLICATE LOAD
+  // PREVENT DUPLICATE CUSTOMER LOADS
   // ---------------------------------------------------
 
   if (
@@ -1235,14 +1491,17 @@ async function loadCustomers() {
   try {
 
     // -------------------------------------------------
-    // FIRESTORE QUERY
+    // CUSTOMER COLLECTION REFERENCE
     // -------------------------------------------------
 
     const customersRef =
 
       collection(
+
         db,
-        "customers"
+
+        CUSTOMER_COLLECTION
+
       );
 
 
@@ -1250,7 +1509,14 @@ async function loadCustomers() {
 
 
     // -------------------------------------------------
-    // TRY ORDERED QUERY FIRST
+    // TRY ORDERED QUERY
+    // -------------------------------------------------
+    //
+    // Newer customers should appear first.
+    //
+    // If orderBy fails because of old/missing data,
+    // the fallback query below loads the collection
+    // without ordering.
     // -------------------------------------------------
 
     try {
@@ -1262,8 +1528,11 @@ async function loadCustomers() {
           customersRef,
 
           orderBy(
+
             "createdAt",
+
             "desc"
+
           )
 
         );
@@ -1272,7 +1541,9 @@ async function loadCustomers() {
       snapshot =
 
         await getDocs(
+
           orderedQuery
+
         );
 
     }
@@ -1281,17 +1552,11 @@ async function loadCustomers() {
       orderError
     ) {
 
-      // -----------------------------------------------
-      // FALLBACK:
-      // If some old customer document does not have
-      // createdAt, load collection without orderBy.
-      // -----------------------------------------------
-
       console.warn(
 
-        "⚠️ Ordered customer query failed. " +
+        "⚠️ Customer ordered query failed. " +
 
-        "Loading customers without ordering.",
+        "Falling back to unordered customer query.",
 
         orderError
 
@@ -1301,7 +1566,9 @@ async function loadCustomers() {
       snapshot =
 
         await getDocs(
+
           customersRef
+
         );
 
     }
@@ -1315,15 +1582,19 @@ async function loadCustomers() {
 
 
     snapshot.forEach(
-      (customerDoc) => {
 
-        const data =
+      (
+        customerDoc
+      ) => {
+
+        const customerData =
+
           customerDoc.data();
 
 
         loadedCustomers.push({
 
-          ...data,
+          ...customerData,
 
           uid:
             customerDoc.id
@@ -1336,37 +1607,47 @@ async function loadCustomers() {
 
 
     // -------------------------------------------------
-    // FALLBACK SORT
+    // SAFE LOCAL SORT
     // -------------------------------------------------
     //
-    // Ensures newest customers appear first when
-    // createdAt exists.
+    // Ensures newest customers appear first even when
+    // the Firestore fallback query was used.
     // -------------------------------------------------
 
     loadedCustomers.sort(
 
       (
         customerA,
+
         customerB
+
       ) => {
 
         const dateA =
 
           toSafeDate(
+
             customerA.createdAt
+
           );
 
 
         const dateB =
 
           toSafeDate(
+
             customerB.createdAt
+
           );
 
 
+        // Both dates missing.
         if (
+
           !dateA &&
+
           !dateB
+
         ) {
 
           return 0;
@@ -1374,6 +1655,7 @@ async function loadCustomers() {
         }
 
 
+        // Customer A has no date.
         if (
           !dateA
         ) {
@@ -1383,6 +1665,7 @@ async function loadCustomers() {
         }
 
 
+        // Customer B has no date.
         if (
           !dateB
         ) {
@@ -1392,6 +1675,7 @@ async function loadCustomers() {
         }
 
 
+        // Newest first.
         return (
 
           dateB.getTime() -
@@ -1406,7 +1690,7 @@ async function loadCustomers() {
 
 
     // -------------------------------------------------
-    // UPDATE GLOBAL STATE
+    // UPDATE GLOBAL CUSTOMER STATE
     // -------------------------------------------------
 
     customers =
@@ -1414,10 +1698,15 @@ async function loadCustomers() {
 
 
     // -------------------------------------------------
-    // UPDATE UI
+    // UPDATE STATISTICS
     // -------------------------------------------------
 
     updateCustomerStats();
+
+
+    // -------------------------------------------------
+    // RENDER CUSTOMER TABLE
+    // -------------------------------------------------
 
     refreshCustomerTable();
 
@@ -1425,10 +1714,18 @@ async function loadCustomers() {
     // -------------------------------------------------
     // RESTORE SELECTED CUSTOMER
     // -------------------------------------------------
+    //
+    // If the modal was open and the selected customer
+    // still exists after refresh, update the modal
+    // with the latest Firestore data.
+    // -------------------------------------------------
 
     if (
+
       selectedCustomer &&
+
       selectedCustomer.uid
+
     ) {
 
       const refreshedCustomer =
@@ -1440,6 +1737,7 @@ async function loadCustomers() {
           ) =>
 
             customer.uid ===
+
             selectedCustomer.uid
 
         );
@@ -1450,6 +1748,7 @@ async function loadCustomers() {
       ) {
 
         selectedCustomer =
+
           refreshedCustomer;
 
 
@@ -1465,6 +1764,7 @@ async function loadCustomers() {
 
       else {
 
+        // Selected customer no longer exists.
         closeCustomerModal();
 
       }
@@ -1494,7 +1794,7 @@ async function loadCustomers() {
 
 
     // -------------------------------------------------
-    // CLEAR OLD DATA IF LOAD FAILED
+    // RESET CUSTOMER STATE ON LOAD FAILURE
     // -------------------------------------------------
 
     customers =
@@ -1503,6 +1803,10 @@ async function loadCustomers() {
 
     updateCustomerStats();
 
+
+    // -------------------------------------------------
+    // SHOW ERROR STATE
+    // -------------------------------------------------
 
     if (
       customerTable
@@ -1551,22 +1855,28 @@ async function loadCustomers() {
 // CREATE CUSTOMER TABLE ROW
 // =====================================================
 //
-// Creates one customer row.
+// Creates one complete customer table row.
+//
 // No inline onclick is used.
 //
-// This prevents:
+// Customer data is stored through a normal event
+// listener, preventing:
 // - Global function pollution
-// - UID escaping problems
-// - Duplicate event logic
+// - UID escaping issues
+// - Inline JavaScript injection
+//
 // =====================================================
 
-function createRow(
+function createCustomerRow(
   customer
 ) {
 
   if (
+
     !customerTable ||
+
     !customer
+
   ) {
 
     return;
@@ -1574,77 +1884,114 @@ function createRow(
   }
 
 
-  const tr =
-    document.createElement(
-      "tr"
-    );
-
-
   // ---------------------------------------------------
-  // CUSTOMER DATA
+  // CUSTOMER BASIC DATA
   // ---------------------------------------------------
 
   const uid =
+
     String(
+
       customer.uid || ""
+
     );
+
+
+  if (
+    !uid
+  ) {
+
+    return;
+
+  }
 
 
   const name =
 
-    customer.name ||
+    getCustomerName(
 
-    "Unknown Customer";
+      customer
+
+    );
 
 
   const memberId =
 
-    customer.memberId ||
+    getCustomerMemberId(
 
-    "-";
+      customer
+
+    );
 
 
   const mobile =
 
     getCustomerMobile(
+
       customer
+
     );
 
 
   const stamps =
 
     getCustomerStamps(
+
       customer
+
     );
 
 
   const rewardReadyStatus =
 
     isRewardReady(
+
       customer
+
     );
 
 
   const avatar =
 
     getCustomerAvatar(
+
       customer
+
     );
 
 
   // ---------------------------------------------------
-  // CREATE PHOTO CELL
+  // CREATE TABLE ROW
   // ---------------------------------------------------
 
-  const photoCell =
+  const tr =
+
     document.createElement(
+
+      "tr"
+
+    );
+
+
+  // ===================================================
+  // PHOTO CELL
+  // ===================================================
+
+  const photoCell =
+
+    document.createElement(
+
       "td"
+
     );
 
 
   const photo =
+
     document.createElement(
+
       "img"
+
     );
 
 
@@ -1661,13 +2008,20 @@ function createRow(
     "lazy";
 
 
+  photo.dataset.fallbackApplied =
+    "false";
+
+
   photo.onerror =
 
     () => {
 
       if (
+
         photo.dataset.fallbackApplied ===
+
         "true"
+
       ) {
 
         return;
@@ -1680,23 +2034,29 @@ function createRow(
 
 
       photo.src =
+
         DEFAULT_MALE_AVATAR;
 
     };
 
 
   photoCell.appendChild(
+
     photo
+
   );
 
 
-  // ---------------------------------------------------
+  // ===================================================
   // NAME CELL
-  // ---------------------------------------------------
+  // ===================================================
 
   const nameCell =
+
     document.createElement(
+
       "td"
+
     );
 
 
@@ -1704,13 +2064,16 @@ function createRow(
     name;
 
 
-  // ---------------------------------------------------
+  // ===================================================
   // MEMBER ID CELL
-  // ---------------------------------------------------
+  // ===================================================
 
   const memberCell =
+
     document.createElement(
+
       "td"
+
     );
 
 
@@ -1718,13 +2081,16 @@ function createRow(
     memberId;
 
 
-  // ---------------------------------------------------
+  // ===================================================
   // MOBILE CELL
-  // ---------------------------------------------------
+  // ===================================================
 
   const mobileCell =
+
     document.createElement(
+
       "td"
+
     );
 
 
@@ -1732,13 +2098,16 @@ function createRow(
     mobile;
 
 
-  // ---------------------------------------------------
+  // ===================================================
   // STAMP CELL
-  // ---------------------------------------------------
+  // ===================================================
 
   const stampCell =
+
     document.createElement(
+
       "td"
+
     );
 
 
@@ -1747,19 +2116,25 @@ function createRow(
     `${stamps} / ${MAX_STAMPS}`;
 
 
-  // ---------------------------------------------------
-  // STATUS CELL
-  // ---------------------------------------------------
+  // ===================================================
+  // REWARD STATUS CELL
+  // ===================================================
 
   const statusCell =
+
     document.createElement(
+
       "td"
+
     );
 
 
   const statusBadge =
+
     document.createElement(
+
       "span"
+
     );
 
 
@@ -1782,23 +2157,31 @@ function createRow(
 
 
   statusCell.appendChild(
+
     statusBadge
+
   );
 
 
-  // ---------------------------------------------------
+  // ===================================================
   // ACTION CELL
-  // ---------------------------------------------------
+  // ===================================================
 
   const actionCell =
+
     document.createElement(
+
       "td"
+
     );
 
 
   const actionButton =
+
     document.createElement(
+
       "button"
+
     );
 
 
@@ -1816,6 +2199,15 @@ function createRow(
 
   actionButton.dataset.uid =
     uid;
+
+
+  actionButton.setAttribute(
+
+    "aria-label",
+
+    `View ${name} details`
+
+  );
 
 
   // ---------------------------------------------------
@@ -1837,6 +2229,7 @@ function createRow(
           ) =>
 
             item.uid ===
+
             uid
 
         );
@@ -1846,9 +2239,14 @@ function createRow(
         !customerToOpen
       ) {
 
-        alert(
-          "Customer data not found."
+        console.warn(
+
+          "⚠️ Customer not found:",
+
+          uid
+
         );
+
 
         return;
 
@@ -1869,13 +2267,15 @@ function createRow(
 
 
   actionCell.appendChild(
+
     actionButton
+
   );
 
 
-  // ---------------------------------------------------
-  // ADD CELLS TO ROW
-  // ---------------------------------------------------
+  // ===================================================
+  // APPEND ALL CELLS
+  // ===================================================
 
   tr.append(
 
@@ -1896,12 +2296,14 @@ function createRow(
   );
 
 
-  // ---------------------------------------------------
+  // ===================================================
   // ADD ROW TO TABLE
-  // ---------------------------------------------------
+  // ===================================================
 
   customerTable.appendChild(
+
     tr
+
   );
 
 }
@@ -1911,7 +2313,13 @@ function createRow(
 // REFRESH CUSTOMER TABLE
 // =====================================================
 //
-// Applies current search keyword and renders rows.
+// Applies the current search keyword and renders
+// matching customers.
+//
+// This is the ONLY table filtering/render function.
+// Part 3 and Part 4 MUST NOT create another search
+// rendering function.
+//
 // =====================================================
 
 function refreshCustomerTable() {
@@ -1925,20 +2333,34 @@ function refreshCustomerTable() {
   }
 
 
+  // ---------------------------------------------------
+  // CLEAR CURRENT TABLE
+  // ---------------------------------------------------
+
   customerTable.innerHTML =
     "";
 
+
+  // ---------------------------------------------------
+  // GET SEARCH KEYWORD
+  // ---------------------------------------------------
 
   const keyword =
 
     searchCustomer
 
       ? searchCustomer.value
+
           .trim()
+
           .toLowerCase()
 
       : "";
 
+
+  // ---------------------------------------------------
+  // FILTER CUSTOMERS
+  // ---------------------------------------------------
 
   const filteredCustomers =
 
@@ -1948,6 +2370,7 @@ function refreshCustomerTable() {
         customer
       ) => {
 
+        // No search keyword.
         if (
           !keyword
         ) {
@@ -1960,57 +2383,83 @@ function refreshCustomerTable() {
         const name =
 
           String(
+
             customer.name || ""
+
           )
+
+            .trim()
+
             .toLowerCase();
 
 
         const memberId =
 
           String(
+
             customer.memberId || ""
+
           )
+
+            .trim()
+
             .toLowerCase();
 
 
         const mobile =
 
           getCustomerMobile(
+
             customer
+
           )
+
             .toLowerCase();
 
 
         const email =
 
           String(
+
             customer.email || ""
+
           )
+
+            .trim()
+
             .toLowerCase();
 
 
         return (
 
           name.includes(
+
             keyword
+
           )
 
           ||
 
           memberId.includes(
+
             keyword
+
           )
 
           ||
 
           mobile.includes(
+
             keyword
+
           )
 
           ||
 
           email.includes(
+
             keyword
+
           )
 
         );
@@ -2021,12 +2470,15 @@ function refreshCustomerTable() {
 
 
   // ---------------------------------------------------
-  // EMPTY SEARCH RESULT
+  // EMPTY RESULT
   // ---------------------------------------------------
 
   if (
+
     filteredCustomers.length ===
+
     0
+
   ) {
 
     customerTable.innerHTML = `
@@ -2038,7 +2490,13 @@ function refreshCustomerTable() {
           class="empty-table-message"
         >
 
-          No Customers Found
+          ${
+            keyword
+
+              ? "No Customers Found"
+
+              : "No Customers Available"
+          }
 
         </td>
 
@@ -2046,18 +2504,19 @@ function refreshCustomerTable() {
 
     `;
 
+
     return;
 
   }
 
 
   // ---------------------------------------------------
-  // RENDER ROWS
+  // RENDER FILTERED CUSTOMERS
   // ---------------------------------------------------
 
   filteredCustomers.forEach(
 
-    createRow
+    createCustomerRow
 
   );
 
@@ -2066,6 +2525,13 @@ function refreshCustomerTable() {
 
 // =====================================================
 // UPDATE CUSTOMER STATISTICS
+// =====================================================
+//
+// Updates:
+// - Total Customers
+// - Reward Ready
+// - Today's Customers
+//
 // =====================================================
 
 function updateCustomerStats() {
@@ -2080,13 +2546,17 @@ function updateCustomerStats() {
 
     totalCustomers.textContent =
 
-      customers.length;
+      String(
+
+        customers.length
+
+      );
 
   }
 
 
   // ---------------------------------------------------
-  // REWARD READY
+  // REWARD READY COUNT
   // ---------------------------------------------------
 
   const readyCount =
@@ -2098,7 +2568,9 @@ function updateCustomerStats() {
       ) =>
 
         isRewardReady(
+
           customer
+
         )
 
     ).length;
@@ -2109,13 +2581,18 @@ function updateCustomerStats() {
   ) {
 
     rewardReady.textContent =
-      readyCount;
+
+      String(
+
+        readyCount
+
+      );
 
   }
 
 
   // ---------------------------------------------------
-  // TODAY JOINED
+  // TODAY JOINED COUNT
   // ---------------------------------------------------
 
   const todayCount =
@@ -2127,7 +2604,9 @@ function updateCustomerStats() {
       ) =>
 
         isCustomerCreatedToday(
+
           customer
+
         )
 
     ).length;
@@ -2138,7 +2617,12 @@ function updateCustomerStats() {
   ) {
 
     todayJoined.textContent =
-      todayCount;
+
+      String(
+
+        todayCount
+
+      );
 
   }
 
@@ -2149,8 +2633,14 @@ function updateCustomerStats() {
 // GET FRESH CUSTOMER FROM FIRESTORE
 // =====================================================
 //
-// Always fetches latest data before performing an
-// admin action.
+// Always fetches the latest customer document.
+//
+// Used by Part 3 before:
+// - Give Stamp
+// - Remove Stamp
+// - Unlock Reward
+// - Delete Customer
+//
 // =====================================================
 
 async function getFreshCustomer(
@@ -2172,7 +2662,7 @@ async function getFreshCustomer(
 
       db,
 
-      "customers",
+      CUSTOMER_COLLECTION,
 
       uid
 
@@ -2182,12 +2672,16 @@ async function getFreshCustomer(
   const snapshot =
 
     await getDoc(
+
       customerRef
+
     );
 
 
   if (
+
     !snapshot.exists()
+
   ) {
 
     return null;
@@ -2200,6 +2694,7 @@ async function getFreshCustomer(
     ...snapshot.data(),
 
     uid:
+
       snapshot.id
 
   };
@@ -2211,7 +2706,9 @@ async function getFreshCustomer(
 // UPDATE LOCAL CUSTOMER
 // =====================================================
 //
-// Updates only one customer in local state.
+// Updates one customer inside the local customers
+// array without reloading the entire collection.
+//
 // =====================================================
 
 function updateLocalCustomer(
@@ -2226,7 +2723,7 @@ function updateLocalCustomer(
 
   ) {
 
-    return;
+    return false;
 
   }
 
@@ -2240,23 +2737,35 @@ function updateLocalCustomer(
       ) =>
 
         customer.uid ===
+
         updatedCustomer.uid
 
     );
 
+
+  // ---------------------------------------------------
+  // CUSTOMER NOT FOUND LOCALLY
+  // ---------------------------------------------------
 
   if (
     index === -1
   ) {
 
     customers.push(
+
       updatedCustomer
+
     );
 
-    return;
+
+    return true;
 
   }
 
+
+  // ---------------------------------------------------
+  // MERGE UPDATED DATA
+  // ---------------------------------------------------
 
   customers[index] = {
 
@@ -2266,6 +2775,9 @@ function updateLocalCustomer(
 
   };
 
+
+  return true;
+
 }
 
 
@@ -2273,9 +2785,12 @@ function updateLocalCustomer(
 // UPDATE CUSTOMER MODAL
 // =====================================================
 //
+// Updates the modal with selected customer data.
+//
 // showModal:
-// true  = open modal
-// false = update modal only
+// true  -> update and open modal
+// false -> update modal without changing visibility
+//
 // =====================================================
 
 function updateCustomerModal(
@@ -2295,13 +2810,17 @@ function updateCustomerModal(
   }
 
 
+  // ---------------------------------------------------
+  // SAVE SELECTED CUSTOMER
+  // ---------------------------------------------------
+
   selectedCustomer =
     customer;
 
 
-  // ---------------------------------------------------
-  // CUSTOMER AVATAR
-  // ---------------------------------------------------
+  // ===================================================
+  // CUSTOMER PHOTO
+  // ===================================================
 
   if (
     modalPhoto
@@ -2314,20 +2833,22 @@ function updateCustomerModal(
     modalPhoto.src =
 
       getCustomerAvatar(
+
         customer
+
       );
 
 
     modalPhoto.alt =
 
-      `${customer.name || "Customer"} Photo`;
+      `${getCustomerName(customer)} Photo`;
 
   }
 
 
-  // ---------------------------------------------------
+  // ===================================================
   // CUSTOMER NAME
-  // ---------------------------------------------------
+  // ===================================================
 
   if (
     modalName
@@ -2335,16 +2856,18 @@ function updateCustomerModal(
 
     modalName.textContent =
 
-      customer.name ||
+      getCustomerName(
 
-      "Unknown Customer";
+        customer
+
+      );
 
   }
 
 
-  // ---------------------------------------------------
+  // ===================================================
   // MEMBER ID
-  // ---------------------------------------------------
+  // ===================================================
 
   if (
     modalMember
@@ -2352,16 +2875,18 @@ function updateCustomerModal(
 
     modalMember.textContent =
 
-      customer.memberId ||
+      getCustomerMemberId(
 
-      "RIO-000000";
+        customer
+
+      );
 
   }
 
 
-  // ---------------------------------------------------
+  // ===================================================
   // MOBILE
-  // ---------------------------------------------------
+  // ===================================================
 
   if (
     modalMobile
@@ -2370,20 +2895,24 @@ function updateCustomerModal(
     modalMobile.textContent =
 
       getCustomerMobile(
+
         customer
+
       );
 
   }
 
 
-  // ---------------------------------------------------
-  // STAMPS
-  // ---------------------------------------------------
+  // ===================================================
+  // STAMP COUNT
+  // ===================================================
 
   const stamps =
 
     getCustomerStamps(
+
       customer
+
     );
 
 
@@ -2398,9 +2927,9 @@ function updateCustomerModal(
   }
 
 
-  // ---------------------------------------------------
+  // ===================================================
   // REWARD STATUS
-  // ---------------------------------------------------
+  // ===================================================
 
   if (
     modalReward
@@ -2409,7 +2938,9 @@ function updateCustomerModal(
     modalReward.textContent =
 
       isRewardReady(
+
         customer
+
       )
 
         ? "Ready"
@@ -2420,35 +2951,64 @@ function updateCustomerModal(
 
 
   // ---------------------------------------------------
-  // OPEN MODAL
+  // MODAL VISIBILITY
   // ---------------------------------------------------
+  //
+  // Part 3 will provide syncActionButtons().
+  // We call it safely only when available.
+  //
+  // ---------------------------------------------------
+
+  if (
+    typeof syncActionButtons ===
+    "function"
+  ) {
+
+    syncActionButtons();
+
+  }
+
 
   if (
     showModal
   ) {
 
     setCustomerModalVisible(
+
       true
+
     );
 
   }
-
-
-  // ---------------------------------------------------
-  // BUTTON STATE
-  // ---------------------------------------------------
-
-  syncActionButtons();
 
 }
 
 
 // =====================================================
-// SEARCH EVENT
+// PART 2 EVENT LISTENERS
 // =====================================================
 //
-// Uses "input" instead of "keyup" so it also works
-// with paste, mobile keyboards, autofill, etc.
+// IMPORTANT:
+// Only SEARCH listener is registered here.
+//
+// Modal listeners are PART 3.
+// Refresh listener is PART 4.
+// Auth listener is PART 4.
+//
+// This prevents duplicate event listeners.
+// =====================================================
+
+
+// =====================================================
+// CUSTOMER SEARCH EVENT
+// =====================================================
+//
+// "input" works with:
+// - Typing
+// - Paste
+// - Mobile keyboard
+// - Autofill
+//
 // =====================================================
 
 searchCustomer?.addEventListener(
@@ -2465,7 +3025,1861 @@ searchCustomer?.addEventListener(
 
 
 // =====================================================
-// CLOSE MODAL BUTTON
+// PART 2 PUBLIC API
+// =====================================================
+//
+// Existing API object is merged safely.
+// It does NOT overwrite future Part 3/4 functions.
+//
+// =====================================================
+
+window.adminCustomers = {
+
+  ...(window.adminCustomers || {}),
+
+  loadCustomers,
+
+  createCustomerRow,
+
+  refreshCustomerTable,
+
+  updateCustomerStats,
+
+  getFreshCustomer,
+
+  updateLocalCustomer,
+
+  updateCustomerModal
+
+};
+
+
+// =====================================================
+// PART 2 DEVELOPMENT LOG
+// =====================================================
+
+console.log(
+  "========================================"
+);
+
+
+console.log(
+  "✅ Admin Customers Part 2 Loaded"
+);
+
+
+console.log(
+  "✅ Firestore Customer Loading Ready"
+);
+
+
+console.log(
+  "✅ Customer Sorting Ready"
+);
+
+
+console.log(
+  "✅ Customer Table Rendering Ready"
+);
+
+
+console.log(
+  "✅ Customer Search Ready"
+);
+
+
+console.log(
+  "✅ Customer Statistics Ready"
+);
+
+
+console.log(
+  "✅ Fresh Customer Fetch Ready"
+);
+
+
+console.log(
+  "✅ Local Customer State Update Ready"
+);
+
+
+console.log(
+  "✅ Customer Modal Data Update Ready"
+);
+
+
+console.log(
+  "========================================"
+);
+
+
+console.log(
+  "➡️ Waiting for Part 3"
+);
+
+
+console.log(
+  "========================================"
+);
+
+
+// =====================================================
+// END OF PART 2
+// =====================================================
+// =====================================================
+// RIO MAGGI POINT
+// PREMIUM ADMIN CUSTOMER MANAGER
+// admin-customers.js — PART 3 OF 4
+//
+// RESPONSIBILITY:
+// - Customer Modal Events
+// - Give Stamp
+// - Remove Stamp
+// - Unlock Reward
+// - Delete Customer
+// - Action Button State Management
+// - Modal Close Controls
+//
+// IMPORTANT:
+// This is a continuation of PART 1 + PART 2.
+//
+// DO NOT ADD HERE:
+// - Duplicate imports
+// - Duplicate constants
+// - Duplicate DOM references
+// - Duplicate global state
+// - Duplicate search listener
+// - Duplicate customer loading logic
+// - Duplicate authentication listener
+// - Duplicate refresh listener
+//
+// PART 4 will handle:
+// - Authentication
+// - Initial Page Bootstrap
+// - Refresh
+// - Auto Refresh
+// =====================================================
+
+
+// =====================================================
+// ACTION BUTTON STATE HELPER
+// =====================================================
+//
+// Keeps all customer action buttons synchronized with
+// the currently selected customer.
+//
+// =====================================================
+
+function syncActionButtons() {
+
+  // ---------------------------------------------------
+  // CHECK SELECTED CUSTOMER
+  // ---------------------------------------------------
+
+  const hasSelectedCustomer = Boolean(
+
+    selectedCustomer &&
+
+    selectedCustomer.uid
+
+  );
+
+
+  // ---------------------------------------------------
+  // GET CURRENT STAMP COUNT
+  // ---------------------------------------------------
+
+  const stamps =
+
+    hasSelectedCustomer
+
+      ? getCustomerStamps(
+
+          selectedCustomer
+
+        )
+
+      : 0;
+
+
+  // ---------------------------------------------------
+  // CHECK WHETHER CUSTOMER ALREADY GOT TODAY'S STAMP
+  // ---------------------------------------------------
+
+  const alreadyStampedToday =
+
+    hasSelectedCustomer
+
+      ? hasStampToday(
+
+          selectedCustomer
+
+        )
+
+      : false;
+
+
+  // ===================================================
+  // GIVE STAMP BUTTON
+  // ===================================================
+
+  if (
+    giveStampBtn
+  ) {
+
+    giveStampBtn.disabled = (
+
+      !hasSelectedCustomer ||
+
+      customerActionProcessing ||
+
+      giveStampProcessing ||
+
+      alreadyStampedToday ||
+
+      stamps >= MAX_STAMPS
+
+    );
+
+  }
+
+
+  // ===================================================
+  // REMOVE STAMP BUTTON
+  // ===================================================
+
+  if (
+    removeStampBtn
+  ) {
+
+    removeStampBtn.disabled = (
+
+      !hasSelectedCustomer ||
+
+      customerActionProcessing ||
+
+      removeStampProcessing ||
+
+      stamps <= 0
+
+    );
+
+  }
+
+
+  // ===================================================
+  // UNLOCK REWARD BUTTON
+  // ===================================================
+
+  if (
+    unlockRewardBtn
+  ) {
+
+    const rewardAlreadyUnlocked = (
+
+      selectedCustomer &&
+
+      selectedCustomer.rewardUnlocked === true
+
+    );
+
+
+    unlockRewardBtn.disabled = (
+
+      !hasSelectedCustomer ||
+
+      customerActionProcessing ||
+
+      unlockRewardProcessing ||
+
+      rewardAlreadyUnlocked
+
+    );
+
+  }
+
+
+  // ===================================================
+  // DELETE CUSTOMER BUTTON
+  // ===================================================
+
+  if (
+    deleteCustomerBtn
+  ) {
+
+    deleteCustomerBtn.disabled = (
+
+      !hasSelectedCustomer ||
+
+      customerActionProcessing ||
+
+      deleteCustomerProcessing
+
+    );
+
+  }
+
+}
+
+
+// =====================================================
+// SET ACTION BUTTON LOADING STATE
+// =====================================================
+//
+// Displays a temporary loading state on the button
+// currently performing an action.
+//
+// =====================================================
+
+function setActionButtonLoading(
+
+  button,
+
+  isLoading,
+
+  loadingText,
+
+  defaultText
+
+) {
+
+  if (
+    !button
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+    isLoading
+  ) {
+
+    button.disabled = true;
+
+
+    button.dataset.originalContent =
+
+      button.innerHTML;
+
+
+    button.innerHTML = `
+
+      <i
+        class="fa-solid fa-spinner fa-spin"
+        aria-hidden="true"
+      ></i>
+
+      ${loadingText}
+
+    `;
+
+
+    return;
+
+  }
+
+
+  button.disabled = false;
+
+
+  button.innerHTML =
+
+    button.dataset.originalContent ||
+
+    defaultText;
+
+}
+
+
+// =====================================================
+// REFRESH SELECTED CUSTOMER FROM FIRESTORE
+// =====================================================
+//
+// Fetches latest data before a customer action.
+//
+// This prevents stale local data from overwriting
+// newer Firestore values.
+//
+// =====================================================
+
+async function refreshSelectedCustomer() {
+
+  if (
+
+    !selectedCustomer ||
+
+    !selectedCustomer.uid
+
+  ) {
+
+    return null;
+
+  }
+
+
+  const freshCustomer =
+
+    await getFreshCustomer(
+
+      selectedCustomer.uid
+
+    );
+
+
+  if (
+    !freshCustomer
+  ) {
+
+    closeCustomerModal();
+
+
+    return null;
+
+  }
+
+
+  selectedCustomer =
+
+    freshCustomer;
+
+
+  updateLocalCustomer(
+
+    freshCustomer
+
+  );
+
+
+  updateCustomerModal(
+
+    freshCustomer,
+
+    false
+
+  );
+
+
+  syncActionButtons();
+
+
+  return freshCustomer;
+
+}
+
+
+// =====================================================
+// GIVE STAMP
+// =====================================================
+//
+// Adds one stamp to the selected customer.
+//
+// Rules:
+// - Maximum 6 stamps
+// - Only one stamp per day
+// - Fresh Firestore data is checked first
+//
+// =====================================================
+
+async function giveCustomerStamp() {
+
+  if (
+    giveStampProcessing
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+
+    !selectedCustomer ||
+
+    !selectedCustomer.uid
+
+  ) {
+
+    alert(
+
+      "Please select a customer first."
+
+    );
+
+
+    return;
+
+  }
+
+
+  giveStampProcessing =
+
+    true;
+
+
+  customerActionProcessing =
+
+    true;
+
+
+  syncActionButtons();
+
+
+  setActionButtonLoading(
+
+    giveStampBtn,
+
+    true,
+
+    "Adding...",
+
+    "➕ Give Stamp"
+
+  );
+
+
+  try {
+
+    // -------------------------------------------------
+    // GET LATEST CUSTOMER DATA
+    // -------------------------------------------------
+
+    const customer =
+
+      await getFreshCustomer(
+
+        selectedCustomer.uid
+
+      );
+
+
+    if (
+      !customer
+    ) {
+
+      alert(
+
+        "Customer no longer exists."
+
+      );
+
+
+      closeCustomerModal();
+
+
+      return;
+
+    }
+
+
+    // -------------------------------------------------
+    // CHECK TODAY'S STAMP
+    // -------------------------------------------------
+
+    if (
+
+      hasStampToday(
+
+        customer
+
+      )
+
+    ) {
+
+      alert(
+
+        "This customer has already received today's stamp."
+
+      );
+
+
+      selectedCustomer =
+
+        customer;
+
+
+      updateLocalCustomer(
+
+        customer
+
+      );
+
+
+      updateCustomerModal(
+
+        customer,
+
+        false
+
+      );
+
+
+      return;
+
+    }
+
+
+    // -------------------------------------------------
+    // GET CURRENT STAMP COUNT
+    // -------------------------------------------------
+
+    const currentStamps =
+
+      getCustomerStamps(
+
+        customer
+
+      );
+
+
+    // -------------------------------------------------
+    // MAXIMUM STAMP CHECK
+    // -------------------------------------------------
+
+    if (
+
+      currentStamps >=
+
+      MAX_STAMPS
+
+    ) {
+
+      alert(
+
+        "This customer already has the maximum number of stamps."
+
+      );
+
+
+      selectedCustomer =
+
+        customer;
+
+
+      updateLocalCustomer(
+
+        customer
+
+      );
+
+
+      updateCustomerModal(
+
+        customer,
+
+        false
+
+      );
+
+
+      return;
+
+    }
+
+
+    // -------------------------------------------------
+    // ADD ONE STAMP
+    // -------------------------------------------------
+
+    const newStampCount =
+
+      Math.min(
+
+        currentStamps + 1,
+
+        MAX_STAMPS
+
+      );
+
+
+    const todayKey =
+
+      getTodayKey();
+
+
+    const customerRef =
+
+      doc(
+
+        db,
+
+        CUSTOMER_COLLECTION,
+
+        customer.uid
+
+      );
+
+
+    await updateDoc(
+
+      customerRef,
+
+      {
+
+        stamps:
+
+          newStampCount,
+
+        dailyStampDate:
+
+          todayKey,
+
+        lastStampDate:
+
+          todayKey,
+
+        updatedAt:
+
+          serverTimestamp()
+
+      }
+
+    );
+
+
+    // -------------------------------------------------
+    // UPDATE LOCAL CUSTOMER STATE
+    // -------------------------------------------------
+
+    const updatedCustomer = {
+
+      ...customer,
+
+      stamps:
+
+        newStampCount,
+
+      dailyStampDate:
+
+        todayKey,
+
+      lastStampDate:
+
+        todayKey
+
+    };
+
+
+    selectedCustomer =
+
+      updatedCustomer;
+
+
+    updateLocalCustomer(
+
+      updatedCustomer
+
+    );
+
+
+    // -------------------------------------------------
+    // UPDATE UI
+    // -------------------------------------------------
+
+    updateCustomerStats();
+
+
+    refreshCustomerTable();
+
+
+    updateCustomerModal(
+
+      updatedCustomer,
+
+      false
+
+    );
+
+
+    syncActionButtons();
+
+
+    console.log(
+
+      `✅ Stamp added to customer: ${customer.uid}`
+
+    );
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+
+      "❌ Give Stamp Error:",
+
+      error
+
+    );
+
+
+    alert(
+
+      "Unable to give stamp. Please try again."
+
+    );
+
+  }
+
+  finally {
+
+    giveStampProcessing =
+
+      false;
+
+
+    customerActionProcessing =
+
+      false;
+
+
+    setActionButtonLoading(
+
+      giveStampBtn,
+
+      false,
+
+      "",
+
+      "➕ Give Stamp"
+
+    );
+
+
+    syncActionButtons();
+
+  }
+
+}
+
+
+// =====================================================
+// REMOVE STAMP
+// =====================================================
+//
+// Removes one stamp from selected customer.
+//
+// Never allows stamp count below zero.
+//
+// =====================================================
+
+async function removeCustomerStamp() {
+
+  if (
+    removeStampProcessing
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+
+    !selectedCustomer ||
+
+    !selectedCustomer.uid
+
+  ) {
+
+    alert(
+
+      "Please select a customer first."
+
+    );
+
+
+    return;
+
+  }
+
+
+  const confirmed =
+
+    window.confirm(
+
+      "Are you sure you want to remove one stamp from this customer?"
+
+    );
+
+
+  if (
+    !confirmed
+  ) {
+
+    return;
+
+  }
+
+
+  removeStampProcessing =
+
+    true;
+
+
+  customerActionProcessing =
+
+    true;
+
+
+  syncActionButtons();
+
+
+  setActionButtonLoading(
+
+    removeStampBtn,
+
+    true,
+
+    "Removing...",
+
+    "➖ Remove Stamp"
+
+  );
+
+
+  try {
+
+    // -------------------------------------------------
+    // GET LATEST DATA
+    // -------------------------------------------------
+
+    const customer =
+
+      await getFreshCustomer(
+
+        selectedCustomer.uid
+
+      );
+
+
+    if (
+      !customer
+    ) {
+
+      alert(
+
+        "Customer no longer exists."
+
+      );
+
+
+      closeCustomerModal();
+
+
+      return;
+
+    }
+
+
+    // -------------------------------------------------
+    // CURRENT STAMPS
+    // -------------------------------------------------
+
+    const currentStamps =
+
+      getCustomerStamps(
+
+        customer
+
+      );
+
+
+    if (
+
+      currentStamps <= 0
+
+    ) {
+
+      alert(
+
+        "Customer has no stamps to remove."
+
+      );
+
+
+      selectedCustomer =
+
+        customer;
+
+
+      updateLocalCustomer(
+
+        customer
+
+      );
+
+
+      updateCustomerModal(
+
+        customer,
+
+        false
+
+      );
+
+
+      return;
+
+    }
+
+
+    // -------------------------------------------------
+    // REMOVE ONE STAMP
+    // -------------------------------------------------
+
+    const newStampCount =
+
+      Math.max(
+
+        currentStamps - 1,
+
+        0
+
+      );
+
+
+    const customerRef =
+
+      doc(
+
+        db,
+
+        CUSTOMER_COLLECTION,
+
+        customer.uid
+
+      );
+
+
+    await updateDoc(
+
+      customerRef,
+
+      {
+
+        stamps:
+
+          newStampCount,
+
+        updatedAt:
+
+          serverTimestamp()
+
+      }
+
+    );
+
+
+    // -------------------------------------------------
+    // UPDATE LOCAL STATE
+    // -------------------------------------------------
+
+    const updatedCustomer = {
+
+      ...customer,
+
+      stamps:
+
+        newStampCount
+
+    };
+
+
+    selectedCustomer =
+
+      updatedCustomer;
+
+
+    updateLocalCustomer(
+
+      updatedCustomer
+
+    );
+
+
+    // -------------------------------------------------
+    // UPDATE UI
+    // -------------------------------------------------
+
+    updateCustomerStats();
+
+
+    refreshCustomerTable();
+
+
+    updateCustomerModal(
+
+      updatedCustomer,
+
+      false
+
+    );
+
+
+    syncActionButtons();
+
+
+    console.log(
+
+      `✅ Stamp removed from customer: ${customer.uid}`
+
+    );
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+
+      "❌ Remove Stamp Error:",
+
+      error
+
+    );
+
+
+    alert(
+
+      "Unable to remove stamp. Please try again."
+
+    );
+
+  }
+
+  finally {
+
+    removeStampProcessing =
+
+      false;
+
+
+    customerActionProcessing =
+
+      false;
+
+
+    setActionButtonLoading(
+
+      removeStampBtn,
+
+      false,
+
+      "",
+
+      "➖ Remove Stamp"
+
+    );
+
+
+    syncActionButtons();
+
+  }
+
+}
+
+
+// =====================================================
+// UNLOCK REWARD
+// =====================================================
+//
+// Unlocks reward for selected customer.
+//
+// Reward can only be unlocked when customer has
+// maximum required stamps.
+//
+// =====================================================
+
+async function unlockCustomerReward() {
+
+  if (
+    unlockRewardProcessing
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+
+    !selectedCustomer ||
+
+    !selectedCustomer.uid
+
+  ) {
+
+    alert(
+
+      "Please select a customer first."
+
+    );
+
+
+    return;
+
+  }
+
+
+  const confirmed =
+
+    window.confirm(
+
+      "Are you sure you want to unlock this customer's reward?"
+
+    );
+
+
+  if (
+    !confirmed
+  ) {
+
+    return;
+
+  }
+
+
+  unlockRewardProcessing =
+
+    true;
+
+
+  customerActionProcessing =
+
+    true;
+
+
+  syncActionButtons();
+
+
+  setActionButtonLoading(
+
+    unlockRewardBtn,
+
+    true,
+
+    "Unlocking...",
+
+    "🎁 Unlock Reward"
+
+  );
+
+
+  try {
+
+    // -------------------------------------------------
+    // GET LATEST DATA
+    // -------------------------------------------------
+
+    const customer =
+
+      await getFreshCustomer(
+
+        selectedCustomer.uid
+
+      );
+
+
+    if (
+      !customer
+    ) {
+
+      alert(
+
+        "Customer no longer exists."
+
+      );
+
+
+      closeCustomerModal();
+
+
+      return;
+
+    }
+
+
+    // -------------------------------------------------
+    // CHECK STAMPS
+    // -------------------------------------------------
+
+    const currentStamps =
+
+      getCustomerStamps(
+
+        customer
+
+      );
+
+
+    if (
+
+      currentStamps <
+
+      MAX_STAMPS
+
+    ) {
+
+      alert(
+
+        `Customer needs ${MAX_STAMPS} stamps before the reward can be unlocked.`
+
+      );
+
+
+      selectedCustomer =
+
+        customer;
+
+
+      updateLocalCustomer(
+
+        customer
+
+      );
+
+
+      updateCustomerModal(
+
+        customer,
+
+        false
+
+      );
+
+
+      return;
+
+    }
+
+
+    // -------------------------------------------------
+    // CHECK ALREADY UNLOCKED
+    // -------------------------------------------------
+
+    if (
+
+      customer.rewardUnlocked ===
+
+      true
+
+    ) {
+
+      alert(
+
+        "Reward is already unlocked for this customer."
+
+      );
+
+
+      selectedCustomer =
+
+        customer;
+
+
+      updateLocalCustomer(
+
+        customer
+
+      );
+
+
+      updateCustomerModal(
+
+        customer,
+
+        false
+
+      );
+
+
+      return;
+
+    }
+
+
+    // -------------------------------------------------
+    // UPDATE FIRESTORE
+    // -------------------------------------------------
+
+    const customerRef =
+
+      doc(
+
+        db,
+
+        CUSTOMER_COLLECTION,
+
+        customer.uid
+
+      );
+
+
+    await updateDoc(
+
+      customerRef,
+
+      {
+
+        rewardUnlocked:
+
+          true,
+
+        rewardUnlockedAt:
+
+          serverTimestamp(),
+
+        updatedAt:
+
+          serverTimestamp()
+
+      }
+
+    );
+
+
+    // -------------------------------------------------
+    // UPDATE LOCAL STATE
+    // -------------------------------------------------
+
+    const updatedCustomer = {
+
+      ...customer,
+
+      rewardUnlocked:
+
+        true
+
+    };
+
+
+    selectedCustomer =
+
+      updatedCustomer;
+
+
+    updateLocalCustomer(
+
+      updatedCustomer
+
+    );
+
+
+    // -------------------------------------------------
+    // UPDATE UI
+    // -------------------------------------------------
+
+    updateCustomerStats();
+
+
+    refreshCustomerTable();
+
+
+    updateCustomerModal(
+
+      updatedCustomer,
+
+      false
+
+    );
+
+
+    syncActionButtons();
+
+
+    console.log(
+
+      `✅ Reward unlocked for customer: ${customer.uid}`
+
+    );
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+
+      "❌ Unlock Reward Error:",
+
+      error
+
+    );
+
+
+    alert(
+
+      "Unable to unlock reward. Please try again."
+
+    );
+
+  }
+
+  finally {
+
+    unlockRewardProcessing =
+
+      false;
+
+
+    customerActionProcessing =
+
+      false;
+
+
+    setActionButtonLoading(
+
+      unlockRewardBtn,
+
+      false,
+
+      "",
+
+      "🎁 Unlock Reward"
+
+    );
+
+
+    syncActionButtons();
+
+  }
+
+}
+
+
+// =====================================================
+// DELETE CUSTOMER
+// =====================================================
+//
+// Permanently deletes selected customer.
+//
+// Confirmation is required.
+//
+// =====================================================
+
+async function deleteSelectedCustomer() {
+
+  if (
+    deleteCustomerProcessing
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+
+    !selectedCustomer ||
+
+    !selectedCustomer.uid
+
+  ) {
+
+    alert(
+
+      "Please select a customer first."
+
+    );
+
+
+    return;
+
+  }
+
+
+  const customerName =
+
+    getCustomerName(
+
+      selectedCustomer
+
+    );
+
+
+  const confirmed =
+
+    window.confirm(
+
+      `Are you sure you want to permanently delete ${customerName}? This action cannot be undone.`
+
+    );
+
+
+  if (
+    !confirmed
+  ) {
+
+    return;
+
+  }
+
+
+  deleteCustomerProcessing =
+
+    true;
+
+
+  customerActionProcessing =
+
+    true;
+
+
+  syncActionButtons();
+
+
+  setActionButtonLoading(
+
+    deleteCustomerBtn,
+
+    true,
+
+    "Deleting...",
+
+    "🗑 Delete Customer"
+
+  );
+
+
+  try {
+
+    // -------------------------------------------------
+    // VERIFY CUSTOMER STILL EXISTS
+    // -------------------------------------------------
+
+    const customer =
+
+      await getFreshCustomer(
+
+        selectedCustomer.uid
+
+      );
+
+
+    if (
+      !customer
+    ) {
+
+      alert(
+
+        "Customer no longer exists."
+
+      );
+
+
+      closeCustomerModal();
+
+
+      return;
+
+    }
+
+
+    // -------------------------------------------------
+    // DELETE CUSTOMER
+    // -------------------------------------------------
+
+    const customerRef =
+
+      doc(
+
+        db,
+
+        CUSTOMER_COLLECTION,
+
+        customer.uid
+
+      );
+
+
+    await deleteDoc(
+
+      customerRef
+
+    );
+
+
+    // -------------------------------------------------
+    // REMOVE FROM LOCAL STATE
+    // -------------------------------------------------
+
+    customers =
+
+      customers.filter(
+
+        (
+          item
+        ) =>
+
+          item.uid !==
+
+          customer.uid
+
+      );
+
+
+    // -------------------------------------------------
+    // CLOSE MODAL
+    // -------------------------------------------------
+
+    closeCustomerModal();
+
+
+    // -------------------------------------------------
+    // UPDATE UI
+    // -------------------------------------------------
+
+    updateCustomerStats();
+
+
+    refreshCustomerTable();
+
+
+    console.log(
+
+      `✅ Customer deleted: ${customer.uid}`
+
+    );
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+
+      "❌ Delete Customer Error:",
+
+      error
+
+    );
+
+
+    alert(
+
+      "Unable to delete customer. Please try again."
+
+    );
+
+  }
+
+  finally {
+
+    deleteCustomerProcessing =
+
+      false;
+
+
+    customerActionProcessing =
+
+      false;
+
+
+    setActionButtonLoading(
+
+      deleteCustomerBtn,
+
+      false,
+
+      "",
+
+      "🗑 Delete Customer"
+
+    );
+
+
+    syncActionButtons();
+
+  }
+
+}
+
+
+// =====================================================
+// OPEN CUSTOMER MODAL
+// =====================================================
+//
+// Public helper for opening the modal when a selected
+// customer already exists.
+//
+// =====================================================
+
+function openCustomerModal() {
+
+  if (
+    !customerModal
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+
+    !selectedCustomer ||
+
+    !selectedCustomer.uid
+
+  ) {
+
+    return;
+
+  }
+
+
+  setCustomerModalVisible(
+
+    true
+
+  );
+
+
+  syncActionButtons();
+
+}
+
+
+// =====================================================
+// CLOSE CUSTOMER MODAL
+// =====================================================
+//
+// Uses the centralized modal visibility function
+// from Part 1.
+//
+// =====================================================
+
+function closeCustomerModal() {
+
+  setCustomerModalVisible(
+
+    false
+
+  );
+
+
+  resetCustomerModal();
+
+
+  // ---------------------------------------------------
+  // RESET ACTION PROCESSING FLAGS
+  // ---------------------------------------------------
+
+  customerActionProcessing =
+    false;
+
+}
+
+
+// =====================================================
+// CLOSE MODAL BUTTON EVENT
 // =====================================================
 
 closeModalBtn?.addEventListener(
@@ -2494,8 +4908,11 @@ customerModal?.addEventListener(
   ) => {
 
     if (
+
       event.target ===
+
       customerModal
+
     ) {
 
       closeCustomerModal();
@@ -2508,7 +4925,7 @@ customerModal?.addEventListener(
 
 
 // =====================================================
-// CLOSE MODAL WITH ESCAPE
+// CLOSE MODAL WITH ESCAPE KEY
 // =====================================================
 
 document.addEventListener(
@@ -2520,8 +4937,11 @@ document.addEventListener(
   ) => {
 
     if (
+
       event.key !==
+
       "Escape"
+
     ) {
 
       return;
@@ -2538,9 +4958,15 @@ document.addEventListener(
     }
 
 
-    if (
+    const isModalVisible =
+
       customerModal.style.display ===
-      "flex"
+
+      "flex";
+
+
+    if (
+      isModalVisible
     ) {
 
       closeCustomerModal();
@@ -2563,8 +4989,11 @@ modalPhoto?.addEventListener(
   () => {
 
     if (
+
       modalPhoto.dataset.fallbackApplied ===
+
       "true"
+
     ) {
 
       return;
@@ -2573,10 +5002,12 @@ modalPhoto?.addEventListener(
 
 
     modalPhoto.dataset.fallbackApplied =
+
       "true";
 
 
     modalPhoto.src =
+
       DEFAULT_MALE_AVATAR;
 
   }
@@ -2595,6 +5026,7 @@ modalPhoto?.addEventListener(
   () => {
 
     modalPhoto.dataset.fallbackApplied =
+
       "false";
 
   }
@@ -2603,1123 +5035,152 @@ modalPhoto?.addEventListener(
 
 
 // =====================================================
-// REFRESH BUTTON
+// CUSTOMER ACTION EVENTS
 // =====================================================
 //
-// Only ONE refresh listener is defined here.
-// Part 3 MUST NOT add another refresh listener.
+// These are the ONLY listeners for customer action
+// buttons.
+//
 // =====================================================
 
-refreshBtn?.addEventListener(
+giveStampBtn?.addEventListener(
 
   "click",
 
-  async () => {
+  giveCustomerStamp
 
-    if (
-      refreshProcessing
-    ) {
-
-      return;
-
-    }
+);
 
 
-    refreshProcessing =
-      true;
+removeStampBtn?.addEventListener(
+
+  "click",
+
+  removeCustomerStamp
+
+);
 
 
-    const originalContent =
+unlockRewardBtn?.addEventListener(
 
-      refreshBtn.innerHTML;
+  "click",
 
+  unlockCustomerReward
 
-    refreshBtn.disabled =
-      true;
-
-
-    refreshBtn.innerHTML = `
-
-      <i
-        class="fa-solid fa-spinner fa-spin"
-        aria-hidden="true"
-      ></i>
-
-      Loading...
-
-    `;
+);
 
 
-    try {
+deleteCustomerBtn?.addEventListener(
 
-      await loadCustomers();
+  "click",
 
-    }
-
-    catch (
-      error
-    ) {
-
-      console.error(
-
-        "❌ Manual Refresh Error:",
-
-        error
-
-      );
-
-    }
-
-    finally {
-
-      refreshProcessing =
-        false;
-
-
-      refreshBtn.disabled =
-        false;
-
-
-      refreshBtn.innerHTML =
-
-        originalContent ||
-
-        `
-
-          <i class="fa-solid fa-rotate"></i>
-
-          Refresh
-
-        `;
-
-    }
-
-  }
+  deleteSelectedCustomer
 
 );
 
 
 // =====================================================
-// PART 2 API
+// PART 3 PUBLIC API
 // =====================================================
 //
-// Part 3 and other modules can use these functions.
-// =====================================================
-
-window.adminCustomers = {
-
-  loadCustomers,
-
-  createRow,
-
-  refreshCustomerTable,
-
-  updateCustomerStats,
-
-  getFreshCustomer,
-
-  updateLocalCustomer,
-
-  updateCustomerModal,
-
-  closeCustomerModal,
-
-  setCustomerModalVisible
-
-};
-
-
-// =====================================================
-// PART 2 READY
-// =====================================================
-
-console.log(
-  "========================================"
-);
-
-console.log(
-  "✅ Admin Customers Part 2 Loaded"
-);
-
-console.log(
-  "✅ Customer Firestore Loading Ready"
-);
-
-console.log(
-  "✅ Customer Table Rendering Ready"
-);
-
-console.log(
-  "✅ Customer Search Ready"
-);
-
-console.log(
-  "✅ Customer Statistics Ready"
-);
-
-console.log(
-  "✅ Customer Modal Ready"
-);
-
-console.log(
-  "✅ Fresh Customer Fetch Ready"
-);
-
-console.log(
-  "✅ Local Customer State Ready"
-);
-
-console.log(
-  "✅ Single Refresh Listener Ready"
-);
-
-console.log(
-  "========================================"
-);
-
-console.log(
-  "➡️ Part 3 can now be added"
-);
-
-console.log(
-  "========================================"
-
-
-// =====================================================
-// END OF PART 2
-// =====================================================
-  // =====================================================
-// RIO MAGGI POINT
-// PREMIUM ADMIN CUSTOMER MANAGER
-// ADMIN-CUSTOMERS.JS — PART 3
-// MODAL MANAGEMENT + SEARCH + REFRESH + AUTO REFRESH
-// CLEAN INTEGRATION — NO DUPLICATE IMPORTS
-// =====================================================
-
-
-// =====================================================
-// AUTO REFRESH CONFIGURATION
-// =====================================================
-
-const CUSTOMER_AUTO_REFRESH_INTERVAL = 30000;
-
-
-// =====================================================
-// AUTO REFRESH STATE
-// =====================================================
-
-let customerAutoRefreshTimer = null;
-
-let customerRefreshProcessing = false;
-
-let customerPageInitialized = false;
-
-
-// =====================================================
-// CLOSE CUSTOMER MODAL
-// =====================================================
-
-function closeCustomerModal() {
-
-  if (!customerModal) {
-    return;
-  }
-
-  customerModal.style.display = "none";
-
-  selectedCustomer = null;
-
-  resetCustomerModal();
-
-}
-
-
-// =====================================================
-// OPEN CUSTOMER MODAL
-// =====================================================
-
-function openCustomerModal() {
-
-  if (!customerModal) {
-    return;
-  }
-
-  customerModal.style.display = "flex";
-
-  syncActionButtons();
-
-}
-
-
-// =====================================================
-// SYNC ACTION BUTTON STATES
-// =====================================================
-
-function syncActionButtons() {
-
-  const hasSelectedCustomer = Boolean(
-    selectedCustomer &&
-    selectedCustomer.uid
-  );
-
-
-  // -----------------------------------------------------
-  // GET CURRENT STAMP COUNT
-  // -----------------------------------------------------
-
-  const stamps = hasSelectedCustomer
-    ? getCustomerStamps(selectedCustomer)
-    : 0;
-
-
-  // -----------------------------------------------------
-  // CHECK TODAY'S STAMP
-  // -----------------------------------------------------
-
-  const alreadyStampedToday = hasSelectedCustomer
-    ? hasStampToday(selectedCustomer)
-    : false;
-
-
-  // =====================================================
-  // GIVE STAMP
-  // =====================================================
-
-  if (giveStampBtn) {
-
-    giveStampBtn.disabled = (
-
-      !hasSelectedCustomer ||
-
-      giveStampProcessing ||
-
-      alreadyStampedToday ||
-
-      stamps >= MAX_STAMPS
-
-    );
-
-  }
-
-
-  // =====================================================
-  // REMOVE STAMP
-  // =====================================================
-
-  if (removeStampBtn) {
-
-    removeStampBtn.disabled = (
-
-      !hasSelectedCustomer ||
-
-      removeStampProcessing ||
-
-      stamps <= 0
-
-    );
-
-  }
-
-
-  // =====================================================
-  // UNLOCK REWARD
-  // =====================================================
-
-  if (unlockRewardBtn) {
-
-    unlockRewardBtn.disabled = (
-
-      !hasSelectedCustomer ||
-
-      unlockRewardProcessing ||
-
-      Boolean(
-        selectedCustomer &&
-        selectedCustomer.rewardUnlocked === true
-      )
-
-    );
-
-  }
-
-
-  // =====================================================
-  // DELETE CUSTOMER
-  // =====================================================
-
-  if (deleteCustomerBtn) {
-
-    deleteCustomerBtn.disabled = (
-
-      !hasSelectedCustomer ||
-
-      deleteCustomerProcessing
-
-    );
-
-  }
-
-}
-
-
-// =====================================================
-// SEARCH CUSTOMER
-// =====================================================
-
-function handleCustomerSearch() {
-
-  if (!customerTable) {
-    return;
-  }
-
-
-  const keyword = searchCustomer
-    ? searchCustomer.value
-        .trim()
-        .toLowerCase()
-    : "";
-
-
-  customerTable.innerHTML = "";
-
-
-  const filteredCustomers = customers.filter(
-    (customer) => {
-
-      if (!keyword) {
-        return true;
-      }
-
-
-      const name = String(
-        customer.name || ""
-      ).toLowerCase();
-
-
-      const memberId = String(
-        customer.memberId || ""
-      ).toLowerCase();
-
-
-      const mobile = getCustomerMobile(
-        customer
-      ).toLowerCase();
-
-
-      return (
-
-        name.includes(keyword) ||
-
-        memberId.includes(keyword) ||
-
-        mobile.includes(keyword)
-
-      );
-
-    }
-  );
-
-
-  if (
-    filteredCustomers.length === 0
-  ) {
-
-    customerTable.innerHTML = `
-
-      <tr>
-
-        <td
-          colspan="7"
-          class="empty-table-message"
-        >
-
-          No customers found.
-
-        </td>
-
-      </tr>
-
-    `;
-
-    return;
-
-  }
-
-
-  filteredCustomers.forEach(
-    createRow
-  );
-
-}
-
-
-// =====================================================
-// SAFE CUSTOMER DATA REFRESH
-// =====================================================
-
-async function safeLoadCustomers(
-  options = {}
-) {
-
-  const {
-
-    preserveSelection = true,
-
-    showLoadingState = false
-
-  } = options;
-
-
-  // -----------------------------------------------------
-  // PREVENT DUPLICATE FIRESTORE REQUESTS
-  // -----------------------------------------------------
-
-  if (
-    customerRefreshProcessing
-  ) {
-
-    return;
-
-  }
-
-
-  customerRefreshProcessing = true;
-
-
-  // -----------------------------------------------------
-  // REMEMBER SELECTED CUSTOMER
-  // -----------------------------------------------------
-
-  const previousSelectedUid = (
-
-    preserveSelection &&
-
-    selectedCustomer &&
-
-    selectedCustomer.uid
-
-  )
-    ? selectedCustomer.uid
-    : null;
-
-
-  const originalRefreshContent =
-
-    refreshBtn
-      ? refreshBtn.innerHTML
-      : "";
-
-
-  try {
-
-    // ===================================================
-    // REFRESH BUTTON LOADING STATE
-    // ===================================================
-
-    if (
-      refreshBtn &&
-      showLoadingState
-    ) {
-
-      refreshBtn.disabled = true;
-
-      refreshBtn.innerHTML = `
-
-        <i
-          class="fa-solid fa-spinner fa-spin"
-          aria-hidden="true"
-        ></i>
-
-        Loading...
-
-      `;
-
-    }
-
-
-    // ===================================================
-    // LOAD CUSTOMER DATA
-    // ===================================================
-
-    await loadCustomers();
-
-
-    // ===================================================
-    // RESTORE SELECTED CUSTOMER
-    // ===================================================
-
-    if (
-      previousSelectedUid
-    ) {
-
-      const refreshedCustomer =
-
-        customers.find(
-
-          (customer) =>
-
-            customer.uid ===
-            previousSelectedUid
-
-        );
-
-
-      if (
-        refreshedCustomer
-      ) {
-
-        selectedCustomer =
-          refreshedCustomer;
-
-
-        updateCustomerModal(
-          refreshedCustomer
-        );
-
-
-        // -----------------------------------------------
-        // KEEP MODAL OPEN
-        // -----------------------------------------------
-
-        if (customerModal) {
-
-          customerModal.style.display =
-            "flex";
-
-        }
-
-      }
-
-      else {
-
-        closeCustomerModal();
-
-      }
-
-    }
-
-
-    // ===================================================
-    // UPDATE UI
-    // ===================================================
-
-    updateCustomerStats();
-
-    refreshCustomerTable();
-
-    syncActionButtons();
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "❌ Customer Refresh Error:",
-      error
-    );
-
-
-    if (
-      customerTable &&
-      customers.length === 0
-    ) {
-
-      customerTable.innerHTML = `
-
-        <tr>
-
-          <td
-            colspan="7"
-            class="empty-table-message"
-          >
-
-            Unable To Load Customers.
-
-          </td>
-
-        </tr>
-
-      `;
-
-    }
-
-  }
-
-  finally {
-
-    customerRefreshProcessing = false;
-
-
-    // ===================================================
-    // RESTORE REFRESH BUTTON
-    // ===================================================
-
-    if (
-      refreshBtn &&
-      showLoadingState
-    ) {
-
-      refreshBtn.disabled = false;
-
-
-      refreshBtn.innerHTML =
-
-        originalRefreshContent ||
-
-        `
-
-          <i class="fa-solid fa-rotate"></i>
-
-          Refresh
-
-        `;
-
-    }
-
-  }
-
-}
-
-
-// =====================================================
-// CLOSE MODAL BUTTON
-// =====================================================
-
-closeModalBtn?.addEventListener(
-  "click",
-  closeCustomerModal
-);
-
-
-// =====================================================
-// CLOSE MODAL WITH ESCAPE
-// =====================================================
-
-document.addEventListener(
-  "keydown",
-  (event) => {
-
-    if (
-      event.key !== "Escape"
-    ) {
-
-      return;
-
-    }
-
-
-    if (
-      !customerModal
-    ) {
-
-      return;
-
-    }
-
-
-    if (
-      customerModal.style.display === "flex"
-    ) {
-
-      closeCustomerModal();
-
-    }
-
-  }
-);
-
-
-// =====================================================
-// CLOSE MODAL ON BACKDROP CLICK
-// =====================================================
-
-customerModal?.addEventListener(
-  "click",
-  (event) => {
-
-    if (
-      event.target === customerModal
-    ) {
-
-      closeCustomerModal();
-
-    }
-
-  }
-);
-
-
-// =====================================================
-// CUSTOMER IMAGE FALLBACK
-// =====================================================
-
-modalPhoto?.addEventListener(
-  "error",
-  () => {
-
-    if (
-      modalPhoto.dataset.fallbackApplied ===
-      "true"
-    ) {
-
-      return;
-
-    }
-
-
-    modalPhoto.dataset.fallbackApplied =
-      "true";
-
-
-    modalPhoto.src =
-      DEFAULT_MALE_AVATAR;
-
-  }
-);
-
-
-// =====================================================
-// RESET IMAGE FALLBACK FLAG
-// =====================================================
-
-modalPhoto?.addEventListener(
-  "load",
-  () => {
-
-    modalPhoto.dataset.fallbackApplied =
-      "false";
-
-  }
-);
-
-
-// =====================================================
-// SEARCH EVENT
-// =====================================================
-
-searchCustomer?.addEventListener(
-  "input",
-  handleCustomerSearch
-);
-
-
-// =====================================================
-// REFRESH BUTTON
-// =====================================================
-
-refreshBtn?.addEventListener(
-  "click",
-  async () => {
-
-    await safeLoadCustomers({
-
-      preserveSelection: true,
-
-      showLoadingState: true
-
-    });
-
-  }
-);
-
-
-// =====================================================
-// START AUTO REFRESH
-// =====================================================
-
-function startCustomerAutoRefresh() {
-
-  // -----------------------------------------------------
-  // PREVENT DUPLICATE INTERVAL
-  // -----------------------------------------------------
-
-  if (
-    customerAutoRefreshTimer !== null
-  ) {
-
-    return;
-
-  }
-
-
-  customerAutoRefreshTimer =
-
-    window.setInterval(
-
-      async () => {
-
-        // -----------------------------------------------
-        // DON'T REFRESH IF ANOTHER REQUEST IS RUNNING
-        // -----------------------------------------------
-
-        if (
-          customerRefreshProcessing
-        ) {
-
-          return;
-
-        }
-
-
-        // -----------------------------------------------
-        // DON'T REFRESH HIDDEN PAGE
-        // -----------------------------------------------
-
-        if (
-          document.hidden
-        ) {
-
-          return;
-
-        }
-
-
-        await safeLoadCustomers({
-
-          preserveSelection: true,
-
-          showLoadingState: false
-
-        });
-
-      },
-
-      CUSTOMER_AUTO_REFRESH_INTERVAL
-
-    );
-
-
-  console.log(
-    "✅ Customer Auto Refresh Started"
-  );
-
-}
-
-
-// =====================================================
-// STOP AUTO REFRESH
-// =====================================================
-
-function stopCustomerAutoRefresh() {
-
-  if (
-    customerAutoRefreshTimer === null
-  ) {
-
-    return;
-
-  }
-
-
-  window.clearInterval(
-    customerAutoRefreshTimer
-  );
-
-
-  customerAutoRefreshTimer = null;
-
-
-  console.log(
-    "⏹️ Customer Auto Refresh Stopped"
-  );
-
-}
-
-
-// =====================================================
-// PAGE VISIBILITY CHANGE
-// =====================================================
-
-document.addEventListener(
-  "visibilitychange",
-  async () => {
-
-    // ---------------------------------------------------
-    // PAGE IS VISIBLE AGAIN
-    // ---------------------------------------------------
-
-    if (
-      !document.hidden
-    ) {
-
-      if (
-        !customerRefreshProcessing &&
-        authenticatedUser
-      ) {
-
-        await safeLoadCustomers({
-
-          preserveSelection: true,
-
-          showLoadingState: false
-
-        });
-
-      }
-
-    }
-
-  }
-);
-
-
-// =====================================================
-// BEFORE PAGE UNLOAD
-// =====================================================
-
-window.addEventListener(
-  "beforeunload",
-  () => {
-
-    stopCustomerAutoRefresh();
-
-  }
-);
-
-
-// =====================================================
-// PAGE INITIALIZATION
-// =====================================================
-
-function initializeCustomerPage() {
-
-  if (
-    customerPageInitialized
-  ) {
-
-    return;
-
-  }
-
-
-  customerPageInitialized = true;
-
-
-  // -----------------------------------------------------
-  // INITIAL BUTTON STATE
-  // -----------------------------------------------------
-
-  syncActionButtons();
-
-
-  // -----------------------------------------------------
-  // START AUTO REFRESH
-  // -----------------------------------------------------
-
-  startCustomerAutoRefresh();
-
-
-  console.log(
-    "✅ Customer Manager UI Initialized"
-  );
-
-}
-
-
-// =====================================================
-// AUTH STATE HANDLER
-// =====================================================
-
-onAuthStateChanged(
-  auth,
-  (user) => {
-
-    authenticatedUser = user;
-
-
-    // ---------------------------------------------------
-    // USER NOT LOGGED IN
-    // ---------------------------------------------------
-
-    if (
-      !user
-    ) {
-
-      stopCustomerAutoRefresh();
-
-      return;
-
-    }
-
-
-    // ---------------------------------------------------
-    // USER LOGGED IN
-    // ---------------------------------------------------
-
-    initializeCustomerPage();
-
-  }
-);
-
-
-// =====================================================
-// GLOBAL CUSTOMER MANAGER API
+// Safely merges Part 3 functions into the existing
+// global API created by Part 2.
+//
 // =====================================================
 
 window.adminCustomers = {
 
   ...(window.adminCustomers || {}),
 
-  closeCustomerModal,
+  syncActionButtons,
+
+  setActionButtonLoading,
+
+  refreshSelectedCustomer,
+
+  giveCustomerStamp,
+
+  removeCustomerStamp,
+
+  unlockCustomerReward,
+
+  deleteSelectedCustomer,
 
   openCustomerModal,
 
-  syncActionButtons,
-
-  handleCustomerSearch,
-
-  safeLoadCustomers,
-
-  startCustomerAutoRefresh,
-
-  stopCustomerAutoRefresh
+  closeCustomerModal
 
 };
 
 
 // =====================================================
-// PART 3 READY
+// PART 3 DEVELOPMENT LOG
 // =====================================================
 
 console.log(
   "========================================"
 );
 
+
 console.log(
   "✅ Admin Customers Part 3 Loaded"
 );
 
-console.log(
-  "✅ Modal Management Ready"
-);
 
 console.log(
-  "✅ Search System Ready"
+  "✅ Action Button State System Ready"
 );
 
-console.log(
-  "✅ Safe Refresh System Ready"
-);
 
 console.log(
-  "✅ Auto Refresh Protection Ready"
+  "✅ Give Stamp System Ready"
 );
 
+
 console.log(
-  "✅ Visibility Refresh Ready"
+  "✅ Remove Stamp System Ready"
 );
+
+
+console.log(
+  "✅ Unlock Reward System Ready"
+);
+
+
+console.log(
+  "✅ Delete Customer System Ready"
+);
+
+
+console.log(
+  "✅ Customer Modal Controls Ready"
+);
+
+
+console.log(
+  "✅ Modal Backdrop Close Ready"
+);
+
+
+console.log(
+  "✅ Escape Key Close Ready"
+);
+
 
 console.log(
   "✅ Customer Image Fallback Ready"
 );
 
+
 console.log(
   "========================================"
 );
 
+
 console.log(
-  "➡️ Waiting for Part 4..."
+  "➡️ Waiting for Part 4"
 );
+
 
 console.log(
   "========================================"
@@ -3728,469 +5189,4 @@ console.log(
 
 // =====================================================
 // END OF PART 3
-// =====================================================
-// =====================================================
-// RIO MAGGI POINT
-// PREMIUM ADMIN CUSTOMER MANAGER
-// ADMIN-CUSTOMERS.JS — PART 4
-// FINAL INTEGRATION + INITIAL LOAD + AUTH GUARD
-// =====================================================
-
-
-// =====================================================
-// INITIAL CUSTOMER LOAD
-// =====================================================
-// Authentication के बाद customer data पहली बार load होगा.
-// Part 3 के auto-refresh system के साथ conflict नहीं करेगा.
-// =====================================================
-
-async function initializeCustomerData() {
-
-  if (
-    !authenticatedUser
-  ) {
-
-    return;
-
-  }
-
-
-  if (
-    customersLoading
-  ) {
-
-    return;
-
-  }
-
-
-  customersLoading = true;
-
-
-  try {
-
-    // ---------------------------------------------------
-    // LOAD CUSTOMERS FROM FIRESTORE
-    // ---------------------------------------------------
-
-    await loadCustomers();
-
-
-    // ---------------------------------------------------
-    // UPDATE STATISTICS
-    // ---------------------------------------------------
-
-    updateCustomerStats();
-
-
-    // ---------------------------------------------------
-    // RENDER TABLE
-    // ---------------------------------------------------
-
-    refreshCustomerTable();
-
-
-    // ---------------------------------------------------
-    // RESET MODAL STATE
-    // ---------------------------------------------------
-
-    if (
-      !selectedCustomer
-    ) {
-
-      resetCustomerModal();
-
-    }
-
-
-    // ---------------------------------------------------
-    // SYNC BUTTONS
-    // ---------------------------------------------------
-
-    syncActionButtons();
-
-
-    console.log(
-      `✅ ${customers.length} customers loaded successfully`
-    );
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "❌ Initial Customer Load Error:",
-      error
-    );
-
-
-    if (
-      customerTable
-    ) {
-
-      customerTable.innerHTML = `
-
-        <tr>
-
-          <td
-            colspan="7"
-            class="empty-table-message"
-          >
-
-            Unable to load customers.
-
-            Please refresh and try again.
-
-          </td>
-
-        </tr>
-
-      `;
-
-    }
-
-  }
-
-  finally {
-
-    customersLoading = false;
-
-  }
-
-}
-
-
-// =====================================================
-// AUTHENTICATED CUSTOMER PAGE BOOTSTRAP
-// =====================================================
-// यह function केवल एक बार initial data load करता है.
-// बाद में Part 3 का auto-refresh संभालेगा.
-// =====================================================
-
-async function bootstrapCustomerManager() {
-
-  if (
-    !authenticatedUser
-  ) {
-
-    return;
-
-  }
-
-
-  if (
-    customersLoading
-  ) {
-
-    return;
-
-  }
-
-
-  await initializeCustomerData();
-
-
-  // ---------------------------------------------------
-  // INITIALIZE UI
-  // ---------------------------------------------------
-
-  initializeCustomerPage();
-
-}
-
-
-// =====================================================
-// AUTH STATE MONITOR
-// =====================================================
-// IMPORTANT:
-// यह Part 4 का एकमात्र auth listener है.
-// यदि Part 1 में पहले से auth listener मौजूद है,
-// तो उसी listener में bootstrapCustomerManager()
-// call करना बेहतर है.
-// =====================================================
-
-onAuthStateChanged(
-  auth,
-  async (user) => {
-
-    authenticatedUser =
-      user;
-
-
-    // =================================================
-    // USER NOT LOGGED IN
-    // =================================================
-
-    if (
-      !user
-    ) {
-
-      stopCustomerAutoRefresh();
-
-
-      customers =
-        [];
-
-
-      selectedCustomer =
-        null;
-
-
-      customerPageInitialized =
-        false;
-
-
-      if (
-        customerTable
-      ) {
-
-        customerTable.innerHTML =
-          "";
-
-      }
-
-
-      if (
-        customerModal
-      ) {
-
-        customerModal.style.display =
-          "none";
-
-      }
-
-
-      location.href =
-        ADMIN_LOGIN_PAGE;
-
-
-      return;
-
-    }
-
-
-    // =================================================
-    // USER LOGGED IN
-    // =================================================
-
-    await bootstrapCustomerManager();
-
-  }
-);
-
-
-// =====================================================
-// CUSTOMER TABLE EMPTY STATE
-// =====================================================
-
-function showCustomerEmptyState(
-  message = "No customers found."
-) {
-
-  if (
-    !customerTable
-  ) {
-
-    return;
-
-  }
-
-
-  customerTable.innerHTML = `
-
-    <tr>
-
-      <td
-        colspan="7"
-        class="empty-table-message"
-      >
-
-        ${escapeHtml(message)}
-
-      </td>
-
-    </tr>
-
-  `;
-
-}
-
-
-// =====================================================
-// CUSTOMER TABLE ERROR STATE
-// =====================================================
-
-function showCustomerErrorState() {
-
-  if (
-    !customerTable
-  ) {
-
-    return;
-
-  }
-
-
-  customerTable.innerHTML = `
-
-    <tr>
-
-      <td
-        colspan="7"
-        class="empty-table-message"
-      >
-
-        Something went wrong while loading customers.
-
-        Please try again.
-
-      </td>
-
-    </tr>
-
-  `;
-
-}
-
-
-// =====================================================
-// CUSTOMER TABLE SAFETY CHECK
-// =====================================================
-
-function ensureCustomerTableState() {
-
-  if (
-    !customerTable
-  ) {
-
-    console.warn(
-      "⚠️ Customer table element not found."
-    );
-
-    return;
-
-  }
-
-
-  if (
-    customers.length === 0
-  ) {
-
-    showCustomerEmptyState();
-
-    return;
-
-  }
-
-
-  refreshCustomerTable();
-
-}
-
-
-// =====================================================
-// REFRESH CUSTOMER DATA API
-// =====================================================
-
-async function refreshCustomerData() {
-
-  if (
-    customerRefreshProcessing
-  ) {
-
-    return;
-
-  }
-
-
-  await safeLoadCustomers({
-
-    preserveSelection:
-      true,
-
-    showLoadingState:
-      true
-
-  });
-
-}
-
-
-// =====================================================
-// CUSTOMER MANAGER PUBLIC API
-// =====================================================
-// Existing Part 1–3 API को overwrite नहीं करता.
-// केवल नए functions merge करता है.
-// =====================================================
-
-window.adminCustomers = {
-
-  ...(window.adminCustomers || {}),
-
-  refreshCustomerData,
-
-  initializeCustomerData,
-
-  bootstrapCustomerManager,
-
-  showCustomerEmptyState,
-
-  showCustomerErrorState,
-
-  ensureCustomerTableState
-
-};
-
-
-// =====================================================
-// FINAL INITIALIZATION LOG
-// =====================================================
-
-console.log(
-  "========================================"
-);
-
-console.log(
-  "🎉 RIO MAGGI POINT"
-);
-
-console.log(
-  "PREMIUM ADMIN CUSTOMER MANAGER"
-);
-
-console.log(
-  "========================================"
-);
-
-console.log(
-  "✅ Part 1 — Firebase + DOM Foundation"
-);
-
-console.log(
-  "✅ Part 2 — Customer Actions"
-);
-
-console.log(
-  "✅ Part 3 — Modal + Refresh System"
-);
-
-console.log(
-  "✅ Part 4 — Final Integration"
-);
-
-console.log(
-  "========================================"
-);
-
-console.log(
-  "🚀 Admin Customer Manager Ready"
-);
-
-console.log(
-  "========================================"
-);
-
-
-// =====================================================
-// END OF ADMIN-CUSTOMERS.JS PART 4
 // =====================================================
