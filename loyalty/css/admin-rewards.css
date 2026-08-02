@@ -1,677 +1,2036 @@
 /* =====================================================
    RIO MAGGI POINT
    ADMIN REWARD MANAGER
-   PART 1
+   CSS — PART 1/4
+   Base + Header + Stats + Search + Table Foundation
 ===================================================== */
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:"Poppins",sans-serif;
+/* =====================================================
+   ROOT / RESET
+===================================================== */
+
+:root {
+    --bg-main: #0f1117;
+    --bg-card: #181d25;
+    --bg-card-hover: #212834;
+    --bg-soft: #11151d;
+    --bg-table-head: #232a36;
+
+    --gold: #d4af37;
+    --gold-light: #ffd54f;
+
+    --text-main: #ffffff;
+    --text-muted: #aaaaaa;
+    --text-soft: #bbbbbb;
+
+    --success: #5cff8a;
+    --border-light: rgba(255, 255, 255, 0.06);
+
+    --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.30);
+    --shadow-header: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+    --radius-lg: 22px;
+    --radius-md: 18px;
+    --radius-sm: 16px;
+
+    --transition: 0.3s ease;
 }
 
-body{
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-background:#0f1117;
+html {
+    scroll-behavior: smooth;
+}
 
-color:#fff;
+body {
+    min-height: 100vh;
+    width: 100%;
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-family: "Poppins", sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
 
-overflow-x:hidden;
+button,
+input {
+    font: inherit;
+}
+
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* =====================================================
+   MAIN APP WRAPPER
+===================================================== */
+
+.reward-app {
+    width: 100%;
+    min-height: 100vh;
+    padding: 24px;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.reward-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 20px;
+
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+
+    margin-bottom: 25px;
+
+    box-shadow: var(--shadow-header);
+    border: 1px solid var(--border-light);
+}
+
+.logo-box {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-width: 0;
+}
+
+.logo-box img {
+    width: 70px;
+    height: 70px;
+
+    flex: 0 0 70px;
+
+    object-fit: cover;
+    border-radius: 18px;
+
+    border: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.logo-box > div {
+    min-width: 0;
+}
+
+.logo-box h2 {
+    color: var(--gold-light);
+
+    font-size: 24px;
+    line-height: 1.25;
+    font-weight: 700;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.logo-box p {
+    margin-top: 5px;
+
+    color: var(--text-muted);
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* =====================================================
+   BACK TO DASHBOARD BUTTON
+===================================================== */
+
+#backDashboard {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    min-height: 48px;
+    padding: 12px 24px;
+
+    border: 0;
+    border-radius: var(--radius-sm);
+
+    background: var(--gold);
+    color: #111111;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition),
+        background var(--transition);
+}
+
+#backDashboard:hover {
+    transform: translateY(-2px);
+    background: var(--gold-light);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.20);
+}
+
+#backDashboard:active {
+    transform: translateY(0);
+}
+
+#backDashboard:focus-visible {
+    outline: 2px solid var(--gold-light);
+    outline-offset: 3px;
+}
+
+/* =====================================================
+   REWARD STATS
+===================================================== */
+
+.reward-stats {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+
+    margin-bottom: 25px;
+}
+
+.reward-card {
+    min-width: 0;
+
+    padding: 24px;
+
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+
+    text-align: center;
+
+    box-shadow: var(--shadow-card);
+
+    transition:
+        transform var(--transition),
+        border-color var(--transition);
+}
+
+.reward-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(212, 175, 55, 0.25);
+}
+
+.reward-card h4 {
+    margin-bottom: 10px;
+
+    color: var(--text-soft);
+
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+.reward-card strong {
+    display: block;
+
+    color: var(--gold-light);
+
+    font-size: 34px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+/* =====================================================
+   SEARCH SECTION
+===================================================== */
+
+.search-section {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.search-box {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    min-height: 58px;
+    padding: 14px 20px;
+
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+
+    box-shadow: var(--shadow-card);
+
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition);
+}
+
+.search-box:focus-within {
+    border-color: rgba(212, 175, 55, 0.55);
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.25),
+        0 0 0 3px rgba(212, 175, 55, 0.08);
+}
+
+.search-box i {
+    flex: 0 0 auto;
+
+    color: var(--gold-light);
+    font-size: 18px;
+}
+
+.search-box input {
+    width: 100%;
+    min-width: 0;
+
+    padding: 0;
+
+    background: transparent;
+    border: 0;
+    outline: 0;
+
+    color: var(--text-main);
+
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.search-box input::placeholder {
+    color: #777d87;
+}
+
+.search-box input:focus {
+    outline: 0;
+}
+
+/* =====================================================
+   REWARD TABLE CARD
+===================================================== */
+
+.reward-table-card {
+    width: 100%;
+
+    padding: 24px;
+
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+
+    margin-bottom: 25px;
+
+    box-shadow: var(--shadow-card);
+}
+
+.table-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+.table-title h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: var(--gold-light);
+
+    font-size: 24px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+.table-title h2 i {
+    font-size: 21px;
+}
+
+/* =====================================================
+   TABLE WRAPPER
+===================================================== */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    border-radius: 14px;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold) #10131a;
+}
+
+/* =====================================================
+   COMMON TABLE FOUNDATION
+===================================================== */
+
+table {
+    width: 100%;
+    min-width: 900px;
+
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+thead {
+    background: var(--bg-table-head);
+}
+
+thead th {
+    padding: 16px;
+
+    color: var(--gold-light);
+
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: 600;
+
+    text-align: left;
+    white-space: nowrap;
+}
+
+tbody td {
+    padding: 16px;
+
+    color: var(--text-main);
+
+    font-size: 14px;
+    line-height: 1.5;
+
+    border-bottom: 1px solid var(--border-light);
+
+    vertical-align: middle;
+}
+
+tbody tr {
+    transition: background var(--transition);
+}
+
+tbody tr:hover {
+    background: var(--bg-card-hover);
+}
+
+tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+/* =====================================================
+   TABLE IMAGES
+===================================================== */
+
+.reward-table-card tbody td img {
+    width: 45px;
+    height: 45px;
+
+    object-fit: cover;
+    border-radius: 50%;
+
+    border: 2px solid rgba(212, 175, 55, 0.35);
+}
+
+/* =====================================================
+   TABLE ACTION BUTTON
+   Works with the button generated by admin-rewards.js
+===================================================== */
+
+.reward-table-card tbody td button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 80px;
+    min-height: 38px;
+
+    padding: 8px 14px;
+
+    border: 0;
+    border-radius: 10px;
+
+    background: var(--gold);
+    color: #111111;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform var(--transition),
+        background var(--transition),
+        box-shadow var(--transition);
+}
+
+.reward-table-card tbody td button:hover {
+    transform: translateY(-2px);
+    background: var(--gold-light);
+    box-shadow: 0 6px 15px rgba(212, 175, 55, 0.18);
+}
+
+.reward-table-card tbody td button:active {
+    transform: translateY(0);
+}
+
+/* =====================================================
+   TABLE SCROLLBAR
+===================================================== */
+
+.table-wrapper::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+    background: #10131a;
+    border-radius: 20px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 20px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-light);
+}
+
+/* =====================================================
+   GLOBAL SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #10131a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-light);
+}
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    .reward-app {
+        padding: 20px;
+    }
+
+    .reward-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .reward-header {
+        padding: 18px;
+    }
+
+    .reward-table-card {
+        padding: 20px;
+    }
 
 }
 
-.reward-app{
+/* =====================================================
+   MOBILE
+===================================================== */
 
-width:100%;
+@media (max-width: 700px) {
 
-min-height:100vh;
+    .reward-app {
+        padding: 14px;
+    }
 
-padding:24px;
+    .reward-header {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+
+        padding: 18px;
+        gap: 18px;
+    }
+
+    .logo-box {
+        justify-content: center;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .logo-box h2 {
+        font-size: 21px;
+        white-space: normal;
+    }
+
+    .logo-box p {
+        font-size: 13px;
+    }
+
+    #backDashboard {
+        width: 100%;
+    }
+
+    .reward-stats {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .reward-card {
+        padding: 20px;
+    }
+
+    .reward-card strong {
+        font-size: 30px;
+    }
+
+    .reward-table-card {
+        padding: 16px;
+        border-radius: 18px;
+    }
+
+    .table-title h2 {
+        font-size: 20px;
+    }
+
+    .search-box {
+        padding: 13px 16px;
+    }
 
 }
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 420px) {
+
+    .reward-app {
+        padding: 10px;
+    }
+
+    .reward-header {
+        border-radius: 18px;
+    }
+
+    .logo-box img {
+        width: 60px;
+        height: 60px;
+        flex-basis: 60px;
+    }
+
+    .logo-box h2 {
+        font-size: 19px;
+    }
+
+    .reward-card {
+        padding: 18px 15px;
+    }
+
+    .reward-table-card {
+        padding: 12px;
+    }
+
+    .table-title h2 {
+        font-size: 18px;
+    }
+
+    .search-box input {
+        font-size: 14px;
+    }
+
+}
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+
+}
+/* =====================================================
+   RIO MAGGI POINT
+   ADMIN REWARD MANAGER
+   CSS — PART 2/4
+   Customer Preview + Redeem Reward
+===================================================== */
+
+/* =====================================================
+   CUSTOMER PREVIEW SECTION
+===================================================== */
+
+.reward-preview {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.preview-card {
+    width: 100%;
+
+    padding: 24px;
+
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-card);
+
+    transition:
+        border-color var(--transition),
+        transform var(--transition);
+}
+
+.preview-card:hover {
+    border-color: rgba(212, 175, 55, 0.20);
+}
+
+/* =====================================================
+   PREVIEW TITLE
+===================================================== */
+
+.preview-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+    color: var(--gold-light);
+
+    font-size: 24px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+/* =====================================================
+   SELECTED CUSTOMER PROFILE
+===================================================== */
+
+.preview-user {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    margin-bottom: 20px;
+    padding: 18px;
+
+    background: rgba(255, 255, 255, 0.025);
+
+    border: 1px solid var(--border-light);
+    border-radius: 18px;
+}
+
+.preview-user img {
+    width: 90px;
+    height: 90px;
+
+    flex: 0 0 90px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    border: 3px solid var(--gold);
+
+    background: var(--bg-soft);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.25),
+        0 0 0 4px rgba(212, 175, 55, 0.08);
+}
+
+.preview-user > div {
+    min-width: 0;
+}
+
+.preview-user h3 {
+    margin-bottom: 6px;
+
+    color: var(--text-main);
+
+    font-size: 22px;
+    line-height: 1.35;
+    font-weight: 600;
+
+    overflow-wrap: anywhere;
+}
+
+.preview-user p {
+    color: var(--text-muted);
+
+    font-size: 14px;
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+}
+
+/* =====================================================
+   STAMP DISPLAY
+===================================================== */
+
+.preview-stamps {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 80px;
+
+    padding: 18px;
+
+    background: var(--bg-soft);
+
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+
+    margin-bottom: 20px;
+}
+
+.preview-stamps strong {
+    color: var(--gold-light);
+
+    font-size: 30px;
+    line-height: 1.2;
+    font-weight: 700;
+
+    letter-spacing: 0.5px;
+}
+
+/* =====================================================
+   REDEEM REWARD BUTTON
+===================================================== */
+
+#redeemRewardBtn {
+    width: 100%;
+    min-height: 56px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: 14px 20px;
+
+    border: 0;
+    border-radius: 18px;
+
+    background: var(--gold);
+    color: #111111;
+
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.10);
+
+    transition:
+        transform var(--transition),
+        background var(--transition),
+        box-shadow var(--transition),
+        opacity var(--transition);
+}
+
+#redeemRewardBtn:hover:not(:disabled) {
+    transform: translateY(-3px);
+
+    background: var(--gold-light);
+
+    box-shadow:
+        0 10px 25px rgba(212, 175, 55, 0.20);
+}
+
+#redeemRewardBtn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+#redeemRewardBtn:focus-visible {
+    outline: 2px solid var(--gold-light);
+    outline-offset: 3px;
+}
+
+#redeemRewardBtn:disabled {
+    background: #555b64;
+    color: #b7bbc1;
+
+    opacity: 0.75;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+}
+
+/* =====================================================
+   PREVIEW EMPTY / WAITING STATE
+===================================================== */
+
+.preview-user img[src*="male.png"] {
+    transition:
+        transform var(--transition),
+        border-color var(--transition);
+}
+
+.preview-card:has(#previewName) {
+    isolation: isolate;
+}
+
+/* =====================================================
+   PREVIEW RESPONSIVE — TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    .preview-card {
+        padding: 22px;
+    }
+
+    .preview-card h2 {
+        font-size: 22px;
+    }
+
+    .preview-user {
+        padding: 16px;
+    }
+
+}
+
+/* =====================================================
+   PREVIEW RESPONSIVE — MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .reward-preview {
+        margin-bottom: 20px;
+    }
+
+    .preview-card {
+        padding: 18px;
+
+        border-radius: 18px;
+    }
+
+    .preview-card h2 {
+        justify-content: center;
+
+        font-size: 20px;
+
+        text-align: center;
+    }
+
+    .preview-user {
+        flex-direction: column;
+
+        justify-content: center;
+
+        text-align: center;
+
+        padding: 20px 16px;
+
+        gap: 14px;
+    }
+
+    .preview-user img {
+        width: 85px;
+        height: 85px;
+
+        flex-basis: 85px;
+    }
+
+    .preview-user h3 {
+        font-size: 19px;
+    }
+
+    .preview-user p {
+        font-size: 13px;
+    }
+
+    .preview-stamps {
+        min-height: 72px;
+
+        padding: 16px;
+    }
+
+    .preview-stamps strong {
+        font-size: 27px;
+    }
+
+    #redeemRewardBtn {
+        min-height: 54px;
+
+        border-radius: 16px;
+
+        font-size: 15px;
+    }
+
+}
+
+/* =====================================================
+   PREVIEW RESPONSIVE — SMALL MOBILE
+===================================================== */
+
+@media (max-width: 420px) {
+
+    .preview-card {
+        padding: 15px;
+    }
+
+    .preview-card h2 {
+        font-size: 18px;
+    }
+
+    .preview-user {
+        padding: 18px 12px;
+    }
+
+    .preview-user img {
+        width: 78px;
+        height: 78px;
+
+        flex-basis: 78px;
+    }
+
+    .preview-user h3 {
+        font-size: 18px;
+    }
+
+    .preview-stamps strong {
+        font-size: 25px;
+    }
+
+}
+
+/* =====================================================
+   PREVIEW ACCESSIBILITY
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .preview-card,
+    .preview-user img,
+    #redeemRewardBtn {
+        transition: none;
+    }
+
+}
+/* =====================================================
+   RIO MAGGI POINT
+   ADMIN REWARD MANAGER
+   CSS — PART 3/4
+   Reward History + Quick Actions + System Status
+===================================================== */
+
+
+/* =====================================================
+   REWARD HISTORY SECTION
+===================================================== */
+
+.history-section {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.history-card {
+    width: 100%;
+
+    padding: 24px;
+
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-card);
+}
+
+
+/* =====================================================
+   HISTORY TITLE
+===================================================== */
+
+.history-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+    color: var(--gold-light);
+
+    font-size: 24px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   HISTORY TABLE WRAPPER
+===================================================== */
+
+.history-table {
+    width: 100%;
+
+    overflow-x: auto;
+
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold) var(--bg-soft);
+}
+
+
+/* =====================================================
+   HISTORY TABLE
+===================================================== */
+
+.history-table table {
+    width: 100%;
+    min-width: 700px;
+
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+/* =====================================================
+   HISTORY TABLE HEADER
+===================================================== */
+
+.history-table thead {
+    background: var(--bg-table-head);
+}
+
+.history-table thead th {
+    padding: 16px;
+
+    color: var(--gold-light);
+
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: 600;
+
+    text-align: left;
+
+    white-space: nowrap;
+
+    border-bottom: 1px solid var(--border-light);
+}
+
+
+/* =====================================================
+   HISTORY TABLE BODY
+===================================================== */
+
+.history-table tbody td {
+    padding: 16px;
+
+    color: var(--text-main);
+
+    font-size: 14px;
+    line-height: 1.5;
+
+    border-bottom: 1px solid var(--border-light);
+
+    vertical-align: middle;
+}
+
+.history-table tbody tr {
+    transition:
+        background var(--transition);
+}
+
+.history-table tbody tr:hover {
+    background: var(--bg-row-hover);
+}
+
+.history-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =====================================================
+   HISTORY STATUS
+===================================================== */
+
+.history-table td:last-child {
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   QUICK ACTIONS
+===================================================== */
+
+.reward-actions {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 18px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =====================================================
+   QUICK ACTION BUTTON
+===================================================== */
+
+.reward-actions button {
+    width: 100%;
+    min-height: 58px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    padding: 14px 18px;
+
+    border: 1px solid transparent;
+    border-radius: 18px;
+
+    background: var(--gold);
+    color: #111111;
+
+    font-family: inherit;
+
+    font-size: 15px;
+    line-height: 1.4;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform var(--transition),
+        background var(--transition),
+        box-shadow var(--transition),
+        border-color var(--transition),
+        opacity var(--transition);
+}
+
+.reward-actions button:hover {
+    transform: translateY(-3px);
+
+    background: var(--gold-light);
+
+    box-shadow:
+        0 10px 25px rgba(212, 175, 55, 0.16);
+}
+
+.reward-actions button:active {
+    transform: translateY(0);
+}
+
+.reward-actions button:focus-visible {
+    outline: 2px solid var(--gold-light);
+    outline-offset: 3px;
+}
+
+
+/* =====================================================
+   REFRESH BUTTON
+===================================================== */
+
+#refreshRewardBtn {
+    background: var(--gold);
+}
+
+
+/* =====================================================
+   EXPORT BUTTON
+===================================================== */
+
+#exportRewardBtn {
+    background: #2a303a;
+    color: var(--text-main);
+
+    border-color: var(--border-light);
+}
+
+#exportRewardBtn:hover {
+    background: #343b47;
+}
+
+
+/* =====================================================
+   PENDING BUTTON
+===================================================== */
+
+#pendingRewardBtn {
+    background: #8b6b20;
+    color: #ffffff;
+}
+
+#pendingRewardBtn:hover {
+    background: #a47f25;
+}
+
+
+/* =====================================================
+   CLAIMED BUTTON
+===================================================== */
+
+#claimedRewardBtn {
+    background: #245f3a;
+    color: #ffffff;
+}
+
+#claimedRewardBtn:hover {
+    background: #2d7548;
+}
+
+
+/* =====================================================
+   SYSTEM STATUS
+===================================================== */
+
+.system-status {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.status-card {
+    width: 100%;
+
+    padding: 24px;
+
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-card);
+}
+
+
+/* =====================================================
+   SYSTEM STATUS TITLE
+===================================================== */
+
+.status-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 18px;
+
+    color: var(--gold-light);
+
+    font-size: 24px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   STATUS ROW
+===================================================== */
+
+.status-row {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 14px 0;
+
+    border-bottom: 1px solid var(--border-light);
+}
+
+.status-row:last-child {
+    border-bottom: none;
+}
+
+.status-row span {
+    color: var(--text-muted);
+
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+.status-row strong {
+    font-size: 14px;
+    line-height: 1.5;
+
+    text-align: right;
+}
+
+.status-row .online {
+    color: #5cff8a;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   SYSTEM STATUS RESPONSIVE
+   TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    .reward-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: 15px;
+    }
+
+    .history-card,
+    .status-card {
+        padding: 22px;
+    }
+
+    .history-card h2,
+    .status-card h2 {
+        font-size: 22px;
+    }
+
+}
+
+
+/* =====================================================
+   SYSTEM STATUS RESPONSIVE
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .history-section {
+        margin-bottom: 20px;
+    }
+
+    .history-card,
+    .status-card {
+        padding: 18px;
+
+        border-radius: 18px;
+    }
+
+    .history-card h2,
+    .status-card h2 {
+        justify-content: center;
+
+        font-size: 20px;
+
+        text-align: center;
+    }
+
+    .reward-actions {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+
+        margin-bottom: 20px;
+    }
+
+    .reward-actions button {
+        min-height: 54px;
+
+        border-radius: 16px;
+    }
+
+    .status-row {
+        align-items: flex-start;
+
+        gap: 12px;
+
+        padding: 13px 0;
+    }
+
+    .status-row span,
+    .status-row strong {
+        font-size: 13px;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 420px) {
+
+    .history-card,
+    .status-card {
+        padding: 15px;
+    }
+
+    .history-card h2,
+    .status-card h2 {
+        font-size: 18px;
+    }
+
+    .status-row {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 5px;
+    }
+
+    .status-row strong {
+        text-align: left;
+    }
+
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .history-table tbody tr,
+    .reward-actions button {
+        transition: none;
+    }
+
+}
+/* =====================================================
+   RIO MAGGI POINT
+   ADMIN REWARD MANAGER
+   PART 4 / 4
+   RESPONSIVE + ACCESSIBILITY + FINAL POLISH
+===================================================== */
+
 
 /* =====================================
-HEADER
+   LARGE DESKTOP
 ===================================== */
 
-.reward-header{
+@media (min-width: 1400px){
 
-display:flex;
+    .reward-app{
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 32px;
+    }
 
-justify-content:space-between;
+    .reward-header{
+        padding: 24px 28px;
+    }
 
-align-items:center;
+    .reward-card{
+        padding: 28px;
+    }
 
-background:#181d25;
-
-padding:20px;
-
-border-radius:22px;
-
-margin-bottom:25px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.35);
-
-}
-
-.logo-box{
-
-display:flex;
-
-align-items:center;
-
-gap:18px;
+    .reward-table-card,
+    .preview-card,
+    .history-card,
+    .status-card{
+        padding: 28px;
+    }
 
 }
 
-.logo-box img{
-
-width:70px;
-
-height:70px;
-
-border-radius:18px;
-
-}
-
-.logo-box h2{
-
-font-size:24px;
-
-font-weight:700;
-
-color:#FFD54F;
-
-}
-
-.logo-box p{
-
-font-size:14px;
-
-color:#aaa;
-
-margin-top:4px;
-
-}
-
-#backDashboard{
-
-border:none;
-
-background:#D4AF37;
-
-color:#111;
-
-padding:14px 24px;
-
-border-radius:16px;
-
-font-size:15px;
-
-font-weight:700;
-
-cursor:pointer;
-
-transition:.30s;
-
-}
-
-#backDashboard:hover{
-
-transform:translateY(-2px);
-
-}
 
 /* =====================================
-STATS
+   TABLET LANDSCAPE
 ===================================== */
 
-.reward-stats{
+@media (max-width: 1100px){
 
-display:grid;
+    .reward-app{
+        padding: 20px;
+    }
 
-grid-template-columns:repeat(3,1fr);
+    .reward-header{
+        gap: 20px;
+    }
 
-gap:20px;
+    .logo-box h2{
+        font-size: 22px;
+    }
 
-margin-bottom:25px;
+    .reward-stats{
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
 
-}
+    .reward-card{
+        padding: 20px 15px;
+    }
 
-.reward-card{
+    .reward-card strong{
+        font-size: 30px;
+    }
 
-background:#181d25;
-
-padding:24px;
-
-border-radius:20px;
-
-text-align:center;
-
-}
-
-.reward-card h4{
-
-font-size:15px;
-
-color:#bbb;
-
-margin-bottom:10px;
-
-}
-
-.reward-card strong{
-
-font-size:34px;
-
-color:#FFD54F;
-
-}
-/* =====================================
-SEARCH
-===================================== */
-
-.search-section{
-
-margin-bottom:25px;
+    .reward-actions{
+        grid-template-columns: repeat(2, 1fr);
+    }
 
 }
 
-.search-box{
-
-background:#181d25;
-
-padding:16px 20px;
-
-border-radius:18px;
-
-display:flex;
-
-align-items:center;
-
-gap:14px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.25);
-
-}
-
-.search-box i{
-
-color:#FFD54F;
-
-font-size:18px;
-
-}
-
-.search-box input{
-
-flex:1;
-
-background:transparent;
-
-border:none;
-
-outline:none;
-
-color:#fff;
-
-font-size:15px;
-
-}
 
 /* =====================================
-TABLE
+   TABLET PORTRAIT
 ===================================== */
 
-.reward-table-card{
+@media (max-width: 850px){
 
-background:#181d25;
+    .reward-header{
+        flex-direction: column;
+        align-items: stretch;
+    }
 
-padding:24px;
+    .logo-box{
+        justify-content: center;
+    }
 
-border-radius:22px;
+    #backDashboard{
+        width: 100%;
+    }
 
-margin-bottom:25px;
+    .reward-stats{
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-box-shadow:0 10px 30px rgba(0,0,0,.30);
+    .reward-card:last-child{
+        grid-column: 1 / -1;
+    }
 
-}
-
-.table-title{
-
-margin-bottom:18px;
-
-}
-
-.table-title h2{
-
-font-size:24px;
-
-color:#FFD54F;
-
-}
-
-.table-wrapper{
-
-overflow-x:auto;
+    .reward-table-card,
+    .preview-card,
+    .history-card,
+    .status-card{
+        padding: 20px;
+    }
 
 }
 
-table{
-
-width:100%;
-
-min-width:900px;
-
-border-collapse:collapse;
-
-}
-
-thead{
-
-background:#232a36;
-
-}
-
-thead th{
-
-padding:16px;
-
-color:#FFD54F;
-
-font-size:14px;
-
-text-align:left;
-
-}
-
-tbody td{
-
-padding:16px;
-
-border-bottom:1px solid rgba(255,255,255,.06);
-
-font-size:14px;
-
-}
-
-tbody tr:hover{
-
-background:#212834;
-
-}
 
 /* =====================================
-CUSTOMER PREVIEW
+   MOBILE
 ===================================== */
 
-.reward-preview{
+@media (max-width: 600px){
 
-margin-bottom:25px;
+    body{
+        min-width: 0;
+    }
+
+    .reward-app{
+        width: 100%;
+        padding: 12px;
+    }
+
+
+    /* HEADER */
+
+    .reward-header{
+        padding: 18px 15px;
+        border-radius: 18px;
+        margin-bottom: 18px;
+    }
+
+    .logo-box{
+        width: 100%;
+        gap: 12px;
+    }
+
+    .logo-box img{
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+    }
+
+    .logo-box h2{
+        font-size: 20px;
+    }
+
+    .logo-box p{
+        font-size: 12px;
+    }
+
+    #backDashboard{
+        padding: 13px 18px;
+        border-radius: 14px;
+    }
+
+
+    /* STATS */
+
+    .reward-stats{
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .reward-card{
+        padding: 18px;
+        border-radius: 17px;
+    }
+
+    .reward-card:last-child{
+        grid-column: auto;
+    }
+
+    .reward-card h4{
+        font-size: 13px;
+    }
+
+    .reward-card strong{
+        font-size: 28px;
+    }
+
+
+    /* SEARCH */
+
+    .search-section{
+        margin-bottom: 18px;
+    }
+
+    .search-box{
+        padding: 14px 16px;
+        border-radius: 15px;
+    }
+
+    .search-box input{
+        min-width: 0;
+        width: 100%;
+        font-size: 14px;
+    }
+
+
+    /* TABLE CARD */
+
+    .reward-table-card{
+        padding: 16px;
+        border-radius: 18px;
+        margin-bottom: 18px;
+    }
+
+    .table-title h2{
+        font-size: 19px;
+    }
+
+    .table-wrapper{
+        margin: 0 -16px;
+        padding: 0 16px;
+    }
+
+    table{
+        min-width: 850px;
+    }
+
+    thead th,
+    tbody td{
+        padding: 12px;
+        font-size: 13px;
+    }
+
+
+    /* PREVIEW */
+
+    .preview-card{
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .preview-card h2{
+        font-size: 20px;
+    }
+
+    .preview-user img{
+        width: 78px;
+        height: 78px;
+    }
+
+    .preview-user h3{
+        font-size: 19px;
+    }
+
+    .preview-stamps{
+        padding: 15px;
+    }
+
+    .preview-stamps strong{
+        font-size: 26px;
+    }
+
+    #redeemRewardBtn{
+        height: 52px;
+        border-radius: 15px;
+        font-size: 14px;
+    }
+
+
+    /* HISTORY */
+
+    .history-card{
+        padding: 16px;
+        border-radius: 18px;
+    }
+
+    .history-card h2{
+        font-size: 19px;
+    }
+
+    .history-table{
+        margin: 0 -16px;
+        padding: 0 16px;
+    }
+
+
+    /* QUICK ACTIONS */
+
+    .reward-actions{
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .reward-actions button{
+        height: 52px;
+        border-radius: 15px;
+        font-size: 14px;
+    }
+
+
+    /* SYSTEM STATUS */
+
+    .status-card{
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .status-card h2{
+        font-size: 20px;
+    }
+
+    .status-row{
+        gap: 15px;
+        font-size: 13px;
+    }
 
 }
 
-.preview-card{
-
-background:#181d25;
-
-padding:24px;
-
-border-radius:22px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.30);
-
-}
-
-.preview-card h2{
-
-color:#FFD54F;
-
-margin-bottom:20px;
-
-}
-
-.preview-user{
-
-display:flex;
-
-align-items:center;
-
-gap:18px;
-
-margin-bottom:20px;
-
-}
-
-.preview-user img{
-
-width:90px;
-
-height:90px;
-
-border-radius:50%;
-
-border:3px solid #D4AF37;
-
-object-fit:cover;
-
-}
-
-.preview-user h3{
-
-font-size:22px;
-
-margin-bottom:6px;
-
-}
-
-.preview-user p{
-
-color:#aaa;
-
-}
-
-.preview-stamps{
-
-background:#11151d;
-
-padding:18px;
-
-border-radius:16px;
-
-text-align:center;
-
-margin-bottom:20px;
-
-}
-
-.preview-stamps strong{
-
-font-size:30px;
-
-color:#FFD54F;
-
-}
-
-#redeemRewardBtn{
-
-width:100%;
-
-height:56px;
-
-border:none;
-
-border-radius:18px;
-
-background:#D4AF37;
-
-color:#111;
-
-font-size:16px;
-
-font-weight:700;
-
-cursor:pointer;
-
-transition:.30s;
-
-}
-
-#redeemRewardBtn:hover{
-
-transform:translateY(-2px);
-
-}
-
-#redeemRewardBtn:disabled{
-
-background:#555;
-
-color:#bbb;
-
-cursor:not-allowed;
-
-}
-/* =====================================
-REWARD HISTORY
-===================================== */
-
-.history-section{
-
-margin-bottom:25px;
-
-}
-
-.history-card{
-
-background:#181d25;
-
-padding:24px;
-
-border-radius:22px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.30);
-
-}
-
-.history-card h2{
-
-color:#FFD54F;
-
-margin-bottom:18px;
-
-}
-
-.history-table{
-
-overflow-x:auto;
-
-}
-
-/* =====================================
-QUICK ACTIONS
-===================================== */
-
-.reward-actions{
-
-display:grid;
-
-grid-template-columns:repeat(4,1fr);
-
-gap:18px;
-
-margin-bottom:25px;
-
-}
-
-.reward-actions button{
-
-height:58px;
-
-border:none;
-
-border-radius:18px;
-
-background:#D4AF37;
-
-color:#111;
-
-font-size:15px;
-
-font-weight:700;
-
-cursor:pointer;
-
-transition:.30s;
-
-}
-
-.reward-actions button:hover{
-
-transform:translateY(-3px);
-
-}
 
 /* =====================================
-SYSTEM STATUS
+   SMALL MOBILE
 ===================================== */
 
-.system-status{
+@media (max-width: 380px){
 
-margin-bottom:20px;
+    .reward-app{
+        padding: 9px;
+    }
 
-}
+    .reward-header{
+        padding: 15px 12px;
+    }
 
-.status-card{
+    .logo-box h2{
+        font-size: 18px;
+    }
 
-background:#181d25;
+    .logo-box p{
+        font-size: 11px;
+    }
 
-padding:24px;
+    .reward-table-card,
+    .preview-card,
+    .history-card,
+    .status-card{
+        padding: 14px;
+    }
 
-border-radius:22px;
+    .table-wrapper,
+    .history-table{
+        margin-left: -14px;
+        margin-right: -14px;
+        padding-left: 14px;
+        padding-right: 14px;
+    }
 
-box-shadow:0 10px 30px rgba(0,0,0,.30);
-
-}
-
-.status-card h2{
-
-color:#FFD54F;
-
-margin-bottom:18px;
-
-}
-
-.status-row{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-padding:14px 0;
-
-border-bottom:1px solid rgba(255,255,255,.06);
-
-}
-
-.status-row:last-child{
-
-border-bottom:none;
+    .status-row{
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+    }
 
 }
 
-.online{
-
-color:#5CFF8A;
-
-font-weight:700;
-
-}
 
 /* =====================================
-SCROLLBAR
+   KEYBOARD ACCESSIBILITY
 ===================================== */
 
-::-webkit-scrollbar{
+button:focus-visible,
+input:focus-visible{
 
-width:8px;
+    outline:3px solid rgba(255,213,79,.55);
 
-height:8px;
-
-}
-
-::-webkit-scrollbar-track{
-
-background:#10131a;
+    outline-offset:3px;
 
 }
 
-::-webkit-scrollbar-thumb{
-
-background:#D4AF37;
-
-border-radius:20px;
-
-}
 
 /* =====================================
-MOBILE RESPONSIVE
+   BUTTON ACTIVE STATE
 ===================================== */
 
-@media(max-width:1000px){
+#backDashboard:active,
+#redeemRewardBtn:active,
+.reward-actions button:active{
 
-.reward-stats{
-
-grid-template-columns:1fr 1fr;
-
-}
-
-.reward-actions{
-
-grid-template-columns:1fr 1fr;
+    transform:scale(.97);
 
 }
 
-}
 
-@media(max-width:700px){
+/* =====================================
+   INPUT PLACEHOLDER
+===================================== */
 
-.reward-app{
+.search-box input::placeholder{
 
-padding:14px;
+    color:#777;
 
-}
-
-.reward-header{
-
-flex-direction:column;
-
-gap:18px;
-
-text-align:center;
+    opacity:1;
 
 }
 
-.logo-box{
 
-flex-direction:column;
+/* =====================================
+   TABLE EMPTY / LOADING STATE
+===================================== */
 
-}
+tbody:empty::after{
 
-.reward-stats{
+    content:"No reward records found";
 
-grid-template-columns:1fr;
+    display:table-cell;
 
-}
+    padding:30px;
 
-.reward-actions{
+    text-align:center;
 
-grid-template-columns:1fr;
-
-}
-
-.search-box{
-
-width:100%;
+    color:#888;
 
 }
 
-.preview-user{
 
-flex-direction:column;
+/* =====================================
+   IMAGE FALLBACK SAFETY
+===================================== */
 
-text-align:center;
+img{
 
-}
-
-#backDashboard{
-
-width:100%;
+    max-width:100%;
 
 }
 
+
+/* =====================================
+   TEXT SELECTION
+===================================== */
+
+::selection{
+
+    background:#D4AF37;
+
+    color:#111;
+
 }
 
+
+/* =====================================
+   REDUCED MOTION
+===================================== */
+
+@media (prefers-reduced-motion: reduce){
+
+    *,
+    *::before,
+    *::after{
+
+        animation-duration:.01ms !important;
+
+        animation-iteration-count:1 !important;
+
+        transition-duration:.01ms !important;
+
+        scroll-behavior:auto !important;
+
+    }
+
+}
+
+
+/* =====================================
+   FINAL RESPONSIVE SAFETY
+===================================== */
+
+@media (max-width: 600px){
+
+    .reward-app,
+    .reward-header,
+    .search-section,
+    .reward-table-card,
+    .reward-preview,
+    .history-section,
+    .reward-actions,
+    .system-status{
+
+        max-width:100%;
+
+    }
+
+}
+
+
+/* =====================================================
+   ADMIN REWARD MANAGER CSS
+   PART 4 COMPLETE
+===================================================== */
