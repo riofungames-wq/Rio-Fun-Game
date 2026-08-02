@@ -1,8 +1,8 @@
 /* ==========================================
    RIO MAGGI POINT
    QR.CSS — PART 1/3
-   PREMIUM RED + BLACK QR PAGE
-   CLEAN + RESPONSIVE + DUPLICATE-FREE
+   PREMIUM RESPONSIVE QR PAGE
+   CLEAN + CONSOLIDATED VERSION
 ========================================== */
 
 
@@ -12,24 +12,37 @@
 
 :root {
 
-    --qr-black: #000000;
-    --qr-black-soft: #080808;
-    --qr-black-card: #111111;
+    --primary-bg: #f5d99b;
 
-    --qr-red: #d90429;
-    --qr-red-dark: #a90320;
-    --qr-red-light: #ff1e3c;
+    --card-bg: #fff8e7;
 
-    --qr-white: #ffffff;
-    --qr-white-soft: #f5f5f5;
-    --qr-gray: #bdbdbd;
+    --card-bg-soft: #fff3d2;
 
-    --qr-border: rgba(217, 4, 41, 0.55);
-    --qr-border-soft: rgba(217, 4, 41, 0.25);
+    --accent-color: #d19b4a;
 
-    --qr-red-glow: rgba(217, 4, 41, 0.35);
+    --accent-light: #f1cf8a;
 
-    --qr-max-width: 620px;
+    --text-dark: #3a2e2b;
+
+    --text-muted: #7a6855;
+
+    --dark-green: #263525;
+
+    --dark-green-2: #182318;
+
+    --red: #c62828;
+
+    --red-dark: #9f1f1f;
+
+    --gold: #ffd54f;
+
+    --white: #ffffff;
+
+    --border-color: #e0be7b;
+
+    --nav-height: 78px;
+
+    --max-width: 520px;
 
 }
 
@@ -43,7 +56,9 @@
 *::after {
 
     margin: 0;
+
     padding: 0;
+
     box-sizing: border-box;
 
 }
@@ -52,11 +67,10 @@
 html {
 
     width: 100%;
+
     min-height: 100%;
 
     scroll-behavior: smooth;
-
-    -webkit-text-size-adjust: 100%;
 
 }
 
@@ -64,15 +78,28 @@ html {
 body {
 
     width: 100%;
+
     min-height: 100vh;
 
     margin: 0;
 
+    padding-bottom:
+        calc(
+            var(--nav-height) + 30px
+        );
+
+    overflow-x: hidden;
+
     background:
-        #000000;
+        radial-gradient(
+            circle at top,
+            #fff1c8 0%,
+            #f5d99b 45%,
+            #e8c47d 100%
+        );
 
     color:
-        var(--qr-white);
+        var(--text-dark);
 
     font-family:
         "Poppins",
@@ -80,49 +107,43 @@ body {
         Helvetica,
         sans-serif;
 
-    overflow-x: hidden;
+    -webkit-font-smoothing:
+        antialiased;
+
+    text-rendering:
+        optimizeLegibility;
 
 }
 
 
 /* ==========================================
-   BODY INTERACTION
+   IMAGE SAFETY
 ========================================== */
 
-button,
-a,
-input,
-textarea,
-select {
-
-    font: inherit;
-
-}
-
-
-img,
-canvas {
+img {
 
     max-width: 100%;
 
 }
 
 
-img {
+button,
+a {
 
-    user-select: none;
-    -webkit-user-drag: none;
+    -webkit-tap-highlight-color:
+        transparent;
 
 }
 
 
 /* ==========================================
-   MAIN QR PAGE
+   MAIN PAGE WRAPPER
 ========================================== */
 
-.qr-page {
+.page {
 
     width: 100%;
+
     min-height: 100vh;
 
     display: flex;
@@ -130,23 +151,23 @@ img {
     justify-content: center;
 
     padding:
-        20px
-        14px
-        40px;
+        24px 16px 30px;
 
-    background:
-        linear-gradient(
-            180deg,
-            #000000 0%,
-            #080808 50%,
-            #000000 100%
-        );
+}
+
+
+.page > .qr-card {
+
+    width: 100%;
+
+    max-width:
+        var(--max-width);
 
 }
 
 
 /* ==========================================
-   MAIN QR CARD
+   MAIN QR DASHBOARD CARD
 ========================================== */
 
 .qr-card {
@@ -155,32 +176,30 @@ img {
 
     width: 100%;
 
-    max-width:
-        var(--qr-max-width);
-
-    margin:
-        0 auto;
-
     background:
         linear-gradient(
             145deg,
-            #111111 0%,
-            #080808 55%,
-            #050505 100%
+            #fffdf5 0%,
+            var(--card-bg) 55%,
+            #f9e7b8 100%
         );
 
     border:
-        1px solid
-        var(--qr-border);
+        3px solid
+        var(--accent-color);
 
     border-radius:
         24px;
 
+    padding:
+        26px 22px 28px;
+
     box-shadow:
-        0 20px 60px
-        rgba(0, 0, 0, .65),
-        0 0 35px
-        rgba(217, 4, 41, .12);
+        0 18px 45px
+        rgba(70, 45, 15, .18),
+
+        0 5px 15px
+        rgba(70, 45, 15, .10);
 
     overflow:
         hidden;
@@ -192,41 +211,80 @@ img {
 
 
 /* ==========================================
-   CARD GLOW
+   PREMIUM CARD GLOW
 ========================================== */
 
 .card-glow {
 
-    position:
-        absolute;
+    position: absolute;
 
-    inset:
-        0;
+    top:
+        -110px;
+
+    right:
+        -90px;
+
+    width:
+        220px;
+
+    height:
+        220px;
+
+    border-radius:
+        50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 213, 79, .38),
+            transparent 70%
+        );
 
     pointer-events:
         none;
 
-    background:
-        radial-gradient(
-            circle at 50% 0%,
-            rgba(217, 4, 41, .18),
-            transparent 45%
-        );
-
     z-index:
         -1;
+
+    animation:
+        qrGlow 5s ease-in-out infinite;
+
+}
+
+
+@keyframes qrGlow {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1);
+
+        opacity:
+            .65;
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.18);
+
+        opacity:
+            1;
+
+    }
 
 }
 
 
 /* ==========================================
-   CARD SHINE
+   PREMIUM CARD SHINE
 ========================================== */
 
 .card-shine {
 
-    position:
-        absolute;
+    position: absolute;
 
     top:
         0;
@@ -235,38 +293,35 @@ img {
         -120%;
 
     width:
-        60%;
+        70%;
 
     height:
         100%;
 
-    pointer-events:
-        none;
-
     background:
         linear-gradient(
-            90deg,
+            100deg,
             transparent,
-            rgba(255, 255, 255, .05),
+            rgba(255, 255, 255, .32),
             transparent
         );
 
     transform:
         skewX(-20deg);
 
-    animation:
-        qrCardShine
-        7s
-        ease-in-out
-        infinite;
+    pointer-events:
+        none;
 
     z-index:
-        1;
+        2;
+
+    animation:
+        cardShine 7s ease-in-out infinite;
 
 }
 
 
-@keyframes qrCardShine {
+@keyframes cardShine {
 
     0% {
 
@@ -275,11 +330,17 @@ img {
 
     }
 
-    45%,
+    35% {
+
+        left:
+            140%;
+
+    }
+
     100% {
 
         left:
-            160%;
+            140%;
 
     }
 
@@ -296,137 +357,67 @@ img {
         relative;
 
     z-index:
-        2;
+        3;
 
-    display:
-        flex;
-
-    align-items:
+    text-align:
         center;
-
-    gap:
-        14px;
 
     padding:
-        20px;
-
-    border-bottom:
-        1px solid
-        var(--qr-border-soft);
+        4px 5px 22px;
 
 }
 
 
-/* ==========================================
-   QR BRAND ICON
-========================================== */
-
-.qr-brand-icon {
-
-    width:
-        52px;
-
-    height:
-        52px;
-
-    flex:
-        0 0 52px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    border-radius:
-        14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--qr-red),
-            var(--qr-red-dark)
-        );
-
-    color:
-        var(--qr-white);
-
-    font-size:
-        23px;
-
-    box-shadow:
-        0 8px 25px
-        var(--qr-red-glow);
-
-}
-
-
-/* ==========================================
-   QR HEADER CONTENT
-========================================== */
-
-.qr-header-content {
-
-    min-width:
-        0;
-
-}
-
-
-.qr-header-content h1 {
+.qr-header h1 {
 
     margin:
         0;
 
-    color:
-        var(--qr-white);
-
     font-size:
         clamp(
-            18px,
-            4vw,
-            25px
+            22px,
+            5vw,
+            30px
         );
 
     line-height:
-        1.25;
+        1.2;
 
     font-weight:
         800;
 
     letter-spacing:
-        .8px;
+        1.8px;
+
+    color:
+        var(--dark-green);
 
 }
 
 
-.qr-header-content p {
+.qr-header p {
 
     margin:
-        4px
-        0
-        0;
-
-    color:
-        var(--qr-red-light);
+        7px 0 0;
 
     font-size:
-        12px;
+        clamp(
+            12px,
+            3vw,
+            15px
+        );
 
     line-height:
-        1.4;
+        1.5;
 
     font-weight:
         600;
 
     letter-spacing:
-        1px;
+        .8px;
 
-    text-transform:
-        uppercase;
+    color:
+        var(--text-muted);
 
 }
 
@@ -441,7 +432,320 @@ img {
         relative;
 
     z-index:
-        2;
+        3;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    width:
+        100%;
+
+    text-align:
+        center;
+
+    padding:
+        8px 10px 22px;
+
+}
+
+
+/* ==========================================
+   CUSTOMER AVATAR FRAME
+========================================== */
+
+.avatar-frame {
+
+    width:
+        82px;
+
+    height:
+        82px;
+
+    padding:
+        3px;
+
+    flex:
+        0 0 auto;
+
+    border-radius:
+        50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent-color),
+            var(--gold),
+            var(--accent-color)
+        );
+
+    box-shadow:
+        0 7px 18px
+        rgba(0, 0, 0, .16);
+
+    overflow:
+        hidden;
+
+}
+
+
+.avatar-frame img {
+
+    display:
+        block;
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+    border:
+        3px solid
+        var(--card-bg);
+
+    border-radius:
+        50%;
+
+}
+
+
+/* ==========================================
+   CUSTOMER NAME
+========================================== */
+
+.customer-name {
+
+    margin:
+        12px 0 0;
+
+    font-size:
+        clamp(
+            17px,
+            4vw,
+            21px
+        );
+
+    line-height:
+        1.3;
+
+    font-weight:
+        700;
+
+    color:
+        var(--dark-green);
+
+    word-break:
+        break-word;
+
+}
+
+
+/* ==========================================
+   CUSTOMER MEMBER ID
+========================================== */
+
+.customer-id {
+
+    margin:
+        4px 0 0;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.5;
+
+    font-weight:
+        500;
+
+    color:
+        var(--text-muted);
+
+}
+
+
+.customer-id span {
+
+    font-weight:
+        700;
+
+    color:
+        var(--dark-green);
+
+}
+
+
+/* ==========================================
+   CUSTOMER PHOTO LOADED ANIMATION
+========================================== */
+
+.customer-photo {
+
+    opacity:
+        0;
+
+    transform:
+        scale(.92);
+
+    transition:
+        opacity .35s ease,
+        transform .35s ease;
+
+}
+
+
+.customer-photo.photo-loaded {
+
+    opacity:
+        1;
+
+    transform:
+        scale(1);
+
+}
+
+
+/* ==========================================
+   TABLET + DESKTOP
+========================================== */
+
+@media (min-width: 768px) {
+
+    .page {
+
+        padding:
+            32px 24px 40px;
+
+    }
+
+
+    .qr-card {
+
+        padding:
+            30px 28px 34px;
+
+        border-radius:
+            26px;
+
+    }
+
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 360px) {
+
+    .page {
+
+        padding:
+            18px 10px 25px;
+
+    }
+
+
+    .qr-card {
+
+        padding:
+            22px 14px 24px;
+
+        border-radius:
+            20px;
+
+        border-width:
+            2px;
+
+    }
+
+
+    .customer-section {
+
+        padding-left:
+            4px;
+
+        padding-right:
+            4px;
+
+    }
+
+
+    .avatar-frame {
+
+        width:
+            74px;
+
+        height:
+            74px;
+
+    }
+
+}
+
+
+/* ==========================================
+   REDUCED MOTION ACCESSIBILITY
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+
+        scroll-behavior:
+            auto;
+
+    }
+
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            .01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            .01ms !important;
+
+    }
+
+}
+
+
+/* ==========================================
+   END QR.CSS — PART 1/3
+========================================== */
+/* ==========================================
+   RIO MAGGI POINT
+   QR.CSS — PART 2/3
+   PREMIUM QR + DAILY LOYALTY RULE
+========================================== */
+
+
+/* ==========================================
+   PREMIUM QR SECTION
+========================================== */
+
+.premium-qr-section {
+
+    position:
+        relative;
+
+    z-index:
+        3;
 
     width:
         100%;
@@ -459,181 +763,11 @@ img {
         center;
 
     padding:
-        24px
-        20px
-        18px;
+        18px 0 22px;
 
-}
-
-
-/* ==========================================
-   CUSTOMER AVATAR
-========================================== */
-
-.avatar-frame {
-
-    width:
-        92px;
-
-    height:
-        92px;
-
-    padding:
-        3px;
-
-    flex:
-        0 0 92px;
-
-    border-radius:
-        50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--qr-red),
-            var(--qr-red-light),
-            var(--qr-red-dark)
-        );
-
-    box-shadow:
-        0 0 30px
-        var(--qr-red-glow);
-
-}
-
-
-.avatar-frame img {
-
-    width:
-        100%;
-
-    height:
-        100%;
-
-    display:
-        block;
-
-    object-fit:
-        cover;
-
-    border:
-        3px solid
-        var(--qr-black);
-
-    border-radius:
-        50%;
-
-    background:
-        var(--qr-black-card);
-
-}
-
-
-/* ==========================================
-   CUSTOMER NAME
-========================================== */
-
-.customer-name {
-
-    max-width:
-        100%;
-
-    margin:
-        14px
-        0
-        4px;
-
-    color:
-        var(--qr-white);
-
-    font-size:
-        clamp(
-            18px,
-            4vw,
-            23px
-        );
-
-    line-height:
-        1.3;
-
-    font-weight:
-        700;
-
-    overflow-wrap:
-        anywhere;
-
-}
-
-
-/* ==========================================
-   CUSTOMER ID
-========================================== */
-
-.customer-id {
-
-    margin:
-        0;
-
-    color:
-        var(--qr-gray);
-
-    font-size:
-        12px;
-
-    line-height:
-        1.5;
-
-    font-weight:
-        500;
-
-    letter-spacing:
-        .7px;
-
-}
-
-
-.customer-id span {
-
-    color:
-        var(--qr-red-light);
-
-    font-weight:
-        700;
-
-    overflow-wrap:
-        anywhere;
-
-}
-
-
-/* ==========================================
-   PREMIUM QR SECTION
-========================================== */
-
-.premium-qr-section {
-
-    position:
-        relative;
-
-    z-index:
-        2;
-
-    width:
-        100%;
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    align-items:
-        center;
-
-    padding:
-        10px
-        20px
-        24px;
+    border-top:
+        1px solid
+        rgba(209, 155, 74, .35);
 
 }
 
@@ -659,26 +793,48 @@ img {
     width:
         100%;
 
-    margin-bottom:
-        15px;
-
-    color:
-        var(--qr-white);
+    margin:
+        0;
 
     font-size:
-        13px;
+        clamp(
+            14px,
+            3.5vw,
+            17px
+        );
 
     line-height:
         1.4;
 
     font-weight:
-        700;
+        800;
 
     letter-spacing:
-        1px;
+        .5px;
 
-    text-align:
-        center;
+    color:
+        var(--dark-green);
+
+    opacity:
+        0;
+
+    transform:
+        translateY(8px);
+
+    transition:
+        opacity .45s ease,
+        transform .45s ease;
+
+}
+
+
+.scan-title.scan-title-ready {
+
+    opacity:
+        1;
+
+    transform:
+        translateY(0);
 
 }
 
@@ -688,32 +844,27 @@ img {
     flex:
         0 0 auto;
 
-    color:
-        var(--qr-red-light);
-
     font-size:
-        18px;
+        clamp(
+            20px,
+            5vw,
+            25px
+        );
+
+    color:
+        var(--red);
 
 }
 
 
 /* ==========================================
-   PREMIUM QR CARD
+   PREMIUM QR OUTER CARD
 ========================================== */
 
 .premium-qr-card {
 
     position:
         relative;
-
-    width:
-        min(
-            280px,
-            82vw
-        );
-
-    aspect-ratio:
-        1 / 1;
 
     display:
         flex;
@@ -724,31 +875,69 @@ img {
     justify-content:
         center;
 
+    width:
+        100%;
+
+    max-width:
+        310px;
+
+    margin:
+        18px auto 12px;
+
     padding:
-        18px;
+        14px;
 
     background:
-        #ffffff;
+        var(--white);
 
     border:
-        4px solid
-        var(--qr-red);
+        3px solid
+        var(--accent-color);
 
     border-radius:
         18px;
 
     box-shadow:
-        0 0 0 3px
-        rgba(217, 4, 41, .18),
-        0 15px 45px
-        rgba(0, 0, 0, .55);
+        0 10px 25px
+        rgba(70, 45, 15, .16);
 
     overflow:
         hidden;
 
+    cursor:
+        pointer;
+
     transition:
         transform .3s ease,
         box-shadow .3s ease;
+
+}
+
+
+/* ==========================================
+   QR CARD DECORATION
+========================================== */
+
+.premium-qr-card::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        6px;
+
+    border:
+        1px solid
+        rgba(209, 155, 74, .25);
+
+    border-radius:
+        12px;
+
+    pointer-events:
+        none;
 
 }
 
@@ -763,13 +952,16 @@ img {
         relative;
 
     z-index:
-        3;
+        2;
 
     width:
         100%;
 
-    height:
-        100%;
+    aspect-ratio:
+        1 / 1;
+
+    min-width:
+        0;
 
     display:
         flex;
@@ -783,6 +975,9 @@ img {
     background:
         #ffffff;
 
+    border-radius:
+        8px;
+
     overflow:
         hidden;
 
@@ -790,7 +985,9 @@ img {
 
 
 /* ==========================================
-   GENERATED QR
+   QR LIBRARY GENERATED ELEMENTS
+   Supports:
+   IMG + CANVAS + TABLE
 ========================================== */
 
 .qr-box img,
@@ -818,214 +1015,41 @@ img {
 
 
 /* ==========================================
-   QR CORNER DECORATION
+   QR CODE TABLE FALLBACK
+   Some QR libraries generate TABLE
 ========================================== */
 
-.qr-corner {
-
-    position:
-        absolute;
+.qr-box table {
 
     width:
-        28px;
+        100% !important;
 
     height:
-        28px;
+        100% !important;
 
-    z-index:
-        5;
-
-    pointer-events:
-        none;
-
-    border-color:
-        var(--qr-red);
-
-    border-style:
-        solid;
-
-    animation:
-        qrCornerPulse
-        2s
-        ease-in-out
-        infinite;
-
-}
-
-
-.qr-corner-top-left {
-
-    top:
-        7px;
-
-    left:
-        7px;
-
-    border-width:
-        4px
-        0
-        0
-        4px;
-
-}
-
-
-.qr-corner-top-right {
-
-    top:
-        7px;
-
-    right:
-        7px;
-
-    border-width:
-        4px
-        4px
-        0
-        0;
-
-}
-
-
-.qr-corner-bottom-left {
-
-    bottom:
-        7px;
-
-    left:
-        7px;
-
-    border-width:
-        0
-        0
-        4px
-        4px;
-
-}
-
-
-.qr-corner-bottom-right {
-
-    right:
-        7px;
-
-    bottom:
-        7px;
-
-    border-width:
-        0
-        4px
-        4px
-        0;
-
-}
-
-
-@keyframes qrCornerPulse {
-
-    0%,
-    100% {
-
-        opacity:
-            .65;
-
-    }
-
-    50% {
-
-        opacity:
-            1;
-
-    }
-
-}
-
-
-/* ==========================================
-   QR SCAN LINE
-========================================== */
-
-.qr-scan-line {
-
-    position:
-        absolute;
-
-    top:
-        10px;
-
-    left:
-        10%;
-
-    width:
-        80%;
-
-    height:
-        2px;
-
-    z-index:
-        6;
-
-    background:
-        var(--qr-red);
-
-    box-shadow:
-        0 0 12px
-        var(--qr-red);
-
-    opacity:
-        0;
-
-    pointer-events:
-        none;
-
-}
-
-
-/* ==========================================
-   QR STATUS
-========================================== */
-
-.qr-status {
-
-    width:
-        100%;
-
-    max-width:
-        360px;
-
-    min-height:
-        24px;
+    border-collapse:
+        collapse;
 
     margin:
-        14px
-        0
         0;
-
-    color:
-        var(--qr-gray);
-
-    font-size:
-        12px;
-
-    line-height:
-        1.5;
-
-    font-weight:
-        500;
-
-    text-align:
-        center;
 
 }
 
 
-.qr-status.ready {
+/* ==========================================
+   QR TABLE CELL FIX
+========================================== */
 
-    color:
-        var(--qr-red-light);
+.qr-box table td {
 
-    font-weight:
-        600;
+    padding:
+        0;
+
+    margin:
+        0;
+
+    line-height:
+        0;
 
 }
 
@@ -1037,23 +1061,30 @@ img {
 .qr-box.qr-generated {
 
     animation:
-        qrGenerated
-        .7s
-        ease-out
-        1;
+        qrAppear .55s ease both;
 
 }
 
 
-@keyframes qrGenerated {
+@keyframes qrAppear {
 
     0% {
 
         opacity:
-            .35;
+            0;
 
         transform:
-            scale(.96);
+            scale(.88);
+
+    }
+
+    60% {
+
+        opacity:
+            1;
+
+        transform:
+            scale(1.03);
 
     }
 
@@ -1071,27 +1102,23 @@ img {
 
 
 /* ==========================================
-   QR CARD HOVER
+   QR HOVER
 ========================================== */
 
-.premium-qr-card:hover {
+.premium-qr-card.qr-hover {
 
     transform:
-        translateY(-4px);
+        translateY(-3px);
 
     box-shadow:
-        0 0 0 3px
-        rgba(217, 4, 41, .22),
-        0 18px 50px
-        rgba(0, 0, 0, .65),
-        0 0 30px
-        rgba(217, 4, 41, .18);
+        0 15px 32px
+        rgba(70, 45, 15, .22);
 
 }
 
 
 /* ==========================================
-   QR TOUCH STATE
+   QR TOUCH
 ========================================== */
 
 .premium-qr-card.qr-touch {
@@ -1103,743 +1130,96 @@ img {
 
 
 /* ==========================================
-   QR HOVER STATE
-========================================== */
-
-.premium-qr-card.qr-hover {
-
-    box-shadow:
-        0 0 0 3px
-        rgba(217, 4, 41, .22),
-        0 18px 50px
-        rgba(0, 0, 0, .65),
-        0 0 30px
-        rgba(217, 4, 41, .18);
-
-}
-
-
-/* ==========================================
-   SCAN TITLE READY
-========================================== */
-
-.scan-title.scan-title-ready {
-
-    animation:
-        scanTitleReady
-        .7s
-        ease-out
-        1;
-
-}
-
-
-@keyframes scanTitleReady {
-
-    from {
-
-        opacity:
-            0;
-
-        transform:
-            translateY(8px);
-
-    }
-
-    to {
-
-        opacity:
-            1;
-
-        transform:
-            translateY(0);
-
-    }
-
-}
-
-
-/* ==========================================
-   CUSTOMER PHOTO LOADED
-========================================== */
-
-.avatar-frame img.photo-loaded {
-
-    animation:
-        photoLoaded
-        .6s
-        ease-out
-        1;
-
-}
-
-
-@keyframes photoLoaded {
-
-    from {
-
-        opacity:
-            0;
-
-        transform:
-            scale(.9);
-
-    }
-
-    to {
-
-        opacity:
-            1;
-
-        transform:
-            scale(1);
-
-    }
-
-}
-
-
-/* ==========================================
-   QR SECTION VISIBILITY
-========================================== */
-
-.premium-qr-section {
-
-    opacity:
-        1;
-
-    transform:
-        translateY(0);
-
-}
-
-
-.premium-qr-section.section-visible {
-
-    animation:
-        qrSectionVisible
-        .6s
-        ease-out
-        1;
-
-}
-
-
-@keyframes qrSectionVisible {
-
-    from {
-
-        opacity:
-            .7;
-
-        transform:
-            translateY(10px);
-
-    }
-
-    to {
-
-        opacity:
-            1;
-
-        transform:
-            translateY(0);
-
-    }
-
-}
-
-
-/* ==========================================
-   REDUCED MOTION
-========================================== */
-
-@media (
-    prefers-reduced-motion: reduce
-) {
-
-    html {
-
-        scroll-behavior:
-            auto;
-
-    }
-
-    .card-shine,
-    .card-glow,
-    .qr-corner,
-    .qr-box.qr-generated,
-    .scan-title.scan-title-ready,
-    .avatar-frame img.photo-loaded,
-    .premium-qr-section.section-visible {
-
-        animation:
-            none !important;
-
-    }
-
-    .premium-qr-card,
-    .premium-qr-card.qr-touch {
-
-        transform:
-            none !important;
-
-    }
-
-}
-
-
-/* ==========================================
-   MOBILE RESPONSIVE
-========================================== */
-
-@media (
-    max-width: 480px
-) {
-
-    .qr-page {
-
-        padding:
-            12px
-            10px
-            30px;
-
-    }
-
-
-    .qr-card {
-
-        border-radius:
-            20px;
-
-    }
-
-
-    .qr-header {
-
-        padding:
-            17px
-            15px;
-
-    }
-
-
-    .customer-section {
-
-        padding:
-            20px
-            15px
-            15px;
-
-    }
-
-
-    .premium-qr-section {
-
-        padding:
-            8px
-            15px
-            20px;
-
-    }
-
-
-    .premium-qr-card {
-
-        width:
-            min(
-                270px,
-                82vw
-            );
-
-        padding:
-            14px;
-
-        border-radius:
-            16px;
-
-    }
-
-
-    .qr-corner {
-
-        width:
-            24px;
-
-        height:
-            24px;
-
-    }
-
-}
-
-
-/* ==========================================
-   SMALL MOBILE
-========================================== */
-
-@media (
-    max-width: 360px
-) {
-
-    .qr-page {
-
-        padding:
-            8px
-            7px
-            25px;
-
-    }
-
-
-    .qr-card {
-
-        border-radius:
-            18px;
-
-    }
-
-
-    .qr-header {
-
-        gap:
-            10px;
-
-        padding:
-            15px
-            12px;
-
-    }
-
-
-    .qr-brand-icon {
-
-        width:
-            46px;
-
-        height:
-            46px;
-
-        flex-basis:
-            46px;
-
-        font-size:
-            20px;
-
-    }
-
-
-    .customer-section {
-
-        padding:
-            18px
-            12px
-            12px;
-
-    }
-
-
-    .avatar-frame {
-
-        width:
-            82px;
-
-        height:
-            82px;
-
-        flex-basis:
-            82px;
-
-    }
-
-
-    .premium-qr-card {
-
-        width:
-            min(
-                260px,
-                84vw
-            );
-
-        padding:
-            11px;
-
-    }
-
-
-    .scan-title {
-
-        font-size:
-            12px;
-
-    }
-
-}
-
-
-/* ==========================================
-   TABLET
-========================================== */
-
-@media (
-    min-width: 768px
-) {
-
-    .qr-page {
-
-        padding:
-            32px
-            24px
-            50px;
-
-    }
-
-
-    .qr-card {
-
-        border-radius:
-            26px;
-
-    }
-
-
-    .qr-header {
-
-        padding:
-            22px;
-
-    }
-
-
-    .customer-section {
-
-        padding:
-            28px
-            24px
-            20px;
-
-    }
-
-
-    .premium-qr-section {
-
-        padding:
-            14px
-            24px
-            28px;
-
-    }
-
-
-    .premium-qr-card {
-
-        width:
-            min(
-                330px,
-                70vw
-            );
-
-        padding:
-            16px;
-
-    }
-
-}
-
-
-/* ==========================================
-   LAPTOP / DESKTOP
-========================================== */
-
-@media (
-    min-width: 1024px
-) {
-
-    .qr-page {
-
-        padding-top:
-            40px;
-
-    }
-
-
-    .qr-card {
-
-        max-width:
-            620px;
-
-    }
-
-
-    .premium-qr-card {
-
-        width:
-            340px;
-
-    }
-
-}
-
-
-/* ==========================================
-   END QR.CSS — PART 1/3
-
-   NEXT FILE:
-   qr.css — PART 2/3
-========================================== */
-/* ==========================================
-   RIO MAGGI POINT
-   QR.CSS — PART 2/3
-   PREMIUM QR SECTION + DAILY STAMP RULE
-   CLEANED + DUPLICATE-FREE
-========================================== */
-
-
-/* ==========================================
-   PREMIUM QR SECTION
-========================================== */
-
-.premium-qr-section {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 18px 0 24px;
-    border-top: 1px solid rgba(217, 4, 41, 0.28);
-}
-
-
-/* ==========================================
-   SCAN TITLE
-========================================== */
-
-.scan-title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 9px;
-    width: 100%;
-    margin-bottom: 15px;
-    color: var(--qr-white);
-    font-size: clamp(13px, 3.2vw, 16px);
-    line-height: 1.4;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    text-align: center;
-}
-
-
-.scan-title i {
-    flex: 0 0 auto;
-    color: var(--qr-red-light);
-    font-size: clamp(18px, 4.5vw, 23px);
-}
-
-
-/* ==========================================
-   PREMIUM QR OUTER CARD
-========================================== */
-
-.premium-qr-card {
-    position: relative;
-    width: min(340px, 82vw);
-    aspect-ratio: 1 / 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    margin: 0 auto;
-    background: #ffffff;
-    border: 4px solid var(--qr-red);
-    border-radius: 18px;
-    box-shadow:
-        0 0 0 3px rgba(217, 4, 41, 0.15),
-        0 15px 40px rgba(0, 0, 0, 0.55);
-    overflow: hidden;
-    isolation: isolate;
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-}
-
-
-/* ==========================================
-   QR BOX
-========================================== */
-
-.qr-box {
-    position: relative;
-    z-index: 3;
-    width: 100%;
-    height: 100%;
-    min-width: 0;
-    min-height: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #ffffff;
-    border-radius: 6px;
-    overflow: hidden;
-}
-
-
-/* ==========================================
-   GENERATED QR IMAGE / CANVAS
-========================================== */
-
-.qr-box img,
-.qr-box canvas {
-    display: block;
-    width: 100% !important;
-    height: 100% !important;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-
-
-/* ==========================================
    QR STATUS
 ========================================== */
 
 .qr-status {
-    width: 100%;
-    max-width: 340px;
-    min-height: 24px;
-    margin: 14px 0 0;
-    padding: 4px 10px;
-    color: var(--qr-gray);
-    font-size: clamp(11px, 2.8vw, 14px);
-    line-height: 1.5;
-    font-weight: 500;
-    text-align: center;
+
+    width:
+        100%;
+
+    max-width:
+        340px;
+
+    min-height:
+        24px;
+
+    margin:
+        0;
+
+    padding:
+        5px 10px;
+
+    font-size:
+        clamp(
+            11px,
+            2.8vw,
+            14px
+        );
+
+    line-height:
+        1.5;
+
+    font-weight:
+        500;
+
+    color:
+        var(--text-muted);
+
+    text-align:
+        center;
+
     transition:
-        color 0.3s ease,
-        opacity 0.3s ease;
+        color .3s ease,
+        transform .3s ease;
+
 }
 
+
+/* ==========================================
+   QR READY STATUS
+========================================== */
 
 .qr-status.ready {
-    color: var(--qr-red-light);
-    font-weight: 600;
+
+    color:
+        var(--dark-green);
+
+    font-weight:
+        700;
+
 }
 
 
 /* ==========================================
-   QR GENERATED ANIMATION
+   QR STATUS PULSE
 ========================================== */
 
-.qr-box.qr-generated {
+.qr-status.status-pulse {
+
     animation:
-        qrGenerated
-        0.6s
-        ease-out;
+        statusPulse 2s ease-in-out infinite;
+
 }
 
 
-@keyframes qrGenerated {
+@keyframes statusPulse {
 
-    0% {
-        opacity: 0;
-        transform: scale(0.96);
-    }
-
-    60% {
-        opacity: 1;
-        transform: scale(1.02);
-    }
-
+    0%,
     100% {
-        opacity: 1;
-        transform: scale(1);
-    }
 
-}
+        opacity:
+            .7;
 
-
-/* ==========================================
-   QR SCAN LINE
-========================================== */
-
-.qr-scan-line {
-    position: absolute;
-    top: 12px;
-    left: 10%;
-    width: 80%;
-    height: 2px;
-    z-index: 6;
-    background: var(--qr-red);
-    box-shadow:
-        0 0 12px var(--qr-red),
-        0 0 24px var(--qr-red);
-    opacity: 0;
-    pointer-events: none;
-}
-
-
-/* ==========================================
-   ONE-TIME SCAN LINE ANIMATION
-========================================== */
-
-.premium-qr-card.qr-scan-once
-.qr-scan-line {
-    animation:
-        qrScanLineOnce
-        2.8s
-        ease-in-out
-        1;
-}
-
-
-@keyframes qrScanLineOnce {
-
-    0% {
-        top: 12px;
-        opacity: 0;
-    }
-
-    15% {
-        opacity: 1;
     }
 
     50% {
-        opacity: 1;
+
+        opacity:
+            1;
+
     }
 
-    85% {
-        opacity: 1;
-    }
-
-    100% {
-        top: calc(100% - 14px);
-        opacity: 0;
-    }
-
-}
-
-
-/* ==========================================
-   QR CARD HOVER
-========================================== */
-
-.premium-qr-card:hover {
-    transform: translateY(-4px);
-    box-shadow:
-        0 0 0 3px rgba(217, 4, 41, 0.2),
-        0 18px 48px rgba(0, 0, 0, 0.65),
-        0 0 28px rgba(217, 4, 41, 0.15);
-}
-
-
-/* ==========================================
-   QR TOUCH EFFECT
-========================================== */
-
-.premium-qr-card.qr-touch {
-    transform: scale(0.98);
 }
 
 
@@ -1848,27 +1228,93 @@ img {
 ========================================== */
 
 .daily-stamp-rule {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    margin: 22px auto 0;
-    padding: 22px 18px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    display:
+        flex;
+
+    align-items:
+        flex-start;
+
+    gap:
+        14px;
+
+    margin:
+        4px 0 22px;
+
+    padding:
+        18px 16px;
+
     background:
         linear-gradient(
-            145deg,
-            #151515,
-            #050505
+            135deg,
+            var(--dark-green),
+            #1d291e
         );
-    border: 2px solid var(--qr-red);
-    border-radius: 18px;
+
+    border:
+        2px solid
+        var(--accent-color);
+
+    border-radius:
+        16px;
+
     box-shadow:
-        0 10px 35px rgba(0, 0, 0, 0.5),
-        0 0 25px rgba(217, 4, 41, 0.12);
-    overflow: hidden;
+        0 8px 20px
+        rgba(38, 53, 37, .20);
+
+    overflow:
+        hidden;
+
+    cursor:
+        pointer;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+
+}
+
+
+/* ==========================================
+   DAILY RULE DECORATION
+========================================== */
+
+.daily-stamp-rule::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    right:
+        -35px;
+
+    bottom:
+        -45px;
+
+    width:
+        90px;
+
+    height:
+        90px;
+
+    border:
+        2px solid
+        rgba(255, 213, 79, .22);
+
+    border-radius:
+        50%;
+
+    pointer-events:
+        none;
+
 }
 
 
@@ -1877,42 +1323,49 @@ img {
 ========================================== */
 
 .daily-rule-icon {
-    width: 58px;
-    height: 58px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 12px;
-    border-radius: 50%;
+
+    flex:
+        0 0 46px;
+
+    width:
+        46px;
+
+    height:
+        46px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
     background:
-        linear-gradient(
-            135deg,
-            var(--qr-red),
-            var(--qr-red-dark)
-        );
-    color: var(--qr-white);
-    font-size: 23px;
+        var(--gold);
+
+    color:
+        var(--dark-green);
+
+    border-radius:
+        12px;
+
+    font-size:
+        21px;
+
     box-shadow:
-        0 0 25px var(--qr-red-glow);
+        0 4px 10px
+        rgba(0, 0, 0, .18);
+
 }
 
 
-/* ==========================================
-   DAILY RULE BADGE
-========================================== */
+.daily-rule-icon i {
 
-.daily-rule-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6px 13px;
-    margin-bottom: 10px;
-    border: 1px solid var(--qr-red);
-    border-radius: 20px;
-    color: var(--qr-red-light);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.4px;
+    line-height:
+        1;
+
 }
 
 
@@ -1921,744 +1374,188 @@ img {
 ========================================== */
 
 .daily-rule-content {
-    width: 100%;
-    min-width: 0;
+
+    flex:
+        1;
+
+    min-width:
+        0;
+
 }
 
 
-.daily-rule-content h2 {
-    margin: 0 0 14px;
-    color: var(--qr-white);
-    font-size: clamp(18px, 4vw, 26px);
-    line-height: 1.35;
-    font-weight: 800;
+.daily-rule-content h3 {
+
+    margin:
+        0 0 8px;
+
+    font-size:
+        clamp(
+            15px,
+            3.8vw,
+            19px
+        );
+
+    line-height:
+        1.35;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .4px;
+
+    color:
+        var(--gold);
+
 }
 
 
-.rule-main-text {
-    margin: 0 0 12px;
-    color: var(--qr-white-soft);
-    font-size: clamp(14px, 3vw, 17px);
-    line-height: 1.7;
-    font-weight: 500;
+.daily-rule-content p {
+
+    margin:
+        0 0 9px;
+
+    font-size:
+        clamp(
+            13px,
+            3.3vw,
+            16px
+        );
+
+    line-height:
+        1.65;
+
+    font-weight:
+        500;
+
+    color:
+        var(--white);
+
 }
 
 
-.rule-main-text strong {
-    color: var(--qr-red-light);
-    font-weight: 800;
+.daily-rule-content p:last-child {
+
+    margin-bottom:
+        0;
+
 }
 
 
-/* ==========================================
-   RULE HIGHLIGHT
-========================================== */
+.daily-rule-content strong {
 
-.rule-highlight {
-    width: 100%;
-    margin: 8px 0;
-    padding: 12px 10px;
-    border-top: 1px solid rgba(217, 4, 41, 0.35);
-    border-bottom: 1px solid rgba(217, 4, 41, 0.35);
-    color: var(--qr-white);
-    font-size: clamp(14px, 3vw, 17px);
-    line-height: 1.6;
-    font-weight: 700;
-}
+    color:
+        var(--gold);
 
+    font-weight:
+        800;
 
-/* ==========================================
-   RULE REWARD
-========================================== */
-
-.rule-reward {
-    margin: 10px 0 0;
-    color: var(--qr-red-light);
-    font-size: clamp(15px, 3.2vw, 19px);
-    line-height: 1.6;
-    font-weight: 700;
-}
-
-
-.rule-reward strong {
-    color: var(--qr-white);
-}
-
-
-/* ==========================================
-   IMPORTANT RULE
-========================================== */
-
-.rule-important {
-    width: 100%;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-top: 18px;
-    padding: 14px;
-    text-align: left;
-    background: rgba(217, 4, 41, 0.08);
-    border: 1px solid rgba(217, 4, 41, 0.35);
-    border-radius: 12px;
-    color: var(--qr-white-soft);
-    font-size: clamp(12px, 2.7vw, 15px);
-    line-height: 1.65;
-}
-
-
-.rule-important i {
-    flex: 0 0 auto;
-    margin-top: 3px;
-    color: var(--qr-red-light);
-    font-size: 18px;
 }
 
 
 /* ==========================================
-   RULE HIGHLIGHT ANIMATION
+   DAILY RULE HIGHLIGHT
 ========================================== */
 
 .daily-stamp-rule.rule-highlight {
+
     animation:
-        ruleHighlight
-        0.7s
-        ease;
+        ruleHighlight .6s ease;
+
 }
 
 
 @keyframes ruleHighlight {
 
     0% {
-        transform: scale(1);
+
+        transform:
+            scale(1);
+
+        box-shadow:
+            0 8px 20px
+            rgba(38, 53, 37, .20);
+
     }
 
     50% {
-        transform: scale(1.015);
+
+        transform:
+            scale(1.015);
+
+        box-shadow:
+            0 12px 30px
+            rgba(209, 155, 74, .35);
+
     }
 
     100% {
-        transform: scale(1);
+
+        transform:
+            scale(1);
+
+        box-shadow:
+            0 8px 20px
+            rgba(38, 53, 37, .20);
+
     }
 
 }
 
 
 /* ==========================================
-   SECTION VISIBLE ANIMATION
+   SECTION REVEAL
 ========================================== */
 
 .premium-qr-section.section-visible
 .premium-qr-card {
+
     animation:
-        qrSectionReveal
-        0.7s
-        ease-out;
+        qrSectionReveal .55s ease both;
+
 }
 
 
 @keyframes qrSectionReveal {
 
     from {
-        opacity: 0;
-        transform: translateY(18px);
+
+        opacity:
+            0;
+
+        transform:
+            translateY(15px);
+
     }
 
     to {
-        opacity: 1;
-        transform: translateY(0);
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0);
+
     }
 
 }
 
 
 /* ==========================================
-   SCAN TITLE READY
-========================================== */
-
-.scan-title.scan-title-ready {
-    animation:
-        scanTitleReveal
-        0.6s
-        ease-out;
-}
-
-
-@keyframes scanTitleReveal {
-
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-}
-
-
-/* ==========================================
-   CUSTOMER PHOTO LOADED
-========================================== */
-
-.avatar-frame img.photo-loaded {
-    animation:
-        photoLoaded
-        0.5s
-        ease-out;
-}
-
-
-@keyframes photoLoaded {
-
-    from {
-        opacity: 0;
-        transform: scale(0.92);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-}
-
-
-/* ==========================================
-   STATUS PULSE
-========================================== */
-
-.qr-status.status-pulse {
-    animation:
-        statusPulse
-        1.8s
-        ease-in-out
-        infinite;
-}
-
-
-@keyframes statusPulse {
-
-    0%,
-    100% {
-        opacity: 0.7;
-    }
-
-    50% {
-        opacity: 1;
-    }
-
-}
-
-
-/* ==========================================
-   RESPONSIVE — MOBILE
+   MOBILE QR SIZE
 ========================================== */
 
 @media (max-width: 480px) {
 
-    .premium-qr-section {
-        padding:
-            14px 0 20px;
-    }
-
-
     .premium-qr-card {
-        width:
-            min(280px, 82vw);
 
-        padding:
-            13px;
+        max-width:
+            280px;
 
-        border-radius:
-            16px;
-    }
-
-
-    .daily-stamp-rule {
-        margin-top:
-            20px;
-
-        padding:
-            20px 15px;
-
-        border-radius:
-            17px;
-    }
-
-
-    .daily-rule-content h2 {
-        font-size:
-            19px;
-    }
-
-
-    .rule-important {
-        font-size:
-            13px;
-    }
-
-}
-
-
-/* ==========================================
-   RESPONSIVE — SMALL MOBILE
-========================================== */
-
-@media (max-width: 360px) {
-
-    .premium-qr-card {
-        width:
-            min(260px, 80vw);
-
-        padding:
-            11px;
-    }
-
-
-    .daily-stamp-rule {
-        padding:
-            18px 12px;
-    }
-
-
-    .daily-rule-icon {
-        width:
-            52px;
-
-        height:
-            52px;
-
-        font-size:
-            21px;
-    }
-
-
-    .daily-rule-content h2 {
-        font-size:
-            17px;
-    }
-
-
-    .rule-main-text,
-    .rule-highlight {
-        font-size:
-            13px;
-    }
-
-
-    .rule-reward {
-        font-size:
-            15px;
-    }
-
-}
-
-
-/* ==========================================
-   RESPONSIVE — TABLET
-========================================== */
-
-@media (min-width: 768px) {
-
-    .premium-qr-section {
-        padding:
-            20px 0 26px;
-    }
-
-
-    .premium-qr-card {
-        width:
-            min(340px, 70vw);
-
-        padding:
-            16px;
-    }
-
-
-    .daily-stamp-rule {
-        padding:
-            24px 20px;
-    }
-
-}
-
-
-/* ==========================================
-   RESPONSIVE — LAPTOP / DESKTOP
-========================================== */
-
-@media (min-width: 1024px) {
-
-    .premium-qr-card {
-        width:
-            min(340px, 60vw);
-    }
-
-
-    .daily-stamp-rule {
-        padding:
-            24px 22px;
-    }
-
-}
-
-
-/* ==========================================
-   REDUCED MOTION
-========================================== */
-
-@media (prefers-reduced-motion: reduce) {
-
-    .qr-box.qr-generated,
-    .daily-stamp-rule.rule-highlight,
-    .premium-qr-section.section-visible
-    .premium-qr-card,
-    .scan-title.scan-title-ready,
-    .avatar-frame img.photo-loaded,
-    .qr-status.status-pulse {
-
-        animation:
-            none !important;
-
-    }
-
-
-    .premium-qr-card:hover,
-    .premium-qr-card.qr-touch {
-
-        transform:
-            none !important;
-
-    }
-
-}
-/* ==========================================
-   RIO MAGGI POINT
-   QR.CSS — PART 3/3
-   INSTRUCTIONS + SECURITY + FINAL RESPONSIVE
-   CLEANED + DUPLICATE-FREE
-========================================== */
-
-
-/* ==========================================
-   INSTRUCTION BOX
-========================================== */
-
-.instruction-box {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin: 0 0 20px;
-    padding: 18px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(217, 4, 41, 0.35);
-    border-radius: 16px;
-}
-
-
-/* ==========================================
-   INSTRUCTION ITEM
-========================================== */
-
-.instruction-item {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    width: 100%;
-    padding: 11px 10px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 11px;
-    transition:
-        transform 0.25s ease,
-        background 0.25s ease,
-        border-color 0.25s ease;
-}
-
-
-.instruction-item:hover {
-    transform: translateX(3px);
-    background: rgba(217, 4, 41, 0.08);
-    border-color: rgba(217, 4, 41, 0.25);
-}
-
-
-/* ==========================================
-   INSTRUCTION ICON
-========================================== */
-
-.instruction-icon {
-    flex: 0 0 36px;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background:
-        linear-gradient(
-            135deg,
-            var(--qr-red),
-            var(--qr-red-dark)
-        );
-    color: var(--qr-white);
-    font-size: 15px;
-    box-shadow:
-        0 5px 15px rgba(217, 4, 41, 0.2);
-}
-
-
-/* ==========================================
-   INSTRUCTION TEXT
-========================================== */
-
-.instruction-text {
-    flex: 1;
-    min-width: 0;
-    color: var(--qr-white-soft);
-    font-size: clamp(12px, 3.2vw, 15px);
-    line-height: 1.6;
-    font-weight: 500;
-}
-
-
-/* ==========================================
-   SECURITY NOTE
-========================================== */
-
-.security-note {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 9px;
-    margin: 0 0 20px;
-    padding: 12px 14px;
-    background: rgba(217, 4, 41, 0.06);
-    border: 1px solid rgba(217, 4, 41, 0.25);
-    border-radius: 12px;
-    text-align: center;
-    color: var(--qr-gray);
-    font-size: clamp(11px, 2.8vw, 13px);
-    line-height: 1.5;
-    font-weight: 500;
-}
-
-
-.security-note i {
-    flex: 0 0 auto;
-    color: var(--qr-red-light);
-    font-size: 17px;
-}
-
-
-/* ==========================================
-   NAVIGATION SAFE SPACE
-   ========================================== */
-
-.nav-space {
-    width: 100%;
-    height: 30px;
-}
-
-
-/* ==========================================
-   BOTTOM NAVIGATION
-   NOTE:
-   HTML CURRENTLY DOES NOT CONTAIN
-   .bottom-nav, SO THIS CSS REMAINS
-   READY FOR FUTURE NAV IMPLEMENTATION.
-========================================== */
-
-.bottom-nav {
-    position: fixed;
-    left: 50%;
-    bottom: 0;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 600px;
-    min-height: 74px;
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    padding:
-        6px 8px
-        calc(6px + env(safe-area-inset-bottom));
-    background:
-        rgba(8, 8, 8, 0.96);
-    border-top:
-        1px solid
-        rgba(217, 4, 41, 0.55);
-    box-shadow:
-        0 -8px 25px
-        rgba(0, 0, 0, 0.45);
-    backdrop-filter:
-        blur(12px);
-    -webkit-backdrop-filter:
-        blur(12px);
-    z-index: 9999;
-}
-
-
-/* ==========================================
-   NAV ITEM
-========================================== */
-
-.bottom-nav a {
-    flex: 1 1 0;
-    min-width: 0;
-    height: 62px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    padding: 5px 3px;
-    color: var(--qr-gray);
-    text-decoration: none;
-    border-radius: 10px;
-    font-size: 10px;
-    font-weight: 600;
-    line-height: 1.2;
-    opacity: 0.72;
-    transition:
-        color 0.2s ease,
-        background 0.2s ease,
-        opacity 0.2s ease,
-        transform 0.2s ease;
-}
-
-
-/* ==========================================
-   NAV ICON
-========================================== */
-
-.bottom-nav a i {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 19px;
-    line-height: 1;
-}
-
-
-/* ==========================================
-   ACTIVE NAV
-========================================== */
-
-.bottom-nav a.active {
-    color: var(--qr-white);
-    background: rgba(217, 4, 41, 0.14);
-    opacity: 1;
-}
-
-
-/* ==========================================
-   NAV HOVER
-========================================== */
-
-.bottom-nav a:hover {
-    color: var(--qr-white);
-    background: rgba(217, 4, 41, 0.08);
-    opacity: 1;
-    transform: translateY(-2px);
-}
-
-
-/* ==========================================
-   NAV ACTIVE ICON
-========================================== */
-
-.bottom-nav a.active i {
-    color: var(--qr-red-light);
-}
-
-
-/* ==========================================
-   TABLET
-========================================== */
-
-@media (min-width: 768px) {
-
-    .instruction-box {
-        padding: 20px;
-    }
-
-
-    .instruction-item {
         padding:
             12px;
-    }
 
-
-    .security-note {
-        margin-bottom:
-            24px;
-    }
-
-
-    .nav-space {
-        height:
-            35px;
-    }
-
-
-    .bottom-nav {
-        min-height:
-            78px;
-
-        padding:
-            7px 12px
-            calc(
-                7px +
-                env(safe-area-inset-bottom)
-            );
-    }
-
-
-    .bottom-nav a {
-        height:
-            64px;
-
-        font-size:
-            11px;
-    }
-
-
-    .bottom-nav a i {
-        font-size:
-            20px;
-    }
-
-}
-
-
-/* ==========================================
-   LAPTOP / DESKTOP
-========================================== */
-
-@media (min-width: 1024px) {
-
-    .instruction-box {
-        padding:
-            22px;
-    }
-
-
-    .instruction-item {
-        padding:
-            13px 12px;
-    }
-
-
-    .bottom-nav {
-        max-width:
-            600px;
     }
 
 }
@@ -2670,77 +1567,689 @@ img {
 
 @media (max-width: 360px) {
 
-    .instruction-box {
+    .premium-qr-card {
+
+        max-width:
+            245px;
+
         padding:
-            13px;
+            10px;
+
+        border-radius:
+            15px;
+
     }
 
 
-    .instruction-item {
+    .daily-stamp-rule {
+
         gap:
             10px;
 
         padding:
-            9px 8px;
+            15px 12px;
+
     }
 
 
-    .instruction-icon {
+    .daily-rule-icon {
+
         flex-basis:
-            32px;
+            40px;
 
         width:
-            32px;
+            40px;
 
         height:
-            32px;
+            40px;
 
         font-size:
-            13px;
+            18px;
+
     }
 
 
-    .instruction-text {
+    .daily-rule-content h3 {
+
+        font-size:
+            14px;
+
+    }
+
+
+    .daily-rule-content p {
+
         font-size:
             12px;
 
         line-height:
-            1.5;
+            1.55;
+
     }
 
+}
 
-    .security-note {
-        gap:
-            7px;
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (min-width: 768px) {
+
+    .premium-qr-card {
+
+        max-width:
+            330px;
 
         padding:
-            10px;
+            16px;
 
-        font-size:
-            10px;
     }
 
 
-    .nav-space {
-        height:
-            25px;
+    .daily-stamp-rule {
+
+        padding:
+            20px 18px;
+
     }
 
+}
+
+
+/* ==========================================
+   LAPTOP + DESKTOP
+========================================== */
+
+@media (min-width: 1024px) {
+
+    .page {
+
+        padding-top:
+            40px;
+
+    }
+
+
+    .premium-qr-card {
+
+        max-width:
+            340px;
+
+    }
+
+
+    .daily-stamp-rule {
+
+        padding:
+            21px 20px;
+
+    }
+
+}
+
+
+/* ==========================================
+   END QR.CSS — PART 2/3
+========================================== */
+/* ==========================================
+   RIO MAGGI POINT
+   QR.CSS — PART 3/3
+   INSTRUCTIONS + SECURITY + BOTTOM NAV
+========================================== */
+
+
+/* ==========================================
+   INSTRUCTION BOX
+========================================== */
+
+.instruction-box {
+
+    width:
+        100%;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        12px;
+
+    margin:
+        0 0 20px;
+
+    padding:
+        18px;
+
+    background:
+        rgba(255, 255, 255, .55);
+
+    border:
+        2px solid
+        var(--border-color);
+
+    border-radius:
+        16px;
+
+    box-shadow:
+        0 6px 18px
+        rgba(70, 45, 15, .06);
+
+}
+
+
+/* ==========================================
+   INSTRUCTION ITEM
+========================================== */
+
+.instruction-item {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        13px;
+
+    width:
+        100%;
+
+    padding:
+        11px 10px;
+
+    background:
+        rgba(255, 255, 255, .72);
+
+    border-radius:
+        11px;
+
+    transition:
+        transform .25s ease,
+        background .25s ease;
+
+}
+
+
+.instruction-item:hover {
+
+    transform:
+        translateX(3px);
+
+    background:
+        rgba(255, 255, 255, .95);
+
+}
+
+
+/* ==========================================
+   INSTRUCTION NUMBER / ICON
+========================================== */
+
+.instruction-icon {
+
+    flex:
+        0 0 34px;
+
+    width:
+        34px;
+
+    height:
+        34px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--dark-green);
+
+    color:
+        var(--gold);
+
+    font-size:
+        15px;
+
+    font-weight:
+        800;
+
+}
+
+
+/* ==========================================
+   INSTRUCTION TEXT
+========================================== */
+
+.instruction-text {
+
+    flex:
+        1;
+
+    min-width:
+        0;
+
+    font-size:
+        clamp(
+            13px,
+            3.2vw,
+            16px
+        );
+
+    line-height:
+        1.55;
+
+    font-weight:
+        600;
+
+    color:
+        var(--text-dark);
+
+}
+
+
+/* ==========================================
+   SECURITY NOTE
+========================================== */
+
+.security-note {
+
+    width:
+        100%;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        9px;
+
+    margin:
+        0 0 25px;
+
+    padding:
+        12px 14px;
+
+    background:
+        rgba(38, 53, 37, .08);
+
+    border:
+        1px solid
+        rgba(38, 53, 37, .18);
+
+    border-radius:
+        12px;
+
+    text-align:
+        center;
+
+    color:
+        var(--text-muted);
+
+    font-size:
+        clamp(
+            11px,
+            2.8vw,
+            14px
+        );
+
+    line-height:
+        1.5;
+
+    font-weight:
+        500;
+
+}
+
+
+.security-note i {
+
+    flex:
+        0 0 auto;
+
+    color:
+        var(--dark-green);
+
+    font-size:
+        17px;
+
+}
+
+
+/* ==========================================
+   NAVIGATION SAFE SPACE
+========================================== */
+
+.nav-space {
+
+    width:
+        100%;
+
+    height:
+        95px;
+
+}
+
+
+/* ==========================================
+   FIXED PREMIUM BOTTOM NAV
+========================================== */
+
+.bottom-nav {
+
+    position:
+        fixed;
+
+    left:
+        50%;
+
+    bottom:
+        0;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        100%;
+
+    max-width:
+        600px;
+
+    height:
+        74px;
+
+    display:
+        flex;
+
+    align-items:
+        stretch;
+
+    justify-content:
+        space-between;
+
+    padding:
+        6px 8px 0;
+
+    padding-bottom:
+        calc(
+            6px +
+            env(safe-area-inset-bottom)
+        );
+
+    background:
+        var(--dark-green);
+
+    border-top:
+        2px solid
+        var(--accent-color);
+
+    box-shadow:
+        0 -8px 25px
+        rgba(0, 0, 0, .18);
+
+    z-index:
+        9999;
+
+}
+
+
+/* ==========================================
+   NAV ITEM
+========================================== */
+
+.bottom-nav a {
+
+    flex:
+        1 1 0;
+
+    min-width:
+        0;
+
+    height:
+        62px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        4px;
+
+    padding:
+        5px 3px;
+
+    color:
+        var(--gold);
+
+    text-decoration:
+        none;
+
+    border-radius:
+        10px;
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
+
+    line-height:
+        1.2;
+
+    opacity:
+        .72;
+
+    transition:
+        color .2s ease,
+        background .2s ease,
+        opacity .2s ease,
+        transform .2s ease;
+
+}
+
+
+.bottom-nav a i {
+
+    width:
+        24px;
+
+    height:
+        24px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    font-size:
+        19px;
+
+    line-height:
+        1;
+
+}
+
+
+/* ==========================================
+   ACTIVE NAV
+========================================== */
+
+.bottom-nav a.active {
+
+    color:
+        var(--white);
+
+    background:
+        rgba(255, 213, 79, .12);
+
+    opacity:
+        1;
+
+}
+
+
+.bottom-nav a.active i {
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+/* ==========================================
+   HOVER
+========================================== */
+
+.bottom-nav a:hover {
+
+    color:
+        var(--white);
+
+    opacity:
+        1;
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+/* ==========================================
+   FOCUS ACCESSIBILITY
+========================================== */
+
+.bottom-nav a:focus-visible {
+
+    outline:
+        2px solid
+        var(--gold);
+
+    outline-offset:
+        -2px;
+
+}
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (min-width: 768px) {
 
     .bottom-nav {
-        min-height:
-            70px;
+
+        height:
+            78px;
 
         padding:
-            5px 4px
+            7px 12px 0;
+
+        padding-bottom:
             calc(
-                5px +
+                7px +
                 env(safe-area-inset-bottom)
             );
+
     }
 
 
     .bottom-nav a {
+
+        height:
+            64px;
+
+        font-size:
+            11px;
+
+    }
+
+
+    .bottom-nav a i {
+
+        font-size:
+            20px;
+
+    }
+
+
+    .nav-space {
+
+        height:
+            100px;
+
+    }
+
+}
+
+
+/* ==========================================
+   LAPTOP + DESKTOP
+========================================== */
+
+@media (min-width: 1024px) {
+
+    .bottom-nav {
+
+        max-width:
+            600px;
+
+    }
+
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 360px) {
+
+    .bottom-nav {
+
+        height:
+            70px;
+
+        padding:
+            5px 4px 0;
+
+        padding-bottom:
+            calc(
+                5px +
+                env(safe-area-inset-bottom)
+            );
+
+    }
+
+
+    .bottom-nav a {
+
         height:
             58px;
 
@@ -2749,27 +2258,23 @@ img {
 
         gap:
             3px;
+
     }
 
 
     .bottom-nav a i {
+
         font-size:
             17px;
+
     }
 
-}
 
+    .nav-space {
 
-/* ==========================================
-   TOUCH DEVICES
-========================================== */
+        height:
+            90px;
 
-@media (hover: none) {
-
-    .instruction-item:hover,
-    .bottom-nav a:hover {
-        transform:
-            none;
     }
 
 }
@@ -2781,41 +2286,27 @@ img {
 
 @media (prefers-reduced-motion: reduce) {
 
-    .instruction-item,
-    .bottom-nav a {
-        transition:
-            none;
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            .01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            .01ms !important;
+
+        scroll-behavior:
+            auto !important;
+
     }
 
-
-    .instruction-item:hover,
-    .bottom-nav a:hover {
-        transform:
-            none;
-    }
-
-}
-
-
-/* ==========================================
-   FINAL QR PAGE SAFETY
-========================================== */
-
-img,
-canvas {
-    max-width:
-        100%;
-}
-
-
-button,
-a {
-    -webkit-tap-highlight-color:
-        transparent;
 }
 
 
 /* ==========================================
    END QR.CSS
-   TOTAL PARTS: 3/3
 ========================================== */
