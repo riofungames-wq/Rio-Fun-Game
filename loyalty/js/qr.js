@@ -1,12 +1,13 @@
 /* ==========================================
    RIO MAGGI POINT
-   QR.JS — PART 1
-   FIREBASE + CUSTOMER AUTH + PROFILE DATA
+   QR.JS — PART 1/3
+   FIREBASE AUTH + CUSTOMER PROFILE
+   CLEANED + DUPLICATE-FREE
 ========================================== */
 
 
 /* ==========================================
-   FIREBASE IMPORT
+   FIREBASE IMPORTS
 ========================================== */
 
 import {
@@ -61,15 +62,7 @@ const qrStatus =
 
 
 /* ==========================================
-   QR PREFIX
-========================================== */
-
-const QR_PREFIX =
-    "RIO_MAGGI_CUSTOMER:";
-
-
-/* ==========================================
-   DEFAULT AVATAR
+   CONSTANTS
 ========================================== */
 
 const DEFAULT_AVATAR =
@@ -77,13 +70,13 @@ const DEFAULT_AVATAR =
 
 
 /* ==========================================
-   AUTH CHECK
+   AUTH STATE
+   SINGLE LISTENER ONLY
+   QR GENERATION WILL CONTINUE IN PART 2
 ========================================== */
 
 onAuthStateChanged(
-
     auth,
-
     async (user) => {
 
         /* ==================================
@@ -92,8 +85,9 @@ onAuthStateChanged(
 
         if (!user) {
 
-            window.location.href =
-                "login.html";
+            window.location.replace(
+                "login.html"
+            );
 
             return;
 
@@ -101,7 +95,7 @@ onAuthStateChanged(
 
 
         /* ==================================
-           LOAD CUSTOMER DATA
+           LOAD CUSTOMER PROFILE
         ================================== */
 
         await loadCustomerData(
@@ -109,7 +103,6 @@ onAuthStateChanged(
         );
 
     }
-
 );
 
 
@@ -121,26 +114,17 @@ async function loadCustomerData(
     user
 ) {
 
+    /* ======================================
+       INITIAL LOADING STATE
+    ====================================== */
+
+    setCustomerLoadingState();
+
+
     try {
 
         /* ==================================
-           SHOW LOADING STATE
-        ================================== */
-
-        customerName.textContent =
-            "Loading...";
-
-
-        memberId.textContent =
-            "RIO-000000";
-
-
-        qrStatus.textContent =
-            "Preparing Your Premium QR...";
-
-
-        /* ==================================
-           CUSTOMER FIRESTORE DOCUMENT
+           FIRESTORE CUSTOMER REFERENCE
         ================================== */
 
         const customerRef =
@@ -151,6 +135,10 @@ async function loadCustomerData(
             );
 
 
+        /* ==================================
+           FETCH CUSTOMER DOCUMENT
+        ================================== */
+
         const customerSnap =
             await getDoc(
                 customerRef
@@ -158,7 +146,7 @@ async function loadCustomerData(
 
 
         /* ==================================
-           CUSTOMER NOT FOUND
+           CUSTOMER DOCUMENT NOT FOUND
         ================================== */
 
         if (
@@ -166,26 +154,14 @@ async function loadCustomerData(
         ) {
 
             console.warn(
-                "Customer document not found."
+                "Customer document not found:",
+                user.uid
             );
 
 
-            customerName.textContent =
-                user.displayName ||
-                "Rio Customer";
-
-
-            memberId.textContent =
-                createMemberId(
-                    user.uid
-                );
-
-
-            loadDefaultAvatar();
-
-
-            qrStatus.textContent =
-                "Your Premium QR is Ready";
+            applyCustomerFallback(
+                user
+            );
 
 
             return;
@@ -194,32 +170,48 @@ async function loadCustomerData(
 
 
         /* ==================================
-           GET CUSTOMER DATA
+           CUSTOMER DATA
         ================================== */
 
         const customerData =
-            customerSnap.data();
+            customerSnap.data() || {};
 
 
         /* ==================================
            CUSTOMER NAME
         ================================== */
 
+        const name =
+            getFirstValidValue(
+                customerData.name,
+                customerData.fullName,
+                user.displayName,
+                "Rio Customer"
+            );
+
+
         customerName.textContent =
-            customerData.name ||
-            user.displayName ||
-            "Rio Customer";
+            name;
 
 
         /* ==================================
            MEMBER ID
         ================================== */
 
-        memberId.textContent =
-            customerData.memberId ||
-            createMemberId(
-                user.uid
+        const customerMemberId =
+            getFirstValidValue(
+                customerData.memberId,
+                customerData.memberID,
+                customerData.customerId,
+                customerData.customerID,
+                createMemberId(
+                    user.uid
+                )
             );
+
+
+        memberId.textContent =
+            customerMemberId;
 
 
         /* ==================================
@@ -232,16 +224,15 @@ async function loadCustomerData(
 
 
         /* ==================================
-           QR STATUS
+           PROFILE LOADED STATUS
         ================================== */
 
         qrStatus.textContent =
-            "Your Premium QR is Ready";
+            "Preparing Your Premium QR...";
 
 
         console.log(
-            "Rio Maggi Customer Loaded:",
-            customerData
+            "Rio Maggi Customer Profile Loaded"
         );
 
     }
@@ -249,27 +240,96 @@ async function loadCustomerData(
 
     catch (error) {
 
+        /* ==================================
+           FIRESTORE / PROFILE ERROR
+        ================================== */
+
         console.error(
             "Customer Data Loading Error:",
             error
         );
 
 
-        customerName.textContent =
-            "Rio Customer";
+        applyCustomerFallback(
+            user
+        );
 
+    }
+
+}
+
+
+/* ==========================================
+   LOADING STATE
+========================================== */
+
+function setCustomerLoadingState() {
+
+    if (customerName) {
+
+        customerName.textContent =
+            "Loading...";
+
+    }
+
+
+    if (memberId) {
+
+        memberId.textContent =
+            "RIO-000000";
+
+    }
+
+
+    if (qrStatus) {
+
+        qrStatus.textContent =
+            "Preparing Your Premium QR...";
+
+    }
+
+
+    loadDefaultAvatar();
+
+}
+
+
+/* ==========================================
+   CUSTOMER FALLBACK
+========================================== */
+
+function applyCustomerFallback(
+    user
+) {
+
+    if (customerName) {
+
+        customerName.textContent =
+            getFirstValidValue(
+                user?.displayName,
+                "Rio Customer"
+            );
+
+    }
+
+
+    if (memberId) {
 
         memberId.textContent =
             createMemberId(
-                user.uid
+                user?.uid
             );
 
+    }
 
-        loadDefaultAvatar();
 
+    loadDefaultAvatar();
+
+
+    if (qrStatus) {
 
         qrStatus.textContent =
-            "Premium QR Ready";
+            "Preparing Your Premium QR...";
 
     }
 
@@ -284,16 +344,27 @@ function loadCustomerPhoto(
     customerData
 ) {
 
+    if (!customerPhoto) {
+
+        return;
+
+    }
+
+
     const photoURL =
-        customerData.photoURL ||
-        customerData.photoUrl ||
-        customerData.profilePhoto ||
-        customerData.avatarURL ||
-        "";
+        getFirstValidValue(
+            customerData?.photoURL,
+            customerData?.photoUrl,
+            customerData?.profilePhoto,
+            customerData?.profileImage,
+            customerData?.avatarURL,
+            customerData?.avatarUrl,
+            ""
+        );
 
 
     /* ==================================
-       NO PHOTO
+       NO PROFILE PHOTO
     ================================== */
 
     if (!photoURL) {
@@ -306,19 +377,37 @@ function loadCustomerPhoto(
 
 
     /* ==================================
-       LOAD PHOTO
+       SET PHOTO
     ================================== */
+
+    customerPhoto.onerror =
+        handlePhotoError;
+
 
     customerPhoto.src =
         photoURL;
 
+}
+
+
+/* ==========================================
+   PHOTO ERROR HANDLER
+========================================== */
+
+function handlePhotoError() {
+
+    if (!customerPhoto) {
+
+        return;
+
+    }
+
 
     customerPhoto.onerror =
-        () => {
+        null;
 
-            loadDefaultAvatar();
 
-        };
+    loadDefaultAvatar();
 
 }
 
@@ -328,6 +417,17 @@ function loadCustomerPhoto(
 ========================================== */
 
 function loadDefaultAvatar() {
+
+    if (!customerPhoto) {
+
+        return;
+
+    }
+
+
+    customerPhoto.onerror =
+        null;
+
 
     customerPhoto.src =
         DEFAULT_AVATAR;
@@ -350,35 +450,86 @@ function createMemberId(
     }
 
 
-    const shortUID =
-        uid
+    const cleanUID =
+        String(uid)
             .replace(
                 /[^a-zA-Z0-9]/g,
                 ""
             )
-            .substring(
-                0,
-                6
-            )
             .toUpperCase();
+
+
+    const shortUID =
+        cleanUID.substring(
+            0,
+            6
+        );
 
 
     return (
         "RIO-" +
-        shortUID
+        (
+            shortUID ||
+            "000000"
+        )
     );
 
 }
 
 
 /* ==========================================
-   END PART 1
+   GET FIRST VALID VALUE
+========================================== */
+
+function getFirstValidValue(
+    ...values
+) {
+
+    for (
+        const value of values
+    ) {
+
+        if (
+            value !== null &&
+            value !== undefined &&
+            String(value).trim() !== ""
+        ) {
+
+            return String(
+                value
+            ).trim();
+
+        }
+
+    }
+
+
+    return "";
+
+}
+
+
+/* ==========================================
+   END QR.JS — PART 1/3
 ========================================== */
 /* ==========================================
    RIO MAGGI POINT
-   QR.JS — PART 2
+   QR.JS — PART 2/3
    PREMIUM QR CODE GENERATION
+   CLEANED + DUPLICATE-FREE
 ========================================== */
+
+
+/* ==========================================
+   QR CONFIGURATION
+========================================== */
+
+const QR_PREFIX =
+    "RIO_MAGGI_CUSTOMER:";
+
+
+const QR_SIZE =
+    260;
 
 
 /* ==========================================
@@ -389,9 +540,24 @@ function generateCustomerQR(
     uid
 ) {
 
-    /* ==================================
+    /* ======================================
+       VALIDATE QR ELEMENT
+    ====================================== */
+
+    if (!qrCode) {
+
+        console.error(
+            "QR Generation Failed: #qrcode element not found."
+        );
+
+        return;
+
+    }
+
+
+    /* ======================================
        VALIDATE UID
-    ================================== */
+    ====================================== */
 
     if (!uid) {
 
@@ -399,34 +565,64 @@ function generateCustomerQR(
             "QR Generation Failed: UID missing."
         );
 
+
         qrStatus.textContent =
             "Unable to generate QR";
+
 
         return;
 
     }
 
 
-    /* ==================================
-       CLEAR OLD QR
-    ================================== */
+    /* ======================================
+       CLEAR PREVIOUS QR
+    ====================================== */
 
     qrCode.innerHTML =
         "";
 
 
-    /* ==================================
+    qrCode.classList.remove(
+        "qr-generated"
+    );
+
+
+    /* ======================================
        CREATE QR DATA
-    ================================== */
+    ====================================== */
 
     const qrData =
         QR_PREFIX +
         uid;
 
 
-    /* ==================================
+    /* ======================================
+       CHECK QR LIBRARY
+    ====================================== */
+
+    if (
+        typeof QRCode ===
+        "undefined"
+    ) {
+
+        console.error(
+            "QRCode library is not loaded."
+        );
+
+
+        qrStatus.textContent =
+            "QR system unavailable";
+
+
+        return;
+
+    }
+
+
+    /* ======================================
        GENERATE QR
-    ================================== */
+    ====================================== */
 
     try {
 
@@ -440,10 +636,10 @@ function generateCustomerQR(
                     qrData,
 
                 width:
-                    260,
+                    QR_SIZE,
 
                 height:
-                    260,
+                    QR_SIZE,
 
                 colorDark:
                     "#263525",
@@ -473,17 +669,24 @@ function generateCustomerQR(
 
 
         /* ==================================
-           QR ANIMATION
+           QR GENERATED ANIMATION
         ================================== */
 
-        qrCode.classList.add(
-            "qr-generated"
+        requestAnimationFrame(
+
+            () => {
+
+                qrCode.classList.add(
+                    "qr-generated"
+                );
+
+            }
+
         );
 
 
         console.log(
-            "Customer QR Generated:",
-            qrData
+            "Customer QR Generated Successfully"
         );
 
     }
@@ -500,57 +703,63 @@ function generateCustomerQR(
         qrStatus.textContent =
             "Unable to generate Premium QR";
 
+
+        qrCode.innerHTML =
+            "";
+
     }
 
 }
 
 
 /* ==========================================
-   GENERATE QR AFTER AUTH
+   QR CARD CLICK ANIMATION
 ========================================== */
 
-onAuthStateChanged(
+function restartQRAnimation() {
 
-    auth,
+    if (!qrCode) {
 
-    async (user) => {
-
-        /* ==================================
-           USER NOT LOGGED IN
-        ================================== */
-
-        if (!user) {
-
-            return;
-
-        }
-
-
-        /* ==================================
-           WAIT FOR CUSTOMER DATA
-        ================================== */
-
-        try {
-
-            generateCustomerQR(
-                user.uid
-            );
-
-        }
-
-
-        catch (error) {
-
-            console.error(
-                "QR Initialization Error:",
-                error
-            );
-
-        }
+        return;
 
     }
 
-);
+
+    qrCode.classList.remove(
+        "qr-generated"
+    );
+
+
+    /* ======================================
+       FORCE CSS ANIMATION RESTART
+    ====================================== */
+
+    void qrCode.offsetWidth;
+
+
+    qrCode.classList.add(
+        "qr-generated"
+    );
+
+}
+
+
+/* ==========================================
+   QR CLICK EVENT
+   SINGLE LISTENER
+========================================== */
+
+if (qrCode) {
+
+    qrCode.addEventListener(
+
+        "click",
+
+        restartQRAnimation
+
+    );
+
+}
 
 
 /* ==========================================
@@ -581,201 +790,7 @@ animateQRStatus();
 
 
 /* ==========================================
-   QR CARD INTERACTION
-========================================== */
-
-if (qrCode) {
-
-    qrCode.addEventListener(
-
-        "click",
-
-        () => {
-
-            qrCode.classList.remove(
-                "qr-generated"
-            );
-
-
-            /* ==============================
-               RESTART ANIMATION
-            ============================== */
-
-            void qrCode.offsetWidth;
-
-
-            qrCode.classList.add(
-                "qr-generated"
-            );
-
-        }
-
-    );
-
-}
-
-
-/* ==========================================
-   END PART 2
-========================================== */
-/* ==========================================
-   RIO MAGGI POINT
-   QR.JS — PART 3
-   DAILY STAMP RULE + PREMIUM INTERACTION
-========================================== */
-
-
-/* ==========================================
-   DAILY STAMP RULE
-========================================== */
-
-const DAILY_STAMP_LIMIT =
-    1;
-
-
-/* ==========================================
-   DAILY STAMP MESSAGE
-========================================== */
-
-const DAILY_STAMP_MESSAGE =
-
-    "ONE STAMP PER DAY — " +
-    "Multiple purchases on the same day " +
-    "will still count as only ONE loyalty stamp.";
-
-
-/* ==========================================
-   NEXT PURCHASE DAY MESSAGE
-========================================== */
-
-const NEXT_DAY_MESSAGE =
-
-    "Your next loyalty stamp will be available " +
-    "on your next purchase day.";
-
-
-/* ==========================================
-   QR CARD ANIMATION
-========================================== */
-
-const qrCard =
-    document.querySelector(
-        ".premium-qr-card"
-    );
-
-
-if (qrCard) {
-
-    qrCard.addEventListener(
-
-        "mouseenter",
-
-        () => {
-
-            qrCard.classList.add(
-                "qr-hover"
-            );
-
-        }
-
-    );
-
-
-    qrCard.addEventListener(
-
-        "mouseleave",
-
-        () => {
-
-            qrCard.classList.remove(
-                "qr-hover"
-            );
-
-        }
-
-    );
-
-}
-
-
-/* ==========================================
-   QR TOUCH ANIMATION
-   MOBILE + TABLET
-========================================== */
-
-if (qrCard) {
-
-    qrCard.addEventListener(
-
-        "touchstart",
-
-        () => {
-
-            qrCard.classList.add(
-                "qr-touch"
-            );
-
-        },
-
-        {
-            passive: true
-        }
-
-    );
-
-
-    qrCard.addEventListener(
-
-        "touchend",
-
-        () => {
-
-            setTimeout(
-
-                () => {
-
-                    qrCard.classList.remove(
-                        "qr-touch"
-                    );
-
-                },
-
-                500
-
-            );
-
-        },
-
-        {
-            passive: true
-        }
-
-    );
-
-}
-
-
-/* ==========================================
-   QR SCAN TITLE ANIMATION
-========================================== */
-
-const scanTitle =
-    document.querySelector(
-        ".scan-title"
-    );
-
-
-if (scanTitle) {
-
-    scanTitle.classList.add(
-        "scan-title-ready"
-    );
-
-}
-
-
-/* ==========================================
-   CUSTOMER PHOTO ANIMATION
+   CUSTOMER PHOTO LOAD ANIMATION
 ========================================== */
 
 if (customerPhoto) {
@@ -810,44 +825,163 @@ function showQRReadyAnimation() {
     }
 
 
-    qrCode.classList.remove(
-        "qr-generated"
+    restartQRAnimation();
+
+}
+
+
+/* ==========================================
+   EXPORT QR GENERATION FUNCTION
+   PART 3 WILL CONTROL AUTH FLOW
+========================================== */
+
+window.generateCustomerQR =
+    generateCustomerQR;
+
+
+/* ==========================================
+   END QR.JS — PART 2/3
+========================================== */
+/* ==========================================
+   RIO MAGGI POINT
+   QR.JS — PART 3/3
+   FINAL QR FLOW + INTERACTION + SERVICE WORKER
+   CLEANED + DUPLICATE-FREE
+========================================== */
+
+
+/* ==========================================
+   DAILY STAMP RULE
+========================================== */
+
+const DAILY_STAMP_LIMIT =
+    1;
+
+
+const DAILY_STAMP_MESSAGE =
+    "ONE STAMP PER DAY — Multiple purchases on the same day will still count as only ONE loyalty stamp.";
+
+
+const NEXT_DAY_MESSAGE =
+    "Your next loyalty stamp will be available on your next purchase day.";
+
+
+/* ==========================================
+   QR CARD
+========================================== */
+
+const qrCard =
+    document.querySelector(
+        ".premium-qr-card"
     );
 
 
-    /* ==================================
-       FORCE ANIMATION RESTART
-    ================================== */
+/* ==========================================
+   QR CARD HOVER
+   DESKTOP
+========================================== */
 
-    void qrCode.offsetWidth;
+if (qrCard) {
+
+    qrCard.addEventListener(
+        "mouseenter",
+        () => {
+
+            qrCard.classList.add(
+                "qr-hover"
+            );
+
+        }
+    );
 
 
-    qrCode.classList.add(
-        "qr-generated"
+    qrCard.addEventListener(
+        "mouseleave",
+        () => {
+
+            qrCard.classList.remove(
+                "qr-hover"
+            );
+
+        }
     );
 
 }
 
 
 /* ==========================================
-   RUN QR ANIMATION
+   QR CARD TOUCH
+   MOBILE / TABLET
 ========================================== */
 
-setTimeout(
+if (qrCard) {
 
-    () => {
+    qrCard.addEventListener(
+        "touchstart",
+        () => {
 
-        showQRReadyAnimation();
+            qrCard.classList.add(
+                "qr-touch"
+            );
 
-    },
+        },
+        {
+            passive: true
+        }
+    );
 
-    300
 
-);
+    qrCard.addEventListener(
+        "touchend",
+        () => {
+
+            setTimeout(
+                () => {
+
+                    qrCard.classList.remove(
+                        "qr-touch"
+                    );
+
+                },
+                500
+            );
+
+        },
+        {
+            passive: true
+        }
+    );
+
+}
 
 
 /* ==========================================
-   DAILY STAMP RULE HIGHLIGHT
+   SCAN TITLE READY
+========================================== */
+
+const scanTitle =
+    document.querySelector(
+        ".scan-title"
+    );
+
+
+if (scanTitle) {
+
+    requestAnimationFrame(
+        () => {
+
+            scanTitle.classList.add(
+                "scan-title-ready"
+            );
+
+        }
+    );
+
+}
+
+
+/* ==========================================
+   DAILY STAMP RULE
 ========================================== */
 
 const dailyStampRule =
@@ -865,19 +999,13 @@ if (dailyStampRule) {
 
 
     dailyStampRule.addEventListener(
-
         "click",
-
         () => {
 
             dailyStampRule.classList.remove(
                 "rule-highlight"
             );
 
-
-            /* ==============================
-               RESTART HIGHLIGHT ANIMATION
-            ============================== */
 
             void dailyStampRule.offsetWidth;
 
@@ -887,14 +1015,13 @@ if (dailyStampRule) {
             );
 
         }
-
     );
 
 }
 
 
 /* ==========================================
-   PREMIUM QR CARD OBSERVER
+   QR SECTION INTERSECTION OBSERVER
 ========================================== */
 
 const premiumQRSection =
@@ -909,13 +1036,13 @@ if (
 ) {
 
     const qrObserver =
-
         new IntersectionObserver(
-
-            (entries) => {
+            (
+                entries,
+                observer
+            ) => {
 
                 entries.forEach(
-
                     (entry) => {
 
                         if (
@@ -926,21 +1053,20 @@ if (
                                 "section-visible"
                             );
 
+
+                            observer.unobserve(
+                                entry.target
+                            );
+
                         }
 
                     }
-
                 );
 
             },
-
             {
-
-                threshold:
-                    0.2
-
+                threshold: 0.2
             }
-
         );
 
 
@@ -953,6 +1079,7 @@ if (
 
 /* ==========================================
    SERVICE WORKER
+   SINGLE REGISTRATION
 ========================================== */
 
 if (
@@ -960,28 +1087,20 @@ if (
 ) {
 
     window.addEventListener(
-
         "load",
-
         async () => {
 
             try {
 
                 const registration =
-
                     await navigator.serviceWorker.register(
-
                         "./service-worker.js"
-
                     );
 
 
                 console.log(
-
                     "Rio Maggi Point Service Worker Registered:",
-
                     registration.scope
-
                 );
 
             }
@@ -990,71 +1109,30 @@ if (
             catch (error) {
 
                 console.error(
-
                     "Service Worker Registration Failed:",
-
                     error
-
                 );
 
             }
 
+        },
+        {
+            once: true
         }
-
     );
 
 }
 
 
 /* ==========================================
-   FINAL QR.JS STARTUP
+   FINAL STARTUP LOG
 ========================================== */
 
 console.log(
-    "==================================="
-);
-
-
-console.log(
-    "RIO MAGGI POINT"
-);
-
-
-console.log(
-    "PREMIUM QR SYSTEM READY"
-);
-
-
-console.log(
-    "CUSTOMER AUTH READY"
-);
-
-
-console.log(
-    "QR GENERATION READY"
-);
-
-
-console.log(
-    "DAILY STAMP RULE READY"
-);
-
-
-console.log(
-    "QR ANIMATION READY"
-);
-
-
-console.log(
-    "SERVICE WORKER READY"
-);
-
-
-console.log(
-    "==================================="
+    "Rio Maggi Point Premium QR System Ready"
 );
 
 
 /* ==========================================
-   QR.JS END
+   END QR.JS — PART 3/3
 ========================================== */
