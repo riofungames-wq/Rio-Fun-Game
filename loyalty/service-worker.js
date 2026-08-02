@@ -1,8 +1,8 @@
 // ======================================
 // RIO MAGGI POINT
 // SERVICE WORKER
-// STABLE PWA + CACHE SYSTEM
-// COMPLETE CLEAN VERSION
+// FINAL STABLE VERSION
+// PART 1 / 3
 // ======================================
 
 const CACHE_NAME = "rio-maggi-v6";
@@ -40,29 +40,32 @@ const STATIC_FILES = [
 // INSTALL
 // ======================================
 
-self.addEventListener(
-    "install",
-    (event) => {
+self.addEventListener("install", (event) => {
 
-        event.waitUntil(
+    event.waitUntil(
 
-            (async () => {
+        (async () => {
 
-                const cache =
-                    await caches.open(
-                        CACHE_NAME
-                    );
+            const cache = await caches.open(CACHE_NAME);
 
+            // Cache files individually.
+            // If one file fails, installation continues.
+            for (const file of STATIC_FILES) {
 
-                for (
-                    const file
-                    of STATIC_FILES
-                ) {
+                try {
 
-                    try {
+                    const response = await fetch(file, {
+                        cache: "no-cache"
+                    });
 
-                        await cache.add(
-                            file
+                    if (
+                        response.ok &&
+                        response.type === "basic"
+                    ) {
+
+                        await cache.put(
+                            file,
+                            response
                         );
 
                         console.log(
@@ -72,146 +75,150 @@ self.addEventListener(
 
                     }
 
-                    catch (error) {
+                } catch (error) {
 
-                        console.warn(
-                            "[SW] Cache skipped:",
-                            file,
-                            error
-                        );
-
-                    }
+                    console.warn(
+                        "[SW] Cache skipped:",
+                        file,
+                        error
+                    );
 
                 }
 
-            })()
+            }
 
-        );
+        })()
+
+    );
+
+    // Activate new service worker immediately.
+    self.skipWaiting();
+
+});
 
 
-        // Activate new SW immediately
-        self.skipWaiting();
-
-    }
-);
+// ======================================
+// SERVICE WORKER PART 1 END
+// NEXT: PART 2 / 3
+// ======================================
+// ======================================
+// RIO MAGGI POINT
+// SERVICE WORKER
+// FINAL STABLE VERSION
+// PART 2 / 3
+// ======================================
 
 
 // ======================================
 // ACTIVATE
-// REMOVE OLD CACHE VERSIONS
+// REMOVE OLD CACHE
 // ======================================
 
-self.addEventListener(
-    "activate",
-    (event) => {
+self.addEventListener("activate", (event) => {
 
-        event.waitUntil(
+    event.waitUntil(
 
-            (async () => {
+        (async () => {
 
-                const cacheNames =
-                    await caches.keys();
+            const cacheNames =
+                await caches.keys();
 
+            await Promise.all(
 
-                await Promise.all(
+                cacheNames.map((cacheName) => {
 
-                    cacheNames.map(
-                        (cacheName) => {
+                    // Delete every old Rio cache.
+                    // Keep only the current version.
+                    if (
+                        cacheName !== CACHE_NAME
+                    ) {
 
-                            if (
-                                cacheName !== CACHE_NAME
-                            ) {
+                        console.log(
+                            "[SW] Removing old cache:",
+                            cacheName
+                        );
 
-                                console.log(
-                                    "[SW] Deleting old cache:",
-                                    cacheName
-                                );
+                        return caches.delete(
+                            cacheName
+                        );
 
+                    }
 
-                                return caches.delete(
-                                    cacheName
-                                );
+                    return Promise.resolve();
 
-                            }
+                })
 
+            );
 
-                            return Promise.resolve();
+            // Take control of all open pages
+            // without requiring a refresh.
+            await self.clients.claim();
 
-                        }
-                    )
+            console.log(
+                "[SW] Activated:",
+                CACHE_NAME
+            );
 
-                );
+        })()
 
+    );
 
-                // Take control of all open pages
-                await self.clients.claim();
-
-            })()
-
-        );
-
-    }
-);
+});
 
 
 // ======================================
 // FETCH
-// SAME-ORIGIN REQUESTS ONLY
+// GITHUB PAGES SAFE
 // ======================================
 
-self.addEventListener(
-    "fetch",
-    (event) => {
+self.addEventListener("fetch", (event) => {
 
-        // Ignore non-GET requests
-        if (
-            event.request.method !== "GET"
-        ) {
+    // Only handle GET requests.
+    if (
+        event.request.method !== "GET"
+    ) {
 
-            return;
-
-        }
-
-
-        const requestURL =
-            new URL(
-                event.request.url
-            );
-
-
-        // Ignore external resources
-        // Firebase, Google Fonts,
-        // Font Awesome CDN, QRCode CDN etc.
-        if (
-            requestURL.origin !==
-            self.location.origin
-        ) {
-
-            return;
-
-        }
-
-
-        event.respondWith(
-
-            handleFetch(
-                event.request
-            )
-
-        );
+        return;
 
     }
-);
+
+
+    const url =
+        new URL(
+            event.request.url
+        );
+
+
+    // Ignore external requests.
+    // Firebase, Google CDN, QR libraries,
+    // Font Awesome, etc. stay network-controlled.
+    if (
+        url.origin !== self.location.origin
+    ) {
+
+        return;
+
+    }
+
+
+    event.respondWith(
+
+        handleFetch(
+            event.request
+        )
+
+    );
+
+});
 
 
 // ======================================
-// FETCH HANDLER
+// HANDLE FETCH
 // NETWORK FIRST
+// CACHE FALLBACK
 // ======================================
 
-async function handleFetch(
-    request
-) {
+async function handleFetch(request) {
 
     const cache =
         await caches.open(
@@ -221,28 +228,22 @@ async function handleFetch(
 
     try {
 
-        // ==================================
-        // ALWAYS TRY NETWORK FIRST
-        // This prevents old QR HTML/JS/CSS
-        // from being permanently served.
-        // ==================================
-
+        // Always try the latest network version first.
         const networkResponse =
             await fetch(
                 request
             );
 
 
-        // ==================================
-        // CACHE SUCCESSFUL RESPONSES
-        // ==================================
-
+        // Cache only valid same-origin responses.
         if (
             networkResponse &&
             networkResponse.ok &&
             networkResponse.type === "basic"
         ) {
 
+            // Clone before storing because
+            // a response body can only be consumed once.
             await cache.put(
                 request,
                 networkResponse.clone()
@@ -264,29 +265,23 @@ async function handleFetch(
         );
 
 
-        // ==================================
-        // FALLBACK TO CACHE
-        // ==================================
-
+        // If network fails,
+        // try returning the cached version.
         const cachedResponse =
             await cache.match(
                 request
             );
 
 
-        if (
-            cachedResponse
-        ) {
+        if (cachedResponse) {
 
             return cachedResponse;
 
         }
 
 
-        // ==================================
-        // OFFLINE HTML NAVIGATION
-        // ==================================
-
+        // For page navigation,
+        // show the offline page.
         if (
             request.mode === "navigate"
         ) {
@@ -297,9 +292,7 @@ async function handleFetch(
                 );
 
 
-            if (
-                offlinePage
-            ) {
+            if (offlinePage) {
 
                 return offlinePage;
 
@@ -308,18 +301,14 @@ async function handleFetch(
         }
 
 
-        // ==================================
-        // FINAL OFFLINE RESPONSE
-        // ==================================
-
+        // Final fallback.
         return new Response(
 
             "You are currently offline.",
 
             {
 
-                status:
-                    503,
+                status: 503,
 
                 statusText:
                     "Service Unavailable",
@@ -341,8 +330,19 @@ async function handleFetch(
 
 
 // ======================================
+// SERVICE WORKER PART 2 END
+// NEXT: PART 3 / 3
+// ======================================
+// ======================================
+// RIO MAGGI POINT
+// SERVICE WORKER
+// FINAL STABLE VERSION
+// PART 3 / 3
+// ======================================
+
+
+// ======================================
 // MESSAGE EVENT
-// FORCE NEW SERVICE WORKER
 // ======================================
 
 self.addEventListener(
@@ -350,7 +350,18 @@ self.addEventListener(
     (event) => {
 
         if (
-            event.data &&
+            !event.data ||
+            typeof event.data !== "object"
+        ) {
+
+            return;
+
+        }
+
+
+        // Allow the website to force
+        // immediate activation of a new SW.
+        if (
             event.data.type ===
             "SKIP_WAITING"
         ) {
@@ -380,11 +391,7 @@ console.log(
 );
 
 console.log(
-    "Network First Cache Strategy"
-);
-
-console.log(
-    "QR Page Cache Updated"
+    "Network First + Cache Fallback"
 );
 
 console.log(
@@ -392,5 +399,14 @@ console.log(
 );
 
 console.log(
+    "Offline Fallback Ready"
+);
+
+console.log(
     "================================"
 );
+
+
+// ======================================
+// SERVICE WORKER END
+// ======================================
