@@ -2,7 +2,6 @@
    RIO MAGGI POINT
    QR.CSS — PART 1/3
    PREMIUM RESPONSIVE QR PAGE
-   CLEAN + CONSOLIDATED VERSION
 ========================================== */
 
 
@@ -51,9 +50,7 @@
    RESET
 ========================================== */
 
-*,
-*::before,
-*::after {
+* {
 
     margin: 0;
 
@@ -83,14 +80,8 @@ body {
 
     margin: 0;
 
-    padding-bottom:
-        calc(
-            var(--nav-height) + 30px
-        );
-
-    overflow-x: hidden;
-
     background:
+
         radial-gradient(
             circle at top,
             #fff1c8 0%,
@@ -98,26 +89,26 @@ body {
             #e8c47d 100%
         );
 
-    color:
-        var(--text-dark);
+    color: var(--text-dark);
 
     font-family:
-        "Poppins",
+        'Poppins',
         Arial,
         Helvetica,
         sans-serif;
 
-    -webkit-font-smoothing:
-        antialiased;
+    overflow-x: hidden;
 
-    text-rendering:
-        optimizeLegibility;
+    padding-bottom:
+        calc(
+            var(--nav-height) + 30px
+        );
 
 }
 
 
 /* ==========================================
-   IMAGE SAFETY
+   IMAGES
 ========================================== */
 
 img {
@@ -126,6 +117,10 @@ img {
 
 }
 
+
+/* ==========================================
+   BUTTON / LINK DEFAULT
+========================================== */
 
 button,
 a {
@@ -150,18 +145,23 @@ a {
 
     justify-content: center;
 
+    align-items: flex-start;
+
     padding:
         24px 16px 30px;
 
 }
 
 
+/* ==========================================
+   QR CARD WIDTH CONTROL
+========================================== */
+
 .page > .qr-card {
 
     width: 100%;
 
-    max-width:
-        var(--max-width);
+    max-width: var(--max-width);
 
 }
 
@@ -177,6 +177,7 @@ a {
     width: 100%;
 
     background:
+
         linear-gradient(
             145deg,
             #fffdf5 0%,
@@ -195,17 +196,16 @@ a {
         26px 22px 28px;
 
     box-shadow:
+
         0 18px 45px
         rgba(70, 45, 15, .18),
 
         0 5px 15px
         rgba(70, 45, 15, .10);
 
-    overflow:
-        hidden;
+    overflow: hidden;
 
-    isolation:
-        isolate;
+    isolation: isolate;
 
 }
 
@@ -218,33 +218,27 @@ a {
 
     position: absolute;
 
-    top:
-        -110px;
+    width: 220px;
 
-    right:
-        -90px;
+    height: 220px;
 
-    width:
-        220px;
+    top: -110px;
 
-    height:
-        220px;
-
-    border-radius:
-        50%;
+    right: -90px;
 
     background:
+
         radial-gradient(
             circle,
-            rgba(255, 213, 79, .38),
+            rgba(255,213,79,.38),
             transparent 70%
         );
 
-    pointer-events:
-        none;
+    border-radius: 50%;
 
-    z-index:
-        -1;
+    pointer-events: none;
+
+    z-index: -1;
 
     animation:
         qrGlow 5s ease-in-out infinite;
@@ -286,34 +280,29 @@ a {
 
     position: absolute;
 
-    top:
-        0;
+    top: 0;
 
-    left:
-        -120%;
+    left: -120%;
 
-    width:
-        70%;
+    width: 70%;
 
-    height:
-        100%;
+    height: 100%;
 
     background:
+
         linear-gradient(
             100deg,
             transparent,
-            rgba(255, 255, 255, .32),
+            rgba(255,255,255,.32),
             transparent
         );
 
     transform:
         skewX(-20deg);
 
-    pointer-events:
-        none;
+    pointer-events: none;
 
-    z-index:
-        2;
+    z-index: 2;
 
     animation:
         cardShine 7s ease-in-out infinite;
@@ -325,22 +314,19 @@ a {
 
     0% {
 
-        left:
-            -120%;
+        left: -120%;
 
     }
 
     35% {
 
-        left:
-            140%;
+        left: 140%;
 
     }
 
     100% {
 
-        left:
-            140%;
+        left: 140%;
 
     }
 
@@ -353,14 +339,9 @@ a {
 
 .qr-header {
 
-    position:
-        relative;
+    position: relative;
 
-    z-index:
-        3;
-
-    text-align:
-        center;
+    text-align: center;
 
     padding:
         4px 5px 22px;
@@ -370,8 +351,7 @@ a {
 
 .qr-header h1 {
 
-    margin:
-        0;
+    margin: 0;
 
     font-size:
         clamp(
@@ -407,9 +387,6 @@ a {
             15px
         );
 
-    line-height:
-        1.5;
-
     font-weight:
         600;
 
@@ -428,12 +405,6 @@ a {
 
 .customer-section {
 
-    position:
-        relative;
-
-    z-index:
-        3;
-
     display:
         flex;
 
@@ -442,9 +413,6 @@ a {
 
     align-items:
         center;
-
-    width:
-        100%;
 
     text-align:
         center;
@@ -456,7 +424,7 @@ a {
 
 
 /* ==========================================
-   CUSTOMER AVATAR FRAME
+   CUSTOMER AVATAR
 ========================================== */
 
 .avatar-frame {
@@ -470,13 +438,11 @@ a {
     padding:
         3px;
 
-    flex:
-        0 0 auto;
-
     border-radius:
         50%;
 
     background:
+
         linear-gradient(
             135deg,
             var(--accent-color),
@@ -485,8 +451,9 @@ a {
         );
 
     box-shadow:
+
         0 7px 18px
-        rgba(0, 0, 0, .16);
+        rgba(0,0,0,.16);
 
     overflow:
         hidden;
@@ -496,14 +463,14 @@ a {
 
 .avatar-frame img {
 
-    display:
-        block;
-
     width:
         100%;
 
     height:
         100%;
+
+    display:
+        block;
 
     object-fit:
         cover;
@@ -514,6 +481,46 @@ a {
 
     border-radius:
         50%;
+
+    background:
+        var(--card-bg);
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease;
+
+}
+
+
+.avatar-frame img.photo-loaded {
+
+    animation:
+        avatarLoaded .5s ease both;
+
+}
+
+
+@keyframes avatarLoaded {
+
+    from {
+
+        opacity:
+            .4;
+
+        transform:
+            scale(.92);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            scale(1);
+
+    }
 
 }
 
@@ -534,14 +541,14 @@ a {
             21px
         );
 
-    line-height:
-        1.3;
-
     font-weight:
         700;
 
     color:
         var(--dark-green);
+
+    line-height:
+        1.3;
 
     word-break:
         break-word;
@@ -550,7 +557,7 @@ a {
 
 
 /* ==========================================
-   CUSTOMER MEMBER ID
+   CUSTOMER ID
 ========================================== */
 
 .customer-id {
@@ -560,9 +567,6 @@ a {
 
     font-size:
         12px;
-
-    line-height:
-        1.5;
 
     font-weight:
         500;
@@ -585,37 +589,7 @@ a {
 
 
 /* ==========================================
-   CUSTOMER PHOTO LOADED ANIMATION
-========================================== */
-
-.customer-photo {
-
-    opacity:
-        0;
-
-    transform:
-        scale(.92);
-
-    transition:
-        opacity .35s ease,
-        transform .35s ease;
-
-}
-
-
-.customer-photo.photo-loaded {
-
-    opacity:
-        1;
-
-    transform:
-        scale(1);
-
-}
-
-
-/* ==========================================
-   TABLET + DESKTOP
+   TABLET / DESKTOP
 ========================================== */
 
 @media (min-width: 768px) {
@@ -650,7 +624,7 @@ a {
     .page {
 
         padding:
-            18px 10px 25px;
+            16px 10px 24px;
 
     }
 
@@ -669,13 +643,10 @@ a {
     }
 
 
-    .customer-section {
+    .qr-header {
 
-        padding-left:
-            4px;
-
-        padding-right:
-            4px;
+        padding-bottom:
+            18px;
 
     }
 
@@ -694,7 +665,7 @@ a {
 
 
 /* ==========================================
-   REDUCED MOTION ACCESSIBILITY
+   ACCESSIBILITY
 ========================================== */
 
 @media (prefers-reduced-motion: reduce) {
@@ -726,1587 +697,409 @@ a {
 
 
 /* ==========================================
-   END QR.CSS — PART 1/3
+   END PART 1/3
 ========================================== */
-/* ==========================================
-   RIO MAGGI POINT
-   QR.CSS — PART 2/3
-   PREMIUM QR + DAILY LOYALTY RULE
-========================================== */
+// ======================================
+// RIO MAGGI POINT
+// SERVICE WORKER
+// FINAL STABLE VERSION
+// PART 2 / 3
+// ======================================
 
 
-/* ==========================================
-   PREMIUM QR SECTION
-========================================== */
+// ======================================
+// ACTIVATE
+// REMOVE OLD CACHE
+// ======================================
 
-.premium-qr-section {
+self.addEventListener(
+    "activate",
+    (event) => {
 
-    position:
-        relative;
+        event.waitUntil(
 
-    z-index:
-        3;
+            (async () => {
 
-    width:
-        100%;
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    align-items:
-        center;
-
-    text-align:
-        center;
-
-    padding:
-        18px 0 22px;
-
-    border-top:
-        1px solid
-        rgba(209, 155, 74, .35);
-
-}
+                const cacheNames =
+                    await caches.keys();
 
 
-/* ==========================================
-   SCAN TITLE
-========================================== */
+                await Promise.all(
 
-.scan-title {
+                    cacheNames.map(
 
-    display:
-        flex;
+                        (cacheName) => {
 
-    align-items:
-        center;
+                            if (
+                                cacheName !== CACHE_NAME
+                            ) {
 
-    justify-content:
-        center;
+                                console.log(
+                                    "Delete Old Cache:",
+                                    cacheName
+                                );
 
-    gap:
-        9px;
+                                return caches.delete(
+                                    cacheName
+                                );
 
-    width:
-        100%;
+                            }
 
-    margin:
-        0;
+                            return Promise.resolve();
 
-    font-size:
-        clamp(
-            14px,
-            3.5vw,
-            17px
+                        }
+
+                    )
+
+                );
+
+
+                // Take control immediately
+                await self.clients.claim();
+
+            })()
+
         );
 
-    line-height:
-        1.4;
-
-    font-weight:
-        800;
-
-    letter-spacing:
-        .5px;
-
-    color:
-        var(--dark-green);
-
-    opacity:
-        0;
-
-    transform:
-        translateY(8px);
-
-    transition:
-        opacity .45s ease,
-        transform .45s ease;
-
-}
-
-
-.scan-title.scan-title-ready {
-
-    opacity:
-        1;
-
-    transform:
-        translateY(0);
-
-}
-
-
-.scan-title i {
-
-    flex:
-        0 0 auto;
-
-    font-size:
-        clamp(
-            20px,
-            5vw,
-            25px
-        );
-
-    color:
-        var(--red);
-
-}
-
-
-/* ==========================================
-   PREMIUM QR OUTER CARD
-========================================== */
-
-.premium-qr-card {
-
-    position:
-        relative;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    width:
-        100%;
-
-    max-width:
-        310px;
-
-    margin:
-        18px auto 12px;
-
-    padding:
-        14px;
-
-    background:
-        var(--white);
-
-    border:
-        3px solid
-        var(--accent-color);
-
-    border-radius:
-        18px;
-
-    box-shadow:
-        0 10px 25px
-        rgba(70, 45, 15, .16);
-
-    overflow:
-        hidden;
-
-    cursor:
-        pointer;
-
-    transition:
-        transform .3s ease,
-        box-shadow .3s ease;
-
-}
-
-
-/* ==========================================
-   QR CARD DECORATION
-========================================== */
-
-.premium-qr-card::before {
-
-    content:
-        "";
-
-    position:
-        absolute;
-
-    inset:
-        6px;
-
-    border:
-        1px solid
-        rgba(209, 155, 74, .25);
-
-    border-radius:
-        12px;
-
-    pointer-events:
-        none;
-
-}
-
-
-/* ==========================================
-   QR BOX
-========================================== */
-
-.qr-box {
-
-    position:
-        relative;
-
-    z-index:
-        2;
-
-    width:
-        100%;
-
-    aspect-ratio:
-        1 / 1;
-
-    min-width:
-        0;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    background:
-        #ffffff;
-
-    border-radius:
-        8px;
-
-    overflow:
-        hidden;
-
-}
-
-
-/* ==========================================
-   QR LIBRARY GENERATED ELEMENTS
-   Supports:
-   IMG + CANVAS + TABLE
-========================================== */
-
-.qr-box img,
-.qr-box canvas {
-
-    display:
-        block;
-
-    width:
-        100% !important;
-
-    height:
-        100% !important;
-
-    max-width:
-        100%;
-
-    max-height:
-        100%;
-
-    object-fit:
-        contain;
-
-}
-
-
-/* ==========================================
-   QR CODE TABLE FALLBACK
-   Some QR libraries generate TABLE
-========================================== */
-
-.qr-box table {
-
-    width:
-        100% !important;
-
-    height:
-        100% !important;
-
-    border-collapse:
-        collapse;
-
-    margin:
-        0;
-
-}
-
-
-/* ==========================================
-   QR TABLE CELL FIX
-========================================== */
-
-.qr-box table td {
-
-    padding:
-        0;
-
-    margin:
-        0;
-
-    line-height:
-        0;
-
-}
-
-
-/* ==========================================
-   QR GENERATED ANIMATION
-========================================== */
-
-.qr-box.qr-generated {
-
-    animation:
-        qrAppear .55s ease both;
-
-}
-
-
-@keyframes qrAppear {
-
-    0% {
-
-        opacity:
-            0;
-
-        transform:
-            scale(.88);
-
     }
+);
 
-    60% {
 
-        opacity:
-            1;
+// ======================================
+// FETCH
+// GITHUB PAGES SAFE
+// ======================================
 
-        transform:
-            scale(1.03);
+self.addEventListener(
+    "fetch",
+    (event) => {
 
-    }
+        // Only handle GET requests
+        if (
+            event.request.method !== "GET"
+        ) {
 
-    100% {
+            return;
 
-        opacity:
-            1;
+        }
 
-        transform:
-            scale(1);
 
-    }
-
-}
-
-
-/* ==========================================
-   QR HOVER
-========================================== */
-
-.premium-qr-card.qr-hover {
-
-    transform:
-        translateY(-3px);
-
-    box-shadow:
-        0 15px 32px
-        rgba(70, 45, 15, .22);
-
-}
-
-
-/* ==========================================
-   QR TOUCH
-========================================== */
-
-.premium-qr-card.qr-touch {
-
-    transform:
-        scale(.98);
-
-}
-
-
-/* ==========================================
-   QR STATUS
-========================================== */
-
-.qr-status {
-
-    width:
-        100%;
-
-    max-width:
-        340px;
-
-    min-height:
-        24px;
-
-    margin:
-        0;
-
-    padding:
-        5px 10px;
-
-    font-size:
-        clamp(
-            11px,
-            2.8vw,
-            14px
-        );
-
-    line-height:
-        1.5;
-
-    font-weight:
-        500;
-
-    color:
-        var(--text-muted);
-
-    text-align:
-        center;
-
-    transition:
-        color .3s ease,
-        transform .3s ease;
-
-}
-
-
-/* ==========================================
-   QR READY STATUS
-========================================== */
-
-.qr-status.ready {
-
-    color:
-        var(--dark-green);
-
-    font-weight:
-        700;
-
-}
-
-
-/* ==========================================
-   QR STATUS PULSE
-========================================== */
-
-.qr-status.status-pulse {
-
-    animation:
-        statusPulse 2s ease-in-out infinite;
-
-}
-
-
-@keyframes statusPulse {
-
-    0%,
-    100% {
-
-        opacity:
-            .7;
-
-    }
-
-    50% {
-
-        opacity:
-            1;
-
-    }
-
-}
-
-
-/* ==========================================
-   DAILY STAMP RULE
-========================================== */
-
-.daily-stamp-rule {
-
-    position:
-        relative;
-
-    width:
-        100%;
-
-    display:
-        flex;
-
-    align-items:
-        flex-start;
-
-    gap:
-        14px;
-
-    margin:
-        4px 0 22px;
-
-    padding:
-        18px 16px;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--dark-green),
-            #1d291e
-        );
-
-    border:
-        2px solid
-        var(--accent-color);
-
-    border-radius:
-        16px;
-
-    box-shadow:
-        0 8px 20px
-        rgba(38, 53, 37, .20);
-
-    overflow:
-        hidden;
-
-    cursor:
-        pointer;
-
-    transition:
-        transform .3s ease,
-        box-shadow .3s ease;
-
-}
-
-
-/* ==========================================
-   DAILY RULE DECORATION
-========================================== */
-
-.daily-stamp-rule::after {
-
-    content:
-        "";
-
-    position:
-        absolute;
-
-    right:
-        -35px;
-
-    bottom:
-        -45px;
-
-    width:
-        90px;
-
-    height:
-        90px;
-
-    border:
-        2px solid
-        rgba(255, 213, 79, .22);
-
-    border-radius:
-        50%;
-
-    pointer-events:
-        none;
-
-}
-
-
-/* ==========================================
-   DAILY RULE ICON
-========================================== */
-
-.daily-rule-icon {
-
-    flex:
-        0 0 46px;
-
-    width:
-        46px;
-
-    height:
-        46px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    background:
-        var(--gold);
-
-    color:
-        var(--dark-green);
-
-    border-radius:
-        12px;
-
-    font-size:
-        21px;
-
-    box-shadow:
-        0 4px 10px
-        rgba(0, 0, 0, .18);
-
-}
-
-
-.daily-rule-icon i {
-
-    line-height:
-        1;
-
-}
-
-
-/* ==========================================
-   DAILY RULE CONTENT
-========================================== */
-
-.daily-rule-content {
-
-    flex:
-        1;
-
-    min-width:
-        0;
-
-}
-
-
-.daily-rule-content h3 {
-
-    margin:
-        0 0 8px;
-
-    font-size:
-        clamp(
-            15px,
-            3.8vw,
-            19px
-        );
-
-    line-height:
-        1.35;
-
-    font-weight:
-        800;
-
-    letter-spacing:
-        .4px;
-
-    color:
-        var(--gold);
-
-}
-
-
-.daily-rule-content p {
-
-    margin:
-        0 0 9px;
-
-    font-size:
-        clamp(
-            13px,
-            3.3vw,
-            16px
-        );
-
-    line-height:
-        1.65;
-
-    font-weight:
-        500;
-
-    color:
-        var(--white);
-
-}
-
-
-.daily-rule-content p:last-child {
-
-    margin-bottom:
-        0;
-
-}
-
-
-.daily-rule-content strong {
-
-    color:
-        var(--gold);
-
-    font-weight:
-        800;
-
-}
-
-
-/* ==========================================
-   DAILY RULE HIGHLIGHT
-========================================== */
-
-.daily-stamp-rule.rule-highlight {
-
-    animation:
-        ruleHighlight .6s ease;
-
-}
-
-
-@keyframes ruleHighlight {
-
-    0% {
-
-        transform:
-            scale(1);
-
-        box-shadow:
-            0 8px 20px
-            rgba(38, 53, 37, .20);
-
-    }
-
-    50% {
-
-        transform:
-            scale(1.015);
-
-        box-shadow:
-            0 12px 30px
-            rgba(209, 155, 74, .35);
-
-    }
-
-    100% {
-
-        transform:
-            scale(1);
-
-        box-shadow:
-            0 8px 20px
-            rgba(38, 53, 37, .20);
-
-    }
-
-}
-
-
-/* ==========================================
-   SECTION REVEAL
-========================================== */
-
-.premium-qr-section.section-visible
-.premium-qr-card {
-
-    animation:
-        qrSectionReveal .55s ease both;
-
-}
-
-
-@keyframes qrSectionReveal {
-
-    from {
-
-        opacity:
-            0;
-
-        transform:
-            translateY(15px);
-
-    }
-
-    to {
-
-        opacity:
-            1;
-
-        transform:
-            translateY(0);
-
-    }
-
-}
-
-
-/* ==========================================
-   MOBILE QR SIZE
-========================================== */
-
-@media (max-width: 480px) {
-
-    .premium-qr-card {
-
-        max-width:
-            280px;
-
-        padding:
-            12px;
-
-    }
-
-}
-
-
-/* ==========================================
-   SMALL MOBILE
-========================================== */
-
-@media (max-width: 360px) {
-
-    .premium-qr-card {
-
-        max-width:
-            245px;
-
-        padding:
-            10px;
-
-        border-radius:
-            15px;
-
-    }
-
-
-    .daily-stamp-rule {
-
-        gap:
-            10px;
-
-        padding:
-            15px 12px;
-
-    }
-
-
-    .daily-rule-icon {
-
-        flex-basis:
-            40px;
-
-        width:
-            40px;
-
-        height:
-            40px;
-
-        font-size:
-            18px;
-
-    }
-
-
-    .daily-rule-content h3 {
-
-        font-size:
-            14px;
-
-    }
-
-
-    .daily-rule-content p {
-
-        font-size:
-            12px;
-
-        line-height:
-            1.55;
-
-    }
-
-}
-
-
-/* ==========================================
-   TABLET
-========================================== */
-
-@media (min-width: 768px) {
-
-    .premium-qr-card {
-
-        max-width:
-            330px;
-
-        padding:
-            16px;
-
-    }
-
-
-    .daily-stamp-rule {
-
-        padding:
-            20px 18px;
-
-    }
-
-}
-
-
-/* ==========================================
-   LAPTOP + DESKTOP
-========================================== */
-
-@media (min-width: 1024px) {
-
-    .page {
-
-        padding-top:
-            40px;
-
-    }
-
-
-    .premium-qr-card {
-
-        max-width:
-            340px;
-
-    }
-
-
-    .daily-stamp-rule {
-
-        padding:
-            21px 20px;
-
-    }
-
-}
-
-
-/* ==========================================
-   END QR.CSS — PART 2/3
-========================================== */
-/* ==========================================
-   RIO MAGGI POINT
-   QR.CSS — PART 3/3
-   INSTRUCTIONS + SECURITY + BOTTOM NAV
-========================================== */
-
-
-/* ==========================================
-   INSTRUCTION BOX
-========================================== */
-
-.instruction-box {
-
-    width:
-        100%;
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    gap:
-        12px;
-
-    margin:
-        0 0 20px;
-
-    padding:
-        18px;
-
-    background:
-        rgba(255, 255, 255, .55);
-
-    border:
-        2px solid
-        var(--border-color);
-
-    border-radius:
-        16px;
-
-    box-shadow:
-        0 6px 18px
-        rgba(70, 45, 15, .06);
-
-}
-
-
-/* ==========================================
-   INSTRUCTION ITEM
-========================================== */
-
-.instruction-item {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    gap:
-        13px;
-
-    width:
-        100%;
-
-    padding:
-        11px 10px;
-
-    background:
-        rgba(255, 255, 255, .72);
-
-    border-radius:
-        11px;
-
-    transition:
-        transform .25s ease,
-        background .25s ease;
-
-}
-
-
-.instruction-item:hover {
-
-    transform:
-        translateX(3px);
-
-    background:
-        rgba(255, 255, 255, .95);
-
-}
-
-
-/* ==========================================
-   INSTRUCTION NUMBER / ICON
-========================================== */
-
-.instruction-icon {
-
-    flex:
-        0 0 34px;
-
-    width:
-        34px;
-
-    height:
-        34px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    border-radius:
-        50%;
-
-    background:
-        var(--dark-green);
-
-    color:
-        var(--gold);
-
-    font-size:
-        15px;
-
-    font-weight:
-        800;
-
-}
-
-
-/* ==========================================
-   INSTRUCTION TEXT
-========================================== */
-
-.instruction-text {
-
-    flex:
-        1;
-
-    min-width:
-        0;
-
-    font-size:
-        clamp(
-            13px,
-            3.2vw,
-            16px
-        );
-
-    line-height:
-        1.55;
-
-    font-weight:
-        600;
-
-    color:
-        var(--text-dark);
-
-}
-
-
-/* ==========================================
-   SECURITY NOTE
-========================================== */
-
-.security-note {
-
-    width:
-        100%;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    gap:
-        9px;
-
-    margin:
-        0 0 25px;
-
-    padding:
-        12px 14px;
-
-    background:
-        rgba(38, 53, 37, .08);
-
-    border:
-        1px solid
-        rgba(38, 53, 37, .18);
-
-    border-radius:
-        12px;
-
-    text-align:
-        center;
-
-    color:
-        var(--text-muted);
-
-    font-size:
-        clamp(
-            11px,
-            2.8vw,
-            14px
-        );
-
-    line-height:
-        1.5;
-
-    font-weight:
-        500;
-
-}
-
-
-.security-note i {
-
-    flex:
-        0 0 auto;
-
-    color:
-        var(--dark-green);
-
-    font-size:
-        17px;
-
-}
-
-
-/* ==========================================
-   NAVIGATION SAFE SPACE
-========================================== */
-
-.nav-space {
-
-    width:
-        100%;
-
-    height:
-        95px;
-
-}
-
-
-/* ==========================================
-   FIXED PREMIUM BOTTOM NAV
-========================================== */
-
-.bottom-nav {
-
-    position:
-        fixed;
-
-    left:
-        50%;
-
-    bottom:
-        0;
-
-    transform:
-        translateX(-50%);
-
-    width:
-        100%;
-
-    max-width:
-        600px;
-
-    height:
-        74px;
-
-    display:
-        flex;
-
-    align-items:
-        stretch;
-
-    justify-content:
-        space-between;
-
-    padding:
-        6px 8px 0;
-
-    padding-bottom:
-        calc(
-            6px +
-            env(safe-area-inset-bottom)
-        );
-
-    background:
-        var(--dark-green);
-
-    border-top:
-        2px solid
-        var(--accent-color);
-
-    box-shadow:
-        0 -8px 25px
-        rgba(0, 0, 0, .18);
-
-    z-index:
-        9999;
-
-}
-
-
-/* ==========================================
-   NAV ITEM
-========================================== */
-
-.bottom-nav a {
-
-    flex:
-        1 1 0;
-
-    min-width:
-        0;
-
-    height:
-        62px;
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    gap:
-        4px;
-
-    padding:
-        5px 3px;
-
-    color:
-        var(--gold);
-
-    text-decoration:
-        none;
-
-    border-radius:
-        10px;
-
-    font-size:
-        10px;
-
-    font-weight:
-        600;
-
-    line-height:
-        1.2;
-
-    opacity:
-        .72;
-
-    transition:
-        color .2s ease,
-        background .2s ease,
-        opacity .2s ease,
-        transform .2s ease;
-
-}
-
-
-.bottom-nav a i {
-
-    width:
-        24px;
-
-    height:
-        24px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    font-size:
-        19px;
-
-    line-height:
-        1;
-
-}
-
-
-/* ==========================================
-   ACTIVE NAV
-========================================== */
-
-.bottom-nav a.active {
-
-    color:
-        var(--white);
-
-    background:
-        rgba(255, 213, 79, .12);
-
-    opacity:
-        1;
-
-}
-
-
-.bottom-nav a.active i {
-
-    transform:
-        translateY(-1px);
-
-}
-
-
-/* ==========================================
-   HOVER
-========================================== */
-
-.bottom-nav a:hover {
-
-    color:
-        var(--white);
-
-    opacity:
-        1;
-
-    transform:
-        translateY(-2px);
-
-}
-
-
-/* ==========================================
-   FOCUS ACCESSIBILITY
-========================================== */
-
-.bottom-nav a:focus-visible {
-
-    outline:
-        2px solid
-        var(--gold);
-
-    outline-offset:
-        -2px;
-
-}
-
-
-/* ==========================================
-   TABLET
-========================================== */
-
-@media (min-width: 768px) {
-
-    .bottom-nav {
-
-        height:
-            78px;
-
-        padding:
-            7px 12px 0;
-
-        padding-bottom:
-            calc(
-                7px +
-                env(safe-area-inset-bottom)
+        const url =
+            new URL(
+                event.request.url
             );
 
-    }
+
+        // Ignore external resources
+        // Firebase / Google / CDN
+        if (
+            url.origin !== self.location.origin
+        ) {
+
+            return;
+
+        }
 
 
-    .bottom-nav a {
+        // Handle same-origin requests
+        event.respondWith(
 
-        height:
-            64px;
+            fetchRequest(
+                event.request
+            )
 
-        font-size:
-            11px;
-
-    }
-
-
-    .bottom-nav a i {
-
-        font-size:
-            20px;
-
-    }
-
-
-    .nav-space {
-
-        height:
-            100px;
+        );
 
     }
-
-}
-
-
-/* ==========================================
-   LAPTOP + DESKTOP
-========================================== */
-
-@media (min-width: 1024px) {
-
-    .bottom-nav {
-
-        max-width:
-            600px;
-
-    }
-
-}
+);
 
 
-/* ==========================================
-   SMALL MOBILE
-========================================== */
+// ======================================
+// FETCH REQUEST
+// NETWORK FIRST
+// CACHE FALLBACK
+// ======================================
 
-@media (max-width: 360px) {
+async function fetchRequest(
+    request
+) {
 
-    .bottom-nav {
+    const cache =
+        await caches.open(
+            CACHE_NAME
+        );
 
-        height:
-            70px;
 
-        padding:
-            5px 4px 0;
+    try {
 
-        padding-bottom:
-            calc(
-                5px +
-                env(safe-area-inset-bottom)
+        // Try latest network version first
+        const networkResponse =
+            await fetch(
+                request
             );
 
+
+        // Cache only valid responses
+        if (
+            networkResponse &&
+            networkResponse.ok &&
+            networkResponse.type === "basic"
+        ) {
+
+            // Do not block response
+            // while updating cache
+            eventSafeCachePut(
+                cache,
+                request,
+                networkResponse.clone()
+            );
+
+        }
+
+
+        return networkResponse;
+
     }
 
 
-    .bottom-nav a {
+    catch (error) {
 
-        height:
-            58px;
-
-        font-size:
-            9px;
-
-        gap:
-            3px;
-
-    }
+        console.warn(
+            "Network failed. Checking cache:",
+            request.url
+        );
 
 
-    .bottom-nav a i {
+        // Try cached version
+        const cachedResponse =
+            await cache.match(
+                request
+            );
 
-        font-size:
-            17px;
 
-    }
+        if (
+            cachedResponse
+        ) {
+
+            return cachedResponse;
+
+        }
 
 
-    .nav-space {
+        // Offline page for navigation
+        if (
+            request.mode === "navigate"
+        ) {
 
-        height:
-            90px;
+            const offlinePage =
+                await cache.match(
+                    "./offline.html"
+                );
+
+
+            if (
+                offlinePage
+            ) {
+
+                return offlinePage;
+
+            }
+
+        }
+
+
+        // Final fallback
+        return new Response(
+
+            "You are currently offline.",
+
+            {
+
+                status: 503,
+
+                statusText:
+                    "Service Unavailable",
+
+                headers: {
+
+                    "Content-Type":
+                        "text/plain; charset=utf-8"
+
+                }
+
+            }
+
+        );
 
     }
 
 }
 
 
-/* ==========================================
-   REDUCED MOTION
-========================================== */
+// ======================================
+// SAFE CACHE UPDATE
+// ======================================
 
-@media (prefers-reduced-motion: reduce) {
+function eventSafeCachePut(
+    cache,
+    request,
+    response
+) {
 
-    *,
-    *::before,
-    *::after {
+    cache.put(
+        request,
+        response
+    )
 
-        animation-duration:
-            .01ms !important;
+    .catch(
+        (error) => {
 
-        animation-iteration-count:
-            1 !important;
+            console.warn(
+                "Cache update failed:",
+                error
+            );
 
-        transition-duration:
-            .01ms !important;
-
-        scroll-behavior:
-            auto !important;
-
-    }
+        }
+    );
 
 }
 
 
-/* ==========================================
-   END QR.CSS
-========================================== */
+// ======================================
+// MESSAGE EVENT
+// FORCE SERVICE WORKER UPDATE
+// ======================================
+
+self.addEventListener(
+    "message",
+    (event) => {
+
+        if (
+            !event.data
+        ) {
+
+            return;
+
+        }
+
+
+        if (
+            event.data.type ===
+            "SKIP_WAITING"
+        ) {
+
+            self.skipWaiting();
+
+        }
+
+    }
+);
+
+
+// ======================================
+// SERVICE WORKER READY
+// ======================================
+
+console.log(
+    "================================"
+);
+
+console.log(
+    "RIO MAGGI POINT"
+);
+
+console.log(
+    "Service Worker v5 Active"
+);
+
+console.log(
+    "Network First Strategy"
+);
+
+console.log(
+    "GitHub Pages Safe"
+);
+
+console.log(
+    "Offline Fallback Ready"
+);
+
+console.log(
+    "================================"
+);
+           // ======================================
+// RIO MAGGI POINT
+// SERVICE WORKER
+// FINAL STABLE VERSION
+// PART 3 / 3
+// ======================================
+
+
+// ======================================
+// FINAL SERVICE WORKER INITIALIZATION
+// ======================================
+
+self.addEventListener(
+    "message",
+    (event) => {
+
+        if (
+            !event.data ||
+            typeof event.data !== "object"
+        ) {
+
+            return;
+
+        }
+
+
+        // Force activate new Service Worker
+        if (
+            event.data.type ===
+            "SKIP_WAITING"
+        ) {
+
+            self.skipWaiting();
+
+        }
+
+    }
+);
+
+
+// ======================================
+// SERVICE WORKER READY LOG
+// ======================================
+
+console.log(
+    "================================"
+);
+
+console.log(
+    "RIO MAGGI POINT"
+);
+
+console.log(
+    "SERVICE WORKER READY"
+);
+
+console.log(
+    "CACHE VERSION:",
+    CACHE_NAME
+);
+
+console.log(
+    "NETWORK FIRST ENABLED"
+);
+
+console.log(
+    "OFFLINE FALLBACK ENABLED"
+);
+
+console.log(
+    "GITHUB PAGES SAFE"
+);
+
+console.log(
+    "================================"
+);
