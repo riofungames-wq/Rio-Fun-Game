@@ -3,2656 +3,2789 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <!-- =========================================
+         BASIC DOCUMENT SETTINGS
+    ========================================== -->
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
->
+    <meta charset="UTF-8">
 
-<title>Rio Maggi Point - Home</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
 
-<link rel="manifest" href="manifest.json">
+    <meta
+        name="theme-color"
+        content="#080808"
+    >
 
-<meta name="theme-color" content="#263525">
+    <meta
+        name="description"
+        content="Rio Maggi Point - Premium Loyalty Club & Rio Fun Games"
+    >
 
-<meta name="mobile-web-app-capable" content="yes">
+    <meta
+        name="color-scheme"
+        content="dark"
+    >
 
-<meta
-name="apple-mobile-web-app-capable"
-content="yes"
->
 
-<meta
-name="apple-mobile-web-app-status-bar-style"
-content="default"
->
+    <!-- =========================================
+         PAGE TITLE
+    ========================================== -->
 
-<link rel="icon" href="favicon.ico">
+    <title>
+        Rio Maggi Point | Premium Loyalty Club
+    </title>
 
-<link
-rel="apple-touch-icon"
-href="icon-192.png"
->
 
-<link
-rel="preconnect"
-href="https://fonts.googleapis.com"
->
+    <!-- =========================================
+         PWA
+    ========================================== -->
 
-<link
-rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin
->
+    <link
+        rel="manifest"
+        href="manifest.json"
+    >
 
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet"
->
+    <link
+        rel="icon"
+        href="favicon.ico"
+        type="image/x-icon"
+    >
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
->
+    <link
+        rel="apple-touch-icon"
+        href="icon-192.png"
+    >
 
-<link
-rel="stylesheet"
-href="common.css"
->
 
+    <!-- =========================================
+         GOOGLE FONT
+    ========================================== -->
 
-<style>
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-/* =====================================================
-   RIO MAGGI POINT
-   PREMIUM HOME + MENU
-   PART 1
-===================================================== */
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
-}
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
-html{
-    scroll-behavior:smooth;
-}
 
-body{
-    width:100%;
-    min-height:100vh;
-    font-family:"Poppins",sans-serif;
-    background:
-    linear-gradient(
-        180deg,
-        #f5d99b 0%,
-        #f8e5b8 45%,
-        #f5d99b 100%
-    );
-    color:#3a2e2b;
-    overflow-x:hidden;
-}
+    <!-- =========================================
+         FONT AWESOME
+    ========================================== -->
 
-button,
-a{
-    font-family:inherit;
-}
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
 
-button{
-    cursor:pointer;
-}
 
+    <!-- =========================================
+         GAME WEBSITE CSS
+    ========================================== -->
 
-/* =====================================================
-   MAIN PAGE
-===================================================== */
-
-.home-page{
-    width:100%;
-    max-width:1180px;
-    min-height:100vh;
-    margin:0 auto;
-    padding:24px 24px 110px;
-}
-
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-.home-header{
-    width:100%;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
-    margin-bottom:24px;
-    animation:fadeSlideDown .6s ease both;
-}
-
-.home-brand{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    min-width:0;
-}
-
-.home-brand-icon{
-    width:56px;
-    height:56px;
-    flex-shrink:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:18px;
-    background:
-    linear-gradient(
-        135deg,
-        #263525,
-        #3d543d
-    );
-    color:#ffd54f;
-    font-size:25px;
-    box-shadow:
-    0 10px 25px
-    rgba(38,53,37,.22);
-    transition:transform .3s ease;
-}
-
-.home-brand-icon:hover{
-    transform:
-    rotate(-5deg)
-    scale(1.05);
-}
-
-.home-brand-text{
-    min-width:0;
-}
-
-.home-brand-text h1{
-    font-size:clamp(18px,3vw,24px);
-    line-height:1.2;
-    font-weight:800;
-    color:#263525;
-    letter-spacing:-.3px;
-}
-
-.home-brand-text p{
-    margin-top:4px;
-    font-size:11px;
-    font-weight:500;
-    color:#7a6855;
-    letter-spacing:.4px;
-}
-
-.home-profile-btn{
-    width:50px;
-    height:50px;
-    flex-shrink:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:50%;
-    background:rgba(255,248,231,.9);
-    border:2px solid #d19b4a;
-    color:#263525;
-    text-decoration:none;
-    box-shadow:
-    0 6px 18px
-    rgba(70,45,20,.10);
-    transition:all .3s ease;
-}
-
-.home-profile-btn:hover{
-    transform:translateY(-3px);
-    background:#263525;
-    color:#ffd54f;
-    border-color:#263525;
-}
-
-.home-profile-btn:active{
-    transform:scale(.94);
-}
-
-.home-profile-btn i{
-    font-size:20px;
-}
-
-
-/* =====================================================
-   WELCOME HERO
-===================================================== */
-
-.welcome-card{
-    position:relative;
-    width:100%;
-    min-height:190px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    overflow:hidden;
-    padding:28px;
-    margin-bottom:20px;
-    background:
-    linear-gradient(
-        135deg,
-        #263525 0%,
-        #304630 55%,
-        #3d543d 100%
-    );
-    color:#fff;
-    border-radius:24px;
-    box-shadow:
-    0 16px 35px
-    rgba(38,53,37,.20);
-    animation:
-    fadeSlideUp
-    .7s
-    ease
-    both;
-}
-
-.welcome-card::before{
-    content:"";
-    position:absolute;
-    width:180px;
-    height:180px;
-    right:-45px;
-    top:-65px;
-    border-radius:50%;
-    background:
-    rgba(255,213,79,.10);
-}
-
-.welcome-card::after{
-    content:"";
-    position:absolute;
-    width:100px;
-    height:100px;
-    right:70px;
-    bottom:-55px;
-    border-radius:50%;
-    background:
-    rgba(255,255,255,.05);
-}
-
-.welcome-card h2{
-    position:relative;
-    z-index:2;
-    font-size:clamp(22px,4vw,32px);
-    line-height:1.25;
-    margin-bottom:8px;
-    color:#ffd54f;
-    font-weight:800;
-}
-
-.welcome-card p{
-    position:relative;
-    z-index:2;
-    max-width:600px;
-    font-size:clamp(12px,2vw,14px);
-    line-height:1.7;
-    color:rgba(255,255,255,.88);
-}
-
-
-/* =====================================================
-   MENU SECTION
-===================================================== */
-
-.menu-section{
-    margin-top:30px;
-    animation:
-    fadeSlideUp
-    .8s
-    ease
-    both;
-}
-
-.menu-section-header{
-    text-align:center;
-    margin-bottom:25px;
-}
-
-.menu-section-header h2{
-    font-size:clamp(24px,4vw,34px);
-    color:#263525;
-    font-weight:800;
-}
-
-.menu-section-header p{
-    margin-top:6px;
-    color:#7a6855;
-    font-size:14px;
-}
-
-
-/* =====================================================
-   MENU CATEGORY GRID
-===================================================== */
-
-.menu-category-grid{
-    display:grid;
-    grid-template-columns:
-    repeat(4,1fr);
-    gap:18px;
-}
-
-.menu-category-card{
-    position:relative;
-    overflow:hidden;
-    min-height:210px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:flex-end;
-    text-align:center;
-    padding:18px;
-    border-radius:24px;
-    background:
-    rgba(255,248,231,.88);
-    border:2px solid
-    rgba(209,155,74,.25);
-    box-shadow:
-    0 12px 30px
-    rgba(70,45,20,.10);
-    cursor:pointer;
-    transition:
-    transform .35s ease,
-    box-shadow .35s ease,
-    border-color .35s ease;
-}
-
-.menu-category-card:hover{
-    transform:
-    translateY(-8px);
-    border-color:#d19b4a;
-    box-shadow:
-    0 20px 40px
-    rgba(70,45,20,.18);
-}
-
-.menu-category-card:active{
-    transform:
-    scale(.97);
-}
-
-
-/* =====================================================
-   MENU PNG IMAGE
-===================================================== */
-
-.menu-category-image{
-    width:130px;
-    height:130px;
-    object-fit:contain;
-    margin-bottom:12px;
-    filter:
-    drop-shadow(
-        0 10px 12px
-        rgba(0,0,0,.18)
-    );
-    animation:
-    menuFloat
-    3s
-    ease-in-out
-    infinite;
-    transition:
-    transform .35s ease;
-}
-
-.menu-category-card:hover
-.menu-category-image{
-    transform:
-    scale(1.12)
-    rotate(-3deg);
-}
-
-.menu-category-card:nth-child(2)
-.menu-category-image{
-    animation-delay:.3s;
-}
-
-.menu-category-card:nth-child(3)
-.menu-category-image{
-    animation-delay:.6s;
-}
-
-.menu-category-card:nth-child(4)
-.menu-category-image{
-    animation-delay:.9s;
-}
-
-.menu-category-card:nth-child(5)
-.menu-category-image{
-    animation-delay:1.2s;
-}
-
-.menu-category-card:nth-child(6)
-.menu-category-image{
-    animation-delay:1.5s;
-}
-
-.menu-category-card:nth-child(7)
-.menu-category-image{
-    animation-delay:1.8s;
-}
-
-.menu-category-card:nth-child(8)
-.menu-category-image{
-    animation-delay:2.1s;
-}
-
-
-/* =====================================================
-   MENU TEXT
-===================================================== */
-
-.menu-category-card h3{
-    color:#263525;
-    font-size:17px;
-    font-weight:800;
-    margin-bottom:4px;
-}
-
-.menu-category-card span{
-    color:#8a7258;
-    font-size:12px;
-    font-weight:500;
-}
-
-
-/* =====================================================
-   MENU BUTTON
-===================================================== */
-
-.menu-view-btn{
-    margin-top:10px;
-    padding:9px 15px;
-    border:none;
-    border-radius:30px;
-    background:
-    linear-gradient(
-        135deg,
-        #263525,
-        #3d543d
-    );
-    color:#ffd54f;
-    font-size:11px;
-    font-weight:700;
-    transition:
-    transform .3s ease,
-    box-shadow .3s ease;
-}
-
-.menu-view-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:
-    0 8px 18px
-    rgba(38,53,37,.25);
-}
-
-
-/* =====================================================
-   MENU ITEMS AREA
-===================================================== */
-
-.menu-items-container{
-    margin-top:30px;
-}
-
-.menu-panel{
-    display:none;
-    background:
-    rgba(255,248,231,.92);
-    border-radius:26px;
-    padding:25px;
-    margin-bottom:25px;
-    border:2px solid
-    rgba(209,155,74,.20);
-    box-shadow:
-    0 15px 35px
-    rgba(70,45,20,.10);
-    animation:
-    fadeSlideUp
-    .5s
-    ease
-    both;
-}
-
-.menu-panel.active{
-    display:block;
-}
-
-.menu-panel-header{
-    text-align:center;
-    margin-bottom:22px;
-}
-
-.menu-panel-header h2{
-    color:#263525;
-    font-size:25px;
-    font-weight:800;
-}
-
-.menu-panel-header p{
-    color:#8a7258;
-    font-size:13px;
-    margin-top:5px;
-}
-
-
-/* =====================================================
-   MENU TABLE
-===================================================== */
-
-.menu-table-wrapper{
-    width:100%;
-    overflow-x:auto;
-    border-radius:16px;
-}
-
-.menu-table{
-    width:100%;
-    min-width:420px;
-    border-collapse:collapse;
-    overflow:hidden;
-}
-
-.menu-table th{
-    padding:13px;
-    background:#263525;
-    color:#ffd54f;
-    font-size:13px;
-    text-align:left;
-}
-
-.menu-table td{
-    padding:13px;
-    border-bottom:1px solid
-    rgba(38,53,37,.10);
-    color:#4b3a32;
-    font-size:13px;
-}
-
-.menu-table tr:last-child td{
-    border-bottom:none;
-}
-
-.menu-table tr:hover td{
-    background:
-    rgba(255,213,79,.10);
-}
-
-.menu-price{
-    color:#263525;
-    font-weight:800;
-}
-
-
-/* =====================================================
-   ANIMATIONS
-===================================================== */
-
-@keyframes fadeSlideDown{
-
-    from{
-        opacity:0;
-        transform:translateY(-15px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
-}
-
-@keyframes fadeSlideUp{
-
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
-}
-
-@keyframes menuFloat{
-
-    0%,
-    100%{
-        transform:translateY(0);
-    }
-
-    50%{
-        transform:translateY(-8px);
-    }
-
-}
-
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media(max-width:900px){
-
-    .menu-category-grid{
-        grid-template-columns:
-        repeat(3,1fr);
-    }
-
-}
-
-@media(max-width:600px){
-
-    .home-page{
-        padding:
-        20px
-        16px
-        110px;
-    }
-
-    .menu-category-grid{
-        grid-template-columns:
-        repeat(2,1fr);
-        gap:12px;
-    }
-
-    .menu-category-card{
-        min-height:190px;
-        padding:14px;
-        border-radius:20px;
-    }
-
-    .menu-category-image{
-        width:105px;
-        height:105px;
-    }
-
-    .menu-category-card h3{
-        font-size:14px;
-    }
-
-    .menu-category-card span{
-        font-size:10px;
-    }
-
-    .menu-view-btn{
-        font-size:10px;
-        padding:8px 12px;
-    }
-
-    .menu-panel{
-        padding:18px 12px;
-    }
-
-}
-
-@media(max-width:380px){
-
-    .menu-category-grid{
-        gap:9px;
-    }
-
-    .menu-category-card{
-        min-height:175px;
-    }
-
-    .menu-category-image{
-        width:90px;
-        height:90px;
-    }
-
-}
-
-</style>
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
 </head>
 
+
 <body>
 
-<main class="home-page">
 
-<!-- =====================================================
-     HEADER
-===================================================== -->
+    <!-- =========================================
+         PAGE LOADER
+    ========================================== -->
 
-<header class="home-header">
+    <div
+        id="pageLoader"
+        class="page-loader"
+        aria-hidden="true"
+    >
 
-    <div class="home-brand">
+        <div class="loader-content">
 
-        <div class="home-brand-icon">
-            <i class="fa-solid fa-bowl-food"></i>
-        </div>
+            <div class="loader-logo">
 
-        <div class="home-brand-text">
+                <i class="fa-solid fa-bowl-food"></i>
 
-            <h1>
-                Rio Maggi Point
-            </h1>
+            </div>
+
+            <div class="loader-spinner"></div>
 
             <p>
-                100% Pure Veg • Fresh • Tasty • Hygienic
+                Loading Rio Maggi Point...
             </p>
 
         </div>
 
     </div>
 
-    <a
-        href="profile.html"
-        class="home-profile-btn"
-        aria-label="Open Profile"
+
+    <!-- =========================================
+         MAIN APPLICATION
+    ========================================== -->
+
+    <div
+        id="app"
+        class="app-shell"
     >
 
-        <i class="fa-solid fa-user"></i>
 
-    </a>
+        <!-- =====================================
+             PREMIUM HEADER
+        ====================================== -->
 
-</header>
-
-
-<!-- =====================================================
-     WELCOME
-===================================================== -->
-
-<section class="welcome-card">
-
-    <h2 id="welcomeTitle">
-        Welcome!
-    </h2>
-
-    <p id="welcomeSubtitle">
-        Welcome to Rio Maggi Point Premium Loyalty Club.
-    </p>
-
-</section>
-
-
-<!-- =====================================================
-     MENU HEADER
-===================================================== -->
-
-<section class="menu-section">
-
-    <div class="menu-section-header">
-
-        <h2>
-            Our Menu
-        </h2>
-
-        <p>
-            Tap Your Favourite
-        </p>
-
-    </div>
-
-
-<!-- =====================================================
-     MENU CATEGORY CARDS
-===================================================== -->
-
-<div class="menu-category-grid">
-
-
-    <button
-        class="menu-category-card"
-        type="button"
-        onclick="openMenu('maggi')"
-    >
-
-        <img
-            class="menu-category-image"
-            src="assets/menu/everyday-maggi.png"
-            alt="Everyday Magic Maggi"
+        <header
+            id="mainHeader"
+            class="main-header"
         >
 
-        <h3>
-            Everyday Magic Maggi
-        </h3>
-
-        <span>
-            Classic Rio Maggi Collection
-        </span>
-
-        <span class="menu-view-btn">
-            Tap To View Menu
-        </span>
-
-    </button>
+            <div class="header-inner">
 
 
-    <button
-        class="menu-category-card"
-        type="button"
-        onclick="openMenu('cheese')"
-    >
+                <!-- BRAND -->
 
-        <img
-            class="menu-category-image"
-            src="assets/menu/cheese-maggi.png"
-            alt="Cheese Magic Maggi"
+                <a
+                    href="index.html"
+                    class="brand"
+                    aria-label="Rio Maggi Point Home"
+                >
+
+                    <span class="brand-icon">
+
+                        <i class="fa-solid fa-bowl-food"></i>
+
+                    </span>
+
+
+                    <span class="brand-text">
+
+                        <strong>
+                            RIO MAGGI POINT
+                        </strong>
+
+                        <small>
+                            PREMIUM LOYALTY CLUB
+                        </small>
+
+                    </span>
+
+                </a>
+
+
+                <!-- HEADER ACTIONS -->
+
+                <div class="header-actions">
+
+
+                    <!-- CUSTOMER LOGIN -->
+
+                    <a
+                        href="loyalty/login.html"
+                        class="header-login-btn"
+                    >
+
+                        <i class="fa-solid fa-user"></i>
+
+                        <span>
+                            Customer Login
+                        </span>
+
+                    </a>
+
+
+                    <!-- MENU BUTTON -->
+
+                    <button
+                        type="button"
+                        id="headerMenuBtn"
+                        class="header-menu-btn"
+                        aria-label="Open menu"
+                        aria-expanded="false"
+                    >
+
+                        <i class="fa-solid fa-bars"></i>
+
+                    </button>
+
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================
+             HERO SECTION
+        ====================================== -->
+
+        <main>
+
+
+            <section
+                class="hero-section"
+                id="home"
+            >
+
+                <div class="hero-background-glow"></div>
+
+                <div class="hero-background-glow secondary"></div>
+
+
+                <div class="hero-container">
+
+
+                    <!-- HERO CONTENT -->
+
+                    <div class="hero-content">
+
+
+                        <span class="hero-eyebrow">
+
+                            <i class="fa-solid fa-crown"></i>
+
+                            RIO MAGGI POINT
+
+                        </span>
+
+
+                        <h1>
+
+                            Your Favourite Maggi.
+
+                            <span>
+                                Your Premium Rewards.
+                            </span>
+
+                        </h1>
+
+
+                        <p class="hero-description">
+
+                            Enjoy delicious food, collect loyalty stamps,
+                            unlock exciting rewards and have fun while
+                            you wait.
+
+                        </p>
+
+
+                        <!-- HERO ACTIONS -->
+
+                        <div class="hero-actions">
+
+
+                            <a
+                                href="loyalty/login.html"
+                                class="primary-action-btn"
+                            >
+
+                                <i class="fa-solid fa-gift"></i>
+
+                                <span>
+                                    Join Premium Loyalty
+                                </span>
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+
+                            <a
+                                href="#games"
+                                class="secondary-action-btn"
+                            >
+
+                                <i class="fa-solid fa-gamepad"></i>
+
+                                <span>
+                                    Play Free Games
+                                </span>
+
+                            </a>
+
+
+                        </div>
+
+
+                        <!-- TRUST POINTS -->
+
+                        <div class="hero-trust-points">
+
+
+                            <div class="trust-point">
+
+                                <i class="fa-solid fa-leaf"></i>
+
+                                <span>
+                                    100% Pure Veg
+                                </span>
+
+                            </div>
+
+
+                            <div class="trust-point">
+
+                                <i class="fa-solid fa-star"></i>
+
+                                <span>
+                                    Premium Loyalty
+                                </span>
+
+                            </div>
+
+
+                            <div class="trust-point">
+
+                                <i class="fa-solid fa-shield-heart"></i>
+
+                                <span>
+                                    Fresh & Hygienic
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- HERO VISUAL -->
+
+                    <div class="hero-visual">
+
+
+                        <div class="hero-card-glow"></div>
+
+
+                        <div class="premium-food-card">
+
+
+                            <div class="food-card-top">
+
+                                <span>
+                                    RIO SPECIAL
+                                </span>
+
+                                <i class="fa-solid fa-heart"></i>
+
+                            </div>
+
+
+                            <div class="food-card-image">
+
+                                <img
+                                    src="loyalty/image/menu/everyday-maggi.png"
+                                    alt="Rio Maggi Special"
+                                    loading="eager"
+                                >
+
+                            </div>
+
+
+                            <div class="food-card-content">
+
+                                <span class="food-card-label">
+                                    PREMIUM VEG MAGGI
+                                </span>
+
+                                <h2>
+                                    Made Fresh.
+                                </h2>
+
+                                <p>
+                                    Made with love.
+                                </p>
+
+                            </div>
+
+
+                            <div class="food-card-footer">
+
+                                <span>
+                                    100% Pure Veg
+                                </span>
+
+                                <i class="fa-solid fa-leaf"></i>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- FLOATING LOYALTY BADGE -->
+
+                        <div class="floating-loyalty-badge">
+
+                            <div class="floating-badge-icon">
+
+                                <i class="fa-solid fa-gift"></i>
+
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Collect 6 Stamps
+                                </strong>
+
+                                <span>
+                                    Get 1 Veg Maggi FREE
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 PREMIUM LOYALTY INTRO
+            ====================================== -->
+
+            <section
+                class="loyalty-intro-section"
+                id="loyalty"
+            >
+
+                <div class="section-container">
+
+
+                    <div class="section-heading">
+
+
+                        <span class="section-label">
+
+                            <i class="fa-solid fa-crown"></i>
+
+                            PREMIUM LOYALTY
+
+                        </span>
+
+
+                        <h2>
+                            Every Visit Brings You
+                            <span>
+                                Closer to a Reward.
+                            </span>
+                        </h2>
+
+
+                        <p>
+
+                            Purchase on 6 different days,
+                            collect your loyalty stamps and
+                            unlock your FREE Veg Maggi reward.
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- LOYALTY STEPS -->
+
+                    <div class="loyalty-steps">
+
+
+                        <article class="loyalty-step-card">
+
+                            <div class="step-number">
+                                01
+                            </div>
+
+                            <div class="step-icon">
+
+                                <i class="fa-solid fa-bowl-food"></i>
+
+                            </div>
+
+                            <h3>
+                                Enjoy Your Maggi
+                            </h3>
+
+                            <p>
+                                Visit Rio Maggi Point and
+                                enjoy your favourite food.
+                            </p>
+
+                        </article>
+
+
+                        <article class="loyalty-step-card">
+
+                            <div class="step-number">
+                                02
+                            </div>
+
+                            <div class="step-icon">
+
+                                <i class="fa-solid fa-qrcode"></i>
+
+                            </div>
+
+                            <h3>
+                                Show Your QR
+                            </h3>
+
+                            <p>
+                                Show your premium loyalty
+                                QR code at the counter.
+                            </p>
+
+                        </article>
+
+
+                        <article class="loyalty-step-card">
+
+                            <div class="step-number">
+                                03
+                            </div>
+
+                            <div class="step-icon">
+
+                                <i class="fa-solid fa-stamp"></i>
+
+                            </div>
+
+                            <h3>
+                                Collect Your Stamp
+                            </h3>
+
+                            <p>
+                                One eligible purchase day
+                                gives you one loyalty stamp.
+                            </p>
+
+                        </article>
+
+
+                        <article class="loyalty-step-card">
+
+                            <div class="step-number">
+                                04
+                            </div>
+
+                            <div class="step-icon">
+
+                                <i class="fa-solid fa-gift"></i>
+
+                            </div>
+
+                            <h3>
+                                Unlock Your Reward
+                            </h3>
+
+                            <p>
+                                Complete 6 different purchase
+                                days and get your FREE Veg Maggi.
+                            </p>
+
+                        </article>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 PREMIUM FEATURES
+            ====================================== -->
+
+            <section
+                class="features-section"
+                id="features"
+            >
+
+                <div class="section-container">
+
+
+                    <div class="section-heading">
+
+
+                        <span class="section-label">
+
+                            <i class="fa-solid fa-sparkles"></i>
+
+                            RIO PREMIUM EXPERIENCE
+
+                        </span>
+
+
+                        <h2>
+                            More Than Just
+                            <span>
+                                Great Food.
+                            </span>
+                        </h2>
+
+
+                        <p>
+
+                            A complete premium experience designed
+                            for every Rio Maggi Point customer.
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="features-grid">
+
+
+                        <!-- FEATURE 1 -->
+
+                        <article class="feature-card">
+
+                            <div class="feature-icon">
+
+                                <i class="fa-solid fa-qrcode"></i>
+
+                            </div>
+
+                            <h3>
+                                Digital Loyalty QR
+                            </h3>
+
+                            <p>
+                                Your personal loyalty QR makes
+                                collecting daily stamps simple
+                                and secure.
+                            </p>
+
+                        </article>
+
+
+                        <!-- FEATURE 2 -->
+
+                        <article class="feature-card">
+
+                            <div class="feature-icon">
+
+                                <i class="fa-solid fa-chart-line"></i>
+
+                            </div>
+
+                            <h3>
+                                Track Your Progress
+                            </h3>
+
+                            <p>
+                                Keep an eye on your loyalty stamps
+                                and see how close you are to your reward.
+                            </p>
+
+                        </article>
+
+
+                        <!-- FEATURE 3 -->
+
+                        <article class="feature-card">
+
+                            <div class="feature-icon">
+
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+
+                            </div>
+
+                            <h3>
+                                Loyalty History
+                            </h3>
+
+                            <p>
+                                View your daily stamp activity
+                                and reward history anytime.
+                            </p>
+
+                        </article>
+
+
+                        <!-- FEATURE 4 -->
+
+                        <article class="feature-card">
+
+                            <div class="feature-icon">
+
+                                <i class="fa-solid fa-gamepad"></i>
+
+                            </div>
+
+                            <h3>
+                                Rio Fun Games
+                            </h3>
+
+                            <p>
+                                Play exciting free games while
+                                your delicious food is being prepared.
+                            </p>
+
+                        </article>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 END PART 1
+            ====================================== -->
+
+        </main>
+
+    </div>
+
+
+    <!-- =========================================
+         END OF PART 1
+    ========================================== -->
+
+</body>
+
+</html>
+        <!-- =====================================
+             PREMIUM MENU PREVIEW
+        ====================================== -->
+
+        <section
+            class="menu-preview-section"
+            id="menu"
         >
 
-        <h3>
-            Cheese Magic Maggi
-        </h3>
-
-        <span>
-            Cheesy Rio Special Collection
-        </span>
-
-        <span class="menu-view-btn">
-            Tap To View Menu
-        </span>
-
-    </button>
+            <div class="section-container">
 
 
-    <button
-        class="menu-category-card"
-        type="button"
-        onclick="openMenu('cheese-butter')"
-    >
+                <div class="section-heading">
 
-        <img
-            class="menu-category-image"
-            src="assets/menu/cheese-butter-maggi.png"
-            alt="Cheese Butter Magic Maggi"
+
+                    <span class="section-label">
+
+                        <i class="fa-solid fa-utensils"></i>
+
+                        OUR MENU
+
+                    </span>
+
+
+                    <h2>
+                        Discover Your
+                        <span>
+                            Favourite.
+                        </span>
+                    </h2>
+
+
+                    <p>
+
+                        Explore our delicious range of
+                        Maggi, burgers, momos and more.
+
+                    </p>
+
+                </div>
+
+
+                <!-- MENU PREVIEW GRID -->
+
+                <div class="menu-preview-grid">
+
+
+                    <!-- MENU ITEM 01 -->
+
+                    <article class="menu-preview-card">
+
+
+                        <div class="menu-preview-image">
+
+                            <img
+                                src="loyalty/image/menu/everyday-maggi.png"
+                                alt="Everyday Magic Maggi"
+                                loading="lazy"
+                            >
+
+                            <span class="menu-number">
+                                01
+                            </span>
+
+                        </div>
+
+
+                        <div class="menu-preview-content">
+
+                            <span class="menu-category-label">
+                                CLASSIC COLLECTION
+                            </span>
+
+
+                            <h3>
+                                Everyday Magic Maggi
+                            </h3>
+
+
+                            <p>
+                                Classic Rio Maggi Collection
+                            </p>
+
+
+                            <a
+                                href="loyalty/menu.html"
+                                class="menu-view-btn"
+                            >
+
+                                <span>
+                                    View Menu
+                                </span>
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- MENU ITEM 02 -->
+
+                    <article class="menu-preview-card">
+
+
+                        <div class="menu-preview-image">
+
+                            <img
+                                src="loyalty/image/menu/cheese-maggi.png"
+                                alt="Cheese Magic Maggi"
+                                loading="lazy"
+                            >
+
+                            <span class="menu-number">
+                                02
+                            </span>
+
+                        </div>
+
+
+                        <div class="menu-preview-content">
+
+                            <span class="menu-category-label">
+                                CHEESE COLLECTION
+                            </span>
+
+
+                            <h3>
+                                Cheese Magic Maggi
+                            </h3>
+
+
+                            <p>
+                                Cheesy Rio Special Collection
+                            </p>
+
+
+                            <a
+                                href="loyalty/menu.html"
+                                class="menu-view-btn"
+                            >
+
+                                <span>
+                                    View Menu
+                                </span>
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- MENU ITEM 03 -->
+
+                    <article class="menu-preview-card">
+
+
+                        <div class="menu-preview-image">
+
+                            <img
+                                src="loyalty/image/menu/cheese-butter-maggi.png"
+                                alt="Cheese Butter Magic Maggi"
+                                loading="lazy"
+                            >
+
+                            <span class="menu-number">
+                                03
+                            </span>
+
+                        </div>
+
+
+                        <div class="menu-preview-content">
+
+                            <span class="menu-category-label">
+                                PREMIUM COLLECTION
+                            </span>
+
+
+                            <h3>
+                                Cheese Butter Magic Maggi
+                            </h3>
+
+
+                            <p>
+                                Premium Cheese Butter Collection
+                            </p>
+
+
+                            <a
+                                href="loyalty/menu.html"
+                                class="menu-view-btn"
+                            >
+
+                                <span>
+                                    View Menu
+                                </span>
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- MENU ITEM 04 -->
+
+                    <article class="menu-preview-card">
+
+
+                        <div class="menu-preview-image">
+
+                            <img
+                                src="loyalty/image/menu/ufo-burger.png"
+                                alt="UFO Burger"
+                                loading="lazy"
+                            >
+
+                            <span class="menu-number">
+                                04
+                            </span>
+
+                        </div>
+
+
+                        <div class="menu-preview-content">
+
+                            <span class="menu-category-label">
+                                BURGER COLLECTION
+                            </span>
+
+
+                            <h3>
+                                UFO Burger
+                            </h3>
+
+
+                            <p>
+                                Premium Burger Collection
+                            </p>
+
+
+                            <a
+                                href="loyalty/menu.html"
+                                class="menu-view-btn"
+                            >
+
+                                <span>
+                                    View Menu
+                                </span>
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- MENU ITEM 05 -->
+
+                    <article class="menu-preview-card">
+
+
+                        <div class="menu-preview-image">
+
+                            <img
+                                src="loyalty/image/menu/momos.png"
+                                alt="Delicious Momos"
+                                loading="lazy"
+                            >
+
+                            <span class="menu-number">
+                                05
+                            </span>
+
+                        </div>
+
+
+                        <div class="menu-preview-content">
+
+                            <span class="menu-category-label">
+                                MOMOS COLLECTION
+                            </span>
+
+
+                            <h3>
+                                Delicious Momos
+                            </h3>
+
+
+                            <p>
+                                Hot & Tasty Momos Collection
+                            </p>
+
+
+                            <a
+                                href="loyalty/menu.html"
+                                class="menu-view-btn"
+                            >
+
+                                <span>
+                                    View Menu
+                                </span>
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- MENU ITEM 06 -->
+
+                    <article class="menu-preview-card">
+
+
+                        <div class="menu-preview-image">
+
+                            <img
+                                src="loyalty/image/menu/soup.png"
+                                alt="Hot Soups"
+                                loading="lazy"
+                            >
+
+                            <span class="menu-number">
+                                06
+                            </span>
+
+                        </div>
+
+
+                        <div class="menu-preview-content">
+
+                            <span class="menu-category-label">
+                                SOUP COLLECTION
+                            </span>
+
+
+                            <h3>
+                                Hot Soups
+                            </h3>
+
+
+                            <p>
+                                Hot & Delicious Soup Collection
+                            </p>
+
+
+                            <a
+                                href="loyalty/menu.html"
+                                class="menu-view-btn"
+                            >
+
+                                <span>
+                                    View Menu
+                                </span>
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+
+                <!-- FULL MENU BUTTON -->
+
+                <div class="section-action">
+
+                    <a
+                        href="loyalty/menu.html"
+                        class="outline-action-btn"
+                    >
+
+                        <span>
+                            Explore Full Menu
+                        </span>
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             RIO FUN GAMES
+        ====================================== -->
+
+        <section
+            class="games-section"
+            id="games"
         >
 
-        <h3>
-            Cheese Butter Magic Maggi
-        </h3>
-
-        <span>
-            Premium Cheese Butter Collection
-        </span>
-
-        <span class="menu-view-btn">
-            Tap To View Menu
-        </span>
-
-    </button>
+            <div class="games-background-glow"></div>
 
 
-    <button
-        class="menu-category-card"
-        type="button"
-        onclick="openMenu('burger')"
-    >
+            <div class="section-container">
 
-        <img
-            class="menu-category-image"
-            src="assets/menu/ufo-burger.png"
-            alt="UFO Burger"
+
+                <div class="games-card">
+
+
+                    <!-- GAME VISUAL -->
+
+                    <div class="games-visual">
+
+
+                        <div class="game-orbit orbit-one"></div>
+
+                        <div class="game-orbit orbit-two"></div>
+
+
+                        <div class="game-controller">
+
+                            <i class="fa-solid fa-gamepad"></i>
+
+                        </div>
+
+
+                        <div class="floating-game-icon icon-one">
+
+                            <i class="fa-solid fa-star"></i>
+
+                        </div>
+
+
+                        <div class="floating-game-icon icon-two">
+
+                            <i class="fa-solid fa-trophy"></i>
+
+                        </div>
+
+
+                        <div class="floating-game-icon icon-three">
+
+                            <i class="fa-solid fa-puzzle-piece"></i>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- GAME CONTENT -->
+
+                    <div class="games-content">
+
+
+                        <span class="games-label">
+
+                            <i class="fa-solid fa-gamepad"></i>
+
+                            RIO FUN GAME
+
+                        </span>
+
+
+                        <h2>
+                            Play While
+                            <span>
+                                You Wait!
+                            </span>
+                        </h2>
+
+
+                        <p>
+
+                            Waiting for your delicious Maggi?
+                            Enjoy our free games and have fun
+                            while your order is being prepared.
+
+                        </p>
+
+
+                        <a
+                            href="index.html"
+                            class="games-action-btn"
+                        >
+
+                            <i class="fa-solid fa-play"></i>
+
+                            <span>
+                                Play Free Games
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             HOME DELIVERY
+        ====================================== -->
+
+        <section
+            class="delivery-section"
+            id="delivery"
         >
 
-        <h3>
-            UFO Burger
-        </h3>
-
-        <span>
-            Premium Burger Collection
-        </span>
-
-        <span class="menu-view-btn">
-            Tap To View Menu
-        </span>
-
-    </button>
+            <div class="section-container">
 
 
-    <button
-        class="menu-category-card"
-        type="button"
-        onclick="openMenu('momos')"
-    >
+                <div class="delivery-card">
 
-        <img
-            class="menu-category-image"
-            src="assets/menu/momos.png"
-            alt="Delicious Momos"
+
+                    <div class="delivery-icon">
+
+                        <i class="fa-solid fa-motorcycle"></i>
+
+                    </div>
+
+
+                    <div class="delivery-content">
+
+
+                        <span class="delivery-label">
+
+                            RIO MAGGI POINT
+
+                        </span>
+
+
+                        <h2>
+                            Home Delivery
+                        </h2>
+
+
+                        <p>
+                            Delicious Maggi delivered
+                            to your doorstep.
+                        </p>
+
+
+                        <span class="coming-soon-badge">
+
+                            <i class="fa-solid fa-clock"></i>
+
+                            COMING SOON
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="delivery-decoration">
+
+                        <i class="fa-solid fa-location-arrow"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             SHOP CONTACT SECTION
+        ====================================== -->
+
+        <section
+            class="contact-preview-section"
+            id="contact"
         >
 
-        <h3>
-            Delicious Momos
-        </h3>
-
-        <span>
-            Hot & Tasty Momos Collection
-        </span>
-
-        <span class="menu-view-btn">
-            Tap To View Menu
-        </span>
-
-    </button>
+            <div class="section-container">
 
 
-    <button
-        class="menu-category-card"
-        type="button"
-        onclick="openMenu('soups')"
-    >
+                <div class="section-heading">
 
-        <img
-            class="menu-category-image"
-            src="assets/menu/soups.png"
-            alt="Hot Soups"
+
+                    <span class="section-label">
+
+                        <i class="fa-solid fa-store"></i>
+
+                        VISIT RIO MAGGI POINT
+
+                    </span>
+
+
+                    <h2>
+                        We Are Happy
+                        <span>
+                            To Serve You.
+                        </span>
+                    </h2>
+
+
+                    <p>
+
+                        Connect with us or visit our location.
+                        More location details coming soon.
+
+                    </p>
+
+                </div>
+
+
+                <!-- CONTACT CARDS -->
+
+                <div class="contact-preview-grid">
+
+
+                    <!-- CALL -->
+
+                    <a
+                        href="tel:+917987827979"
+                        class="contact-preview-card"
+                    >
+
+                        <div class="contact-preview-icon">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                        </div>
+
+
+                        <div class="contact-preview-content">
+
+                            <span>
+                                CALL US
+                            </span>
+
+                            <strong>
+                                7987827979
+                            </strong>
+
+                        </div>
+
+
+                        <i class="fa-solid fa-arrow-right contact-arrow"></i>
+
+                    </a>
+
+
+                    <!-- WHATSAPP -->
+
+                    <a
+                        href="https://wa.me/917987827979"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="contact-preview-card"
+                    >
+
+                        <div class="contact-preview-icon">
+
+                            <i class="fa-brands fa-whatsapp"></i>
+
+                        </div>
+
+
+                        <div class="contact-preview-content">
+
+                            <span>
+                                WHATSAPP
+                            </span>
+
+                            <strong>
+                                Chat With Us
+                            </strong>
+
+                        </div>
+
+
+                        <i class="fa-solid fa-arrow-right contact-arrow"></i>
+
+                    </a>
+
+
+                    <!-- MAP -->
+
+                    <button
+                        type="button"
+                        id="comingSoonMapBtn"
+                        class="contact-preview-card"
+                    >
+
+                        <div class="contact-preview-icon">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                        </div>
+
+
+                        <div class="contact-preview-content">
+
+                            <span>
+                                FIND US
+                            </span>
+
+                            <strong>
+                                Location Coming Soon
+                            </strong>
+
+                        </div>
+
+
+                        <i class="fa-solid fa-arrow-right contact-arrow"></i>
+
+                    </button>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             PREMIUM CTA
+        ====================================== -->
+
+        <section
+            class="final-cta-section"
         >
 
-        <h3>
-            Hot Soups
-        </h3>
-
-        <span>
-            Hot & Delicious Soup Collection
-        </span>
-
-        <span class="menu-view-btn">
-            Tap To View Menu
-        </span>
-
-    </button>
+            <div class="section-container">
 
 
-    <button
-        class="menu-category-card"
-        type="button"
-        onclick="openMenu('corn')"
-    >
+                <div class="final-cta-card">
 
-        <img
-            class="menu-category-image"
-            src="assets/menu/sweet-corn.png"
-            alt="Crispy Sweet Corn"
+
+                    <div class="final-cta-decoration decoration-left">
+
+                        <i class="fa-solid fa-star"></i>
+
+                    </div>
+
+
+                    <div class="final-cta-decoration decoration-right">
+
+                        <i class="fa-solid fa-crown"></i>
+
+                    </div>
+
+
+                    <div class="final-cta-content">
+
+
+                        <span class="section-label">
+
+                            <i class="fa-solid fa-crown"></i>
+
+                            BECOME A PREMIUM MEMBER
+
+                        </span>
+
+
+                        <h2>
+                            Your Next Reward
+                            <span>
+                                Is Waiting.
+                            </span>
+                        </h2>
+
+
+                        <p>
+
+                            Join the Rio Maggi Point Premium Loyalty Club,
+                            collect your stamps and enjoy delicious rewards.
+
+                        </p>
+
+
+                        <a
+                            href="loyalty/login.html"
+                            class="primary-action-btn"
+                        >
+
+                            <i class="fa-solid fa-user-plus"></i>
+
+                            <span>
+                                Join Now
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             FOOTER
+        ====================================== -->
+
+        <footer class="main-footer">
+
+            <div class="section-container">
+
+
+                <div class="footer-grid">
+
+
+                    <!-- FOOTER BRAND -->
+
+                    <div class="footer-brand">
+
+
+                        <a
+                            href="index.html"
+                            class="brand"
+                        >
+
+                            <span class="brand-icon">
+
+                                <i class="fa-solid fa-bowl-food"></i>
+
+                            </span>
+
+
+                            <span class="brand-text">
+
+                                <strong>
+                                    RIO MAGGI POINT
+                                </strong>
+
+                                <small>
+                                    PREMIUM LOYALTY CLUB
+                                </small>
+
+                            </span>
+
+                        </a>
+
+
+                        <p>
+
+                            100% Pure Veg • Fresh • Tasty • Hygienic
+
+                        </p>
+
+                    </div>
+
+
+                    <!-- FOOTER LINKS -->
+
+                    <div class="footer-links-group">
+
+
+                        <h3>
+                            Explore
+                        </h3>
+
+
+                        <a href="#home">
+                            Home
+                        </a>
+
+
+                        <a href="#loyalty">
+                            Loyalty
+                        </a>
+
+
+                        <a href="#menu">
+                            Menu
+                        </a>
+
+
+                        <a href="#games">
+                            Rio Fun Games
+                        </a>
+
+                    </div>
+
+
+                    <!-- CUSTOMER LINKS -->
+
+                    <div class="footer-links-group">
+
+
+                        <h3>
+                            Customer
+                        </h3>
+
+
+                        <a href="loyalty/login.html">
+                            Customer Login
+                        </a>
+
+
+                        <a href="loyalty/signup.html">
+                            Create Account
+                        </a>
+
+
+                        <a href="loyalty/feedback.html">
+                            Give Review
+                        </a>
+
+
+                        <a href="loyalty/contact.html">
+                            Contact Us
+                        </a>
+
+                    </div>
+
+
+                    <!-- FOOTER CONTACT -->
+
+                    <div class="footer-links-group">
+
+
+                        <h3>
+                            Contact
+                        </h3>
+
+
+                        <a href="tel:+917987827979">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            7987827979
+
+                        </a>
+
+
+                        <a
+                            href="https://wa.me/917987827979"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+
+                            <i class="fa-brands fa-whatsapp"></i>
+
+                            WhatsApp
+
+                        </a>
+
+
+                        <span>
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            Location Coming Soon
+
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- FOOTER BOTTOM -->
+
+                <div class="footer-bottom">
+
+
+                    <p>
+
+                        © <span id="currentYear"></span>
+                        Rio Maggi Point.
+                        All Rights Reserved.
+
+                    </p>
+
+
+                    <div class="footer-legal-links">
+
+                        <a href="loyalty/privacy.html">
+                            Privacy
+                        </a>
+
+                        <a href="loyalty/terms.html">
+                            Terms
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </footer>
+
+
+        <!-- =====================================
+             MOBILE MENU OVERLAY
+        ====================================== -->
+
+        <div
+            id="mobileMenuOverlay"
+            class="mobile-menu-overlay"
+            aria-hidden="true"
         >
 
-        <h3>
-            Crispy Sweet Corn
-        </h3>
-
-        <span>
-            Crunchy Corn Special Collection
-        </span>
-
-        <span class="menu-view-btn">
-            Tap To View Menu
-        </span>
-
-    </button>
+            <div class="mobile-menu-panel">
 
 
-    <button
-        class="menu-category-card"
-        type="button"
-        onclick="openMenu('bhel')"
+                <div class="mobile-menu-header">
+
+
+                    <span>
+                        RIO MAGGI POINT
+                    </span>
+
+
+                    <button
+                        type="button"
+                        id="closeMobileMenuBtn"
+                        aria-label="Close menu"
+                    >
+
+                        <i class="fa-solid fa-xmark"></i>
+
+                    </button>
+
+                </div>
+
+
+                <nav class="mobile-menu-nav">
+
+
+                    <a href="#home">
+                        <i class="fa-solid fa-house"></i>
+                        Home
+                    </a>
+
+
+                    <a href="#loyalty">
+                        <i class="fa-solid fa-crown"></i>
+                        Loyalty
+                    </a>
+
+
+                    <a href="#menu">
+                        <i class="fa-solid fa-utensils"></i>
+                        Menu
+                    </a>
+
+
+                    <a href="#games">
+                        <i class="fa-solid fa-gamepad"></i>
+                        Rio Fun Games
+                    </a>
+
+
+                    <a href="#contact">
+                        <i class="fa-solid fa-phone"></i>
+                        Contact
+                    </a>
+
+
+                    <a
+                        href="loyalty/login.html"
+                        class="mobile-login-link"
+                    >
+
+                        <i class="fa-solid fa-user"></i>
+
+                        Customer Login
+
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             PART 2 END
+        ====================================== -->
+
+    </div>
+        <!-- =========================================
+         PAGE NOTIFICATION
+    ========================================== -->
+
+    <div
+        id="siteNotification"
+        class="site-notification"
+        role="status"
+        aria-live="polite"
+        aria-hidden="true"
     >
 
-        <img
-            class="menu-category-image"
-            src="assets/menu/chips-bhel.png"
-            alt="Chips Bhel"
-        >
+        <div class="notification-icon">
 
-        <h3>
-            Chips Bhel
-        </h3>
+            <i class="fa-solid fa-circle-check"></i>
 
-        <span>
-            Crispy Snack Collection
-        </span>
+        </div>
 
-        <span class="menu-view-btn">
-            Tap To View Menu
-        </span>
 
-    </button>
+        <div class="notification-content">
 
-</div>
+            <strong id="notificationTitle">
+                Welcome
+            </strong>
 
-
-<!-- =====================================================
-     MENU PANELS
-===================================================== -->
-
-<div class="menu-items-container">
-
-<!-- PART 1 END -->
-    <!-- =====================================================
-     MENU PANEL 1
-     EVERYDAY MAGIC MAGGI
-===================================================== -->
-
-<section
-    class="menu-panel"
-    id="menu-maggi"
->
-
-    <div class="menu-panel-header">
-
-        <h2>
-            Everyday Magic Maggi
-        </h2>
-
-        <p>
-            Classic Rio Maggi Collection
-        </p>
-
-    </div>
-
-    <div class="menu-table-wrapper">
-
-        <table class="menu-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Item Name
-                    </th>
-
-                    <th>
-                        Half Price
-                    </th>
-
-                    <th>
-                        Full Price
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                <tr>
-                    <td>Classic</td>
-                    <td class="menu-price">₹30</td>
-                    <td class="menu-price">₹50</td>
-                </tr>
-
-                <tr>
-                    <td>Veg</td>
-                    <td class="menu-price">₹40</td>
-                    <td class="menu-price">₹70</td>
-                </tr>
-
-                <tr>
-                    <td>Garlic</td>
-                    <td class="menu-price">₹40</td>
-                    <td class="menu-price">₹70</td>
-                </tr>
-
-                <tr>
-                    <td>Corn</td>
-                    <td class="menu-price">₹40</td>
-                    <td class="menu-price">₹70</td>
-                </tr>
-
-                <tr>
-                    <td>Schezwan</td>
-                    <td class="menu-price">₹40</td>
-                    <td class="menu-price">₹70</td>
-                </tr>
-
-                <tr>
-                    <td>Veg Corn</td>
-                    <td class="menu-price">₹50</td>
-                    <td class="menu-price">₹80</td>
-                </tr>
-
-                <tr>
-                    <td>Veg Lemon</td>
-                    <td class="menu-price">₹80</td>
-                    <td class="menu-price">₹120</td>
-                </tr>
-
-                <tr>
-                    <td>Korean</td>
-                    <td class="menu-price">₹100</td>
-                    <td class="menu-price">₹150</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     MENU PANEL 2
-     CHEESE MAGIC MAGGI
-===================================================== -->
-
-<section
-    class="menu-panel"
-    id="menu-cheese"
->
-
-    <div class="menu-panel-header">
-
-        <h2>
-            Cheese Magic Maggi
-        </h2>
-
-        <p>
-            Cheesy Rio Special Collection
-        </p>
-
-    </div>
-
-    <div class="menu-table-wrapper">
-
-        <table class="menu-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Item Name
-                    </th>
-
-                    <th>
-                        Half Price
-                    </th>
-
-                    <th>
-                        Full Price
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                <tr>
-                    <td>Cheese Classic</td>
-                    <td class="menu-price">₹40</td>
-                    <td class="menu-price">₹70</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Veg</td>
-                    <td class="menu-price">₹50</td>
-                    <td class="menu-price">₹80</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Garlic</td>
-                    <td class="menu-price">₹50</td>
-                    <td class="menu-price">₹80</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Corn</td>
-                    <td class="menu-price">₹50</td>
-                    <td class="menu-price">₹80</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Schezwan</td>
-                    <td class="menu-price">₹50</td>
-                    <td class="menu-price">₹80</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Veg Corn</td>
-                    <td class="menu-price">₹60</td>
-                    <td class="menu-price">₹100</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Veg Schezwan</td>
-                    <td class="menu-price">₹60</td>
-                    <td class="menu-price">₹100</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Korean</td>
-                    <td class="menu-price">₹120</td>
-                    <td class="menu-price">₹180</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     MENU PANEL 3
-     CHEESE BUTTER MAGIC MAGGI
-===================================================== -->
-
-<section
-    class="menu-panel"
-    id="menu-cheese-butter"
->
-
-    <div class="menu-panel-header">
-
-        <h2>
-            Cheese Butter Magic Maggi
-        </h2>
-
-        <p>
-            Premium Cheese Butter Collection
-        </p>
-
-    </div>
-
-    <div class="menu-table-wrapper">
-
-        <table class="menu-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Item Name
-                    </th>
-
-                    <th>
-                        Half Price
-                    </th>
-
-                    <th>
-                        Full Price
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                <tr>
-                    <td>Cheese Butter Classic</td>
-                    <td class="menu-price">₹50</td>
-                    <td class="menu-price">₹80</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Butter Veg</td>
-                    <td class="menu-price">₹60</td>
-                    <td class="menu-price">₹100</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Butter Garlic</td>
-                    <td class="menu-price">₹60</td>
-                    <td class="menu-price">₹100</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Butter Corn</td>
-                    <td class="menu-price">₹60</td>
-                    <td class="menu-price">₹100</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Butter Schezwan</td>
-                    <td class="menu-price">₹60</td>
-                    <td class="menu-price">₹100</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Butter Veg Corn</td>
-                    <td class="menu-price">₹70</td>
-                    <td class="menu-price">₹120</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Butter Veg Schezwan</td>
-                    <td class="menu-price">₹70</td>
-                    <td class="menu-price">₹120</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Butter Korean</td>
-                    <td class="menu-price">₹130</td>
-                    <td class="menu-price">₹200</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     MENU PANEL 4
-     UFO BURGER
-===================================================== -->
-
-<section
-    class="menu-panel"
-    id="menu-burger"
->
-
-    <div class="menu-panel-header">
-
-        <h2>
-            UFO Burger
-        </h2>
-
-        <p>
-            Premium Burger Collection
-        </p>
-
-    </div>
-
-    <div class="menu-table-wrapper">
-
-        <table class="menu-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Item Name
-                    </th>
-
-                    <th>
-                        Price
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                <tr>
-                    <td>Veg Burger</td>
-                    <td class="menu-price">₹40</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Burger</td>
-                    <td class="menu-price">₹40</td>
-                </tr>
-
-                <tr>
-                    <td>Veg Cheese Burger</td>
-                    <td class="menu-price">₹50</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Garlic Burger</td>
-                    <td class="menu-price">₹50</td>
-                </tr>
-
-                <tr>
-                    <td>Schezwan Burger</td>
-                    <td class="menu-price">₹50</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Schezwan Burger</td>
-                    <td class="menu-price">₹60</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     MENU PANEL 5
-     DELICIOUS MOMOS
-===================================================== -->
-
-<section
-    class="menu-panel"
-    id="menu-momos"
->
-
-    <div class="menu-panel-header">
-
-        <h2>
-            Delicious Momos
-        </h2>
-
-        <p>
-            Hot & Tasty Momos Collection
-        </p>
-
-    </div>
-
-    <div class="menu-table-wrapper">
-
-        <table class="menu-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Item Name
-                    </th>
-
-                    <th>
-                        Price
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                <tr>
-                    <td>Steam Momos</td>
-                    <td class="menu-price">₹20</td>
-                </tr>
-
-                <tr>
-                    <td>Fried Momos</td>
-                    <td class="menu-price">₹30</td>
-                </tr>
-
-                <tr>
-                    <td>Schezwan Momos</td>
-                    <td class="menu-price">₹50</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Schezwan Momos</td>
-                    <td class="menu-price">₹60</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     MENU PANEL 6
-     HOT SOUPS
-===================================================== -->
-
-<section
-    class="menu-panel"
-    id="menu-soups"
->
-
-    <div class="menu-panel-header">
-
-        <h2>
-            Hot Soups
-        </h2>
-
-        <p>
-            Hot & Delicious Soup Collection
-        </p>
-
-    </div>
-
-    <div class="menu-table-wrapper">
-
-        <table class="menu-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Item Name
-                    </th>
-
-                    <th>
-                        Price
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                <tr>
-                    <td>Corn Soup</td>
-                    <td class="menu-price">₹40</td>
-                </tr>
-
-                <tr>
-                    <td>Tomato Soup</td>
-                    <td class="menu-price">₹40</td>
-                </tr>
-
-                <tr>
-                    <td>Chatpata Tomato</td>
-                    <td class="menu-price">₹40</td>
-                </tr>
-
-                <tr>
-                    <td>Magic Maggi Soup</td>
-                    <td class="menu-price">₹50</td>
-                </tr>
-
-                <tr>
-                    <td>Manchow Soup</td>
-                    <td class="menu-price">₹50</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     MENU PANEL 7
-     CRISPY SWEET CORN
-===================================================== -->
-
-<section
-    class="menu-panel"
-    id="menu-corn"
->
-
-    <div class="menu-panel-header">
-
-        <h2>
-            Crispy Sweet Corn
-        </h2>
-
-        <p>
-            Crunchy Corn Special Collection
-        </p>
-
-    </div>
-
-    <div class="menu-table-wrapper">
-
-        <table class="menu-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Item Name
-                    </th>
-
-                    <th>
-                        Price
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                <tr>
-                    <td>Peri Peri Corn</td>
-                    <td class="menu-price">₹40</td>
-                </tr>
-
-                <tr>
-                    <td>Butter Corn</td>
-                    <td class="menu-price">₹50</td>
-                </tr>
-
-                <tr>
-                    <td>Masala Corn</td>
-                    <td class="menu-price">₹50</td>
-                </tr>
-
-                <tr>
-                    <td>Cheese Corn</td>
-                    <td class="menu-price">₹50</td>
-                </tr>
-
-                <tr>
-                    <td>Schezwan Corn</td>
-                    <td class="menu-price">₹50</td>
-                </tr>
-
-                <tr>
-                    <td>Butter Cheese Corn</td>
-                    <td class="menu-price">₹60</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     MENU PANEL 8
-     CHIPS BHEL
-===================================================== -->
-
-<section
-    class="menu-panel"
-    id="menu-bhel"
->
-
-    <div class="menu-panel-header">
-
-        <h2>
-            Chips Bhel
-        </h2>
-
-        <p>
-            Crispy Snack Collection
-        </p>
-
-    </div>
-
-    <div class="menu-table-wrapper">
-
-        <table class="menu-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Item Name
-                    </th>
-
-                    <th>
-                        Price
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                <tr>
-                    <td>Chips Bhel</td>
-                    <td class="menu-price">₹50</td>
-                </tr>
-
-                <tr>
-                    <td>Kurkure Bhel</td>
-                    <td class="menu-price">₹50</td>
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</section>
-
-
-</div>
-
-
-<!-- =====================================================
-     PART 2 END
-===================================================== -->
-    <!-- =====================================================
-     LOYALTY SUMMARY
-===================================================== -->
-
-<section
-    class="loyalty-summary"
-    aria-label="Loyalty Summary"
->
-
-    <div class="loyalty-summary-header">
-
-        <div>
-
-            <h3>
-                Loyalty Summary
-            </h3>
-
-            <p>
-                Collect 6 stamps & get 1 Veg Maggi FREE
+            <p id="notificationMessage">
+                Welcome to Rio Maggi Point.
             </p>
 
         </div>
 
-        <span
-            class="stamp-count-label"
-            id="stampCountLabel"
-        >
-            ⭐ 0/6
-        </span>
-
-    </div>
-
-
-    <!-- =================================================
-         STAMP GRID
-    ================================================= -->
-
-    <div
-        class="home-stamp-grid"
-        id="homeStampGrid"
-    >
-    </div>
-
-
-    <!-- =================================================
-         LOYALTY MESSAGE
-    ================================================= -->
-
-    <div
-        class="loyalty-progress-message"
-        id="loyaltyProgressMessage"
-    >
-
-        <i class="fa-solid fa-gift"></i>
-
-        <span>
-            Keep collecting stamps to unlock your FREE Veg Maggi!
-        </span>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     QUICK ACTIONS
-===================================================== -->
-
-<section
-    class="quick-actions"
-    aria-label="Quick Actions"
->
-
-
-    <!-- MY QR -->
-
-    <a
-        href="qr.html"
-        class="quick-action"
-    >
-
-        <div class="quick-action-icon">
-
-            <i class="fa-solid fa-qrcode"></i>
-
-        </div>
-
-        <div class="quick-action-content">
-
-            <strong>
-                My QR Code
-            </strong>
-
-            <span>
-                Show your loyalty QR
-            </span>
-
-        </div>
-
-        <i
-            class="fa-solid fa-chevron-right
-            quick-action-arrow"
-        ></i>
-
-    </a>
-
-
-    <!-- HISTORY -->
-
-    <a
-        href="history.html"
-        class="quick-action"
-    >
-
-        <div class="quick-action-icon">
-
-            <i class="fa-solid fa-clock-rotate-left"></i>
-
-        </div>
-
-        <div class="quick-action-content">
-
-            <strong>
-                Stamp History
-            </strong>
-
-            <span>
-                View your purchase stamps
-            </span>
-
-        </div>
-
-        <i
-            class="fa-solid fa-chevron-right
-            quick-action-arrow"
-        ></i>
-
-    </a>
-
-
-    <!-- MENU -->
-
-    <a
-        href="#menu"
-        class="quick-action"
-        onclick="
-            document
-            .querySelector('.menu-section')
-            .scrollIntoView({
-                behavior:'smooth'
-            });
-        "
-    >
-
-        <div class="quick-action-icon">
-
-            <i class="fa-solid fa-utensils"></i>
-
-        </div>
-
-        <div class="quick-action-content">
-
-            <strong>
-                View Menu
-            </strong>
-
-            <span>
-                Explore Rio Maggi Point menu
-            </span>
-
-        </div>
-
-        <i
-            class="fa-solid fa-chevron-right
-            quick-action-arrow"
-        ></i>
-
-    </a>
-
-
-    <!-- FEEDBACK -->
-
-    <a
-        href="feedback.html"
-        class="quick-action"
-    >
-
-        <div class="quick-action-icon">
-
-            <i class="fa-solid fa-star"></i>
-
-        </div>
-
-        <div class="quick-action-content">
-
-            <strong>
-                Give Feedback
-            </strong>
-
-            <span>
-                Share your experience
-            </span>
-
-        </div>
-
-        <i
-            class="fa-solid fa-chevron-right
-            quick-action-arrow"
-        ></i>
-
-    </a>
-
-</section>
-
-
-<!-- =====================================================
-     CONTACT & SERVICES
-===================================================== -->
-
-<section
-    class="contact-services"
-    aria-label="Contact and Services"
->
-
-
-    <!-- CALL -->
-
-    <a
-        href="tel:+917987827979"
-        class="service-card service-call"
-        aria-label="Call Rio Maggi Point"
-    >
-
-        <div class="service-card-icon">
-
-            <i class="fa-solid fa-phone"></i>
-
-        </div>
-
-        <div class="service-card-content">
-
-            <strong>
-                Call Us
-            </strong>
-
-            <span>
-                7987827979
-            </span>
-
-        </div>
-
-        <i
-            class="fa-solid fa-chevron-right
-            service-arrow"
-        ></i>
-
-    </a>
-
-
-    <!-- WHATSAPP -->
-
-    <a
-        href="https://wa.me/917987827979"
-        class="service-card service-whatsapp"
-        target="_blank"
-        rel="noopener"
-        aria-label="Chat with Rio Maggi Point on WhatsApp"
-    >
-
-        <div class="service-card-icon">
-
-            <i class="fa-brands fa-whatsapp"></i>
-
-        </div>
-
-        <div class="service-card-content">
-
-            <strong>
-                WhatsApp
-            </strong>
-
-            <span>
-                Chat with us
-            </span>
-
-        </div>
-
-        <i
-            class="fa-solid fa-chevron-right
-            service-arrow"
-        ></i>
-
-    </a>
-
-
-    <!-- MAP -->
-
-    <button
-        type="button"
-        class="service-card service-coming-soon"
-        aria-label="Map Coming Soon"
-        onclick="showComingSoon('Map')"
-    >
-
-        <div class="service-card-icon">
-
-            <i class="fa-solid fa-location-dot"></i>
-
-        </div>
-
-        <div class="service-card-content">
-
-            <strong>
-                Find Our Location
-            </strong>
-
-            <span>
-                Map Coming Soon
-            </span>
-
-        </div>
-
-        <span class="coming-soon-badge">
-            Coming Soon
-        </span>
-
-    </button>
-
-
-    <!-- DELIVERY -->
-
-    <button
-        type="button"
-        class="service-card service-coming-soon"
-        aria-label="Delivery Coming Soon"
-        onclick="showComingSoon('Delivery')"
-    >
-
-        <div class="service-card-icon">
-
-            <i class="fa-solid fa-motorcycle"></i>
-
-        </div>
-
-        <div class="service-card-content">
-
-            <strong>
-                Home Delivery
-            </strong>
-
-            <span>
-                Delivery Service Coming Soon
-            </span>
-
-        </div>
-
-        <span class="coming-soon-badge">
-            Coming Soon
-        </span>
-
-    </button>
-
-</section>
-
-
-<!-- =====================================================
-     FOOTER MESSAGE
-===================================================== -->
-
-<section class="home-footer-message">
-
-    <div class="home-footer-icon">
-
-        <i class="fa-solid fa-heart"></i>
-
-    </div>
-
-    <div>
-
-        <strong>
-            Thank you for being a Rio Maggi Point member!
-        </strong>
-
-        <p>
-            Fresh • Tasty • Hygienic
-        </p>
-
-    </div>
-
-</section>
-
-
-</main>
-
-
-<!-- =====================================================
-     COMING SOON POPUP
-===================================================== -->
-
-<div
-    class="coming-soon-popup"
-    id="comingSoonPopup"
-    aria-hidden="true"
->
-
-    <div class="coming-soon-popup-box">
-
-        <div class="coming-soon-popup-icon">
-
-            <i class="fa-solid fa-clock"></i>
-
-        </div>
-
-        <h3 id="comingSoonTitle">
-            Coming Soon
-        </h3>
-
-        <p id="comingSoonText">
-            This feature will be available soon.
-        </p>
 
         <button
             type="button"
-            onclick="closeComingSoon()"
+            id="closeNotificationBtn"
+            aria-label="Close notification"
         >
-            OK
+
+            <i class="fa-solid fa-xmark"></i>
+
         </button>
 
     </div>
 
-</div>
 
 
-<!-- =====================================================
-     BOTTOM NAVIGATION
-===================================================== -->
+    <!-- =========================================
+         JAVASCRIPT
+         MAIN PAGE CONTROLLER
+    ========================================== -->
 
-<nav
-    class="bottom-nav"
-    aria-label="Main Navigation"
->
+    <script>
 
-    <a
-        href="index.html"
-        class="nav-item active"
-    >
+    document.addEventListener(
+        "DOMContentLoaded",
+        () => {
 
-        <i class="fa-solid fa-house"></i>
 
-        <span>
-            Home
-        </span>
+            /* =====================================
+               ELEMENT REFERENCES
+            ====================================== */
 
-    </a>
+            const pageLoader =
+                document.getElementById(
+                    "pageLoader"
+                );
 
 
-    <a
-        href="qr.html"
-        class="nav-item"
-    >
+            const headerMenuBtn =
+                document.getElementById(
+                    "headerMenuBtn"
+                );
 
-        <i class="fa-solid fa-qrcode"></i>
 
-        <span>
-            QR
-        </span>
+            const closeMobileMenuBtn =
+                document.getElementById(
+                    "closeMobileMenuBtn"
+                );
 
-    </a>
 
+            const mobileMenuOverlay =
+                document.getElementById(
+                    "mobileMenuOverlay"
+                );
 
-    <a
-        href="history.html"
-        class="nav-item"
-    >
 
-        <i class="fa-solid fa-clock-rotate-left"></i>
+            const comingSoonMapBtn =
+                document.getElementById(
+                    "comingSoonMapBtn"
+                );
 
-        <span>
-            History
-        </span>
 
-    </a>
+            const currentYear =
+                document.getElementById(
+                    "currentYear"
+                );
 
 
-    <a
-        href="menu.html"
-        class="nav-item"
-    >
+            const siteNotification =
+                document.getElementById(
+                    "siteNotification"
+                );
 
-        <i class="fa-solid fa-utensils"></i>
 
-        <span>
-            Menu
-        </span>
+            const notificationTitle =
+                document.getElementById(
+                    "notificationTitle"
+                );
 
-    </a>
 
+            const notificationMessage =
+                document.getElementById(
+                    "notificationMessage"
+                );
 
-    <a
-        href="profile.html"
-        class="nav-item"
-    >
 
-        <i class="fa-solid fa-user"></i>
+            const closeNotificationBtn =
+                document.getElementById(
+                    "closeNotificationBtn"
+                );
 
-        <span>
-            Profile
-        </span>
 
-    </a>
+            /* =====================================
+               PAGE LOADER
+            ====================================== */
 
-</nav>
+            function hidePageLoader() {
 
+                if (!pageLoader) {
 
-<!-- =====================================================
-     PART 3 END
-===================================================== --><!-- =====================================================
-     PART 5
-     MENU DATA + MENU CARDS
-===================================================== -->
+                    return;
 
-<section class="menu-section" id="everyday-magic-maggi">
+                }
 
-    <div class="menu-section-header">
-        <div class="menu-section-image">
-            <img src="assets/menu/everyday-magic-maggi.png"
-                 alt="Everyday Magic Maggi">
-        </div>
 
-        <div>
-            <h2>Everyday Magic Maggi</h2>
-            <p>Classic Rio Maggi Collection</p>
-        </div>
-    </div>
-
-    <div class="menu-table">
-
-        <div class="menu-table-head">
-            <span>Item Name</span>
-            <span>Half Price</span>
-            <span>Full Price</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Classic</span>
-            <span>₹30</span>
-            <span>₹50</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Veg</span>
-            <span>₹40</span>
-            <span>₹70</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Garlic</span>
-            <span>₹40</span>
-            <span>₹70</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Corn</span>
-            <span>₹40</span>
-            <span>₹70</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Schezwan</span>
-            <span>₹40</span>
-            <span>₹70</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Veg Corn</span>
-            <span>₹50</span>
-            <span>₹80</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Veg Lemon</span>
-            <span>₹80</span>
-            <span>₹120</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Korean</span>
-            <span>₹100</span>
-            <span>₹150</span>
-        </div>
-
-    </div>
-
-</section>
-
-
-<section class="menu-section" id="cheese-magic-maggi">
-
-    <div class="menu-section-header">
-        <div class="menu-section-image">
-            <img src="assets/menu/cheese-magic-maggi.png"
-                 alt="Cheese Magic Maggi">
-        </div>
-
-        <div>
-            <h2>Cheese Magic Maggi</h2>
-            <p>Cheesy Rio Special Collection</p>
-        </div>
-    </div>
-
-    <div class="menu-table">
-
-        <div class="menu-table-head">
-            <span>Item Name</span>
-            <span>Half Price</span>
-            <span>Full Price</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Classic</span>
-            <span>₹40</span>
-            <span>₹70</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Veg</span>
-            <span>₹50</span>
-            <span>₹80</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Garlic</span>
-            <span>₹50</span>
-            <span>₹80</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Corn</span>
-            <span>₹50</span>
-            <span>₹80</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Schezwan</span>
-            <span>₹50</span>
-            <span>₹80</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Veg Corn</span>
-            <span>₹60</span>
-            <span>₹100</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Veg Schezwan</span>
-            <span>₹60</span>
-            <span>₹100</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Korean</span>
-            <span>₹120</span>
-            <span>₹180</span>
-        </div>
-
-    </div>
-
-</section>
-
-
-<section class="menu-section" id="cheese-butter-magic-maggi">
-
-    <div class="menu-section-header">
-        <div class="menu-section-image">
-            <img src="assets/menu/cheese-butter-magic-maggi.png"
-                 alt="Cheese Butter Magic Maggi">
-        </div>
-
-        <div>
-            <h2>Cheese Butter Magic Maggi</h2>
-            <p>Premium Cheese Butter Collection</p>
-        </div>
-    </div>
-
-    <div class="menu-table">
-
-        <div class="menu-table-head">
-            <span>Item Name</span>
-            <span>Half Price</span>
-            <span>Full Price</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Butter Classic</span>
-            <span>₹50</span>
-            <span>₹80</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Butter Veg</span>
-            <span>₹60</span>
-            <span>₹100</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Butter Garlic</span>
-            <span>₹60</span>
-            <span>₹100</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Butter Corn</span>
-            <span>₹60</span>
-            <span>₹100</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Butter Schezwan</span>
-            <span>₹60</span>
-            <span>₹100</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Butter Veg Corn</span>
-            <span>₹70</span>
-            <span>₹120</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Butter Veg Schezwan</span>
-            <span>₹70</span>
-            <span>₹120</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Butter Korean</span>
-            <span>₹130</span>
-            <span>₹200</span>
-        </div>
-
-    </div>
-
-</section>
-<!-- =====================================================
-     PART 5
-     MENU SECTION
-===================================================== -->
-
-<section class="menu-section" id="ufo-burger">
-
-    <div class="menu-section-header">
-
-        <div class="menu-section-image">
-            <img
-                src="assets/menu/ufo-burger.png"
-                alt="UFO Burger"
-            >
-        </div>
-
-        <div>
-            <h2>UFO Burger</h2>
-            <p>Premium Burger Collection</p>
-        </div>
-
-    </div>
-
-
-    <div class="menu-table">
-
-        <div class="menu-table-head">
-            <span>Item Name</span>
-            <span>Price</span>
-        </div>
-
-
-        <div class="menu-row">
-            <span>Veg Burger</span>
-            <span>₹40</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Burger</span>
-            <span>₹40</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Veg Cheese Burger</span>
-            <span>₹50</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Garlic Burger</span>
-            <span>₹50</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Schezwan Burger</span>
-            <span>₹50</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Schezwan Burger</span>
-            <span>₹60</span>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     DELICIOUS MOMOS
-===================================================== -->
-
-<section class="menu-section" id="delicious-momos">
-
-    <div class="menu-section-header">
-
-        <div class="menu-section-image">
-            <img
-                src="assets/menu/delicious-momos.png"
-                alt="Delicious Momos"
-            >
-        </div>
-
-        <div>
-            <h2>Delicious Momos</h2>
-            <p>Hot &amp; Tasty Momos Collection</p>
-        </div>
-
-    </div>
-
-
-    <div class="menu-table">
-
-        <div class="menu-table-head">
-            <span>Item Name</span>
-            <span>Price</span>
-        </div>
-
-
-        <div class="menu-row">
-            <span>Steam Momos</span>
-            <span>₹20</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Fried Momos</span>
-            <span>₹30</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Schezwan Momos</span>
-            <span>₹50</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Cheese Schezwan Momos</span>
-            <span>₹60</span>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     HOT SOUPS
-===================================================== -->
-
-<section class="menu-section" id="hot-soups">
-
-    <div class="menu-section-header">
-
-        <div class="menu-section-image">
-            <img
-                src="assets/menu/hot-soups.png"
-                alt="Hot Soups"
-            >
-        </div>
-
-        <div>
-            <h2>Hot Soups</h2>
-            <p>Hot &amp; Delicious Soup Collection</p>
-        </div>
-
-    </div>
-
-
-    <div class="menu-table">
-
-        <div class="menu-table-head">
-            <span>Item Name</span>
-            <span>Price</span>
-        </div>
-
-
-        <div class="menu-row">
-            <span>Corn Soup</span>
-            <span>₹40</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Tomato Soup</span>
-            <span>₹40</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Chatpata Tomato</span>
-            <span>₹40</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Magic Maggi Soup</span>
-            <span>₹50</span>
-        </div>
-
-        <div class="menu-row">
-            <span>Manchow Soup</span>
-            <span>₹50</span>
-        </div>
-
-    </div>
-
-</section>
+                pageLoader.classList.add(
+                    "loader-hidden"
+                );
+
+
+                pageLoader.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+
+                window.setTimeout(
+                    () => {
+
+                        pageLoader.style.display =
+                            "none";
+
+                    },
+                    500
+                );
+
+            }
+
+
+            if (
+                document.readyState ===
+                "complete"
+            ) {
+
+                window.setTimeout(
+                    hidePageLoader,
+                    250
+                );
+
+            }
+
+            else {
+
+                window.addEventListener(
+                    "load",
+                    hidePageLoader,
+                    {
+                        once: true
+                    }
+                );
+
+            }
+
+
+            /* =====================================
+               CURRENT YEAR
+            ====================================== */
+
+            if (currentYear) {
+
+                currentYear.textContent =
+                    new Date().getFullYear();
+
+            }
+
+
+            /* =====================================
+               MOBILE MENU
+            ====================================== */
+
+            function openMobileMenu() {
+
+                if (!mobileMenuOverlay) {
+
+                    return;
+
+                }
+
+
+                mobileMenuOverlay.classList.add(
+                    "is-open"
+                );
+
+
+                mobileMenuOverlay.setAttribute(
+                    "aria-hidden",
+                    "false"
+                );
+
+
+                if (headerMenuBtn) {
+
+                    headerMenuBtn.setAttribute(
+                        "aria-expanded",
+                        "true"
+                    );
+
+                }
+
+
+                document.body.classList.add(
+                    "menu-open"
+                );
+
+            }
+
+
+            function closeMobileMenu() {
+
+                if (!mobileMenuOverlay) {
+
+                    return;
+
+                }
+
+
+                mobileMenuOverlay.classList.remove(
+                    "is-open"
+                );
+
+
+                mobileMenuOverlay.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+
+                if (headerMenuBtn) {
+
+                    headerMenuBtn.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+
+
+                document.body.classList.remove(
+                    "menu-open"
+                );
+
+            }
+
+
+            if (headerMenuBtn) {
+
+                headerMenuBtn.addEventListener(
+                    "click",
+                    openMobileMenu
+                );
+
+            }
+
+
+            if (closeMobileMenuBtn) {
+
+                closeMobileMenuBtn.addEventListener(
+                    "click",
+                    closeMobileMenu
+                );
+
+            }
+
+
+            /* =====================================
+               CLOSE MENU AFTER NAVIGATION
+            ====================================== */
+
+            if (mobileMenuOverlay) {
+
+                const mobileMenuLinks =
+                    mobileMenuOverlay.querySelectorAll(
+                        "a"
+                    );
+
+
+                mobileMenuLinks.forEach(
+                    (link) => {
+
+                        link.addEventListener(
+                            "click",
+                            closeMobileMenu
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* =====================================
+               CLOSE MENU ON OVERLAY CLICK
+            ====================================== */
+
+            if (mobileMenuOverlay) {
+
+                mobileMenuOverlay.addEventListener(
+                    "click",
+                    (event) => {
+
+                        if (
+                            event.target ===
+                            mobileMenuOverlay
+                        ) {
+
+                            closeMobileMenu();
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            /* =====================================
+               ESCAPE KEY
+            ====================================== */
+
+            document.addEventListener(
+                "keydown",
+                (event) => {
+
+                    if (
+                        event.key ===
+                        "Escape"
+                    ) {
+
+                        closeMobileMenu();
+
+                    }
+
+                }
+            );
+
+
+            /* =====================================
+               COMING SOON MAP
+            ====================================== */
+
+            if (comingSoonMapBtn) {
+
+                comingSoonMapBtn.addEventListener(
+                    "click",
+                    () => {
+
+                        showNotification(
+                            "Location Coming Soon",
+                            "Rio Maggi Point location details will be available soon."
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* =====================================
+               NOTIFICATION SYSTEM
+            ====================================== */
+
+            let notificationTimer =
+                null;
+
+
+            function showNotification(
+                title,
+                message
+            ) {
+
+                if (
+                    !siteNotification
+                ) {
+
+                    return;
+
+                }
+
+
+                if (notificationTitle) {
+
+                    notificationTitle.textContent =
+                        title;
+
+                }
+
+
+                if (notificationMessage) {
+
+                    notificationMessage.textContent =
+                        message;
+
+                }
+
+
+                siteNotification.classList.add(
+                    "is-visible"
+                );
+
+
+                siteNotification.setAttribute(
+                    "aria-hidden",
+                    "false"
+                );
+
+
+                if (notificationTimer) {
+
+                    window.clearTimeout(
+                        notificationTimer
+                    );
+
+                }
+
+
+                notificationTimer =
+                    window.setTimeout(
+                        hideNotification,
+                        5000
+                    );
+
+            }
+
+
+            function hideNotification() {
+
+                if (
+                    !siteNotification
+                ) {
+
+                    return;
+
+                }
+
+
+                siteNotification.classList.remove(
+                    "is-visible"
+                );
+
+
+                siteNotification.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+            }
+
+
+            if (closeNotificationBtn) {
+
+                closeNotificationBtn.addEventListener(
+                    "click",
+                    hideNotification
+                );
+
+            }
+
+
+            /* =====================================
+               SCROLL REVEAL
+            ====================================== */
+
+            const revealElements =
+                document.querySelectorAll(
+                    [
+                        ".section-heading",
+                        ".loyalty-step-card",
+                        ".feature-card",
+                        ".menu-preview-card",
+                        ".games-card",
+                        ".delivery-card",
+                        ".contact-preview-card",
+                        ".final-cta-card"
+                    ].join(",")
+                );
+
+
+            if (
+                "IntersectionObserver"
+                in window
+            ) {
+
+
+                const revealObserver =
+                    new IntersectionObserver(
+                        (
+                            entries,
+                            observer
+                        ) => {
+
+
+                            entries.forEach(
+                                (entry) => {
+
+
+                                    if (
+                                        entry.isIntersecting
+                                    ) {
+
+
+                                        entry.target.classList.add(
+                                            "is-visible"
+                                        );
+
+
+                                        observer.unobserve(
+                                            entry.target
+                                        );
+
+                                    }
+
+                                }
+                            );
+
+                        },
+                        {
+                            threshold: 0.12,
+                            rootMargin:
+                                "0px 0px -40px 0px"
+                        }
+                    );
+
+
+                revealElements.forEach(
+                    (element) => {
+
+                        element.classList.add(
+                            "reveal-animation"
+                        );
+
+
+                        revealObserver.observe(
+                            element
+                        );
+
+                    }
+                );
+
+            }
+
+            else {
+
+
+                revealElements.forEach(
+                    (element) => {
+
+                        element.classList.add(
+                            "is-visible"
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* =====================================
+               SMOOTH ANCHOR SCROLL
+            ====================================== */
+
+            const anchorLinks =
+                document.querySelectorAll(
+                    'a[href^="#"]'
+                );
+
+
+            anchorLinks.forEach(
+                (link) => {
+
+
+                    link.addEventListener(
+                        "click",
+                        (event) => {
+
+
+                            const targetId =
+                                link.getAttribute(
+                                    "href"
+                                );
+
+
+                            if (
+                                !targetId ||
+                                targetId === "#"
+                            ) {
+
+                                return;
+
+                            }
+
+
+                            const targetElement =
+                                document.querySelector(
+                                    targetId
+                                );
+
+
+                            if (
+                                !targetElement
+                            ) {
+
+                                return;
+
+                            }
+
+
+                            event.preventDefault();
+
+
+                            targetElement.scrollIntoView(
+                                {
+                                    behavior:
+                                        "smooth",
+                                    block:
+                                        "start"
+                                }
+                            );
+
+
+                        }
+                    );
+
+                }
+            );
+
+
+            /* =====================================
+               HEADER SCROLL EFFECT
+            ====================================== */
+
+            const mainHeader =
+                document.getElementById(
+                    "mainHeader"
+                );
+
+
+            let lastScrollY = 0;
+
+
+            function updateHeaderOnScroll() {
+
+                if (!mainHeader) {
+
+                    return;
+
+                }
+
+
+                const currentScrollY =
+                    window.scrollY;
+
+
+                if (
+                    currentScrollY >
+                    30
+                ) {
+
+                    mainHeader.classList.add(
+                        "header-scrolled"
+                    );
+
+                }
+
+                else {
+
+                    mainHeader.classList.remove(
+                        "header-scrolled"
+                    );
+
+                }
+
+
+                if (
+                    currentScrollY >
+                    lastScrollY &&
+                    currentScrollY >
+                    300
+                ) {
+
+                    mainHeader.classList.add(
+                        "header-hidden"
+                    );
+
+                }
+
+                else {
+
+                    mainHeader.classList.remove(
+                        "header-hidden"
+                    );
+
+                }
+
+
+                lastScrollY =
+                    Math.max(
+                        currentScrollY,
+                        0
+                    );
+
+            }
+
+
+            let scrollTicking =
+                false;
+
+
+            window.addEventListener(
+                "scroll",
+                () => {
+
+
+                    if (
+                        !scrollTicking
+                    ) {
+
+
+                        window.requestAnimationFrame(
+                            () => {
+
+
+                                updateHeaderOnScroll();
+
+
+                                scrollTicking =
+                                    false;
+
+
+                            }
+                        );
+
+
+                        scrollTicking =
+                            true;
+
+                    }
+
+                },
+                {
+                    passive: true
+                }
+            );
+
+
+            /* =====================================
+               PREVENT BODY SCROLL
+               WHEN MOBILE MENU IS OPEN
+            ====================================== */
+
+            const menuObserver =
+                new MutationObserver(
+                    () => {
+
+
+                        if (
+                            mobileMenuOverlay &&
+                            mobileMenuOverlay.classList.contains(
+                                "is-open"
+                            )
+                        ) {
+
+                            document.body.style.overflow =
+                                "hidden";
+
+                        }
+
+                        else {
+
+                            document.body.style.overflow =
+                                "";
+
+                        }
+
+                    }
+                );
+
+
+            if (mobileMenuOverlay) {
+
+                menuObserver.observe(
+                    mobileMenuOverlay,
+                    {
+                        attributes: true,
+                        attributeFilter:
+                            [
+                                "class"
+                            ]
+                    }
+                );
+
+            }
+
+
+            /* =====================================
+               REDUCED MOTION SUPPORT
+            ====================================== */
+
+            const prefersReducedMotion =
+                window.matchMedia(
+                    "(prefers-reduced-motion: reduce)"
+                );
+
+
+            if (
+                prefersReducedMotion.matches
+            ) {
+
+                document.documentElement.classList.add(
+                    "reduce-motion"
+                );
+
+            }
+
+
+            /* =====================================
+               FINAL PAGE READY
+            ====================================== */
+
+            document.body.classList.add(
+                "page-ready"
+            );
+
+
+        }
+    );
+
+    </script>
+
+
+    <!-- =========================================
+         SERVICE WORKER
+         REGISTER ONCE
+    ========================================== -->
+
+    <script>
+
+    if (
+        "serviceWorker"
+        in navigator
+    ) {
+
+        window.addEventListener(
+            "load",
+            () => {
+
+
+                navigator.serviceWorker.register(
+                    "service-worker.js"
+                )
+
+                .then(
+                    () => {
+
+                        console.log(
+                            "Rio Maggi Point Service Worker Registered"
+                        );
+
+                    }
+                )
+
+                .catch(
+                    (error) => {
+
+                        console.error(
+                            "Service Worker Registration Failed:",
+                            error
+                        );
+
+                    }
+                );
+
+
+            },
+            {
+                once: true
+            }
+        );
+
+    }
+
+    </script>
+
+
+</body>
+
+</html>
