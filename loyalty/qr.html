@@ -1,41 +1,21 @@
-<!-- =========================================
-     RIO MAGGI POINT
-     QR.HTML
-     PART 1/3
-     PREMIUM RED + BLACK LOYALTY QR PAGE
-     DUPLICATE-FREE VERSION
-========================================= -->
-
 <!DOCTYPE html>
-
-<html
-    lang="en">
+<html lang="en">
 
 <head>
-
 
     <!-- =====================================
          BASIC META
     ====================================== -->
 
-    <meta
-        charset="UTF-8">
-
+    <meta charset="UTF-8">
 
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
+    <title>Rio Maggi Point • Premium Loyalty QR</title>
 
-    <title>
-        Rio Maggi Point • Premium Loyalty QR
-    </title>
-
-
-    <meta
-        name="theme-color"
-        content="#000000">
-
+    <meta name="theme-color" content="#000000">
 
     <meta
         name="description"
@@ -46,16 +26,12 @@
          PWA
     ====================================== -->
 
-    <link
-        rel="manifest"
-        href="manifest.json">
-
+    <link rel="manifest" href="manifest.json">
 
     <link
         rel="icon"
         href="favicon.ico"
         type="image/x-icon">
-
 
     <link
         rel="apple-touch-icon"
@@ -66,16 +42,12 @@
          GOOGLE FONT
     ====================================== -->
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link
         rel="preconnect"
         href="https://fonts.gstatic.com"
         crossorigin>
-
 
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
@@ -92,7 +64,7 @@
 
 
     <!-- =====================================
-         COMMON WEBSITE CSS
+         COMMON CSS
     ====================================== -->
 
     <link
@@ -110,61 +82,31 @@
 
 
     <!-- =====================================
-         QR PAGE RED + BLACK THEME
-         PAGE-SPECIFIC OVERRIDES
+         QR PAGE THEME
+         TEMPORARY PAGE VARIABLES ONLY
     ====================================== -->
 
     <style>
 
-
-        /* =================================
-           QR PAGE COLOR SYSTEM
-        ================================= */
-
         :root {
 
-            --qr-black:
-                #000000;
+            --qr-black: #000000;
+            --qr-black-soft: #0b0b0b;
+            --qr-black-card: #111111;
 
-            --qr-black-soft:
-                #0b0b0b;
+            --qr-red: #d90429;
+            --qr-red-dark: #a90320;
+            --qr-red-light: #ff1e3c;
 
-            --qr-black-card:
-                #111111;
-
-            --qr-red:
-                #d90429;
-
-            --qr-red-dark:
-                #a90320;
-
-            --qr-red-light:
-                #ff1e3c;
-
-            --qr-white:
-                #ffffff;
-
-            --qr-white-soft:
-                #f5f5f5;
-
-            --qr-gray:
-                #bdbdbd;
+            --qr-white: #ffffff;
+            --qr-white-soft: #f5f5f5;
+            --qr-gray: #bdbdbd;
 
             --qr-border:
-                rgba(
-                    217,
-                    4,
-                    41,
-                    .55
-                );
+                rgba(217, 4, 41, 0.55);
 
             --qr-red-glow:
-                rgba(
-                    217,
-                    4,
-                    41,
-                    .35
-                );
+                rgba(217, 4, 41, 0.35);
 
         }
 
@@ -226,19 +168,10 @@
 
             box-shadow:
                 0 20px 60px
-                rgba(
-                    0,
-                    0,
-                    0,
-                    .65
-                ),
+                rgba(0, 0, 0, 0.65),
+
                 0 0 35px
-                rgba(
-                    217,
-                    4,
-                    41,
-                    .12
-                );
+                rgba(217, 4, 41, 0.12);
 
             overflow:
                 hidden;
@@ -264,12 +197,7 @@
             background:
                 radial-gradient(
                     circle at 50% 0%,
-                    rgba(
-                        217,
-                        4,
-                        41,
-                        .18
-                    ),
+                    rgba(217, 4, 41, 0.18),
                     transparent 45%
                 );
 
@@ -307,25 +235,15 @@
                 linear-gradient(
                     90deg,
                     transparent,
-                    rgba(
-                        255,
-                        255,
-                        255,
-                        .05
-                    ),
+                    rgba(255, 255, 255, 0.05),
                     transparent
                 );
 
             transform:
-                skewX(
-                    -20deg
-                );
+                skewX(-20deg);
 
             animation:
-                cardShine
-                7s
-                ease-in-out
-                infinite;
+                cardShine 7s ease-in-out infinite;
 
             z-index:
                 1;
@@ -379,12 +297,7 @@
 
             border-bottom:
                 1px solid
-                rgba(
-                    217,
-                    4,
-                    41,
-                    .25
-                );
+                rgba(217, 4, 41, 0.25);
 
         }
 
@@ -467,7 +380,7 @@
                 800;
 
             letter-spacing:
-                .8px;
+                0.8px;
 
         }
 
@@ -475,9 +388,7 @@
         .qr-header-content p {
 
             margin:
-                4px
-                0
-                0;
+                4px 0 0;
 
             color:
                 var(--qr-red-light);
@@ -522,9 +433,7 @@
                 center;
 
             padding:
-                24px
-                20px
-                18px;
+                24px 20px 18px;
 
         }
 
@@ -576,12 +485,12 @@
             object-fit:
                 cover;
 
-            border-radius:
-                50%;
-
             border:
                 3px solid
                 var(--qr-black);
+
+            border-radius:
+                50%;
 
             background:
                 var(--qr-black-card);
@@ -596,9 +505,7 @@
         .customer-name {
 
             margin:
-                14px
-                0
-                4px;
+                14px 0 4px;
 
             color:
                 var(--qr-white);
@@ -635,7 +542,7 @@
                 500;
 
             letter-spacing:
-                .7px;
+                0.7px;
 
         }
 
@@ -673,9 +580,7 @@
                 center;
 
             padding:
-                10px
-                20px
-                24px;
+                10px 20px 24px;
 
         }
 
@@ -772,30 +677,17 @@
 
             box-shadow:
                 0 0 0 3px
-                rgba(
-                    217,
-                    4,
-                    41,
-                    .18
-                ),
+                rgba(217, 4, 41, 0.18),
+
                 0 15px 45px
-                rgba(
-                    0,
-                    0,
-                    0,
-                    .55
-                );
+                rgba(0, 0, 0, 0.55);
 
             overflow:
                 hidden;
 
             transition:
-                transform
-                .3s
-                ease,
-                box-shadow
-                .3s
-                ease;
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
 
         }
 
@@ -876,10 +768,7 @@
                 solid;
 
             animation:
-                qrCornerPulse
-                2s
-                ease-in-out
-                infinite;
+                qrCornerPulse 2s ease-in-out infinite;
 
         }
 
@@ -893,10 +782,7 @@
                 7px;
 
             border-width:
-                4px
-                0
-                0
-                4px;
+                4px 0 0 4px;
 
         }
 
@@ -910,10 +796,7 @@
                 7px;
 
             border-width:
-                4px
-                4px
-                0
-                0;
+                4px 4px 0 0;
 
         }
 
@@ -927,10 +810,7 @@
                 7px;
 
             border-width:
-                0
-                0
-                4px
-                4px;
+                0 0 4px 4px;
 
         }
 
@@ -944,10 +824,7 @@
                 7px;
 
             border-width:
-                0
-                4px
-                4px
-                0;
+                0 4px 4px 0;
 
         }
 
@@ -958,7 +835,7 @@
             100% {
 
                 opacity:
-                    .65;
+                    0.65;
 
             }
 
@@ -979,9 +856,7 @@
         .qr-status {
 
             margin:
-                14px
-                0
-                0;
+                14px 0 0;
 
             color:
                 var(--qr-gray);
@@ -1040,7 +915,6 @@
 
         /* =================================
            DAILY LOYALTY RULE
-           SINGLE INSTANCE ONLY
         ================================= */
 
         .daily-stamp-rule {
@@ -1055,13 +929,10 @@
                 100%;
 
             margin:
-                24px
-                auto
-                0;
+                24px auto 0;
 
             padding:
-                24px
-                20px;
+                24px 20px;
 
             display:
                 flex;
@@ -1091,19 +962,10 @@
 
             box-shadow:
                 0 10px 35px
-                rgba(
-                    0,
-                    0,
-                    0,
-                    .5
-                ),
+                rgba(0, 0, 0, 0.5),
+
                 0 0 25px
-                rgba(
-                    217,
-                    4,
-                    41,
-                    .12
-                );
+                rgba(217, 4, 41, 0.12);
 
         }
 
@@ -1161,8 +1023,7 @@
                 inline-block;
 
             padding:
-                6px
-                13px;
+                6px 13px;
 
             margin-bottom:
                 10px;
@@ -1196,9 +1057,7 @@
         .daily-rule-content h2 {
 
             margin:
-                0
-                0
-                14px;
+                0 0 14px;
 
             color:
                 var(--qr-white);
@@ -1226,9 +1085,7 @@
         .rule-main-text {
 
             margin:
-                0
-                0
-                12px;
+                0 0 12px;
 
             color:
                 var(--qr-white-soft);
@@ -1270,30 +1127,18 @@
                 100%;
 
             margin:
-                8px
-                0;
+                8px 0;
 
             padding:
-                12px
-                10px;
+                12px 10px;
 
             border-top:
                 1px solid
-                rgba(
-                    217,
-                    4,
-                    41,
-                    .35
-                );
+                rgba(217, 4, 41, 0.35);
 
             border-bottom:
                 1px solid
-                rgba(
-                    217,
-                    4,
-                    41,
-                    .35
-                );
+                rgba(217, 4, 41, 0.35);
 
             color:
                 var(--qr-white);
@@ -1321,9 +1166,7 @@
         .rule-reward {
 
             margin:
-                10px
-                0
-                0;
+                10px 0 0;
 
             color:
                 var(--qr-red-light);
@@ -1380,21 +1223,11 @@
                 left;
 
             background:
-                rgba(
-                    217,
-                    4,
-                    41,
-                    .08
-                );
+                rgba(217, 4, 41, 0.08);
 
             border:
                 1px solid
-                rgba(
-                    217,
-                    4,
-                    41,
-                    .35
-                );
+                rgba(217, 4, 41, 0.35);
 
             border-radius:
                 12px;
@@ -1418,9 +1251,7 @@
         .rule-important i {
 
             flex:
-                0
-                0
-                auto;
+                0 0 auto;
 
             margin-top:
                 3px;
@@ -1438,15 +1269,12 @@
            MOBILE RESPONSIVE
         ================================= */
 
-        @media (
-            max-width: 480px
-        ) {
+        @media (max-width: 480px) {
 
             .qr-header {
 
                 padding:
-                    17px
-                    15px;
+                    17px 15px;
 
             }
 
@@ -1454,9 +1282,7 @@
             .customer-section {
 
                 padding:
-                    20px
-                    15px
-                    15px;
+                    20px 15px 15px;
 
             }
 
@@ -1464,9 +1290,7 @@
             .premium-qr-section {
 
                 padding:
-                    8px
-                    15px
-                    20px;
+                    8px 15px 20px;
 
             }
 
@@ -1494,8 +1318,7 @@
                     20px;
 
                 padding:
-                    20px
-                    15px;
+                    20px 15px;
 
                 border-radius:
                     18px;
@@ -1525,9 +1348,7 @@
            REDUCED MOTION
         ================================= */
 
-        @media (
-            prefers-reduced-motion: reduce
-        ) {
+        @media (prefers-reduced-motion: reduce) {
 
             .card-shine,
             .qr-corner {
@@ -1539,9 +1360,7 @@
 
         }
 
-
     </style>
-
 
 </head>
 
@@ -1549,898 +1368,788 @@
 <body>
 
 
-<!-- =========================================
-     MAIN QR PAGE
-========================================= -->
+    <!-- =========================================
+         MAIN QR PAGE
+    ========================================= -->
 
-<main
-    class="qr-page app-page">
-
-
-    <!-- =====================================
-         PREMIUM QR DASHBOARD
-         SINGLE INSTANCE
-    ====================================== -->
-
-    <section
-        class="qr-card app-card"
-        aria-label="Rio Maggi Point Premium Loyalty QR">
+    <main class="qr-page app-page">
 
 
-        <!-- =================================
-             PREMIUM CARD EFFECTS
-        ================================= -->
+        <!-- =====================================
+             PREMIUM QR DASHBOARD
+        ====================================== -->
 
-        <div
-            class="card-glow"
-            aria-hidden="true">
-        </div>
-
-
-        <div
-            class="card-shine"
-            aria-hidden="true">
-        </div>
+        <section
+            class="qr-card app-card"
+            aria-label="Rio Maggi Point Premium Loyalty QR">
 
 
-        <!-- =================================
-             QR DASHBOARD HEADER
-        ================================= -->
-
-        <header
-            class="qr-header">
-
+            <!-- =================================
+                 PREMIUM CARD EFFECTS
+            ================================= -->
 
             <div
-                class="qr-brand-icon"
+                class="card-glow"
                 aria-hidden="true">
-
-                <i
-                    class="fa-solid fa-qrcode">
-                </i>
-
             </div>
 
 
             <div
-                class="qr-header-content">
-
-
-                <h1>
-                    RIO MAGGI POINT
-                </h1>
-
-
-                <p>
-                    Premium Loyalty QR
-                </p>
-
-
-            </div>
-
-
-        </header>
-
-
-        <!-- =================================
-             CUSTOMER PROFILE
-             SINGLE INSTANCE
-        ================================= -->
-
-        <section
-            class="customer-section"
-            aria-label="Customer Information">
-
-
-            <!-- CUSTOMER PHOTO -->
-
-            <div
-                class="avatar-frame">
-
-
-                <img
-                    id="customerPhoto"
-                    src="assets/avatars/male.png"
-                    alt="Customer Profile Photo"
-                    loading="lazy">
-
-
-            </div>
-
-
-            <!-- CUSTOMER NAME -->
-
-            <h2
-                class="customer-name"
-                id="customerName">
-
-                Loading...
-
-            </h2>
-
-
-            <!-- MEMBER ID -->
-
-            <p
-                class="customer-id">
-
-                ID :
-
-                <span
-                    id="memberId">
-
-                    RIO-000000
-
-                </span>
-
-            </p>
-
-
-        </section>
-
-
-        <!-- =================================
-             PREMIUM QR SECTION
-             SINGLE INSTANCE
-        ================================= -->
-
-        <section
-            class="premium-qr-section"
-            aria-label="Loyalty QR Code">
-
-
-            <!-- SCAN TITLE -->
-
-            <div
-                class="scan-title">
-
-
-                <i
-                    class="fa-solid fa-qrcode"
-                    aria-hidden="true">
-                </i>
-
-
-                <span>
-                    SCAN THIS QR AT COUNTER
-                </span>
-
-
-            </div>
-
-
-            <!-- QR CODE FRAME -->
-
-            <div
-                class="premium-qr-card"
-                id="premiumQrCard">
-
-
-                <!-- ONE-TIME SCAN LINE -->
-
-                <div
-                    class="qr-scan-line"
-                    id="qrScanLine"
-                    aria-hidden="true">
-                </div>
-
-
-                <!-- QR CORNERS -->
-
-                <div
-                    class="qr-corner qr-corner-top-left"
-                    aria-hidden="true">
-                </div>
-
-
-                <div
-                    class="qr-corner qr-corner-top-right"
-                    aria-hidden="true">
-                </div>
-
-
-                <div
-                    class="qr-corner qr-corner-bottom-left"
-                    aria-hidden="true">
-                </div>
-
-
-                <div
-                    class="qr-corner qr-corner-bottom-right"
-                    aria-hidden="true">
-                </div>
-
-
-                <!-- QR CODE GENERATED BY qr.js -->
-
-                <div
-                    id="qrcode"
-                    class="qr-box"
-                    aria-label="Customer Loyalty QR Code">
-                </div>
-
-
-            </div>
-
-
-            <!-- QR STATUS -->
-
-            <p
-                id="qrStatus"
-                class="qr-status"
-                role="status"
-                aria-live="polite">
-
-                Preparing Your Premium QR...
-
-            </p>
-
-
-        </section>
-
-
-        <!-- =================================
-             DAILY LOYALTY RULE
-             SINGLE INSTANCE ONLY
-        ================================= -->
-
-        <section
-            class="daily-stamp-rule"
-            aria-labelledby="dailyRuleTitle">
-
-
-            <!-- RULE ICON -->
-
-            <div
-                class="daily-rule-icon"
+                class="card-shine"
                 aria-hidden="true">
-
-                <i
-                    class="fa-solid fa-calendar-check">
-                </i>
-
             </div>
 
 
-            <!-- RULE CONTENT -->
+            <!-- =================================
+                 QR DASHBOARD HEADER
+            ================================= -->
 
-            <div
-                class="daily-rule-content">
+            <header class="qr-header">
 
-
-                <!-- RULE BADGE -->
 
                 <div
-                    class="daily-rule-badge">
+                    class="qr-brand-icon"
+                    aria-hidden="true">
 
-                    DAILY LOYALTY RULE
+                    <i class="fa-solid fa-qrcode"></i>
 
                 </div>
 
 
-                <!-- RULE TITLE -->
+                <div class="qr-header-content">
+
+                    <h1>
+                        RIO MAGGI POINT
+                    </h1>
+
+                    <p>
+                        Premium Loyalty QR
+                    </p>
+
+                </div>
+
+
+            </header>
+
+
+            <!-- =================================
+                 CUSTOMER PROFILE
+            ================================= -->
+
+            <section
+                class="customer-section"
+                aria-label="Customer Information">
+
+
+                <!-- CUSTOMER PHOTO -->
+
+                <div class="avatar-frame">
+
+                    <img
+                        id="customerPhoto"
+                        src="assets/avatars/male.png"
+                        alt="Customer Profile Photo"
+                        loading="lazy">
+
+                </div>
+
+
+                <!-- CUSTOMER NAME -->
 
                 <h2
-                    id="dailyRuleTitle">
+                    class="customer-name"
+                    id="customerName">
 
-                    ONE PURCHASE DAY = ONE STAMP ONLY
+                    Loading...
 
                 </h2>
 
 
-                <!-- MAIN RULE -->
+                <!-- MEMBER ID -->
 
-                <p
-                    class="rule-main-text">
+                <p class="customer-id">
 
-                    एक दिन में आप कितनी भी Maggi खरीदें,
-                    आपको सिर्फ
+                    ID :
 
-                    <strong>
-                        1 Loyalty Stamp
-                    </strong>
-
-                    मिलेगा।
+                    <span id="memberId">
+                        RIO-000000
+                    </span>
 
                 </p>
 
 
-                <!-- STAMP PROGRESS -->
-
-                <p
-                    class="rule-highlight">
-
-                    6 अलग-अलग दिनों में Purchase करें
-                    और 6 Stamps Complete करें।
-
-                </p>
+            </section>
 
 
-                <!-- FREE REWARD -->
+            <!-- =================================
+                 PREMIUM QR SECTION
+            ================================== -->
 
-                <p
-                    class="rule-reward">
-
-                    🎁 6 Stamps Complete होने के बाद
-                    आपकी
-
-                    <strong>
-                        7th Veg Maggi FREE
-                    </strong>
-
-                    होगी।
-
-                </p>
+            <section
+                class="premium-qr-section"
+                aria-label="Loyalty QR Code">
 
 
-                <!-- IMPORTANT RULE -->
+                <!-- SCAN TITLE -->
 
-                <div
-                    class="rule-important">
-
+                <div class="scan-title">
 
                     <i
-                        class="fa-solid fa-circle-info"
+                        class="fa-solid fa-qrcode"
                         aria-hidden="true">
                     </i>
 
-
                     <span>
-
-                        एक ही दिन में 6 Maggi खरीदने पर
-                        6 Stamps नहीं मिलेंगे।
-                        हर नए Stamp के लिए अगला Purchase Day
-                        होना जरूरी है।
-
+                        SCAN THIS QR AT COUNTER
                     </span>
 
+                </div>
+
+
+                <!-- QR CODE FRAME -->
+
+                <div
+                    class="premium-qr-card"
+                    id="premiumQrCard">
+
+
+                    <!-- QR SCAN LINE -->
+
+                    <div
+                        class="qr-scan-line"
+                        id="qrScanLine"
+                        aria-hidden="true">
+                    </div>
+
+
+                    <!-- QR CORNERS -->
+
+                    <div
+                        class="qr-corner qr-corner-top-left"
+                        aria-hidden="true">
+                    </div>
+
+
+                    <div
+                        class="qr-corner qr-corner-top-right"
+                        aria-hidden="true">
+                    </div>
+
+
+                    <div
+                        class="qr-corner qr-corner-bottom-left"
+                        aria-hidden="true">
+                    </div>
+
+
+                    <div
+                        class="qr-corner qr-corner-bottom-right"
+                        aria-hidden="true">
+                    </div>
+
+
+                    <!-- QR GENERATED BY QR.JS -->
+
+                    <div
+                        id="qrcode"
+                        class="qr-box"
+                        aria-label="Customer Loyalty QR Code">
+                    </div>
+
 
                 </div>
 
 
-            </div>
+                <!-- QR STATUS -->
+
+                <p
+                    id="qrStatus"
+                    class="qr-status"
+                    role="status"
+                    aria-live="polite">
+
+                    Preparing Your Premium QR...
+
+                </p>
 
 
-        </section>
+            </section>
 
 
-        <!-- =================================
-             END OF PART 1 CONTENT
-             PART 2 WILL CONTINUE HERE
-        ================================= -->
-        <!-- =========================================
-     RIO MAGGI POINT
-     QR.HTML
-     PART 2/3
-     INSTRUCTIONS + SECURITY + NAVIGATION
-     DUPLICATE-FREE VERSION
-========================================= -->
+            <!-- =================================
+                 DAILY LOYALTY RULE
+            ================================== -->
+
+            <section
+                class="daily-stamp-rule"
+                aria-labelledby="dailyRuleTitle">
 
 
-        <!-- =================================
-             QR SECURITY NOTE
-             SINGLE INSTANCE ONLY
-        ================================= -->
+                <!-- RULE ICON -->
 
-        <section
-            class="security-note"
-            aria-label="QR Security Information">
+                <div
+                    class="daily-rule-icon"
+                    aria-hidden="true">
+
+                    <i class="fa-solid fa-calendar-check"></i>
+
+                </div>
 
 
-            <i
-                class="fa-solid fa-shield-halved"
+                <!-- RULE CONTENT -->
+
+                <div class="daily-rule-content">
+
+
+                    <!-- RULE BADGE -->
+
+                    <div class="daily-rule-badge">
+
+                        DAILY LOYALTY RULE
+
+                    </div>
+
+
+                    <!-- RULE TITLE -->
+
+                    <h2 id="dailyRuleTitle">
+
+                        ONE PURCHASE DAY = ONE STAMP ONLY
+
+                    </h2>
+
+
+                    <!-- MAIN RULE -->
+
+                    <p class="rule-main-text">
+
+                        एक दिन में आप कितनी भी Maggi खरीदें,
+                        आपको सिर्फ
+
+                        <strong>
+                            1 Loyalty Stamp
+                        </strong>
+
+                        मिलेगा।
+
+                    </p>
+
+
+                    <!-- STAMP PROGRESS -->
+
+                    <p class="rule-highlight">
+
+                        6 अलग-अलग दिनों में Purchase करें
+                        और 6 Stamps Complete करें।
+
+                    </p>
+
+
+                    <!-- FREE REWARD -->
+
+                    <p class="rule-reward">
+
+                        🎁 6 Stamps Complete होने के बाद
+                        आपकी
+
+                        <strong>
+                            7th Veg Maggi FREE
+                        </strong>
+
+                        होगी।
+
+                    </p>
+
+
+                    <!-- IMPORTANT RULE -->
+
+                    <div class="rule-important">
+
+                        <i
+                            class="fa-solid fa-circle-info"
+                            aria-hidden="true">
+                        </i>
+
+                        <span>
+
+                            एक ही दिन में 6 Maggi खरीदने पर
+                            6 Stamps नहीं मिलेंगे।
+                            हर नए Stamp के लिए अगला Purchase Day
+                            होना जरूरी है।
+
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- =================================
+                 END OF HTML PART 1
+                 PART 2 CONTINUES INSIDE QR CARD
+            ================================== -->
+                         <!-- =================================
+                 QR SECURITY NOTE
+            ================================= -->
+
+            <section
+                class="security-note"
+                aria-label="QR Security Information">
+
+                <i
+                    class="fa-solid fa-shield-halved"
+                    aria-hidden="true">
+                </i>
+
+                <span>
+                    This QR is securely linked to your
+                    Rio Maggi Point Loyalty Account.
+                </span>
+
+            </section>
+
+
+            <!-- =================================
+                 QR INSTRUCTIONS
+            ================================= -->
+
+            <section
+                class="instruction-box"
+                aria-label="QR Instructions">
+
+
+                <!-- INSTRUCTION 1 -->
+
+                <div class="instruction-item">
+
+                    <div
+                        class="instruction-icon"
+                        aria-hidden="true">
+
+                        <i class="fa-solid fa-qrcode"></i>
+
+                    </div>
+
+                    <div class="instruction-text">
+
+                        अपना QR Code
+                        Counter पर दिखाएँ।
+
+                    </div>
+
+                </div>
+
+
+                <!-- INSTRUCTION 2 -->
+
+                <div class="instruction-item">
+
+                    <div
+                        class="instruction-icon"
+                        aria-hidden="true">
+
+                        <i class="fa-solid fa-user-check"></i>
+
+                    </div>
+
+                    <div class="instruction-text">
+
+                        Staff आपके
+                        Loyalty Account को verify करेगा।
+
+                    </div>
+
+                </div>
+
+
+                <!-- INSTRUCTION 3 -->
+
+                <div class="instruction-item">
+
+                    <div
+                        class="instruction-icon"
+                        aria-hidden="true">
+
+                        <i class="fa-solid fa-stamp"></i>
+
+                    </div>
+
+                    <div class="instruction-text">
+
+                        Eligible Purchase पर
+                        आपका Daily Loyalty Stamp Add होगा।
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- =================================
+                 NAVIGATION SAFE SPACE
+            ================================= -->
+
+            <div
+                class="nav-space"
                 aria-hidden="true">
-            </i>
-
-
-            <span>
-
-                This QR is securely linked to your
-                Rio Maggi Point Loyalty Account.
-
-            </span>
-
-
-        </section>
-
-
-        <!-- =================================
-             QR INSTRUCTIONS
-             SINGLE INSTANCE ONLY
-        ================================= -->
-
-        <section
-            class="instruction-box"
-            aria-label="QR Instructions">
-
-
-            <!-- =================================
-                 INSTRUCTION 1
-            ================================= -->
-
-            <div
-                class="instruction-item">
-
-
-                <div
-                    class="instruction-icon"
-                    aria-hidden="true">
-
-                    <i
-                        class="fa-solid fa-qrcode">
-                    </i>
-
-                </div>
-
-
-                <div
-                    class="instruction-text">
-
-                    अपना QR Code
-                    Counter पर दिखाएँ।
-
-                </div>
-
-
-            </div>
-
-
-            <!-- =================================
-                 INSTRUCTION 2
-            ================================= -->
-
-            <div
-                class="instruction-item">
-
-
-                <div
-                    class="instruction-icon"
-                    aria-hidden="true">
-
-                    <i
-                        class="fa-solid fa-user-check">
-                    </i>
-
-                </div>
-
-
-                <div
-                    class="instruction-text">
-
-                    Staff आपके
-                    Loyalty Account को verify करेगा।
-
-                </div>
-
-
-            </div>
-
-
-            <!-- =================================
-                 INSTRUCTION 3
-            ================================= -->
-
-            <div
-                class="instruction-item">
-
-
-                <div
-                    class="instruction-icon"
-                    aria-hidden="true">
-
-                    <i
-                        class="fa-solid fa-stamp">
-                    </i>
-
-                </div>
-
-
-                <div
-                    class="instruction-text">
-
-                    Eligible Purchase पर
-                    आपका Daily Loyalty Stamp Add होगा।
-
-                </div>
-
-
             </div>
 
 
         </section>
 
 
-        <!-- =================================
-             NAVIGATION SAFE SPACE
-             SINGLE INSTANCE ONLY
-        ================================= -->
-
-        <div
-            class="nav-space"
-            aria-hidden="true">
-        </div>
+    </main>
 
 
-    </section>
-
-
-</main>
-
-
-<!-- =========================================
-     END QR PAGE PART 2
-========================================= -->
     <!-- =========================================
-     RIO MAGGI POINT
-     QR.HTML
-     PART 3/3
-     QR LIBRARY + JAVASCRIPT + FINALIZATION
-     DUPLICATE-FREE VERSION
-========================================= -->
+         END OF QR.HTML PART 2
+         PART 3 WILL CONTAIN:
+         QR LIBRARY
+         QR.JS MODULE
+         FINAL PAGE SCRIPTS
+    ========================================= -->
+         <!-- =========================================
+         QR CODE GENERATOR LIBRARY
+    ========================================= -->
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
+    </script>
 
 
-<!-- =========================================
-     QR CODE GENERATOR LIBRARY
-========================================= -->
+    <!-- =========================================
+         QR PAGE JAVASCRIPT
+    ========================================= -->
 
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
-</script>
-
-
-<!-- =========================================
-     QR PAGE JAVASCRIPT
-========================================= -->
-
-<script
-    type="module"
-    src="js/qr.js">
-</script>
+    <script
+        type="module"
+        src="js/qr.js">
+    </script>
 
 
-<!-- =========================================
-     SERVICE WORKER REGISTRATION
-========================================= -->
+    <!-- =========================================
+         SERVICE WORKER REGISTRATION
+         REGISTERED ONLY ONCE
+    ========================================= -->
 
-<script>
+    <script>
 
-if (
-    "serviceWorker"
-    in navigator
-) {
+        if ("serviceWorker" in navigator) {
 
-    window.addEventListener(
-        "load",
-        async () => {
+            window.addEventListener(
+                "load",
+                () => {
 
-            try {
+                    navigator.serviceWorker
+                        .register("./service-worker.js")
+                        .then((registration) => {
 
-                const registration =
-                    await navigator.serviceWorker.register(
-                        "./service-worker.js"
-                    );
+                            console.log(
+                                "Rio Maggi Point Service Worker Registered:",
+                                registration.scope
+                            );
 
-                console.log(
-                    "Rio Maggi Point Service Worker Registered:",
-                    registration.scope
-                );
+                        })
+                        .catch((error) => {
 
-            }
+                            console.error(
+                                "Service Worker Registration Failed:",
+                                error
+                            );
 
-            catch (
-                error
-            ) {
+                        });
 
-                console.error(
-                    "Service Worker Registration Failed:",
-                    error
-                );
-
-            }
-
-        }
-    );
-
-}
-
-</script>
-
-
-<!-- =========================================
-     QR PAGE FINALIZATION
-========================================= -->
-
-<script>
-
-/* =========================================
-   PREVENT IMAGE DRAGGING
-========================================= */
-
-document
-    .querySelectorAll("img")
-    .forEach(
-        (image) => {
-
-            image.addEventListener(
-                "dragstart",
-                (event) => {
-
-                    event.preventDefault();
-
+                },
+                {
+                    once: true
                 }
             );
 
         }
-    );
+
+    </script>
 
 
-/* =========================================
-   QR PAGE READY ANIMATION
-========================================= */
+    <!-- =========================================
+         QR PAGE FINALIZATION
+         IMAGE DRAG PREVENTION
+    ========================================= -->
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+    <script>
 
-        document.body.classList.add(
-            "qr-page-ready"
-        );
-
-    }
-);
-
-
-/* =========================================
-   QR SCAN ANIMATION
-   RUNS ONLY ONCE
-========================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        const qrCard =
-            document.querySelector(
-                ".premium-qr-card"
-            );
-
-
-        if (
-            !qrCard
-        ) {
-
-            return;
-
-        }
-
-
-        /*
-         * Reset animation state
-         * before starting the one-time animation.
-         */
-
-        qrCard.classList.remove(
-            "qr-scan-once"
-        );
-
-
-        /*
-         * Wait for browser rendering
-         * before starting animation.
-         */
-
-        requestAnimationFrame(
+        document.addEventListener(
+            "DOMContentLoaded",
             () => {
 
-                requestAnimationFrame(
-                    () => {
+                document
+                    .querySelectorAll("img")
+                    .forEach((image) => {
+
+                        image.addEventListener(
+                            "dragstart",
+                            (event) => {
+
+                                event.preventDefault();
+
+                            },
+                            {
+                                passive: false
+                            }
+                        );
+
+                    });
+
+
+                document.body.classList.add(
+                    "qr-page-ready"
+                );
+
+            },
+            {
+                once: true
+            }
+        );
+
+    </script>
+
+
+    <!-- =========================================
+         QR PAGE FINALIZATION
+         ONE-TIME SCAN ANIMATION
+    ========================================= -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                const qrCard =
+                    document.querySelector(
+                        ".premium-qr-card"
+                    );
+
+
+                if (!qrCard) {
+
+                    return;
+
+                }
+
+
+                requestAnimationFrame(() => {
+
+                    requestAnimationFrame(() => {
 
                         qrCard.classList.add(
                             "qr-scan-once"
                         );
 
-                    }
-                );
+                    });
 
+                });
+
+            },
+            {
+                once: true
             }
         );
 
-    }
-);
+    </script>
 
-</script>
 
+    <!-- =========================================
+         QR SCAN + PREMIUM BORDER EFFECT
+         SINGLE STYLE BLOCK
+    ========================================= -->
 
-<!-- =========================================
-     QR SCAN + PREMIUM BORDER EFFECT
-     SINGLE STYLE BLOCK
-========================================= -->
+    <style>
 
-<style>
+        /* =========================================
+           DEFAULT QR SCAN STATE
+        ========================================= */
 
-/* =========================================
-   DEFAULT QR SCAN STATE
-   NO INFINITE SCAN
-========================================= */
+        .premium-qr-card::after {
 
-.premium-qr-card::after {
+            content:
+                "";
 
-    animation:
-        none;
+            position:
+                absolute;
 
-    opacity:
-        0;
+            top:
+                15px;
 
-}
+            left:
+                10%;
 
+            width:
+                80%;
 
-/* =========================================
-   ONE-TIME QR SCAN
-========================================= */
+            height:
+                2px;
 
-.premium-qr-card.qr-scan-once::after {
+            background:
+                var(--qr-red);
 
-    animation:
-        qrScanOnce
-        2.8s
-        ease-in-out
-        1;
+            box-shadow:
+                0 0 12px
+                var(--qr-red);
 
-}
+            pointer-events:
+                none;
 
+            z-index:
+                7;
 
-/* =========================================
-   QR SCAN ANIMATION
-========================================= */
+            opacity:
+                0;
 
-@keyframes qrScanOnce {
+        }
 
-    0% {
 
-        top:
-            15px;
+        /* =========================================
+           ONE-TIME QR SCAN
+        ========================================= */
 
-        opacity:
-            0;
+        .premium-qr-card.qr-scan-once::after {
 
-    }
+            animation:
+                qrScanOnce
+                2.8s
+                ease-in-out
+                1;
 
+        }
 
-    15% {
 
-        opacity:
-            1;
+        @keyframes qrScanOnce {
 
-    }
+            0% {
 
+                top:
+                    15px;
 
-    50% {
+                opacity:
+                    0;
 
-        opacity:
-            1;
+            }
 
-    }
+            15% {
 
+                opacity:
+                    1;
 
-    85% {
+            }
 
-        opacity:
-            1;
+            50% {
 
-    }
+                opacity:
+                    1;
 
+            }
 
-    100% {
+            85% {
 
-        top:
-            calc(
-                100% - 18px
-            );
+                opacity:
+                    1;
 
-        opacity:
-            0;
+            }
 
-    }
+            100% {
 
-}
+                top:
+                    calc(
+                        100% - 18px
+                    );
 
+                opacity:
+                    0;
 
-/* =========================================
-   PREMIUM QR CARD INTERACTION
-========================================= */
+            }
 
-.premium-qr-card {
+        }
 
-    transition:
-        transform
-        .3s
-        ease,
-        box-shadow
-        .3s
-        ease;
 
-}
+        /* =========================================
+           PREMIUM QR CARD INTERACTION
+        ========================================= */
 
+        .premium-qr-card {
 
-.premium-qr-card:hover {
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
 
-    transform:
-        translateY(-4px);
+        }
 
-    box-shadow:
-        0 15px 40px
-        rgba(
-            209,
-            155,
-            74,
-            .35
-        );
 
-}
+        .premium-qr-card:hover {
 
+            transform:
+                translateY(-4px);
 
-/* =========================================
-   MOBILE TOUCH EFFECT
-========================================= */
+            box-shadow:
+                0 0 0 3px
+                rgba(217, 4, 41, 0.18),
 
-@media (
-    max-width: 480px
-) {
+                0 18px 50px
+                rgba(0, 0, 0, 0.65);
 
-    .premium-qr-card:active {
+        }
 
-        transform:
-            scale(.98);
 
-    }
+        /* =========================================
+           MOBILE TOUCH EFFECT
+        ========================================= */
 
-}
+        @media (max-width: 480px) {
 
+            .premium-qr-card:active {
 
-/* =========================================
-   REDUCED MOTION
-========================================= */
+                transform:
+                    scale(0.98);
 
-@media (
-    prefers-reduced-motion: reduce
-) {
+            }
 
-    .premium-qr-card::after {
+        }
 
-        animation:
-            none !important;
 
-        opacity:
-            0 !important;
+        /* =========================================
+           REDUCED MOTION
+        ========================================= */
 
-    }
+        @media (prefers-reduced-motion: reduce) {
 
+            .premium-qr-card::after {
 
-    .premium-qr-card:hover {
+                animation:
+                    none !important;
 
-        transform:
-            none;
+                opacity:
+                    0 !important;
 
-    }
+            }
 
-}
 
-</style>
+            .premium-qr-card:hover {
 
+                transform:
+                    none;
 
-<!-- =========================================
-     END QR.HTML
-     PART 3/3
-========================================= -->
+            }
+
+        }
+
+    </style>
 
 
 </body>
 
 </html>
-
-
-<!-- =========================================
-     QR.HTML COMPLETE
-     TOTAL PARTS: 3/3
-     DUPLICATES REMOVED
-========================================= -->
