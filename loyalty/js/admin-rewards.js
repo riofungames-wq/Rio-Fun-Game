@@ -1,533 +1,2634 @@
 // =====================================================
 // RIO MAGGI POINT
-// ADMIN REWARD MANAGER V1
-// PART 1
+// ADMIN REWARD MANAGER
+// PART 1 / 4
+// =====================================================
+
+// =====================================================
+// FIREBASE IMPORTS
 // =====================================================
 
 import { auth, db } from "./firebase-config.js";
 
 import {
-collection,
-getDocs,
-doc,
-updateDoc,
-serverTimestamp
+    collection,
+    getDocs,
+    doc,
+    updateDoc,
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 import {
-onAuthStateChanged,
-signOut
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
+
 // =====================================================
-// ELEMENTS
+// CONFIGURATION
+// =====================================================
+
+const REWARD_STAMP_LIMIT = 6;
+
+const CUSTOMER_COLLECTION = "customers";
+
+const DEFAULT_MALE_AVATAR =
+    "assets/avatars/male.png";
+
+const DEFAULT_FEMALE_AVATAR =
+    "assets/avatars/female.png";
+
+const DEFAULT_MEMBER_ID =
+    "RIO-000000000";
+
+
+// =====================================================
+// DOM ELEMENTS
 // =====================================================
 
 const rewardTable =
-document.getElementById("rewardTable");
+    document.getElementById("rewardTable");
 
 const rewardHistoryTable =
-document.getElementById("rewardHistoryTable");
+    document.getElementById("rewardHistoryTable");
 
 const rewardTotal =
-document.getElementById("rewardTotal");
+    document.getElementById("rewardTotal");
 
 const rewardReady =
-document.getElementById("rewardReady");
+    document.getElementById("rewardReady");
 
 const rewardClaimed =
-document.getElementById("rewardClaimed");
+    document.getElementById("rewardClaimed");
 
 const previewPhoto =
-document.getElementById("previewPhoto");
+    document.getElementById("previewPhoto");
 
 const previewName =
-document.getElementById("previewName");
+    document.getElementById("previewName");
 
 const previewMember =
-document.getElementById("previewMember");
+    document.getElementById("previewMember");
 
 const previewStamp =
-document.getElementById("previewStamp");
+    document.getElementById("previewStamp");
 
 const redeemRewardBtn =
-document.getElementById("redeemRewardBtn");
+    document.getElementById("redeemRewardBtn");
 
 const searchRewardCustomer =
-document.getElementById("searchRewardCustomer");
+    document.getElementById("searchRewardCustomer");
 
 const refreshRewardBtn =
-document.getElementById("refreshRewardBtn");
+    document.getElementById("refreshRewardBtn");
 
 const exportRewardBtn =
-document.getElementById("exportRewardBtn");
+    document.getElementById("exportRewardBtn");
 
 const pendingRewardBtn =
-document.getElementById("pendingRewardBtn");
+    document.getElementById("pendingRewardBtn");
 
 const claimedRewardBtn =
-document.getElementById("claimedRewardBtn");
+    document.getElementById("claimedRewardBtn");
 
 const backDashboard =
-document.getElementById("backDashboard");
+    document.getElementById("backDashboard");
 
 const lastRewardRefresh =
-document.getElementById("lastRewardRefresh");
+    document.getElementById("lastRewardRefresh");
+
 
 // =====================================================
-// VARIABLES
+// APPLICATION STATE
 // =====================================================
 
 let customers = [];
 
 let selectedCustomer = null;
 
+let activeFilter = "all";
+
+let isLoading = false;
+
+
 // =====================================================
-// ADMIN LOGIN CHECK
-// =====================================================
-
-onAuthStateChanged(auth, async (user)=>{
-
-if(!user){
-
-location.href="admin-login.html";
-
-return;
-
-}
-
-await loadRewards();
-
-});
-// =====================================================
-// LOAD ALL REWARD CUSTOMERS
+// AUTHENTICATION
 // =====================================================
 
-async function loadRewards(){
+onAuthStateChanged(auth, async (user) => {
 
-rewardTable.innerHTML="";
+    if (!user) {
 
-customers=[];
+        window.location.href =
+            "admin-login.html";
 
-let total=0;
-let ready=0;
-let claimed=0;
+        return;
 
-const snapshot=
-await getDocs(collection(db,"customers"));
+    }
 
-snapshot.forEach((document)=>{
-
-const customer=document.data();
-
-customer.uid=document.id;
-
-customers.push(customer);
-
-total++;
-
-if(customer.rewardUnlocked){
-
-ready++;
-
-}
-
-if(customer.rewardClaimed){
-
-claimed++;
-
-}
-
-createRewardRow(customer);
+    await loadRewards();
 
 });
 
-rewardTotal.textContent=total;
 
-rewardReady.textContent=ready;
+// =====================================================
+// LOAD REWARDS
+// =====================================================
 
-rewardClaimed.textContent=claimed;
+async function loadRewards() {
 
-lastRewardRefresh.textContent=
+    if (isLoading) {
+        return;
+    }
 
-new Date().toLocaleString();
+    isLoading = true;
+
+    setLoadingState(true);
+
+    try {
+
+        const snapshot = await getDocs(
+            collection(
+                db,
+                CUSTOMER_COLLECTION
+            )
+        );
+
+        customers = [];
+
+        snapshot.forEach((customerDoc) => {
+
+            const customerData =
+                customerDoc.data();
+
+            customers.push({
+
+                uid: customerDoc.id,
+
+                ...customerData
+
+            });
+
+        });
+
+        updateRewardStats();
+
+        renderRewardTable();
+
+        renderRewardHistory();
+
+        updateLastRefresh();
+
+        restoreSelectedCustomer();
+
+    } catch (error) {
+
+        console.error(
+            "Failed to load rewards:",
+            error
+        );
+
+        showTableMessage(
+            rewardTable,
+            "Unable to load customer rewards."
+        );
+
+        showTableMessage(
+            rewardHistoryTable,
+            "Unable to load reward history."
+        );
+
+    } finally {
+
+        isLoading = false;
+
+        setLoadingState(false);
+
+    }
 
 }
 
+
 // =====================================================
-// CREATE TABLE ROW
+// UPDATE REWARD STATISTICS
 // =====================================================
 
-function createRewardRow(customer){
+function updateRewardStats() {
 
-const avatar=
+    const total =
+        customers.length;
 
-customer.gender==="female"
+    const ready =
+        customers.filter(
+            customer =>
+                customer.rewardUnlocked === true
+        ).length;
 
-?"assets/avatars/female.png"
+    const claimed =
+        customers.filter(
+            customer =>
+                customer.rewardClaimed === true
+        ).length;
 
-:"assets/avatars/male.png";
 
-const tr=document.createElement("tr");
+    if (rewardTotal) {
 
-tr.innerHTML=`
+        rewardTotal.textContent =
+            total;
 
-<td>
+    }
 
-<img
-src="${avatar}"
-style="width:45px;height:45px;border-radius:50%;">
 
-</td>
+    if (rewardReady) {
 
-<td>${customer.name||"-"}</td>
+        rewardReady.textContent =
+            ready;
 
-<td>${customer.memberId||"-"}</td>
+    }
 
-<td>${customer.mobile||"-"}</td>
 
-<td>${customer.stamps||0}/6</td>
+    if (rewardClaimed) {
 
-<td>
+        rewardClaimed.textContent =
+            claimed;
 
-${
-customer.rewardUnlocked
-? "🟢 Ready"
-: "🔴 Locked"
-}
-
-</td>
-
-<td>
-
-<button
-onclick="selectRewardCustomer('${customer.uid}')">
-
-Select
-
-</button>
-
-</td>
-
-`;
-
-rewardTable.appendChild(tr);
+    }
 
 }
 
+
 // =====================================================
-// SEARCH
+// GET CUSTOMER AVATAR
 // =====================================================
 
-searchRewardCustomer?.addEventListener("keyup",(e)=>{
+function getCustomerAvatar(customer) {
 
-const keyword=e.target.value.toLowerCase();
+    if (
+        customer &&
+        customer.gender === "female"
+    ) {
 
-rewardTable.innerHTML="";
+        return DEFAULT_FEMALE_AVATAR;
 
-customers
+    }
 
-.filter(customer=>
+    return DEFAULT_MALE_AVATAR;
 
-(customer.name||"")
+}
 
-.toLowerCase()
 
-.includes(keyword)
+// =====================================================
+// GET CUSTOMER SEARCH TEXT
+// =====================================================
 
-||
+function getCustomerSearchText(customer) {
 
-(customer.memberId||"")
+    return [
 
-.toLowerCase()
+        customer.name,
 
-.includes(keyword)
+        customer.memberId,
 
-||
+        customer.mobile
 
-(customer.mobile||"")
+    ]
 
-.includes(keyword)
+        .filter(Boolean)
 
-)
+        .join(" ")
 
-.forEach(createRewardRow);
+        .toLowerCase();
 
-});
+}
+
+
+// =====================================================
+// GET FILTERED CUSTOMERS
+// =====================================================
+
+function getFilteredCustomers() {
+
+    const keyword =
+        searchRewardCustomer?.value
+            ?.trim()
+            .toLowerCase() || "";
+
+
+    return customers.filter(
+        (customer) => {
+
+            const matchesSearch =
+                !keyword ||
+                getCustomerSearchText(
+                    customer
+                ).includes(keyword);
+
+
+            let matchesFilter = true;
+
+
+            if (
+                activeFilter === "pending"
+            ) {
+
+                matchesFilter =
+                    customer.rewardUnlocked === true;
+
+            }
+
+
+            if (
+                activeFilter === "claimed"
+            ) {
+
+                matchesFilter =
+                    customer.rewardClaimed === true;
+
+            }
+
+
+            return (
+                matchesSearch &&
+                matchesFilter
+            );
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// RENDER REWARD TABLE
+// =====================================================
+
+function renderRewardTable() {
+
+    if (!rewardTable) {
+        return;
+    }
+
+    rewardTable.innerHTML = "";
+
+
+    const filteredCustomers =
+        getFilteredCustomers();
+
+
+    if (
+        filteredCustomers.length === 0
+    ) {
+
+        showTableMessage(
+            rewardTable,
+            "No customers found.",
+            7
+        );
+
+        return;
+
+    }
+
+
+    filteredCustomers.forEach(
+        createRewardRow
+    );
+
+}
+
+
+// =====================================================
+// CREATE REWARD TABLE ROW
+// =====================================================
+
+function createRewardRow(customer) {
+
+    if (!rewardTable) {
+        return;
+    }
+
+
+    const tr =
+        document.createElement("tr");
+
+
+    const photoTd =
+        document.createElement("td");
+
+    const photo =
+        document.createElement("img");
+
+    photo.src =
+        getCustomerAvatar(customer);
+
+    photo.alt =
+        customer.name
+            ? `${customer.name} profile`
+            : "Customer profile";
+
+    photo.className =
+        "reward-customer-photo";
+
+    photo.loading =
+        "lazy";
+
+    photoTd.appendChild(photo);
+
+
+    const nameTd =
+        document.createElement("td");
+
+    nameTd.textContent =
+        customer.name || "-";
+
+
+    const memberTd =
+        document.createElement("td");
+
+    memberTd.textContent =
+        customer.memberId ||
+        DEFAULT_MEMBER_ID;
+
+
+    const mobileTd =
+        document.createElement("td");
+
+    mobileTd.textContent =
+        customer.mobile || "-";
+
+
+    const stampTd =
+        document.createElement("td");
+
+    const stamps =
+        Number(customer.stamps) || 0;
+
+    stampTd.textContent =
+        `${stamps}/${REWARD_STAMP_LIMIT}`;
+
+
+    const statusTd =
+        document.createElement("td");
+
+
+    if (
+        customer.rewardClaimed === true
+    ) {
+
+        statusTd.textContent =
+            "🟣 Claimed";
+
+        statusTd.className =
+            "reward-status claimed";
+
+    } else if (
+        customer.rewardUnlocked === true
+    ) {
+
+        statusTd.textContent =
+            "🟢 Ready";
+
+        statusTd.className =
+            "reward-status ready";
+
+    } else {
+
+        statusTd.textContent =
+            "🔴 Locked";
+
+        statusTd.className =
+            "reward-status locked";
+
+    }
+
+
+    const actionTd =
+        document.createElement("td");
+
+
+    const selectBtn =
+        document.createElement("button");
+
+    selectBtn.type =
+        "button";
+
+    selectBtn.className =
+        "reward-select-btn";
+
+    selectBtn.textContent =
+        "Select";
+
+
+    selectBtn.addEventListener(
+        "click",
+        () => {
+
+            selectRewardCustomer(
+                customer.uid
+            );
+
+        }
+    );
+
+
+    actionTd.appendChild(
+        selectBtn
+    );
+
+
+    tr.append(
+
+        photoTd,
+
+        nameTd,
+
+        memberTd,
+
+        mobileTd,
+
+        stampTd,
+
+        statusTd,
+
+        actionTd
+
+    );
+
+
+    rewardTable.appendChild(tr);
+
+}
+
+
+// =====================================================
+// SHOW TABLE MESSAGE
+// =====================================================
+
+function showTableMessage(
+    tableBody,
+    message,
+    colspan = 1
+) {
+
+    if (!tableBody) {
+        return;
+    }
+
+
+    const tr =
+        document.createElement("tr");
+
+
+    const td =
+        document.createElement("td");
+
+
+    td.colSpan =
+        colspan;
+
+    td.textContent =
+        message;
+
+    td.className =
+        "table-message";
+
+
+    tr.appendChild(td);
+
+    tableBody.appendChild(tr);
+
+}
+
+
+// =====================================================
+// LOADING STATE
+// =====================================================
+
+function setLoadingState(
+    loading
+) {
+
+    if (
+        refreshRewardBtn
+    ) {
+
+        refreshRewardBtn.disabled =
+            loading;
+
+        refreshRewardBtn.classList.toggle(
+            "loading",
+            loading
+        );
+
+    }
+
+
+    if (loading) {
+
+        if (rewardTable) {
+
+            showTableMessage(
+                rewardTable,
+                "Loading customer rewards...",
+                7
+            );
+
+        }
+
+        if (rewardHistoryTable) {
+
+            showTableMessage(
+                rewardHistoryTable,
+                "Loading reward history...",
+                5
+            );
+
+        }
+
+    }
+
+}
+
+
+// =====================================================
+// UPDATE LAST REFRESH TIME
+// =====================================================
+
+function updateLastRefresh() {
+
+    if (!lastRewardRefresh) {
+        return;
+    }
+
+
+    lastRewardRefresh.textContent =
+        new Date().toLocaleString();
+
+}
+
 
 // =====================================================
 // SELECT CUSTOMER
 // =====================================================
 
-window.selectRewardCustomer=function(uid){
+function selectRewardCustomer(uid) {
 
-selectedCustomer=
+    const customer =
+        customers.find(
+            item =>
+                item.uid === uid
+        );
 
-customers.find(c=>c.uid===uid);
 
-if(!selectedCustomer) return;
+    if (!customer) {
+        return;
+    }
 
-previewCustomer(selectedCustomer);
 
-};
+    selectedCustomer =
+        customer;
+
+
+    previewCustomer(
+        customer
+    );
+
+}
+
+
 // =====================================================
 // PREVIEW CUSTOMER
 // =====================================================
 
-function previewCustomer(customer){
+function previewCustomer(
+    customer
+) {
 
-const avatar =
-customer.gender==="female"
-? "assets/avatars/female.png"
-: "assets/avatars/male.png";
+    if (!customer) {
+        return;
+    }
 
-previewPhoto.src = avatar;
 
-previewName.textContent =
-customer.name || "Unknown";
+    if (previewPhoto) {
 
-previewMember.textContent =
-customer.memberId || "RIO-000000000";
+        previewPhoto.src =
+            getCustomerAvatar(
+                customer
+            );
 
-previewStamp.textContent =
-`${customer.stamps || 0}/6`;
+        previewPhoto.alt =
+            customer.name
+                ? `${customer.name} profile`
+                : "Customer profile";
 
-redeemRewardBtn.disabled =
-!customer.rewardUnlocked;
+    }
+
+
+    if (previewName) {
+
+        previewName.textContent =
+            customer.name ||
+            "Unknown Customer";
+
+    }
+
+
+    if (previewMember) {
+
+        previewMember.textContent =
+            customer.memberId ||
+            DEFAULT_MEMBER_ID;
+
+    }
+
+
+    if (previewStamp) {
+
+        const stamps =
+            Number(
+                customer.stamps
+            ) || 0;
+
+        previewStamp.textContent =
+            `${stamps}/${REWARD_STAMP_LIMIT}`;
+
+    }
+
+
+    if (redeemRewardBtn) {
+
+        redeemRewardBtn.disabled =
+            customer.rewardUnlocked !== true;
+
+    }
 
 }
+
+
+// =====================================================
+// RESTORE SELECTED CUSTOMER
+// =====================================================
+
+function restoreSelectedCustomer() {
+
+    if (!selectedCustomer) {
+
+        resetPreview();
+
+        return;
+
+    }
+
+
+    const updatedCustomer =
+        customers.find(
+            customer =>
+                customer.uid ===
+                selectedCustomer.uid
+        );
+
+
+    if (!updatedCustomer) {
+
+        selectedCustomer =
+            null;
+
+        resetPreview();
+
+        return;
+
+    }
+
+
+    selectedCustomer =
+        updatedCustomer;
+
+
+    previewCustomer(
+        updatedCustomer
+    );
+
+}
+
+
+// =====================================================
+// RESET PREVIEW
+// =====================================================
+
+function resetPreview() {
+
+    selectedCustomer =
+        null;
+
+
+    if (previewPhoto) {
+
+        previewPhoto.src =
+            DEFAULT_MALE_AVATAR;
+
+        previewPhoto.alt =
+            "Customer";
+
+    }
+
+
+    if (previewName) {
+
+        previewName.textContent =
+            "Waiting...";
+
+    }
+
+
+    if (previewMember) {
+
+        previewMember.textContent =
+            DEFAULT_MEMBER_ID;
+
+    }
+
+
+    if (previewStamp) {
+
+        previewStamp.textContent =
+            `0/${REWARD_STAMP_LIMIT}`;
+
+    }
+
+
+    if (redeemRewardBtn) {
+
+        redeemRewardBtn.disabled =
+            true;
+
+    }
+
+}
+
+
+// =====================================================
+// SEARCH EVENT
+// =====================================================
+
+searchRewardCustomer?.addEventListener(
+    "input",
+    () => {
+
+        renderRewardTable();
+
+    }
+);
+
+
+// =====================================================
+// REFRESH EVENT
+// =====================================================
+
+refreshRewardBtn?.addEventListener(
+    "click",
+    async () => {
+
+        await loadRewards();
+
+    }
+);
+
+
+// =====================================================
+// FILTER: PENDING REWARDS
+// =====================================================
+
+pendingRewardBtn?.addEventListener(
+    "click",
+    () => {
+
+        activeFilter =
+            activeFilter === "pending"
+                ? "all"
+                : "pending";
+
+        renderRewardTable();
+
+    }
+);
+
+
+// =====================================================
+// FILTER: CLAIMED REWARDS
+// =====================================================
+
+claimedRewardBtn?.addEventListener(
+    "click",
+    () => {
+
+        activeFilter =
+            activeFilter === "claimed"
+                ? "all"
+                : "claimed";
+
+        renderRewardTable();
+
+    }
+);
+
+
+// =====================================================
+// BACK TO ADMIN DASHBOARD
+// =====================================================
+
+backDashboard?.addEventListener(
+    "click",
+    () => {
+
+        window.location.href =
+            "admin-dashboard.html";
+
+    }
+);
+
+
+// =====================================================
+// INITIAL PREVIEW
+// =====================================================
+
+resetPreview();
+
+
+// =====================================================
+// DEBUG LOG
+// =====================================================
+
+console.log(
+    "==================================="
+);
+
+console.log(
+    "🎁 Rio Maggi Point Reward Manager"
+);
+
+console.log(
+    "Reward Manager Part 1 Loaded"
+);
+
+console.log(
+    "==================================="
+);
+// =====================================================
+// RIO MAGGI POINT
+// ADMIN REWARD MANAGER
+// PART 2 / 4
+// =====================================================
+
 
 // =====================================================
 // REDEEM REWARD
 // =====================================================
 
-redeemRewardBtn?.addEventListener("click", async ()=>{
+redeemRewardBtn?.addEventListener(
+    "click",
+    async () => {
 
-if(!selectedCustomer) return;
+        // ---------------------------------------------
+        // CHECK SELECTED CUSTOMER
+        // ---------------------------------------------
 
-if(!selectedCustomer.rewardUnlocked){
+        if (!selectedCustomer) {
 
-alert("Reward Not Ready");
+            alert(
+                "Please select a customer first."
+            );
 
-return;
+            return;
 
-}
+        }
 
-try{
 
-await updateDoc(
+        // ---------------------------------------------
+        // CHECK REWARD STATUS
+        // ---------------------------------------------
 
-doc(db,"customers",selectedCustomer.uid),
+        if (
+            selectedCustomer.rewardUnlocked !== true
+        ) {
 
-{
+            alert(
+                "This customer is not eligible for reward redemption."
+            );
 
-rewardUnlocked:false,
+            return;
 
-rewardClaimed:true,
+        }
 
-stamps:0,
 
-rewardClaimedAt:serverTimestamp(),
+        // ---------------------------------------------
+        // PREVENT DOUBLE CLICK
+        // ---------------------------------------------
 
-updatedAt:serverTimestamp()
+        if (
+            redeemRewardBtn.disabled
+        ) {
 
-}
+            return;
 
+        }
+
+
+        // ---------------------------------------------
+        // SAVE ORIGINAL BUTTON TEXT
+        // ---------------------------------------------
+
+        const originalButtonText =
+            redeemRewardBtn.textContent;
+
+
+        try {
+
+            // -----------------------------------------
+            // DISABLE BUTTON WHILE PROCESSING
+            // -----------------------------------------
+
+            redeemRewardBtn.disabled =
+                true;
+
+            redeemRewardBtn.textContent =
+                "Redeeming...";
+
+
+            // -----------------------------------------
+            // CUSTOMER DOCUMENT REFERENCE
+            // -----------------------------------------
+
+            const customerRef =
+                doc(
+                    db,
+                    CUSTOMER_COLLECTION,
+                    selectedCustomer.uid
+                );
+
+
+            // -----------------------------------------
+            // REDEEM REWARD IN FIRESTORE
+            // -----------------------------------------
+
+            await updateDoc(
+                customerRef,
+                {
+
+                    rewardUnlocked:
+                        false,
+
+                    rewardClaimed:
+                        true,
+
+                    stamps:
+                        0,
+
+                    rewardClaimedAt:
+                        serverTimestamp(),
+
+                    updatedAt:
+                        serverTimestamp()
+
+                }
+            );
+
+
+            // -----------------------------------------
+            // UPDATE LOCAL CUSTOMER DATA
+            // -----------------------------------------
+
+            const customerIndex =
+                customers.findIndex(
+                    customer =>
+                        customer.uid ===
+                        selectedCustomer.uid
+                );
+
+
+            if (
+                customerIndex !== -1
+            ) {
+
+                customers[
+                    customerIndex
+                ] = {
+
+                    ...customers[
+                        customerIndex
+                    ],
+
+                    rewardUnlocked:
+                        false,
+
+                    rewardClaimed:
+                        true,
+
+                    stamps:
+                        0
+
+                };
+
+
+                selectedCustomer =
+                    customers[
+                        customerIndex
+                    ];
+
+            }
+
+
+            // -----------------------------------------
+            // UPDATE PREVIEW
+            // -----------------------------------------
+
+            previewCustomer(
+                selectedCustomer
+            );
+
+
+            // -----------------------------------------
+            // UPDATE STATISTICS
+            // -----------------------------------------
+
+            updateRewardStats();
+
+
+            // -----------------------------------------
+            // REFRESH TABLE
+            // -----------------------------------------
+
+            renderRewardTable();
+
+
+            // -----------------------------------------
+            // REFRESH HISTORY
+            // -----------------------------------------
+
+            renderRewardHistory();
+
+
+            // -----------------------------------------
+            // UPDATE LAST REFRESH
+            // -----------------------------------------
+
+            updateLastRefresh();
+
+
+            // -----------------------------------------
+            // SUCCESS MESSAGE
+            // -----------------------------------------
+
+            alert(
+                "🎉 Reward redeemed successfully!"
+            );
+
+
+        } catch (error) {
+
+            // -----------------------------------------
+            // LOG ERROR
+            // -----------------------------------------
+
+            console.error(
+                "Reward redemption failed:",
+                error
+            );
+
+
+            // -----------------------------------------
+            // ERROR MESSAGE
+            // -----------------------------------------
+
+            alert(
+                "Unable to redeem reward. Please try again."
+            );
+
+
+        } finally {
+
+            // -----------------------------------------
+            // RESTORE BUTTON
+            // -----------------------------------------
+
+            redeemRewardBtn.textContent =
+                originalButtonText;
+
+
+            // -----------------------------------------
+            // RE-CHECK REWARD STATUS
+            // -----------------------------------------
+
+            if (
+                selectedCustomer
+            ) {
+
+                redeemRewardBtn.disabled =
+                    selectedCustomer.rewardUnlocked !== true;
+
+            } else {
+
+                redeemRewardBtn.disabled =
+                    true;
+
+            }
+
+        }
+
+    }
 );
 
-alert("🎉 Reward Redeemed Successfully");
 
-selectedCustomer.rewardUnlocked=false;
+// =====================================================
+// REWARD REDEMPTION CONFIRMATION HELPER
+// =====================================================
 
-selectedCustomer.rewardClaimed=true;
+function canRedeemReward(
+    customer
+) {
 
-selectedCustomer.stamps=0;
+    if (!customer) {
 
-previewCustomer(selectedCustomer);
+        return false;
 
-await loadRewards();
+    }
 
-}catch(err){
 
-console.error(err);
+    if (!customer.uid) {
 
-alert("Redeem Failed");
+        return false;
+
+    }
+
+
+    if (
+        customer.rewardUnlocked !== true
+    ) {
+
+        return false;
+
+    }
+
+
+    return true;
 
 }
 
-});
 
 // =====================================================
-// REFRESH
+// SAFE REWARD REDEMPTION CHECK
 // =====================================================
 
-refreshRewardBtn?.addEventListener("click", async ()=>{
+function getRewardStatus(
+    customer
+) {
 
-await loadRewards();
+    if (!customer) {
 
-});
+        return "unknown";
 
-// =====================================================
-// EXPORT
-// =====================================================
+    }
 
-exportRewardBtn?.addEventListener("click",()=>{
 
-alert("Export Feature Coming Soon");
+    if (
+        customer.rewardClaimed === true
+    ) {
 
-});
+        return "claimed";
 
-// =====================================================
-// FILTER BUTTONS
-// =====================================================
+    }
 
-pendingRewardBtn?.addEventListener("click",()=>{
 
-rewardTable.innerHTML="";
+    if (
+        customer.rewardUnlocked === true
+    ) {
 
-customers
-.filter(c=>c.rewardUnlocked)
-.forEach(createRewardRow);
+        return "ready";
 
-});
+    }
 
-claimedRewardBtn?.addEventListener("click",()=>{
 
-rewardTable.innerHTML="";
-
-customers
-.filter(c=>c.rewardClaimed)
-.forEach(createRewardRow);
-
-});
-
-// =====================================================
-// BACK TO DASHBOARD
-// =====================================================
-
-backDashboard?.addEventListener("click",()=>{
-
-location.href="admin-dashboard.html";
-
-});
-
-// =====================================================
-
-console.log("🎁 Reward Manager Ready");
-// =====================================================
-// LOAD REWARD HISTORY
-// =====================================================
-
-async function loadRewardHistory(){
-
-rewardHistoryTable.innerHTML="";
-
-customers
-.filter(c => c.rewardClaimed)
-.forEach(customer=>{
-
-const tr=document.createElement("tr");
-
-tr.innerHTML=`
-
-<td>
-
-${
-customer.rewardClaimedAt
-? new Date(
-customer.rewardClaimedAt.seconds*1000
-).toLocaleDateString()
-
-: "--"
+    return "locked";
 
 }
 
-</td>
 
-<td>${customer.name||"-"}</td>
+// =====================================================
+// UPDATE SELECTED CUSTOMER FROM LOCAL DATA
+// =====================================================
 
-<td>${customer.memberId||"-"}</td>
+function syncSelectedCustomer() {
 
-<td>FREE VEG MAGGI</td>
+    if (!selectedCustomer) {
 
-<td>
+        return;
 
-<span style="color:#61ff7d">
+    }
 
-Claimed
 
-</span>
+    const latestCustomer =
+        customers.find(
+            customer =>
+                customer.uid ===
+                selectedCustomer.uid
+        );
 
-</td>
 
-`;
+    if (!latestCustomer) {
 
-rewardHistoryTable.appendChild(tr);
+        selectedCustomer =
+            null;
 
-});
+        resetPreview();
+
+        return;
+
+    }
+
+
+    selectedCustomer =
+        latestCustomer;
+
+
+    previewCustomer(
+        selectedCustomer
+    );
 
 }
 
+
 // =====================================================
-// UPDATE HISTORY AFTER LOAD
+// REWARD STATUS DEBUG HELPER
 // =====================================================
 
-const oldLoadRewards = loadRewards;
+function logSelectedRewardStatus() {
 
-loadRewards = async function(){
+    if (!selectedCustomer) {
 
-await oldLoadRewards();
+        console.log(
+            "No reward customer selected."
+        );
 
-await loadRewardHistory();
+        return;
+
+    }
+
+
+    console.log(
+        "Selected Customer:",
+        selectedCustomer.name ||
+            "Unknown"
+    );
+
+
+    console.log(
+        "Reward Status:",
+        getRewardStatus(
+            selectedCustomer
+        )
+    );
+
+}
+
+
+// =====================================================
+// EXPOSE ONLY REQUIRED DEBUG HELPER
+// =====================================================
+
+window.rewardManagerDebug = {
+
+    getSelectedCustomer: () =>
+        selectedCustomer,
+
+    getRewardStatus: () =>
+        getRewardStatus(
+            selectedCustomer
+        ),
+
+    canRedeem: () =>
+        canRedeemReward(
+            selectedCustomer
+        ),
+
+    syncSelectedCustomer,
+
+    logSelectedRewardStatus
 
 };
+
+
+// =====================================================
+// PART 2 READY
+// =====================================================
+
+console.log(
+    "Reward Manager Part 2 Loaded"
+);
+// =====================================================
+// RIO MAGGI POINT
+// ADMIN REWARD MANAGER
+// PART 3 / 4
+// =====================================================
+
+
+// =====================================================
+// REWARD HISTORY
+// =====================================================
+
+function renderRewardHistory() {
+
+    if (!rewardHistoryTable) {
+
+        return;
+
+    }
+
+
+    // ---------------------------------------------
+    // CLEAR OLD HISTORY
+    // ---------------------------------------------
+
+    rewardHistoryTable.innerHTML = "";
+
+
+    // ---------------------------------------------
+    // GET CLAIMED REWARDS
+    // ---------------------------------------------
+
+    const claimedCustomers =
+        customers
+
+            .filter(
+                customer =>
+                    customer.rewardClaimed === true
+            )
+
+            .sort(
+                (
+                    firstCustomer,
+                    secondCustomer
+                ) => {
+
+                    const firstTime =
+                        getTimestampValue(
+                            firstCustomer.rewardClaimedAt
+                        );
+
+                    const secondTime =
+                        getTimestampValue(
+                            secondCustomer.rewardClaimedAt
+                        );
+
+
+                    return (
+                        secondTime -
+                        firstTime
+                    );
+
+                }
+            );
+
+
+    // ---------------------------------------------
+    // EMPTY HISTORY
+    // ---------------------------------------------
+
+    if (
+        claimedCustomers.length === 0
+    ) {
+
+        showTableMessage(
+            rewardHistoryTable,
+            "No reward activity found.",
+            5
+        );
+
+        return;
+
+    }
+
+
+    // ---------------------------------------------
+    // CREATE HISTORY ROWS
+    // ---------------------------------------------
+
+    claimedCustomers.forEach(
+        createRewardHistoryRow
+    );
+
+}
+
+
+// =====================================================
+// CREATE REWARD HISTORY ROW
+// =====================================================
+
+function createRewardHistoryRow(
+    customer
+) {
+
+    if (!rewardHistoryTable) {
+
+        return;
+
+    }
+
+
+    const tr =
+        document.createElement("tr");
+
+
+    // ---------------------------------------------
+    // DATE
+    // ---------------------------------------------
+
+    const dateTd =
+        document.createElement("td");
+
+
+    dateTd.textContent =
+        formatRewardDate(
+            customer.rewardClaimedAt
+        );
+
+
+    // ---------------------------------------------
+    // CUSTOMER NAME
+    // ---------------------------------------------
+
+    const customerTd =
+        document.createElement("td");
+
+
+    customerTd.textContent =
+        customer.name || "-";
+
+
+    // ---------------------------------------------
+    // MEMBER ID
+    // ---------------------------------------------
+
+    const memberTd =
+        document.createElement("td");
+
+
+    memberTd.textContent =
+        customer.memberId ||
+        DEFAULT_MEMBER_ID;
+
+
+    // ---------------------------------------------
+    // REWARD NAME
+    // ---------------------------------------------
+
+    const rewardTd =
+        document.createElement("td");
+
+
+    rewardTd.textContent =
+        customer.rewardName ||
+        "FREE VEG MAGGI";
+
+
+    // ---------------------------------------------
+    // STATUS
+    // ---------------------------------------------
+
+    const statusTd =
+        document.createElement("td");
+
+
+    const statusBadge =
+        document.createElement("span");
+
+
+    statusBadge.className =
+        "reward-history-status claimed";
+
+
+    statusBadge.textContent =
+        "Claimed";
+
+
+    statusTd.appendChild(
+        statusBadge
+    );
+
+
+    // ---------------------------------------------
+    // APPEND ROW
+    // ---------------------------------------------
+
+    tr.append(
+
+        dateTd,
+
+        customerTd,
+
+        memberTd,
+
+        rewardTd,
+
+        statusTd
+
+    );
+
+
+    rewardHistoryTable.appendChild(
+        tr
+    );
+
+}
+
+
+// =====================================================
+// GET FIRESTORE TIMESTAMP VALUE
+// =====================================================
+
+function getTimestampValue(
+    timestamp
+) {
+
+    // ---------------------------------------------
+    // EMPTY VALUE
+    // ---------------------------------------------
+
+    if (!timestamp) {
+
+        return 0;
+
+    }
+
+
+    // ---------------------------------------------
+    // FIRESTORE TIMESTAMP
+    // ---------------------------------------------
+
+    if (
+        typeof timestamp.toMillis ===
+        "function"
+    ) {
+
+        return timestamp.toMillis();
+
+    }
+
+
+    // ---------------------------------------------
+    // FIRESTORE TIMESTAMP OBJECT
+    // ---------------------------------------------
+
+    if (
+        typeof timestamp.seconds ===
+        "number"
+    ) {
+
+        return (
+
+            timestamp.seconds *
+            1000
+
+        ) + (
+
+            Math.floor(
+                timestamp.nanoseconds || 0
+            ) /
+            1000000
+
+        );
+
+    }
+
+
+    // ---------------------------------------------
+    // JAVASCRIPT DATE
+    // ---------------------------------------------
+
+    if (
+        timestamp instanceof Date
+    ) {
+
+        return timestamp.getTime();
+
+    }
+
+
+    // ---------------------------------------------
+    // NUMBER TIMESTAMP
+    // ---------------------------------------------
+
+    if (
+        typeof timestamp ===
+        "number"
+    ) {
+
+        return timestamp;
+
+    }
+
+
+    // ---------------------------------------------
+    // STRING DATE
+    // ---------------------------------------------
+
+    if (
+        typeof timestamp ===
+        "string"
+    ) {
+
+        const parsedDate =
+            new Date(timestamp)
+                .getTime();
+
+
+        return Number.isNaN(
+            parsedDate
+        )
+            ? 0
+            : parsedDate;
+
+    }
+
+
+    // ---------------------------------------------
+    // INVALID VALUE
+    // ---------------------------------------------
+
+    return 0;
+
+}
+
+
+// =====================================================
+// FORMAT REWARD DATE
+// =====================================================
+
+function formatRewardDate(
+    timestamp
+) {
+
+    const timestampValue =
+        getTimestampValue(
+            timestamp
+        );
+
+
+    // ---------------------------------------------
+    // DATE NOT AVAILABLE
+    // ---------------------------------------------
+
+    if (
+        !timestampValue
+    ) {
+
+        return "--";
+
+    }
+
+
+    const date =
+        new Date(
+            timestampValue
+        );
+
+
+    // ---------------------------------------------
+    // INVALID DATE
+    // ---------------------------------------------
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "--";
+
+    }
+
+
+    // ---------------------------------------------
+    // FORMAT DATE & TIME
+    // ---------------------------------------------
+
+    return date.toLocaleString(
+        undefined,
+        {
+
+            day:
+                "2-digit",
+
+            month:
+                "short",
+
+            year:
+                "numeric",
+
+            hour:
+                "2-digit",
+
+            minute:
+                "2-digit"
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// GET CLAIMED REWARD COUNT
+// =====================================================
+
+function getClaimedRewardCount() {
+
+    return customers.filter(
+        customer =>
+            customer.rewardClaimed === true
+    ).length;
+
+}
+
+
+// =====================================================
+// GET READY REWARD COUNT
+// =====================================================
+
+function getReadyRewardCount() {
+
+    return customers.filter(
+        customer =>
+            customer.rewardUnlocked === true
+    ).length;
+
+}
+
+
+// =====================================================
+// GET TOTAL REWARD RECORDS
+// =====================================================
+
+function getTotalRewardCount() {
+
+    return customers.length;
+
+}
+
+
+// =====================================================
+// REWARD HISTORY REFRESH
+// =====================================================
+
+function refreshRewardHistory() {
+
+    renderRewardHistory();
+
+}
+
+
+// =====================================================
+// UPDATE HISTORY AFTER CUSTOMER SYNC
+// =====================================================
+
+function updateRewardHistoryAfterSync() {
+
+    syncSelectedCustomer();
+
+    renderRewardHistory();
+
+}
+
+
+// =====================================================
+// REWARD HISTORY DEBUG
+// =====================================================
+
+function logRewardHistoryStats() {
+
+    console.log(
+        "==================================="
+    );
+
+    console.log(
+        "Reward History Statistics"
+    );
+
+    console.log(
+        "Total Customers:",
+        getTotalRewardCount()
+    );
+
+    console.log(
+        "Ready Rewards:",
+        getReadyRewardCount()
+    );
+
+    console.log(
+        "Claimed Rewards:",
+        getClaimedRewardCount()
+    );
+
+    console.log(
+        "==================================="
+    );
+
+}
+
+
+// =====================================================
+// EXPOSE SAFE HISTORY DEBUG METHODS
+// =====================================================
+
+window.rewardManagerHistoryDebug = {
+
+    refresh:
+        refreshRewardHistory,
+
+    getTotal:
+        getTotalRewardCount,
+
+    getReady:
+        getReadyRewardCount,
+
+    getClaimed:
+        getClaimedRewardCount,
+
+    logStats:
+        logRewardHistoryStats
+
+};
+
+
+// =====================================================
+// PART 3 READY
+// =====================================================
+
+console.log(
+    "Reward Manager Part 3 Loaded"
+);
+// =====================================================
+// RIO MAGGI POINT
+// ADMIN REWARD MANAGER
+// PART 4 / 4
+// REWARD HISTORY + FILTERS + EXPORT + AUTO REFRESH
+// =====================================================
+
+
+// =====================================================
+// REWARD HISTORY
+// =====================================================
+
+async function loadRewardHistory() {
+
+    if (!rewardHistoryTable) {
+        return;
+    }
+
+    rewardHistoryTable.innerHTML = "";
+
+    const claimedCustomers = customers
+        .filter(customer => customer.rewardClaimed === true)
+        .sort((a, b) => {
+
+            const timeA =
+                a.rewardClaimedAt?.seconds ||
+                0;
+
+            const timeB =
+                b.rewardClaimedAt?.seconds ||
+                0;
+
+            return timeB - timeA;
+
+        });
+
+    if (claimedCustomers.length === 0) {
+
+        rewardHistoryTable.innerHTML = `
+            <tr>
+                <td colspan="5">
+                    No Reward History Found
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+    claimedCustomers.forEach(customer => {
+
+        const tr = document.createElement("tr");
+
+        const claimedDate =
+            formatFirestoreDate(
+                customer.rewardClaimedAt
+            );
+
+        tr.innerHTML = `
+
+            <td>
+                ${claimedDate}
+            </td>
+
+            <td>
+                ${escapeHTML(
+                    customer.name || "-"
+                )}
+            </td>
+
+            <td>
+                ${escapeHTML(
+                    customer.memberId || "-"
+                )}
+            </td>
+
+            <td>
+                FREE VEG MAGGI
+            </td>
+
+            <td>
+                <span class="reward-status claimed">
+                    Claimed
+                </span>
+            </td>
+
+        `;
+
+        rewardHistoryTable.appendChild(tr);
+
+    });
+
+}
+
+
+// =====================================================
+// DATE FORMATTER
+// =====================================================
+
+function formatFirestoreDate(timestamp) {
+
+    if (!timestamp) {
+        return "--";
+    }
+
+    try {
+
+        let date;
+
+        if (
+            typeof timestamp === "object" &&
+            typeof timestamp.toDate === "function"
+        ) {
+
+            date = timestamp.toDate();
+
+        } else if (
+            timestamp.seconds
+        ) {
+
+            date =
+                new Date(
+                    timestamp.seconds * 1000
+                );
+
+        } else {
+
+            date =
+                new Date(timestamp);
+
+        }
+
+        if (Number.isNaN(date.getTime())) {
+            return "--";
+        }
+
+        return date.toLocaleString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            }
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Date formatting error:",
+            error
+        );
+
+        return "--";
+
+    }
+
+}
+
+
+// =====================================================
+// SEARCH + FILTER STATE
+// =====================================================
+
+let activeRewardFilter = "all";
+
+
+// =====================================================
+// RENDER FILTERED REWARDS
+// =====================================================
+
+function renderRewardTable() {
+
+    if (!rewardTable) {
+        return;
+    }
+
+    const keyword =
+        searchRewardCustomer?.value
+            ?.trim()
+            .toLowerCase() || "";
+
+    let filteredCustomers =
+        [...customers];
+
+    // -----------------------------------------------
+    // STATUS FILTER
+    // -----------------------------------------------
+
+    if (
+        activeRewardFilter === "pending"
+    ) {
+
+        filteredCustomers =
+            filteredCustomers.filter(
+                customer =>
+                    customer.rewardUnlocked === true
+            );
+
+    }
+
+    if (
+        activeRewardFilter === "claimed"
+    ) {
+
+        filteredCustomers =
+            filteredCustomers.filter(
+                customer =>
+                    customer.rewardClaimed === true
+            );
+
+    }
+
+    // -----------------------------------------------
+    // SEARCH FILTER
+    // -----------------------------------------------
+
+    if (keyword) {
+
+        filteredCustomers =
+            filteredCustomers.filter(
+                customer => {
+
+                    const name =
+                        String(
+                            customer.name || ""
+                        ).toLowerCase();
+
+                    const memberId =
+                        String(
+                            customer.memberId || ""
+                        ).toLowerCase();
+
+                    const mobile =
+                        String(
+                            customer.mobile || ""
+                        ).toLowerCase();
+
+                    return (
+                        name.includes(keyword) ||
+                        memberId.includes(keyword) ||
+                        mobile.includes(keyword)
+                    );
+
+                }
+            );
+
+    }
+
+    // -----------------------------------------------
+    // CLEAR TABLE
+    // -----------------------------------------------
+
+    rewardTable.innerHTML = "";
+
+    // -----------------------------------------------
+    // EMPTY STATE
+    // -----------------------------------------------
+
+    if (
+        filteredCustomers.length === 0
+    ) {
+
+        rewardTable.innerHTML = `
+
+            <tr>
+
+                <td colspan="7">
+
+                    No customers found
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+    // -----------------------------------------------
+    // CREATE ROWS
+    // -----------------------------------------------
+
+    filteredCustomers.forEach(
+        createRewardRow
+    );
+
+}
+
+
+// =====================================================
+// SEARCH EVENT
+// =====================================================
+
+searchRewardCustomer?.addEventListener(
+    "input",
+    () => {
+
+        activeRewardFilter = "all";
+
+        renderRewardTable();
+
+    }
+);
+
+
+// =====================================================
+// PENDING REWARDS
+// =====================================================
+
+pendingRewardBtn?.addEventListener(
+    "click",
+    () => {
+
+        activeRewardFilter = "pending";
+
+        renderRewardTable();
+
+    }
+);
+
+
+// =====================================================
+// CLAIMED REWARDS
+// =====================================================
+
+claimedRewardBtn?.addEventListener(
+    "click",
+    () => {
+
+        activeRewardFilter = "claimed";
+
+        renderRewardTable();
+
+    }
+);
+
+
+// =====================================================
+// EXPORT REWARDS
+// =====================================================
+
+exportRewardBtn?.addEventListener(
+    "click",
+    () => {
+
+        if (
+            customers.length === 0
+        ) {
+
+            alert(
+                "No reward data available for export."
+            );
+
+            return;
+
+        }
+
+        const headers = [
+            "Name",
+            "Member ID",
+            "Mobile",
+            "Stamps",
+            "Reward Ready",
+            "Reward Claimed",
+            "Reward Claimed At"
+        ];
+
+        const rows =
+            customers.map(
+                customer => [
+
+                    customer.name || "",
+
+                    customer.memberId || "",
+
+                    customer.mobile || "",
+
+                    customer.stamps || 0,
+
+                    customer.rewardUnlocked
+                        ? "Yes"
+                        : "No",
+
+                    customer.rewardClaimed
+                        ? "Yes"
+                        : "No",
+
+                    formatFirestoreDate(
+                        customer.rewardClaimedAt
+                    )
+
+                ]
+            );
+
+        const csvData = [
+
+            headers,
+
+            ...rows
+
+        ]
+
+        .map(
+            row =>
+                row
+                    .map(
+                        value =>
+                            `"${String(value)
+                                .replace(/"/g, '""')}"`
+                    )
+                    .join(",")
+        )
+        .join("\n");
+
+        const blob =
+            new Blob(
+                [csvData],
+                {
+                    type:
+                        "text/csv;charset=utf-8;"
+                }
+            );
+
+        const url =
+            URL.createObjectURL(blob);
+
+        const link =
+            document.createElement("a");
+
+        link.href = url;
+
+        link.download =
+            `rio-maggi-rewards-${Date.now()}.csv`;
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+
+        URL.revokeObjectURL(url);
+
+    }
+);
+
+
+// =====================================================
+// REFRESH BUTTON
+// =====================================================
+
+refreshRewardBtn?.addEventListener(
+    "click",
+    async () => {
+
+        if (
+            refreshRewardBtn.disabled
+        ) {
+
+            return;
+
+        }
+
+        try {
+
+            refreshRewardBtn.disabled = true;
+
+            refreshRewardBtn.innerHTML = `
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                Loading...
+            `;
+
+            activeRewardFilter = "all";
+
+            await loadRewards();
+
+            await loadRewardHistory();
+
+        } catch (error) {
+
+            console.error(
+                "Refresh failed:",
+                error
+            );
+
+            alert(
+                "Unable to refresh rewards."
+            );
+
+        } finally {
+
+            refreshRewardBtn.disabled = false;
+
+            refreshRewardBtn.innerHTML = `
+                <i class="fa-solid fa-rotate"></i>
+                Refresh
+            `;
+
+        }
+
+    }
+);
+
+
+// =====================================================
+// BACK TO ADMIN DASHBOARD
+// =====================================================
+
+backDashboard?.addEventListener(
+    "click",
+    () => {
+
+        window.location.href =
+            "admin-dashboard.html";
+
+    }
+);
+
 
 // =====================================================
 // LOGOUT
 // =====================================================
 
-const logoutBtn = document.getElementById("logoutBtn");
+const logoutBtn =
+    document.getElementById(
+        "logoutBtn"
+    );
 
-logoutBtn?.addEventListener("click", async ()=>{
+logoutBtn?.addEventListener(
+    "click",
+    async () => {
 
-try{
+        try {
 
-await signOut(auth);
+            await signOut(auth);
 
-location.href="admin-login.html";
+            window.location.href =
+                "admin-login.html";
 
-}catch(err){
+        } catch (error) {
 
-console.error(err);
+            console.error(
+                "Logout failed:",
+                error
+            );
 
-alert("Logout Failed");
+            alert(
+                "Logout failed. Please try again."
+            );
+
+        }
+
+    }
+);
+
+
+// =====================================================
+// AUTO REFRESH
+// =====================================================
+
+const REWARD_AUTO_REFRESH_TIME =
+    60 * 1000;
+
+setInterval(
+    async () => {
+
+        if (
+            document.hidden
+        ) {
+
+            return;
+
+        }
+
+        try {
+
+            await loadRewards();
+
+            await loadRewardHistory();
+
+        } catch (error) {
+
+            console.error(
+                "Auto refresh failed:",
+                error
+            );
+
+        }
+
+    },
+    REWARD_AUTO_REFRESH_TIME
+);
+
+
+// =====================================================
+// INITIAL PAGE READY
+// =====================================================
+
+window.addEventListener(
+    "load",
+    () => {
+
+        console.log(
+            "==================================="
+        );
+
+        console.log(
+            "🎁 Rio Maggi Point"
+        );
+
+        console.log(
+            "Reward Manager Ready"
+        );
+
+        console.log(
+            "Firebase Connected"
+        );
+
+        console.log(
+            "==================================="
+        );
+
+    }
+);
+
+
+// =====================================================
+// HTML SECURITY HELPER
+// =====================================================
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
-});
 
 // =====================================================
-// AUTO REFRESH EVERY 60 SECONDS
+// FINAL
 // =====================================================
 
-setInterval(async ()=>{
-
-await loadRewards();
-
-},60000);
-
-// =====================================================
-// WINDOW READY
-// =====================================================
-
-window.addEventListener("load",()=>{
-
-console.log("===================================");
-
-console.log("🎁 Rio Reward Manager Ready");
-
-console.log("Firebase Connected");
-
-console.log("===================================");
-
-});
+console.log(
+    "✅ Admin Reward Manager Part 4 Loaded"
+);
