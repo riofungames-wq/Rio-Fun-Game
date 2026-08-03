@@ -12,17 +12,20 @@
 
     <meta
         name="theme-color"
-        content="#263525"
+        content="#0f1014"
     >
 
-    <title>
-        Rio Maggi Point | Premium Loyalty QR
-    </title>
+    <meta
+        name="description"
+        content="Rio Maggi Point Premium Loyalty QR"
+    >
+
+    <title>Rio Maggi Point | Premium Loyalty QR</title>
 
 
-    <!-- ==================================
+    <!-- ==========================================
          GOOGLE FONT
-    =================================== -->
+    =========================================== -->
 
     <link
         rel="preconnect"
@@ -41,9 +44,9 @@
     >
 
 
-    <!-- ==================================
+    <!-- ==========================================
          FONT AWESOME
-    =================================== -->
+    =========================================== -->
 
     <link
         rel="stylesheet"
@@ -51,9 +54,9 @@
     >
 
 
-    <!-- ==================================
+    <!-- ==========================================
          QR PAGE CSS
-    =================================== -->
+    =========================================== -->
 
     <link
         rel="stylesheet"
@@ -61,26 +64,17 @@
     >
 
 
-    <!-- ==================================
-         FIREBASE CONFIG
-         Must load before qr.js
-    =================================== -->
-
-    <script
-        type="module"
-        src="./firebase-config.js"
-    ></script>
-
-
-    <!-- ==================================
+    <!-- ==========================================
          QR CODE LIBRARY
+         
          IMPORTANT:
-         This MUST load before qr.js
-    =================================== -->
+         Load BEFORE qr.js.
+         qr.js waits until DOM + library
+         are ready before generating QR.
+    =========================================== -->
 
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
-        defer
     ></script>
 
 </head>
@@ -89,21 +83,26 @@
 <body>
 
 
-    <!-- ==================================
+    <!-- ==========================================
          MAIN PAGE
-    =================================== -->
+    =========================================== -->
 
     <main class="page">
 
 
-        <!-- ==================================
+        <!-- ==========================================
              MAIN QR CARD
-        =================================== -->
+        =========================================== -->
 
-        <section class="qr-card">
+        <section
+            class="qr-card"
+            aria-label="Rio Maggi Point Premium Loyalty QR"
+        >
 
 
-            <!-- PREMIUM DECORATION -->
+            <!-- ======================================
+                 PREMIUM DECORATIONS
+            ======================================= -->
 
             <div
                 class="card-glow"
@@ -117,33 +116,57 @@
             ></div>
 
 
-            <!-- ==================================
+            <!-- ======================================
                  QR HEADER
-            =================================== -->
+            ======================================= -->
 
             <header class="qr-header">
 
-                <h1>
-                    RIO MAGGI POINT
-                </h1>
 
-                <p>
-                    Premium Loyalty QR
-                </p>
+                <div class="qr-brand">
+
+
+                    <div
+                        class="qr-brand-icon"
+                        aria-hidden="true"
+                    >
+
+                        <i class="fa-solid fa-qrcode"></i>
+
+                    </div>
+
+
+                    <div class="qr-brand-text">
+
+                        <h1>
+                            RIO MAGGI POINT
+                        </h1>
+
+                        <p>
+                            PREMIUM LOYALTY QR
+                        </p>
+
+                    </div>
+
+
+                </div>
+
 
             </header>
 
 
-            <!-- ==================================
+            <!-- ======================================
                  CUSTOMER PROFILE
-            =================================== -->
+            ======================================= -->
 
             <section
                 class="customer-section"
                 aria-label="Customer Profile"
             >
 
+
                 <div class="avatar-frame">
+
 
                     <img
                         id="customerPhoto"
@@ -152,6 +175,7 @@
                         loading="eager"
                         decoding="async"
                     >
+
 
                 </div>
 
@@ -164,9 +188,7 @@
                 </h2>
 
 
-                <p
-                    class="customer-id"
-                >
+                <p class="customer-id">
 
                     ID :
 
@@ -176,12 +198,13 @@
 
                 </p>
 
+
             </section>
 
 
-            <!-- ==================================
+            <!-- ======================================
                  PREMIUM QR SECTION
-            =================================== -->
+            ======================================= -->
 
             <section
                 class="premium-qr-section"
@@ -191,20 +214,24 @@
 
                 <h2 class="scan-title">
 
+
                     <i
                         class="fa-solid fa-qrcode"
                         aria-hidden="true"
                     ></i>
 
+
                     <span>
                         SCAN THIS QR AT COUNTER
                     </span>
+
 
                 </h2>
 
 
                 <!-- ==================================
                      QR CONTAINER
+                     
                      qr.js targets #qrcode
                 =================================== -->
 
@@ -213,12 +240,36 @@
                     aria-label="Your Loyalty QR Code"
                 >
 
+
                     <div
                         id="qrcode"
                         class="qr-box"
                         role="img"
                         aria-label="Customer Loyalty QR Code"
-                    ></div>
+                    >
+
+
+                        <!-- Loading State -->
+
+                        <div
+                            id="qrLoading"
+                            class="qr-loading"
+                        >
+
+                            <i
+                                class="fa-solid fa-qrcode"
+                                aria-hidden="true"
+                            ></i>
+
+                            <span>
+                                Preparing QR...
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
 
                 </div>
 
@@ -235,17 +286,19 @@
                     Preparing Your Premium QR...
                 </p>
 
+
             </section>
 
 
-            <!-- ==================================
+            <!-- ======================================
                  DAILY LOYALTY RULE
-            =================================== -->
+            ======================================= -->
 
             <section
                 class="daily-stamp-rule"
                 aria-label="Daily Loyalty Rule"
             >
+
 
                 <div
                     class="daily-rule-icon"
@@ -261,73 +314,86 @@
 
                 <div class="daily-rule-content">
 
+
                     <h3>
                         DAILY LOYALTY RULE
                     </h3>
 
 
-                    <p>
-                        <strong>
-                            ONE PURCHASE DAY = ONE STAMP ONLY
-                        </strong>
+                    <p class="rule-highlight-text">
+
+                        ONE PURCHASE DAY = ONE STAMP ONLY
+
                     </p>
 
 
                     <p>
+
                         एक दिन में आप कितनी भी Maggi खरीदें,
                         आपको सिर्फ 1 Loyalty Stamp मिलेगा।
+
                     </p>
 
 
                     <p>
+
                         6 अलग-अलग दिनों में Purchase करें
                         और 6 Stamps Complete करें।
+
                     </p>
 
 
                     <p>
+
                         🎁 6 Stamps Complete होने के बाद
                         आपकी 7th Veg Maggi FREE होगी।
+
                     </p>
 
 
                     <p>
+
                         एक ही दिन में 6 Maggi खरीदने पर
                         6 Stamps नहीं मिलेंगे।
                         हर नए Stamp के लिए अगला Purchase Day
                         होना जरूरी है।
+
                     </p>
 
+
                 </div>
+
 
             </section>
 
 
-            <!-- ==================================
-                 PART 1 END
-            =================================== -->
-                        <!-- ==================================
+            <!-- ======================================
                  SECURITY NOTE
-            =================================== -->
+            ======================================= -->
 
             <div class="security-note">
+
 
                 <i
                     class="fa-solid fa-shield-halved"
                     aria-hidden="true"
                 ></i>
 
+
                 <span>
+
                     This QR is securely linked to your
                     Rio Maggi Point Loyalty Account.
+
                 </span>
+
 
             </div>
 
 
-            <!-- ==================================
+            <!-- ======================================
                  SCAN INSTRUCTIONS
-            =================================== -->
+            ======================================= -->
 
             <section
                 class="instruction-box"
@@ -339,6 +405,7 @@
 
                 <div class="instruction-item">
 
+
                     <div
                         class="instruction-icon"
                         aria-hidden="true"
@@ -346,9 +413,13 @@
                         1
                     </div>
 
+
                     <p class="instruction-text">
+
                         अपना QR Code Counter पर दिखाएँ।
+
                     </p>
+
 
                 </div>
 
@@ -357,6 +428,7 @@
 
                 <div class="instruction-item">
 
+
                     <div
                         class="instruction-icon"
                         aria-hidden="true"
@@ -364,9 +436,13 @@
                         2
                     </div>
 
+
                     <p class="instruction-text">
+
                         Staff आपके Loyalty Account को verify करेगा।
+
                     </p>
+
 
                 </div>
 
@@ -375,6 +451,7 @@
 
                 <div class="instruction-item">
 
+
                     <div
                         class="instruction-icon"
                         aria-hidden="true"
@@ -382,9 +459,13 @@
                         3
                     </div>
 
+
                     <p class="instruction-text">
+
                         Eligible Purchase पर आपका Daily Loyalty Stamp Add होगा।
+
                     </p>
+
 
                 </div>
 
@@ -392,9 +473,9 @@
             </section>
 
 
-            <!-- ==================================
+            <!-- ======================================
                  NAVIGATION SAFE SPACE
-            =================================== -->
+            ======================================= -->
 
             <div
                 class="nav-space"
@@ -408,9 +489,9 @@
     </main>
 
 
-    <!-- ==================================
+    <!-- ==========================================
          FIXED BOTTOM NAVIGATION
-    =================================== -->
+    =========================================== -->
 
     <nav
         class="bottom-nav"
@@ -496,7 +577,7 @@
         </a>
 
 
-        <!-- REWARD -->
+        <!-- REWARDS -->
 
         <a
             href="./reward.html"
@@ -537,90 +618,21 @@
     </nav>
 
 
-    <!-- ==================================
-         QR LIBRARY
-         
-         IMPORTANT:
-         qrcode.min.js is already loaded
-         in HEAD with defer.
-         
-         Do NOT load it again here.
-    =================================== -->
-
-
-    <!-- ==================================
+    <!-- ==========================================
          QR PAGE JAVASCRIPT
          
-         type="module" is REQUIRED
-         because qr.js imports Firebase.
-    =================================== -->
+         IMPORTANT:
+         type="module" is required because
+         qr.js imports Firebase.
+         
+         QR library is loaded above BEFORE this.
+    =========================================== -->
 
     <script
         type="module"
         src="./qr.js"
     ></script>
 
-
-    <!-- ==================================
-         PART 2 END
-    =================================== -->
-        <!-- ==================================
-         QR PAGE FINAL INITIALIZATION
-         PART 3 / 3
-    ================================== -->
-
-
-    <!-- ==================================
-         QR LIBRARY SAFETY CHECK
-         
-         qr.js handles the actual QR creation.
-         This block only reports if the
-         external QRCode library failed.
-    ================================== -->
-
-    <script>
-
-        window.addEventListener(
-
-            "load",
-
-            function () {
-
-                if (
-                    typeof QRCode ===
-                    "undefined"
-                ) {
-
-                    console.error(
-                        "Rio Maggi Point: QRCode library failed to load."
-                    );
-
-
-                    const status =
-                        document.getElementById(
-                            "qrStatus"
-                        );
-
-
-                    if (status) {
-
-                        status.textContent =
-                            "QR service temporarily unavailable. Please refresh the page.";
-
-                    }
-
-                }
-
-            }
-
-        );
-
-    </script>
-
-
-    <!-- ==================================
-         FINAL HTML BODY
-    ================================== -->
 
 </body>
 
