@@ -2,7 +2,7 @@
    RIO MAGGI POINT
    QR.JS — PART 1 / 3
    AUTH + CUSTOMER PROFILE + QR DATA FLOW
-   CLEAN SINGLE AUTH FLOW
+   FIXED / CLEAN VERSION
 ========================================== */
 
 import {
@@ -49,27 +49,24 @@ const QR_PREFIX =
 
 
 /* ==========================================
-   DEFAULT AVATAR
+   DEFAULT VALUES
 ========================================== */
 
 const DEFAULT_AVATAR =
-    "assets/avatars/male.png";
-
-
-/* ==========================================
-   FALLBACK CUSTOMER NAME
-========================================== */
+    "./assets/avatars/male.png";
 
 const DEFAULT_CUSTOMER_NAME =
     "Rio Customer";
 
-
-/* ==========================================
-   FALLBACK MEMBER ID
-========================================== */
-
 const DEFAULT_MEMBER_ID =
     "RIO-000000";
+
+
+/* ==========================================
+   QR GENERATION STATE
+========================================== */
+
+let qrGenerationStarted = false;
 
 
 /* ==========================================
@@ -99,6 +96,16 @@ function setInitialLoadingState() {
         qrStatus.textContent =
             "Preparing Your Premium QR...";
 
+        qrStatus.classList.remove(
+            "ready",
+            "error",
+            "loading"
+        );
+
+        qrStatus.classList.add(
+            "loading"
+        );
+
     }
 
 }
@@ -112,9 +119,8 @@ setInitialLoadingState();
 
 
 /* ==========================================
-   SINGLE AUTH STATE LISTENER
-   IMPORTANT:
-   Only ONE onAuthStateChanged listener
+   AUTH STATE
+   SINGLE LISTENER ONLY
 ========================================== */
 
 onAuthStateChanged(
@@ -124,13 +130,17 @@ onAuthStateChanged(
     async (user) => {
 
         /* ==================================
-           USER NOT LOGGED IN
+           CUSTOMER NOT LOGGED IN
         ================================== */
 
         if (!user) {
 
+            console.warn(
+                "Rio Maggi Point: Customer is not authenticated."
+            );
+
             window.location.replace(
-                "login.html"
+                "./login.html"
             );
 
             return;
@@ -139,22 +149,20 @@ onAuthStateChanged(
 
 
         /* ==================================
-           USER LOGGED IN
+           AUTHENTICATED CUSTOMER
         ================================== */
 
         console.log(
-            "Rio Maggi Point: Authenticated User",
+            "Rio Maggi Point: Authenticated Customer",
             user.uid
         );
 
 
         try {
 
-            /*
-             * Load customer profile first.
-             * QR generation will be handled
-             * after this flow is completed.
-             */
+            /* ==================================
+               LOAD CUSTOMER PROFILE
+            ================================== */
 
             const customerData =
                 await loadCustomerData(
@@ -162,23 +170,16 @@ onAuthStateChanged(
                 );
 
 
-            /*
-             * Customer profile loaded.
-             * Pass final UID to QR system.
-             */
+            /* ==================================
+               CUSTOMER DATA READY
+               QR GENERATION EVENT
+            ================================== */
 
-            window.dispatchEvent(
+            dispatchCustomerReadyEvent(
 
-                new CustomEvent(
-                    "rioCustomerReady",
-                    {
-                        detail: {
-                            uid: user.uid,
-                            customerData:
-                                customerData
-                        }
-                    }
-                )
+                user.uid,
+
+                customerData
 
             );
 
@@ -193,17 +194,25 @@ onAuthStateChanged(
             );
 
 
-            /*
-             * Even if Firestore profile
-             * loading fails, QR can still
-             * be generated using Firebase UID.
-             */
+            /* ==================================
+               PROFILE FALLBACK
+            ================================== */
+
+            const fallbackName =
+                user.displayName ||
+                DEFAULT_CUSTOMER_NAME;
+
+
+            const fallbackMemberId =
+                createMemberId(
+                    user.uid
+                );
+
 
             if (customerName) {
 
                 customerName.textContent =
-                    user.displayName ||
-                    DEFAULT_CUSTOMER_NAME;
+                    fallbackName;
 
             }
 
@@ -211,9 +220,7 @@ onAuthStateChanged(
             if (memberId) {
 
                 memberId.textContent =
-                    createMemberId(
-                        user.uid
-                    );
+                    fallbackMemberId;
 
             }
 
@@ -221,30 +228,15 @@ onAuthStateChanged(
             loadDefaultAvatar();
 
 
-            if (qrStatus) {
+            /* ==================================
+               QR CAN STILL USE AUTH UID
+            ================================== */
 
-                qrStatus.textContent =
-                    "Preparing Your Premium QR...";
+            dispatchCustomerReadyEvent(
 
-            }
+                user.uid,
 
-
-            /*
-             * Allow QR system to continue
-             * using authenticated UID.
-             */
-
-            window.dispatchEvent(
-
-                new CustomEvent(
-                    "rioCustomerReady",
-                    {
-                        detail: {
-                            uid: user.uid,
-                            customerData: null
-                        }
-                    }
-                )
+                null
 
             );
 
@@ -263,7 +255,10 @@ async function loadCustomerData(
     user
 ) {
 
-    if (!user || !user.uid) {
+    if (
+        !user ||
+        !user.uid
+    ) {
 
         throw new Error(
             "Authenticated customer UID is missing."
@@ -273,7 +268,7 @@ async function loadCustomerData(
 
 
     /* ==================================
-       FIRESTORE CUSTOMER REFERENCE
+       FIRESTORE CUSTOMER DOCUMENT
     ================================== */
 
     const customerRef =
@@ -352,6 +347,9 @@ async function loadCustomerData(
             photoURL:
                 "",
 
+            gender:
+                "",
+
             exists:
                 false
 
@@ -361,7 +359,7 @@ async function loadCustomerData(
 
 
     /* ==================================
-       GET FIRESTORE DATA
+       FIRESTORE CUSTOMER DATA
     ================================== */
 
     const customerData =
@@ -415,7 +413,7 @@ async function loadCustomerData(
 
 
     /* ==================================
-       PROFILE READY STATUS
+       QR STATUS
     ================================== */
 
     if (qrStatus) {
@@ -423,8 +421,21 @@ async function loadCustomerData(
         qrStatus.textContent =
             "Preparing Your Premium QR...";
 
+        qrStatus.classList.remove(
+            "ready",
+            "error"
+        );
+
+        qrStatus.classList.add(
+            "loading"
+        );
+
     }
 
+
+    /* ==================================
+       LOG CUSTOMER DATA
+    ================================== */
 
     console.log(
         "Rio Maggi Customer Loaded:",
@@ -436,14 +447,18 @@ async function loadCustomerData(
                 name,
 
             memberId:
-                finalMemberId
+                finalMemberId,
+
+            gender:
+                customerData.gender ||
+                ""
 
         }
     );
 
 
     /* ==================================
-       RETURN NORMALIZED CUSTOMER DATA
+       NORMALIZED CUSTOMER DATA
     ================================== */
 
     return {
@@ -513,14 +528,6 @@ function loadCustomerPhoto(
 
 
     /* ==================================
-       SET PHOTO
-    ================================== */
-
-    customerPhoto.src =
-        photoURL;
-
-
-    /* ==================================
        PHOTO ERROR FALLBACK
     ================================== */
 
@@ -530,6 +537,14 @@ function loadCustomerPhoto(
             loadDefaultAvatar();
 
         };
+
+
+    /* ==================================
+       SET CUSTOMER PHOTO
+    ================================== */
+
+    customerPhoto.src =
+        photoURL;
 
 }
 
@@ -606,180 +621,357 @@ function createMemberId(
 
 /* ==========================================
    CUSTOMER READY EVENT
-   PART 2 WILL LISTEN TO THIS EVENT
-   AND GENERATE QR ONCE ONLY
+   PART 2 LISTENS TO THIS EVENT
+========================================== */
+
+function dispatchCustomerReadyEvent(
+    uid,
+    customerData
+) {
+
+    if (!uid) {
+
+        console.error(
+            "Customer Ready Event: UID missing."
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Prevent accidental duplicate dispatch.
+     * This protects QR generation from being
+     * triggered multiple times by this file.
+     */
+
+    if (
+        qrGenerationStarted
+    ) {
+
+        console.warn(
+            "Customer Ready Event already dispatched."
+        );
+
+        return;
+
+    }
+
+
+    qrGenerationStarted =
+        true;
+
+
+    window.dispatchEvent(
+
+        new CustomEvent(
+            "rioCustomerReady",
+            {
+                detail: {
+
+                    uid:
+                        uid,
+
+                    customerData:
+                        customerData
+
+                }
+
+            }
+        )
+
+    );
+
+
+    console.log(
+        "Rio Customer Ready Event Dispatched:",
+        uid
+    );
+
+}
+
+
+/* ==========================================
+   PART 1 READY
 ========================================== */
 
 console.log(
     "QR.JS PART 1 LOADED"
 );
+
+console.log(
+    "RIO CUSTOMER AUTH FLOW READY"
+);
+
+console.log(
+    "RIO CUSTOMER PROFILE FLOW READY"
+);
 /* ==========================================
    RIO MAGGI POINT
    QR.JS — PART 2 / 3
-   PREMIUM QR GENERATION
-   SINGLE CLEAN QR FLOW
+   QR GENERATION + LIBRARY CHECK
+   FIXED / CLEAN VERSION
 ========================================== */
 
 
 /* ==========================================
-   QR GENERATION STATE
+   CUSTOMER READY EVENT
+   RECEIVED FROM PART 1
 ========================================== */
 
-let qrGenerated = false;
+window.addEventListener(
 
+    "rioCustomerReady",
 
-/* ==========================================
-   QR LIBRARY CHECK
-========================================== */
+    (event) => {
 
-function isQRCodeLibraryReady() {
+        /* ==================================
+           VALIDATE EVENT
+        ================================== */
 
-    return (
-        typeof window.QRCode !== "undefined" &&
-        typeof window.QRCode === "function"
-    );
+        if (
+            !event ||
+            !event.detail
+        ) {
 
-}
+            console.error(
+                "Rio QR: Customer data event is missing."
+            );
 
+            showQRError(
+                "Unable to load customer information."
+            );
 
-/* ==========================================
-   WAIT FOR QR LIBRARY
-   Prevents QR generation failure when
-   qr.js loads before QRCode library
-========================================== */
-
-function waitForQRCodeLibrary(
-    maxAttempts = 50,
-    interval = 100
-) {
-
-    return new Promise(
-
-        (resolve, reject) => {
-
-            let attempts = 0;
-
-
-            const checkLibrary = () => {
-
-                if (
-                    isQRCodeLibraryReady()
-                ) {
-
-                    resolve(
-                        window.QRCode
-                    );
-
-                    return;
-
-                }
-
-
-                attempts++;
-
-
-                if (
-                    attempts >=
-                    maxAttempts
-                ) {
-
-                    reject(
-
-                        new Error(
-                            "QRCode library was not loaded."
-                        )
-
-                    );
-
-                    return;
-
-                }
-
-
-                setTimeout(
-                    checkLibrary,
-                    interval
-                );
-
-            };
-
-
-            checkLibrary();
+            return;
 
         }
 
-    );
 
-}
+        const {
 
+            uid,
 
-/* ==========================================
-   CLEAR OLD QR
-========================================== */
+            customerData
 
-function clearQRCode() {
-
-    if (!qrCode) {
-
-        return;
-
-    }
+        } =
+            event.detail;
 
 
-    qrGenerated =
-        false;
+        /* ==================================
+           VALIDATE UID
+        ================================== */
+
+        if (!uid) {
+
+            console.error(
+                "Rio QR: Customer UID is missing."
+            );
+
+            showQRError(
+                "Customer account could not be verified."
+            );
+
+            return;
+
+        }
 
 
-    qrCode.innerHTML =
-        "";
+        /* ==================================
+           GET MEMBER ID
+        ================================== */
+
+        const finalMemberId =
+
+            customerData &&
+            customerData.memberId
+
+                ? customerData.memberId
+
+                : createMemberId(
+                    uid
+                );
 
 
-    qrCode.classList.remove(
-        "qr-generated"
-    );
+        /* ==================================
+           PREPARE QR PAYLOAD
+        ================================== */
+
+        const qrPayload =
+
+            createQRPayload(
+
+                uid,
+
+                finalMemberId
+
+            );
 
 
-    qrCode.classList.remove(
-        "qr-error"
-    );
-
-}
-
-
-/* ==========================================
-   SET QR STATUS
-========================================== */
-
-function setQRStatus(
-    message,
-    type = "default"
-) {
-
-    if (!qrStatus) {
-
-        return;
-
-    }
+        console.log(
+            "Rio QR Payload Prepared:",
+            qrPayload
+        );
 
 
-    qrStatus.textContent =
-        message;
+        /* ==================================
+           WAIT FOR QR LIBRARY
+        ================================== */
 
+        waitForQRCodeLibrary(
 
-    qrStatus.classList.remove(
-        "ready",
-        "error",
-        "loading"
-    );
+            () => {
 
+                generateCustomerQR(
 
-    if (type) {
+                    qrPayload
 
-        qrStatus.classList.add(
-            type
+                );
+
+            }
+
         );
 
     }
+
+);
+
+
+/* ==========================================
+   CREATE QR PAYLOAD
+========================================== */
+
+function createQRPayload(
+
+    uid,
+
+    memberId
+
+) {
+
+    /*
+     * IMPORTANT:
+     *
+     * The QR contains only the customer
+     * account identifier.
+     *
+     * Staff/Admin QR scanner can use
+     * this UID to find the customer.
+     *
+     * Do NOT put sensitive customer data
+     * inside the QR code.
+     */
+
+
+    return (
+
+        QR_PREFIX +
+
+        uid +
+
+        "|MEMBER:" +
+
+        memberId
+
+    );
+
+}
+
+
+/* ==========================================
+   WAIT FOR QR CODE LIBRARY
+========================================== */
+
+function waitForQRCodeLibrary(
+
+    callback,
+
+    attempt = 0
+
+) {
+
+    const MAX_ATTEMPTS =
+        100;
+
+
+    const RETRY_DELAY =
+        100;
+
+
+    /* ==================================
+       LIBRARY AVAILABLE
+    ================================== */
+
+    if (
+
+        typeof window.QRCode !==
+        "undefined"
+
+    ) {
+
+        console.log(
+            "Rio QR: QRCode library detected."
+        );
+
+
+        callback();
+
+        return;
+
+    }
+
+
+    /* ==================================
+       MAX ATTEMPTS REACHED
+    ================================== */
+
+    if (
+
+        attempt >=
+        MAX_ATTEMPTS
+
+    ) {
+
+        console.error(
+
+            "Rio QR: QRCode library failed to load."
+
+        );
+
+
+        showQRError(
+
+            "QR service temporarily unavailable. Please refresh the page."
+
+        );
+
+
+        return;
+
+    }
+
+
+    /* ==================================
+       RETRY
+    ================================== */
+
+    setTimeout(
+
+        () => {
+
+            waitForQRCodeLibrary(
+
+                callback,
+
+                attempt + 1
+
+            );
+
+        },
+
+        RETRY_DELAY
+
+    );
 
 }
 
@@ -788,34 +980,11 @@ function setQRStatus(
    GENERATE CUSTOMER QR
 ========================================== */
 
-async function generateCustomerQR(
-    uid
+function generateCustomerQR(
+
+    qrPayload
+
 ) {
-
-    /* ==================================
-       VALIDATE UID
-    ================================== */
-
-    if (!uid) {
-
-        console.error(
-            "QR Generation Failed: UID missing."
-        );
-
-
-        clearQRCode();
-
-
-        setQRStatus(
-            "Unable to generate QR",
-            "error"
-        );
-
-
-        return false;
-
-    }
-
 
     /* ==================================
        VALIDATE QR CONTAINER
@@ -824,160 +993,129 @@ async function generateCustomerQR(
     if (!qrCode) {
 
         console.error(
-            "QR Generation Failed: #qrcode element not found."
+
+            "Rio QR: #qrcode container not found."
+
         );
 
 
-        return false;
+        showQRError(
+
+            "QR display area is unavailable."
+
+        );
+
+
+        return;
 
     }
 
 
     /* ==================================
-       PREVENT DUPLICATE GENERATION
+       VALIDATE PAYLOAD
     ================================== */
 
-    if (qrGenerated) {
+    if (
 
-        console.log(
-            "QR already generated."
+        !qrPayload ||
+
+        typeof qrPayload !==
+        "string"
+
+    ) {
+
+        console.error(
+
+            "Rio QR: Invalid QR payload."
+
         );
 
 
-        return true;
+        showQRError(
+
+            "Unable to create your QR code."
+
+        );
+
+
+        return;
 
     }
 
 
     /* ==================================
-       SHOW LOADING
+       CLEAR OLD QR
     ================================== */
 
-    setQRStatus(
-        "Preparing Your Premium QR...",
-        "loading"
+    qrCode.innerHTML =
+        "";
+
+
+    qrCode.classList.remove(
+
+        "qr-generated"
+
     );
-
-
-    clearQRCode();
 
 
     /* ==================================
-       CREATE QR PAYLOAD
+       QR OPTIONS
     ================================== */
 
-    const qrData =
-        QR_PREFIX +
-        String(uid);
+    const qrOptions = {
+
+        text:
+            qrPayload,
+
+        width:
+            260,
+
+        height:
+            260,
+
+        colorDark:
+            "#263525",
+
+        colorLight:
+            "#ffffff",
+
+        correctLevel:
+            window.QRCode.CorrectLevel.H
+
+    };
 
 
-    console.log(
-        "Generating Customer QR:",
-        qrData
-    );
-
+    /* ==================================
+       GENERATE QR
+    ================================== */
 
     try {
 
-        /* ==================================
-           WAIT FOR QR LIBRARY
-        ================================== */
-
-        const QRCodeLibrary =
-            await waitForQRCodeLibrary();
-
-
-        /* ==================================
-           GENERATE QR
-        ================================== */
-
-        new QRCodeLibrary(
+        new window.QRCode(
 
             qrCode,
 
-            {
-
-                text:
-                    qrData,
-
-                width:
-                    260,
-
-                height:
-                    260,
-
-                colorDark:
-                    "#263525",
-
-                colorLight:
-                    "#ffffff",
-
-                correctLevel:
-                    QRCodeLibrary.CorrectLevel
-                        ? QRCodeLibrary.CorrectLevel.H
-                        : undefined
-
-            }
-
-        );
-
-
-        /* ==================================
-           MARK QR AS GENERATED
-        ================================== */
-
-        qrGenerated =
-            true;
-
-
-        /* ==================================
-           QR READY STATUS
-        ================================== */
-
-        setQRStatus(
-            "✓ Premium QR Ready — Show at Counter",
-            "ready"
-        );
-
-
-        /* ==================================
-           QR ANIMATION
-        ================================== */
-
-        requestAnimationFrame(
-
-            () => {
-
-                if (!qrCode) {
-
-                    return;
-
-                }
-
-
-                qrCode.classList.remove(
-                    "qr-generated"
-                );
-
-
-                void qrCode.offsetWidth;
-
-
-                qrCode.classList.add(
-                    "qr-generated"
-                );
-
-            }
+            qrOptions
 
         );
 
 
         console.log(
-            "Customer QR Generated Successfully"
+
+            "Rio QR: QR generation started."
+
         );
 
 
-        return true;
+        /* ==================================
+           VERIFY QR OUTPUT
+        ================================== */
+
+        waitForQRRender(
+
+            0
+
+        );
 
     }
 
@@ -985,487 +1123,82 @@ async function generateCustomerQR(
     catch (error) {
 
         console.error(
-            "QR Generation Error:",
+
+            "Rio QR Generation Error:",
+
             error
+
         );
 
 
-        qrGenerated =
-            false;
+        showQRError(
 
+            "Unable to generate your QR code. Please refresh the page."
 
-        clearQRCode();
-
-
-        if (qrCode) {
-
-            qrCode.classList.add(
-                "qr-error"
-            );
-
-        }
-
-
-        setQRStatus(
-            "Unable to generate Premium QR",
-            "error"
-        );
-
-
-        return false;
-
-    }
-
-}
-
-
-/* ==========================================
-   CUSTOMER READY EVENT
-   PART 1 DISPATCHES THIS EVENT
-   QR GENERATES ONLY AFTER AUTH + PROFILE FLOW
-========================================== */
-
-window.addEventListener(
-
-    "rioCustomerReady",
-
-    async (event) => {
-
-        const detail =
-            event.detail || {};
-
-
-        const uid =
-            detail.uid;
-
-
-        if (!uid) {
-
-            console.error(
-                "Customer Ready Event: UID missing."
-            );
-
-
-            return;
-
-        }
-
-
-        console.log(
-            "Customer Ready — Starting QR Generation"
-        );
-
-
-        await generateCustomerQR(
-            uid
         );
 
     }
 
-);
-
-
-/* ==========================================
-   QR CLICK ANIMATION
-========================================== */
-
-if (qrCode) {
-
-    qrCode.addEventListener(
-
-        "click",
-
-        () => {
-
-            if (!qrGenerated) {
-
-                return;
-
-            }
-
-
-            qrCode.classList.remove(
-                "qr-generated"
-            );
-
-
-            void qrCode.offsetWidth;
-
-
-            qrCode.classList.add(
-                "qr-generated"
-            );
-
-        }
-
-    );
-
 }
 
 
 /* ==========================================
-   QR TOUCH ANIMATION
+   VERIFY QR RENDER
 ========================================== */
 
-if (qrCode) {
+function waitForQRRender(
 
-    qrCode.addEventListener(
+    attempt
 
-        "touchstart",
-
-        () => {
-
-            if (!qrGenerated) {
-
-                return;
-
-            }
-
-
-            qrCode.classList.add(
-                "qr-touch"
-            );
-
-        },
-
-        {
-            passive: true
-        }
-
-    );
-
-
-    qrCode.addEventListener(
-
-        "touchend",
-
-        () => {
-
-            setTimeout(
-
-                () => {
-
-                    qrCode.classList.remove(
-                        "qr-touch"
-                    );
-
-                },
-
-                350
-
-            );
-
-        },
-
-        {
-            passive: true
-        }
-
-    );
-
-}
-
-
-/* ==========================================
-   QR CARD HOVER
-========================================== */
-
-const qrCard =
-    document.querySelector(
-        ".premium-qr-card"
-    );
-
-
-if (qrCard) {
-
-    qrCard.addEventListener(
-
-        "mouseenter",
-
-        () => {
-
-            qrCard.classList.add(
-                "qr-hover"
-            );
-
-        }
-
-    );
-
-
-    qrCard.addEventListener(
-
-        "mouseleave",
-
-        () => {
-
-            qrCard.classList.remove(
-                "qr-hover"
-            );
-
-        }
-
-    );
-
-}
-
-
-/* ==========================================
-   QR CARD TOUCH
-========================================== */
-
-if (qrCard) {
-
-    qrCard.addEventListener(
-
-        "touchstart",
-
-        () => {
-
-            qrCard.classList.add(
-                "qr-touch"
-            );
-
-        },
-
-        {
-            passive: true
-        }
-
-    );
-
-
-    qrCard.addEventListener(
-
-        "touchend",
-
-        () => {
-
-            setTimeout(
-
-                () => {
-
-                    qrCard.classList.remove(
-                        "qr-touch"
-                    );
-
-                },
-
-                500
-
-            );
-
-        },
-
-        {
-            passive: true
-        }
-
-    );
-
-}
-
-
-/* ==========================================
-   CUSTOMER PHOTO ANIMATION
-========================================== */
-
-if (customerPhoto) {
-
-    customerPhoto.addEventListener(
-
-        "load",
-
-        () => {
-
-            customerPhoto.classList.add(
-                "photo-loaded"
-            );
-
-        }
-
-    );
-
-}
-
-
-/* ==========================================
-   QR.JS PART 2 READY
-========================================== */
-
-console.log(
-    "QR.JS PART 2 LOADED"
-);
-
-console.log(
-    "QR GENERATION SYSTEM READY"
-);
-/* ==========================================
-   RIO MAGGI POINT
-   QR.JS — PART 3 / 3
-   DAILY STAMP RULE + PREMIUM INTERACTIONS
-   SERVICE WORKER
-========================================== */
-
-
-/* ==========================================
-   DAILY STAMP RULE
-========================================== */
-
-const DAILY_STAMP_LIMIT = 1;
-
-
-const DAILY_STAMP_MESSAGE =
-    "ONE STAMP PER DAY — Multiple purchases on the same day will still count as only ONE loyalty stamp.";
-
-
-const NEXT_DAY_MESSAGE =
-    "Your next loyalty stamp will be available on your next purchase day.";
-
-
-/* ==========================================
-   DAILY STAMP RULE INTERACTION
-========================================== */
-
-const dailyStampRule =
-    document.querySelector(
-        ".daily-stamp-rule"
-    );
-
-
-if (dailyStampRule) {
-
-    dailyStampRule.setAttribute(
-        "title",
-        DAILY_STAMP_MESSAGE
-    );
-
-
-    dailyStampRule.addEventListener(
-
-        "click",
-
-        () => {
-
-            dailyStampRule.classList.remove(
-                "rule-highlight"
-            );
-
-
-            void dailyStampRule.offsetWidth;
-
-
-            dailyStampRule.classList.add(
-                "rule-highlight"
-            );
-
-        }
-
-    );
-
-}
-
-
-/* ==========================================
-   SCAN TITLE ANIMATION
-========================================== */
-
-const scanTitle =
-    document.querySelector(
-        ".scan-title"
-    );
-
-
-if (scanTitle) {
-
-    requestAnimationFrame(
-
-        () => {
-
-            scanTitle.classList.add(
-                "scan-title-ready"
-            );
-
-        }
-
-    );
-
-}
-
-
-/* ==========================================
-   PREMIUM QR SECTION OBSERVER
-========================================== */
-
-const premiumQRSection =
-    document.querySelector(
-        ".premium-qr-section"
-    );
-
-
-if (
-    premiumQRSection &&
-    "IntersectionObserver" in window
 ) {
 
-    const qrObserver =
-
-        new IntersectionObserver(
-
-            (entries) => {
-
-                entries.forEach(
-
-                    (entry) => {
-
-                        if (
-                            entry.isIntersecting
-                        ) {
-
-                            entry.target.classList.add(
-                                "section-visible"
-                            );
+    const MAX_ATTEMPTS =
+        30;
 
 
-                            qrObserver.unobserve(
-                                entry.target
-                            );
+    const RETRY_DELAY =
+        100;
 
-                        }
 
-                    }
+    /* ==================================
+       QR OUTPUT FOUND
+    ================================== */
 
-                );
+    const qrImage =
 
-            },
+        qrCode
+            ? qrCode.querySelector(
+                "img"
+            )
+            : null;
 
-            {
 
-                threshold:
-                    0.15
+    const qrCanvas =
 
-            }
+        qrCode
+            ? qrCode.querySelector(
+                "canvas"
+            )
+            : null;
+
+
+    if (
+
+        qrImage ||
+
+        qrCanvas
+
+    ) {
+
+        console.log(
+
+            "Rio QR: QR code rendered successfully."
 
         );
 
 
-    qrObserver.observe(
-        premiumQRSection
-    );
+        markQRReady();
 
-}
-
-
-/* ==========================================
-   SERVICE WORKER
-   REGISTER ONLY ON PRODUCTION / HTTPS
-========================================== */
-
-function registerRioServiceWorker() {
-
-    if (
-        !("serviceWorker" in navigator)
-    ) {
 
         return;
 
@@ -1473,29 +1206,27 @@ function registerRioServiceWorker() {
 
 
     /* ==================================
-       SERVICE WORKER REQUIRES HTTPS
-       OR LOCALHOST
+       RENDER FAILED
     ================================== */
 
-    const isLocalhost =
-        location.hostname ===
-            "localhost" ||
-        location.hostname ===
-            "127.0.0.1";
-
-
-    const isHTTPS =
-        location.protocol ===
-        "https:";
-
-
     if (
-        !isHTTPS &&
-        !isLocalhost
+
+        attempt >=
+        MAX_ATTEMPTS
+
     ) {
 
-        console.warn(
-            "Service Worker skipped: HTTPS or localhost required."
+        console.error(
+
+            "Rio QR: QR code was not rendered."
+
+        );
+
+
+        showQRError(
+
+            "QR code could not be displayed. Please refresh the page."
+
         );
 
 
@@ -1504,137 +1235,830 @@ function registerRioServiceWorker() {
     }
 
 
-    window.addEventListener(
+    /* ==================================
+       WAIT AND CHECK AGAIN
+    ================================== */
 
-        "load",
+    setTimeout(
 
-        async () => {
+        () => {
 
-            try {
+            waitForQRRender(
 
-                const registration =
+                attempt + 1
 
-                    await navigator.serviceWorker.register(
+            );
 
-                        "./service-worker.js",
+        },
 
-                        {
-
-                            scope:
-                                "./"
-
-                        }
-
-                    );
-
-
-                console.log(
-
-                    "Rio Maggi Point Service Worker Registered:",
-
-                    registration.scope
-
-                );
-
-            }
-
-
-            catch (error) {
-
-                console.error(
-
-                    "Service Worker Registration Failed:",
-
-                    error
-
-                );
-
-            }
-
-        }
+        RETRY_DELAY
 
     );
 
 }
 
 
-registerRioServiceWorker();
+/* ==========================================
+   QR READY STATE
+========================================== */
+
+function markQRReady() {
+
+    if (qrCode) {
+
+        qrCode.classList.remove(
+
+            "qr-generated"
+
+        );
+
+
+        /*
+         * Force browser reflow so the
+         * animation can restart correctly.
+         */
+
+        void qrCode.offsetWidth;
+
+
+        qrCode.classList.add(
+
+            "qr-generated"
+
+        );
+
+    }
+
+
+    if (qrStatus) {
+
+        qrStatus.textContent =
+
+            "Your Premium Loyalty QR is ready.";
+
+        qrStatus.classList.remove(
+
+            "loading",
+
+            "error"
+
+        );
+
+        qrStatus.classList.add(
+
+            "ready"
+
+        );
+
+    }
+
+
+    console.log(
+
+        "Rio QR: Premium QR is ready."
+
+    );
+
+}
 
 
 /* ==========================================
-   SERVICE WORKER UPDATE HANDLING
+   QR ERROR STATE
 ========================================== */
 
-if (
-    "serviceWorker" in navigator
+function showQRError(
+
+    message
+
 ) {
 
-    navigator.serviceWorker.addEventListener(
+    if (qrStatus) {
 
-        "controllerchange",
+        qrStatus.textContent =
+
+            message ||
+
+            "Unable to load QR code.";
+
+        qrStatus.classList.remove(
+
+            "loading",
+
+            "ready"
+
+        );
+
+        qrStatus.classList.add(
+
+            "error"
+
+        );
+
+    }
+
+
+    if (qrCode) {
+
+        qrCode.innerHTML =
+
+            `
+
+            <div
+                class="qr-error"
+                role="alert"
+            >
+
+                <i
+                    class="fa-solid fa-triangle-exclamation"
+                    aria-hidden="true"
+                ></i>
+
+                <span>
+                    QR Unavailable
+                </span>
+
+            </div>
+
+            `;
+
+    }
+
+}
+
+
+/* ==========================================
+   MEMBER ID HELPER
+========================================== */
+
+function createMemberId(
+
+    uid
+
+) {
+
+    if (!uid) {
+
+        return DEFAULT_MEMBER_ID;
+
+    }
+
+
+    const cleanUID =
+
+        String(uid)
+
+            .replace(
+
+                /[^a-zA-Z0-9]/g,
+
+                ""
+
+            );
+
+
+    if (!cleanUID) {
+
+        return DEFAULT_MEMBER_ID;
+
+    }
+
+
+    return (
+
+        "RIO-" +
+
+        cleanUID
+
+            .substring(
+
+                0,
+
+                6
+
+            )
+
+            .toUpperCase()
+
+    );
+
+}
+
+
+/* ==========================================
+   PART 2 READY
+========================================== */
+
+console.log(
+
+    "QR.JS PART 2 LOADED"
+
+);
+
+console.log(
+
+    "RIO QR GENERATION FLOW READY"
+
+);
+/* ==========================================
+   RIO MAGGI POINT
+   QR.JS — PART 3 / 3
+   INTERACTION + FINAL SAFETY + INITIALIZATION
+========================================== */
+
+
+/* ==========================================
+   QR CARD INTERACTION
+========================================== */
+
+const premiumQRCard =
+
+    document.querySelector(
+        ".premium-qr-card"
+    );
+
+
+/* ==========================================
+   MOUSE HOVER
+========================================== */
+
+if (premiumQRCard) {
+
+    premiumQRCard.addEventListener(
+
+        "mouseenter",
 
         () => {
 
-            console.log(
-                "Rio Maggi Point Service Worker Updated."
+            premiumQRCard.classList.add(
+
+                "qr-hover"
+
             );
 
         }
 
     );
 
+
+    premiumQRCard.addEventListener(
+
+        "mouseleave",
+
+        () => {
+
+            premiumQRCard.classList.remove(
+
+                "qr-hover"
+
+            );
+
+        }
+
+    );
+
+
+    /* ======================================
+       TOUCH START
+    ====================================== */
+
+    premiumQRCard.addEventListener(
+
+        "touchstart",
+
+        () => {
+
+            premiumQRCard.classList.add(
+
+                "qr-touch"
+
+            );
+
+        },
+
+        {
+            passive:
+                true
+        }
+
+    );
+
+
+    /* ======================================
+       TOUCH END
+    ====================================== */
+
+    premiumQRCard.addEventListener(
+
+        "touchend",
+
+        () => {
+
+            setTimeout(
+
+                () => {
+
+                    premiumQRCard.classList.remove(
+
+                        "qr-touch"
+
+                    );
+
+                },
+
+                150
+
+            );
+
+        },
+
+        {
+            passive:
+                true
+        }
+
+    );
+
 }
 
 
 /* ==========================================
-   FINAL STARTUP LOG
+   SECTION ENTRY ANIMATION
 ========================================== */
 
-console.log(
-    "==================================="
-);
+function initializeSectionAnimation() {
+
+    const sections =
+
+        document.querySelectorAll(
+
+            ".premium-qr-section"
+
+        );
 
 
-console.log(
-    "RIO MAGGI POINT"
-);
+    if (!sections.length) {
+
+        return;
+
+    }
 
 
-console.log(
-    "PREMIUM QR SYSTEM READY"
-);
+    /* ======================================
+       REDUCED MOTION
+    ====================================== */
+
+    const prefersReducedMotion =
+
+        window.matchMedia(
+
+            "(prefers-reduced-motion: reduce)"
+
+        ).matches;
 
 
-console.log(
-    "CUSTOMER AUTH READY"
-);
+    if (prefersReducedMotion) {
+
+        sections.forEach(
+
+            (section) => {
+
+                section.classList.add(
+
+                    "section-visible"
+
+                );
+
+            }
+
+        );
 
 
-console.log(
-    "QR GENERATION READY"
-);
+        return;
+
+    }
 
 
-console.log(
-    "DAILY STAMP RULE READY"
-);
+    /* ======================================
+       INTERSECTION OBSERVER
+    ====================================== */
+
+    if (
+
+        "IntersectionObserver" in
+        window
+
+    ) {
+
+        const observer =
+
+            new IntersectionObserver(
+
+                (
+
+                    entries,
+
+                    observerInstance
+
+                ) => {
+
+                    entries.forEach(
+
+                        (entry) => {
+
+                            if (
+
+                                entry.isIntersecting
+
+                            ) {
+
+                                entry.target.classList.add(
+
+                                    "section-visible"
+
+                                );
 
 
-console.log(
-    "QR ANIMATION READY"
-);
+                                observerInstance.unobserve(
+
+                                    entry.target
+
+                                );
+
+                            }
+
+                        }
+
+                    );
+
+                },
+
+                {
+
+                    threshold:
+                        0.08
+
+                }
+
+            );
 
 
-console.log(
-    "SERVICE WORKER READY"
-);
+        sections.forEach(
+
+            (section) => {
+
+                observer.observe(
+
+                    section
+
+                );
+
+            }
+
+        );
+
+    }
 
 
-console.log(
-    "==================================="
+    /* ======================================
+       FALLBACK
+    ====================================== */
+
+    else {
+
+        sections.forEach(
+
+            (section) => {
+
+                section.classList.add(
+
+                    "section-visible"
+
+                );
+
+            }
+
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   QR STATUS SAFETY
+========================================== */
+
+function initializeQRStatus() {
+
+    if (!qrStatus) {
+
+        return;
+
+    }
+
+
+    qrStatus.classList.add(
+
+        "loading"
+
+    );
+
+
+    qrStatus.classList.remove(
+
+        "ready",
+
+        "error"
+
+    );
+
+
+    qrStatus.textContent =
+
+        "Preparing Your Premium QR...";
+
+}
+
+
+/* ==========================================
+   QR CONTAINER SAFETY
+========================================== */
+
+function initializeQRContainer() {
+
+    if (!qrCode) {
+
+        console.error(
+
+            "Rio QR: #qrcode element is missing from HTML."
+
+        );
+
+
+        return false;
+
+    }
+
+
+    /*
+     * Make sure QR container does not
+     * contain accidental old content.
+     */
+
+    qrCode.setAttribute(
+
+        "aria-label",
+
+        "Customer Loyalty QR Code"
+
+    );
+
+
+    return true;
+
+}
+
+
+/* ==========================================
+   EXTERNAL QR LIBRARY FINAL CHECK
+========================================== */
+
+function verifyQRCodeLibrary() {
+
+    if (
+
+        typeof window.QRCode ===
+        "undefined"
+
+    ) {
+
+        console.warn(
+
+            "Rio QR: QRCode library is not available yet."
+
+        );
+
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+/* ==========================================
+   PAGE INITIALIZATION
+========================================== */
+
+function initializeQRPage() {
+
+    console.log(
+
+        "Rio Maggi Point: Initializing QR page..."
+
+    );
+
+
+    /* ======================================
+       INITIAL STATUS
+    ====================================== */
+
+    initializeQRStatus();
+
+
+    /* ======================================
+       CHECK QR CONTAINER
+    ====================================== */
+
+    const qrContainerReady =
+
+        initializeQRContainer();
+
+
+    if (!qrContainerReady) {
+
+        showQRError(
+
+            "QR display area is unavailable."
+
+        );
+
+    }
+
+
+    /* ======================================
+       SECTION ANIMATION
+    ====================================== */
+
+    initializeSectionAnimation();
+
+
+    /* ======================================
+       LIBRARY STATUS
+    ====================================== */
+
+    if (
+
+        verifyQRCodeLibrary()
+
+    ) {
+
+        console.log(
+
+            "Rio QR: QRCode library is ready."
+
+        );
+
+    }
+
+    else {
+
+        console.log(
+
+            "Rio QR: Waiting for QRCode library..."
+
+        );
+
+    }
+
+
+    /* ======================================
+       FINAL READY LOG
+    ====================================== */
+
+    console.log(
+
+        "Rio Maggi Point QR page initialized."
+
+    );
+
+}
+
+
+/* ==========================================
+   DOM READY
+========================================== */
+
+if (
+
+    document.readyState ===
+    "loading"
+
+) {
+
+    document.addEventListener(
+
+        "DOMContentLoaded",
+
+        initializeQRPage,
+
+        {
+            once:
+                true
+        }
+
+    );
+
+}
+
+else {
+
+    initializeQRPage();
+
+}
+
+
+/* ==========================================
+   GLOBAL QR DEBUG EVENT
+   OPTIONAL / SAFE
+========================================== */
+
+window.addEventListener(
+
+    "error",
+
+    (event) => {
+
+        /*
+         * Only log QR-related runtime errors.
+         * Do not replace the whole page UI.
+         */
+
+        if (
+
+            event &&
+            event.message &&
+            event.message
+                .toLowerCase()
+                .includes("qrcode")
+
+        ) {
+
+            console.error(
+
+                "Rio QR Runtime Error:",
+
+                event.message
+
+            );
+
+        }
+
+    }
+
 );
 
 
 /* ==========================================
-   END QR.JS — PART 3 / 3
+   FINAL QR.JS STATUS
 ========================================== */
+
+console.log(
+
+    "================================"
+
+);
+
+console.log(
+
+    "RIO MAGGI POINT"
+
+);
+
+console.log(
+
+    "QR.JS LOADED SUCCESSFULLY"
+
+);
+
+console.log(
+
+    "CUSTOMER AUTH FLOW: READY"
+
+);
+
+console.log(
+
+    "CUSTOMER PROFILE FLOW: READY"
+
+);
+
+console.log(
+
+    "QR GENERATION FLOW: READY"
+
+);
+
+console.log(
+
+    "RESPONSIVE QR UI: READY"
+
+);
+
+console.log(
+
+    "================================"
+);
