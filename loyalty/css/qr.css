@@ -12,35 +12,27 @@
 :root {
 
     --primary-bg: #f5d99b;
-
     --card-bg: #fff8e7;
-
     --card-bg-soft: #fff3d2;
 
     --accent-color: #d19b4a;
-
     --accent-light: #f1cf8a;
 
     --text-dark: #3a2e2b;
-
     --text-muted: #7a6855;
 
     --dark-green: #263525;
-
     --dark-green-2: #182318;
 
     --red: #c62828;
-
     --red-dark: #9f1f1f;
 
     --gold: #ffd54f;
-
     --white: #ffffff;
 
     --border-color: #e0be7b;
 
     --nav-height: 78px;
-
     --max-width: 520px;
 
 }
@@ -53,9 +45,7 @@
 * {
 
     margin: 0;
-
     padding: 0;
-
     box-sizing: border-box;
 
 }
@@ -64,7 +54,6 @@
 html {
 
     width: 100%;
-
     min-height: 100%;
 
     scroll-behavior: smooth;
@@ -75,13 +64,11 @@ html {
 body {
 
     width: 100%;
-
     min-height: 100vh;
 
     margin: 0;
 
     background:
-
         radial-gradient(
             circle at top,
             #fff1c8 0%,
@@ -92,7 +79,7 @@ body {
     color: var(--text-dark);
 
     font-family:
-        'Poppins',
+        "Poppins",
         Arial,
         Helvetica,
         sans-serif;
@@ -114,6 +101,7 @@ body {
 img {
 
     max-width: 100%;
+    display: block;
 
 }
 
@@ -138,7 +126,6 @@ a {
 .page {
 
     width: 100%;
-
     min-height: 100vh;
 
     display: flex;
@@ -160,7 +147,6 @@ a {
 .page > .qr-card {
 
     width: 100%;
-
     max-width: var(--max-width);
 
 }
@@ -177,7 +163,6 @@ a {
     width: 100%;
 
     background:
-
         linear-gradient(
             145deg,
             #fffdf5 0%,
@@ -219,18 +204,15 @@ a {
     position: absolute;
 
     width: 220px;
-
     height: 220px;
 
     top: -110px;
-
     right: -90px;
 
     background:
-
         radial-gradient(
             circle,
-            rgba(255,213,79,.38),
+            rgba(255, 213, 79, .38),
             transparent 70%
         );
 
@@ -281,19 +263,16 @@ a {
     position: absolute;
 
     top: 0;
-
     left: -120%;
 
     width: 70%;
-
     height: 100%;
 
     background:
-
         linear-gradient(
             100deg,
             transparent,
-            rgba(255,255,255,.32),
+            rgba(255, 255, 255, .32),
             transparent
         );
 
@@ -442,7 +421,6 @@ a {
         50%;
 
     background:
-
         linear-gradient(
             135deg,
             var(--accent-color),
@@ -451,9 +429,8 @@ a {
         );
 
     box-shadow:
-
         0 7px 18px
-        rgba(0,0,0,.16);
+        rgba(0, 0, 0, .16);
 
     overflow:
         hidden;
@@ -699,407 +676,1888 @@ a {
 /* ==========================================
    END PART 1/3
 ========================================== */
-// ======================================
-// RIO MAGGI POINT
-// SERVICE WORKER
-// FINAL STABLE VERSION
-// PART 2 / 3
-// ======================================
+/* ==========================================
+   RIO MAGGI POINT
+   QR.CSS — PART 2/3
+   PREMIUM QR + LOYALTY RULE + INSTRUCTIONS
+========================================== */
 
 
-// ======================================
-// ACTIVATE
-// REMOVE OLD CACHE
-// ======================================
+/* ==========================================
+   PREMIUM QR SECTION
+========================================== */
 
-self.addEventListener(
-    "activate",
-    (event) => {
+.premium-qr-section {
 
-        event.waitUntil(
+    position: relative;
 
-            (async () => {
+    display: flex;
 
-                const cacheNames =
-                    await caches.keys();
+    flex-direction: column;
 
+    align-items: center;
 
-                await Promise.all(
+    width: 100%;
 
-                    cacheNames.map(
+    padding:
+        4px 0 24px;
 
-                        (cacheName) => {
-
-                            if (
-                                cacheName !== CACHE_NAME
-                            ) {
-
-                                console.log(
-                                    "Delete Old Cache:",
-                                    cacheName
-                                );
-
-                                return caches.delete(
-                                    cacheName
-                                );
-
-                            }
-
-                            return Promise.resolve();
-
-                        }
-
-                    )
-
-                );
+}
 
 
-                // Take control immediately
-                await self.clients.claim();
+/* ==========================================
+   SCAN TITLE
+========================================== */
 
-            })()
+.scan-title {
 
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    width: 100%;
+
+    margin:
+        0 0 16px;
+
+    text-align: center;
+
+    font-size:
+        clamp(
+            13px,
+            3.2vw,
+            16px
         );
 
-    }
-);
+    line-height: 1.4;
+
+    font-weight: 800;
+
+    letter-spacing:
+        .7px;
+
+    color:
+        var(--dark-green);
+
+    transition:
+        transform .3s ease,
+        opacity .3s ease;
+
+}
 
 
-// ======================================
-// FETCH
-// GITHUB PAGES SAFE
-// ======================================
+.scan-title i {
 
-self.addEventListener(
-    "fetch",
-    (event) => {
+    font-size:
+        18px;
 
-        // Only handle GET requests
-        if (
-            event.request.method !== "GET"
-        ) {
+    color:
+        var(--accent-color);
 
-            return;
-
-        }
+}
 
 
-        const url =
-            new URL(
-                event.request.url
-            );
+.scan-title-ready {
+
+    animation:
+        scanTitleReady .6s ease both;
+
+}
 
 
-        // Ignore external resources
-        // Firebase / Google / CDN
-        if (
-            url.origin !== self.location.origin
-        ) {
+@keyframes scanTitleReady {
 
-            return;
+    from {
 
-        }
+        opacity:
+            0;
 
-
-        // Handle same-origin requests
-        event.respondWith(
-
-            fetchRequest(
-                event.request
-            )
-
-        );
-
-    }
-);
-
-
-// ======================================
-// FETCH REQUEST
-// NETWORK FIRST
-// CACHE FALLBACK
-// ======================================
-
-async function fetchRequest(
-    request
-) {
-
-    const cache =
-        await caches.open(
-            CACHE_NAME
-        );
-
-
-    try {
-
-        // Try latest network version first
-        const networkResponse =
-            await fetch(
-                request
-            );
-
-
-        // Cache only valid responses
-        if (
-            networkResponse &&
-            networkResponse.ok &&
-            networkResponse.type === "basic"
-        ) {
-
-            // Do not block response
-            // while updating cache
-            eventSafeCachePut(
-                cache,
-                request,
-                networkResponse.clone()
-            );
-
-        }
-
-
-        return networkResponse;
+        transform:
+            translateY(10px);
 
     }
 
+    to {
 
-    catch (error) {
+        opacity:
+            1;
 
-        console.warn(
-            "Network failed. Checking cache:",
-            request.url
-        );
-
-
-        // Try cached version
-        const cachedResponse =
-            await cache.match(
-                request
-            );
-
-
-        if (
-            cachedResponse
-        ) {
-
-            return cachedResponse;
-
-        }
-
-
-        // Offline page for navigation
-        if (
-            request.mode === "navigate"
-        ) {
-
-            const offlinePage =
-                await cache.match(
-                    "./offline.html"
-                );
-
-
-            if (
-                offlinePage
-            ) {
-
-                return offlinePage;
-
-            }
-
-        }
-
-
-        // Final fallback
-        return new Response(
-
-            "You are currently offline.",
-
-            {
-
-                status: 503,
-
-                statusText:
-                    "Service Unavailable",
-
-                headers: {
-
-                    "Content-Type":
-                        "text/plain; charset=utf-8"
-
-                }
-
-            }
-
-        );
+        transform:
+            translateY(0);
 
     }
 
 }
 
 
-// ======================================
-// SAFE CACHE UPDATE
-// ======================================
+/* ==========================================
+   PREMIUM QR CARD
+========================================== */
 
-function eventSafeCachePut(
-    cache,
-    request,
-    response
-) {
+.premium-qr-card {
 
-    cache.put(
-        request,
-        response
-    )
+    position: relative;
 
-    .catch(
-        (error) => {
+    display: flex;
 
-            console.warn(
-                "Cache update failed:",
-                error
-            );
+    align-items: center;
 
-        }
+    justify-content: center;
+
+    width: min(
+        100%,
+        320px
     );
 
+    min-height:
+        320px;
+
+    padding:
+        18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff 0%,
+            #fffdf5 55%,
+            #fff3d2 100%
+        );
+
+    border:
+        3px solid
+        var(--accent-color);
+
+    border-radius:
+        24px;
+
+    box-shadow:
+
+        0 14px 30px
+        rgba(70, 45, 15, .18),
+
+        inset 0 0 0 4px
+        rgba(255, 255, 255, .7);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+
 }
 
 
-// ======================================
-// MESSAGE EVENT
-// FORCE SERVICE WORKER UPDATE
-// ======================================
+/* ==========================================
+   QR CARD HOVER
+========================================== */
 
-self.addEventListener(
-    "message",
-    (event) => {
+.premium-qr-card.qr-hover {
 
-        if (
-            !event.data
-        ) {
+    transform:
+        translateY(-5px)
+        scale(1.015);
 
-            return;
+    box-shadow:
 
-        }
+        0 20px 38px
+        rgba(70, 45, 15, .24),
+
+        0 0 0 5px
+        rgba(209, 155, 74, .12);
+
+}
 
 
-        if (
-            event.data.type ===
-            "SKIP_WAITING"
-        ) {
+/* ==========================================
+   QR CARD TOUCH
+========================================== */
 
-            self.skipWaiting();
+.premium-qr-card.qr-touch {
 
-        }
+    transform:
+        scale(.97);
+
+    box-shadow:
+
+        0 8px 18px
+        rgba(70, 45, 15, .18);
+
+}
+
+
+/* ==========================================
+   QR BOX
+========================================== */
+
+.qr-box {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width:
+        260px;
+
+    height:
+        260px;
+
+    max-width:
+        100%;
+
+    max-height:
+        100%;
+
+    min-width:
+        0;
+
+    min-height:
+        0;
+
+    background:
+        #ffffff;
+
+    border-radius:
+        12px;
+
+    overflow:
+        hidden;
+
+}
+
+
+/* ==========================================
+   QR CANVAS / IMAGE
+   qrcodejs creates IMG + CANVAS
+========================================== */
+
+.qr-box img,
+.qr-box canvas {
+
+    display:
+        block;
+
+    width:
+        260px !important;
+
+    height:
+        260px !important;
+
+    max-width:
+        100%;
+
+    max-height:
+        100%;
+
+    object-fit:
+        contain;
+
+}
+
+
+/* ==========================================
+   QR GENERATED ANIMATION
+========================================== */
+
+.qr-box.qr-generated {
+
+    animation:
+        qrGenerated .65s ease both;
+
+}
+
+
+@keyframes qrGenerated {
+
+    0% {
+
+        opacity:
+            0;
+
+        transform:
+            scale(.88);
 
     }
-);
 
+    60% {
 
-// ======================================
-// SERVICE WORKER READY
-// ======================================
+        opacity:
+            1;
 
-console.log(
-    "================================"
-);
-
-console.log(
-    "RIO MAGGI POINT"
-);
-
-console.log(
-    "Service Worker v5 Active"
-);
-
-console.log(
-    "Network First Strategy"
-);
-
-console.log(
-    "GitHub Pages Safe"
-);
-
-console.log(
-    "Offline Fallback Ready"
-);
-
-console.log(
-    "================================"
-);
-           // ======================================
-// RIO MAGGI POINT
-// SERVICE WORKER
-// FINAL STABLE VERSION
-// PART 3 / 3
-// ======================================
-
-
-// ======================================
-// FINAL SERVICE WORKER INITIALIZATION
-// ======================================
-
-self.addEventListener(
-    "message",
-    (event) => {
-
-        if (
-            !event.data ||
-            typeof event.data !== "object"
-        ) {
-
-            return;
-
-        }
-
-
-        // Force activate new Service Worker
-        if (
-            event.data.type ===
-            "SKIP_WAITING"
-        ) {
-
-            self.skipWaiting();
-
-        }
+        transform:
+            scale(1.04);
 
     }
-);
+
+    100% {
+
+        opacity:
+            1;
+
+        transform:
+            scale(1);
+
+    }
+
+}
 
 
-// ======================================
-// SERVICE WORKER READY LOG
-// ======================================
+/* ==========================================
+   QR STATUS
+========================================== */
 
-console.log(
-    "================================"
-);
+.qr-status {
 
-console.log(
-    "RIO MAGGI POINT"
-);
+    width:
+        100%;
 
-console.log(
-    "SERVICE WORKER READY"
-);
+    margin:
+        14px 0 0;
 
-console.log(
-    "CACHE VERSION:",
-    CACHE_NAME
-);
+    padding:
+        10px 14px;
 
-console.log(
-    "NETWORK FIRST ENABLED"
-);
+    text-align:
+        center;
 
-console.log(
-    "OFFLINE FALLBACK ENABLED"
-);
+    font-size:
+        clamp(
+            11px,
+            2.8vw,
+            13px
+        );
 
-console.log(
-    "GITHUB PAGES SAFE"
-);
+    line-height:
+        1.5;
 
-console.log(
-    "================================"
-);
+    font-weight:
+        600;
+
+    color:
+        var(--text-muted);
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .5
+        );
+
+    border-radius:
+        12px;
+
+    transition:
+        color .3s ease,
+        background .3s ease;
+
+}
+
+
+.qr-status.ready {
+
+    color:
+        var(--dark-green);
+
+    background:
+        rgba(
+            209,
+            155,
+            74,
+            .14
+        );
+
+}
+
+
+.qr-status.status-pulse {
+
+    animation:
+        statusPulse 2s ease-in-out infinite;
+
+}
+
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+
+        opacity:
+            1;
+
+    }
+
+    50% {
+
+        opacity:
+            .68;
+
+    }
+
+}
+
+
+/* ==========================================
+   DAILY LOYALTY RULE
+========================================== */
+
+.daily-stamp-rule {
+
+    position:
+        relative;
+
+    display:
+        flex;
+
+    align-items:
+        flex-start;
+
+    gap:
+        14px;
+
+    width:
+        100%;
+
+    margin:
+        4px 0 22px;
+
+    padding:
+        18px 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 248, 231, .95),
+            rgba(255, 243, 210, .9)
+        );
+
+    border:
+        1px solid
+        var(--border-color);
+
+    border-left:
+        5px solid
+        var(--accent-color);
+
+    border-radius:
+        16px;
+
+    box-shadow:
+        0 8px 20px
+        rgba(70, 45, 15, .08);
+
+    cursor:
+        pointer;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+
+}
+
+
+.daily-stamp-rule:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(70, 45, 15, .13);
+
+}
+
+
+/* ==========================================
+   DAILY RULE ICON
+========================================== */
+
+.daily-rule-icon {
+
+    flex:
+        0 0 42px;
+
+    width:
+        42px;
+
+    height:
+        42px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    color:
+        var(--white);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent-color),
+            var(--red-dark)
+        );
+
+    border-radius:
+        12px;
+
+    box-shadow:
+        0 5px 12px
+        rgba(159, 31, 31, .2);
+
+}
+
+
+.daily-rule-icon i {
+
+    font-size:
+        18px;
+
+}
+
+
+/* ==========================================
+   DAILY RULE CONTENT
+========================================== */
+
+.daily-rule-content {
+
+    flex:
+        1;
+
+    min-width:
+        0;
+
+}
+
+
+.daily-rule-content h3 {
+
+    margin:
+        0 0 7px;
+
+    font-size:
+        clamp(
+            14px,
+            3.5vw,
+            17px
+        );
+
+    line-height:
+        1.3;
+
+    font-weight:
+        800;
+
+    color:
+        var(--dark-green);
+
+}
+
+
+.daily-rule-content p {
+
+    margin:
+        0 0 8px;
+
+    font-size:
+        clamp(
+            11px,
+            2.8vw,
+            13px
+        );
+
+    line-height:
+        1.65;
+
+    color:
+        var(--text-muted);
+
+}
+
+
+.daily-rule-content p:last-child {
+
+    margin-bottom:
+        0;
+
+}
+
+
+.daily-rule-content strong {
+
+    color:
+        var(--red-dark);
+
+    font-weight:
+        800;
+
+}
+
+
+/* ==========================================
+   RULE HIGHLIGHT
+========================================== */
+
+.daily-stamp-rule.rule-highlight {
+
+    animation:
+        ruleHighlight .7s ease both;
+
+}
+
+
+@keyframes ruleHighlight {
+
+    0% {
+
+        transform:
+            scale(1);
+
+        box-shadow:
+            0 8px 20px
+            rgba(70, 45, 15, .08);
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.025);
+
+        box-shadow:
+            0 0 0 5px
+            rgba(209, 155, 74, .16);
+
+    }
+
+    100% {
+
+        transform:
+            scale(1);
+
+        box-shadow:
+            0 8px 20px
+            rgba(70, 45, 15, .08);
+
+    }
+
+}
+
+
+/* ==========================================
+   SECURITY NOTE
+========================================== */
+
+.security-note {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        8px;
+
+    width:
+        100%;
+
+    margin:
+        0 0 16px;
+
+    padding:
+        11px 13px;
+
+    text-align:
+        center;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.5;
+
+    font-weight:
+        500;
+
+    color:
+        var(--text-muted);
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .45
+        );
+
+    border:
+        1px solid
+        rgba(
+            224,
+            190,
+            123,
+            .65
+        );
+
+    border-radius:
+        12px;
+
+}
+
+
+.security-note i {
+
+    flex:
+        0 0 auto;
+
+    color:
+        var(--accent-color);
+
+    font-size:
+        15px;
+
+}
+
+
+/* ==========================================
+   INSTRUCTION BOX
+========================================== */
+
+.instruction-box {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        10px;
+
+    width:
+        100%;
+
+    padding:
+        4px 0;
+
+}
+
+
+/* ==========================================
+   INSTRUCTION ITEM
+========================================== */
+
+.instruction-item {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+    width:
+        100%;
+
+    padding:
+        11px 12px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .55
+        );
+
+    border:
+        1px solid
+        rgba(
+            224,
+            190,
+            123,
+            .55
+        );
+
+    border-radius:
+        12px;
+
+    transition:
+        transform .3s ease,
+        background .3s ease;
+
+}
+
+
+.instruction-item:hover {
+
+    transform:
+        translateX(3px);
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .78
+        );
+
+}
+
+
+/* ==========================================
+   INSTRUCTION ICON
+========================================== */
+
+.instruction-icon {
+
+    flex:
+        0 0 30px;
+
+    width:
+        30px;
+
+    height:
+        30px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    color:
+        var(--white);
+
+    background:
+        var(--dark-green);
+
+    border-radius:
+        50%;
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+
+}
+
+
+/* ==========================================
+   INSTRUCTION TEXT
+========================================== */
+
+.instruction-text {
+
+    flex:
+        1;
+
+    min-width:
+        0;
+
+    margin:
+        0;
+
+    font-size:
+        clamp(
+            11px,
+            2.8vw,
+            13px
+        );
+
+    line-height:
+        1.55;
+
+    color:
+        var(--text-dark);
+
+}
+
+
+/* ==========================================
+   NAVIGATION SAFE SPACE
+========================================== */
+
+.nav-space {
+
+    width:
+        100%;
+
+    height:
+        20px;
+
+}
+
+
+/* ==========================================
+   SECTION ENTRY ANIMATION
+========================================== */
+
+.premium-qr-section {
+
+    opacity:
+        0;
+
+    transform:
+        translateY(18px);
+
+}
+
+
+.premium-qr-section.section-visible {
+
+    opacity:
+        1;
+
+    transform:
+        translateY(0);
+
+    transition:
+        opacity .6s ease,
+        transform .6s ease;
+
+}
+
+
+/* ==========================================
+   END PART 2/3
+========================================== */
+/* ==========================================
+   RIO MAGGI POINT
+   QR.CSS — PART 3/3
+   FIXED BOTTOM NAVIGATION
+   RESPONSIVE MOBILE / TABLET / DESKTOP
+========================================== */
+
+
+/* ==========================================
+   FIXED BOTTOM NAVIGATION
+========================================== */
+
+.bottom-nav {
+
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 12px;
+
+    transform:
+        translateX(-50%);
+
+    z-index: 9999;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, 1fr);
+
+    align-items: stretch;
+
+    width:
+        calc(100% - 24px);
+
+    max-width:
+        680px;
+
+    min-height:
+        var(--nav-height);
+
+    padding:
+        7px;
+
+    background:
+        rgba(
+            38,
+            53,
+            37,
+            .97
+        );
+
+    border:
+        1px solid
+        rgba(
+            241,
+            207,
+            138,
+            .55
+        );
+
+    border-radius:
+        22px;
+
+    box-shadow:
+
+        0 12px 35px
+        rgba(
+            24,
+            35,
+            24,
+            .30
+        ),
+
+        0 4px 12px
+        rgba(
+            24,
+            35,
+            24,
+            .18
+        );
+
+    backdrop-filter:
+        blur(14px);
+
+    -webkit-backdrop-filter:
+        blur(14px);
+
+}
+
+
+/* ==========================================
+   NAVIGATION LINKS
+========================================== */
+
+.bottom-nav a {
+
+    position:
+        relative;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        4px;
+
+    min-width:
+        0;
+
+    padding:
+        7px 3px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .72
+        );
+
+    text-decoration:
+        none;
+
+    border-radius:
+        16px;
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
+
+    line-height:
+        1.2;
+
+    transition:
+
+        color .25s ease,
+
+        background .25s ease,
+
+        transform .25s ease;
+
+}
+
+
+/* ==========================================
+   NAV ICON
+========================================== */
+
+.bottom-nav a i {
+
+    display:
+        block;
+
+    font-size:
+        18px;
+
+    line-height:
+        1;
+
+    transition:
+
+        transform .25s ease,
+
+        color .25s ease;
+
+}
+
+
+/* ==========================================
+   NAV TEXT
+========================================== */
+
+.bottom-nav a span {
+
+    display:
+        block;
+
+    max-width:
+        100%;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+
+}
+
+
+/* ==========================================
+   ACTIVE NAVIGATION
+========================================== */
+
+.bottom-nav a.active {
+
+    color:
+        var(--dark-green);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent-light),
+            var(--gold)
+        );
+
+    box-shadow:
+
+        0 4px 12px
+        rgba(
+            255,
+            213,
+            79,
+            .22
+        );
+
+}
+
+
+/* ==========================================
+   ACTIVE NAV ICON
+========================================== */
+
+.bottom-nav a.active i {
+
+    color:
+        var(--dark-green);
+
+    transform:
+        translateY(-1px)
+        scale(1.05);
+
+}
+
+
+/* ==========================================
+   NAV HOVER
+========================================== */
+
+@media (hover: hover) {
+
+    .bottom-nav a:not(.active):hover {
+
+        color:
+            var(--white);
+
+        background:
+            rgba(
+                255,
+                255,
+                255,
+                .08
+            );
+
+        transform:
+            translateY(-2px);
+
+    }
+
+
+    .bottom-nav a:hover i {
+
+        transform:
+            translateY(-1px);
+
+    }
+
+}
+
+
+/* ==========================================
+   NAV TOUCH FEEDBACK
+========================================== */
+
+.bottom-nav a:active {
+
+    transform:
+        scale(.94);
+
+}
+
+
+/* ==========================================
+   KEYBOARD ACCESSIBILITY
+========================================== */
+
+.bottom-nav a:focus-visible {
+
+    outline:
+        3px solid
+        var(--gold);
+
+    outline-offset:
+        2px;
+
+}
+
+
+/* ==========================================
+   MOBILE NAVIGATION
+========================================== */
+
+@media (max-width: 480px) {
+
+    :root {
+
+        --nav-height:
+            72px;
+
+    }
+
+
+    body {
+
+        padding-bottom:
+            calc(
+                var(--nav-height) + 28px
+            );
+
+    }
+
+
+    .bottom-nav {
+
+        bottom:
+            8px;
+
+        width:
+            calc(100% - 16px);
+
+        min-height:
+            var(--nav-height);
+
+        padding:
+            6px;
+
+        border-radius:
+            20px;
+
+    }
+
+
+    .bottom-nav a {
+
+        gap:
+            3px;
+
+        padding:
+            7px 2px;
+
+        font-size:
+            9px;
+
+        border-radius:
+            14px;
+
+    }
+
+
+    .bottom-nav a i {
+
+        font-size:
+            17px;
+
+    }
+
+}
+
+
+/* ==========================================
+   VERY SMALL MOBILE
+========================================== */
+
+@media (max-width: 360px) {
+
+    .bottom-nav {
+
+        bottom:
+            6px;
+
+        width:
+            calc(100% - 12px);
+
+        padding:
+            5px;
+
+        border-radius:
+            18px;
+
+    }
+
+
+    .bottom-nav a {
+
+        font-size:
+            8px;
+
+        gap:
+            3px;
+
+    }
+
+
+    .bottom-nav a i {
+
+        font-size:
+            15px;
+
+    }
+
+
+    .bottom-nav a.active {
+
+        box-shadow:
+            none;
+
+    }
+
+}
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (min-width: 768px) {
+
+    .bottom-nav {
+
+        bottom:
+            18px;
+
+        min-height:
+            80px;
+
+        padding:
+            8px;
+
+        border-radius:
+            24px;
+
+    }
+
+
+    .bottom-nav a {
+
+        gap:
+            5px;
+
+        font-size:
+            11px;
+
+    }
+
+
+    .bottom-nav a i {
+
+        font-size:
+            20px;
+
+    }
+
+}
+
+
+/* ==========================================
+   DESKTOP
+========================================== */
+
+@media (min-width: 1200px) {
+
+    .bottom-nav {
+
+        max-width:
+            720px;
+
+    }
+
+
+    .bottom-nav a {
+
+        font-size:
+            12px;
+
+    }
+
+
+    .bottom-nav a i {
+
+        font-size:
+            21px;
+
+    }
+
+}
+
+
+/* ==========================================
+   SAFE AREA — iPHONE / NOTCH DEVICES
+========================================== */
+
+@supports (
+    padding-bottom:
+    env(safe-area-inset-bottom)
+) {
+
+    .bottom-nav {
+
+        bottom:
+            calc(
+                8px +
+                env(
+                    safe-area-inset-bottom
+                )
+            );
+
+    }
+
+
+    body {
+
+        padding-bottom:
+            calc(
+                var(--nav-height) +
+                38px +
+                env(
+                    safe-area-inset-bottom
+                )
+            );
+
+    }
+
+}
+
+
+/* ==========================================
+   QR CARD RESPONSIVE HEIGHT FIX
+========================================== */
+
+@media (max-width: 480px) {
+
+    .page {
+
+        align-items:
+            flex-start;
+
+        padding:
+            14px 10px 24px;
+
+    }
+
+
+    .qr-card {
+
+        width:
+            100%;
+
+        padding:
+            22px 14px 24px;
+
+        border-radius:
+            20px;
+
+    }
+
+
+    .premium-qr-card {
+
+        width:
+            min(
+                100%,
+                300px
+            );
+
+        min-height:
+            300px;
+
+        padding:
+            14px;
+
+        border-radius:
+            20px;
+
+    }
+
+
+    .qr-box {
+
+        width:
+            260px;
+
+        height:
+            260px;
+
+    }
+
+
+    .qr-box img,
+    .qr-box canvas {
+
+        width:
+            260px !important;
+
+        height:
+            260px !important;
+
+    }
+
+
+    .daily-stamp-rule {
+
+        gap:
+            10px;
+
+        padding:
+            15px 12px;
+
+    }
+
+
+    .daily-rule-icon {
+
+        flex-basis:
+            38px;
+
+        width:
+            38px;
+
+        height:
+            38px;
+
+    }
+
+
+    .daily-rule-content p {
+
+        line-height:
+            1.6;
+
+    }
+
+}
+
+
+/* ==========================================
+   EXTRA SMALL QR FIX
+========================================== */
+
+@media (max-width: 340px) {
+
+    .premium-qr-card {
+
+        width:
+            100%;
+
+        min-height:
+            270px;
+
+        padding:
+            10px;
+
+    }
+
+
+    .qr-box {
+
+        width:
+            240px;
+
+        height:
+            240px;
+
+    }
+
+
+    .qr-box img,
+    .qr-box canvas {
+
+        width:
+            240px !important;
+
+        height:
+            240px !important;
+
+    }
+
+
+    .scan-title {
+
+        font-size:
+            12px;
+
+    }
+
+
+    .daily-stamp-rule {
+
+        padding:
+            13px 10px;
+
+    }
+
+
+    .daily-rule-icon {
+
+        flex-basis:
+            34px;
+
+        width:
+            34px;
+
+        height:
+            34px;
+
+    }
+
+
+    .daily-rule-icon i {
+
+        font-size:
+            15px;
+
+    }
+
+}
+
+
+/* ==========================================
+   LARGE DESKTOP QR CARD
+========================================== */
+
+@media (min-width: 1200px) {
+
+    .page {
+
+        padding-top:
+            40px;
+
+    }
+
+
+    .qr-card {
+
+        max-width:
+            560px;
+
+        padding:
+            34px 32px 38px;
+
+    }
+
+
+    .premium-qr-card {
+
+        width:
+            340px;
+
+        min-height:
+            340px;
+
+    }
+
+
+    .qr-box {
+
+        width:
+            280px;
+
+        height:
+            280px;
+
+    }
+
+
+    .qr-box img,
+    .qr-box canvas {
+
+        width:
+            280px !important;
+
+        height:
+            280px !important;
+
+    }
+
+}
+
+
+/* ==========================================
+   PRINT SAFETY
+========================================== */
+
+@media print {
+
+    body {
+
+        background:
+            #ffffff;
+
+        padding-bottom:
+            0;
+
+    }
+
+
+    .bottom-nav {
+
+        display:
+            none !important;
+
+    }
+
+
+    .page {
+
+        padding:
+            0;
+
+    }
+
+
+    .qr-card {
+
+        max-width:
+            100%;
+
+        border:
+            1px solid
+            #000;
+
+        box-shadow:
+            none;
+
+    }
+
+
+    .card-glow,
+    .card-shine {
+
+        display:
+            none;
+
+    }
+
+}
+
+
+/* ==========================================
+   REDUCED MOTION
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .bottom-nav a,
+    .bottom-nav a i,
+    .premium-qr-card,
+    .instruction-item,
+    .daily-stamp-rule {
+
+        transition:
+            none !important;
+
+    }
+
+}
+
+
+/* ==========================================
+   FINAL QR.CSS CHECK
+========================================== */
+
+/*
+   IMPORTANT:
+
+   1. This file is ONLY qr.css.
+   2. Do NOT paste service-worker.js here.
+   3. Do NOT paste JavaScript here.
+   4. Do NOT create a second qr.css.
+   5. Keep all 3 parts together in ONE file:
+      qr.css
+
+   Required HTML files/classes:
+      .page
+      .qr-card
+      .premium-qr-section
+      .premium-qr-card
+      #qrcode
+      .daily-stamp-rule
+      .security-note
+      .instruction-box
+      .bottom-nav
+
+   Required JS:
+      qr.js
+
+   Required library:
+      qrcode.min.js
+*/
+
+
+/* ==========================================
+   END QR.CSS — PART 3/3
+========================================== */
