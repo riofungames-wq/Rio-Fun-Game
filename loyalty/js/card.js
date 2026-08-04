@@ -1,7 +1,12 @@
 // ======================================
 // RIO MAGGI POINT
 // PREMIUM LOYALTY CARD SYSTEM
-// CARD.JS - FINAL FIXED VERSION
+// CARD.JS - FINAL FIXED
+// ======================================
+
+
+// ======================================
+// FIREBASE
 // ======================================
 
 import {
@@ -15,9 +20,7 @@ import {
 
 import {
     doc,
-    getDoc,
-    runTransaction,
-    serverTimestamp
+    getDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
@@ -42,7 +45,7 @@ window.rioCurrentStamps = 0;
 window.rioCountdownDays = STAMP_RESET_DAYS;
 
 let countdownInterval = null;
-let isClaimProcessing = false;
+let authInitialized = false;
 
 
 // ======================================
@@ -63,17 +66,19 @@ document.addEventListener(
 
 
 // ======================================
-// INITIALIZE BUTTONS
+// INITIALIZE CARD BUTTONS
 // ======================================
 
 function initializeCardButtons() {
 
-    // ----------------------------------
+    // ==================================
     // FREE GAME CARD BUTTON
-    // ----------------------------------
+    // ==================================
 
     const freeGameBtn =
-        document.getElementById("freeGameBtn");
+        document.getElementById(
+            "freeGameBtn"
+        );
 
     if (freeGameBtn) {
 
@@ -93,12 +98,14 @@ function initializeCardButtons() {
     }
 
 
-    // ----------------------------------
+    // ==================================
     // FREE GAME PROMOTION BUTTON
-    // ----------------------------------
+    // ==================================
 
     const freeGamePromoBtn =
-        document.getElementById("freeGamePromoBtn");
+        document.getElementById(
+            "freeGamePromoBtn"
+        );
 
     if (freeGamePromoBtn) {
 
@@ -120,12 +127,14 @@ function initializeCardButtons() {
     }
 
 
-    // ----------------------------------
-    // CALL BUTTON
-    // ----------------------------------
+    // ==================================
+    // CALL SHOP
+    // ==================================
 
     const callShopBtn =
-        document.getElementById("callShopBtn");
+        document.getElementById(
+            "callShopBtn"
+        );
 
     if (callShopBtn) {
 
@@ -135,12 +144,14 @@ function initializeCardButtons() {
     }
 
 
-    // ----------------------------------
-    // WHATSAPP BUTTON
-    // ----------------------------------
+    // ==================================
+    // WHATSAPP SHOP
+    // ==================================
 
     const whatsappShopBtn =
-        document.getElementById("whatsappShopBtn");
+        document.getElementById(
+            "whatsappShopBtn"
+        );
 
     if (whatsappShopBtn) {
 
@@ -155,12 +166,14 @@ function initializeCardButtons() {
     }
 
 
-    // ----------------------------------
-    // MAP COMING SOON
-    // ----------------------------------
+    // ==================================
+    // MAP - COMING SOON
+    // ==================================
 
     const mapShopBtn =
-        document.getElementById("mapShopBtn");
+        document.getElementById(
+            "mapShopBtn"
+        );
 
     if (mapShopBtn) {
 
@@ -178,18 +191,28 @@ function initializeCardButtons() {
     }
 
 
-    // ----------------------------------
-    // CLAIM REWARD BUTTON
-    // ----------------------------------
+    // ==================================
+    // REWARD BUTTON
+    // ==================================
 
     const claimRewardBtn =
-        document.getElementById("claimRewardBtn");
+        document.getElementById(
+            "claimRewardBtn"
+        );
 
     if (claimRewardBtn) {
 
         claimRewardBtn.addEventListener(
             "click",
-            handleClaimReward
+            () => {
+
+                window.location.href =
+                    "reward.html";
+
+            },
+            {
+                once: true
+            }
         );
 
     }
@@ -201,7 +224,9 @@ function initializeCardButtons() {
 // COMING SOON
 // ======================================
 
-function showComingSoon(message) {
+function showComingSoon(
+    message
+) {
 
     alert(
         message ||
@@ -219,11 +244,28 @@ onAuthStateChanged(
     auth,
     async (user) => {
 
+        if (authInitialized) {
+
+            return;
+
+        }
+
+        authInitialized = true;
+
+
+        // ==============================
+        // NOT LOGGED IN
+        // ==============================
+
         if (!user) {
 
-            window.currentRioUser = null;
-            window.rioCustomerData = null;
-            window.rioCurrentStamps = 0;
+            window.currentRioUser =
+                null;
+
+            window.rioCustomerData =
+                null;
+
+            hidePageLoader();
 
             window.location.href =
                 "login.html";
@@ -233,11 +275,21 @@ onAuthStateChanged(
         }
 
 
+        // ==============================
+        // SAVE USER
+        // ==============================
+
         window.currentRioUser =
             user;
 
 
-        await initializeLoyaltyCard(user);
+        // ==============================
+        // LOAD CUSTOMER CARD
+        // ==============================
+
+        await initializeLoyaltyCard(
+            user
+        );
 
     }
 );
@@ -247,40 +299,45 @@ onAuthStateChanged(
 // INITIALIZE LOYALTY CARD
 // ======================================
 
-async function initializeLoyaltyCard(user) {
+async function initializeLoyaltyCard(
+    user
+) {
 
     try {
 
         showPageLoader();
 
 
-        // ----------------------------------
-        // CUSTOMER DOCUMENT
-        // ----------------------------------
+        // ==============================
+        // USER DOCUMENT
+        // ==============================
 
-        const customerRef =
+        const userRef =
             doc(
                 db,
-                "customers",
+                "users",
                 user.uid
             );
 
 
-        const customerSnap =
+        const userSnap =
             await getDoc(
-                customerRef
+                userRef
             );
 
 
-        // ----------------------------------
-        // CUSTOMER NOT FOUND
-        // ----------------------------------
+        // ==============================
+        // PROFILE NOT FOUND
+        // ==============================
 
-        if (!customerSnap.exists()) {
+        if (
+            !userSnap.exists()
+        ) {
 
             console.warn(
                 "Customer profile not found."
             );
+
 
             showDefaultCustomerData();
 
@@ -291,57 +348,35 @@ async function initializeLoyaltyCard(user) {
         }
 
 
-        let customerData =
-            customerSnap.data();
+        // ==============================
+        // CUSTOMER DATA
+        // ==============================
 
+        const userData =
+            userSnap.data();
 
-        // ----------------------------------
-        // VALIDATE 40-DAY CYCLE
-        // ----------------------------------
-
-        const cycleResult =
-            await validateLoyaltyCycle(
-                customerRef,
-                customerData
-            );
-
-
-        if (cycleResult.reset) {
-
-            customerData =
-                {
-                    ...customerData,
-                    ...cycleResult.data
-                };
-
-        }
-
-
-        // ----------------------------------
-        // SAVE GLOBAL DATA
-        // ----------------------------------
 
         window.rioCustomerData =
-            customerData;
+            userData;
 
 
-        // ----------------------------------
-        // UPDATE PROFILE
-        // ----------------------------------
+        // ==============================
+        // CUSTOMER PROFILE
+        // ==============================
 
         updateCustomerProfile(
             user,
-            customerData
+            userData
         );
 
 
-        // ----------------------------------
+        // ==============================
         // STAMP COUNT
-        // ----------------------------------
+        // ==============================
 
         const stampCount =
             getStampCount(
-                customerData
+                userData
             );
 
 
@@ -349,42 +384,45 @@ async function initializeLoyaltyCard(user) {
             stampCount;
 
 
-        // ----------------------------------
-        // UPDATE STAMP UI
-        // ----------------------------------
+        // ==============================
+        // STAMP UI
+        // ==============================
 
         updateStampUI(
             stampCount,
-            customerData
+            userData
         );
 
 
-        // ----------------------------------
-        // UPDATE REWARD UI
-        // ----------------------------------
+        // ==============================
+        // REWARD UI
+        // ==============================
 
         updateRewardUI(
-            stampCount,
-            customerData
-        );
-
-
-        // ----------------------------------
-        // UPDATE COUNTDOWN
-        // ----------------------------------
-
-        updateCountdown(
-            customerData,
             stampCount
         );
 
 
-        // ----------------------------------
-        // START COUNTDOWN
-        // ----------------------------------
+        // ==============================
+        // COUNTDOWN
+        // ==============================
+
+        updateCountdown(
+            userData,
+            stampCount
+        );
+
+
+        // ==============================
+        // START REFRESH
+        // ==============================
 
         startCountdownRefresh();
 
+
+        // ==============================
+        // HIDE LOADER
+        // ==============================
 
         hidePageLoader();
 
@@ -415,8 +453,12 @@ async function initializeLoyaltyCard(user) {
 
 function updateCustomerProfile(
     user,
-    customerData
+    userData
 ) {
+
+    // ==============================
+    // CUSTOMER NAME
+    // ==============================
 
     const customerName =
         document.getElementById(
@@ -431,9 +473,9 @@ function updateCustomerProfile(
 
 
     const name =
-        customerData.name ||
-        customerData.fullName ||
-        customerData.displayName ||
+        userData.name ||
+        userData.fullName ||
+        userData.displayName ||
         user.displayName ||
         "Rio Maggi Member";
 
@@ -454,9 +496,9 @@ function updateCustomerProfile(
     }
 
 
-    // ----------------------------------
-    // PHOTO
-    // ----------------------------------
+    // ==============================
+    // CUSTOMER PHOTO
+    // ==============================
 
     const customerPhoto =
         document.getElementById(
@@ -465,8 +507,8 @@ function updateCustomerProfile(
 
 
     const photoURL =
-        customerData.photoURL ||
-        customerData.photoUrl ||
+        userData.photoURL ||
+        userData.photoUrl ||
         user.photoURL;
 
 
@@ -481,25 +523,9 @@ function updateCustomerProfile(
     }
 
 
-    if (customerPhoto) {
-
-        customerPhoto.onerror =
-            () => {
-
-                customerPhoto.onerror =
-                    null;
-
-                customerPhoto.src =
-                    "assets/default-avatar.png";
-
-            };
-
-    }
-
-
-    // ----------------------------------
+    // ==============================
     // MEMBER SINCE
-    // ----------------------------------
+    // ==============================
 
     const memberSinceDate =
         document.getElementById(
@@ -510,20 +536,22 @@ function updateCustomerProfile(
     if (memberSinceDate) {
 
         const memberSince =
-            customerData.memberSince ||
-            customerData.createdAt ||
-            customerData.createdDate;
+            userData.memberSince ||
+            userData.createdAt ||
+            userData.createdDate;
 
 
         memberSinceDate.textContent =
-            formatDate(memberSince);
+            formatDate(
+                memberSince
+            );
 
     }
 
 
-    // ----------------------------------
+    // ==============================
     // WELCOME MESSAGE
-    // ----------------------------------
+    // ==============================
 
     const welcomeMessage =
         document.getElementById(
@@ -546,13 +574,13 @@ function updateCustomerProfile(
 // ======================================
 
 function getStampCount(
-    customerData
+    userData
 ) {
 
     let stampCount =
         Number(
-            customerData.stamps ??
-            customerData.currentStamps ??
+            userData.stamps ??
+            userData.currentStamps ??
             0
         );
 
@@ -571,7 +599,7 @@ function getStampCount(
     return Math.max(
         0,
         Math.min(
-            Math.floor(stampCount),
+            stampCount,
             TOTAL_STAMPS
         )
     );
@@ -585,8 +613,12 @@ function getStampCount(
 
 function updateStampUI(
     stampCount,
-    customerData
+    userData
 ) {
+
+    // ==============================
+    // STAMP BOXES
+    // ==============================
 
     const stampBoxes =
         document.querySelectorAll(
@@ -603,7 +635,9 @@ function updateStampUI(
                 );
 
 
-            if (!stampNumber) {
+            if (
+                !stampNumber
+            ) {
 
                 return;
 
@@ -637,9 +671,9 @@ function updateStampUI(
     );
 
 
-    // ----------------------------------
-    // COUNT
-    // ----------------------------------
+    // ==============================
+    // STAMP COUNT
+    // ==============================
 
     const stampCountText =
         document.getElementById(
@@ -655,9 +689,9 @@ function updateStampUI(
     }
 
 
-    // ----------------------------------
-    // PROGRESS
-    // ----------------------------------
+    // ==============================
+    // PROGRESS BAR
+    // ==============================
 
     const stampProgressBar =
         document.getElementById(
@@ -680,9 +714,9 @@ function updateStampUI(
     }
 
 
-    // ----------------------------------
+    // ==============================
     // PROGRESS TEXT
-    // ----------------------------------
+    // ==============================
 
     const stampProgressText =
         document.getElementById(
@@ -698,15 +732,15 @@ function updateStampUI(
     }
 
 
-    // ----------------------------------
-    // STAMP DATES
-    // ----------------------------------
+    // ==============================
+    // GLOBAL STAMP DATES
+    // ==============================
 
     window.rioStampDates =
         Array.isArray(
-            customerData.stampDates
+            userData?.stampDates
         )
-            ? customerData.stampDates
+            ? userData.stampDates
             : [];
 
 }
@@ -717,8 +751,7 @@ function updateStampUI(
 // ======================================
 
 function updateRewardUI(
-    stampCount,
-    customerData
+    stampCount
 ) {
 
     const rewardStatus =
@@ -751,80 +784,17 @@ function updateRewardUI(
         );
 
 
-    const rewardClaimed =
-        customerData?.rewardClaimed === true;
-
-
     const isUnlocked =
-        stampCount >= TOTAL_STAMPS &&
-        !rewardClaimed;
+        stampCount >= TOTAL_STAMPS;
 
 
-    // ----------------------------------
-    // REWARD CLAIMED
-    // ----------------------------------
-
-    if (rewardClaimed) {
-
-        if (rewardStatus) {
-
-            rewardStatus.classList.remove(
-                "reward-unlocked"
-            );
-
-        }
-
-
-        if (rewardStatusIcon) {
-
-            rewardStatusIcon.className =
-                "fa-solid fa-check";
-
-        }
-
-
-        if (rewardStatusTitle) {
-
-            rewardStatusTitle.textContent =
-                "Reward Claimed";
-
-        }
-
-
-        if (rewardStatusText) {
-
-            rewardStatusText.textContent =
-                "Your reward has already been claimed.";
-
-        }
-
-
-        if (claimRewardBtn) {
-
-            claimRewardBtn.disabled =
-                true;
-
-            claimRewardBtn.classList.add(
-                "reward-locked-btn"
-            );
-
-            claimRewardBtn.classList.remove(
-                "reward-unlocked-btn"
-            );
-
-        }
-
-
-        return;
-
-    }
-
-
-    // ----------------------------------
+    // ==============================
     // REWARD UNLOCKED
-    // ----------------------------------
+    // ==============================
 
-    if (isUnlocked) {
+    if (
+        isUnlocked
+    ) {
 
         if (rewardStatus) {
 
@@ -880,74 +850,73 @@ function updateRewardUI(
 
         }
 
-
-        return;
-
     }
 
 
-    // ----------------------------------
+    // ==============================
     // REWARD LOCKED
-    // ----------------------------------
+    // ==============================
 
-    if (rewardStatus) {
+    else {
 
-        rewardStatus.classList.remove(
-            "reward-unlocked"
-        );
+        if (rewardStatus) {
 
-    }
-
-
-    if (rewardStatusIcon) {
-
-        rewardStatusIcon.className =
-            "fa-solid fa-lock";
-
-    }
-
-
-    if (rewardStatusTitle) {
-
-        rewardStatusTitle.textContent =
-            "Reward Locked";
-
-    }
-
-
-    if (rewardStatusText) {
-
-        const remaining =
-            Math.max(
-                TOTAL_STAMPS - stampCount,
-                0
+            rewardStatus.classList.remove(
+                "reward-unlocked"
             );
 
-
-        rewardStatusText.textContent =
-            `Collect ${remaining} more valid stamp${remaining === 1 ? "" : "s"} within the 40-day cycle to unlock your FREE Veg Maggi.`;
-
-    }
+        }
 
 
-    if (claimRewardBtn) {
+        if (rewardStatusIcon) {
 
-        claimRewardBtn.disabled =
-            true;
+            rewardStatusIcon.className =
+                "fa-solid fa-lock";
 
-        claimRewardBtn.classList.add(
-            "reward-locked-btn"
-        );
+        }
 
-        claimRewardBtn.classList.remove(
-            "reward-unlocked-btn"
-        );
 
-        claimRewardBtn.innerHTML =
-            `
-            <i class="fa-solid fa-lock"></i>
-            <span>Collect ${TOTAL_STAMPS} Stamps to Unlock</span>
-            `;
+        if (rewardStatusTitle) {
+
+            rewardStatusTitle.textContent =
+                "Reward Locked";
+
+        }
+
+
+        if (rewardStatusText) {
+
+            const remaining =
+                TOTAL_STAMPS -
+                stampCount;
+
+
+            rewardStatusText.textContent =
+                `Collect ${remaining} more valid stamp${remaining === 1 ? "" : "s"} within the 40-day cycle to unlock your FREE Veg Maggi.`;
+
+        }
+
+
+        if (claimRewardBtn) {
+
+            claimRewardBtn.disabled =
+                true;
+
+            claimRewardBtn.classList.add(
+                "reward-locked-btn"
+            );
+
+            claimRewardBtn.classList.remove(
+                "reward-unlocked-btn"
+            );
+
+            claimRewardBtn.innerHTML =
+                `
+                <i class="fa-solid fa-lock"></i>
+                <span>Collect ${TOTAL_STAMPS} Stamps to Unlock</span>
+                `;
+
+        }
 
     }
 
@@ -955,296 +924,17 @@ function updateRewardUI(
 
 
 // ======================================
-// 40-DAY LOYALTY CYCLE
-// ======================================
-
-async function validateLoyaltyCycle(
-    customerRef,
-    customerData
-) {
-
-    const stampCount =
-        getStampCount(
-            customerData
-        );
-
-
-    // ----------------------------------
-    // NO ACTIVE STAMPS
-    // ----------------------------------
-
-    if (stampCount <= 0) {
-
-        return {
-            reset: false,
-            data: customerData
-        };
-
-    }
-
-
-    // ----------------------------------
-    // FIND CYCLE START
-    // ----------------------------------
-
-    let cycleStart =
-        parseFirebaseDate(
-            customerData.cycleStartDate
-        );
-
-
-    // ----------------------------------
-    // FALLBACK TO FIRST STAMP
-    // ----------------------------------
-
-    if (
-        !cycleStart &&
-        Array.isArray(
-            customerData.stampDates
-        )
-    ) {
-
-        const firstStamp =
-            customerData.stampDates.find(
-                (date) =>
-                    parseFirebaseDate(date)
-            );
-
-
-        cycleStart =
-            parseFirebaseDate(
-                firstStamp
-            );
-
-    }
-
-
-    // ----------------------------------
-    // NO DATE AVAILABLE
-    // ----------------------------------
-
-    if (!cycleStart) {
-
-        return {
-            reset: false,
-            data: customerData
-        };
-
-    }
-
-
-    // ----------------------------------
-    // CALCULATE DAYS
-    // ----------------------------------
-
-    const now =
-        new Date();
-
-
-    const elapsedMilliseconds =
-        now.getTime() -
-        cycleStart.getTime();
-
-
-    const elapsedDays =
-        Math.floor(
-            elapsedMilliseconds /
-            (
-                1000 *
-                60 *
-                60 *
-                24
-            )
-        );
-
-
-    const remainingDays =
-        Math.max(
-            0,
-            STAMP_RESET_DAYS -
-            elapsedDays
-        );
-
-
-    window.rioCountdownDays =
-        remainingDays;
-
-
-    // ----------------------------------
-    // CYCLE VALID
-    // ----------------------------------
-
-    if (
-        elapsedDays <
-        STAMP_RESET_DAYS
-    ) {
-
-        return {
-            reset: false,
-            data: customerData
-        };
-
-    }
-
-
-    // ----------------------------------
-    // 6 STAMPS COMPLETED
-    // REWARD REMAINS AVAILABLE
-    // ----------------------------------
-
-    if (
-        stampCount >=
-        TOTAL_STAMPS
-    ) {
-
-        return {
-            reset: false,
-            data: customerData
-        };
-
-    }
-
-
-    // ----------------------------------
-    // 40 DAYS EXPIRED
-    // RESET INCOMPLETE CYCLE
-    // ----------------------------------
-
-    const resetData = {
-
-        stamps: 0,
-
-        currentStamps: 0,
-
-        stampDates: [],
-
-        cycleStartDate: null,
-
-        rewardUnlocked: false,
-
-        rewardClaimed: false,
-
-        cycleResetAt:
-            serverTimestamp(),
-
-        updatedAt:
-            serverTimestamp()
-
-    };
-
-
-    try {
-
-        await runTransaction(
-            db,
-            async (transaction) => {
-
-                const latestSnap =
-                    await transaction.get(
-                        customerRef
-                    );
-
-
-                if (
-                    !latestSnap.exists()
-                ) {
-
-                    throw new Error(
-                        "CUSTOMER_NOT_FOUND"
-                    );
-
-                }
-
-
-                const latestData =
-                    latestSnap.data();
-
-
-                const latestStamps =
-                    getStampCount(
-                        latestData
-                    );
-
-
-                if (
-                    latestStamps >=
-                    TOTAL_STAMPS
-                ) {
-
-                    return;
-
-                }
-
-
-                transaction.update(
-                    customerRef,
-                    resetData
-                );
-
-            }
-        );
-
-
-        console.log(
-            "40-day loyalty cycle expired. Incomplete stamps reset to 0."
-        );
-
-
-        return {
-
-            reset: true,
-
-            data: {
-
-                ...customerData,
-
-                stamps: 0,
-
-                currentStamps: 0,
-
-                stampDates: [],
-
-                cycleStartDate: null,
-
-                rewardUnlocked: false,
-
-                rewardClaimed: false
-
-            }
-
-        };
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Loyalty cycle reset failed:",
-            error
-        );
-
-
-        return {
-
-            reset: false,
-
-            data: customerData
-
-        };
-
-    }
-
-}
-
-
-// ======================================
-// UPDATE COUNTDOWN
+// COUNTDOWN
 // ======================================
 
 function updateCountdown(
-    customerData,
+    userData,
     stampCount
 ) {
+
+    // ==============================
+    // NO COUNTDOWN ELEMENT
+    // ==============================
 
     const countdownElement =
         document.getElementById(
@@ -1252,20 +942,24 @@ function updateCountdown(
         );
 
 
-    if (!countdownElement) {
+    // card.html में अभी countdownDays नहीं है
+    // इसलिए बिना error के return करें
+
+    if (
+        !countdownElement
+    ) {
 
         return;
 
     }
 
 
-    // ----------------------------------
+    // ==============================
     // REWARD READY
-    // ----------------------------------
+    // ==============================
 
     if (
-        stampCount >=
-        TOTAL_STAMPS
+        stampCount >= TOTAL_STAMPS
     ) {
 
         countdownElement.textContent =
@@ -1279,27 +973,33 @@ function updateCountdown(
     }
 
 
-    // ----------------------------------
+    // ==============================
     // GET CYCLE START
-    // ----------------------------------
+    // ==============================
 
     let cycleStart =
         parseFirebaseDate(
-            customerData.cycleStartDate
+            userData?.cycleStartDate
         );
 
+
+    // ==============================
+    // FALLBACK STAMP DATE
+    // ==============================
 
     if (
         !cycleStart &&
         Array.isArray(
-            customerData.stampDates
+            userData?.stampDates
         )
     ) {
 
         const firstStamp =
-            customerData.stampDates.find(
+            userData.stampDates.find(
                 (date) =>
-                    parseFirebaseDate(date)
+                    parseFirebaseDate(
+                        date
+                    )
             );
 
 
@@ -1311,11 +1011,13 @@ function updateCountdown(
     }
 
 
-    // ----------------------------------
+    // ==============================
     // NO ACTIVE CYCLE
-    // ----------------------------------
+    // ==============================
 
-    if (!cycleStart) {
+    if (
+        !cycleStart
+    ) {
 
         countdownElement.textContent =
             `${STAMP_RESET_DAYS} DAYS`;
@@ -1328,9 +1030,9 @@ function updateCountdown(
     }
 
 
-    // ----------------------------------
-    // CALCULATE REMAINING
-    // ----------------------------------
+    // ==============================
+    // CALCULATE DAYS
+    // ==============================
 
     const now =
         new Date();
@@ -1381,7 +1083,9 @@ function updateCountdown(
 
 function startCountdownRefresh() {
 
-    if (countdownInterval) {
+    if (
+        countdownInterval
+    ) {
 
         clearInterval(
             countdownInterval
@@ -1405,22 +1109,22 @@ function startCountdownRefresh() {
 
                 try {
 
-                    const customerRef =
+                    const userRef =
                         doc(
                             db,
-                            "customers",
+                            "users",
                             window.currentRioUser.uid
                         );
 
 
-                    const customerSnap =
+                    const userSnap =
                         await getDoc(
-                            customerRef
+                            userRef
                         );
 
 
                     if (
-                        !customerSnap.exists()
+                        !userSnap.exists()
                     ) {
 
                         return;
@@ -1428,18 +1132,26 @@ function startCountdownRefresh() {
                     }
 
 
-                    const customerData =
-                        customerSnap.data();
+                    const userData =
+                        userSnap.data();
 
 
                     const stampCount =
                         getStampCount(
-                            customerData
+                            userData
                         );
 
 
+                    window.rioCustomerData =
+                        userData;
+
+
+                    window.rioCurrentStamps =
+                        stampCount;
+
+
                     updateCountdown(
-                        customerData,
+                        userData,
                         stampCount
                     );
 
@@ -1462,313 +1174,6 @@ function startCountdownRefresh() {
 
 
 // ======================================
-// CLAIM REWARD
-// ======================================
-
-async function handleClaimReward() {
-
-    if (isClaimProcessing) {
-
-        return;
-
-    }
-
-
-    const user =
-        window.currentRioUser;
-
-
-    if (!user) {
-
-        alert(
-            "Please login first."
-        );
-
-        return;
-
-    }
-
-
-    const claimButton =
-        document.getElementById(
-            "claimRewardBtn"
-        );
-
-
-    isClaimProcessing =
-        true;
-
-
-    if (claimButton) {
-
-        claimButton.disabled =
-            true;
-
-        claimButton.dataset.processing =
-            "true";
-
-    }
-
-
-    try {
-
-        const customerRef =
-            doc(
-                db,
-                "customers",
-                user.uid
-            );
-
-
-        // ----------------------------------
-        // CONFIRMATION
-        // ----------------------------------
-
-        const confirmed =
-            window.confirm(
-                "🎁 Claim your FREE VEG MAGGI reward now?"
-            );
-
-
-        if (!confirmed) {
-
-            return;
-
-        }
-
-
-        // ----------------------------------
-        // SECURE TRANSACTION
-        // ----------------------------------
-
-        await runTransaction(
-            db,
-            async (transaction) => {
-
-                const customerSnap =
-                    await transaction.get(
-                        customerRef
-                    );
-
-
-                if (
-                    !customerSnap.exists()
-                ) {
-
-                    throw new Error(
-                        "CUSTOMER_NOT_FOUND"
-                    );
-
-                }
-
-
-                const latestData =
-                    customerSnap.data();
-
-
-                const latestStampCount =
-                    getStampCount(
-                        latestData
-                    );
-
-
-                const alreadyClaimed =
-                    latestData.rewardClaimed === true;
-
-
-                if (alreadyClaimed) {
-
-                    throw new Error(
-                        "REWARD_ALREADY_CLAIMED"
-                    );
-
-                }
-
-
-                if (
-                    latestStampCount <
-                    TOTAL_STAMPS
-                ) {
-
-                    throw new Error(
-                        "REWARD_NOT_UNLOCKED"
-                    );
-
-                }
-
-
-                // ----------------------------------
-                // CONSUME CURRENT REWARD CYCLE
-                // START NEW CYCLE
-                // ----------------------------------
-
-                transaction.update(
-                    customerRef,
-                    {
-
-                        stamps: 0,
-
-                        currentStamps: 0,
-
-                        stampDates: [],
-
-                        cycleStartDate: null,
-
-                        rewardUnlocked: false,
-
-                        rewardClaimed: true,
-
-                        rewardClaimDate:
-                            serverTimestamp(),
-
-                        updatedAt:
-                            serverTimestamp()
-
-                    }
-                );
-
-            }
-        );
-
-
-        // ----------------------------------
-        // LOCAL STATE
-        // ----------------------------------
-
-        window.rioCurrentStamps =
-            0;
-
-
-        window.rioCustomerData =
-            {
-
-                ...window.rioCustomerData,
-
-                stamps: 0,
-
-                currentStamps: 0,
-
-                stampDates: [],
-
-                cycleStartDate: null,
-
-                rewardUnlocked: false,
-
-                rewardClaimed: true
-
-            };
-
-
-        // ----------------------------------
-        // UPDATE UI
-        // ----------------------------------
-
-        updateStampUI(
-            0,
-            window.rioCustomerData
-        );
-
-
-        updateRewardUI(
-            0,
-            window.rioCustomerData
-        );
-
-
-        updateCountdown(
-            window.rioCustomerData,
-            0
-        );
-
-
-        alert(
-            "🎉 Your FREE VEG MAGGI reward has been successfully claimed!"
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Reward claim failed:",
-            error
-        );
-
-
-        if (
-            error.message ===
-            "REWARD_ALREADY_CLAIMED"
-        ) {
-
-            alert(
-                "This reward has already been claimed."
-            );
-
-        }
-
-        else if (
-            error.message ===
-            "REWARD_NOT_UNLOCKED"
-        ) {
-
-            alert(
-                "Your reward is not unlocked yet."
-            );
-
-        }
-
-        else if (
-            error.message ===
-            "CUSTOMER_NOT_FOUND"
-        ) {
-
-            alert(
-                "Customer account could not be found."
-            );
-
-        }
-
-        else {
-
-            alert(
-                "Unable to claim reward right now. Please try again."
-            );
-
-        }
-
-    }
-
-    finally {
-
-        isClaimProcessing =
-            false;
-
-
-        if (claimButton) {
-
-            claimButton.dataset.processing =
-                "false";
-
-
-            // Re-read current state
-            // so claimed reward never becomes enabled again.
-
-            const rewardClaimed =
-                window.rioCustomerData?.rewardClaimed === true;
-
-
-            claimButton.disabled =
-                rewardClaimed ||
-                window.rioCurrentStamps < TOTAL_STAMPS;
-
-        }
-
-    }
-
-}
-
-
-// ======================================
 // DATE PARSER
 // ======================================
 
@@ -1778,14 +1183,18 @@ function parseFirebaseDate(
 
     try {
 
-        if (!dateValue) {
+        if (
+            !dateValue
+        ) {
 
             return null;
 
         }
 
 
+        // ==============================
         // FIREBASE TIMESTAMP
+        // ==============================
 
         if (
             typeof dateValue.toDate ===
@@ -1805,7 +1214,9 @@ function parseFirebaseDate(
         }
 
 
-        // SERIALIZED TIMESTAMP
+        // ==============================
+        // SERIALIZED FIREBASE TIMESTAMP
+        // ==============================
 
         if (
             typeof dateValue ===
@@ -1842,7 +1253,9 @@ function parseFirebaseDate(
         }
 
 
+        // ==============================
         // JAVASCRIPT DATE
+        // ==============================
 
         if (
             dateValue instanceof Date
@@ -1857,7 +1270,9 @@ function parseFirebaseDate(
         }
 
 
+        // ==============================
         // STRING / NUMBER
+        // ==============================
 
         const date =
             new Date(
@@ -1901,7 +1316,9 @@ function formatDate(
         );
 
 
-    if (!date) {
+    if (
+        !date
+    ) {
 
         return "--";
 
@@ -1911,13 +1328,9 @@ function formatDate(
     return date.toLocaleDateString(
         "en-IN",
         {
-
             day: "2-digit",
-
             month: "short",
-
             year: "numeric"
-
         }
     );
 
@@ -1936,7 +1349,9 @@ function showPageLoader() {
         );
 
 
-    if (loader) {
+    if (
+        loader
+    ) {
 
         loader.classList.remove(
             "hidden"
@@ -1960,7 +1375,9 @@ function hidePageLoader() {
         );
 
 
-    if (loader) {
+    if (
+        loader
+    ) {
 
         loader.classList.add(
             "hidden"
@@ -1994,7 +1411,9 @@ function showDefaultCustomerData() {
         );
 
 
-    if (customerName) {
+    if (
+        customerName
+    ) {
 
         customerName.textContent =
             "Rio Maggi Member";
@@ -2002,7 +1421,9 @@ function showDefaultCustomerData() {
     }
 
 
-    if (welcomeUserName) {
+    if (
+        welcomeUserName
+    ) {
 
         welcomeUserName.textContent =
             "Premium Member";
@@ -2010,28 +1431,16 @@ function showDefaultCustomerData() {
     }
 
 
-    const defaultData = {
-
-        stamps: 0,
-
-        currentStamps: 0,
-
-        stampDates: [],
-
-        rewardClaimed: false
-
-    };
-
-
     updateStampUI(
         0,
-        defaultData
+        {
+            stampDates: []
+        }
     );
 
 
     updateRewardUI(
-        0,
-        defaultData
+        0
     );
 
 }
@@ -2045,7 +1454,9 @@ window.addEventListener(
     "beforeunload",
     () => {
 
-        if (countdownInterval) {
+        if (
+            countdownInterval
+        ) {
 
             clearInterval(
                 countdownInterval
@@ -2068,5 +1479,5 @@ window.addEventListener(
 // ======================================
 
 console.log(
-    "Rio Maggi Point Premium Loyalty Card System Ready"
+    "RIO MAGGI POINT - CARD SYSTEM READY"
 );
