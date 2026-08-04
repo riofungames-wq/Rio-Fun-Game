@@ -2,9 +2,7 @@
 // RIO MAGGI POINT
 // PREMIUM ADMIN DASHBOARD
 // ADMIN-DASHBOARD.JS
-// CONSOLIDATED FINAL VERSION
-// PART 1 - PART 5
-// CLEAN / NO DUPLICATE DECLARATIONS
+// CONSOLIDATED FIXED VERSION
 // =====================================================
 
 
@@ -36,17 +34,13 @@ import {
 // 2. CONFIGURATION
 // =====================================================
 
-const ADMIN_LOGIN_PAGE =
-  "./admin-login.html";
+const ADMIN_LOGIN_PAGE = "./admin-login.html";
 
-const CUSTOMERS_COLLECTION =
-  "customers";
+const CUSTOMERS_COLLECTION = "customers";
 
-const MAX_STAMPS =
-  6;
+const MAX_STAMPS = 6;
 
-const LOYALTY_CYCLE_DAYS =
-  40;
+const LOYALTY_CYCLE_DAYS = 40;
 
 const LOYALTY_CYCLE_MS =
   LOYALTY_CYCLE_DAYS *
@@ -55,21 +49,29 @@ const LOYALTY_CYCLE_MS =
   60 *
   1000;
 
+
+// -----------------------------------------------------
+// DEFAULT PROFILE IMAGE
+// IMPORTANT:
+// Keep this path matching your actual project file.
+// If this PNG is missing, the image is hidden instead
+// of creating an infinite broken-image fallback loop.
+// -----------------------------------------------------
+
+const DEFAULT_PROFILE_IMAGE =
+  "./assets/default-profile.png";
+
+
 const QR_SCANNER_CONFIG = {
 
-  fps:
-    10,
+  fps: 10,
 
   qrbox: {
-    width:
-      250,
-
-    height:
-      250
+    width: 250,
+    height: 250
   },
 
-  aspectRatio:
-    1.0
+  aspectRatio: 1.0
 
 };
 
@@ -78,29 +80,21 @@ const QR_SCANNER_CONFIG = {
 // 3. GLOBAL APPLICATION STATE
 // =====================================================
 
-let currentCustomer =
-  null;
+let currentCustomer = null;
 
-let customers =
-  [];
+let customers = [];
 
-let currentSection =
-  "dashboard";
+let currentSection = "dashboard";
 
-let stampActionProcessing =
-  false;
+let stampActionProcessing = false;
 
-let logoutProcessing =
-  false;
+let logoutProcessing = false;
 
-let scannerRunning =
-  false;
+let scannerRunning = false;
 
-let html5QrCode =
-  null;
+let html5QrCode = null;
 
-let customerDataInitialized =
-  false;
+let customerDataInitialized = false;
 
 
 // =====================================================
@@ -331,9 +325,7 @@ const sectionMap = {
 // 6. GENERAL HELPERS
 // =====================================================
 
-function escapeHtml(
-  value
-) {
+function escapeHtml(value) {
 
   return String(
     value ?? ""
@@ -363,6 +355,104 @@ function escapeHtml(
       /'/g,
       "&#039;"
     );
+
+}
+
+
+// -----------------------------------------------------
+// SAFE DEFAULT PROFILE IMAGE HANDLER
+// -----------------------------------------------------
+
+function applyDefaultProfileImage(
+  imageElement
+) {
+
+  if (!imageElement) {
+    return;
+  }
+
+
+  // Prevent repeated fallback execution.
+  if (
+    imageElement.dataset.defaultImageApplied ===
+    "true"
+  ) {
+
+    return;
+
+  }
+
+
+  imageElement.dataset.defaultImageApplied =
+    "true";
+
+
+  imageElement.onerror = null;
+
+
+  // Hide broken image instead of causing
+  // an infinite onerror loop if PNG is missing.
+  imageElement.style.visibility =
+    "hidden";
+
+
+  imageElement.removeAttribute(
+    "src"
+  );
+
+}
+
+
+// -----------------------------------------------------
+// SAFE CUSTOMER IMAGE HANDLER
+// -----------------------------------------------------
+
+function setCustomerPhoto(
+  imageElement,
+  photoUrl
+) {
+
+  if (!imageElement) {
+    return;
+  }
+
+
+  imageElement.dataset.defaultImageApplied =
+    "false";
+
+
+  imageElement.style.visibility =
+    "visible";
+
+
+  imageElement.onerror =
+    function () {
+
+      applyDefaultProfileImage(
+        this
+      );
+
+    };
+
+
+  const safePhotoUrl =
+    String(
+      photoUrl || ""
+    ).trim();
+
+
+  if (!safePhotoUrl) {
+
+    imageElement.src =
+      DEFAULT_PROFILE_IMAGE;
+
+    return;
+
+  }
+
+
+  imageElement.src =
+    safePhotoUrl;
 
 }
 
@@ -407,6 +497,7 @@ function normalizeDateValue(
   if (!value) {
     return null;
   }
+
 
   try {
 
@@ -488,9 +579,7 @@ function normalizeDateValue(
 
   }
 
-  catch (
-    error
-  ) {
+  catch (error) {
 
     console.warn(
       "⚠️ Date conversion failed:",
@@ -498,6 +587,7 @@ function normalizeDateValue(
     );
 
   }
+
 
   return null;
 
@@ -515,6 +605,7 @@ function getCustomerStamps(
   if (!customer) {
     return 0;
   }
+
 
   const possibleValues = [
 
@@ -591,6 +682,7 @@ function getCustomerMemberId(
     return "";
   }
 
+
   return String(
 
     customer.memberId ||
@@ -616,6 +708,7 @@ function getCustomerName(
     return "";
   }
 
+
   return String(
 
     customer.name ||
@@ -638,6 +731,7 @@ function getCustomerMobile(
   if (!customer) {
     return "";
   }
+
 
   return String(
 
@@ -664,7 +758,8 @@ function getCustomerPhoto(
     return "";
   }
 
-  return (
+
+  return String(
 
     customer.photoURL ||
 
@@ -678,7 +773,7 @@ function getCustomerPhoto(
 
     ""
 
-  );
+  ).trim();
 
 }
 
@@ -691,8 +786,10 @@ function hasStampToday(
     return false;
   }
 
+
   const todayKey =
     getTodayKey();
+
 
   return (
 
@@ -720,6 +817,7 @@ function isCustomerRewardReady(
   if (!customer) {
     return false;
   }
+
 
   return (
 
@@ -754,6 +852,7 @@ function normalizeCustomer(
   if (!customer) {
     return null;
   }
+
 
   return {
 
@@ -806,6 +905,7 @@ function getCustomerCycleStartDate(
     return null;
   }
 
+
   const possibleDates = [
 
     customer.cycleStartedAt,
@@ -829,6 +929,7 @@ function getCustomerCycleStartDate(
         value
       );
 
+
     if (date) {
       return date;
     }
@@ -849,23 +950,17 @@ function getLoyaltyCycleStatus(
 
     return {
 
-      active:
-        false,
+      active: false,
 
-      expired:
-        false,
+      expired: false,
 
-      cycleStartDate:
-        null,
+      cycleStartDate: null,
 
-      cycleStartTime:
-        null,
+      cycleStartTime: null,
 
-      cycleExpiryTime:
-        null,
+      cycleExpiryTime: null,
 
-      remainingMs:
-        0
+      remainingMs: 0
 
     };
 
@@ -891,23 +986,17 @@ function getLoyaltyCycleStatus(
 
     return {
 
-      active:
-        false,
+      active: false,
 
-      expired:
-        false,
+      expired: false,
 
-      cycleStartDate:
-        null,
+      cycleStartDate: null,
 
-      cycleStartTime:
-        null,
+      cycleStartTime: null,
 
-      cycleExpiryTime:
-        null,
+      cycleExpiryTime: null,
 
-      remainingMs:
-        0
+      remainingMs: 0
 
     };
 
@@ -934,8 +1023,7 @@ function getLoyaltyCycleStatus(
 
   return {
 
-    active:
-      true,
+    active: true,
 
     expired,
 
@@ -973,8 +1061,10 @@ function setScannerStatus(
     return;
   }
 
+
   scannerStatus.textContent =
     message || "";
+
 
   scannerStatus.classList.remove(
 
@@ -989,6 +1079,7 @@ function setScannerStatus(
     "default"
 
   );
+
 
   scannerStatus.classList.add(
     type
@@ -1009,6 +1100,7 @@ function findCustomerByUid(
     return null;
   }
 
+
   return (
 
     customers.find(
@@ -1016,6 +1108,7 @@ function findCustomerByUid(
       customer =>
 
         customer &&
+
         customer.uid ===
         uid
 
@@ -1035,6 +1128,7 @@ function findCustomerByMemberId(
   if (!memberId) {
     return null;
   }
+
 
   const searchId =
     String(
@@ -1073,6 +1167,7 @@ function upsertLocalCustomer(
     return;
   }
 
+
   const normalizedCustomer =
     normalizeCustomer(
       customer,
@@ -1100,6 +1195,7 @@ function upsertLocalCustomer(
       item =>
 
         item &&
+
         item.uid ===
         normalizedCustomer.uid
 
@@ -1314,9 +1410,11 @@ function showSection(
         return;
       }
 
+
       section.classList.remove(
         "active"
       );
+
 
       section.hidden =
         true;
@@ -1328,6 +1426,7 @@ function showSection(
 
   targetSection.hidden =
     false;
+
 
   targetSection.classList.add(
     "active"
@@ -1370,9 +1469,7 @@ function showSection(
 
   }
 
-  catch (
-    error
-  ) {
+  catch (error) {
 
     console.warn(
       "⚠️ Unable to update URL hash:",
@@ -1577,29 +1674,15 @@ function showCustomer(
 
   if (customerPhoto) {
 
-    const photo =
+    setCustomerPhoto(
+
+      customerPhoto,
+
       getCustomerPhoto(
         normalizedCustomer
-      );
+      )
 
-
-    customerPhoto.src =
-
-      photo ||
-
-      "./assets/default-profile.png";
-
-
-    customerPhoto.onerror =
-      function () {
-
-        this.onerror =
-          null;
-
-        this.src =
-          "./assets/default-profile.png";
-
-      };
+    );
 
   }
 
@@ -1711,6 +1794,7 @@ function clearCustomerPreview() {
     customerDailyStatus.textContent =
       "No customer selected";
 
+
     customerDailyStatus.classList.remove(
 
       "ready",
@@ -1724,8 +1808,13 @@ function clearCustomerPreview() {
 
   if (customerPhoto) {
 
-    customerPhoto.src =
-      "./assets/default-profile.png";
+    setCustomerPhoto(
+
+      customerPhoto,
+
+      DEFAULT_PROFILE_IMAGE
+
+    );
 
   }
 
@@ -1953,7 +2042,7 @@ function renderCustomerTable(
 
         photo ||
 
-        "./assets/default-profile.png";
+        DEFAULT_PROFILE_IMAGE;
 
 
       row.innerHTML = `
@@ -1971,8 +2060,6 @@ function renderCustomerTable(
             class="customer-table-photo"
 
             loading="lazy"
-
-            onerror="this.onerror=null;this.src='./assets/default-profile.png';"
 
           >
 
@@ -2081,6 +2168,26 @@ function renderCustomerTable(
         </td>
 
       `;
+
+
+      const tableImage =
+        row.querySelector(
+          ".customer-table-photo"
+        );
+
+
+      if (tableImage) {
+
+        tableImage.onerror =
+          function () {
+
+            applyDefaultProfileImage(
+              this
+            );
+
+          };
+
+      }
 
 
       customerTableBody.appendChild(
@@ -2192,14 +2299,13 @@ async function loadCustomerByUid(
 
   }
 
-  catch (
-    error
-  ) {
+  catch (error) {
 
     console.error(
       "❌ Failed to load customer:",
       error
     );
+
 
     return null;
 
@@ -2304,9 +2410,7 @@ async function findCustomerInFirebaseByMemberId(
 
   }
 
-  catch (
-    error
-  ) {
+  catch (error) {
 
     console.error(
 
@@ -2315,6 +2419,7 @@ async function findCustomerInFirebaseByMemberId(
       error
 
     );
+
 
     return null;
 
@@ -2401,9 +2506,7 @@ async function loadCustomersFromFirebase() {
 
   }
 
-  catch (
-    error
-  ) {
+  catch (error) {
 
     console.error(
 
@@ -2419,6 +2522,7 @@ async function loadCustomersFromFirebase() {
       "❌ Unable to load customers.\n\n" +
 
       (
+
         error?.message ||
 
         "Please check Firebase connection."
@@ -2564,9 +2668,7 @@ async function findCustomerFromQrValue(
 
   }
 
-  catch (
-    error
-  ) {
+  catch (error) {
 
     // QR value is a plain string.
 
@@ -2704,9 +2806,7 @@ async function handleQrCodeResult(
 
   }
 
-  catch (
-    error
-  ) {
+  catch (error) {
 
     console.error(
 
@@ -2731,6 +2831,7 @@ async function handleQrCodeResult(
       "❌ Unable to process QR code.\n\n" +
 
       (
+
         error?.message ||
 
         "Please try again."
@@ -2765,6 +2866,7 @@ async function startScanner() {
 
     );
 
+
     return;
 
   }
@@ -2782,6 +2884,7 @@ async function startScanner() {
       "Please check html5-qrcode script."
 
     );
+
 
     return;
 
@@ -2855,9 +2958,7 @@ async function startScanner() {
 
   }
 
-  catch (
-    error
-  ) {
+  catch (error) {
 
     console.error(
 
@@ -2886,6 +2987,7 @@ async function startScanner() {
       "❌ Unable to start camera.\n\n" +
 
       (
+
         error?.message ||
 
         "Please allow camera permission and try again."
@@ -2905,6 +3007,7 @@ async function stopScanner() {
 
     scannerRunning =
       false;
+
 
     return;
 
@@ -2926,9 +3029,7 @@ async function stopScanner() {
 
     }
 
-    catch (
-      clearError
-    ) {
+    catch (clearError) {
 
       console.warn(
 
@@ -2975,9 +3076,7 @@ async function stopScanner() {
 
   }
 
-  catch (
-    error
-  ) {
+  catch (error) {
 
     console.error(
 
@@ -2990,6 +3089,7 @@ async function stopScanner() {
 
     scannerRunning =
       false;
+
 
     html5QrCode =
       null;
@@ -3080,6 +3180,7 @@ async function giveStampToCustomer() {
       "❌ Please scan or select a customer first."
 
     );
+
 
     return;
 
@@ -3484,9 +3585,7 @@ async function giveStampToCustomer() {
 
   }
 
-  catch (
-    error
-  ) {
+  catch (error) {
 
     console.error(
 
@@ -3568,6 +3667,7 @@ function exportCustomers() {
       "⚠️ No customer data available to export."
 
     );
+
 
     return;
 
@@ -3788,9 +3888,7 @@ async function handleAdminLogout() {
 
   }
 
-  catch (
-    error
-  ) {
+  catch (error) {
 
     console.error(
 
@@ -4242,6 +4340,25 @@ function initializeDashboard() {
 
   initializeNavigation();
 
+
+  // ---------------------------------------------------
+  // INITIAL DEFAULT PROFILE IMAGE SETUP
+  // ---------------------------------------------------
+
+  if (customerPhoto) {
+
+    customerPhoto.onerror =
+      function () {
+
+        applyDefaultProfileImage(
+          this
+        );
+
+      };
+
+  }
+
+
   console.log(
     "✅ Admin Dashboard Initialized"
   );
@@ -4300,9 +4417,7 @@ onAuthStateChanged(
 
       }
 
-      catch (
-        error
-      ) {
+      catch (error) {
 
         console.error(
 
@@ -4376,6 +4491,12 @@ console.log(
 console.log(
 
   "✅ Firebase Customer Data Ready"
+
+);
+
+console.log(
+
+  "✅ Safe Default Profile Image Fallback Enabled"
 
 );
 
