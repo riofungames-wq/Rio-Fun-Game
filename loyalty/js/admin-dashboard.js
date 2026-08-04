@@ -1,14 +1,15 @@
 // =====================================================
 // RIO MAGGI POINT
 // PREMIUM ADMIN DASHBOARD
-// ADMIN-DASHBOARD.JS — PART 1
-// CLEAN FOUNDATION
-// CORE CONFIG + DOM + STATE + AUTH + NAVIGATION
+// ADMIN-DASHBOARD.JS
+// CONSOLIDATED FINAL VERSION
+// PART 1 - PART 5
+// CLEAN / NO DUPLICATE DECLARATIONS
 // =====================================================
 
 
 // =====================================================
-// FIREBASE IMPORTS
+// 1. FIREBASE IMPORTS
 // =====================================================
 
 import {
@@ -32,21 +33,20 @@ import {
 
 
 // =====================================================
-// ADMIN LOGIN PAGE
+// 2. CONFIGURATION
 // =====================================================
 
-const ADMIN_LOGIN_PAGE = "./admin-login.html";
+const ADMIN_LOGIN_PAGE =
+  "./admin-login.html";
 
+const CUSTOMERS_COLLECTION =
+  "customers";
 
-// =====================================================
-// LOYALTY CONFIGURATION
-// =====================================================
+const MAX_STAMPS =
+  6;
 
-const MAX_STAMPS = 6;
-
-const CUSTOMERS_COLLECTION = "customers";
-
-const LOYALTY_CYCLE_DAYS = 40;
+const LOYALTY_CYCLE_DAYS =
+  40;
 
 const LOYALTY_CYCLE_MS =
   LOYALTY_CYCLE_DAYS *
@@ -55,28 +55,56 @@ const LOYALTY_CYCLE_MS =
   60 *
   1000;
 
+const QR_SCANNER_CONFIG = {
+
+  fps:
+    10,
+
+  qrbox: {
+    width:
+      250,
+
+    height:
+      250
+  },
+
+  aspectRatio:
+    1.0
+
+};
+
 
 // =====================================================
-// GLOBAL APPLICATION STATE
+// 3. GLOBAL APPLICATION STATE
 // =====================================================
 
-let currentCustomer = null;
+let currentCustomer =
+  null;
 
-let customers = [];
+let customers =
+  [];
 
-let currentSection = "dashboard";
+let currentSection =
+  "dashboard";
 
-let stampActionProcessing = false;
+let stampActionProcessing =
+  false;
 
-let logoutProcessing = false;
+let logoutProcessing =
+  false;
 
-let scannerRunning = false;
+let scannerRunning =
+  false;
 
-let html5QrCode = null;
+let html5QrCode =
+  null;
+
+let customerDataInitialized =
+  false;
 
 
 // =====================================================
-// DOM ELEMENT REFERENCES
+// 4. DOM ELEMENT REFERENCES
 // =====================================================
 
 // -----------------------------------------------------
@@ -84,33 +112,49 @@ let html5QrCode = null;
 // -----------------------------------------------------
 
 const navButtons =
-  document.querySelectorAll("[data-section]");
+  document.querySelectorAll(
+    "[data-section]"
+  );
 
 
 // -----------------------------------------------------
-// MAIN SECTIONS
+// SECTIONS
 // -----------------------------------------------------
 
 const dashboardSection =
-  document.getElementById("dashboardSection");
+  document.getElementById(
+    "dashboardSection"
+  );
 
 const scannerSection =
-  document.getElementById("scannerSection");
+  document.getElementById(
+    "scannerSection"
+  );
 
 const customersSection =
-  document.getElementById("customersSection");
+  document.getElementById(
+    "customersSection"
+  );
 
 const stampsSection =
-  document.getElementById("stampsSection");
+  document.getElementById(
+    "stampsSection"
+  );
 
 const rewardsSection =
-  document.getElementById("rewardsSection");
+  document.getElementById(
+    "rewardsSection"
+  );
 
 const reportsSection =
-  document.getElementById("reportsSection");
+  document.getElementById(
+    "reportsSection"
+  );
 
 const settingsSection =
-  document.getElementById("settingsSection");
+  document.getElementById(
+    "settingsSection"
+  );
 
 
 // -----------------------------------------------------
@@ -118,16 +162,24 @@ const settingsSection =
 // -----------------------------------------------------
 
 const startScannerBtn =
-  document.getElementById("startScannerBtn");
+  document.getElementById(
+    "startScannerBtn"
+  );
 
 const stopScannerBtn =
-  document.getElementById("stopScannerBtn");
+  document.getElementById(
+    "stopScannerBtn"
+  );
 
 const scannerStatus =
-  document.getElementById("scannerStatus");
+  document.getElementById(
+    "scannerStatus"
+  );
 
 const qrReader =
-  document.getElementById("qr-reader");
+  document.getElementById(
+    "qr-reader"
+  );
 
 
 // -----------------------------------------------------
@@ -135,85 +187,118 @@ const qrReader =
 // -----------------------------------------------------
 
 const customerPreview =
-  document.getElementById("customerPreview");
+  document.getElementById(
+    "customerPreview"
+  );
 
 const customerPhoto =
-  document.getElementById("customerPhoto");
+  document.getElementById(
+    "customerPhoto"
+  );
 
 const customerName =
-  document.getElementById("customerName");
+  document.getElementById(
+    "customerName"
+  );
 
 const customerMemberId =
-  document.getElementById("customerMemberId");
+  document.getElementById(
+    "customerMemberId"
+  );
 
 const customerMobile =
-  document.getElementById("customerMobile");
+  document.getElementById(
+    "customerMobile"
+  );
 
 const customerStamps =
-  document.getElementById("customerStamps");
+  document.getElementById(
+    "customerStamps"
+  );
 
 const customerDailyStatus =
-  document.getElementById("customerDailyStatus");
+  document.getElementById(
+    "customerDailyStatus"
+  );
 
 const giveStampBtn =
-  document.getElementById("giveStampBtn");
+  document.getElementById(
+    "giveStampBtn"
+  );
 
 const resetCustomerBtn =
-  document.getElementById("resetCustomerBtn");
+  document.getElementById(
+    "resetCustomerBtn"
+  );
 
 
 // -----------------------------------------------------
-// CUSTOMER SEARCH
+// CUSTOMER TABLE
 // -----------------------------------------------------
 
 const searchCustomer =
-  document.getElementById("searchCustomer");
+  document.getElementById(
+    "searchCustomer"
+  );
 
 const customerTableBody =
-  document.getElementById("customerTableBody");
+  document.getElementById(
+    "customerTableBody"
+  );
 
 const refreshCustomersBtn =
-  document.getElementById("refreshCustomersBtn");
+  document.getElementById(
+    "refreshCustomersBtn"
+  );
 
 const exportCustomersBtn =
-  document.getElementById("exportCustomersBtn");
+  document.getElementById(
+    "exportCustomersBtn"
+  );
 
 
 // -----------------------------------------------------
-// LOGOUT
+// AUTH
 // -----------------------------------------------------
 
 const logoutBtn =
-  document.getElementById("logoutBtn");
+  document.getElementById(
+    "logoutBtn"
+  );
 
 
 // -----------------------------------------------------
-// DASHBOARD STATISTICS
+// DASHBOARD STATS
 // -----------------------------------------------------
 
 const totalCustomersElement =
-  document.getElementById("totalCustomers");
+  document.getElementById(
+    "totalCustomers"
+  );
 
 const totalStampsElement =
-  document.getElementById("totalStamps");
+  document.getElementById(
+    "totalStamps"
+  );
 
 const rewardsReadyElement =
-  document.getElementById("rewardsReady");
+  document.getElementById(
+    "rewardsReady"
+  );
 
 const todaysScansElement =
-  document.getElementById("todaysScans");
-
-
-// -----------------------------------------------------
-// LAST REFRESH
-// -----------------------------------------------------
+  document.getElementById(
+    "todaysScans"
+  );
 
 const lastRefreshElement =
-  document.getElementById("lastRefresh");
+  document.getElementById(
+    "lastRefresh"
+  );
 
 
 // =====================================================
-// NAVIGATION SECTION MAP
+// 5. SECTION MAP
 // =====================================================
 
 const sectionMap = {
@@ -243,358 +328,189 @@ const sectionMap = {
 
 
 // =====================================================
-// SHOW SECTION
+// 6. GENERAL HELPERS
 // =====================================================
 
-function showSection(sectionName) {
+function escapeHtml(
+  value
+) {
 
-  const targetSection =
-    sectionMap[sectionName];
+  return String(
+    value ?? ""
+  )
 
-  if (!targetSection) {
+    .replace(
+      /&/g,
+      "&amp;"
+    )
 
-    console.warn(
-      "⚠️ Section not found:",
-      sectionName
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
     );
 
-    return;
-
-  }
+}
 
 
-  // ---------------------------------------------------
-  // HIDE ALL SECTIONS
-  // ---------------------------------------------------
+function getTodayKey() {
 
-  Object.values(sectionMap).forEach(
-    section => {
+  const today =
+    new Date();
 
-      if (!section) {
-        return;
-      }
+  const year =
+    today.getFullYear();
 
-      section.classList.remove("active");
-
-      section.hidden = true;
-
-    }
-  );
-
-
-  // ---------------------------------------------------
-  // SHOW TARGET SECTION
-  // ---------------------------------------------------
-
-  targetSection.hidden = false;
-
-  targetSection.classList.add("active");
-
-
-  // ---------------------------------------------------
-  // UPDATE ACTIVE NAVIGATION
-  // ---------------------------------------------------
-
-  navButtons.forEach(
-    button => {
-
-      button.classList.toggle(
-
-        "active",
-
-        button.dataset.section ===
-        sectionName
-
+  const month =
+    String(
+      today.getMonth() + 1
+    )
+      .padStart(
+        2,
+        "0"
       );
 
-    }
+  const day =
+    String(
+      today.getDate()
+    )
+      .padStart(
+        2,
+        "0"
+      );
+
+  return (
+    `${year}-${month}-${day}`
   );
 
-
-  // ---------------------------------------------------
-  // UPDATE CURRENT SECTION
-  // ---------------------------------------------------
-
-  currentSection =
-    sectionName;
+}
 
 
-  // ---------------------------------------------------
-  // UPDATE URL HASH
-  // ---------------------------------------------------
+function normalizeDateValue(
+  value
+) {
+
+  if (!value) {
+    return null;
+  }
 
   try {
 
-    history.replaceState(
+    if (
+      typeof value.toDate ===
+      "function"
+    ) {
 
-      null,
+      const date =
+        value.toDate();
 
-      "",
+      return (
+        date instanceof Date &&
+        !Number.isNaN(
+          date.getTime()
+        )
+      )
+        ? date
+        : null;
 
-      `#${sectionName}`
+    }
 
-    );
+
+    if (
+      value instanceof Date
+    ) {
+
+      return (
+        !Number.isNaN(
+          value.getTime()
+        )
+      )
+        ? value
+        : null;
+
+    }
+
+
+    if (
+      typeof value ===
+      "number"
+    ) {
+
+      const date =
+        new Date(
+          value
+        );
+
+      return (
+        !Number.isNaN(
+          date.getTime()
+        )
+      )
+        ? date
+        : null;
+
+    }
+
+
+    if (
+      typeof value ===
+      "string"
+    ) {
+
+      const date =
+        new Date(
+          value
+        );
+
+      return (
+        !Number.isNaN(
+          date.getTime()
+        )
+      )
+        ? date
+        : null;
+
+    }
 
   }
 
-  catch (error) {
+  catch (
+    error
+  ) {
 
     console.warn(
-      "⚠️ Unable to update URL hash:",
+      "⚠️ Date conversion failed:",
       error
     );
 
   }
 
-
-  console.log(
-    "📍 Active Section:",
-    sectionName
-  );
+  return null;
 
 }
 
 
 // =====================================================
-// NAVIGATION LISTENER
+// 7. CUSTOMER HELPERS
 // =====================================================
 
-navButtons.forEach(
-  button => {
-
-    if (
-      button.dataset.navigationAttached ===
-      "true"
-    ) {
-
-      return;
-
-    }
-
-
-    button.addEventListener(
-
-      "click",
-
-      event => {
-
-        event.preventDefault();
-
-        const sectionName =
-          button.dataset.section;
-
-        if (!sectionName) {
-          return;
-        }
-
-        showSection(
-          sectionName
-        );
-
-      }
-
-    );
-
-
-    button.dataset.navigationAttached =
-      "true";
-
-  }
-);
-
-
-// =====================================================
-// INITIALIZE NAVIGATION
-// =====================================================
-
-function initializeNavigation() {
-
-  const hash =
-    window.location.hash
-      .replace("#", "")
-      .trim();
-
-
-  if (
-    hash &&
-    sectionMap[hash]
-  ) {
-
-    showSection(
-      hash
-    );
-
-  }
-
-  else {
-
-    showSection(
-      "dashboard"
-    );
-
-  }
-
-}
-
-
-// =====================================================
-// AUTHENTICATION CHECK
-// =====================================================
-
-function initializeAdminAuth() {
-
-  onAuthStateChanged(
-
-    auth,
-
-    user => {
-
-      if (!user) {
-
-        console.warn(
-          "⚠️ Admin not authenticated."
-        );
-
-        location.replace(
-          ADMIN_LOGIN_PAGE
-        );
-
-        return;
-
-      }
-
-
-      console.log(
-        "✅ Admin authenticated:",
-        user.uid
-      );
-
-
-      initializeDashboard();
-
-    }
-
-  );
-
-}
-
-
-// =====================================================
-// INITIALIZE DASHBOARD
-// =====================================================
-
-function initializeDashboard() {
-
-  initializeNavigation();
-
-
-  console.log(
-    "✅ Admin Dashboard Core Initialized"
-  );
-
-  console.log(
-    "✅ Firebase Database Ready"
-  );
-
-  console.log(
-    "✅ Navigation System Ready"
-  );
-
-  console.log(
-    "✅ Authentication System Ready"
-  );
-
-}
-
-
-// =====================================================
-// DOM READY INITIALIZATION
-// =====================================================
-
-if (
-  document.readyState ===
-  "loading"
+function getCustomerStamps(
+  customer
 ) {
-
-  document.addEventListener(
-
-    "DOMContentLoaded",
-
-    initializeAdminAuth,
-
-    {
-      once: true
-    }
-
-  );
-
-}
-
-else {
-
-  initializeAdminAuth();
-
-}
-
-
-// =====================================================
-// PART 1 READY
-// =====================================================
-
-console.log(
-  "========================================"
-);
-
-console.log(
-  "✅ ADMIN DASHBOARD PART 1 LOADED"
-);
-
-console.log(
-  "✅ Core State Ready"
-);
-
-console.log(
-  "✅ DOM References Ready"
-);
-
-console.log(
-  "✅ Navigation Ready"
-);
-
-console.log(
-  "✅ Section Switching Ready"
-);
-
-console.log(
-  "✅ Firebase Auth Ready"
-);
-
-console.log(
-  "========================================"
-);
-
-
-// =====================================================
-// END OF PART 1
-// =====================================================
-// =====================================================
-// RIO MAGGI POINT
-// PREMIUM ADMIN DASHBOARD
-// ADMIN-DASHBOARD.JS — PART 2
-// CUSTOMER DATA + NORMALIZATION + SEARCH + STATISTICS
-// CLEAN VERSION — NO DUPLICATE FUNCTIONS
-// =====================================================
-
-
-// =====================================================
-// GET CUSTOMER STAMP COUNT
-// =====================================================
-// IMPORTANT:
-// This is the ONLY getCustomerStamps() function.
-// Do NOT define it again in Part 3, 4 or 5.
-// =====================================================
-
-function getCustomerStamps(customer) {
 
   if (!customer) {
     return 0;
@@ -612,8 +528,10 @@ function getCustomerStamps(customer) {
 
   ];
 
+
   for (
-    const value of possibleValues
+    const value of
+    possibleValues
   ) {
 
     if (
@@ -626,8 +544,12 @@ function getCustomerStamps(customer) {
 
     }
 
+
     const numericValue =
-      Number(value);
+      Number(
+        value
+      );
+
 
     if (
       Number.isFinite(
@@ -655,16 +577,15 @@ function getCustomerStamps(customer) {
 
   }
 
+
   return 0;
 
 }
 
 
-// =====================================================
-// GET CUSTOMER MEMBER ID
-// =====================================================
-
-function getCustomerMemberId(customer) {
+function getCustomerMemberId(
+  customer
+) {
 
   if (!customer) {
     return "";
@@ -687,11 +608,9 @@ function getCustomerMemberId(customer) {
 }
 
 
-// =====================================================
-// GET CUSTOMER NAME
-// =====================================================
-
-function getCustomerName(customer) {
+function getCustomerName(
+  customer
+) {
 
   if (!customer) {
     return "";
@@ -712,11 +631,9 @@ function getCustomerName(customer) {
 }
 
 
-// =====================================================
-// GET CUSTOMER MOBILE
-// =====================================================
-
-function getCustomerMobile(customer) {
+function getCustomerMobile(
+  customer
+) {
 
   if (!customer) {
     return "";
@@ -739,11 +656,9 @@ function getCustomerMobile(customer) {
 }
 
 
-// =====================================================
-// GET CUSTOMER PHOTO
-// =====================================================
-
-function getCustomerPhoto(customer) {
+function getCustomerPhoto(
+  customer
+) {
 
   if (!customer) {
     return "";
@@ -768,72 +683,9 @@ function getCustomerPhoto(customer) {
 }
 
 
-// =====================================================
-// GET CUSTOMER REWARD STATUS
-// =====================================================
-
-function isCustomerRewardReady(customer) {
-
-  if (!customer) {
-    return false;
-  }
-
-  return (
-
-    customer.rewardUnlocked === true ||
-
-    customer.rewardReady === true ||
-
-    getCustomerStamps(customer) >=
-    MAX_STAMPS
-
-  );
-
-}
-
-
-// =====================================================
-// GET TODAY KEY
-// =====================================================
-// Format: YYYY-MM-DD
-// =====================================================
-
-function getTodayKey() {
-
-  const today =
-    new Date();
-
-  const year =
-    today.getFullYear();
-
-  const month =
-    String(
-      today.getMonth() + 1
-    ).padStart(
-      2,
-      "0"
-    );
-
-  const day =
-    String(
-      today.getDate()
-    ).padStart(
-      2,
-      "0"
-    );
-
-  return `${year}-${month}-${day}`;
-
-}
-
-
-// =====================================================
-// CHECK TODAY'S STAMP
-// =====================================================
-// This is the ONLY hasStampToday() function.
-// =====================================================
-
-function hasStampToday(customer) {
+function hasStampToday(
+  customer
+) {
 
   if (!customer) {
     return false;
@@ -858,9 +710,40 @@ function hasStampToday(customer) {
 
 
 // =====================================================
-// NORMALIZE CUSTOMER
+// 8. REWARD STATUS
 // =====================================================
-// All customer data passes through this function.
+
+function isCustomerRewardReady(
+  customer
+) {
+
+  if (!customer) {
+    return false;
+  }
+
+  return (
+
+    customer.rewardUnlocked ===
+    true
+
+    ||
+
+    customer.rewardReady ===
+    true
+
+    ||
+
+    getCustomerStamps(
+      customer
+    ) >= MAX_STAMPS
+
+  );
+
+}
+
+
+// =====================================================
+// 9. CUSTOMER NORMALIZATION
 // =====================================================
 
 function normalizeCustomer(
@@ -904,11 +787,6 @@ function normalizeCustomer(
     photoURL:
       getCustomerPhoto(
         customer
-      ),
-
-    rewardUnlocked:
-      isCustomerRewardReady(
-        customer
       )
 
   };
@@ -917,10 +795,215 @@ function normalizeCustomer(
 
 
 // =====================================================
-// FIND CUSTOMER BY UID
+// 10. LOYALTY CYCLE HELPERS
 // =====================================================
 
-function findCustomerByUid(uid) {
+function getCustomerCycleStartDate(
+  customer
+) {
+
+  if (!customer) {
+    return null;
+  }
+
+  const possibleDates = [
+
+    customer.cycleStartedAt,
+
+    customer.loyaltyCycleStartedAt,
+
+    customer.stampCycleStartedAt,
+
+    customer.firstStampDate
+
+  ];
+
+
+  for (
+    const value of
+    possibleDates
+  ) {
+
+    const date =
+      normalizeDateValue(
+        value
+      );
+
+    if (date) {
+      return date;
+    }
+
+  }
+
+
+  return null;
+
+}
+
+
+function getLoyaltyCycleStatus(
+  customer
+) {
+
+  if (!customer) {
+
+    return {
+
+      active:
+        false,
+
+      expired:
+        false,
+
+      cycleStartDate:
+        null,
+
+      cycleStartTime:
+        null,
+
+      cycleExpiryTime:
+        null,
+
+      remainingMs:
+        0
+
+    };
+
+  }
+
+
+  const stamps =
+    getCustomerStamps(
+      customer
+    );
+
+
+  const cycleStartDate =
+    getCustomerCycleStartDate(
+      customer
+    );
+
+
+  if (
+    stamps <= 0 ||
+    !cycleStartDate
+  ) {
+
+    return {
+
+      active:
+        false,
+
+      expired:
+        false,
+
+      cycleStartDate:
+        null,
+
+      cycleStartTime:
+        null,
+
+      cycleExpiryTime:
+        null,
+
+      remainingMs:
+        0
+
+    };
+
+  }
+
+
+  const cycleStartTime =
+    cycleStartDate.getTime();
+
+
+  const cycleExpiryTime =
+    cycleStartTime +
+    LOYALTY_CYCLE_MS;
+
+
+  const now =
+    Date.now();
+
+
+  const expired =
+    now >=
+    cycleExpiryTime;
+
+
+  return {
+
+    active:
+      true,
+
+    expired,
+
+    cycleStartDate,
+
+    cycleStartTime,
+
+    cycleExpiryTime,
+
+    remainingMs:
+      Math.max(
+
+        0,
+
+        cycleExpiryTime -
+        now
+
+      )
+
+  };
+
+}
+
+
+// =====================================================
+// 11. SCANNER STATUS
+// =====================================================
+
+function setScannerStatus(
+  message,
+  type = "default"
+) {
+
+  if (!scannerStatus) {
+    return;
+  }
+
+  scannerStatus.textContent =
+    message || "";
+
+  scannerStatus.classList.remove(
+
+    "ready",
+
+    "error",
+
+    "scanning",
+
+    "success",
+
+    "default"
+
+  );
+
+  scannerStatus.classList.add(
+    type
+  );
+
+}
+
+
+// =====================================================
+// 12. LOCAL CUSTOMER DATA
+// =====================================================
+
+function findCustomerByUid(
+  uid
+) {
 
   if (!uid) {
     return null;
@@ -933,7 +1016,8 @@ function findCustomerByUid(uid) {
       customer =>
 
         customer &&
-        customer.uid === uid
+        customer.uid ===
+        uid
 
     ) ||
 
@@ -944,13 +1028,46 @@ function findCustomerByUid(uid) {
 }
 
 
-// =====================================================
-// UPSERT LOCAL CUSTOMER
-// =====================================================
-// Prevents duplicate customers in local memory.
-// =====================================================
+function findCustomerByMemberId(
+  memberId
+) {
 
-function upsertLocalCustomer(customer) {
+  if (!memberId) {
+    return null;
+  }
+
+  const searchId =
+    String(
+      memberId
+    )
+      .trim()
+      .toLowerCase();
+
+
+  return (
+
+    customers.find(
+
+      customer =>
+
+        getCustomerMemberId(
+          customer
+        )
+          .toLowerCase() ===
+        searchId
+
+    ) ||
+
+    null
+
+  );
+
+}
+
+
+function upsertLocalCustomer(
+  customer
+) {
 
   if (!customer) {
     return;
@@ -958,11 +1075,8 @@ function upsertLocalCustomer(customer) {
 
   const normalizedCustomer =
     normalizeCustomer(
-
       customer,
-
       customer.uid
-
     );
 
 
@@ -993,7 +1107,8 @@ function upsertLocalCustomer(customer) {
 
 
   if (
-    existingIndex === -1
+    existingIndex ===
+    -1
   ) {
 
     customers.push(
@@ -1021,10 +1136,6 @@ function upsertLocalCustomer(customer) {
 }
 
 
-// =====================================================
-// REPLACE LOCAL CUSTOMER ARRAY
-// =====================================================
-
 function setLocalCustomers(
   customerList
 ) {
@@ -1035,7 +1146,8 @@ function setLocalCustomers(
     )
   ) {
 
-    customers = [];
+    customers =
+      [];
 
     return;
 
@@ -1061,22 +1173,19 @@ function setLocalCustomers(
 
 
       if (
-        !normalizedCustomer ||
-        !normalizedCustomer.uid
+        normalizedCustomer &&
+        normalizedCustomer.uid
       ) {
 
-        return;
+        uniqueCustomers.set(
+
+          normalizedCustomer.uid,
+
+          normalizedCustomer
+
+        );
 
       }
-
-
-      uniqueCustomers.set(
-
-        normalizedCustomer.uid,
-
-        normalizedCustomer
-
-      );
 
     }
 
@@ -1091,16 +1200,11 @@ function setLocalCustomers(
 }
 
 
-// =====================================================
-// FILTER CUSTOMERS
-// =====================================================
-
 function filterCustomers(
   searchValue = ""
 ) {
 
   const searchText =
-
     String(
       searchValue || ""
     )
@@ -1127,7 +1231,6 @@ function filterCustomers(
 
 
       const name =
-
         getCustomerName(
           customer
         )
@@ -1135,7 +1238,6 @@ function filterCustomers(
 
 
       const memberId =
-
         getCustomerMemberId(
           customer
         )
@@ -1143,7 +1245,6 @@ function filterCustomers(
 
 
       const mobile =
-
         getCustomerMobile(
           customer
         )
@@ -1178,7 +1279,464 @@ function filterCustomers(
 
 
 // =====================================================
-// UPDATE DASHBOARD STATISTICS
+// 13. NAVIGATION
+// =====================================================
+
+function showSection(
+  sectionName
+) {
+
+  const targetSection =
+    sectionMap[
+      sectionName
+    ];
+
+
+  if (!targetSection) {
+
+    console.warn(
+      "⚠️ Section not found:",
+      sectionName
+    );
+
+    return;
+
+  }
+
+
+  Object.values(
+    sectionMap
+  ).forEach(
+
+    section => {
+
+      if (!section) {
+        return;
+      }
+
+      section.classList.remove(
+        "active"
+      );
+
+      section.hidden =
+        true;
+
+    }
+
+  );
+
+
+  targetSection.hidden =
+    false;
+
+  targetSection.classList.add(
+    "active"
+  );
+
+
+  navButtons.forEach(
+
+    button => {
+
+      button.classList.toggle(
+
+        "active",
+
+        button.dataset.section ===
+        sectionName
+
+      );
+
+    }
+
+  );
+
+
+  currentSection =
+    sectionName;
+
+
+  try {
+
+    history.replaceState(
+
+      null,
+
+      "",
+
+      `#${sectionName}`
+
+    );
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.warn(
+      "⚠️ Unable to update URL hash:",
+      error
+    );
+
+  }
+
+}
+
+
+function initializeNavigation() {
+
+  const hash =
+    window.location.hash
+      .replace(
+        "#",
+        ""
+      )
+      .trim();
+
+
+  if (
+    hash &&
+    sectionMap[
+      hash
+    ]
+  ) {
+
+    showSection(
+      hash
+    );
+
+  }
+
+  else {
+
+    showSection(
+      "dashboard"
+    );
+
+  }
+
+}
+
+
+// =====================================================
+// 14. CUSTOMER PREVIEW
+// =====================================================
+
+function updateGiveStampButtonState() {
+
+  if (!giveStampBtn) {
+    return;
+  }
+
+
+  if (!currentCustomer) {
+
+    giveStampBtn.disabled =
+      true;
+
+    return;
+
+  }
+
+
+  const stamps =
+    getCustomerStamps(
+      currentCustomer
+    );
+
+
+  const rewardReady =
+    isCustomerRewardReady(
+      currentCustomer
+    );
+
+
+  const alreadyStampedToday =
+    hasStampToday(
+      currentCustomer
+    );
+
+
+  giveStampBtn.disabled = (
+
+    stampActionProcessing
+
+    ||
+
+    stamps >=
+    MAX_STAMPS
+
+    ||
+
+    rewardReady
+
+    ||
+
+    alreadyStampedToday
+
+  );
+
+}
+
+
+function showCustomer(
+  customer
+) {
+
+  if (!customer) {
+
+    clearCustomerPreview();
+
+    return;
+
+  }
+
+
+  const normalizedCustomer =
+    normalizeCustomer(
+      customer,
+      customer.uid
+    );
+
+
+  if (!normalizedCustomer) {
+
+    clearCustomerPreview();
+
+    return;
+
+  }
+
+
+  currentCustomer =
+    normalizedCustomer;
+
+
+  if (customerPreview) {
+
+    customerPreview.hidden =
+      false;
+
+    customerPreview.classList.add(
+      "active"
+    );
+
+  }
+
+
+  if (customerName) {
+
+    customerName.textContent =
+
+      getCustomerName(
+        normalizedCustomer
+      ) ||
+
+      "Unknown Customer";
+
+  }
+
+
+  if (customerMemberId) {
+
+    customerMemberId.textContent =
+
+      getCustomerMemberId(
+        normalizedCustomer
+      ) ||
+
+      "—";
+
+  }
+
+
+  if (customerMobile) {
+
+    customerMobile.textContent =
+
+      getCustomerMobile(
+        normalizedCustomer
+      ) ||
+
+      "—";
+
+  }
+
+
+  if (customerStamps) {
+
+    customerStamps.textContent =
+
+      `${getCustomerStamps(
+        normalizedCustomer
+      )}/${MAX_STAMPS}`;
+
+  }
+
+
+  if (customerPhoto) {
+
+    const photo =
+      getCustomerPhoto(
+        normalizedCustomer
+      );
+
+
+    customerPhoto.src =
+
+      photo ||
+
+      "./assets/default-profile.png";
+
+
+    customerPhoto.onerror =
+      function () {
+
+        this.onerror =
+          null;
+
+        this.src =
+          "./assets/default-profile.png";
+
+      };
+
+  }
+
+
+  if (customerDailyStatus) {
+
+    const alreadyStamped =
+      hasStampToday(
+        normalizedCustomer
+      );
+
+
+    if (alreadyStamped) {
+
+      customerDailyStatus.textContent =
+
+        "⚠️ Today's stamp already received";
+
+
+      customerDailyStatus.classList.remove(
+        "ready"
+      );
+
+
+      customerDailyStatus.classList.add(
+        "warning"
+      );
+
+    }
+
+    else {
+
+      customerDailyStatus.textContent =
+
+        "🟢 Eligible for today's stamp";
+
+
+      customerDailyStatus.classList.remove(
+        "warning"
+      );
+
+
+      customerDailyStatus.classList.add(
+        "ready"
+      );
+
+    }
+
+  }
+
+
+  updateGiveStampButtonState();
+
+}
+
+
+function clearCustomerPreview() {
+
+  currentCustomer =
+    null;
+
+
+  if (customerPreview) {
+
+    customerPreview.hidden =
+      true;
+
+    customerPreview.classList.remove(
+      "active"
+    );
+
+  }
+
+
+  if (customerName) {
+
+    customerName.textContent =
+      "No Customer Selected";
+
+  }
+
+
+  if (customerMemberId) {
+
+    customerMemberId.textContent =
+      "—";
+
+  }
+
+
+  if (customerMobile) {
+
+    customerMobile.textContent =
+      "—";
+
+  }
+
+
+  if (customerStamps) {
+
+    customerStamps.textContent =
+      `0/${MAX_STAMPS}`;
+
+  }
+
+
+  if (customerDailyStatus) {
+
+    customerDailyStatus.textContent =
+      "No customer selected";
+
+    customerDailyStatus.classList.remove(
+
+      "ready",
+
+      "warning"
+
+    );
+
+  }
+
+
+  if (customerPhoto) {
+
+    customerPhoto.src =
+      "./assets/default-profile.png";
+
+  }
+
+
+  updateGiveStampButtonState();
+
+}
+
+
+// =====================================================
+// 15. DASHBOARD STATISTICS
 // =====================================================
 
 function updateDashboardStats() {
@@ -1193,20 +1751,16 @@ function updateDashboardStats() {
 
       (
         total,
+
         customer
-      ) => {
 
-        return (
+      ) =>
 
-          total +
+        total +
 
-          getCustomerStamps(
-            customer
-          )
-
-        );
-
-      },
+        getCustomerStamps(
+          customer
+        ),
 
       0
 
@@ -1247,9 +1801,7 @@ function updateDashboardStats() {
     ).length;
 
 
-  if (
-    totalCustomersElement
-  ) {
+  if (totalCustomersElement) {
 
     totalCustomersElement.textContent =
       totalCustomers;
@@ -1257,9 +1809,7 @@ function updateDashboardStats() {
   }
 
 
-  if (
-    totalStampsElement
-  ) {
+  if (totalStampsElement) {
 
     totalStampsElement.textContent =
       totalStamps;
@@ -1267,9 +1817,7 @@ function updateDashboardStats() {
   }
 
 
-  if (
-    rewardsReadyElement
-  ) {
+  if (rewardsReadyElement) {
 
     rewardsReadyElement.textContent =
       rewardsReady;
@@ -1277,59 +1825,26 @@ function updateDashboardStats() {
   }
 
 
-  if (
-    todaysScansElement
-  ) {
+  if (todaysScansElement) {
 
     todaysScansElement.textContent =
       todaysScans;
 
   }
 
-
-  console.log(
-
-    "📊 Dashboard Statistics Updated",
-
-    {
-
-      totalCustomers,
-
-      totalStamps,
-
-      rewardsReady,
-
-      todaysScans
-
-    }
-
-  );
-
 }
 
 
-// =====================================================
-// UPDATE LAST REFRESH
-// =====================================================
-
 function updateLastRefresh() {
 
-  if (
-    !lastRefreshElement
-  ) {
-
+  if (!lastRefreshElement) {
     return;
-
   }
-
-
-  const now =
-    new Date();
 
 
   lastRefreshElement.textContent =
 
-    now.toLocaleString(
+    new Date().toLocaleString(
 
       "en-IN",
 
@@ -1349,63 +1864,15 @@ function updateLastRefresh() {
 
 
 // =====================================================
-// ESCAPE HTML
-// =====================================================
-// This is the ONLY escapeHtml() function.
-// =====================================================
-
-function escapeHtml(value) {
-
-  return String(
-    value ?? ""
-  )
-
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-
-    .replace(
-      /</g,
-      "&lt;"
-    )
-
-    .replace(
-      />/g,
-      "&gt;"
-    )
-
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-// =====================================================
-// RENDER CUSTOMER TABLE
+// 16. CUSTOMER TABLE
 // =====================================================
 
 function renderCustomerTable(
   customerList = customers
 ) {
 
-  if (
-    !customerTableBody
-  ) {
-
-    console.warn(
-      "⚠️ Customer table body not found."
-    );
-
+  if (!customerTableBody) {
     return;
-
   }
 
 
@@ -1414,11 +1881,16 @@ function renderCustomerTable(
 
 
   if (
+
     !Array.isArray(
       customerList
-    ) ||
+    )
 
-    customerList.length === 0
+    ||
+
+    customerList.length ===
+    0
+
   ) {
 
     const emptyRow =
@@ -1442,6 +1914,7 @@ function renderCustomerTable(
     customerTableBody.appendChild(
       emptyRow
     );
+
 
     return;
 
@@ -1499,10 +1972,7 @@ function renderCustomerTable(
 
             loading="lazy"
 
-            onerror="
-              this.onerror=null;
-              this.src='./assets/default-profile.png';
-            "
+            onerror="this.onerror=null;this.src='./assets/default-profile.png';"
 
           >
 
@@ -1599,9 +2069,7 @@ function renderCustomerTable(
             data-customer-action="select"
 
             data-customer-uid="${escapeHtml(
-
               customer.uid
-
             )}"
 
           >
@@ -1626,11 +2094,9 @@ function renderCustomerTable(
 }
 
 
-// =====================================================
-// SELECT CUSTOMER BY UID
-// =====================================================
-
-function selectCustomerByUid(uid) {
+function selectCustomerByUid(
+  uid
+) {
 
   const customer =
     findCustomerByUid(
@@ -1649,644 +2115,111 @@ function selectCustomerByUid(uid) {
   }
 
 
-  currentCustomer =
-    customer;
-
-
-  if (
-    typeof showCustomer ===
-    "function"
-  ) {
-
-    showCustomer(
-      customer
-    );
-
-  }
+  showCustomer(
+    customer
+  );
 
 
   showSection(
     "scanner"
   );
 
-
-  console.log(
-    "✅ Customer selected:",
-    customer
-  );
-
 }
 
 
 // =====================================================
-// CUSTOMER TABLE EVENT DELEGATION
-// =====================================================
-// ONE listener only.
+// 17. FIREBASE CUSTOMER DATA
 // =====================================================
 
-if (
-  customerTableBody &&
-
-  customerTableBody.dataset.customerTableListenerAttached !==
-  "true"
+async function loadCustomerByUid(
+  uid
 ) {
 
-  customerTableBody.addEventListener(
-
-    "click",
-
-    event => {
-
-      const actionButton =
-
-        event.target.closest(
-
-          "[data-customer-action]"
-
-        );
-
-
-      if (
-        !actionButton
-      ) {
-
-        return;
-
-      }
-
-
-      const action =
-
-        actionButton.dataset
-          .customerAction;
-
-
-      const uid =
-
-        actionButton.dataset
-          .customerUid;
-
-
-      if (
-        action ===
-        "select"
-      ) {
-
-        selectCustomerByUid(
-          uid
-        );
-
-      }
-
-    }
-
-  );
-
-
-  customerTableBody.dataset.customerTableListenerAttached =
-    "true";
-
-}
-
-
-// =====================================================
-// CUSTOMER SEARCH EVENT
-// =====================================================
-// ONE listener only.
-// =====================================================
-
-if (
-  searchCustomer &&
-
-  searchCustomer.dataset.customerSearchListenerAttached !==
-  "true"
-) {
-
-  searchCustomer.addEventListener(
-
-    "input",
-
-    () => {
-
-      renderCustomerTable(
-
-        filterCustomers(
-
-          searchCustomer.value
-
-        )
-
-      );
-
-    }
-
-  );
-
-
-  searchCustomer.dataset.customerSearchListenerAttached =
-    "true";
-
-}
-
-
-// =====================================================
-// PART 2 READY
-// =====================================================
-
-console.log(
-  "========================================"
-);
-
-console.log(
-  "✅ ADMIN DASHBOARD PART 2 LOADED"
-);
-
-console.log(
-  "✅ Customer Normalization Ready"
-);
-
-console.log(
-  "✅ Single Stamp Normalizer Ready"
-);
-
-console.log(
-  "✅ Single Daily Stamp Helper Ready"
-);
-
-console.log(
-  "✅ Local Customer Store Ready"
-);
-
-console.log(
-  "✅ Duplicate Customer Protection Ready"
-);
-
-console.log(
-  "✅ Customer Search Ready"
-);
-
-console.log(
-  "✅ Customer Table Ready"
-);
-
-console.log(
-  "✅ Dashboard Statistics Ready"
-);
-
-console.log(
-  "========================================"
-);
-
-
-// =====================================================
-// END OF PART 2
-// =====================================================
-// =====================================================
-// RIO MAGGI POINT
-// PREMIUM ADMIN DASHBOARD
-// ADMIN-DASHBOARD.JS — PART 3
-// CUSTOMER PREVIEW + FIREBASE CUSTOMER LOADING
-// SCANNER STATUS + CUSTOMER RESET
-// CLEAN VERSION — NO DUPLICATE FUNCTIONS
-// =====================================================
-
-
-// =====================================================
-// SET SCANNER STATUS
-// =====================================================
-// Centralized scanner status updater.
-// =====================================================
-
-function setScannerStatus(
-  message,
-  type = "default"
-) {
-
-  if (!scannerStatus) {
-    return;
+  if (!uid) {
+    return null;
   }
 
-  scannerStatus.textContent =
-    message || "";
-
-  scannerStatus.classList.remove(
-
-    "ready",
-
-    "error",
-
-    "scanning",
-
-    "success",
-
-    "default"
-
-  );
-
-  scannerStatus.classList.add(
-    type
-  );
-
-}
-
-
-// =====================================================
-// SHOW CUSTOMER PREVIEW
-// =====================================================
-
-function showCustomer(customer) {
-
-  if (!customer) {
-
-    clearCustomerPreview();
-
-    return;
-
-  }
-
-
-  const normalizedCustomer =
-
-    normalizeCustomer(
-
-      customer,
-
-      customer.uid
-
-    );
-
-
-  if (
-    !normalizedCustomer
-  ) {
-
-    clearCustomerPreview();
-
-    return;
-
-  }
-
-
-  currentCustomer =
-    normalizedCustomer;
-
-
-  // ---------------------------------------------------
-  // CUSTOMER PREVIEW VISIBILITY
-  // ---------------------------------------------------
-
-  if (customerPreview) {
-
-    customerPreview.hidden =
-      false;
-
-    customerPreview.classList.add(
-      "active"
-    );
-
-  }
-
-
-  // ---------------------------------------------------
-  // CUSTOMER NAME
-  // ---------------------------------------------------
-
-  if (customerName) {
-
-    customerName.textContent =
-
-      getCustomerName(
-        normalizedCustomer
-      ) ||
-
-      "Unknown Customer";
-
-  }
-
-
-  // ---------------------------------------------------
-  // MEMBER ID
-  // ---------------------------------------------------
-
-  if (customerMemberId) {
-
-    customerMemberId.textContent =
-
-      getCustomerMemberId(
-        normalizedCustomer
-      ) ||
-
-      "—";
-
-  }
-
-
-  // ---------------------------------------------------
-  // MOBILE
-  // ---------------------------------------------------
-
-  if (customerMobile) {
-
-    customerMobile.textContent =
-
-      getCustomerMobile(
-        normalizedCustomer
-      ) ||
-
-      "—";
-
-  }
-
-
-  // ---------------------------------------------------
-  // STAMPS
-  // ---------------------------------------------------
-
-  const stamps =
-
-    getCustomerStamps(
-      normalizedCustomer
-    );
-
-
-  if (customerStamps) {
-
-    customerStamps.textContent =
-
-      `${stamps}/${MAX_STAMPS}`;
-
-  }
-
-
-  // ---------------------------------------------------
-  // CUSTOMER PHOTO
-  // ---------------------------------------------------
-
-  if (customerPhoto) {
-
-    const photo =
-
-      getCustomerPhoto(
-        normalizedCustomer
-      );
-
-
-    customerPhoto.src =
-
-      photo ||
-
-      "./assets/default-profile.png";
-
-
-    customerPhoto.onerror =
-
-      function () {
-
-        this.onerror = null;
-
-        this.src =
-          "./assets/default-profile.png";
-
-      };
-
-  }
-
-
-  // ---------------------------------------------------
-  // DAILY STAMP STATUS
-  // ---------------------------------------------------
-
-  if (customerDailyStatus) {
-
-    const alreadyStamped =
-
-      hasStampToday(
-        normalizedCustomer
-      );
-
-
-    if (alreadyStamped) {
-
-      customerDailyStatus.textContent =
-
-        "⚠️ Today's stamp already received";
-
-      customerDailyStatus.classList.remove(
-        "ready"
-      );
-
-      customerDailyStatus.classList.add(
-        "warning"
-      );
-
-    }
-
-    else {
-
-      customerDailyStatus.textContent =
-
-        "🟢 Eligible for today's stamp";
-
-      customerDailyStatus.classList.remove(
-        "warning"
-      );
-
-      customerDailyStatus.classList.add(
-        "ready"
-      );
-
-    }
-
-  }
-
-
-  // ---------------------------------------------------
-  // GIVE STAMP BUTTON STATE
-  // ---------------------------------------------------
-
-  updateGiveStampButtonState();
-
-
-  console.log(
-
-    "👤 Customer Preview Updated:",
-
-    normalizedCustomer
-
-  );
-
-}
-
-
-// =====================================================
-// CLEAR CUSTOMER PREVIEW
-// =====================================================
-
-function clearCustomerPreview() {
-
-  currentCustomer =
-    null;
-
-
-  if (customerPreview) {
-
-    customerPreview.hidden =
-      true;
-
-    customerPreview.classList.remove(
-      "active"
-    );
-
-  }
-
-
-  if (customerName) {
-
-    customerName.textContent =
-      "No Customer Selected";
-
-  }
-
-
-  if (customerMemberId) {
-
-    customerMemberId.textContent =
-      "—";
-
-  }
-
-
-  if (customerMobile) {
-
-    customerMobile.textContent =
-      "—";
-
-  }
-
-
-  if (customerStamps) {
-
-    customerStamps.textContent =
-      `0/${MAX_STAMPS}`;
-
-  }
-
-
-  if (customerDailyStatus) {
-
-    customerDailyStatus.textContent =
-      "No customer selected";
-
-    customerDailyStatus.classList.remove(
-
-      "ready",
-
-      "warning"
-
-    );
-
-  }
-
-
-  if (customerPhoto) {
-
-    customerPhoto.src =
-      "./assets/default-profile.png";
-
-  }
-
-
-  updateGiveStampButtonState();
-
-
-  console.log(
-    "🧹 Customer Preview Cleared"
-  );
-
-}
-
-
-// =====================================================
-// UPDATE GIVE STAMP BUTTON STATE
-// =====================================================
-
-function updateGiveStampButtonState() {
-
-  if (!giveStampBtn) {
-    return;
-  }
-
-
-  if (
-    !currentCustomer
-  ) {
-
-    giveStampBtn.disabled =
-      true;
-
-    return;
-
-  }
-
-
-  const stamps =
-
-    getCustomerStamps(
-      currentCustomer
-    );
-
-
-  const rewardReady =
-
-    isCustomerRewardReady(
-      currentCustomer
-    );
-
-
-  const alreadyStampedToday =
-
-    hasStampToday(
-      currentCustomer
-    );
-
-
-  giveStampBtn.disabled = (
-
-    stampActionProcessing
-
-    ||
-
-    stamps >= MAX_STAMPS
-
-    ||
-
-    rewardReady
-
-    ||
-
-    alreadyStampedToday
-
-  );
-
-
-}
-
-
-// =====================================================
-// LOAD CUSTOMERS FROM FIRESTORE
-// =====================================================
-
-async function loadCustomersFromFirebase() {
 
   try {
 
-    console.log(
-      "🔄 Loading customers from Firebase..."
+    const customerRef =
+      doc(
+
+        db,
+
+        CUSTOMERS_COLLECTION,
+
+        uid
+
+      );
+
+
+    const snapshot =
+      await getDoc(
+        customerRef
+      );
+
+
+    if (
+      !snapshot.exists()
+    ) {
+
+      return null;
+
+    }
+
+
+    const customer =
+      normalizeCustomer(
+
+        snapshot.data(),
+
+        snapshot.id
+
+      );
+
+
+    if (customer) {
+
+      upsertLocalCustomer(
+        customer
+      );
+
+    }
+
+
+    return customer;
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+      "❌ Failed to load customer:",
+      error
     );
 
+    return null;
+
+  }
+
+}
+
+
+async function findCustomerInFirebaseByMemberId(
+  memberId
+) {
+
+  if (!memberId) {
+    return null;
+  }
+
+
+  try {
 
     const customersRef =
-
       collection(
 
         db,
@@ -2297,29 +2230,132 @@ async function loadCustomersFromFirebase() {
 
 
     const snapshot =
-
       await getDocs(
         customersRef
       );
 
 
-    const loadedCustomers = [];
+    let foundCustomer =
+      null;
 
 
     snapshot.forEach(
 
       customerDoc => {
 
-        const customerData =
+        if (foundCustomer) {
+          return;
+        }
 
-          customerDoc.data();
 
+        const customer =
+          normalizeCustomer(
+
+            customerDoc.data(),
+
+            customerDoc.id
+
+          );
+
+
+        if (!customer) {
+          return;
+        }
+
+
+        if (
+
+          getCustomerMemberId(
+            customer
+          )
+            .trim()
+            .toLowerCase()
+
+          ===
+
+          String(
+            memberId
+          )
+            .trim()
+            .toLowerCase()
+
+        ) {
+
+          foundCustomer =
+            customer;
+
+        }
+
+      }
+
+    );
+
+
+    if (foundCustomer) {
+
+      upsertLocalCustomer(
+        foundCustomer
+      );
+
+    }
+
+
+    return foundCustomer;
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+
+      "❌ Firebase Member ID Search Error:",
+
+      error
+
+    );
+
+    return null;
+
+  }
+
+}
+
+
+async function loadCustomersFromFirebase() {
+
+  try {
+
+    const customersRef =
+      collection(
+
+        db,
+
+        CUSTOMERS_COLLECTION
+
+      );
+
+
+    const snapshot =
+      await getDocs(
+        customersRef
+      );
+
+
+    const loadedCustomers =
+      [];
+
+
+    snapshot.forEach(
+
+      customerDoc => {
 
         const normalizedCustomer =
 
           normalizeCustomer(
 
-            customerData,
+            customerDoc.data(),
 
             customerDoc.id
 
@@ -2327,8 +2363,11 @@ async function loadCustomersFromFirebase() {
 
 
         if (
+
           normalizedCustomer &&
+
           normalizedCustomer.uid
+
         ) {
 
           loadedCustomers.push(
@@ -2358,20 +2397,13 @@ async function loadCustomersFromFirebase() {
     updateLastRefresh();
 
 
-    console.log(
-
-      "✅ Customers Loaded:",
-
-      customers.length
-
-    );
-
-
     return customers;
 
   }
 
-  catch (error) {
+  catch (
+    error
+  ) {
 
     console.error(
 
@@ -2403,15 +2435,9 @@ async function loadCustomersFromFirebase() {
 }
 
 
-// =====================================================
-// REFRESH CUSTOMERS
-// =====================================================
-
 async function refreshCustomers() {
 
-  if (
-    refreshCustomersBtn
-  ) {
+  if (refreshCustomersBtn) {
 
     refreshCustomersBtn.disabled =
       true;
@@ -2427,9 +2453,7 @@ async function refreshCustomers() {
 
   finally {
 
-    if (
-      refreshCustomersBtn
-    ) {
+    if (refreshCustomersBtn) {
 
       refreshCustomersBtn.disabled =
         false;
@@ -2442,388 +2466,171 @@ async function refreshCustomers() {
 
 
 // =====================================================
-// REFRESH BUTTON LISTENER
-// =====================================================
-// ONE listener only.
+// 18. QR LOOKUP
 // =====================================================
 
-if (
-  refreshCustomersBtn &&
-
-  refreshCustomersBtn.dataset.refreshListenerAttached !==
-  "true"
+async function findCustomerFromQrValue(
+  qrValue
 ) {
 
-  refreshCustomersBtn.addEventListener(
-
-    "click",
-
-    refreshCustomers
-
-  );
-
-
-  refreshCustomersBtn.dataset.refreshListenerAttached =
-    "true";
-
-}
-
-
-// =====================================================
-// RESET CURRENT CUSTOMER
-// =====================================================
-
-function resetCurrentCustomer() {
-
-  if (
-    stampActionProcessing
-  ) {
-
-    return;
-
-  }
-
-
-  if (
-    !currentCustomer
-  ) {
-
-    clearCustomerPreview();
-
-    return;
-
-  }
-
-
-  const confirmed =
-
-    window.confirm(
-
-      "Are you sure you want to clear the selected customer?"
-
-    );
-
-
-  if (!confirmed) {
-
-    return;
-
-  }
-
-
-  clearCustomerPreview();
-
-
-  setScannerStatus(
-
-    "🟢 Ready to scan customer QR",
-
-    "ready"
-
-  );
-
-
-  console.log(
-    "🧹 Current customer selection reset."
-  );
-
-}
-
-
-// =====================================================
-// RESET CUSTOMER BUTTON LISTENER
-// =====================================================
-
-if (
-  resetCustomerBtn &&
-
-  resetCustomerBtn.dataset.resetListenerAttached !==
-  "true"
-) {
-
-  resetCustomerBtn.addEventListener(
-
-    "click",
-
-    resetCurrentCustomer
-
-  );
-
-
-  resetCustomerBtn.dataset.resetListenerAttached =
-    "true";
-
-}
-
-
-// =====================================================
-// LOAD SELECTED CUSTOMER FROM FIRESTORE
-// =====================================================
-
-async function loadCustomerByUid(uid) {
-
-  if (!uid) {
-
+  if (!qrValue) {
     return null;
+  }
 
+
+  const value =
+    String(
+      qrValue
+    ).trim();
+
+
+  if (!value) {
+    return null;
   }
 
 
   try {
 
-    const customerRef =
-
-      doc(
-
-        db,
-
-        CUSTOMERS_COLLECTION,
-
-        uid
-
-      );
-
-
-    const snapshot =
-
-      await getDoc(
-        customerRef
+    const parsed =
+      JSON.parse(
+        value
       );
 
 
     if (
-      !snapshot.exists()
+
+      parsed &&
+
+      typeof parsed ===
+      "object"
+
     ) {
 
-      return null;
+      const possibleUid =
+
+        parsed.uid ||
+
+        parsed.userId ||
+
+        parsed.customerUid ||
+
+        parsed.customerId;
+
+
+      const possibleMemberId =
+
+        parsed.memberId ||
+
+        parsed.memberID ||
+
+        parsed.membershipId;
+
+
+      if (possibleUid) {
+
+        const customer =
+          await loadCustomerByUid(
+            possibleUid
+          );
+
+
+        if (customer) {
+          return customer;
+        }
+
+      }
+
+
+      if (possibleMemberId) {
+
+        const customer =
+
+          findCustomerByMemberId(
+
+            String(
+              possibleMemberId
+            ).trim()
+
+          );
+
+
+        if (customer) {
+          return customer;
+        }
+
+      }
 
     }
 
-
-    const customer =
-
-      normalizeCustomer(
-
-        snapshot.data(),
-
-        snapshot.id
-
-      );
-
-
-    if (
-      customer
-    ) {
-
-      upsertLocalCustomer(
-        customer
-      );
-
-    }
-
-
-    return customer;
-
   }
 
-  catch (error) {
+  catch (
+    error
+  ) {
 
-    console.error(
-
-      "❌ Failed to load customer:",
-
-      error
-
-    );
-
-
-    return null;
-
-  }
-
-}
-
-
-// =====================================================
-// SET CURRENT CUSTOMER
-// =====================================================
-
-async function setCurrentCustomerByUid(uid) {
-
-  if (!uid) {
-
-    clearCustomerPreview();
-
-    return;
+    // QR value is a plain string.
 
   }
 
 
-  const localCustomer =
-
+  const localByUid =
     findCustomerByUid(
-      uid
+      value
     );
 
 
-  if (
-    localCustomer
-  ) {
-
-    showCustomer(
-      localCustomer
-    );
-
+  if (localByUid) {
+    return localByUid;
   }
 
 
-  const freshCustomer =
+  const localByMemberId =
+    findCustomerByMemberId(
+      value
+    );
 
+
+  if (localByMemberId) {
+    return localByMemberId;
+  }
+
+
+  const firebaseCustomer =
     await loadCustomerByUid(
-      uid
+      value
     );
 
 
-  if (
-    freshCustomer
-  ) {
-
-    showCustomer(
-      freshCustomer
-    );
-
+  if (firebaseCustomer) {
+    return firebaseCustomer;
   }
 
-  else {
 
-    alert(
-      "❌ Customer record not found."
-    );
-
-  }
+  return await findCustomerInFirebaseByMemberId(
+    value
+  );
 
 }
 
-
-// =====================================================
-// INITIAL CUSTOMER DATA LOAD
-// =====================================================
-
-async function initializeCustomerData() {
-
-  await loadCustomersFromFirebase();
-
-}
-
-
-// =====================================================
-// PART 3 READY
-// =====================================================
-
-console.log(
-  "========================================"
-);
-
-console.log(
-  "✅ ADMIN DASHBOARD PART 3 LOADED"
-);
-
-console.log(
-  "✅ Customer Preview Ready"
-);
-
-console.log(
-  "✅ Customer Reset Ready"
-);
-
-console.log(
-  "✅ Firebase Customer Loading Ready"
-);
-
-console.log(
-  "✅ Customer Refresh Ready"
-);
-
-console.log(
-  "✅ Customer Selection Ready"
-);
-
-console.log(
-  "✅ Scanner Status Helper Ready"
-);
-
-console.log(
-  "✅ Give Stamp Button State Ready"
-);
-
-console.log(
-  "========================================"
-);
-
-
-// =====================================================
-// END OF PART 3
-// =====================================================
-// =====================================================
-// RIO MAGGI POINT
-// PREMIUM ADMIN DASHBOARD
-// ADMIN-DASHBOARD.JS — PART 4
-// QR SCANNER + CUSTOMER LOOKUP + EXPORT
-// CLEAN VERSION — NO DUPLICATE FUNCTIONS
-// =====================================================
-
-
-// =====================================================
-// QR SCANNER CONFIGURATION
-// =====================================================
-
-const QR_SCANNER_CONFIG = {
-
-  fps: 10,
-
-  qrbox: {
-    width: 250,
-    height: 250
-  },
-
-  aspectRatio: 1.0
-
-};
-
-
-// =====================================================
-// QR CODE RESULT HANDLER
-// =====================================================
 
 async function handleQrCodeResult(
   decodedText
 ) {
 
   if (!decodedText) {
-
     return;
-
   }
 
 
   const qrValue =
-
     String(
       decodedText
     ).trim();
 
 
   if (!qrValue) {
-
     return;
-
   }
-
-
-  console.log(
-    "📱 QR Code Scanned:",
-    qrValue
-  );
 
 
   setScannerStatus(
@@ -2838,6 +2645,7 @@ async function handleQrCodeResult(
   try {
 
     const customer =
+
       await findCustomerFromQrValue(
         qrValue
       );
@@ -2868,19 +2676,7 @@ async function handleQrCodeResult(
     }
 
 
-    // -------------------------------------------------
-    // STOP SCANNER AFTER SUCCESSFUL SCAN
-    // -------------------------------------------------
-
     await stopScanner();
-
-
-    // -------------------------------------------------
-    // SET CUSTOMER
-    // -------------------------------------------------
-
-    currentCustomer =
-      customer;
 
 
     upsertLocalCustomer(
@@ -2902,26 +2698,15 @@ async function handleQrCodeResult(
     );
 
 
-    // -------------------------------------------------
-    // OPEN SCANNER SECTION
-    // -------------------------------------------------
-
     showSection(
       "scanner"
     );
 
-
-    console.log(
-
-      "✅ QR Customer Selected:",
-
-      customer
-
-    );
-
   }
 
-  catch (error) {
+  catch (
+    error
+  ) {
 
     console.error(
 
@@ -2960,432 +2745,17 @@ async function handleQrCodeResult(
 
 
 // =====================================================
-// FIND CUSTOMER FROM QR VALUE
-// =====================================================
-// Supports:
-// 1. Firebase UID
-// 2. Member ID
-// 3. JSON QR data
-// 4. Plain text member ID
-// =====================================================
-
-async function findCustomerFromQrValue(
-  qrValue
-) {
-
-  if (!qrValue) {
-
-    return null;
-
-  }
-
-
-  const value =
-    String(
-      qrValue
-    ).trim();
-
-
-  // ---------------------------------------------------
-  // TRY JSON QR DATA
-  // ---------------------------------------------------
-
-  try {
-
-    const parsed =
-      JSON.parse(
-        value
-      );
-
-
-    if (
-      parsed &&
-      typeof parsed ===
-      "object"
-    ) {
-
-      const possibleUid =
-
-        parsed.uid ||
-
-        parsed.userId ||
-
-        parsed.customerUid ||
-
-        parsed.customerId;
-
-
-      const possibleMemberId =
-
-        parsed.memberId ||
-
-        parsed.memberID ||
-
-        parsed.membershipId;
-
-
-      if (
-        possibleUid
-      ) {
-
-        const customer =
-
-          await loadCustomerByUid(
-            possibleUid
-          );
-
-
-        if (
-          customer
-        ) {
-
-          return customer;
-
-        }
-
-      }
-
-
-      if (
-        possibleMemberId
-      ) {
-
-        const customer =
-
-          findCustomerByMemberId(
-
-            String(
-              possibleMemberId
-            ).trim()
-
-          );
-
-
-        if (
-          customer
-        ) {
-
-          return customer;
-
-        }
-
-      }
-
-    }
-
-  }
-
-  catch (error) {
-
-    // QR is not JSON.
-    // Continue with normal text lookup.
-
-  }
-
-
-  // ---------------------------------------------------
-  // SEARCH LOCAL UID
-  // ---------------------------------------------------
-
-  const localByUid =
-
-    findCustomerByUid(
-      value
-    );
-
-
-  if (
-    localByUid
-  ) {
-
-    return localByUid;
-
-  }
-
-
-  // ---------------------------------------------------
-  // SEARCH LOCAL MEMBER ID
-  // ---------------------------------------------------
-
-  const localByMemberId =
-
-    findCustomerByMemberId(
-      value
-    );
-
-
-  if (
-    localByMemberId
-  ) {
-
-    return localByMemberId;
-
-  }
-
-
-  // ---------------------------------------------------
-  // FIREBASE UID LOOKUP
-  // ---------------------------------------------------
-
-  const firebaseCustomer =
-
-    await loadCustomerByUid(
-      value
-    );
-
-
-  if (
-    firebaseCustomer
-  ) {
-
-    return firebaseCustomer;
-
-  }
-
-
-  // ---------------------------------------------------
-  // FIREBASE MEMBER ID LOOKUP
-  // ---------------------------------------------------
-
-  const firebaseByMemberId =
-
-    await findCustomerInFirebaseByMemberId(
-      value
-    );
-
-
-  if (
-    firebaseByMemberId
-  ) {
-
-    return firebaseByMemberId;
-
-  }
-
-
-  return null;
-
-}
-
-
-// =====================================================
-// FIND LOCAL CUSTOMER BY MEMBER ID
-// =====================================================
-
-function findCustomerByMemberId(
-  memberId
-) {
-
-  if (!memberId) {
-
-    return null;
-
-  }
-
-
-  const searchId =
-
-    String(
-      memberId
-    )
-      .trim()
-      .toLowerCase();
-
-
-  return (
-
-    customers.find(
-
-      customer => {
-
-        const customerId =
-
-          getCustomerMemberId(
-            customer
-          )
-            .trim()
-            .toLowerCase();
-
-
-        return (
-
-          customerId &&
-
-          customerId ===
-          searchId
-
-        );
-
-      }
-
-    ) ||
-
-    null
-
-  );
-
-}
-
-
-// =====================================================
-// FIND CUSTOMER IN FIREBASE BY MEMBER ID
-// =====================================================
-
-async function findCustomerInFirebaseByMemberId(
-  memberId
-) {
-
-  if (!memberId) {
-
-    return null;
-
-  }
-
-
-  try {
-
-    const customersRef =
-
-      collection(
-
-        db,
-
-        CUSTOMERS_COLLECTION
-
-      );
-
-
-    const snapshot =
-
-      await getDocs(
-        customersRef
-      );
-
-
-    let foundCustomer =
-      null;
-
-
-    snapshot.forEach(
-
-      customerDoc => {
-
-        if (
-          foundCustomer
-        ) {
-
-          return;
-
-        }
-
-
-        const customer =
-
-          normalizeCustomer(
-
-            customerDoc.data(),
-
-            customerDoc.id
-
-          );
-
-
-        if (!customer) {
-
-          return;
-
-        }
-
-
-        const customerMemberId =
-
-          getCustomerMemberId(
-            customer
-          )
-            .trim()
-            .toLowerCase();
-
-
-        if (
-
-          customerMemberId &&
-
-          customerMemberId ===
-
-          String(
-            memberId
-          )
-            .trim()
-            .toLowerCase()
-
-        ) {
-
-          foundCustomer =
-            customer;
-
-        }
-
-      }
-
-    );
-
-
-    if (
-      foundCustomer
-    ) {
-
-      upsertLocalCustomer(
-        foundCustomer
-      );
-
-    }
-
-
-    return foundCustomer;
-
-  }
-
-  catch (error) {
-
-    console.error(
-
-      "❌ Firebase Member ID Search Error:",
-
-      error
-
-    );
-
-
-    return null;
-
-  }
-
-}
-
-
-// =====================================================
-// START QR SCANNER
+// 19. QR SCANNER
 // =====================================================
 
 async function startScanner() {
 
-  if (
-    scannerRunning
-  ) {
-
+  if (scannerRunning) {
     return;
-
   }
 
 
-  if (
-    !qrReader
-  ) {
-
-    console.error(
-      "❌ QR reader element not found."
-    );
-
+  if (!qrReader) {
 
     alert(
 
@@ -3394,7 +2764,6 @@ async function startScanner() {
       "Please check admin-dashboard.html."
 
     );
-
 
     return;
 
@@ -3406,13 +2775,6 @@ async function startScanner() {
     "undefined"
   ) {
 
-    console.error(
-
-      "❌ Html5Qrcode library is not loaded."
-
-    );
-
-
     alert(
 
       "❌ QR Scanner library is not loaded.\n\n" +
@@ -3420,7 +2782,6 @@ async function startScanner() {
       "Please check html5-qrcode script."
 
     );
-
 
     return;
 
@@ -3438,12 +2799,9 @@ async function startScanner() {
     );
 
 
-    if (
-      !html5QrCode
-    ) {
+    if (!html5QrCode) {
 
       html5QrCode =
-
         new Html5Qrcode(
           "qr-reader"
         );
@@ -3462,12 +2820,7 @@ async function startScanner() {
 
       handleQrCodeResult,
 
-      errorMessage => {
-
-        // Normal scanner frame errors are ignored.
-        // They are not fatal errors.
-
-      }
+      () => {}
 
     );
 
@@ -3476,9 +2829,7 @@ async function startScanner() {
       true;
 
 
-    if (
-      startScannerBtn
-    ) {
+    if (startScannerBtn) {
 
       startScannerBtn.disabled =
         true;
@@ -3486,9 +2837,7 @@ async function startScanner() {
     }
 
 
-    if (
-      stopScannerBtn
-    ) {
+    if (stopScannerBtn) {
 
       stopScannerBtn.disabled =
         false;
@@ -3504,14 +2853,11 @@ async function startScanner() {
 
     );
 
-
-    console.log(
-      "✅ QR Scanner Started"
-    );
-
   }
 
-  catch (error) {
+  catch (
+    error
+  ) {
 
     console.error(
 
@@ -3553,15 +2899,9 @@ async function startScanner() {
 }
 
 
-// =====================================================
-// STOP QR SCANNER
-// =====================================================
-
 async function stopScanner() {
 
-  if (
-    !html5QrCode
-  ) {
+  if (!html5QrCode) {
 
     scannerRunning =
       false;
@@ -3573,9 +2913,7 @@ async function stopScanner() {
 
   try {
 
-    if (
-      scannerRunning
-    ) {
+    if (scannerRunning) {
 
       await html5QrCode.stop();
 
@@ -3588,7 +2926,9 @@ async function stopScanner() {
 
     }
 
-    catch (clearError) {
+    catch (
+      clearError
+    ) {
 
       console.warn(
 
@@ -3609,9 +2949,7 @@ async function stopScanner() {
       null;
 
 
-    if (
-      startScannerBtn
-    ) {
+    if (startScannerBtn) {
 
       startScannerBtn.disabled =
         false;
@@ -3619,9 +2957,7 @@ async function stopScanner() {
     }
 
 
-    if (
-      stopScannerBtn
-    ) {
+    if (stopScannerBtn) {
 
       stopScannerBtn.disabled =
         true;
@@ -3637,14 +2973,11 @@ async function stopScanner() {
 
     );
 
-
-    console.log(
-      "✅ QR Scanner Stopped"
-    );
-
   }
 
-  catch (error) {
+  catch (
+    error
+  ) {
 
     console.error(
 
@@ -3667,76 +3000,573 @@ async function stopScanner() {
 
 
 // =====================================================
-// START SCANNER BUTTON
-// =====================================================
-// ONE listener only.
+// 20. STAMP ACTION
 // =====================================================
 
-if (
-  startScannerBtn &&
-
-  startScannerBtn.dataset.scannerStartListenerAttached !==
-  "true"
+function syncCustomerAfterStamp(
+  customer
 ) {
 
-  startScannerBtn.addEventListener(
+  if (!customer) {
+    return;
+  }
 
-    "click",
 
-    startScanner
+  const normalizedCustomer =
 
+    normalizeCustomer(
+
+      customer,
+
+      customer.uid
+
+    );
+
+
+  if (!normalizedCustomer) {
+    return;
+  }
+
+
+  upsertLocalCustomer(
+    normalizedCustomer
   );
 
 
-  startScannerBtn.dataset.scannerStartListenerAttached =
-    "true";
+  currentCustomer =
+    normalizedCustomer;
+
+
+  showCustomer(
+    normalizedCustomer
+  );
+
+
+  updateDashboardStats();
+
+
+  renderCustomerTable(
+
+    filterCustomers(
+
+      searchCustomer
+        ? searchCustomer.value
+        : ""
+
+    )
+
+  );
+
+}
+
+
+async function giveStampToCustomer() {
+
+  if (stampActionProcessing) {
+    return;
+  }
+
+
+  if (
+
+    !currentCustomer ||
+
+    !currentCustomer.uid
+
+  ) {
+
+    alert(
+
+      "❌ Please scan or select a customer first."
+
+    );
+
+    return;
+
+  }
+
+
+  const currentUser =
+    auth.currentUser;
+
+
+  if (!currentUser) {
+
+    alert(
+
+      "❌ Admin session expired. Please login again."
+
+    );
+
+
+    location.replace(
+      ADMIN_LOGIN_PAGE
+    );
+
+
+    return;
+
+  }
+
+
+  stampActionProcessing =
+    true;
+
+
+  updateGiveStampButtonState();
+
+
+  const originalButtonContent =
+
+    giveStampBtn
+
+      ? giveStampBtn.innerHTML
+
+      : "";
+
+
+  if (giveStampBtn) {
+
+    giveStampBtn.disabled =
+      true;
+
+
+    giveStampBtn.innerHTML = `
+
+      <i
+        class="fa-solid fa-spinner fa-spin"
+        aria-hidden="true"
+      ></i>
+
+      <span>
+        Processing...
+      </span>
+
+    `;
+
+  }
+
+
+  try {
+
+    const customerUid =
+      currentCustomer.uid;
+
+
+    const freshCustomer =
+
+      await loadCustomerByUid(
+        customerUid
+      );
+
+
+    if (!freshCustomer) {
+
+      throw new Error(
+
+        "Customer document not found."
+
+      );
+
+    }
+
+
+    const todayKey =
+      getTodayKey();
+
+
+    let currentStamps =
+
+      getCustomerStamps(
+        freshCustomer
+      );
+
+
+    const cycleStatus =
+
+      getLoyaltyCycleStatus(
+        freshCustomer
+      );
+
+
+    const cycleExpired =
+      cycleStatus.expired;
+
+
+    // -------------------------------------------------
+    // EXPIRED INCOMPLETE CYCLE
+    // -------------------------------------------------
+
+    if (
+
+      cycleExpired &&
+
+      currentStamps > 0 &&
+
+      currentStamps < MAX_STAMPS
+
+    ) {
+
+      currentStamps =
+        0;
+
+    }
+
+
+    // -------------------------------------------------
+    // DAILY DUPLICATE PROTECTION
+    // -------------------------------------------------
+
+    const alreadyStampedToday =
+
+      !cycleExpired &&
+
+      (
+
+        freshCustomer.dailyStampDate ===
+        todayKey
+
+        ||
+
+        freshCustomer.lastStampDate ===
+        todayKey
+
+      );
+
+
+    if (alreadyStampedToday) {
+
+      syncCustomerAfterStamp({
+
+        ...freshCustomer,
+
+        stamps:
+          currentStamps
+
+      });
+
+
+      alert(
+
+        "⚠️ This customer has already received today's stamp."
+
+      );
+
+
+      return;
+
+    }
+
+
+    // -------------------------------------------------
+    // REWARD ALREADY READY
+    // -------------------------------------------------
+
+    if (
+
+      currentStamps >=
+      MAX_STAMPS
+
+    ) {
+
+      syncCustomerAfterStamp({
+
+        ...freshCustomer,
+
+        stamps:
+          MAX_STAMPS,
+
+        rewardUnlocked:
+          true
+
+      });
+
+
+      alert(
+
+        "🎁 This customer already has a reward ready. Please claim the reward first."
+
+      );
+
+
+      return;
+
+    }
+
+
+    // -------------------------------------------------
+    // NEW CYCLE
+    // -------------------------------------------------
+
+    const isStartingNewCycle =
+
+      currentStamps ===
+      0;
+
+
+    const newStampCount =
+
+      Math.min(
+
+        currentStamps + 1,
+
+        MAX_STAMPS
+
+      );
+
+
+    const rewardUnlocked =
+
+      newStampCount >=
+      MAX_STAMPS;
+
+
+    const customerRef =
+
+      doc(
+
+        db,
+
+        CUSTOMERS_COLLECTION,
+
+        customerUid
+
+      );
+
+
+    const updateData = {
+
+      stamps:
+        newStampCount,
+
+      dailyStampDate:
+        todayKey,
+
+      lastStampDate:
+        todayKey,
+
+      rewardUnlocked:
+        rewardUnlocked,
+
+      updatedAt:
+        serverTimestamp(),
+
+      lastStampBy:
+        currentUser.uid
+
+    };
+
+
+    if (
+
+      isStartingNewCycle ||
+
+      cycleExpired
+
+    ) {
+
+      updateData.cycleStartedAt =
+        serverTimestamp();
+
+    }
+
+
+    await updateDoc(
+
+      customerRef,
+
+      updateData
+
+    );
+
+
+    const updatedCustomer = {
+
+      ...freshCustomer,
+
+      stamps:
+        newStampCount,
+
+      dailyStampDate:
+        todayKey,
+
+      lastStampDate:
+        todayKey,
+
+      rewardUnlocked:
+        rewardUnlocked
+
+    };
+
+
+    if (
+
+      isStartingNewCycle ||
+
+      cycleExpired
+
+    ) {
+
+      updatedCustomer.cycleStartedAt =
+        new Date();
+
+    }
+
+
+    syncCustomerAfterStamp(
+      updatedCustomer
+    );
+
+
+    updateLastRefresh();
+
+
+    setScannerStatus(
+
+      rewardUnlocked
+
+        ? "🎁 Reward Ready"
+
+        : "🟢 Stamp Added Successfully",
+
+      rewardUnlocked
+
+        ? "success"
+
+        : "ready"
+
+    );
+
+
+    if (rewardUnlocked) {
+
+      alert(
+
+        "🎉 Stamp Added Successfully!\n\n" +
+
+        "🎁 6 valid stamps completed.\n\n" +
+
+        "Customer Reward is now READY."
+
+      );
+
+    }
+
+    else if (cycleExpired) {
+
+      alert(
+
+        "⏰ Previous 40-day loyalty cycle expired.\n\n" +
+
+        "🔄 Old stamp cycle reset.\n\n" +
+
+        "✅ New loyalty cycle started.\n\n" +
+
+        `Current Stamps: ${newStampCount}/${MAX_STAMPS}`
+
+      );
+
+    }
+
+    else {
+
+      alert(
+
+        "✅ Stamp Added Successfully!\n\n" +
+
+        `Current Stamps: ${newStampCount}/${MAX_STAMPS}\n\n` +
+
+        "⏳ Complete 6 valid stamps within 40 days to unlock your reward."
+
+      );
+
+    }
+
+  }
+
+  catch (
+    error
+  ) {
+
+    console.error(
+
+      "❌ Give Stamp Error:",
+
+      error
+
+    );
+
+
+    setScannerStatus(
+
+      "🔴 Stamp Update Failed",
+
+      "error"
+
+    );
+
+
+    alert(
+
+      "❌ Unable To Give Stamp.\n\n" +
+
+      (
+
+        error?.message ||
+
+        "Please check your internet connection and try again."
+
+      )
+
+    );
+
+  }
+
+  finally {
+
+    stampActionProcessing =
+      false;
+
+
+    if (giveStampBtn) {
+
+      giveStampBtn.innerHTML =
+
+        originalButtonContent;
+
+    }
+
+
+    updateGiveStampButtonState();
+
+  }
 
 }
 
 
 // =====================================================
-// STOP SCANNER BUTTON
-// =====================================================
-// ONE listener only.
-// =====================================================
-
-if (
-  stopScannerBtn &&
-
-  stopScannerBtn.dataset.scannerStopListenerAttached !==
-  "true"
-) {
-
-  stopScannerBtn.addEventListener(
-
-    "click",
-
-    stopScanner
-
-  );
-
-
-  stopScannerBtn.dataset.scannerStopListenerAttached =
-    "true";
-
-}
-
-
-// =====================================================
-// EXPORT CUSTOMERS
+// 21. EXPORT CUSTOMERS
 // =====================================================
 
 function exportCustomers() {
 
   if (
+
     !Array.isArray(
       customers
-    ) ||
-    customers.length === 0
+    )
+
+    ||
+
+    customers.length ===
+    0
+
   ) {
 
     alert(
+
       "⚠️ No customer data available to export."
+
     );
 
     return;
@@ -3784,7 +3614,9 @@ function exportCustomers() {
         isCustomerRewardReady(
           customer
         )
+
           ? "Ready"
+
           : "Locked"
 
       ]
@@ -3792,35 +3624,40 @@ function exportCustomers() {
     );
 
 
-  const csvContent = [
+  const csvContent =
 
-    headers,
+    [
 
-    ...rows
+      headers,
 
-  ]
+      ...rows
 
-    .map(
+    ]
 
-      row =>
+      .map(
 
-        row.map(
+        row =>
 
-          value =>
+          row
 
-            `"${String(
-              value ?? ""
+            .map(
+
+              value =>
+
+                `"${String(
+                  value ?? ""
+                ).replace(
+                  /"/g,
+                  '""'
+                )}"`
+
             )
-              .replace(
-                /"/g,
-                '""'
-              )}"`
 
-        )
-        .join(",")
+            .join(",")
 
-    )
-    .join("\n");
+      )
+
+      .join("\n");
 
 
   const blob =
@@ -3828,11 +3665,15 @@ function exportCustomers() {
     new Blob(
 
       [
+
         "\uFEFF" +
+
         csvContent
+
       ],
 
       {
+
         type:
           "text/csv;charset=utf-8;"
 
@@ -3842,7 +3683,6 @@ function exportCustomers() {
 
 
   const url =
-
     URL.createObjectURL(
       blob
     );
@@ -3878,1228 +3718,17 @@ function exportCustomers() {
     url
   );
 
-
-  console.log(
-    "✅ Customer CSV Exported"
-  );
-
 }
 
 
 // =====================================================
-// EXPORT BUTTON LISTENER
-// =====================================================
-
-if (
-  exportCustomersBtn &&
-
-  exportCustomersBtn.dataset.exportListenerAttached !==
-  "true"
-) {
-
-  exportCustomersBtn.addEventListener(
-
-    "click",
-
-    exportCustomers
-
-  );
-
-
-  exportCustomersBtn.dataset.exportListenerAttached =
-    "true";
-
-}
-
-
-// =====================================================
-// PART 4 READY
-// =====================================================
-
-console.log(
-  "========================================"
-);
-
-console.log(
-  "✅ ADMIN DASHBOARD PART 4 LOADED"
-);
-
-console.log(
-  "✅ QR Scanner Ready"
-);
-
-console.log(
-  "✅ Camera Start/Stop Ready"
-);
-
-console.log(
-  "✅ QR Customer Lookup Ready"
-);
-
-console.log(
-  "✅ UID Lookup Ready"
-);
-
-console.log(
-  "✅ Member ID Lookup Ready"
-);
-
-console.log(
-  "✅ Customer CSV Export Ready"
-);
-
-console.log(
-  "========================================"
-);
-
-
-// =====================================================
-// END OF PART 4
-// =====================================================
-// =====================================================
-// RIO MAGGI POINT
-// PREMIUM ADMIN DASHBOARD
-// ADMIN-DASHBOARD.JS — PART 5
-// GIVE STAMP + 40-DAY LOYALTY CYCLE
-// REWARD UNLOCK + FIREBASE UPDATE + LOGOUT
-// FINAL PART — NO DUPLICATE FUNCTIONS
-// =====================================================
-
-
-// =====================================================
-// 40-DAY LOYALTY CYCLE CONFIGURATION
-// =====================================================
-
-const LOYALTY_CYCLE_DAYS = 40;
-
-const LOYALTY_CYCLE_MS =
-  LOYALTY_CYCLE_DAYS *
-  24 *
-  60 *
-  60 *
-  1000;
-
-
-// =====================================================
-// NORMALIZE FIREBASE / DATE VALUE
-// =====================================================
-
-function normalizeDateValue(value) {
-
-  if (!value) {
-    return null;
-  }
-
-  try {
-
-    if (
-      value &&
-      typeof value.toDate === "function"
-    ) {
-
-      const date =
-        value.toDate();
-
-      return (
-        date instanceof Date &&
-        !Number.isNaN(
-          date.getTime()
-        )
-      )
-        ? date
-        : null;
-
-    }
-
-
-    if (
-      value instanceof Date
-    ) {
-
-      return (
-        !Number.isNaN(
-          value.getTime()
-        )
-      )
-        ? value
-        : null;
-
-    }
-
-
-    if (
-      typeof value === "number"
-    ) {
-
-      const date =
-        new Date(value);
-
-      return (
-        !Number.isNaN(
-          date.getTime()
-        )
-      )
-        ? date
-        : null;
-
-    }
-
-
-    if (
-      typeof value === "string"
-    ) {
-
-      const date =
-        new Date(value);
-
-      return (
-        !Number.isNaN(
-          date.getTime()
-        )
-      )
-        ? date
-        : null;
-
-    }
-
-  }
-
-  catch (error) {
-
-    console.warn(
-      "⚠️ Date conversion failed:",
-      error
-    );
-
-  }
-
-  return null;
-
-}
-
-
-// =====================================================
-// GET CUSTOMER CYCLE START DATE
-// =====================================================
-
-function getCustomerCycleStartDate(
-  customer
-) {
-
-  if (!customer) {
-    return null;
-  }
-
-
-  const possibleDates = [
-
-    customer.cycleStartedAt,
-
-    customer.loyaltyCycleStartedAt,
-
-    customer.stampCycleStartedAt,
-
-    customer.firstStampDate
-
-  ];
-
-
-  for (
-    const value of possibleDates
-  ) {
-
-    const date =
-      normalizeDateValue(
-        value
-      );
-
-
-    if (date) {
-
-      return date;
-
-    }
-
-  }
-
-
-  return null;
-
-}
-
-
-// =====================================================
-// GET LOYALTY CYCLE STATUS
-// =====================================================
-
-function getLoyaltyCycleStatus(
-  customer
-) {
-
-  if (!customer) {
-
-    return {
-
-      active: false,
-
-      expired: false,
-
-      cycleStartDate: null,
-
-      cycleStartTime: null,
-
-      cycleExpiryTime: null,
-
-      remainingMs: 0
-
-    };
-
-  }
-
-
-  const stamps =
-    getCustomerStamps(
-      customer
-    );
-
-
-  const cycleStartDate =
-    getCustomerCycleStartDate(
-      customer
-    );
-
-
-  if (
-    stamps <= 0 ||
-    !cycleStartDate
-  ) {
-
-    return {
-
-      active: false,
-
-      expired: false,
-
-      cycleStartDate: null,
-
-      cycleStartTime: null,
-
-      cycleExpiryTime: null,
-
-      remainingMs: 0
-
-    };
-
-  }
-
-
-  const cycleStartTime =
-    cycleStartDate.getTime();
-
-
-  const cycleExpiryTime =
-
-    cycleStartTime +
-
-    LOYALTY_CYCLE_MS;
-
-
-  const now =
-    Date.now();
-
-
-  const expired =
-
-    now >=
-    cycleExpiryTime;
-
-
-  return {
-
-    active: true,
-
-    expired,
-
-    cycleStartDate,
-
-    cycleStartTime,
-
-    cycleExpiryTime,
-
-    remainingMs:
-
-      Math.max(
-
-        0,
-
-        cycleExpiryTime -
-        now
-
-      )
-
-  };
-
-}
-
-
-// =====================================================
-// CHECK LOYALTY CYCLE EXPIRATION
-// =====================================================
-
-function isLoyaltyCycleExpired(
-  customer
-) {
-
-  const status =
-
-    getLoyaltyCycleStatus(
-      customer
-    );
-
-
-  return (
-    status.expired === true
-  );
-
-}
-
-
-// =====================================================
-// GET FRESH CUSTOMER DOCUMENT
-// =====================================================
-
-async function getCustomerDocument(
-  uid
-) {
-
-  if (!uid) {
-
-    return null;
-
-  }
-
-
-  const customerRef =
-
-    doc(
-
-      db,
-
-      CUSTOMERS_COLLECTION,
-
-      uid
-
-    );
-
-
-  const customerSnapshot =
-
-    await getDoc(
-      customerRef
-    );
-
-
-  if (
-    !customerSnapshot.exists()
-  ) {
-
-    return null;
-
-  }
-
-
-  const customer =
-
-    normalizeCustomer(
-
-      customerSnapshot.data(),
-
-      customerSnapshot.id
-
-    );
-
-
-  return customer;
-
-}
-
-
-// =====================================================
-// SYNC CUSTOMER AFTER STAMP
-// =====================================================
-
-function syncCustomerAfterStamp(
-  customer
-) {
-
-  if (!customer) {
-
-    return;
-
-  }
-
-
-  const normalizedCustomer =
-
-    normalizeCustomer(
-
-      customer,
-
-      customer.uid
-
-    );
-
-
-  if (
-    !normalizedCustomer
-  ) {
-
-    return;
-
-  }
-
-
-  // ---------------------------------------------------
-  // UPDATE LOCAL CUSTOMER
-  // ---------------------------------------------------
-
-  upsertLocalCustomer(
-    normalizedCustomer
-  );
-
-
-  // ---------------------------------------------------
-  // UPDATE CURRENT CUSTOMER
-  // ---------------------------------------------------
-
-  currentCustomer =
-    normalizedCustomer;
-
-
-  // ---------------------------------------------------
-  // UPDATE PREVIEW
-  // ---------------------------------------------------
-
-  showCustomer(
-    normalizedCustomer
-  );
-
-
-  // ---------------------------------------------------
-  // UPDATE DASHBOARD
-  // ---------------------------------------------------
-
-  updateDashboardStats();
-
-
-  // ---------------------------------------------------
-  // UPDATE CUSTOMER TABLE
-  // ---------------------------------------------------
-
-  renderCustomerTable(
-
-    filterCustomers(
-
-      searchCustomer
-        ? searchCustomer.value
-        : ""
-
-    )
-
-  );
-
-
-}
-
-
-// =====================================================
-// GIVE STAMP TO CURRENT CUSTOMER
-// =====================================================
-
-async function giveStampToCustomer() {
-
-  // ---------------------------------------------------
-  // PREVENT DOUBLE CLICK
-  // ---------------------------------------------------
-
-  if (
-    stampActionProcessing
-  ) {
-
-    return;
-
-  }
-
-
-  // ---------------------------------------------------
-  // CUSTOMER CHECK
-  // ---------------------------------------------------
-
-  if (
-    !currentCustomer ||
-    !currentCustomer.uid
-  ) {
-
-    alert(
-
-      "❌ Please scan or select a customer first."
-
-    );
-
-    return;
-
-  }
-
-
-  // ---------------------------------------------------
-  // ADMIN AUTH CHECK
-  // ---------------------------------------------------
-
-  const currentUser =
-    auth.currentUser;
-
-
-  if (!currentUser) {
-
-    alert(
-
-      "❌ Admin session expired. Please login again."
-
-    );
-
-
-    location.replace(
-      ADMIN_LOGIN_PAGE
-    );
-
-
-    return;
-
-  }
-
-
-  // ---------------------------------------------------
-  // LOCK ACTION
-  // ---------------------------------------------------
-
-  stampActionProcessing =
-    true;
-
-
-  updateGiveStampButtonState();
-
-
-  const originalButtonContent =
-
-    giveStampBtn
-
-      ? giveStampBtn.innerHTML
-
-      : "";
-
-
-  if (
-    giveStampBtn
-  ) {
-
-    giveStampBtn.disabled =
-      true;
-
-
-    giveStampBtn.innerHTML = `
-
-      <i
-        class="fa-solid fa-spinner fa-spin"
-        aria-hidden="true"
-      ></i>
-
-      <span>
-        Processing...
-      </span>
-
-    `;
-
-  }
-
-
-  try {
-
-    // =================================================
-    // GET FRESH FIREBASE CUSTOMER
-    // =================================================
-
-    const customerUid =
-      currentCustomer.uid;
-
-
-    const freshCustomer =
-
-      await getCustomerDocument(
-
-        customerUid
-
-      );
-
-
-    if (
-      !freshCustomer
-    ) {
-
-      throw new Error(
-
-        "Customer document not found."
-
-      );
-
-    }
-
-
-    // =================================================
-    // CURRENT DATE
-    // =================================================
-
-    const todayKey =
-      getTodayKey();
-
-
-    // =================================================
-    // CURRENT STAMP COUNT
-    // =================================================
-
-    let currentStamps =
-
-      getCustomerStamps(
-
-        freshCustomer
-
-      );
-
-
-    // =================================================
-    // CYCLE STATUS
-    // =================================================
-
-    const cycleStatus =
-
-      getLoyaltyCycleStatus(
-
-        freshCustomer
-
-      );
-
-
-    const cycleExpired =
-
-      cycleStatus.expired;
-
-
-    // =================================================
-    // RESET EXPIRED INCOMPLETE CYCLE
-    // =================================================
-
-    if (
-
-      cycleExpired &&
-
-      currentStamps > 0 &&
-
-      currentStamps < MAX_STAMPS
-
-    ) {
-
-      console.log(
-
-        "⏰ 40-day loyalty cycle expired."
-
-      );
-
-
-      console.log(
-
-        "🔄 Resetting old stamp cycle:",
-
-        currentStamps
-
-      );
-
-
-      currentStamps =
-        0;
-
-    }
-
-
-    // =================================================
-    // DAILY STAMP PROTECTION
-    // =================================================
-
-    const alreadyStampedToday = (
-
-      !cycleExpired &&
-
-      (
-
-        freshCustomer.dailyStampDate ===
-        todayKey
-
-        ||
-
-        freshCustomer.lastStampDate ===
-        todayKey
-
-      )
-
-    );
-
-
-    if (
-      alreadyStampedToday
-    ) {
-
-      const syncedCustomer = {
-
-        ...freshCustomer,
-
-        stamps:
-          currentStamps
-
-      };
-
-
-      syncCustomerAfterStamp(
-
-        syncedCustomer
-
-      );
-
-
-      alert(
-
-        "⚠️ This customer has already received today's stamp."
-
-      );
-
-
-      return;
-
-    }
-
-
-    // =================================================
-    // REWARD ALREADY READY
-    // =================================================
-
-    if (
-
-      currentStamps >=
-      MAX_STAMPS
-
-    ) {
-
-      const syncedCustomer = {
-
-        ...freshCustomer,
-
-        stamps:
-          MAX_STAMPS,
-
-        rewardUnlocked:
-          true
-
-      };
-
-
-      syncCustomerAfterStamp(
-
-        syncedCustomer
-
-      );
-
-
-      alert(
-
-        "🎁 This customer already has a reward ready. Please claim the reward first."
-
-      );
-
-
-      return;
-
-    }
-
-
-    // =================================================
-    // NEW CYCLE CHECK
-    // =================================================
-
-    const isStartingNewCycle =
-
-      currentStamps === 0;
-
-
-    // =================================================
-    // NEW STAMP COUNT
-    // =================================================
-
-    const newStampCount =
-
-      Math.min(
-
-        currentStamps + 1,
-
-        MAX_STAMPS
-
-      );
-
-
-    // =================================================
-    // REWARD UNLOCK
-    // =================================================
-
-    const rewardUnlocked =
-
-      newStampCount >=
-      MAX_STAMPS;
-
-
-    // =================================================
-    // FIRESTORE CUSTOMER REFERENCE
-    // =================================================
-
-    const customerRef =
-
-      doc(
-
-        db,
-
-        CUSTOMERS_COLLECTION,
-
-        customerUid
-
-      );
-
-
-    // =================================================
-    // FIRESTORE UPDATE DATA
-    // =================================================
-
-    const updateData = {
-
-      stamps:
-        newStampCount,
-
-      dailyStampDate:
-        todayKey,
-
-      lastStampDate:
-        todayKey,
-
-      rewardUnlocked:
-        rewardUnlocked,
-
-      updatedAt:
-        serverTimestamp(),
-
-      lastStampBy:
-        currentUser.uid
-
-    };
-
-
-    // =================================================
-    // START / RESTART 40-DAY CYCLE
-    // =================================================
-
-    if (
-
-      isStartingNewCycle ||
-
-      cycleExpired
-
-    ) {
-
-      updateData.cycleStartedAt =
-
-        serverTimestamp();
-
-    }
-
-
-    // =================================================
-    // FIREBASE UPDATE
-    // =================================================
-
-    await updateDoc(
-
-      customerRef,
-
-      updateData
-
-    );
-
-
-    // =================================================
-    // CREATE UPDATED LOCAL CUSTOMER
-    // =================================================
-
-    const updatedCustomer = {
-
-      ...freshCustomer,
-
-      stamps:
-        newStampCount,
-
-      dailyStampDate:
-        todayKey,
-
-      lastStampDate:
-        todayKey,
-
-      rewardUnlocked:
-        rewardUnlocked
-
-    };
-
-
-    // ---------------------------------------------------
-    // LOCAL CYCLE START
-    // ---------------------------------------------------
-
-    if (
-
-      isStartingNewCycle ||
-
-      cycleExpired
-
-    ) {
-
-      updatedCustomer.cycleStartedAt =
-
-        new Date();
-
-    }
-
-
-    // =================================================
-    // SYNC EVERYTHING
-    // =================================================
-
-    syncCustomerAfterStamp(
-
-      updatedCustomer
-
-    );
-
-
-    // =================================================
-    // UPDATE LAST REFRESH
-    // =================================================
-
-    updateLastRefresh();
-
-
-    // =================================================
-    // SCANNER STATUS
-    // =================================================
-
-    setScannerStatus(
-
-      rewardUnlocked
-
-        ? "🎁 Reward Ready"
-
-        : "🟢 Stamp Added Successfully",
-
-      rewardUnlocked
-
-        ? "success"
-
-        : "ready"
-
-    );
-
-
-    // =================================================
-    // SUCCESS MESSAGE
-    // =================================================
-
-    if (
-      rewardUnlocked
-    ) {
-
-      alert(
-
-        "🎉 Stamp Added Successfully!\n\n" +
-
-        "🎁 6 valid stamps completed.\n\n" +
-
-        "Customer Reward is now READY."
-
-      );
-
-    }
-
-    else if (
-      cycleExpired
-    ) {
-
-      alert(
-
-        "⏰ Previous 40-day loyalty cycle expired.\n\n" +
-
-        "🔄 Old stamp cycle reset.\n\n" +
-
-        "✅ New loyalty cycle started.\n\n" +
-
-        `Current Stamps: ${newStampCount}/${MAX_STAMPS}`
-
-      );
-
-    }
-
-    else {
-
-      alert(
-
-        "✅ Stamp Added Successfully!\n\n" +
-
-        `Current Stamps: ${newStampCount}/${MAX_STAMPS}\n\n` +
-
-        "⏳ Complete 6 valid stamps within 40 days to unlock your reward."
-
-      );
-
-    }
-
-
-    console.log(
-
-      "✅ Stamp successfully added.",
-
-      {
-
-        customerUid,
-
-        newStampCount,
-
-        cycleExpired,
-
-        newCycleStarted:
-
-          isStartingNewCycle ||
-
-          cycleExpired,
-
-        rewardUnlocked
-
-      }
-
-    );
-
-  }
-
-  catch (error) {
-
-    console.error(
-
-      "❌ Give Stamp Error:",
-
-      error
-
-    );
-
-
-    setScannerStatus(
-
-      "🔴 Stamp Update Failed",
-
-      "error"
-
-    );
-
-
-    alert(
-
-      "❌ Unable To Give Stamp.\n\n" +
-
-      (
-
-        error?.message ||
-
-        "Please check your internet connection and try again."
-
-      )
-
-    );
-
-  }
-
-  finally {
-
-    stampActionProcessing =
-      false;
-
-
-    if (
-      giveStampBtn
-    ) {
-
-      giveStampBtn.innerHTML =
-
-        originalButtonContent;
-
-    }
-
-
-    updateGiveStampButtonState();
-
-  }
-
-}
-
-
-// =====================================================
-// GIVE STAMP BUTTON LISTENER
-// =====================================================
-// ONLY PART 5 OWNS THIS LISTENER.
-// =====================================================
-
-if (
-
-  giveStampBtn &&
-
-  giveStampBtn.dataset.stampListenerAttached !==
-  "true"
-
-) {
-
-  giveStampBtn.addEventListener(
-
-    "click",
-
-    giveStampToCustomer
-
-  );
-
-
-  giveStampBtn.dataset.stampListenerAttached =
-    "true";
-
-}
-
-
-// =====================================================
-// ADMIN LOGOUT
+// 22. LOGOUT
 // =====================================================
 
 async function handleAdminLogout() {
 
-  if (
-    logoutProcessing
-  ) {
-
+  if (logoutProcessing) {
     return;
-
   }
 
 
@@ -5116,9 +3745,7 @@ async function handleAdminLogout() {
       : "";
 
 
-  if (
-    logoutBtn
-  ) {
+  if (logoutBtn) {
 
     logoutBtn.disabled =
       true;
@@ -5142,48 +3769,28 @@ async function handleAdminLogout() {
 
   try {
 
-    // -------------------------------------------------
-    // STOP SCANNER
-    // -------------------------------------------------
-
     if (
-      typeof stopScanner ===
-      "function"
+
+      scannerRunning ||
+
+      html5QrCode
+
     ) {
 
-      if (
-
-        scannerRunning ||
-
-        html5QrCode
-
-      ) {
-
-        await stopScanner();
-
-      }
+      await stopScanner();
 
     }
 
-
-    // -------------------------------------------------
-    // FIREBASE SIGN OUT
-    // -------------------------------------------------
 
     await signOut(
       auth
     );
 
-
-    console.log(
-
-      "✅ Admin logged out successfully."
-
-    );
-
   }
 
-  catch (error) {
+  catch (
+    error
+  ) {
 
     console.error(
 
@@ -5205,16 +3812,13 @@ async function handleAdminLogout() {
       false;
 
 
-    if (
-      logoutBtn
-    ) {
+    if (logoutBtn) {
 
       logoutBtn.disabled =
         false;
 
 
       logoutBtn.innerHTML =
-
         originalContent;
 
     }
@@ -5225,55 +3829,424 @@ async function handleAdminLogout() {
 
 
 // =====================================================
-// LOGOUT BUTTON LISTENER
-// =====================================================
-// ONLY PART 5 OWNS THIS LISTENER.
+// 23. RESET CUSTOMER
 // =====================================================
 
-if (
+function resetCurrentCustomer() {
 
-  logoutBtn &&
-
-  logoutBtn.dataset.logoutListenerAttached !==
-  "true"
-
-) {
-
-  logoutBtn.addEventListener(
-
-    "click",
-
-    handleAdminLogout
-
-  );
+  if (stampActionProcessing) {
+    return;
+  }
 
 
-  logoutBtn.dataset.logoutListenerAttached =
-    "true";
+  if (!currentCustomer) {
+
+    clearCustomerPreview();
+
+    return;
+
+  }
+
+
+  if (
+
+    window.confirm(
+
+      "Are you sure you want to clear the selected customer?"
+
+    )
+
+  ) {
+
+    clearCustomerPreview();
+
+
+    setScannerStatus(
+
+      "🟢 Ready to scan customer QR",
+
+      "ready"
+
+    );
+
+  }
 
 }
 
 
 // =====================================================
-// INITIALIZE CUSTOMER DATA AFTER AUTH
-// =====================================================
-// PART 1 auth listener calls initializeDashboard().
-// This function loads all customer data once.
+// 24. EVENT LISTENERS
 // =====================================================
 
-const originalInitializeDashboard =
-  initializeDashboard;
+function setupEventListeners() {
+
+  // ---------------------------------------------------
+  // NAVIGATION
+  // ---------------------------------------------------
+
+  navButtons.forEach(
+
+    button => {
+
+      if (
+
+        button.dataset.navigationAttached ===
+        "true"
+
+      ) {
+
+        return;
+
+      }
 
 
-// -----------------------------------------------------
-// NOTE:
-// We cannot redeclare initializeDashboard.
-// Instead, load customer data through a one-time
-// auth observer here.
-// -----------------------------------------------------
+      button.addEventListener(
 
-let customerDataInitialized =
-  false;
+        "click",
+
+        event => {
+
+          event.preventDefault();
+
+
+          const sectionName =
+
+            button.dataset.section;
+
+
+          if (sectionName) {
+
+            showSection(
+              sectionName
+            );
+
+          }
+
+        }
+
+      );
+
+
+      button.dataset.navigationAttached =
+        "true";
+
+    }
+
+  );
+
+
+  // ---------------------------------------------------
+  // CUSTOMER TABLE
+  // ---------------------------------------------------
+
+  if (
+
+    customerTableBody &&
+
+    customerTableBody.dataset.customerTableListenerAttached !==
+    "true"
+
+  ) {
+
+    customerTableBody.addEventListener(
+
+      "click",
+
+      event => {
+
+        const actionButton =
+
+          event.target.closest(
+
+            "[data-customer-action]"
+
+          );
+
+
+        if (!actionButton) {
+          return;
+        }
+
+
+        if (
+
+          actionButton.dataset.customerAction ===
+          "select"
+
+        ) {
+
+          selectCustomerByUid(
+
+            actionButton.dataset.customerUid
+
+          );
+
+        }
+
+      }
+
+    );
+
+
+    customerTableBody.dataset.customerTableListenerAttached =
+      "true";
+
+  }
+
+
+  // ---------------------------------------------------
+  // SEARCH
+  // ---------------------------------------------------
+
+  if (
+
+    searchCustomer &&
+
+    searchCustomer.dataset.customerSearchListenerAttached !==
+    "true"
+
+  ) {
+
+    searchCustomer.addEventListener(
+
+      "input",
+
+      () => {
+
+        renderCustomerTable(
+
+          filterCustomers(
+
+            searchCustomer.value
+
+          )
+
+        );
+
+      }
+
+    );
+
+
+    searchCustomer.dataset.customerSearchListenerAttached =
+      "true";
+
+  }
+
+
+  // ---------------------------------------------------
+  // REFRESH
+  // ---------------------------------------------------
+
+  if (
+
+    refreshCustomersBtn &&
+
+    refreshCustomersBtn.dataset.refreshListenerAttached !==
+    "true"
+
+  ) {
+
+    refreshCustomersBtn.addEventListener(
+
+      "click",
+
+      refreshCustomers
+
+    );
+
+
+    refreshCustomersBtn.dataset.refreshListenerAttached =
+      "true";
+
+  }
+
+
+  // ---------------------------------------------------
+  // RESET
+  // ---------------------------------------------------
+
+  if (
+
+    resetCustomerBtn &&
+
+    resetCustomerBtn.dataset.resetListenerAttached !==
+    "true"
+
+  ) {
+
+    resetCustomerBtn.addEventListener(
+
+      "click",
+
+      resetCurrentCustomer
+
+    );
+
+
+    resetCustomerBtn.dataset.resetListenerAttached =
+      "true";
+
+  }
+
+
+  // ---------------------------------------------------
+  // START SCANNER
+  // ---------------------------------------------------
+
+  if (
+
+    startScannerBtn &&
+
+    startScannerBtn.dataset.scannerStartListenerAttached !==
+    "true"
+
+  ) {
+
+    startScannerBtn.addEventListener(
+
+      "click",
+
+      startScanner
+
+    );
+
+
+    startScannerBtn.dataset.scannerStartListenerAttached =
+      "true";
+
+  }
+
+
+  // ---------------------------------------------------
+  // STOP SCANNER
+  // ---------------------------------------------------
+
+  if (
+
+    stopScannerBtn &&
+
+    stopScannerBtn.dataset.scannerStopListenerAttached !==
+    "true"
+
+  ) {
+
+    stopScannerBtn.addEventListener(
+
+      "click",
+
+      stopScanner
+
+    );
+
+
+    stopScannerBtn.dataset.scannerStopListenerAttached =
+      "true";
+
+  }
+
+
+  // ---------------------------------------------------
+  // EXPORT
+  // ---------------------------------------------------
+
+  if (
+
+    exportCustomersBtn &&
+
+    exportCustomersBtn.dataset.exportListenerAttached !==
+    "true"
+
+  ) {
+
+    exportCustomersBtn.addEventListener(
+
+      "click",
+
+      exportCustomers
+
+    );
+
+
+    exportCustomersBtn.dataset.exportListenerAttached =
+      "true";
+
+  }
+
+
+  // ---------------------------------------------------
+  // GIVE STAMP
+  // ---------------------------------------------------
+
+  if (
+
+    giveStampBtn &&
+
+    giveStampBtn.dataset.stampListenerAttached !==
+    "true"
+
+  ) {
+
+    giveStampBtn.addEventListener(
+
+      "click",
+
+      giveStampToCustomer
+
+    );
+
+
+    giveStampBtn.dataset.stampListenerAttached =
+      "true";
+
+  }
+
+
+  // ---------------------------------------------------
+  // LOGOUT
+  // ---------------------------------------------------
+
+  if (
+
+    logoutBtn &&
+
+    logoutBtn.dataset.logoutListenerAttached !==
+    "true"
+
+  ) {
+
+    logoutBtn.addEventListener(
+
+      "click",
+
+      handleAdminLogout
+
+    );
+
+
+    logoutBtn.dataset.logoutListenerAttached =
+      "true";
+
+  }
+
+}
+
+
+// =====================================================
+// 25. INITIALIZATION
+// =====================================================
+
+function initializeDashboard() {
+
+  setupEventListeners();
+
+  initializeNavigation();
+
+  console.log(
+    "✅ Admin Dashboard Initialized"
+  );
+
+}
 
 
 onAuthStateChanged(
@@ -5282,50 +4255,64 @@ onAuthStateChanged(
 
   async user => {
 
-    if (
-      !user
-    ) {
+    if (!user) {
 
-      return;
+      console.warn(
 
-    }
-
-
-    if (
-      customerDataInitialized
-    ) {
-
-      return;
-
-    }
-
-
-    customerDataInitialized =
-      true;
-
-
-    try {
-
-      await initializeCustomerData();
-
-
-      console.log(
-
-        "✅ Initial Customer Data Loaded"
+        "⚠️ Admin not authenticated."
 
       );
 
+
+      location.replace(
+        ADMIN_LOGIN_PAGE
+      );
+
+
+      return;
+
     }
 
-    catch (error) {
 
-      console.error(
+    console.log(
 
-        "❌ Initial Customer Data Load Failed:",
+      "✅ Admin authenticated:",
 
+      user.uid
+
+    );
+
+
+    initializeDashboard();
+
+
+    if (
+      !customerDataInitialized
+    ) {
+
+      customerDataInitialized =
+        true;
+
+
+      try {
+
+        await loadCustomersFromFirebase();
+
+      }
+
+      catch (
         error
+      ) {
 
-      );
+        console.error(
+
+          "❌ Initial Customer Data Load Failed:",
+
+          error
+
+        );
+
+      }
 
     }
 
@@ -5335,66 +4322,65 @@ onAuthStateChanged(
 
 
 // =====================================================
-// PART 5 READY
+// FINAL READY LOG
 // =====================================================
 
 console.log(
+
   "========================================"
+
 );
 
 console.log(
-  "✅ ADMIN DASHBOARD PART 5 LOADED"
+
+  "✅ RIO MAGGI POINT ADMIN DASHBOARD READY"
+
 );
 
 console.log(
-  "✅ Give Stamp System Ready"
+
+  "✅ Single Consolidated File"
+
 );
 
 console.log(
-  "✅ Duplicate Daily Stamp Protection Ready"
+
+  "✅ No Duplicate Function Declarations"
+
 );
 
 console.log(
-  "✅ 40-Day Loyalty Cycle Ready"
+
+  "✅ No Duplicate LOYALTY_CYCLE_DAYS"
+
 );
 
 console.log(
-  "✅ Expired Cycle Reset Ready"
+
+  "✅ 40-Day Loyalty Cycle Enabled"
+
 );
 
 console.log(
-  "✅ Firebase Stamp Update Ready"
+
+  "✅ 6-Stamp Reward Logic Enabled"
+
 );
 
 console.log(
-  "✅ 6 Valid Stamp Reward Unlock Ready"
+
+  "✅ QR Scanner Ready"
+
 );
 
 console.log(
-  "✅ Local Customer Sync Ready"
+
+  "✅ Firebase Customer Data Ready"
+
 );
 
 console.log(
-  "✅ Dashboard Statistics Sync Ready"
-);
 
-console.log(
-  "✅ Logout System Ready"
-);
-
-console.log(
   "========================================"
+
 );
-
-console.log(
-  "🎉 ADMIN DASHBOARD PART 1–5 COMPLETE"
-);
-
-console.log(
-  "========================================"
-);
-
-
-// =====================================================
-// END OF ADMIN-DASHBOARD.JS
-// =====================================================
