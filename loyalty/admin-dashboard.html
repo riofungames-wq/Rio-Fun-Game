@@ -3,11 +3,9 @@
 
 <head>
 
-  <!-- =====================================================
-       RIO MAGGI POINT
-       PREMIUM ADMIN DASHBOARD
-       ADMIN-DASHBOARD.HTML
-  ====================================================== -->
+  <!-- ================================================= -->
+  <!-- BASIC DOCUMENT SETTINGS -->
+  <!-- ================================================= -->
 
   <meta charset="UTF-8">
 
@@ -31,24 +29,17 @@
     content="Rio Maggi Point Premium Admin Dashboard"
   >
 
-  <title>
-    Rio Maggi Point • Premium Admin Dashboard
-  </title>
+  <title>Rio Maggi Point • Premium Admin Dashboard</title>
 
 
-  <!-- =====================================================
-       PWA
-  ====================================================== -->
+  <!-- ================================================= -->
+  <!-- PWA -->
+  <!-- ================================================= -->
 
   <link
     rel="manifest"
     href="manifest.json"
   >
-
-
-  <!-- =====================================================
-       FAVICON
-  ====================================================== -->
 
   <link
     rel="icon"
@@ -62,9 +53,9 @@
   >
 
 
-  <!-- =====================================================
-       GOOGLE FONTS
-  ====================================================== -->
+  <!-- ================================================= -->
+  <!-- GOOGLE FONTS -->
+  <!-- ================================================= -->
 
   <link
     rel="preconnect"
@@ -83,9 +74,9 @@
   >
 
 
-  <!-- =====================================================
-       FONT AWESOME
-  ====================================================== -->
+  <!-- ================================================= -->
+  <!-- FONT AWESOME -->
+  <!-- ================================================= -->
 
   <link
     rel="stylesheet"
@@ -93,9 +84,9 @@
   >
 
 
-  <!-- =====================================================
-       ADMIN DASHBOARD CSS
-  ====================================================== -->
+  <!-- ================================================= -->
+  <!-- ADMIN DASHBOARD CSS -->
+  <!-- ================================================= -->
 
   <link
     rel="stylesheet"
@@ -107,23 +98,21 @@
 
 <body>
 
-  <!-- =====================================================
-       ADMIN APP
-  ====================================================== -->
+  <!-- ================================================= -->
+  <!-- ADMIN APP -->
+  <!-- ================================================= -->
 
   <div
-    id="adminApp"
     class="admin-app"
+    id="adminApp"
   >
 
 
-    <!-- =====================================================
-         HEADER
-    ====================================================== -->
+    <!-- ================================================= -->
+    <!-- APP HEADER -->
+    <!-- ================================================= -->
 
     <header class="app-header">
-
-      <!-- LOGO -->
 
       <div class="logo-area">
 
@@ -135,13 +124,9 @@
 
         <div class="logo-text">
 
-          <h2>
-            RIO MAGGI POINT
-          </h2>
+          <h2>RIO MAGGI POINT</h2>
 
-          <p>
-            Premium Admin Dashboard
-          </p>
+          <p>Premium Admin Dashboard</p>
 
         </div>
 
@@ -153,11 +138,15 @@
       <div class="header-right">
 
         <span
-          id="liveIndicator"
           class="live-indicator"
+          id="liveIndicator"
           aria-live="polite"
         >
-          🟡 CONNECTING
+
+          <span aria-hidden="true">🟢</span>
+
+          LIVE
+
         </span>
 
       </div>
@@ -165,9 +154,9 @@
     </header>
 
 
-    <!-- =====================================================
-         ADMIN NAVIGATION
-    ====================================================== -->
+    <!-- ================================================= -->
+    <!-- ADMIN NAVIGATION -->
+    <!-- ================================================= -->
 
     <nav
       class="app-nav"
@@ -187,9 +176,7 @@
           aria-hidden="true"
         ></i>
 
-        <span>
-          Dashboard
-        </span>
+        <span>Dashboard</span>
 
       </button>
 
@@ -207,9 +194,7 @@
           aria-hidden="true"
         ></i>
 
-        <span>
-          Scanner
-        </span>
+        <span>Scanner</span>
 
       </button>
 
@@ -227,9 +212,7 @@
           aria-hidden="true"
         ></i>
 
-        <span>
-          Customers
-        </span>
+        <span>Customers</span>
 
       </button>
 
@@ -247,9 +230,7 @@
           aria-hidden="true"
         ></i>
 
-        <span>
-          Stamps
-        </span>
+        <span>Stamps</span>
 
       </button>
 
@@ -267,9 +248,7 @@
           aria-hidden="true"
         ></i>
 
-        <span>
-          Rewards
-        </span>
+        <span>Rewards</span>
 
       </button>
 
@@ -287,9 +266,7 @@
           aria-hidden="true"
         ></i>
 
-        <span>
-          Reports
-        </span>
+        <span>Reports</span>
 
       </button>
 
@@ -307,9 +284,7 @@
           aria-hidden="true"
         ></i>
 
-        <span>
-          Settings
-        </span>
+        <span>Settings</span>
 
       </button>
 
@@ -327,38 +302,36 @@
           aria-hidden="true"
         ></i>
 
-        <span>
-          Logout
-        </span>
+        <span>Logout</span>
 
       </button>
 
     </nav>
 
 
-    <!-- =====================================================
-         MAIN DASHBOARD
-    ====================================================== -->
+    <!-- ================================================= -->
+    <!-- MAIN DASHBOARD -->
+    <!-- ================================================= -->
 
     <main
-      id="dashboardWrapper"
       class="dashboard-wrapper"
+      id="dashboardWrapper"
     >
 
 
-      <!-- ===================================================
-           QR SCANNER + CUSTOMER PREVIEW
-      ==================================================== -->
+      <!-- ================================================= -->
+      <!-- QR SCANNER + CUSTOMER PREVIEW -->
+      <!-- ================================================= -->
 
       <section
-        id="scannerSection"
         class="scanner-section"
+        id="scannerSection"
       >
 
 
-        <!-- =================================================
-             QR SCANNER CARD
-        ================================================== -->
+        <!-- ================================================= -->
+        <!-- LIVE QR SCANNER -->
+        <!-- ================================================= -->
 
         <div class="scanner-card">
 
@@ -371,9 +344,7 @@
                 aria-hidden="true"
               ></i>
 
-              <span>
-                Live QR Scanner
-              </span>
+              <span>Live QR Scanner</span>
 
             </h2>
 
@@ -388,6 +359,8 @@
 
           <div class="scanner-box">
 
+            <!-- CAMERA OVERLAY -->
+
             <div
               id="cameraOverlay"
               class="camera-overlay"
@@ -398,16 +371,14 @@
                 aria-hidden="true"
               ></i>
 
-              <h3>
-                Camera Off
-              </h3>
+              <h3>Camera Off</h3>
 
-              <p>
-                Tap Start Scanner
-              </p>
+              <p>Tap Start Scanner</p>
 
             </div>
 
+
+            <!-- QR READER -->
 
             <div
               id="qr-reader"
@@ -433,9 +404,7 @@
                 aria-hidden="true"
               ></i>
 
-              <span>
-                Start Scanner
-              </span>
+              <span>Start Scanner</span>
 
             </button>
 
@@ -452,9 +421,7 @@
                 aria-hidden="true"
               ></i>
 
-              <span>
-                Stop Scanner
-              </span>
+              <span>Stop Scanner</span>
 
             </button>
 
@@ -463,9 +430,9 @@
         </div>
 
 
-        <!-- =================================================
-             CUSTOMER PREVIEW CARD
-        ================================================== -->
+        <!-- ================================================= -->
+        <!-- CUSTOMER PREVIEW -->
+        <!-- ================================================= -->
 
         <div class="customer-card">
 
@@ -478,9 +445,7 @@
                 aria-hidden="true"
               ></i>
 
-              <span>
-                Customer Preview
-              </span>
+              <span>Customer Preview</span>
 
             </h2>
 
@@ -499,7 +464,6 @@
               loading="lazy"
             >
 
-
             <div class="customer-info">
 
               <h3 id="scanCustomerName">
@@ -515,15 +479,13 @@
           </div>
 
 
-          <!-- STAMP INFO -->
+          <!-- STAMP INFORMATION -->
 
           <div class="stamp-grid">
 
             <div class="stamp-box">
 
-              <span>
-                Current Stamps
-              </span>
+              <span>Current Stamps</span>
 
               <strong id="scanStampCount">
                 0 / 6
@@ -534,9 +496,7 @@
 
             <div class="stamp-box">
 
-              <span>
-                Today's Status
-              </span>
+              <span>Today's Status</span>
 
               <strong
                 id="todayStatus"
@@ -566,9 +526,7 @@
                 aria-hidden="true"
               ></i>
 
-              <span>
-                Give Stamp
-              </span>
+              <span>Give Stamp</span>
 
             </button>
 
@@ -584,9 +542,7 @@
                 aria-hidden="true"
               ></i>
 
-              <span>
-                Reset
-              </span>
+              <span>Reset</span>
 
             </button>
 
@@ -597,13 +553,13 @@
       </section>
 
 
-      <!-- =====================================================
-           DASHBOARD STATISTICS
-      ====================================================== -->
+      <!-- ================================================= -->
+      <!-- DASHBOARD STATS -->
+      <!-- ================================================= -->
 
       <section
-        id="statsSection"
         class="stats-section"
+        id="statsSection"
       >
 
         <!-- TOTAL CUSTOMERS -->
@@ -621,9 +577,7 @@
 
           <div class="stat-content">
 
-            <h4>
-              Total Customers
-            </h4>
+            <h4>Total Customers</h4>
 
             <strong id="totalCustomers">
               0
@@ -649,9 +603,7 @@
 
           <div class="stat-content">
 
-            <h4>
-              Total Stamps
-            </h4>
+            <h4>Total Stamps</h4>
 
             <strong id="totalStamps">
               0
@@ -662,7 +614,7 @@
         </div>
 
 
-        <!-- TOTAL REWARDS -->
+        <!-- REWARDS READY -->
 
         <div class="stat-card">
 
@@ -677,9 +629,7 @@
 
           <div class="stat-content">
 
-            <h4>
-              Rewards Ready
-            </h4>
+            <h4>Rewards Ready</h4>
 
             <strong id="totalRewards">
               0
@@ -690,7 +640,7 @@
         </div>
 
 
-        <!-- TODAY SCANS -->
+        <!-- TODAY'S SCANS -->
 
         <div class="stat-card">
 
@@ -705,9 +655,7 @@
 
           <div class="stat-content">
 
-            <h4>
-              Today's Scans
-            </h4>
+            <h4>Today's Scans</h4>
 
             <strong id="todayScans">
               0
@@ -720,16 +668,14 @@
       </section>
 
 
-      <!-- =====================================================
-           CUSTOMER LIST
-      ====================================================== -->
+      <!-- ================================================= -->
+      <!-- CUSTOMER LIST -->
+      <!-- ================================================= -->
 
       <section
-        id="customerSection"
         class="customer-section"
+        id="customerSection"
       >
-
-        <!-- SECTION HEADER -->
 
         <div class="section-header">
 
@@ -742,16 +688,14 @@
                 aria-hidden="true"
               ></i>
 
-              <span>
-                Customer List
-              </span>
+              <span>Customer List</span>
 
             </h2>
 
           </div>
 
 
-          <!-- SEARCH -->
+          <!-- CUSTOMER SEARCH -->
 
           <div class="search-box">
 
@@ -761,8 +705,8 @@
             ></i>
 
             <input
-              id="searchCustomer"
               type="search"
+              id="searchCustomer"
               placeholder="Search by Name, Member ID or Mobile"
               autocomplete="off"
               spellcheck="false"
@@ -774,7 +718,7 @@
         </div>
 
 
-        <!-- TABLE -->
+        <!-- CUSTOMER TABLE -->
 
         <div class="table-card">
 
@@ -821,7 +765,7 @@
 
               <tbody id="customerTable">
 
-                <!-- Firebase data inserted by admin-dashboard.js -->
+                <!-- Firebase customer data will be rendered here -->
 
               </tbody>
 
@@ -834,14 +778,16 @@
       </section>
 
 
-      <!-- =====================================================
-           QUICK ACTIONS
-      ====================================================== -->
+      <!-- ================================================= -->
+      <!-- QUICK ACTIONS -->
+      <!-- ================================================= -->
 
       <section
-        id="quickActions"
         class="quick-actions"
+        id="quickActions"
       >
+
+        <!-- REFRESH -->
 
         <button
           id="refreshBtn"
@@ -854,12 +800,12 @@
             aria-hidden="true"
           ></i>
 
-          <span>
-            Refresh
-          </span>
+          <span>Refresh</span>
 
         </button>
 
+
+        <!-- EXPORT -->
 
         <button
           id="exportBtn"
@@ -872,12 +818,12 @@
             aria-hidden="true"
           ></i>
 
-          <span>
-            Export
-          </span>
+          <span>Export</span>
 
         </button>
 
+
+        <!-- REWARD MANAGER -->
 
         <button
           id="rewardBtn"
@@ -890,12 +836,12 @@
             aria-hidden="true"
           ></i>
 
-          <span>
-            Reward Manager
-          </span>
+          <span>Reward Manager</span>
 
         </button>
 
+
+        <!-- SETTINGS -->
 
         <button
           id="settingsBtn"
@@ -908,22 +854,20 @@
             aria-hidden="true"
           ></i>
 
-          <span>
-            Settings
-          </span>
+          <span>Settings</span>
 
         </button>
 
       </section>
 
 
-      <!-- =====================================================
-           SYSTEM STATUS
-      ====================================================== -->
+      <!-- ================================================= -->
+      <!-- SYSTEM STATUS -->
+      <!-- ================================================= -->
 
       <section
-        id="statusSection"
         class="status-section"
+        id="statusSection"
       >
 
         <div class="status-card">
@@ -937,64 +881,56 @@
                 aria-hidden="true"
               ></i>
 
-              <span>
-                System Status
-              </span>
+              <span>System Status</span>
 
             </h2>
 
           </div>
 
 
-          <!-- FIREBASE -->
+          <!-- FIREBASE STATUS -->
 
           <div class="status-row">
 
-            <span>
-              Firebase
-            </span>
+            <span>Firebase</span>
 
             <strong
               id="firebaseStatus"
-              class="pending"
+              class="online"
             >
-              🟡 Connecting...
+              🟢 Connected
             </strong>
 
           </div>
 
 
-          <!-- ADMIN -->
+          <!-- ADMIN STATUS -->
 
           <div class="status-row">
 
-            <span>
-              Admin
-            </span>
+            <span>Admin</span>
 
             <strong
               id="adminStatus"
-              class="pending"
+              class="online"
             >
-              🟡 Checking...
+              🟢 Verified
             </strong>
 
           </div>
 
 
-          <!-- SCANNER -->
+          <!-- SCANNER STATUS -->
 
           <div class="status-row">
 
-            <span>
-              Scanner
-            </span>
+            <span>Scanner</span>
 
             <strong
               id="scannerStatus"
               class="ready"
             >
-              ⚪ Ready
+              🟡 Ready
             </strong>
 
           </div>
@@ -1004,9 +940,7 @@
 
           <div class="status-row">
 
-            <span>
-              Last Refresh
-            </span>
+            <span>Last Refresh</span>
 
             <strong id="lastRefresh">
               --
@@ -1023,19 +957,18 @@
   </div>
 
 
-  <!-- =====================================================
-       HTML5 QR CODE LIBRARY
-       MUST LOAD BEFORE admin-dashboard.js
-  ====================================================== -->
+  <!-- ================================================= -->
+  <!-- HTML5 QR CODE SCANNER LIBRARY -->
+  <!-- ================================================= -->
 
   <script
     src="https://unpkg.com/html5-qrcode"
   ></script>
 
 
-  <!-- =====================================================
-       ADMIN DASHBOARD JAVASCRIPT
-  ====================================================== -->
+  <!-- ================================================= -->
+  <!-- ADMIN DASHBOARD JAVASCRIPT -->
+  <!-- ================================================= -->
 
   <script
     type="module"
