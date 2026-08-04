@@ -3,50 +3,50 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-<title>Rio Maggi Point | Create Account</title>
+    <title>Rio Maggi Point | Create Account</title>
 
-<meta
-name="theme-color"
-content="#D4AF37">
+    <meta
+        name="theme-color"
+        content="#D4AF37">
 
-<link
-rel="manifest"
-href="manifest.json">
+    <link
+        rel="manifest"
+        href="manifest.json">
 
-<link
-rel="icon"
-href="assets/logo/logo.png">
+    <link
+        rel="icon"
+        href="assets/logo/logo.png">
 
-<link
-rel="preconnect"
-href="https://fonts.googleapis.com">
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
 
-<link
-rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
 
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-<link
-rel="stylesheet"
-href="css/style.css">
+    <link
+        rel="stylesheet"
+        href="css/style.css">
 
-<link
-rel="stylesheet"
-href="css/multistep-signup.css">
+    <link
+        rel="stylesheet"
+        href="css/multistep-signup.css">
 
 </head>
 
@@ -57,561 +57,592 @@ href="css/multistep-signup.css">
 <div class="signup-page">
 
 
-<div class="signup-card">
+    <div class="signup-card">
 
 
-<!-- =================================
-LOGO
-================================= -->
+        <!-- =================================
+        LOGO
+        ================================= -->
 
-<div class="logo-box">
+        <div class="logo-box">
 
-<img
-src="assets/logo/logo.png"
-alt="Rio Maggi Point Logo"
-id="logo">
+            <img
+                src="assets/logo/logo.png"
+                alt="Rio Maggi Point Logo"
+                id="logo">
 
-<h1>
-Create Account
-</h1>
+            <h1>
+                Create Account
+            </h1>
 
-<p>
-Join Rio Loyalty Club
-</p>
+            <p>
+                Join Rio Loyalty Club
+            </p>
+
+        </div>
+
+
+        <!-- =================================
+        PROGRESS
+        ================================= -->
+
+        <div class="progress-wrapper">
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="progressFill">
+                </div>
+
+            </div>
+
+            <p>
+                Step
+                <span id="stepNumber">1</span>
+                of 4
+            </p>
+
+        </div>
+
+
+        <!-- =================================
+        SIGNUP FORM
+        ================================= -->
+
+        <form
+            id="signupForm"
+            novalidate>
+
+
+            <!-- =================================
+            STEP 1
+            ACCOUNT INFORMATION
+            ================================= -->
+
+            <section
+                class="signup-step active"
+                data-step="1">
+
+
+                <h2>
+                    Account Information
+                </h2>
+
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="mobile">
+                        Mobile Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        name="mobile"
+                        placeholder="Enter your mobile number"
+                        autocomplete="tel"
+                        inputmode="tel"
+                        maxlength="15"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Minimum 6 characters"
+                        autocomplete="new-password"
+                        minlength="6"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="confirmPassword">
+                        Confirm Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="Confirm your password"
+                        autocomplete="new-password"
+                        minlength="6"
+                        required>
+
+                </div>
+
+
+                <div class="button-area">
+
+                    <button
+                        type="button"
+                        class="next-btn">
+
+                        Continue
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- =================================
+            STEP 2
+            GENDER
+            ================================= -->
+
+            <section
+                class="signup-step"
+                data-step="2">
+
+
+                <h2>
+                    Select Your Gender
+                </h2>
+
+
+                <p class="step-subtitle">
+                    Choose your gender to unlock matching avatars.
+                </p>
+
+
+                <div class="gender-grid">
+
+
+                    <div
+                        class="gender-card"
+                        data-gender="male"
+                        tabindex="0"
+                        role="button"
+                        aria-label="Select Male">
+
+                        <i class="fa-solid fa-mars"></i>
+
+                        <h3>
+                            Male
+                        </h3>
+
+                        <p>
+                            Boy Avatars
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="gender-card"
+                        data-gender="female"
+                        tabindex="0"
+                        role="button"
+                        aria-label="Select Female">
+
+                        <i class="fa-solid fa-venus"></i>
+
+                        <h3>
+                            Female
+                        </h3>
+
+                        <p>
+                            Girl Avatars
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="gender-card"
+                        data-gender="other"
+                        tabindex="0"
+                        role="button"
+                        aria-label="Select Other">
+
+                        <i class="fa-solid fa-transgender"></i>
+
+                        <h3>
+                            Other
+                        </h3>
+
+                        <p>
+                            Neutral
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <input
+                    type="hidden"
+                    id="gender"
+                    name="gender">
+
+
+                <div class="button-area">
+
+                    <button
+                        type="button"
+                        class="back-btn">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Back
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="next-btn">
+
+                        Continue
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- =================================
+            STEP 3
+            AVATAR
+            ================================= -->
+
+            <section
+                class="signup-step"
+                data-step="3">
+
+
+                <h2>
+                    Choose Your Avatar
+                </h2>
+
+
+                <p class="step-subtitle">
+                    Pick one avatar or upload your own profile photo.
+                </p>
+
+
+                <div class="profile-preview">
+
+                    <img
+                        id="previewImage"
+                        src="assets/avatars/male.png"
+                        alt="Profile Preview">
+
+                </div>
+
+
+                <div
+                    class="avatar-grid"
+                    id="avatarGrid">
+                </div>
+
+
+                <input
+                    type="file"
+                    id="photoInput"
+                    name="photo"
+                    accept="image/jpeg,image/png,image/webp"
+                    hidden>
+
+
+                <button
+                    type="button"
+                    id="uploadPhotoBtn"
+                    class="secondary-btn">
+
+                    <i class="fa-solid fa-camera"></i>
+
+                    Upload Profile Photo
+
+                </button>
+
+
+                <div class="button-area">
+
+                    <button
+                        type="button"
+                        class="back-btn">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Back
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="next-btn">
+
+                        Continue
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+
+                </div>
+
+
+            </section>
+
+
+            <!-- =================================
+            STEP 4
+            REVIEW
+            ================================= -->
+
+            <section
+                class="signup-step"
+                data-step="4">
+
+
+                <h2>
+                    Review & Create Account
+                </h2>
+
+
+                <p class="step-subtitle">
+                    Please verify your information before creating your account.
+                </p>
+
+
+                <div class="final-preview">
+
+                    <img
+                        id="finalPreview"
+                        src="assets/avatars/male.png"
+                        alt="Profile Preview">
+
+                </div>
+
+
+                <div class="review-box">
+
+
+                    <div class="review-item">
+
+                        <span>
+                            Full Name
+                        </span>
+
+                        <strong id="reviewName">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="review-item">
+
+                        <span>
+                            Mobile
+                        </span>
+
+                        <strong id="reviewMobile">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="review-item">
+
+                        <span>
+                            Email
+                        </span>
+
+                        <strong id="reviewEmail">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="review-item">
+
+                        <span>
+                            Gender
+                        </span>
+
+                        <strong id="reviewGender">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="checkbox-box">
+
+                    <label>
+
+                        <input
+                            type="checkbox"
+                            id="agreeTerms"
+                            name="agreeTerms"
+                            required>
+
+                        I confirm that the information provided by me is correct and that I have permission to use any uploaded profile picture.
+
+                    </label>
+
+                </div>
+
+
+                <div class="ads-placeholder">
+
+                    Future Advertisement
+
+                    <br>
+
+                    (Google AdSense)
+
+                </div>
+
+
+                <div class="button-area">
+
+
+                    <button
+                        type="button"
+                        class="back-btn">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+
+                        Back
+
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        id="createAccountBtn"
+                        class="create-btn">
+
+                        <i class="fa-solid fa-user-plus"></i>
+
+                        Create Account
+
+                    </button>
+
+
+                </div>
+
+
+            </section>
+
+
+        </form>
+
+
+        <!-- =================================
+        LOGIN LINK
+        ================================= -->
+
+        <div class="signup-login-link">
+
+            Already have an account?
+
+            <a href="login.html">
+                Login
+            </a>
+
+        </div>
+
+
+    </div>
+
 
 </div>
 
 
 <!-- =================================
-PROGRESS
-================================= -->
-
-<div class="progress-wrapper">
-
-<div class="progress-bar">
-
-<div
-class="progress-fill"
-id="progressFill">
-</div>
-
-</div>
-
-<p>
-Step
-<span id="stepNumber">1</span>
-of 4
-</p>
-
-</div>
-
-
-<!-- =================================
-SIGNUP FORM
-================================= -->
-
-<form
-id="signupForm"
-novalidate>
-
-
-<!-- =================================
-STEP 1
-ACCOUNT INFORMATION
-================================= -->
-
-<section
-class="signup-step active"
-data-step="1">
-
-
-<h2>
-Account Information
-</h2>
-
-
-<div class="form-group">
-
-<label for="name">
-Full Name
-</label>
-
-<input
-type="text"
-id="name"
-name="name"
-placeholder="Enter your full name"
-autocomplete="name"
-required>
-
-</div>
-
-
-<div class="form-group">
-
-<label for="mobile">
-Mobile Number
-</label>
-
-<input
-type="tel"
-id="mobile"
-name="mobile"
-placeholder="Enter your mobile number"
-autocomplete="tel"
-inputmode="tel"
-required>
-
-</div>
-
-
-<div class="form-group">
-
-<label for="email">
-Email Address
-</label>
-
-<input
-type="email"
-id="email"
-name="email"
-placeholder="Enter your email"
-autocomplete="email"
-required>
-
-</div>
-
-
-<div class="form-group">
-
-<label for="password">
-Password
-</label>
-
-<input
-type="password"
-id="password"
-name="password"
-placeholder="Minimum 6 characters"
-autocomplete="new-password"
-minlength="6"
-required>
-
-</div>
-
-
-<div class="form-group">
-
-<label for="confirmPassword">
-Confirm Password
-</label>
-
-<input
-type="password"
-id="confirmPassword"
-name="confirmPassword"
-placeholder="Confirm your password"
-autocomplete="new-password"
-minlength="6"
-required>
-
-</div>
-
-
-<div class="button-area">
-
-<button
-type="button"
-class="next-btn">
-
-Continue
-
-<i class="fa-solid fa-arrow-right"></i>
-
-</button>
-
-</div>
-
-
-</section>
-
-
-<!-- =================================
-STEP 2
-GENDER
-================================= -->
-
-<section
-class="signup-step"
-data-step="2">
-
-
-<h2>
-Select Your Gender
-</h2>
-
-
-<p class="step-subtitle">
-Choose your gender to unlock matching avatars.
-</p>
-
-
-<div class="gender-grid">
-
-
-<div
-class="gender-card"
-data-gender="male"
-tabindex="0"
-role="button">
-
-<i class="fa-solid fa-mars"></i>
-
-<h3>
-Male
-</h3>
-
-<p>
-Boy Avatars
-</p>
-
-</div>
-
-
-<div
-class="gender-card"
-data-gender="female"
-tabindex="0"
-role="button">
-
-<i class="fa-solid fa-venus"></i>
-
-<h3>
-Female
-</h3>
-
-<p>
-Girl Avatars
-</p>
-
-</div>
-
-
-<div
-class="gender-card"
-data-gender="other"
-tabindex="0"
-role="button">
-
-<i class="fa-solid fa-transgender"></i>
-
-<h3>
-Other
-</h3>
-
-<p>
-Neutral
-</p>
-
-</div>
-
-
-</div>
-
-
-<input
-type="hidden"
-id="gender"
-name="gender">
-
-
-<div class="button-area">
-
-<button
-type="button"
-class="back-btn">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-Back
-
-</button>
-
-
-<button
-type="button"
-class="next-btn">
-
-Continue
-
-<i class="fa-solid fa-arrow-right"></i>
-
-</button>
-
-</div>
-
-
-</section>
-
-
-<!-- =================================
-STEP 3
-AVATAR
-================================= -->
-
-<section
-class="signup-step"
-data-step="3">
-
-
-<h2>
-Choose Your Avatar
-</h2>
-
-
-<p class="step-subtitle">
-Pick one avatar or upload your own profile photo.
-</p>
-
-
-<div class="profile-preview">
-
-<img
-id="previewImage"
-src="assets/avatars/male.png"
-alt="Profile Preview">
-
-</div>
-
-
-<div
-class="avatar-grid"
-id="avatarGrid">
-
-</div>
-
-
-<input
-type="file"
-id="photoInput"
-name="photo"
-accept="image/jpeg,image/png,image/webp"
-hidden>
-
-
-<button
-type="button"
-id="uploadPhotoBtn"
-class="secondary-btn">
-
-<i class="fa-solid fa-camera"></i>
-
-Upload Profile Photo
-
-</button>
-
-
-<div class="button-area">
-
-<button
-type="button"
-class="back-btn">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-Back
-
-</button>
-
-
-<button
-type="button"
-class="next-btn">
-
-Continue
-
-<i class="fa-solid fa-arrow-right"></i>
-
-</button>
-
-</div>
-
-
-</section>
-
-
-<!-- =================================
-STEP 4
-REVIEW
-================================= -->
-
-<section
-class="signup-step"
-data-step="4">
-
-
-<h2>
-Review & Create Account
-</h2>
-
-
-<p class="step-subtitle">
-Please verify your information before creating your account.
-</p>
-
-
-<div class="final-preview">
-
-<img
-id="finalPreview"
-src="assets/avatars/male.png"
-alt="Profile Preview">
-
-</div>
-
-
-<div class="review-box">
-
-
-<div class="review-item">
-
-<span>
-Full Name
-</span>
-
-<strong id="reviewName">
--
-</strong>
-
-</div>
-
-
-<div class="review-item">
-
-<span>
-Mobile
-</span>
-
-<strong id="reviewMobile">
--
-</strong>
-
-</div>
-
-
-<div class="review-item">
-
-<span>
-Email
-</span>
-
-<strong id="reviewEmail">
--
-</strong>
-
-</div>
-
-
-<div class="review-item">
-
-<span>
-Gender
-</span>
-
-<strong id="reviewGender">
--
-</strong>
-
-</div>
-
-
-</div>
-
-
-<div class="checkbox-box">
-
-<label>
-
-<input
-type="checkbox"
-id="agreeTerms"
-name="agreeTerms"
-required>
-
-I confirm that the information provided by me is correct and that I have permission to use any uploaded profile picture.
-
-</label>
-
-</div>
-
-
-<div
-class="ads-placeholder">
-
-Future Advertisement
-
-<br>
-
-(Google AdSense)
-
-</div>
-
-
-<div class="button-area">
-
-
-<button
-type="button"
-class="back-btn">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-Back
-
-</button>
-
-
-<button
-type="submit"
-id="createAccountBtn"
-class="create-btn">
-
-<i class="fa-solid fa-user-plus"></i>
-
-Create Account
-
-</button>
-
-
-</div>
-
-
-</section>
-
-
-</form>
-
-
-</div>
-
-
-</div>
-
-
-<!-- =================================
-JAVASCRIPT
+CENTRAL FIREBASE APP CORE
+MUST LOAD FIRST
 ================================= -->
 
 <script
-src="js/multistep-signup.js">
-
+    type="module"
+    src="js/app.js">
 </script>
 
 
-<script
-type="module"
-src="js/signup-firebase.js">
+<!-- =================================
+MULTI STEP SIGNUP UI
+================================= -->
 
+<script
+    src="js/multistep-signup.js">
+</script>
+
+
+<!-- =================================
+FIREBASE SIGNUP
+USES CENTRAL APP.JS
+================================= -->
+
+<script
+    type="module"
+    src="js/signup-firebase.js">
 </script>
 
 
