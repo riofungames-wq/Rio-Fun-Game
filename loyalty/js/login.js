@@ -1,198 +1,874 @@
+// =====================================================
+// RIO MAGGI POINT
+// CUSTOMER LOGIN
+// FINAL FIXED CENTRAL APP INTEGRATION
+// =====================================================
+
+
+// =====================================================
+// CENTRAL APP IMPORT
+// =====================================================
+
 import {
     auth,
     db,
-    redirectIfLoggedIn
-} from "../app.js";
+    waitForAuth
+} from "./app.js";
+
+
+// =====================================================
+// FIREBASE AUTH IMPORTS
+// SAME VERSION AS app.js
+// =====================================================
 
 import {
     signInWithEmailAndPassword,
     sendPasswordResetEmail
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+// =====================================================
+// FIRESTORE IMPORTS
+// =====================================================
 
 import {
     doc,
     getDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const loginForm = document.getElementById("loginForm");
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
-const loginBtn = document.getElementById("loginBtn");
-const togglePassword = document.getElementById("togglePassword");
-const forgotPassword = document.getElementById("forgotPassword");
 
-function setLoading(loading) {
-    if (!loginBtn) return;
+// =====================================================
+// HTML ELEMENTS
+// =====================================================
 
-    loginBtn.disabled = loading;
+const loginForm =
+    document.getElementById("loginForm");
 
-    loginBtn.innerHTML = loading
-        ? `<i class="fa-solid fa-spinner fa-spin"></i>&nbsp; Signing In...`
-        : `<i class="fa-solid fa-right-to-bracket"></i>&nbsp; Login`;
+const emailInput =
+    document.getElementById("email");
+
+const passwordInput =
+    document.getElementById("password");
+
+const loginBtn =
+    document.getElementById("loginBtn");
+
+const togglePassword =
+    document.getElementById("togglePassword");
+
+const forgotPassword =
+    document.getElementById("forgotPassword");
+
+
+// =====================================================
+// LOGIN PROCESS CONTROL
+// =====================================================
+
+let isLoginProcessing = false;
+
+
+// =====================================================
+// BUTTON LOADING
+// =====================================================
+
+function setLoginLoading(
+    loading
+) {
+
+    if (!loginBtn) {
+        return;
+    }
+
+
+    loginBtn.disabled =
+        loading;
+
+
+    if (loading) {
+
+        loginBtn.innerHTML = `
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            &nbsp;
+            Signing In...
+        `;
+
+    } else {
+
+        loginBtn.innerHTML = `
+            <i class="fa-solid fa-right-to-bracket"></i>
+            &nbsp;
+            Login
+        `;
+
+    }
+
 }
 
 
-// AUTO LOGIN
-redirectIfLoggedIn("card.html");
+// =====================================================
+// GET CUSTOMER PROFILE
+// =====================================================
 
+async function getCustomerProfile(
+    uid
+) {
 
-// LOGIN
-loginForm?.addEventListener("submit", async (e) => {
-
-    e.preventDefault();
-
-    const email = emailInput?.value.trim();
-    const password = passwordInput?.value;
-
-    if (!email || !password) {
-        alert("Please enter Email and Password.");
-        return;
+    if (!uid) {
+        return null;
     }
 
-    setLoading(true);
 
-    try {
+    const customerRef =
+        doc(
+            db,
+            "customers",
+            uid
+        );
 
-        const credential =
-            await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
 
-        const user = credential.user;
+    const customerSnap =
+        await getDoc(
+            customerRef
+        );
 
-        const customerRef =
-            doc(db, "customers", user.uid);
 
-        const customerSnap =
-            await getDoc(customerRef);
+    if (
+        !customerSnap.exists()
+    ) {
 
-        if (!customerSnap.exists()) {
-            alert(
+        return null;
+
+    }
+
+
+    return {
+
+        id:
+            customerSnap.id,
+
+        ...customerSnap.data()
+
+    };
+
+}
+
+
+// =====================================================
+// SAVE GLOBAL CUSTOMER DATA
+// =====================================================
+
+function saveCustomerData(
+    user,
+    customer
+) {
+
+    window.currentRioUser =
+        user;
+
+
+    window.currentUser =
+        customer;
+
+}
+
+
+// =====================================================
+// CHECK CUSTOMER ACCOUNT STATUS
+// =====================================================
+
+function validateCustomerStatus(
+    customer
+) {
+
+    if (!customer) {
+
+        return {
+
+            valid: false,
+
+            message:
                 "Customer record not found. Please contact Rio Maggi Point."
-            );
 
-            return;
-        }
-
-        const customer = customerSnap.data();
-
-        if (customer.status === "blocked") {
-            alert("Your account has been blocked.");
-            return;
-        }
-
-        if (customer.status === "suspended") {
-            alert("Your account has been suspended.");
-            return;
-        }
-
-        window.currentUser = customer;
-        window.currentRioUser = user;
-
-        window.location.href = "card.html";
-
-    } catch (error) {
-
-        console.error("Login Error:", error);
-
-        const messages = {
-            "auth/invalid-credential":
-                "Invalid Email or Password.",
-
-            "auth/user-not-found":
-                "No account found with this email.",
-
-            "auth/wrong-password":
-                "Invalid Email or Password.",
-
-            "auth/user-disabled":
-                "This account has been disabled.",
-
-            "auth/too-many-requests":
-                "Too many login attempts. Please try again later.",
-
-            "auth/network-request-failed":
-                "No Internet Connection.",
-
-            "auth/invalid-email":
-                "Invalid Email Address."
         };
 
-        alert(
-            messages[error.code] ||
-            "Login Failed. Please try again."
-        );
+    }
 
-    } finally {
 
-        setLoading(false);
+    if (
+        customer.status ===
+        "blocked"
+    ) {
+
+        return {
+
+            valid: false,
+
+            message:
+                "Your account has been blocked."
+
+        };
 
     }
 
-});
 
+    if (
+        customer.status ===
+        "suspended"
+    ) {
 
-// PASSWORD SHOW / HIDE
-togglePassword?.addEventListener("click", () => {
+        return {
 
-    const isPassword =
-        passwordInput.type === "password";
+            valid: false,
 
-    passwordInput.type =
-        isPassword ? "text" : "password";
+            message:
+                "Your account has been suspended."
 
-    togglePassword.innerHTML =
-        isPassword
-            ? `<i class="fa-solid fa-eye-slash"></i>`
-            : `<i class="fa-solid fa-eye"></i>`;
+        };
 
-});
-
-
-// FORGOT PASSWORD
-forgotPassword?.addEventListener("click", async (e) => {
-
-    e.preventDefault();
-
-    const email = emailInput?.value.trim();
-
-    if (!email) {
-        alert("Please enter your email address first.");
-        emailInput?.focus();
-        return;
     }
+
+
+    return {
+
+        valid: true,
+
+        message: ""
+
+    };
+
+}
+
+
+// =====================================================
+// AUTO LOGIN CHECK
+// =====================================================
+
+async function checkExistingLogin() {
 
     try {
 
-        await sendPasswordResetEmail(
-            auth,
-            email
+        const user =
+            await waitForAuth();
+
+
+        if (!user) {
+
+            return;
+
+        }
+
+
+        const customer =
+            await getCustomerProfile(
+                user.uid
+            );
+
+
+        const status =
+            validateCustomerStatus(
+                customer
+            );
+
+
+        if (
+            !status.valid
+        ) {
+
+            console.warn(
+                "Auto login blocked:",
+                status.message
+            );
+
+            return;
+
+        }
+
+
+        saveCustomerData(
+            user,
+            customer
         );
 
-        alert(
-            "Password reset email sent. Please check your inbox."
+
+        window.location.replace(
+            "card.html"
         );
 
-    } catch (error) {
+    }
+
+
+    catch (error) {
 
         console.error(
-            "Password Reset Error:",
+            "Auto Login Error:",
             error
         );
 
-        alert(
-            error.code === "auth/user-not-found"
-                ? "No account found with this email."
-                : "Unable to send password reset email."
+    }
+
+}
+
+
+// =====================================================
+// LOGIN FORM
+// =====================================================
+
+if (loginForm) {
+
+    loginForm.addEventListener(
+        "submit",
+        async (event) => {
+
+            event.preventDefault();
+
+
+            if (
+                isLoginProcessing
+            ) {
+
+                return;
+
+            }
+
+
+            const email =
+                emailInput
+                    ?.value
+                    .trim()
+                    .toLowerCase() ||
+                "";
+
+
+            const password =
+                passwordInput
+                    ?.value ||
+                "";
+
+
+            // =========================================
+            // BASIC VALIDATION
+            // =========================================
+
+            if (
+                !email ||
+                !password
+            ) {
+
+                alert(
+                    "Please enter Email and Password."
+                );
+
+                return;
+
+            }
+
+
+            isLoginProcessing =
+                true;
+
+
+            setLoginLoading(
+                true
+            );
+
+
+            try {
+
+                // =====================================
+                // FIREBASE AUTH LOGIN
+                // =====================================
+
+                const credential =
+                    await signInWithEmailAndPassword(
+
+                        auth,
+
+                        email,
+
+                        password
+
+                    );
+
+
+                const user =
+                    credential.user;
+
+
+                // =====================================
+                // CUSTOMER PROFILE
+                // =====================================
+
+                const customer =
+                    await getCustomerProfile(
+                        user.uid
+                    );
+
+
+                // =====================================
+                // CUSTOMER STATUS
+                // =====================================
+
+                const status =
+                    validateCustomerStatus(
+                        customer
+                    );
+
+
+                if (
+                    !status.valid
+                ) {
+
+                    alert(
+                        status.message
+                    );
+
+                    return;
+
+                }
+
+
+                // =====================================
+                // SAVE GLOBAL DATA
+                // =====================================
+
+                saveCustomerData(
+                    user,
+                    customer
+                );
+
+
+                // =====================================
+                // LOGIN SUCCESS
+                // =====================================
+
+                window.location.replace(
+                    "card.html"
+                );
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "Login Error:",
+                    error
+                );
+
+
+                let message =
+                    "Login failed. Please try again.";
+
+
+                switch (
+                    error.code
+                ) {
+
+                    case
+                    "auth/invalid-credential":
+
+                        message =
+                            "Invalid Email or Password.";
+
+                        break;
+
+
+                    case
+                    "auth/user-not-found":
+
+                        message =
+                            "No account found with this email.";
+
+                        break;
+
+
+                    case
+                    "auth/wrong-password":
+
+                        message =
+                            "Invalid Email or Password.";
+
+                        break;
+
+
+                    case
+                    "auth/user-disabled":
+
+                        message =
+                            "This account has been disabled.";
+
+                        break;
+
+
+                    case
+                    "auth/too-many-requests":
+
+                        message =
+                            "Too many login attempts. Please try again later.";
+
+                        break;
+
+
+                    case
+                    "auth/network-request-failed":
+
+                        message =
+                            "No Internet Connection.";
+
+                        break;
+
+
+                    case
+                    "auth/invalid-email":
+
+                        message =
+                            "Invalid Email Address.";
+
+                        break;
+
+
+                    case
+                    "auth/user-token-expired":
+
+                        message =
+                            "Your session has expired. Please login again.";
+
+                        break;
+
+                }
+
+
+                alert(
+                    message
+                );
+
+            }
+
+
+            finally {
+
+                isLoginProcessing =
+                    false;
+
+
+                setLoginLoading(
+                    false
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// PASSWORD SHOW / HIDE
+// =====================================================
+
+if (
+    togglePassword &&
+    passwordInput
+) {
+
+    function togglePasswordVisibility() {
+
+        const isPassword =
+            passwordInput.type ===
+            "password";
+
+
+        passwordInput.type =
+            isPassword
+                ? "text"
+                : "password";
+
+
+        togglePassword.innerHTML =
+            isPassword
+
+                ? `<i class="fa-solid fa-eye-slash"></i>`
+
+                : `<i class="fa-solid fa-eye"></i>`;
+
+
+        togglePassword.setAttribute(
+            "aria-label",
+            isPassword
+                ? "Hide password"
+                : "Show password"
         );
 
     }
 
-});
 
+    togglePassword.addEventListener(
+        "click",
+        togglePasswordVisibility
+    );
+
+
+    togglePassword.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (
+                event.key ===
+                "Enter" ||
+
+                event.key ===
+                " "
+            ) {
+
+                event.preventDefault();
+
+
+                togglePasswordVisibility();
+
+            }
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// FORGOT PASSWORD
+// =====================================================
+
+if (forgotPassword) {
+
+    forgotPassword.addEventListener(
+        "click",
+        async (event) => {
+
+            event.preventDefault();
+
+
+            const email =
+                emailInput
+                    ?.value
+                    .trim()
+                    .toLowerCase() ||
+                "";
+
+
+            if (!email) {
+
+                alert(
+                    "Please enter your email address first."
+                );
+
+
+                emailInput?.focus();
+
+
+                return;
+
+            }
+
+
+            try {
+
+                forgotPassword.style.pointerEvents =
+                    "none";
+
+
+                await sendPasswordResetEmail(
+
+                    auth,
+
+                    email
+
+                );
+
+
+                alert(
+                    "Password reset email sent. Please check your inbox."
+                );
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "Password Reset Error:",
+                    error
+                );
+
+
+                let message =
+                    "Unable to send password reset email.";
+
+
+                switch (
+                    error.code
+                ) {
+
+                    case
+                    "auth/user-not-found":
+
+                        message =
+                            "No account found with this email.";
+
+                        break;
+
+
+                    case
+                    "auth/invalid-email":
+
+                        message =
+                            "Invalid Email Address.";
+
+                        break;
+
+
+                    case
+                    "auth/network-request-failed":
+
+                        message =
+                            "No Internet Connection.";
+
+                        break;
+
+                }
+
+
+                alert(
+                    message
+                );
+
+            }
+
+
+            finally {
+
+                forgotPassword.style.pointerEvents =
+                    "";
+
+            }
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// ENTER KEY LOGIN
+// =====================================================
+
+[
+    emailInput,
+    passwordInput
+
+].forEach(
+    (input) => {
+
+        if (!input) {
+            return;
+        }
+
+
+        input.addEventListener(
+            "keydown",
+            (event) => {
+
+                if (
+                    event.key ===
+                    "Enter"
+                ) {
+
+                    event.preventDefault();
+
+
+                    loginForm?.requestSubmit();
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+// =====================================================
+// INTERNET STATUS
+// =====================================================
+
+window.addEventListener(
+    "offline",
+    () => {
+
+        console.warn(
+            "RioApp: Internet connection lost."
+        );
+
+    }
+);
+
+
+window.addEventListener(
+    "online",
+    () => {
+
+        console.log(
+            "RioApp: Internet connection restored."
+        );
+
+    }
+);
+
+
+// =====================================================
+// START AUTO LOGIN CHECK
+// =====================================================
+
+checkExistingLogin();
+
+
+// =====================================================
+// READY LOG
+// =====================================================
 
 console.log(
-    "Rio Maggi Point - Login Ready"
+    "===================================="
+);
+
+console.log(
+    "🍜 Rio Maggi Point"
+);
+
+console.log(
+    "Customer Login Ready"
+);
+
+console.log(
+    "Central app.js Integration Active"
+);
+
+console.log(
+    "Firebase Authentication Connected"
+);
+
+console.log(
+    "Firestore Connected"
+);
+
+console.log(
+    "Remember Me Removed"
+);
+
+console.log(
+    "Direct Login Enabled"
+);
+
+console.log(
+    "===================================="
 );
