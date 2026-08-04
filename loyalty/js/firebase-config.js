@@ -1,13 +1,7 @@
 // ======================================
 // RIO MAGGI POINT
 // FIREBASE CONFIG
-// FIREBASE-CONFIG.JS
 // CENTRAL FIREBASE INITIALIZATION
-// ======================================
-
-
-// ======================================
-// FIREBASE SDK IMPORTS
 // ======================================
 
 import {
@@ -31,8 +25,7 @@ import {
 
 const firebaseConfig = {
 
-    apiKey:
-        "AIzaSyB5ZmPaMW17YnUod48QhHXwS8it6XDB70",
+    apiKey: "यहाँ Firebase Console की EXACT API KEY डालें",
 
     authDomain:
         "rio-maggi-point.firebaseapp.com",
@@ -54,19 +47,17 @@ const firebaseConfig = {
 
 // ======================================
 // FIREBASE APP INITIALIZATION
-// ======================================
-// Prevent duplicate Firebase initialization.
-// This file is the single central Firebase
-// initialization point for the entire website.
+// Prevent duplicate initialization
 // ======================================
 
-const app = getApps().length > 0
-    ? getApp()
-    : initializeApp(firebaseConfig);
+const app =
+    getApps().length > 0
+        ? getApp()
+        : initializeApp(firebaseConfig);
 
 
 // ======================================
-// FIREBASE AUTH
+// FIREBASE AUTHENTICATION
 // ======================================
 
 const auth =
@@ -82,28 +73,19 @@ const db =
 
 
 // ======================================
-// EXPORTS
-// ======================================
-// All pages should import Firebase services
-// from this file instead of initializing Firebase
-// again.
+// CENTRAL EXPORTS
 // ======================================
 
 export {
-
     app,
-
     auth,
-
     db,
-
     firebaseConfig
-
 };
 
 
 // ======================================
-// FIREBASE CONFIG READY
+// READY
 // ======================================
 
 console.log(
