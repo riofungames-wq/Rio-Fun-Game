@@ -1,7 +1,7 @@
 // ======================================
 // RIO MAGGI POINT
 // CENTRAL FIREBASE INITIALIZATION
-// FIREBASE.JS
+// FIREBASE.JS - FINAL
 // ======================================
 
 
@@ -35,7 +35,7 @@ import {
 
 
 // ======================================
-// FIREBASE CONFIG
+// CENTRAL FIREBASE CONFIG
 // ======================================
 
 import {
@@ -44,31 +44,31 @@ import {
 
 
 // ======================================
-// INITIALIZE FIREBASE APP
+// FIREBASE APP INITIALIZATION
 // PREVENT DUPLICATE INITIALIZATION
 // ======================================
 
-const app = getApps().length > 0
+const app = getApps().length
     ? getApp()
     : initializeApp(firebaseConfig);
 
 
 // ======================================
-// INITIALIZE AUTH
+// FIREBASE AUTH INITIALIZATION
 // ======================================
 
 const auth = getAuth(app);
 
 
 // ======================================
-// INITIALIZE FIRESTORE
+// FIRESTORE INITIALIZATION
 // ======================================
 
 const db = getFirestore(app);
 
 
 // ======================================
-// EXPORT
+// CENTRAL EXPORTS
 // ======================================
 
 export {
@@ -83,15 +83,7 @@ export {
 // ======================================
 
 console.log(
-    "RIO MAGGI POINT - FIREBASE APP READY"
-);
-
-console.log(
-    "Firebase Auth Ready"
-);
-
-console.log(
-    "Firebase Firestore Ready"
+    "RIO MAGGI POINT - FIREBASE READY"
 );
 
 
