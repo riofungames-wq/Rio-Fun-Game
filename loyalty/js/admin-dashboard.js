@@ -4,22 +4,12 @@
 // ADMIN-DASHBOARD.JS — PART 5
 // GIVE STAMP + 40 DAY LOYALTY CYCLE + REWARD UNLOCK
 // FIREBASE UPDATE + LOGOUT
-// CLEAN VERSION
+// FINAL CLEAN REPLACEMENT
 // =====================================================
 
 
 // =====================================================
-// IMPORTANT
-// =====================================================
-// stampActionProcessing is already declared in PART 1.
-// DO NOT declare it again here.
-//
-// let stampActionProcessing = false;
-// =====================================================
-
-
-// =====================================================
-// LOYALTY CYCLE CONFIGURATION
+// 40-DAY LOYALTY CYCLE CONFIGURATION
 // =====================================================
 
 const LOYALTY_CYCLE_DAYS = 40;
@@ -44,21 +34,100 @@ function getCurrentTimestamp() {
 
 
 // =====================================================
+// CONVERT FIREBASE / DATE VALUE TO DATE
+// =====================================================
+
+function normalizeDateValue(value) {
+
+  if (!value) {
+    return null;
+  }
+
+  try {
+
+    if (
+      typeof value.toDate === "function"
+    ) {
+
+      const date =
+        value.toDate();
+
+      return (
+        date instanceof Date &&
+        !Number.isNaN(date.getTime())
+      )
+        ? date
+        : null;
+
+    }
+
+    if (
+      value instanceof Date
+    ) {
+
+      return (
+        !Number.isNaN(value.getTime())
+      )
+        ? value
+        : null;
+
+    }
+
+    if (
+      typeof value === "number"
+    ) {
+
+      const date =
+        new Date(value);
+
+      return (
+        !Number.isNaN(date.getTime())
+      )
+        ? date
+        : null;
+
+    }
+
+    if (
+      typeof value === "string"
+    ) {
+
+      const date =
+        new Date(value);
+
+      return (
+        !Number.isNaN(date.getTime())
+      )
+        ? date
+        : null;
+
+    }
+
+  }
+
+  catch (error) {
+
+    console.warn(
+      "⚠️ Date conversion failed:",
+      error
+    );
+
+  }
+
+  return null;
+
+}
+
+
+// =====================================================
 // GET CUSTOMER CYCLE START DATE
 // =====================================================
 
-function getCustomerCycleStartDate(
-  customer
-) {
+function getCustomerCycleStartDate(customer) {
 
   if (!customer) {
     return null;
   }
-
-
-  // ---------------------------------------------------
-  // SUPPORT MULTIPLE POSSIBLE FIELD NAMES
-  // ---------------------------------------------------
 
   const possibleDates = [
 
@@ -72,56 +141,14 @@ function getCustomerCycleStartDate(
 
   ];
 
-
   for (
     const value of possibleDates
   ) {
 
-    if (!value) {
-      continue;
-    }
-
-
-    // -------------------------------------------------
-    // FIREBASE TIMESTAMP
-    // -------------------------------------------------
-
-    if (
-      value &&
-      typeof value.toDate === "function"
-    ) {
-
-      const date =
-        value.toDate();
-
-      if (
-        date instanceof Date &&
-        !Number.isNaN(
-          date.getTime()
-        )
-      ) {
-
-        return date;
-
-      }
-
-    }
-
-
-    // -------------------------------------------------
-    // JS DATE / STRING / NUMBER
-    // -------------------------------------------------
-
     const date =
-      new Date(value);
+      normalizeDateValue(value);
 
-
-    if (
-      date instanceof Date &&
-      !Number.isNaN(
-        date.getTime()
-      )
-    ) {
+    if (date) {
 
       return date;
 
@@ -129,113 +156,46 @@ function getCustomerCycleStartDate(
 
   }
 
-
   return null;
 
 }
 
 
 // =====================================================
-// CHECK WHETHER 40-DAY CYCLE HAS EXPIRED
+// GET LOYALTY CYCLE STATUS
 // =====================================================
 
-function isLoyaltyCycleExpired(
-  customer
-) {
-
-  if (!customer) {
-    return false;
-  }
-
-
-  const stamps =
-    getCustomerStamps(
-      customer
-    );
-
-
-  // ---------------------------------------------------
-  // NO ACTIVE STAMP CYCLE
-  // ---------------------------------------------------
-
-  if (stamps <= 0) {
-    return false;
-  }
-
-
-  // ---------------------------------------------------
-  // IF CYCLE START DATE DOES NOT EXIST
-  // ---------------------------------------------------
-  // Do not automatically reset old customers because
-  // legacy documents may not have cycleStartedAt.
-  // ---------------------------------------------------
-
-  const cycleStartDate =
-    getCustomerCycleStartDate(
-      customer
-    );
-
-
-  if (!cycleStartDate) {
-    return false;
-  }
-
-
-  const cycleStartTime =
-    cycleStartDate.getTime();
-
-
-  const now =
-    getCurrentTimestamp();
-
-
-  const cycleAge =
-    now -
-    cycleStartTime;
-
-
-  return (
-    cycleAge >=
-    LOYALTY_CYCLE_MS
-  );
-
-}
-
-
-// =====================================================
-// GET CYCLE STATUS
-// =====================================================
-
-function getLoyaltyCycleStatus(
-  customer
-) {
+function getLoyaltyCycleStatus(customer) {
 
   if (!customer) {
 
     return {
 
-      expired:
-        false,
+      active: false,
 
-      active:
-        false
+      expired: false,
+
+      cycleStartDate: null,
+
+      cycleStartTime: null,
+
+      cycleExpiryTime: null,
+
+      remainingMs: 0
 
     };
 
   }
 
-
   const stamps =
-    getCustomerStamps(
-      customer
-    );
-
+    getCustomerStamps(customer);
 
   const cycleStartDate =
-    getCustomerCycleStartDate(
-      customer
-    );
+    getCustomerCycleStartDate(customer);
 
+  // ---------------------------------------------------
+  // NO ACTIVE CYCLE
+  // ---------------------------------------------------
 
   if (
     stamps <= 0 ||
@@ -244,40 +204,42 @@ function getLoyaltyCycleStatus(
 
     return {
 
-      expired:
-        false,
+      active: false,
 
-      active:
-        false
+      expired: false,
+
+      cycleStartDate: null,
+
+      cycleStartTime: null,
+
+      cycleExpiryTime: null,
+
+      remainingMs: 0
 
     };
 
   }
 
-
   const cycleStartTime =
     cycleStartDate.getTime();
 
-
   const cycleExpiryTime =
-
     cycleStartTime +
-
     LOYALTY_CYCLE_MS;
-
 
   const now =
     getCurrentTimestamp();
 
+  const expired =
+    now >= cycleExpiryTime;
 
   return {
 
-    expired:
-      now >=
-      cycleExpiryTime,
+    active: true,
 
-    active:
-      true,
+    expired,
+
+    cycleStartDate,
 
     cycleStartTime,
 
@@ -286,8 +248,7 @@ function getLoyaltyCycleStatus(
     remainingMs:
       Math.max(
         0,
-        cycleExpiryTime -
-        now
+        cycleExpiryTime - now
       )
 
   };
@@ -296,19 +257,30 @@ function getLoyaltyCycleStatus(
 
 
 // =====================================================
+// CHECK 40-DAY CYCLE EXPIRATION
+// =====================================================
+
+function isLoyaltyCycleExpired(customer) {
+
+  const status =
+    getLoyaltyCycleStatus(customer);
+
+  return status.expired === true;
+
+}
+
+
+// =====================================================
 // GET FRESH CUSTOMER DOCUMENT
 // =====================================================
 
-async function getCustomerDocument(
-  uid
-) {
+async function getCustomerDocument(uid) {
 
   if (!uid) {
 
     return null;
 
   }
-
 
   const customerRef =
     doc(
@@ -317,12 +289,10 @@ async function getCustomerDocument(
       uid
     );
 
-
   const customerSnapshot =
     await getDoc(
       customerRef
     );
-
 
   if (
     !customerSnapshot.exists()
@@ -332,25 +302,24 @@ async function getCustomerDocument(
 
   }
 
+  const customerData =
+    customerSnapshot.data();
 
   const customer = {
 
-    ...customerSnapshot.data(),
+    ...customerData,
 
     uid:
       customerSnapshot.id
 
   };
 
-
   // ---------------------------------------------------
-  // NORMALIZE STAMP COUNT
+  // NORMALIZE STAMPS
   // ---------------------------------------------------
 
   customer.stamps =
-    getCustomerStamps(
-      customer
-    );
+    getCustomerStamps(customer);
 
 
   // ---------------------------------------------------
@@ -364,6 +333,91 @@ async function getCustomerDocument(
 
 
   return customer;
+
+}
+
+
+// =====================================================
+// UPDATE LOCAL CUSTOMER SAFELY
+// =====================================================
+
+function syncCustomerAfterStamp(customer) {
+
+  if (!customer) {
+    return;
+  }
+
+  // ---------------------------------------------------
+  // LOCAL CUSTOMER ARRAY
+  // ---------------------------------------------------
+
+  if (
+    typeof upsertLocalCustomer ===
+    "function"
+  ) {
+
+    upsertLocalCustomer(customer);
+
+  }
+
+
+  // ---------------------------------------------------
+  // CURRENT CUSTOMER
+  // ---------------------------------------------------
+
+  currentCustomer =
+    customer;
+
+
+  // ---------------------------------------------------
+  // CUSTOMER PREVIEW
+  // ---------------------------------------------------
+
+  if (
+    typeof showCustomer ===
+    "function"
+  ) {
+
+    showCustomer(customer);
+
+  }
+
+
+  // ---------------------------------------------------
+  // DASHBOARD STATS
+  // ---------------------------------------------------
+
+  if (
+    typeof updateDashboardStats ===
+    "function"
+  ) {
+
+    updateDashboardStats();
+
+  }
+
+
+  // ---------------------------------------------------
+  // CUSTOMER TABLE
+  // ---------------------------------------------------
+
+  if (
+    typeof renderCustomerTable ===
+    "function" &&
+    typeof filterCustomers ===
+    "function"
+  ) {
+
+    const searchValue =
+      searchCustomer
+        ? searchCustomer.value
+        : "";
+
+    renderCustomerTable(
+      filterCustomers(searchValue)
+    );
+
+  }
 
 }
 
@@ -388,7 +442,7 @@ async function giveStampToCustomer() {
 
 
   // ---------------------------------------------------
-  // CHECK SELECTED CUSTOMER
+  // CHECK CUSTOMER
   // ---------------------------------------------------
 
   if (
@@ -406,12 +460,11 @@ async function giveStampToCustomer() {
 
 
   // ---------------------------------------------------
-  // CHECK ADMIN AUTHENTICATION
+  // CHECK ADMIN AUTH
   // ---------------------------------------------------
 
   const currentUser =
     auth.currentUser;
-
 
   if (!currentUser) {
 
@@ -419,11 +472,9 @@ async function giveStampToCustomer() {
       "❌ Admin session expired. Please login again."
     );
 
-
     location.replace(
       ADMIN_LOGIN_PAGE
     );
-
 
     return;
 
@@ -431,33 +482,23 @@ async function giveStampToCustomer() {
 
 
   // ---------------------------------------------------
-  // START PROCESSING
+  // LOCK ACTION
   // ---------------------------------------------------
 
   stampActionProcessing =
     true;
 
 
-  if (giveStampBtn) {
-
-    giveStampBtn.disabled =
-      true;
-
-  }
-
-
   const originalButtonContent =
-
     giveStampBtn
       ? giveStampBtn.innerHTML
       : "";
 
 
-  // ---------------------------------------------------
-  // BUTTON LOADING STATE
-  // ---------------------------------------------------
-
   if (giveStampBtn) {
+
+    giveStampBtn.disabled =
+      true;
 
     giveStampBtn.innerHTML = `
 
@@ -478,12 +519,15 @@ async function giveStampToCustomer() {
   try {
 
     // =================================================
-    // ALWAYS FETCH FRESH CUSTOMER DATA
+    // ALWAYS GET FRESH FIREBASE DATA
     // =================================================
+
+    const customerUid =
+      currentCustomer.uid;
 
     const freshCustomer =
       await getCustomerDocument(
-        currentCustomer.uid
+        customerUid
       );
 
 
@@ -497,7 +541,7 @@ async function giveStampToCustomer() {
 
 
     // =================================================
-    // CURRENT DATE
+    // TODAY
     // =================================================
 
     const todayKey =
@@ -505,7 +549,7 @@ async function giveStampToCustomer() {
 
 
     // =================================================
-    // CURRENT STAMP COUNT
+    // CURRENT STAMPS
     // =================================================
 
     let currentStamps =
@@ -515,7 +559,7 @@ async function giveStampToCustomer() {
 
 
     // =================================================
-    // CHECK 40-DAY LOYALTY CYCLE
+    // GET CYCLE STATUS
     // =================================================
 
     const cycleStatus =
@@ -524,19 +568,13 @@ async function giveStampToCustomer() {
       );
 
 
-    // =================================================
-    // EXPIRED CYCLE
-    // =====================================================
-    // If customer had 1–5 stamps and the 40-day cycle
-    // expired, old cycle is reset.
-    //
-    // IMPORTANT:
-    // The current visit becomes STAMP #1 of a new cycle.
-    // =================================================
-
     let cycleExpired =
       cycleStatus.expired;
 
+
+    // =================================================
+    // RESET EXPIRED INCOMPLETE CYCLE
+    // =================================================
 
     if (
       cycleExpired &&
@@ -545,15 +583,13 @@ async function giveStampToCustomer() {
     ) {
 
       console.log(
-        "⏰ 40-day loyalty cycle expired."
+        "⏰ 40-day cycle expired."
       );
-
 
       console.log(
-        "Old Stamps:",
+        "Old stamp count:",
         currentStamps
       );
-
 
       currentStamps =
         0;
@@ -562,11 +598,9 @@ async function giveStampToCustomer() {
 
 
     // =================================================
-    // CHECK TODAY'S STAMP
+    // DAILY STAMP PROTECTION
     // =================================================
-    // Check only when the existing cycle is still valid.
-    // If the old cycle expired, the customer can start
-    // a fresh cycle today.
+    // Expired cycle can start again today.
     // =================================================
 
     const alreadyStampedToday = (
@@ -601,28 +635,13 @@ async function giveStampToCustomer() {
 
       };
 
-
-      upsertLocalCustomer(
+      syncCustomerAfterStamp(
         syncedCustomer
       );
-
-
-      currentCustomer =
-        syncedCustomer;
-
-
-      showCustomer(
-        syncedCustomer
-      );
-
-
-      updateDashboardStats();
-
 
       alert(
         "⚠️ This customer has already received today's stamp."
       );
-
 
       return;
 
@@ -630,15 +649,11 @@ async function giveStampToCustomer() {
 
 
     // =================================================
-    // CHECK REWARD READY
-    // =================================================
-    // A completed 6-stamp cycle must not receive another
-    // stamp until reward is claimed/consumed.
+    // REWARD ALREADY READY
     // =================================================
 
     if (
-      currentStamps >=
-      MAX_STAMPS
+      currentStamps >= MAX_STAMPS
     ) {
 
       const syncedCustomer = {
@@ -653,28 +668,13 @@ async function giveStampToCustomer() {
 
       };
 
-
-      upsertLocalCustomer(
+      syncCustomerAfterStamp(
         syncedCustomer
       );
-
-
-      currentCustomer =
-        syncedCustomer;
-
-
-      showCustomer(
-        syncedCustomer
-      );
-
-
-      updateDashboardStats();
-
 
       alert(
         "🎁 This customer already has a reward ready. Please claim the reward first."
       );
-
 
       return;
 
@@ -682,7 +682,15 @@ async function giveStampToCustomer() {
 
 
     // =================================================
-    // CALCULATE NEW STAMP COUNT
+    // CHECK NEW CYCLE
+    // =================================================
+
+    const isStartingNewCycle =
+      currentStamps === 0;
+
+
+    // =================================================
+    // NEW STAMP COUNT
     // =================================================
 
     const newStampCount =
@@ -694,17 +702,6 @@ async function giveStampToCustomer() {
         MAX_STAMPS
 
       );
-
-
-    // =================================================
-    // CHECK WHETHER THIS IS FIRST STAMP OF NEW CYCLE
-    // =================================================
-
-    const isStartingNewCycle = (
-
-      currentStamps === 0
-
-    );
 
 
     // =================================================
@@ -723,18 +720,14 @@ async function giveStampToCustomer() {
 
     const customerRef =
       doc(
-
         db,
-
         "customers",
-
-        currentCustomer.uid
-
+        customerUid
       );
 
 
     // =================================================
-    // FIRESTORE UPDATE DATA
+    // FIRESTORE UPDATE
     // =================================================
 
     const updateData = {
@@ -761,14 +754,7 @@ async function giveStampToCustomer() {
 
 
     // =================================================
-    // START NEW 40-DAY CYCLE
-    // =================================================
-    // This happens when:
-    //
-    // 1. Customer has 0 stamps
-    // 2. Previous cycle expired and was reset
-    //
-    // Existing valid cycle keeps its original start date.
+    // START / RESTART 40-DAY CYCLE
     // =================================================
 
     if (
@@ -789,7 +775,7 @@ async function giveStampToCustomer() {
 
 
     // =================================================
-    // UPDATE FIRESTORE
+    // FIREBASE UPDATE
     // =================================================
 
     await updateDoc(
@@ -802,7 +788,7 @@ async function giveStampToCustomer() {
 
 
     // =================================================
-    // CREATE UPDATED CUSTOMER OBJECT
+    // CREATE LOCAL UPDATED CUSTOMER
     // =================================================
 
     const updatedCustomer = {
@@ -824,105 +810,75 @@ async function giveStampToCustomer() {
     };
 
 
-    // ---------------------------------------------------
-    // UPDATE LOCAL CYCLE START
-    // ---------------------------------------------------
+    // =================================================
+    // LOCAL CYCLE START
+    // =================================================
 
     if (
       isStartingNewCycle ||
       cycleExpired
     ) {
 
-      const now =
+      const localCycleStart =
         new Date();
 
-
       updatedCustomer.cycleStartedAt =
-        now;
+        localCycleStart;
 
       updatedCustomer.loyaltyCycleStartedAt =
-        now;
+        localCycleStart;
 
       updatedCustomer.stampCycleStartedAt =
-        now;
+        localCycleStart;
 
     }
 
 
     // =================================================
-    // UPDATE LOCAL CUSTOMER ARRAY
+    // SYNC EVERYTHING
     // =================================================
 
-    upsertLocalCustomer(
+    syncCustomerAfterStamp(
       updatedCustomer
     );
 
 
     // =================================================
-    // UPDATE CURRENT CUSTOMER
+    // REFRESH TIME
     // =================================================
 
-    currentCustomer =
-      updatedCustomer;
+    if (
+      typeof updateLastRefresh ===
+      "function"
+    ) {
 
+      updateLastRefresh();
 
-    // =================================================
-    // UPDATE CUSTOMER PREVIEW
-    // =================================================
-
-    showCustomer(
-      updatedCustomer
-    );
+    }
 
 
     // =================================================
-    // UPDATE DASHBOARD STATISTICS
+    // SCANNER STATUS
     // =================================================
 
-    updateDashboardStats();
+    if (
+      typeof setScannerStatus ===
+      "function"
+    ) {
 
+      setScannerStatus(
 
-    // =================================================
-    // REFRESH CUSTOMER TABLE
-    // =================================================
+        rewardUnlocked
 
-    const searchValue =
-      searchCustomer
-        ? searchCustomer.value
-        : "";
+          ? "🎁 Reward Ready"
 
+          : "🟢 Stamp Added Successfully",
 
-    renderCustomerTable(
+        "ready"
 
-      filterCustomers(
-        searchValue
-      )
+      );
 
-    );
-
-
-    // =================================================
-    // UPDATE REFRESH TIME
-    // =================================================
-
-    updateLastRefresh();
-
-
-    // =================================================
-    // UPDATE STATUS
-    // =================================================
-
-    setScannerStatus(
-
-      rewardUnlocked
-
-        ? "🎁 Reward Ready"
-
-        : "🟢 Stamp Added Successfully",
-
-      "ready"
-
-    );
+    }
 
 
     // =================================================
@@ -937,7 +893,7 @@ async function giveStampToCustomer() {
 
         "🎉 Stamp Added Successfully!\n\n" +
 
-        "🎁 Congratulations! 6 valid stamps completed.\n" +
+        "🎁 6 valid stamps completed.\n\n" +
 
         "Customer Reward is now READY."
 
@@ -953,7 +909,7 @@ async function giveStampToCustomer() {
 
         "⏰ Previous 40-day loyalty cycle expired.\n\n" +
 
-        "🔄 Old stamp cycle has been reset.\n\n" +
+        "🔄 Old stamp cycle reset.\n\n" +
 
         "✅ New loyalty cycle started.\n\n" +
 
@@ -971,7 +927,7 @@ async function giveStampToCustomer() {
 
         `Current Stamps: ${newStampCount}/${MAX_STAMPS}\n\n` +
 
-        "⏳ Complete 6 stamps within 40 days to unlock your reward."
+        "⏳ Complete 6 valid stamps within 40 days to unlock your reward."
 
       );
 
@@ -983,46 +939,16 @@ async function giveStampToCustomer() {
     // =================================================
 
     console.log(
-      "========================================"
-    );
-
-    console.log(
-      "✅ Stamp Added Successfully"
-    );
-
-    console.log(
-      "Customer:",
-      updatedCustomer.name || "-"
-    );
-
-    console.log(
-      "Member ID:",
-      updatedCustomer.memberId || "-"
-    );
-
-    console.log(
-      "New Stamps:",
-      `${newStampCount}/${MAX_STAMPS}`
-    );
-
-    console.log(
-      "40-Day Cycle Expired:",
-      cycleExpired
-    );
-
-    console.log(
-      "New Cycle Started:",
-      isStartingNewCycle ||
-      cycleExpired
-    );
-
-    console.log(
-      "Reward Unlocked:",
-      rewardUnlocked
-    );
-
-    console.log(
-      "========================================"
+      "✅ Stamp successfully added.",
+      {
+        customerUid,
+        newStampCount,
+        cycleExpired,
+        newCycleStarted:
+          isStartingNewCycle ||
+          cycleExpired,
+        rewardUnlocked
+      }
     );
 
   }
@@ -1030,7 +956,7 @@ async function giveStampToCustomer() {
   catch (error) {
 
     // =================================================
-    // ERROR HANDLING
+    // ERROR
     // =================================================
 
     console.error(
@@ -1039,19 +965,27 @@ async function giveStampToCustomer() {
     );
 
 
-    setScannerStatus(
-      "🔴 Stamp Update Failed",
-      "error"
-    );
+    if (
+      typeof setScannerStatus ===
+      "function"
+    ) {
+
+      setScannerStatus(
+        "🔴 Stamp Update Failed",
+        "error"
+      );
+
+    }
 
 
     alert(
 
       "❌ Unable To Give Stamp.\n\n" +
 
-      "Please check your internet connection " +
-
-      "and try again."
+      (
+        error?.message ||
+        "Please check your internet connection and try again."
+      )
 
     );
 
@@ -1060,7 +994,7 @@ async function giveStampToCustomer() {
   finally {
 
     // =================================================
-    // RELEASE PROCESSING LOCK
+    // RELEASE LOCK
     // =================================================
 
     stampActionProcessing =
@@ -1068,7 +1002,7 @@ async function giveStampToCustomer() {
 
 
     // =================================================
-    // RESTORE BUTTON CONTENT
+    // RESTORE BUTTON
     // =================================================
 
     if (giveStampBtn) {
@@ -1076,34 +1010,39 @@ async function giveStampToCustomer() {
       giveStampBtn.innerHTML =
         originalButtonContent;
 
-    }
 
-
-    // =================================================
-    // RE-EVALUATE GIVE STAMP BUTTON
-    // =================================================
-
-    if (
-      giveStampBtn
-    ) {
+      // -------------------------------------------------
+      // RE-CHECK BUTTON STATE
+      // -------------------------------------------------
 
       if (
         currentCustomer
       ) {
 
-        giveStampBtn.disabled = (
-
-          hasStampToday(
+        const currentCount =
+          getCustomerStamps(
             currentCustomer
-          )
+          );
+
+        const disabled = (
+
+          currentCount >=
+          MAX_STAMPS
 
           ||
 
-          getCustomerStamps(
-            currentCustomer
-          ) >= MAX_STAMPS
+          (
+            typeof hasStampToday ===
+            "function" &&
+            hasStampToday(
+              currentCustomer
+            )
+          )
 
         );
+
+        giveStampBtn.disabled =
+          disabled;
 
       }
 
@@ -1122,86 +1061,89 @@ async function giveStampToCustomer() {
 
 
 // =====================================================
-// GIVE STAMP BUTTON EVENT
+// GIVE STAMP BUTTON
 // =====================================================
-// ONLY ONE GIVE STAMP CLICK LISTENER
-// =====================================================
-
-giveStampBtn?.addEventListener(
-
-  "click",
-
-  giveStampToCustomer
-
-);
-
-
-// =====================================================
-// LOGOUT BUTTON
-// =====================================================
-// ONLY ONE LOGOUT CLICK LISTENER
+// IMPORTANT:
+// Part 5 owns this listener.
+// Do not add another Give Stamp listener elsewhere.
 // =====================================================
 
-logoutBtn?.addEventListener(
+if (
+  giveStampBtn &&
+  !giveStampBtn.dataset.listenerAttached
+) {
 
-  "click",
+  giveStampBtn.addEventListener(
+    "click",
+    giveStampToCustomer
+  );
 
-  async () => {
+  giveStampBtn.dataset.listenerAttached =
+    "true";
 
-    // -------------------------------------------------
-    // PREVENT MULTIPLE LOGOUT REQUESTS
-    // -------------------------------------------------
-
-    if (
-      logoutProcessing
-    ) {
-
-      return;
-
-    }
+}
 
 
-    logoutProcessing =
+// =====================================================
+// LOGOUT SYSTEM
+// =====================================================
+
+async function handleAdminLogout() {
+
+  // ---------------------------------------------------
+  // PREVENT DOUBLE LOGOUT
+  // ---------------------------------------------------
+
+  if (
+    logoutProcessing
+  ) {
+
+    return;
+
+  }
+
+
+  logoutProcessing =
+    true;
+
+
+  const originalContent =
+    logoutBtn
+      ? logoutBtn.innerHTML
+      : "";
+
+
+  if (logoutBtn) {
+
+    logoutBtn.disabled =
       true;
 
+    logoutBtn.innerHTML = `
 
-    if (logoutBtn) {
+      <i
+        class="fa-solid fa-spinner fa-spin"
+        aria-hidden="true"
+      ></i>
 
-      logoutBtn.disabled =
-        true;
+      <span>
+        Logging Out...
+      </span>
 
-    }
+    `;
 
-
-    const originalContent =
-      logoutBtn
-        ? logoutBtn.innerHTML
-        : "";
-
-
-    if (logoutBtn) {
-
-      logoutBtn.innerHTML = `
-
-        <i
-          class="fa-solid fa-spinner fa-spin"
-          aria-hidden="true"
-        ></i>
-
-        <span>
-          Logging Out...
-        </span>
-
-      `;
-
-    }
+  }
 
 
-    try {
+  try {
 
-      // -------------------------------------------------
-      // STOP SCANNER BEFORE LOGOUT
-      // -------------------------------------------------
+    // =================================================
+    // STOP SCANNER
+    // =================================================
+
+    if (
+      typeof stopScanner ===
+      "function"
+    ) {
 
       if (
         scannerRunning ||
@@ -1212,59 +1154,82 @@ logoutBtn?.addEventListener(
 
       }
 
-
-      // -------------------------------------------------
-      // FIREBASE SIGN OUT
-      // -------------------------------------------------
-
-      await signOut(
-        auth
-      );
-
-
-      console.log(
-        "✅ Admin logged out successfully."
-      );
-
-
-      // -------------------------------------------------
-      // AUTH STATE LISTENER HANDLES REDIRECT
-      // -------------------------------------------------
-
     }
 
-    catch (error) {
 
-      console.error(
-        "❌ Logout Error:",
-        error
-      );
+    // =================================================
+    // FIREBASE LOGOUT
+    // =================================================
 
-
-      alert(
-        "❌ Unable To Logout. Please try again."
-      );
+    await signOut(
+      auth
+    );
 
 
-      logoutProcessing =
+    console.log(
+      "✅ Admin logged out successfully."
+    );
+
+
+    // =================================================
+    // AUTH STATE LISTENER
+    // HANDLES REDIRECT
+    // =================================================
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "❌ Logout Error:",
+      error
+    );
+
+
+    alert(
+      "❌ Unable To Logout. Please try again."
+    );
+
+
+    logoutProcessing =
+      false;
+
+
+    if (logoutBtn) {
+
+      logoutBtn.disabled =
         false;
 
-
-      if (logoutBtn) {
-
-        logoutBtn.disabled =
-          false;
-
-        logoutBtn.innerHTML =
-          originalContent;
-
-      }
+      logoutBtn.innerHTML =
+        originalContent;
 
     }
 
   }
 
-);
+}
+
+
+// =====================================================
+// LOGOUT BUTTON LISTENER
+// =====================================================
+// Prevent duplicate event listener.
+// =====================================================
+
+if (
+  logoutBtn &&
+  !logoutBtn.dataset.listenerAttached
+) {
+
+  logoutBtn.addEventListener(
+    "click",
+    handleAdminLogout
+  );
+
+  logoutBtn.dataset.listenerAttached =
+    "true";
+
+}
 
 
 // =====================================================
@@ -1316,11 +1281,7 @@ console.log(
 );
 
 console.log(
-  "🎉 ADMIN-DASHBOARD.JS PART 1–5 FOUNDATION COMPLETE"
-);
-
-console.log(
-  "➡️ Next: Remaining Admin Dashboard Features"
+  "🎉 ADMIN DASHBOARD PART 5 READY"
 );
 
 console.log(
