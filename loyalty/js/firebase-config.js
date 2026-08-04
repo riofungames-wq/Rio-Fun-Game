@@ -25,7 +25,8 @@ import {
 
 const firebaseConfig = {
 
-    apiKey: "यहाँ Firebase Console की EXACT API KEY डालें",
+    apiKey:
+        "AIzaSyB5ZmPaMW17YnUOvd48QhHXwS8it6XDB70",
 
     authDomain:
         "rio-maggi-point.firebaseapp.com",
@@ -47,7 +48,7 @@ const firebaseConfig = {
 
 // ======================================
 // FIREBASE APP INITIALIZATION
-// Prevent duplicate initialization
+// Prevent Duplicate Initialization
 // ======================================
 
 const app =
@@ -73,7 +74,7 @@ const db =
 
 
 // ======================================
-// CENTRAL EXPORTS
+// CENTRAL FIREBASE EXPORTS
 // ======================================
 
 export {
@@ -85,7 +86,7 @@ export {
 
 
 // ======================================
-// READY
+// FIREBASE READY
 // ======================================
 
 console.log(
