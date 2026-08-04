@@ -1,15 +1,24 @@
 // ======================================
 // RIO MAGGI POINT
 // SIGNUP FIREBASE
-// FINAL FIXED VERSION
-// CENTRAL APP.JS INTEGRATION
+// FINAL FIXED CENTRAL APP INTEGRATION
+// ======================================
+
+
+// ======================================
+// CENTRAL APP IMPORT
 // ======================================
 
 import {
     auth,
-    db,
-    storage
+    db
 } from "./app.js";
+
+
+// ======================================
+// FIREBASE AUTH IMPORTS
+// SAME FIREBASE VERSION AS APP.JS
+// ======================================
 
 import {
     createUserWithEmailAndPassword,
@@ -18,19 +27,17 @@ import {
 } from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+
+// ======================================
+// FIRESTORE IMPORTS
+// ======================================
+
 import {
     doc,
     setDoc,
     serverTimestamp
 } from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-import {
-    ref,
-    uploadBytes,
-    getDownloadURL
-} from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 
 // ======================================
@@ -47,14 +54,14 @@ const createAccountBtn =
 // PREVENT DUPLICATE SUBMISSION
 // ======================================
 
-let isCreatingAccount = false;
+let isSignupProcessing = false;
 
 
 // ======================================
-// BUTTON STATE
+// SET BUTTON LOADING
 // ======================================
 
-function setLoadingState(
+function setSignupLoading(
     loading
 ) {
 
@@ -94,7 +101,10 @@ function setLoadingState(
 
 function generateMemberId() {
 
-    const randomNumber =
+    const timestamp =
+        Date.now();
+
+    const random =
         Math.floor(
             1000 +
             Math.random() * 9000
@@ -103,128 +113,319 @@ function generateMemberId() {
 
     return (
         "RIO-" +
-        Date.now() +
+        timestamp +
         "-" +
-        randomNumber
+        random
     );
 
 }
 
 
 // ======================================
-// UPLOAD PROFILE PHOTO
+// GET SIGNUP DATA
 // ======================================
 
-async function uploadProfilePhoto(
-    user,
-    avatar
+function getSignupData() {
+
+    const data =
+        window.signupData;
+
+
+    if (!data) {
+
+        return null;
+
+    }
+
+
+    return {
+
+        name:
+            String(
+                data.name || ""
+            ).trim(),
+
+        mobile:
+            String(
+                data.mobile || ""
+            ).trim(),
+
+        email:
+            String(
+                data.email || ""
+            ).trim()
+            .toLowerCase(),
+
+        password:
+            data.password || "",
+
+        gender:
+            String(
+                data.gender || ""
+            ).trim(),
+
+        avatar:
+            data.avatar || ""
+
+    };
+
+}
+
+
+// ======================================
+// VALIDATE SIGNUP DATA
+// ======================================
+
+function validateSignupData(
+    data
 ) {
 
-    // ==================================
-    // DEFAULT AVATAR
-    // ==================================
+    if (!data) {
 
-    if (
-        !avatar ||
-        typeof avatar !== "string"
-    ) {
-
-        return "";
+        return {
+            valid: false,
+            message:
+                "Signup data not found."
+        };
 
     }
 
 
-    // ==================================
-    // NORMAL ASSET AVATAR
-    // ==================================
-
     if (
-        avatar.startsWith(
-            "assets/"
-        )
+        !data.name ||
+        !data.mobile ||
+        !data.email ||
+        !data.password ||
+        !data.gender ||
+        !data.avatar
     ) {
 
-        return avatar;
+        return {
+            valid: false,
+            message:
+                "Please complete all signup details."
+        };
 
     }
 
 
-    // ==================================
-    // BASE64 UPLOADED IMAGE
-    // ==================================
-
     if (
-        !avatar.startsWith(
-            "data:image/"
-        )
+        data.name.length < 2
     ) {
 
-        return "";
+        return {
+            valid: false,
+            message:
+                "Please enter a valid full name."
+        };
 
     }
 
 
-    // ==================================
-    // CONVERT BASE64 TO BLOB
-    // ==================================
+    if (
+        !/^\+?[0-9\s\-()]{7,20}$/
+            .test(
+                data.mobile
+            )
+    ) {
 
-    const response =
-        await fetch(
-            avatar
+        return {
+            valid: false,
+            message:
+                "Please enter a valid mobile number."
+        };
+
+    }
+
+
+    if (
+        data.password.length < 6
+    ) {
+
+        return {
+            valid: false,
+            message:
+                "Password must be at least 6 characters."
+        };
+
+    }
+
+
+    if (
+        !data.gender
+    ) {
+
+        return {
+            valid: false,
+            message:
+                "Please select your gender."
+        };
+
+    }
+
+
+    if (
+        !data.avatar
+    ) {
+
+        return {
+            valid: false,
+            message:
+                "Please select an avatar or upload a photo."
+        };
+
+    }
+
+
+    return {
+        valid: true,
+        message: ""
+    };
+
+}
+
+
+// ======================================
+// CREATE CUSTOMER FIRESTORE DOCUMENT
+// ======================================
+
+async function createCustomerProfile(
+    user,
+    data
+) {
+
+    const customerRef =
+        doc(
+            db,
+            "customers",
+            user.uid
         );
 
 
-    const blob =
-        await response.blob();
+    const memberId =
+        generateMemberId();
 
 
-    // ==================================
-    // STORAGE FILE PATH
-    // ==================================
+    const customerData = {
 
-    const fileName =
+        // ==============================
+        // IDENTITY
+        // ==============================
 
-        `profile_${Date.now()}.jpg`;
+        uid:
+            user.uid,
 
-
-    const storagePath =
-
-        `customers/${user.uid}/profile/${fileName}`;
-
-
-    const storageRef =
-
-        ref(
-            storage,
-            storagePath
-        );
+        memberId:
+            memberId,
 
 
-    // ==================================
-    // UPLOAD TO FIREBASE STORAGE
-    // ==================================
+        // ==============================
+        // BASIC PROFILE
+        // ==============================
 
-    await uploadBytes(
-        storageRef,
-        blob,
-        {
-            contentType:
-                blob.type || "image/jpeg"
-        }
+        name:
+            data.name,
+
+        mobile:
+            data.mobile,
+
+        email:
+            data.email,
+
+        gender:
+            data.gender,
+
+
+        // ==============================
+        // PROFILE IMAGE
+        // ==============================
+
+        avatar:
+            data.avatar,
+
+        photoURL:
+            data.avatar,
+
+
+        // ==============================
+        // LOYALTY
+        // ==============================
+
+        stamps:
+            0,
+
+        currentStamps:
+            0,
+
+        stampDates:
+            [],
+
+
+        // ==============================
+        // LOYALTY CYCLE
+        // ==============================
+
+        loyaltyCycleStart:
+            null,
+
+        loyaltyCycleExpiresAt:
+            null,
+
+
+        // ==============================
+        // REWARD
+        // ==============================
+
+        reward:
+            false,
+
+        rewardUnlocked:
+            false,
+
+        rewardRedeemed:
+            false,
+
+
+        // ==============================
+        // ACCOUNT STATUS
+        // ==============================
+
+        status:
+            "active",
+
+        emailVerified:
+            false,
+
+
+        // ==============================
+        // TIMESTAMPS
+        // ==============================
+
+        memberSince:
+            serverTimestamp(),
+
+        createdAt:
+            serverTimestamp(),
+
+        updatedAt:
+            serverTimestamp()
+
+    };
+
+
+    await setDoc(
+        customerRef,
+        customerData
     );
 
 
-    // ==================================
-    // GET DOWNLOAD URL
-    // ==================================
+    return {
 
-    const downloadURL =
-        await getDownloadURL(
-            storageRef
-        );
+        memberId,
 
+        customerData
 
-    return downloadURL;
+    };
 
 }
 
@@ -235,445 +436,341 @@ async function uploadProfilePhoto(
 
 document.addEventListener(
     "signup-ready",
-    async () => {
-
-        // ==================================
-        // PREVENT DOUBLE SUBMISSION
-        // ==================================
-
-        if (isCreatingAccount) {
-
-            return;
-
-        }
+    handleSignup
+);
 
 
-        isCreatingAccount =
-            true;
+// ======================================
+// MAIN SIGNUP FUNCTION
+// ======================================
+
+async function handleSignup() {
+
+    if (
+        isSignupProcessing
+    ) {
+
+        return;
+
+    }
 
 
-        setLoadingState(
-            true
-        );
+    isSignupProcessing =
+        true;
 
 
-        // ==================================
-        // GET SIGNUP DATA
-        // ==================================
+    setSignupLoading(
+        true
+    );
+
+
+    try {
+
+        // ==============================
+        // GET DATA
+        // ==============================
 
         const data =
-            window.signupData;
+            getSignupData();
 
 
-        if (!data) {
+        // ==============================
+        // VALIDATE
+        // ==============================
 
-            alert(
-                "Signup data not found. Please try again."
+        const validation =
+            validateSignupData(
+                data
             );
 
-
-            isCreatingAccount =
-                false;
-
-
-            setLoadingState(
-                false
-            );
-
-
-            return;
-
-        }
-
-
-        // ==================================
-        // BASIC VALIDATION
-        // ==================================
 
         if (
-            !data.name ||
-            !data.mobile ||
-            !data.email ||
-            !data.password ||
-            !data.gender ||
-            !data.avatar
+            !validation.valid
         ) {
 
             alert(
-                "Please complete all signup details."
+                validation.message
             );
-
-
-            isCreatingAccount =
-                false;
-
-
-            setLoadingState(
-                false
-            );
-
 
             return;
 
         }
 
 
-        let user = null;
+        // ==============================
+        // CREATE AUTH ACCOUNT
+        // ==============================
 
+        const userCredential =
+            await createUserWithEmailAndPassword(
 
-        try {
+                auth,
 
-            // ==================================
-            // CREATE FIREBASE AUTH ACCOUNT
-            // ==================================
+                data.email,
 
-            const userCredential =
-
-                await createUserWithEmailAndPassword(
-
-                    auth,
-
-                    data.email,
-
-                    data.password
-
-                );
-
-
-            user =
-                userCredential.user;
-
-
-            // ==================================
-            // SEND EMAIL VERIFICATION
-            // ==================================
-
-            await sendEmailVerification(
-                user
-            );
-
-
-            // ==================================
-            // UPLOAD CUSTOM PHOTO
-            // ==================================
-
-            const photoURL =
-
-                await uploadProfilePhoto(
-
-                    user,
-
-                    data.avatar
-
-                );
-
-
-            // ==================================
-            // MEMBER ID
-            // ==================================
-
-            const memberId =
-
-                generateMemberId();
-
-
-            // ==================================
-            // CUSTOMER DATA
-            // ==================================
-
-            const customerData = {
-
-                uid:
-                    user.uid,
-
-                memberId:
-                    memberId,
-
-                name:
-                    data.name.trim(),
-
-                mobile:
-                    data.mobile.trim(),
-
-                email:
-                    data.email.trim()
-                        .toLowerCase(),
-
-                gender:
-                    data.gender,
-
-                avatar:
-                    data.avatar.startsWith("data:image/")
-                        ? ""
-                        : data.avatar,
-
-                photoURL:
-                    photoURL,
-
-
-                // ==================================
-                // LOYALTY DATA
-                // ==================================
-
-                stamps:
-                    0,
-
-                currentStamps:
-                    0,
-
-                stampDates:
-                    [],
-
-                reward:
-                    false,
-
-                rewardUnlocked:
-                    false,
-
-                rewardRedeemed:
-                    false,
-
-
-                // ==================================
-                // ACCOUNT STATUS
-                // ==================================
-
-                status:
-                    "active",
-
-                emailVerified:
-                    false,
-
-
-                // ==================================
-                // LOYALTY CYCLE
-                // ==================================
-
-                loyaltyCycleStartedAt:
-                    null,
-
-                loyaltyCycleExpiresAt:
-                    null,
-
-
-                // ==================================
-                // TIMESTAMPS
-                // ==================================
-
-                memberSince:
-                    serverTimestamp(),
-
-                createdAt:
-                    serverTimestamp(),
-
-                updatedAt:
-                    serverTimestamp()
-
-            };
-
-
-            // ==================================
-            // SAVE CUSTOMER PROFILE
-            // ==================================
-
-            await setDoc(
-
-                doc(
-                    db,
-                    "customers",
-                    user.uid
-                ),
-
-                customerData
+                data.password
 
             );
 
 
-            // ==================================
-            // SUCCESS
-            // ==================================
+        const user =
+            userCredential.user;
 
-            alert(
 
-                "🎉 Account Created Successfully!\n\n" +
+        // ==============================
+        // SEND VERIFICATION EMAIL
+        // ==============================
 
-                "A verification email has been sent to:\n" +
+        await sendEmailVerification(
+            user
+        );
 
-                data.email +
 
-                "\n\n" +
+        // ==============================
+        // CREATE CUSTOMER PROFILE
+        // ==============================
 
-                "Please verify your email before logging in."
-
+        const profile =
+            await createCustomerProfile(
+                user,
+                data
             );
 
 
-            // ==================================
-            // CLEAR GLOBAL SIGNUP DATA
-            // ==================================
+        // ==============================
+        // SAVE GLOBAL USER DATA
+        // ==============================
 
-            window.signupData =
-                null;
-
-
-            // ==================================
-            // SIGN OUT
-            // ==================================
-
-            await signOut(
-                auth
-            );
+        window.currentRioUser =
+            user;
 
 
-            // ==================================
-            // REDIRECT LOGIN
-            // ==================================
+        window.currentUser = {
 
-            window.location.replace(
-                "login.html"
-            );
+            uid:
+                user.uid,
+
+            memberId:
+                profile.memberId,
+
+            name:
+                data.name,
+
+            mobile:
+                data.mobile,
+
+            email:
+                data.email,
+
+            gender:
+                data.gender,
+
+            avatar:
+                data.avatar,
+
+            photoURL:
+                data.avatar,
+
+            stamps:
+                0,
+
+            currentStamps:
+                0,
+
+            status:
+                "active"
+
+        };
+
+
+        // ==============================
+        // SUCCESS MESSAGE
+        // ==============================
+
+        alert(
+
+            "🎉 Account Created Successfully!\n\n" +
+
+            "Member ID: " +
+            profile.memberId +
+
+            "\n\n" +
+
+            "A verification email has been sent to:\n" +
+
+            data.email +
+
+            "\n\n" +
+
+            "Please verify your email before logging in."
+
+        );
+
+
+        // ==============================
+        // SIGN OUT
+        // ==============================
+
+        await signOut(
+            auth
+        );
+
+
+        // ==============================
+        // CLEAR TEMP DATA
+        // ==============================
+
+        window.signupData =
+            null;
+
+
+        window.currentUser =
+            null;
+
+
+        window.currentRioUser =
+            null;
+
+
+        // ==============================
+        // REDIRECT LOGIN
+        // ==============================
+
+        window.location.replace(
+            "login.html"
+        );
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Rio Signup Error:",
+            error
+        );
+
+
+        // ==============================
+        // ERROR MESSAGE
+        // ==============================
+
+        let message =
+            "Signup failed. Please try again.";
+
+
+        switch (
+            error.code
+        ) {
+
+            case
+            "auth/email-already-in-use":
+
+                message =
+                    "This email is already registered.";
+
+                break;
+
+
+            case
+            "auth/invalid-email":
+
+                message =
+                    "Invalid email address.";
+
+                break;
+
+
+            case
+            "auth/weak-password":
+
+                message =
+                    "Password must be at least 6 characters.";
+
+                break;
+
+
+            case
+            "auth/network-request-failed":
+
+                message =
+                    "Network error. Please check your internet connection.";
+
+                break;
+
+
+            case
+            "auth/operation-not-allowed":
+
+                message =
+                    "Email and Password signup is not enabled in Firebase.";
+
+                break;
+
+
+            case
+            "auth/too-many-requests":
+
+                message =
+                    "Too many requests. Please try again later.";
+
+                break;
+
+
+            default:
+
+                message =
+                    error.message ||
+                    message;
 
         }
 
 
-        catch (error) {
+        alert(
+            message
+        );
 
-            console.error(
-                "Signup Error:",
-                error
-            );
+    }
 
 
-            // ==================================
-            // CLEANUP AUTH ACCOUNT
-            // ==================================
+    finally {
 
-            // NOTE:
-            // If Firestore or Storage fails after
-            // Auth account creation, the created
-            // Auth user remains in Firebase.
-            //
-            // It should be handled from Firebase
-            // Admin side or with a secure backend.
-            // Client-side deleteUser is intentionally
-            // avoided here.
+        isSignupProcessing =
+            false;
 
 
-            let message =
+        setSignupLoading(
+            false
+        );
 
-                "Signup failed. Please try again.";
+    }
 
+}
 
-            switch (
-                error.code
-            ) {
 
-                case "auth/email-already-in-use":
+// ======================================
+// ONLINE / OFFLINE STATUS
+// ======================================
 
-                    message =
+window.addEventListener(
+    "offline",
+    () => {
 
-                        "This email is already registered.";
+        console.warn(
+            "RioApp: Internet connection lost."
+        );
 
-                    break;
+    }
+);
 
 
-                case "auth/invalid-email":
+window.addEventListener(
+    "online",
+    () => {
 
-                    message =
-
-                        "Invalid email address.";
-
-                    break;
-
-
-                case "auth/weak-password":
-
-                    message =
-
-                        "Password must be at least 6 characters.";
-
-                    break;
-
-
-                case "auth/network-request-failed":
-
-                    message =
-
-                        "Network error. Please check your internet connection.";
-
-                    break;
-
-
-                case "auth/operation-not-allowed":
-
-                    message =
-
-                        "Email and Password signup is not enabled in Firebase.";
-
-                    break;
-
-
-                case "storage/unauthorized":
-
-                    message =
-
-                        "Profile photo upload is not allowed. Please check Firebase Storage rules.";
-
-                    break;
-
-
-                case "storage/unknown":
-
-                    message =
-
-                        "Profile photo upload failed. Please try again.";
-
-                    break;
-
-
-                case "permission-denied":
-
-                    message =
-
-                        "Unable to save customer profile. Please check Firestore permissions.";
-
-                    break;
-
-
-                default:
-
-                    if (
-                        error.message
-                    ) {
-
-                        message =
-
-                            "Signup Failed:\n" +
-                            error.message;
-
-                    }
-
-            }
-
-
-            alert(
-                message
-            );
-
-        }
-
-
-        finally {
-
-            isCreatingAccount =
-                false;
-
-
-            setLoadingState(
-                false
-            );
-
-        }
+        console.log(
+            "RioApp: Internet connection restored."
+        );
 
     }
 );
@@ -684,11 +781,19 @@ document.addEventListener(
 // ======================================
 
 console.log(
-    "🍜 Rio Maggi Point Firebase Signup Ready"
+    "===================================="
 );
 
 console.log(
-    "Central App.js Firebase Architecture Connected"
+    "🍜 Rio Maggi Point"
+);
+
+console.log(
+    "Firebase Signup Ready"
+);
+
+console.log(
+    "Central app.js Integration Active"
 );
 
 console.log(
@@ -700,5 +805,9 @@ console.log(
 );
 
 console.log(
-    "Firebase Storage Profile Upload Enabled"
+    "Duplicate Submission Protection Enabled"
+);
+
+console.log(
+    "===================================="
 );
