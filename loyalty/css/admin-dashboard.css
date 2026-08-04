@@ -1,5546 +1,1411 @@
-/* =======================================================
+/* =========================================================
    RIO MAGGI POINT
    PREMIUM ADMIN DASHBOARD
    ADMIN-DASHBOARD.CSS
-   PART 1 / 6
-   GLOBAL RESET + THEME + BASE FOUNDATION
-======================================================= */
+   CLEAN • RESPONSIVE • NO DUPLICATE RULES
+========================================================= */
 
 
-/* =======================================================
-   ROOT THEME
-======================================================= */
+/* =========================================================
+   1. ROOT VARIABLES
+========================================================= */
 
 :root {
+  --bg-main: #090909;
+  --bg-secondary: #111111;
+  --bg-card: #151515;
+  --bg-card-soft: #1b1b1b;
+  --bg-input: #0e0e0e;
 
-    /* ---------- BACKGROUND ---------- */
+  --red: #d90429;
+  --red-dark: #9f001c;
+  --red-light: #ff284c;
 
-    --bg: #090909;
-    --surface: #141414;
-    --surface-2: #1c1c1c;
+  --gold: #d4af37;
+  --gold-light: #f4d77d;
+  --gold-dark: #9b7620;
 
+  --white: #ffffff;
+  --text-primary: #f5f5f5;
+  --text-secondary: #b8b8b8;
+  --text-muted: #777777;
 
-    /* ---------- BRAND COLORS ---------- */
+  --green: #22c55e;
+  --yellow: #facc15;
+  --gray: #555555;
 
-    --gold: #D4AF37;
-    --gold-light: #F7DE8B;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-gold: rgba(212, 175, 55, 0.35);
+  --border-red: rgba(217, 4, 41, 0.35);
 
+  --shadow: 0 15px 40px rgba(0, 0, 0, 0.45);
+  --shadow-red: 0 10px 30px rgba(217, 4, 41, 0.2);
+  --shadow-gold: 0 10px 30px rgba(212, 175, 55, 0.18);
 
-    /* ---------- TEXT ---------- */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
 
-    --white: #ffffff;
-    --text: #e8e8e8;
-    --muted: #9f9f9f;
-
-
-    /* ---------- STATUS COLORS ---------- */
-
-    --success: #2ecc71;
-    --danger: #ff4d4f;
-    --warning: #ffb300;
-
-
-    /* ---------- BORDERS ---------- */
-
-    --border: rgba(212, 175, 55, 0.16);
-
-
-    /* ---------- RADIUS ---------- */
-
-    --radius: 22px;
-
-
-    /* ---------- SHADOW ---------- */
-
-    --shadow:
-        0 12px 35px rgba(0, 0, 0, 0.45);
-
-
-    /* ---------- TRANSITION ---------- */
-
-    --transition: 0.35s ease;
-
+  --transition: 0.25s ease;
 }
 
 
-/* =======================================================
-   GLOBAL RESET
-======================================================= */
+/* =========================================================
+   2. GLOBAL RESET
+========================================================= */
 
-*,
-*::before,
-*::after {
-
-    margin: 0;
-
-    padding: 0;
-
-    box-sizing: border-box;
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-
-/* =======================================================
-   HTML
-======================================================= */
 
 html {
-
-    width: 100%;
-
-    min-height: 100%;
-
-    scroll-behavior: smooth;
-
+  scroll-behavior: smooth;
+  font-size: 16px;
 }
-
-
-/* =======================================================
-   BODY
-======================================================= */
 
 body {
-
-    width: 100%;
-
-    min-height: 100vh;
-
-    overflow-x: hidden;
-
-    font-family: "Poppins", sans-serif;
-
-    color: var(--text);
-
-    background:
-        radial-gradient(
-            circle at top,
-            #242424 0%,
-            #101010 38%,
-            #090909 100%
-        );
-
-    padding-bottom:
-        env(safe-area-inset-bottom);
-
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(217, 4, 41, 0.08),
+      transparent 35%
+    ),
+    var(--bg-main);
+  color: var(--text-primary);
+  font-family: "Poppins", sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
 }
 
-
-/* =======================================================
-   IMAGES
-======================================================= */
-
-img {
-
-    display: block;
-
-    max-width: 100%;
-
+button,
+input {
+  font: inherit;
 }
-
-
-/* =======================================================
-   BUTTONS
-======================================================= */
 
 button {
-
-    font-family: inherit;
-
+  border: 0;
+  cursor: pointer;
 }
 
-
-/* =======================================================
-   FORM ELEMENTS
-======================================================= */
-
-input,
-textarea,
-select {
-
-    font-family: inherit;
-
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
-
-/* =======================================================
-   LINKS
-======================================================= */
+img {
+  display: block;
+  max-width: 100%;
+}
 
 a {
-
-    color: inherit;
-
-    text-decoration: none;
-
+  color: inherit;
+  text-decoration: none;
 }
 
 
-/* =======================================================
-   CUSTOM SCROLLBAR
-======================================================= */
-
-::-webkit-scrollbar {
-
-    width: 10px;
-
-}
-
-
-::-webkit-scrollbar-track {
-
-    background: #101010;
-
-}
-
-
-::-webkit-scrollbar-thumb {
-
-    background: var(--gold);
-
-    border-radius: 50px;
-
-}
-
-
-::-webkit-scrollbar-thumb:hover {
-
-    background: var(--gold-light);
-
-}
-
-
-/* =======================================================
-   TEXT SELECTION
-======================================================= */
-
-::selection {
-
-    background: var(--gold);
-
-    color: #111111;
-
-}
-
-
-/* =======================================================
-   PLACEHOLDER
-======================================================= */
-
-::placeholder {
-
-    color: #888888;
-
-    opacity: 1;
-
-}
-
-
-/* =======================================================
-   ADMIN APP
-======================================================= */
+/* =========================================================
+   3. ADMIN APP
+========================================================= */
 
 .admin-app {
-
-    width: 100%;
-
-    min-height: 100vh;
-
-    display: flex;
-
-    flex-direction: column;
-
+  min-height: 100vh;
+  width: 100%;
 }
 
 
-/* =======================================================
-   COMMON PREMIUM CARD FOUNDATION
+/* =========================================================
+   4. HEADER
+========================================================= */
 
-   Used by:
-   - Scanner Card
-   - Customer Card
-   - Stat Card
-   - Customer Section
-   - Status Card
-======================================================= */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  min-height: 78px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 14px 32px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(20, 20, 20, 0.98),
+      rgba(8, 8, 8, 0.98)
+    );
+
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
+
+
+/* =========================================================
+   5. LOGO AREA
+========================================================= */
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.logo-area img {
+  width: 48px;
+  height: 48px;
+
+  object-fit: contain;
+
+  border-radius: 50%;
+
+  border: 2px solid var(--gold);
+
+  background: #000;
+
+  box-shadow: var(--shadow-gold);
+}
+
+.logo-text {
+  min-width: 0;
+}
+
+.logo-text h2 {
+  color: var(--gold-light);
+
+  font-size: 1.05rem;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+
+  white-space: nowrap;
+}
+
+.logo-text p {
+  margin-top: 2px;
+
+  color: var(--text-muted);
+
+  font-size: 0.72rem;
+  font-weight: 500;
+
+  letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   6. LIVE INDICATOR
+========================================================= */
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 7px 13px;
+
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  border-radius: 50px;
+
+  background: rgba(34, 197, 94, 0.08);
+
+  color: var(--green);
+
+  font-size: 0.75rem;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   7. NAVIGATION
+========================================================= */
+
+.app-nav {
+  position: sticky;
+  top: 78px;
+  z-index: 999;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+
+  padding: 10px 24px;
+
+  overflow-x: auto;
+
+  background: rgba(12, 12, 12, 0.96);
+
+  border-bottom: 1px solid var(--border);
+
+  scrollbar-width: thin;
+}
+
+.app-nav::-webkit-scrollbar {
+  height: 4px;
+}
+
+.app-nav::-webkit-scrollbar-thumb {
+  background: var(--red);
+  border-radius: 20px;
+}
+
+.nav-button {
+  flex: 0 0 auto;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 42px;
+
+  padding: 9px 16px;
+
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+
+  background: transparent;
+
+  color: var(--text-secondary);
+
+  font-size: 0.82rem;
+  font-weight: 600;
+
+  transition:
+    background var(--transition),
+    color var(--transition),
+    border-color var(--transition),
+    transform var(--transition);
+}
+
+.nav-button i {
+  font-size: 0.9rem;
+}
+
+.nav-button:hover {
+  color: var(--white);
+
+  background: rgba(217, 4, 41, 0.1);
+
+  border-color: var(--border-red);
+
+  transform: translateY(-1px);
+}
+
+.nav-button.active {
+  color: var(--white);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--red),
+      var(--red-dark)
+    );
+
+  border-color: var(--red-light);
+
+  box-shadow: var(--shadow-red);
+}
+
+.logout-nav {
+  margin-left: auto;
+}
+
+.logout-nav:hover {
+  color: #ffffff;
+  background: rgba(217, 4, 41, 0.2);
+}
+
+
+/* =========================================================
+   8. MAIN DASHBOARD WRAPPER
+========================================================= */
+
+.dashboard-wrapper {
+  width: min(1600px, 100%);
+
+  margin: 0 auto;
+
+  padding: 30px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+
+/* =========================================================
+   9. COMMON CARD
+========================================================= */
 
 .scanner-card,
 .customer-card,
-.stat-card,
-.customer-section,
-.status-card {
+.table-card,
+.status-card,
+.stat-card {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(25, 25, 25, 0.98),
+      rgba(13, 13, 13, 0.98)
+    );
 
-    position: relative;
+  border: 1px solid var(--border);
 
-    overflow: hidden;
+  border-radius: var(--radius-lg);
 
-    background:
-        linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.04),
-            rgba(255, 255, 255, 0.02)
-        );
-
-    border: 1px solid var(--border);
-
-    border-radius: var(--radius);
-
-    box-shadow: var(--shadow);
-
-    backdrop-filter: blur(14px);
-
-    -webkit-backdrop-filter: blur(14px);
-
-    transition:
-        transform var(--transition),
-        box-shadow var(--transition),
-        border-color var(--transition);
-
-}
-
-
-/* =======================================================
-   COMMON CARD HOVER
-======================================================= */
-
-.scanner-card:hover,
-.customer-card:hover,
-.stat-card:hover,
-.customer-section:hover,
-.status-card:hover {
-
-    transform: translateY(-4px);
-
-    border-color:
-        rgba(212, 175, 55, 0.35);
-
-    box-shadow:
-        0 18px 45px rgba(0, 0, 0, 0.55);
-
-}
-
-
-/* =======================================================
-   COMMON CARD SHINE EFFECT
-
-   IMPORTANT:
-   Defined ONLY ONCE here.
-   Button shine/ripple effects are handled separately
-   in the final polish section.
-======================================================= */
-
-.scanner-card::after,
-.customer-card::after,
-.stat-card::after,
-.customer-section::after,
-.status-card::after {
-
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-
-    left: -120%;
-
-    width: 45%;
-
-    height: 100%;
-
-    pointer-events: none;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.08),
-            transparent
-        );
-
-    transition:
-        left 1.2s ease;
-
-}
-
-
-/* =======================================================
-   CARD SHINE HOVER
-======================================================= */
-
-.scanner-card:hover::after,
-.customer-card:hover::after,
-.stat-card:hover::after,
-.customer-section:hover::after,
-.status-card:hover::after {
-
-    left: 160%;
-
-}
-
-
-/* =======================================================
-   FADE UP ANIMATION
-======================================================= */
-
-@keyframes fadeUp {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateY(30px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0);
-
-    }
-
-}
-
-
-/* =======================================================
-   DASHBOARD CHILD ANIMATION
-======================================================= */
-
-.dashboard-wrapper > * {
-
-    animation:
-        fadeUp 0.6s ease both;
-
-}
-
-
-.dashboard-wrapper > *:nth-child(2) {
-
-    animation-delay: 0.08s;
-
-}
-
-
-.dashboard-wrapper > *:nth-child(3) {
-
-    animation-delay: 0.16s;
-
-}
-
-
-.dashboard-wrapper > *:nth-child(4) {
-
-    animation-delay: 0.24s;
-
-}
-
-
-.dashboard-wrapper > *:nth-child(5) {
-
-    animation-delay: 0.32s;
-
-}
-
-
-/* =======================================================
-   ACCESSIBILITY FOCUS
-======================================================= */
-
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible {
-
-    outline:
-        2px solid var(--gold);
-
-    outline-offset: 3px;
-
-}
-
-
-/* =======================================================
-   END PART 1 / 6
-======================================================= */
-/* =======================================================
-   RIO MAGGI POINT
-   PREMIUM ADMIN DASHBOARD
-   ADMIN-DASHBOARD.CSS
-   PART 2 / 6
-   HEADER + NAVIGATION + MAIN LAYOUT
-======================================================= */
-
-
-/* =======================================================
-   APP HEADER
-======================================================= */
-
-.app-header{
-
-    position:sticky;
-
-    top:0;
-
-    left:0;
-
-    right:0;
-
-    z-index:1000;
-
-    width:100%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:24px;
-
-    padding:
-        16px 28px;
-
-    background:
-        rgba(10,10,10,.94);
-
-    border-bottom:
-        1px solid rgba(212,175,55,.16);
-
-    backdrop-filter:
-        blur(18px);
-
-    -webkit-backdrop-filter:
-        blur(18px);
-
-}
-
-
-/* =======================================================
-   LOGO AREA
-======================================================= */
-
-.logo-area{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:16px;
-
-    min-width:0;
-
-}
-
-
-/* =======================================================
-   LOGO IMAGE
-======================================================= */
-
-.logo-area img{
-
-    width:68px;
-
-    height:68px;
-
-    flex:0 0 68px;
-
-    object-fit:cover;
-
-    border-radius:18px;
-
-    background:#111;
-
-    border:
-        2px solid rgba(212,175,55,.25);
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.30);
-
-    transition:
-        transform .35s ease,
-        border-color .35s ease,
-        box-shadow .35s ease;
-
-}
-
-
-.logo-area img:hover{
-
-    transform:
-        rotate(-4deg)
-        scale(1.04);
-
-    border-color:
-        var(--gold);
-
-    box-shadow:
-        0 10px 30px rgba(212,175,55,.20);
-
-}
-
-
-/* =======================================================
-   LOGO TEXT WRAPPER
-======================================================= */
-
-.logo-area > div{
-
-    min-width:0;
-
-}
-
-
-/* =======================================================
-   LOGO TITLE
-======================================================= */
-
-.logo-area h2{
-
-    margin:0;
-
-    color:
-        var(--gold);
-
-    font-size:24px;
-
-    font-weight:700;
-
-    line-height:1.25;
-
-    letter-spacing:.5px;
-
-    overflow-wrap:anywhere;
-
+  box-shadow: var(--shadow);
 }
 
 
-/* =======================================================
-   LOGO SUBTITLE
-======================================================= */
+/* =========================================================
+   10. SCANNER SECTION
+========================================================= */
 
-.logo-area p{
+.scanner-section {
+  display: grid;
 
-    margin-top:4px;
+  grid-template-columns:
+    minmax(0, 1.35fr)
+    minmax(320px, 0.65fr);
 
-    color:
-        var(--muted);
+  gap: 24px;
 
-    font-size:13px;
-
-    font-weight:400;
-
-    line-height:1.5;
-
-    overflow-wrap:anywhere;
-
+  align-items: stretch;
 }
-
-
-/* =======================================================
-   HEADER RIGHT AREA
-======================================================= */
-
-.header-right{
-
-    display:flex;
 
-    align-items:center;
 
-    justify-content:flex-end;
+/* =========================================================
+   11. CARD TITLE
+========================================================= */
 
-    gap:14px;
+.card-title {
+  padding: 22px 24px 16px;
 
-    flex-shrink:0;
-
+  border-bottom: 1px solid var(--border);
 }
-
-
-/* =======================================================
-   LIVE STATUS INDICATOR
-======================================================= */
-
-.live-indicator{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:8px;
-
-    min-height:42px;
-
-    padding:
-        10px 18px;
-
-    border-radius:999px;
-
-    background:
-        rgba(46,204,113,.12);
-
-    border:
-        1px solid rgba(46,204,113,.28);
-
-    color:
-        #7dffac;
-
-    font-size:14px;
-
-    font-weight:600;
 
-    line-height:1;
+.card-title h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
-    white-space:nowrap;
+  color: var(--white);
 
-    animation:
-        livePulse 1.8s ease-in-out infinite;
-
+  font-size: 1.1rem;
+  font-weight: 700;
 }
-
-
-/* =======================================================
-   LIVE PULSE ANIMATION
-======================================================= */
-
-@keyframes livePulse{
-
-    0%{
-
-        box-shadow:
-            0 0 0 rgba(46,204,113,0);
-
-    }
-
-    50%{
 
-        box-shadow:
-            0 0 20px rgba(46,204,113,.30);
-
-    }
-
-    100%{
-
-        box-shadow:
-            0 0 0 rgba(46,204,113,0);
-
-    }
-
+.card-title h2 i {
+  color: var(--gold);
 }
-
-
-/* =======================================================
-   MAIN NAVIGATION
-======================================================= */
-
-.app-nav{
 
-    width:100%;
+.card-title p {
+  margin-top: 5px;
 
-    display:flex;
+  color: var(--text-muted);
 
-    align-items:center;
-
-    justify-content:center;
-
-    flex-wrap:wrap;
-
-    gap:12px;
-
-    padding:
-        16px 22px;
-
-    background:
-        #111111;
-
-    border-bottom:
-        1px solid rgba(212,175,55,.12);
-
+  font-size: 0.78rem;
 }
-
-
-/* =======================================================
-   NAVIGATION BUTTON
-======================================================= */
-
-.app-nav button{
-
-    position:relative;
-
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:10px;
-
-    min-width:140px;
 
-    min-height:54px;
 
-    padding:
-        0 20px;
+/* =========================================================
+   12. SCANNER BOX
+========================================================= */
 
-    overflow:hidden;
+.scanner-box {
+  position: relative;
 
-    isolation:isolate;
+  width: calc(100% - 48px);
 
-    border:
-        1px solid rgba(255,255,255,.07);
+  min-height: 330px;
 
-    border-radius:16px;
+  margin: 24px;
 
-    background:
-        #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    color:
-        #f1f1f1;
+  overflow: hidden;
 
-    cursor:pointer;
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
 
-    font-family:inherit;
-
-    font-size:14px;
-
-    font-weight:600;
-
-    line-height:1;
-
-    white-space:nowrap;
-
-    transition:
-        transform .30s ease,
-        background .30s ease,
-        color .30s ease,
-        border-color .30s ease,
-        box-shadow .30s ease;
-
+  background:
+    radial-gradient(
+      circle,
+      rgba(212, 175, 55, 0.06),
+      transparent 65%
+    ),
+    #050505;
 }
-
-
-/* =======================================================
-   NAVIGATION ICON
-======================================================= */
 
-.app-nav button i{
+.qr-reader {
+  position: relative;
+  z-index: 2;
 
-    flex:0 0 auto;
-
-    color:
-        var(--gold);
-
-    font-size:18px;
-
-    line-height:1;
-
-    transition:
-        color .30s ease,
-        transform .30s ease;
-
+  width: 100%;
+  min-height: 300px;
 }
-
-
-/* =======================================================
-   NAVIGATION TEXT
-======================================================= */
-
-.app-nav button span{
 
-    display:inline-block;
+.qr-reader video {
+  width: 100% !important;
+  max-width: 100%;
 
-    font-size:14px;
-
-    font-weight:600;
-
-    line-height:1;
-
-    letter-spacing:.2px;
-
-    white-space:nowrap;
-
+  border-radius: var(--radius-md);
 }
-
-
-/* =======================================================
-   NAVIGATION HOVER
-======================================================= */
-
-.app-nav button:hover{
 
-    transform:
-        translateY(-3px);
+.camera-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
 
-    background:
-        var(--gold);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    color:
-        #111111;
+  gap: 8px;
 
-    border-color:
-        transparent;
+  padding: 20px;
 
-    box-shadow:
-        0 10px 25px rgba(212,175,55,.20);
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(212, 175, 55, 0.07),
+      rgba(0, 0, 0, 0.95)
+    );
 
-}
-
-
-.app-nav button:hover i{
-
-    color:
-        #111111;
+  text-align: center;
 
-    transform:
-        scale(1.08);
-
+  pointer-events: none;
 }
-
-
-/* =======================================================
-   NAVIGATION SHINE
-======================================================= */
-
-.app-nav button::before{
 
-    content:"";
+.camera-overlay i {
+  margin-bottom: 5px;
 
-    position:absolute;
+  color: var(--gold);
 
-    top:0;
-
-    left:-120%;
-
-    width:60%;
-
-    height:100%;
-
-    pointer-events:none;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.30),
-            transparent
-        );
-
-    transition:
-        left .70s ease;
-
-    z-index:-1;
-
+  font-size: 2.5rem;
 }
 
+.camera-overlay h3 {
+  color: var(--white);
 
-.app-nav button:hover::before{
-
-    left:150%;
-
+  font-size: 1rem;
+  font-weight: 700;
 }
-
-
-/* =======================================================
-   ACTIVE NAVIGATION BUTTON
-======================================================= */
 
-.app-nav button.active{
+.camera-overlay p {
+  color: var(--text-muted);
 
-    background:
-        linear-gradient(
-            135deg,
-            #f7de8b,
-            #d4af37
-        );
-
-    color:
-        #111111;
-
-    border-color:
-        transparent;
-
-    box-shadow:
-        0 8px 22px rgba(212,175,55,.18);
-
+  font-size: 0.78rem;
 }
 
 
-.app-nav button.active i{
+/* =========================================================
+   13. SCANNER CONTROLS
+========================================================= */
 
-    color:
-        #111111;
+.scanner-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 
+  padding: 0 24px 24px;
 }
-
-
-/* =======================================================
-   LOGOUT BUTTON
-======================================================= */
-
-.app-nav button.logout-nav{
-
-    background:
-        #8b1f1f;
-
-    color:
-        #ffffff;
-
-    border-color:
-        rgba(255,255,255,.05);
-
-}
-
-
-.app-nav button.logout-nav i{
-
-    color:
-        #ffffff;
-
-}
-
-
-.app-nav button.logout-nav:hover{
-
-    background:
-        #d32f2f;
-
-    color:
-        #ffffff;
-
-    border-color:
-        transparent;
-
-    box-shadow:
-        0 10px 25px rgba(211,47,47,.25);
-
-}
-
-
-.app-nav button.logout-nav:hover i{
-
-    color:
-        #ffffff;
-
-}
-
-
-/* =======================================================
-   MAIN DASHBOARD WRAPPER
-======================================================= */
-
-.dashboard-wrapper{
-
-    width:
-        min(1700px,100%);
-
-    min-height:
-        0;
-
-    margin:
-        0 auto;
-
-    padding:
-        30px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:28px;
-
-}
-
-
-/* =======================================================
-   SECTION HEADER
-======================================================= */
-
-.section-header{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:20px;
-
-    flex-wrap:wrap;
-
-    width:100%;
-
-    margin-bottom:24px;
-
-}
-
-
-/* =======================================================
-   SECTION TITLE
-======================================================= */
-
-.section-header h2{
-
-    margin:0;
-
-    color:
-        var(--gold);
-
-    font-size:26px;
-
-    font-weight:700;
-
-    line-height:1.3;
-
-    letter-spacing:.2px;
-
-}
-
-
-/* =======================================================
-   SECTION DESCRIPTION
-======================================================= */
-
-.section-header p{
-
-    margin-top:6px;
-
-    color:
-        var(--muted);
-
-    font-size:14px;
-
-    line-height:1.6;
-
-}
-
-
-/* =======================================================
-   SECTION HEADER ACTION AREA
-======================================================= */
-
-.section-header > div{
-
-    min-width:0;
-
-}
-
-
-/* =======================================================
-   TABLET / SMALL LAPTOP HEADER
-======================================================= */
-
-@media (max-width:1100px){
-
-    .app-header{
-
-        padding:
-            16px 20px;
-
-    }
-
-
-    .app-nav{
-
-        padding:
-            14px 18px;
-
-    }
-
-
-    .app-nav button{
-
-        flex:
-            1 1 calc(33.333% - 12px);
-
-        min-width:
-            150px;
-
-    }
-
-
-    .dashboard-wrapper{
-
-        padding:
-            24px;
-
-    }
-
-}
-
-
-/* =======================================================
-   MOBILE HEADER
-======================================================= */
-
-@media (max-width:768px){
-
-    .app-header{
-
-        flex-direction:column;
-
-        align-items:stretch;
-
-        gap:16px;
-
-        padding:
-            16px;
-
-    }
-
-
-    .logo-area{
-
-        width:100%;
-
-    }
-
-
-    .header-right{
-
-        width:100%;
-
-        justify-content:flex-start;
-
-    }
-
-
-    .live-indicator{
-
-        width:100%;
-
-    }
-
-
-    .app-nav{
-
-        gap:10px;
-
-        padding:
-            12px;
-
-    }
-
-
-    .app-nav button{
-
-        flex:
-            1 1 calc(50% - 10px);
-
-        min-width:
-            0;
-
-        min-height:
-            52px;
-
-        padding:
-            0 14px;
-
-    }
-
-
-    .dashboard-wrapper{
-
-        padding:
-            18px 16px;
-
-        gap:
-            20px;
-
-    }
-
-
-    .section-header{
-
-        align-items:stretch;
-
-        flex-direction:column;
-
-        gap:14px;
-
-        margin-bottom:18px;
-
-    }
-
-
-    .section-header h2{
-
-        font-size:22px;
-
-    }
-
-}
-
-
-/* =======================================================
-   SMALL MOBILE HEADER
-======================================================= */
-
-@media (max-width:480px){
-
-    .app-header{
-
-        padding:
-            14px;
-
-    }
-
-
-    .logo-area{
-
-        gap:12px;
-
-    }
-
-
-    .logo-area img{
-
-        width:52px;
-
-        height:52px;
-
-        flex-basis:52px;
-
-        border-radius:15px;
-
-    }
-
-
-    .logo-area h2{
-
-        font-size:18px;
-
-    }
-
-
-    .logo-area p{
-
-        font-size:11px;
-
-    }
-
-
-    .app-nav{
-
-        gap:8px;
-
-        padding:
-            10px;
-
-    }
-
-
-    .app-nav button{
-
-        min-height:
-            50px;
-
-        padding:
-            0 10px;
-
-        border-radius:
-            14px;
-
-    }
-
-
-    .app-nav button i{
-
-        font-size:
-            16px;
-
-    }
-
-
-    .app-nav button span{
-
-        font-size:
-            12px;
-
-    }
-
-
-    .dashboard-wrapper{
-
-        padding:
-            14px;
-
-    }
-
-
-    .section-header h2{
-
-        font-size:
-            20px;
-
-    }
-
-}
-
-
-/* =======================================================
-   END PART 2 / 6
-======================================================= */
-/* =======================================================
-   RIO MAGGI POINT
-   PREMIUM ADMIN DASHBOARD
-   ADMIN-DASHBOARD.CSS
-   PART 3 / 6
-   SCANNER + CUSTOMER PREVIEW + STAMP GRID
-======================================================= */
-
-
-/* =======================================================
-   SCANNER SECTION
-======================================================= */
-
-.scanner-section{
-
-    display:grid;
-
-    grid-template-columns:
-        minmax(0,1.35fr)
-        minmax(320px,.85fr);
-
-    align-items:stretch;
-
-    gap:28px;
-
-    width:100%;
-
-}
-
-
-/* =======================================================
-   SCANNER & CUSTOMER CARD
-======================================================= */
-
-.scanner-card,
-.customer-card{
-
-    width:100%;
-
-    min-width:0;
-
-    padding:28px;
-
-}
-
-
-/* =======================================================
-   CARD TITLE
-======================================================= */
-
-.card-title{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:6px;
-
-    margin-bottom:22px;
-
-}
-
-
-/* =======================================================
-   CARD TITLE HEADING
-======================================================= */
-
-.card-title h2{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    margin:0;
-
-    color:
-        var(--gold);
-
-    font-size:26px;
-
-    font-weight:700;
-
-    line-height:1.3;
-
-}
-
-
-/* =======================================================
-   CARD TITLE ICON
-======================================================= */
-
-.card-title h2 i{
-
-    flex:
-        0 0 auto;
-
-    color:
-        var(--gold);
-
-    font-size:24px;
-
-    line-height:1;
-
-}
-
-
-/* =======================================================
-   CARD TITLE DESCRIPTION
-======================================================= */
-
-.card-title p{
-
-    margin:0;
-
-    color:
-        var(--muted);
-
-    font-size:14px;
-
-    line-height:1.6;
-
-}
-
-
-/* =======================================================
-   QR SCANNER BOX
-======================================================= */
-
-.scanner-box{
-
-    position:relative;
-
-    width:100%;
-
-    min-height:430px;
-
-    overflow:hidden;
-
-    border:
-        2px solid rgba(212,175,55,.25);
-
-    border-radius:24px;
-
-    background:
-        #050505;
-
-    transition:
-        border-color .35s ease,
-        box-shadow .35s ease;
-
-}
-
-
-/* =======================================================
-   SCANNER BOX HOVER
-======================================================= */
-
-.scanner-box:hover{
-
-    border-color:
-        rgba(212,175,55,.75);
-
-    box-shadow:
-        0 0 35px rgba(212,175,55,.18);
-
-}
-
-
-/* =======================================================
-   QR READER
-======================================================= */
-
-#qr-reader{
-
-    position:relative;
-
-    width:100%;
-
-    min-height:430px;
-
-    overflow:hidden;
-
-}
-
-
-/* =======================================================
-   QR READER VIDEO
-======================================================= */
-
-#qr-reader video{
-
-    display:block;
-
-    width:100% !important;
-
-    height:430px !important;
-
-    max-width:none !important;
-
-    object-fit:cover;
-
-    border-radius:22px;
-
-}
-
-
-/* =======================================================
-   QR READER CANVAS
-======================================================= */
-
-#qr-reader canvas{
-
-    max-width:100%;
-
-}
-
-
-/* =======================================================
-   QR READER IMAGE
-======================================================= */
-
-#qr-reader img{
-
-    max-width:100%;
-
-}
-
-
-/* =======================================================
-   CAMERA OVERLAY
-======================================================= */
-
-.camera-overlay{
-
-    position:absolute;
-
-    inset:0;
-
-    z-index:20;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:18px;
-
-    padding:30px;
-
-    text-align:center;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(0,0,0,.72),
-            rgba(0,0,0,.88)
-        );
-
-}
-
-
-/* =======================================================
-   CAMERA OVERLAY ICON
-======================================================= */
-
-.camera-overlay i{
-
-    color:
-        var(--gold);
-
-    font-size:74px;
-
-    line-height:1;
-
-    animation:
-        scannerFloat 2.2s ease-in-out infinite;
-
-}
-
-
-/* =======================================================
-   CAMERA OVERLAY TITLE
-======================================================= */
-
-.camera-overlay h3{
-
-    margin:0;
-
-    color:
-        #ffffff;
-
-    font-size:28px;
-
-    font-weight:700;
-
-    line-height:1.3;
-
-}
-
-
-/* =======================================================
-   CAMERA OVERLAY DESCRIPTION
-======================================================= */
-
-.camera-overlay p{
-
-    max-width:500px;
-
-    margin:0;
-
-    color:
-        #b9b9b9;
-
-    font-size:14px;
-
-    line-height:1.6;
-
-}
-
-
-/* =======================================================
-   SCANNER FLOAT
-======================================================= */
-
-@keyframes scannerFloat{
-
-    0%{
-
-        transform:
-            translateY(0);
-
-    }
-
-    50%{
-
-        transform:
-            translateY(-8px);
-
-    }
-
-    100%{
-
-        transform:
-            translateY(0);
-
-    }
-
-}
-
-
-/* =======================================================
-   SCANNER CONTROLS
-======================================================= */
-
-.scanner-controls,
-.customer-buttons{
-
-    display:flex;
-
-    align-items:stretch;
-
-    gap:16px;
-
-    width:100%;
-
-    margin-top:22px;
-
-}
-
-
-/* =======================================================
-   COMMON ACTION BUTTONS
-======================================================= */
-
-.gold-btn,
-.red-btn,
-.gray-btn{
-
-    position:relative;
-
-    flex:
-        1 1 0;
-
-    min-width:0;
-
-    min-height:58px;
-
-    padding:
-        0 20px;
-
-    overflow:hidden;
-
-    border:none;
-
-    border-radius:18px;
-
-    cursor:pointer;
-
-    font-family:inherit;
-
-    font-size:15px;
-
-    font-weight:700;
-
-    line-height:1.2;
-
-    transition:
-        transform .30s ease,
-        box-shadow .30s ease,
-        background .30s ease,
-        opacity .30s ease;
-
-}
-
-
-/* =======================================================
-   GOLD BUTTON
-======================================================= */
-
-.gold-btn{
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffda5a,
-            #d4af37
-        );
-
-    color:
-        #111111;
-
-    box-shadow:
-        0 8px 20px rgba(212,175,55,.12);
-
-}
-
-
-/* =======================================================
-   RED BUTTON
-======================================================= */
-
-.red-btn{
-
-    background:
-        linear-gradient(
-            135deg,
-            #e04444,
-            #c62828
-        );
-
-    color:
-        #ffffff;
-
-}
-
-
-/* =======================================================
-   GRAY BUTTON
-======================================================= */
-
-.gray-btn{
-
-    background:
-        linear-gradient(
-            135deg,
-            #3a414d,
-            #292e37
-        );
-
-    color:
-        #ffffff;
-
-}
-
-
-/* =======================================================
-   BUTTON HOVER
-======================================================= */
-
-.gold-btn:hover,
-.red-btn:hover,
-.gray-btn:hover{
-
-    transform:
-        translateY(-3px);
-
-    box-shadow:
-        0 14px 28px rgba(0,0,0,.35);
-
-}
-
-
-/* =======================================================
-   BUTTON ACTIVE
-======================================================= */
-
-.gold-btn:active,
-.red-btn:active,
-.gray-btn:active{
-
-    transform:
-        translateY(0);
-
-}
-
-
-/* =======================================================
-   DISABLED BUTTON
-======================================================= */
-
-.gold-btn:disabled,
-.red-btn:disabled,
-.gray-btn:disabled{
-
-    opacity:
-        .45;
-
-    cursor:
-        not-allowed;
-
-    transform:
-        none;
-
-    box-shadow:
-        none;
-
-}
-
-
-/* =======================================================
-   CUSTOMER PREVIEW
-======================================================= */
-
-.customer-preview{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:20px;
-
-    width:100%;
-
-    margin-bottom:24px;
-
-}
-
-
-/* =======================================================
-   CUSTOMER PHOTO
-======================================================= */
-
-.customer-photo{
-
-    width:100px;
-
-    height:100px;
-
-    flex:
-        0 0 100px;
-
-    object-fit:cover;
-
-    border:
-        4px solid var(--gold);
-
-    border-radius:50%;
-
-    background:
-        #111111;
-
-    box-shadow:
-        0 0 25px rgba(212,175,55,.25);
-
-    animation:
-        floating 4s ease-in-out infinite;
-
-}
-
-
-/* =======================================================
-   CUSTOMER INFO
-======================================================= */
-
-.customer-info{
-
-    flex:
-        1 1 auto;
-
-    min-width:0;
-
-}
-
-
-/* =======================================================
-   CUSTOMER NAME
-======================================================= */
-
-.customer-info h3{
-
-    margin:
-        0 0 6px;
-
-    color:
-        #ffffff;
-
-    font-size:24px;
-
-    font-weight:700;
-
-    line-height:1.3;
-
-    overflow-wrap:anywhere;
-
-}
-
-
-/* =======================================================
-   CUSTOMER DETAILS
-======================================================= */
-
-.customer-info p{
-
-    margin:0;
-
-    color:
-        var(--muted);
-
-    font-size:14px;
-
-    line-height:1.6;
-
-    overflow-wrap:anywhere;
-
-}
-
-
-/* =======================================================
-   STAMP GRID
-======================================================= */
-
-.stamp-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,minmax(0,1fr));
-
-    gap:16px;
-
-    width:100%;
-
-    margin-top:18px;
-
-}
-
-
-/* =======================================================
-   STAMP BOX
-======================================================= */
-
-.stamp-box{
-
-    min-width:0;
-
-    padding:20px;
-
-    text-align:center;
-
-    background:
-        #111111;
-
-    border:
-        1px solid rgba(212,175,55,.12);
-
-    border-radius:18px;
-
-    transition:
-        transform .30s ease,
-        border-color .30s ease,
-        box-shadow .30s ease;
-
-}
-
-
-/* =======================================================
-   STAMP BOX HOVER
-======================================================= */
-
-.stamp-box:hover{
-
-    transform:
-        translateY(-4px);
-
-    border-color:
-        rgba(212,175,55,.35);
-
-    box-shadow:
-        0 10px 25px rgba(0,0,0,.25);
-
-}
-
-
-/* =======================================================
-   STAMP LABEL
-======================================================= */
-
-.stamp-box span{
-
-    display:block;
-
-    margin-bottom:8px;
-
-    color:
-        var(--muted);
-
-    font-size:13px;
-
-    line-height:1.4;
-
-}
-
-
-/* =======================================================
-   STAMP VALUE
-======================================================= */
-
-.stamp-box strong{
-
-    display:block;
-
-    color:
-        var(--gold);
-
-    font-size:26px;
-
-    font-weight:700;
-
-    line-height:1.2;
-
-    overflow-wrap:anywhere;
-
-}
-
-
-/* =======================================================
-   STATUS COLORS
-======================================================= */
-
-.pending{
-
-    color:
-        var(--warning) !important;
-
-}
-
-
-.success{
-
-    color:
-        #57ff8c !important;
-
-}
-
-
-.failed{
-
-    color:
-        #ff5d5d !important;
-
-}
-
-
-/* =======================================================
-   CUSTOMER BUTTONS
-======================================================= */
-
-.customer-buttons{
-
-    margin-top:24px;
-
-}
-
-
-/* =======================================================
-   CUSTOMER BUTTON ICON ALIGNMENT
-======================================================= */
-
-.customer-buttons button,
-.scanner-controls button{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:8px;
-
-}
-
-
-/* =======================================================
-   FLOATING ANIMATION
-======================================================= */
-
-@keyframes floating{
-
-    0%{
-
-        transform:
-            translateY(0);
-
-    }
-
-    50%{
-
-        transform:
-            translateY(-5px);
-
-    }
-
-    100%{
-
-        transform:
-            translateY(0);
-
-    }
-
-}
-
-
-/* =======================================================
-   SCANNER / CUSTOMER RESPONSIVE
-======================================================= */
-
-@media (max-width:1100px){
-
-    .scanner-section{
-
-        grid-template-columns:
-            1fr;
-
-    }
-
-}
-
-
-/* =======================================================
-   TABLET
-======================================================= */
-
-@media (max-width:768px){
-
-    .scanner-card,
-    .customer-card{
-
-        padding:
-            20px;
-
-    }
-
-
-    .scanner-box{
-
-        min-height:
-            340px;
-
-    }
-
-
-    #qr-reader{
-
-        min-height:
-            340px;
-
-    }
-
-
-    #qr-reader video{
-
-        height:
-            340px !important;
-
-        border-radius:
-            20px;
-
-    }
-
-
-    .card-title h2{
-
-        font-size:
-            22px;
-
-    }
-
-
-    .customer-preview{
-
-        align-items:
-            center;
-
-    }
-
-}
-
-
-/* =======================================================
-   MOBILE
-======================================================= */
-
-@media (max-width:600px){
-
-    .scanner-card,
-    .customer-card{
-
-        padding:
-            18px;
-
-    }
-
-
-    .scanner-box{
-
-        min-height:
-            300px;
-
-        border-radius:
-            20px;
-
-    }
-
-
-    #qr-reader{
-
-        min-height:
-            300px;
-
-    }
-
-
-    #qr-reader video{
-
-        height:
-            300px !important;
-
-        border-radius:
-            18px;
-
-    }
-
-
-    .camera-overlay{
-
-        padding:
-            20px;
-
-        gap:
-            14px;
-
-    }
-
-
-    .camera-overlay i{
-
-        font-size:
-            58px;
-
-    }
-
-
-    .camera-overlay h3{
-
-        font-size:
-            22px;
-
-    }
-
-
-    .camera-overlay p{
-
-        font-size:
-            13px;
-
-    }
-
-
-    .customer-preview{
-
-        flex-direction:
-            column;
-
-        text-align:
-            center;
-
-    }
-
-
-    .customer-info{
-
-        width:
-            100%;
-
-        text-align:
-            center;
-
-    }
-
-
-    .customer-photo{
-
-        width:
-            88px;
-
-        height:
-            88px;
-
-        flex-basis:
-            88px;
-
-    }
-
-
-    .stamp-grid{
-
-        grid-template-columns:
-            1fr;
-
-    }
-
-
-    .scanner-controls,
-    .customer-buttons{
-
-        flex-direction:
-            column;
-
-    }
-
-
-    .gold-btn,
-    .red-btn,
-    .gray-btn{
-
-        width:
-            100%;
-
-        flex:
-            1 1 auto;
-
-    }
-
-}
-
-
-/* =======================================================
-   SMALL MOBILE
-======================================================= */
-
-@media (max-width:480px){
-
-    .scanner-box{
-
-        min-height:
-            260px;
-
-    }
-
-
-    #qr-reader{
-
-        min-height:
-            260px;
-
-    }
-
-
-    #qr-reader video{
-
-        height:
-            260px !important;
-
-    }
-
-
-    .card-title{
-
-        margin-bottom:
-            18px;
-
-    }
-
-
-    .card-title h2{
-
-        font-size:
-            20px;
-
-    }
-
-
-    .card-title p{
-
-        font-size:
-            13px;
-
-    }
-
-
-    .customer-photo{
-
-        width:
-            82px;
-
-        height:
-            82px;
-
-        flex-basis:
-            82px;
-
-    }
-
-
-    .customer-info h3{
-
-        font-size:
-            20px;
-
-    }
-
-
-    .stamp-box{
-
-        padding:
-            18px;
-
-    }
-
-
-    .stamp-box strong{
-
-        font-size:
-            22px;
-
-    }
-
-
-    .gold-btn,
-    .red-btn,
-    .gray-btn{
-
-        min-height:
-            54px;
-
-        border-radius:
-            16px;
-
-    }
-
-}
-
-
-/* =======================================================
-   TOUCH DEVICES
-======================================================= */
-
-@media (hover:none){
-
-    .scanner-box:hover{
-
-        border-color:
-            rgba(212,175,55,.25);
-
-        box-shadow:
-            none;
-
-    }
-
-
-    .stamp-box:hover{
-
-        transform:
-            none;
-
-        border-color:
-            rgba(212,175,55,.12);
-
-        box-shadow:
-            none;
-
-    }
-
-
-    .gold-btn:hover,
-    .red-btn:hover,
-    .gray-btn:hover{
-
-        transform:
-            none;
-
-        box-shadow:
-            none;
-
-    }
-
-}
-
-
-/* =======================================================
-   END PART 3 / 6
-======================================================= */
-/* =======================================================
-   RIO MAGGI POINT
-   PREMIUM ADMIN DASHBOARD
-   ADMIN-DASHBOARD.CSS
-   PART 4 / 6
-   STATS + CUSTOMER TABLE + SEARCH + QUICK ACTIONS
-======================================================= */
-
-
-/* =======================================================
-   DASHBOARD STATS
-======================================================= */
-
-.stats-section{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,minmax(0,1fr));
-
-    gap:22px;
-
-    width:100%;
-
-}
-
-
-/* =======================================================
-   STAT CARD
-======================================================= */
-
-.stat-card{
-
-    position:relative;
-
-    min-width:0;
-
-    padding:28px;
-
-    overflow:hidden;
-
-    text-align:center;
-
-    cursor:pointer;
-
-}
-
-
-/* =======================================================
-   STAT CARD DECORATION
-======================================================= */
-
-.stat-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    pointer-events:none;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(212,175,55,.08),
-            transparent 65%
-        );
-
-}
-
-
-/* =======================================================
-   STAT ICON
-======================================================= */
-
-.stat-card i{
-
-    position:relative;
-
-    z-index:1;
-
-    display:inline-block;
-
-    margin-bottom:18px;
-
-    color:
-        var(--gold);
-
-    font-size:42px;
-
-    line-height:1;
-
-    transition:
-        transform .35s ease;
-
-}
-
-
-/* =======================================================
-   STAT ICON HOVER
-======================================================= */
-
-.stat-card:hover i{
-
-    transform:
-        scale(1.15)
-        rotate(-8deg);
-
-}
-
-
-/* =======================================================
-   STAT TITLE
-======================================================= */
-
-.stat-card h4{
-
-    position:relative;
-
-    z-index:1;
-
-    margin:
-        0 0 10px;
-
-    color:
-        var(--muted);
-
-    font-size:15px;
-
-    font-weight:600;
-
-    line-height:1.4;
-
-}
-
-
-/* =======================================================
-   STAT VALUE
-======================================================= */
-
-.stat-card strong{
-
-    position:relative;
-
-    z-index:1;
-
-    display:block;
-
-    color:
-        #ffffff;
-
-    font-size:38px;
-
-    font-weight:700;
-
-    line-height:1.2;
-
-    overflow-wrap:anywhere;
-
-}
-
-
-/* =======================================================
-   CUSTOMER SECTION
-======================================================= */
-
-.customer-section{
-
-    width:100%;
-
-    min-width:0;
-
-    padding:28px;
-
-}
-
-
-/* =======================================================
-   SEARCH BOX
-======================================================= */
-
-.search-box{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    width:100%;
-
-    min-width:280px;
-
-    max-width:420px;
-
-    padding:
-        13px 18px;
-
-    background:
-        #111111;
-
-    border:
-        1px solid rgba(212,175,55,.12);
-
-    border-radius:16px;
-
-    transition:
-        border-color .30s ease,
-        box-shadow .30s ease,
-        background .30s ease;
-
-}
-
-
-/* =======================================================
-   SEARCH BOX FOCUS
-======================================================= */
-
-.search-box:focus-within{
-
-    background:
-        #151515;
-
-    border-color:
-        var(--gold);
-
-    box-shadow:
-        0 0 18px rgba(212,175,55,.18);
-
-}
-
-
-/* =======================================================
-   SEARCH ICON
-======================================================= */
-
-.search-box i{
-
-    flex:
-        0 0 auto;
-
-    color:
-        var(--gold);
-
-    font-size:16px;
-
-}
-
-
-/* =======================================================
-   SEARCH INPUT
-======================================================= */
-
-.search-box input{
-
-    width:100%;
-
-    min-width:0;
-
-    padding:0;
-
-    border:none;
-
-    outline:none;
-
-    background:
-        transparent;
-
-    color:
-        #ffffff;
-
-    font-family:inherit;
-
-    font-size:15px;
-
-    line-height:1.5;
-
-}
-
-
-/* =======================================================
-   SEARCH INPUT PLACEHOLDER
-======================================================= */
-
-.search-box input::placeholder{
-
-    color:
-        #888888;
-
-    opacity:1;
-
-}
-
-
-/* =======================================================
-   TABLE CARD
-======================================================= */
-
-.table-card{
-
-    width:100%;
-
-    overflow-x:auto;
-
-    overflow-y:hidden;
-
-    border:
-        1px solid rgba(212,175,55,.10);
-
-    border-radius:18px;
-
-    -webkit-overflow-scrolling:
-        touch;
-
-    scrollbar-width:
-        thin;
-
-    scrollbar-color:
-        var(--gold) #101010;
-
-}
-
-
-/* =======================================================
-   CUSTOMER TABLE
-======================================================= */
-
-table{
-
-    width:100%;
-
-    min-width:760px;
-
-    border-collapse:collapse;
-
-    border-spacing:0;
-
-}
-
-
-/* =======================================================
-   TABLE HEADER
-======================================================= */
-
-thead{
-
-    background:
-        #1b1b1b;
-
-}
-
-
-/* =======================================================
-   TABLE HEADER CELLS
-======================================================= */
-
-thead th{
-
-    padding:
-        18px;
-
-    text-align:left;
-
-    color:
-        var(--gold);
-
-    font-size:14px;
-
-    font-weight:700;
-
-    line-height:1.4;
-
-    white-space:nowrap;
-
-    border-bottom:
-        1px solid rgba(212,175,55,.18);
-
-}
-
-
-/* =======================================================
-   TABLE BODY ROW
-======================================================= */
-
-tbody tr{
-
-    background:
-        transparent;
-
-    transition:
-        background .25s ease;
-
-}
-
-
-/* =======================================================
-   ALTERNATE ROW
-======================================================= */
-
-tbody tr:nth-child(even){
-
-    background:
-        rgba(255,255,255,.015);
-
-}
-
-
-/* =======================================================
-   TABLE ROW HOVER
-======================================================= */
-
-tbody tr:hover{
-
-    background:
-        rgba(212,175,55,.08);
-
-}
-
-
-/* =======================================================
-   TABLE BODY CELLS
-======================================================= */
-
-tbody td{
-
-    padding:
-        16px 18px;
-
-    color:
-        #f3f3f3;
-
-    font-size:14px;
-
-    line-height:1.5;
-
-    vertical-align:middle;
-
-    border-bottom:
-        1px solid rgba(255,255,255,.05);
-
-}
-
-
-/* =======================================================
-   TABLE CUSTOMER IMAGE
-======================================================= */
-
-tbody td img{
-
-    display:block;
-
-    width:45px;
-
-    height:45px;
-
-    object-fit:cover;
-
-    border:
-        2px solid rgba(212,175,55,.25);
-
-    border-radius:50%;
-
-}
-
-
-/* =======================================================
-   TABLE ACTION BUTTON
-======================================================= */
-
-tbody td button{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:6px;
-
-    min-height:40px;
-
-    padding:
-        10px 18px;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffda5a,
-            #d4af37
-        );
-
-    color:
-        #111111;
-
-    cursor:pointer;
-
-    font-family:inherit;
-
-    font-size:13px;
-
-    font-weight:700;
-
-    line-height:1.2;
-
-    white-space:nowrap;
-
-    transition:
-        transform .30s ease,
-        box-shadow .30s ease,
-        opacity .30s ease;
-
-}
-
-
-/* =======================================================
-   TABLE ACTION HOVER
-======================================================= */
-
-tbody td button:hover{
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 8px 18px rgba(212,175,55,.20);
-
-}
-
-
-/* =======================================================
-   TABLE ACTION ACTIVE
-======================================================= */
-
-tbody td button:active{
-
-    transform:
-        translateY(0);
-
-}
-
-
-/* =======================================================
-   QUICK ACTIONS
-======================================================= */
-
-.quick-actions{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,minmax(0,1fr));
-
-    gap:20px;
-
-    width:100%;
-
-}
-
-
-/* =======================================================
-   QUICK ACTION BUTTON
-======================================================= */
-
-.quick-actions button{
-
-    position:relative;
-
-    min-width:0;
-
-    min-height:62px;
-
-    padding:
-        0 18px;
-
-    overflow:hidden;
-
-    border:none;
-
-    border-radius:18px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffda5a,
-            #d4af37
-        );
-
-    color:
-        #111111;
-
-    cursor:pointer;
-
-    font-family:inherit;
-
-    font-size:15px;
-
-    font-weight:700;
-
-    line-height:1.3;
-
-    transition:
-        transform .30s ease,
-        box-shadow .30s ease,
-        opacity .30s ease;
-
-}
-
-
-/* =======================================================
-   QUICK ACTION HOVER
-======================================================= */
-
-.quick-actions button:hover{
-
-    transform:
-        translateY(-4px);
-
-    box-shadow:
-        0 14px 32px rgba(212,175,55,.25);
-
-}
-
-
-/* =======================================================
-   QUICK ACTION ACTIVE
-======================================================= */
-
-.quick-actions button:active{
-
-    transform:
-        translateY(0);
-
-}
-
-
-/* =======================================================
-   STATUS CARD
-======================================================= */
-
-.status-card{
-
-    width:100%;
-
-    min-width:0;
-
-    padding:28px;
-
-}
-
-
-/* =======================================================
-   STATUS CARD TITLE
-======================================================= */
-
-.status-card h2{
-
-    margin:
-        0 0 22px;
-
-    color:
-        var(--gold);
-
-    font-size:24px;
-
-    font-weight:700;
-
-    line-height:1.3;
-
-}
-
-
-/* =======================================================
-   STATUS ROW
-======================================================= */
-
-.status-row{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:20px;
-
-    padding:
-        16px 0;
-
-    border-bottom:
-        1px solid rgba(255,255,255,.06);
-
-}
-
-
-/* =======================================================
-   LAST STATUS ROW
-======================================================= */
-
-.status-row:last-child{
-
-    border-bottom:
-        none;
-
-}
-
-
-/* =======================================================
-   STATUS LABEL
-======================================================= */
-
-.status-row span{
-
-    min-width:0;
-
-    color:
-        var(--muted);
-
-    font-size:14px;
-
-    line-height:1.5;
-
-}
-
-
-/* =======================================================
-   STATUS VALUE
-======================================================= */
-
-.status-row strong{
-
-    min-width:0;
-
-    color:
-        #ffffff;
-
-    font-size:14px;
-
-    font-weight:700;
-
-    line-height:1.5;
-
-    text-align:right;
-
-    overflow-wrap:anywhere;
-
-}
-
-
-/* =======================================================
-   ONLINE STATUS
-======================================================= */
-
-.online{
-
-    color:
-        #5dff93 !important;
-
-}
-
-
-/* =======================================================
-   STATS RESPONSIVE
-======================================================= */
-
-@media (max-width:1400px){
-
-    .stats-section{
-
-        grid-template-columns:
-            repeat(2,minmax(0,1fr));
-
-    }
-
-
-    .quick-actions{
-
-        grid-template-columns:
-            repeat(2,minmax(0,1fr));
-
-    }
-
-}
-
-
-/* =======================================================
-   TABLET
-======================================================= */
-
-@media (max-width:900px){
-
-    .customer-section,
-    .status-card{
-
-        padding:
-            22px;
-
-    }
-
-
-    .search-box{
-
-        max-width:
-            100%;
-
-    }
-
-}
-
-
-/* =======================================================
-   MOBILE
-======================================================= */
-
-@media (max-width:768px){
-
-    .stats-section{
-
-        grid-template-columns:
-            1fr;
-
-        gap:
-            16px;
-
-    }
-
-
-    .quick-actions{
-
-        grid-template-columns:
-            1fr;
-
-        gap:
-            14px;
-
-    }
-
-
-    .customer-section,
-    .status-card{
-
-        padding:
-            18px;
-
-    }
-
-
-    .stat-card{
-
-        padding:
-            22px;
-
-    }
-
-
-    .stat-card strong{
-
-        font-size:
-            32px;
-
-    }
-
-
-    .section-header{
-
-        flex-direction:
-            column;
-
-        align-items:
-            stretch;
-
-    }
-
-
-    .search-box{
-
-        width:
-            100%;
-
-        min-width:
-            0;
-
-        max-width:
-            none;
-
-    }
-
-
-    .table-card{
-
-        width:
-            100%;
-
-        border-radius:
-            14px;
-
-    }
-
-
-    table{
-
-        min-width:
-            700px;
-
-    }
-
-
-    .status-row{
-
-        align-items:
-            flex-start;
-
-        flex-direction:
-            column;
-
-        gap:
-            6px;
-
-    }
-
-
-    .status-row strong{
-
-        text-align:
-            left;
-
-    }
-
-}
-
-
-/* =======================================================
-   SMALL MOBILE
-======================================================= */
-
-@media (max-width:480px){
-
-    .stat-card{
-
-        padding:
-            20px;
-
-    }
-
-
-    .stat-card i{
-
-        font-size:
-            36px;
-
-    }
-
-
-    .stat-card h4{
-
-        font-size:
-            14px;
-
-    }
-
-
-    .stat-card strong{
-
-        font-size:
-            30px;
-
-    }
-
-
-    .customer-section,
-    .status-card{
-
-        padding:
-            16px;
-
-    }
-
-
-    .quick-actions button{
-
-        min-height:
-            56px;
-
-        border-radius:
-            16px;
-
-        font-size:
-            14px;
-
-    }
-
-
-    .status-card h2{
-
-        font-size:
-            20px;
-
-    }
-
-}
-
-
-/* =======================================================
-   TOUCH DEVICE OPTIMIZATION
-======================================================= */
-
-@media (hover:none){
-
-    .stat-card:hover i{
-
-        transform:
-            none;
-
-    }
-
-
-    tbody td button:hover{
-
-        transform:
-            none;
-
-        box-shadow:
-            none;
-
-    }
-
-
-    .quick-actions button:hover{
-
-        transform:
-            none;
-
-        box-shadow:
-            none;
-
-    }
-
-}
-
-
-/* =======================================================
-   END PART 4 / 6
-======================================================= */
-/* =======================================================
-   RIO MAGGI POINT
-   PREMIUM ADMIN DASHBOARD V5
-   ADMIN-DASHBOARD.CSS
-   PART 5 / 6
-   RESPONSIVE DESIGN
-   FIXED + CLEAN VERSION
-======================================================= */
-
-
-/* =======================================================
-   LARGE LAPTOP / SMALL DESKTOP
-======================================================= */
-
-@media (max-width:1400px){
-
-    .dashboard-wrapper{
-
-        padding:24px;
-
-    }
-
-
-    .stats-section{
-
-        grid-template-columns:
-            repeat(2,minmax(0,1fr));
-
-    }
-
-}
-
-
-/* =======================================================
-   TABLET / SMALL LAPTOP
-======================================================= */
-
-@media (max-width:1100px){
-
-    /* ---------- SCANNER ---------- */
-
-    .scanner-section{
-
-        grid-template-columns:1fr;
-
-    }
-
-
-    /* ---------- QUICK ACTIONS ---------- */
-
-    .quick-actions{
-
-        grid-template-columns:
-            repeat(2,minmax(0,1fr));
-
-    }
-
-
-    /* ---------- NAVIGATION ---------- */
-
-    .app-nav{
-
-        justify-content:center;
-
-        gap:12px;
-
-    }
-
-
-    .app-nav button{
-
-        flex:
-            1 1 calc(33.333% - 12px);
-
-        min-width:
-            160px;
-
-    }
-
-
-    /* ---------- HEADER ---------- */
-
-    .app-header{
-
-        padding:
-            16px 22px;
-
-    }
-
-}
-
-
-/* =======================================================
-   TABLET PORTRAIT
-======================================================= */
-
-@media (max-width:900px){
-
-    .dashboard-wrapper{
-
-        padding:20px;
-
-    }
-
-
-    .stats-section{
-
-        gap:18px;
-
-    }
-
-
-    .scanner-card,
-    .customer-card,
-    .customer-section,
-    .status-card{
-
-        padding:22px;
-
-    }
-
-
-    .scanner-box{
-
-        min-height:380px;
-
-    }
-
-
-    #qr-reader video{
-
-        min-height:380px;
-
-    }
-
-
-    .section-header{
-
-        align-items:
-            flex-start;
-
-    }
-
-
-    .search-box{
-
-        min-width:280px;
-
-    }
-
-}
-
-
-/* =======================================================
-   MOBILE
-======================================================= */
-
-@media (max-width:768px){
-
-    /* ---------- HEADER ---------- */
-
-    .app-header{
-
-        position:relative;
-
-        flex-direction:column;
-
-        align-items:stretch;
-
-        gap:16px;
-
-        padding:16px;
-
-    }
-
-
-    .logo-area{
-
-        width:100%;
-
-        gap:14px;
-
-    }
-
-
-    .logo-area img{
-
-        width:58px;
-
-        height:58px;
-
-        border-radius:16px;
-
-    }
-
-
-    .logo-area h2{
-
-        font-size:20px;
-
-    }
-
-
-    .logo-area p{
-
-        font-size:12px;
-
-    }
-
-
-    /* ---------- HEADER STATUS ---------- */
-
-    .header-right{
-
-        width:100%;
-
-        justify-content:
-            flex-start;
-
-    }
-
-
-    .live-indicator{
-
-        width:100%;
-
-        min-height:44px;
-
-    }
-
-
-    /* ---------- NAVIGATION ---------- */
-
-    .app-nav{
-
-        display:grid;
-
-        grid-template-columns:
-            repeat(2,minmax(0,1fr));
-
-        gap:10px;
-
-        padding:12px;
-
-    }
-
-
-    .app-nav button{
-
-        width:100%;
-
-        min-width:0;
-
-        min-height:52px;
-
-        padding:
-            0 12px;
-
-        border-radius:15px;
-
-    }
-
-
-    .app-nav button span{
-
-        font-size:13px;
-
-    }
-
-
-    .app-nav button i{
-
-        font-size:17px;
-
-    }
-
-
-    /* ---------- MAIN WRAPPER ---------- */
-
-    .dashboard-wrapper{
-
-        width:100%;
-
-        padding:16px;
-
-        gap:20px;
-
-    }
-
-
-    /* ---------- COMMON CARDS ---------- */
-
-    .scanner-card,
-    .customer-card,
-    .customer-section,
-    .status-card,
-    .stat-card{
-
-        padding:18px;
-
-        border-radius:18px;
-
-    }
-
-
-    /* ---------- SCANNER ---------- */
-
-    .scanner-box{
-
-        min-height:300px;
-
-        border-radius:20px;
-
-    }
-
-
-    #qr-reader{
-
-        min-height:300px;
-
-    }
-
-
-    #qr-reader video{
-
-        min-height:300px;
-
-        border-radius:18px;
-
-    }
-
-
-    /* ---------- CAMERA OVERLAY ---------- */
-
-    .camera-overlay{
-
-        gap:14px;
-
-        padding:20px;
-
-    }
-
-
-    .camera-overlay i{
-
-        font-size:58px;
-
-    }
-
-
-    .camera-overlay h3{
-
-        font-size:22px;
-
-    }
-
-
-    .camera-overlay p{
-
-        font-size:13px;
-
-    }
-
-
-    /* ---------- STATS ---------- */
-
-    .stats-section{
-
-        grid-template-columns:1fr;
-
-        gap:16px;
-
-    }
-
-
-    .stat-card{
-
-        padding:20px;
-
-    }
-
-
-    .stat-card strong{
-
-        font-size:32px;
-
-    }
-
-
-    /* ---------- QUICK ACTIONS ---------- */
-
-    .quick-actions{
-
-        grid-template-columns:1fr;
-
-        gap:14px;
-
-    }
-
-
-    .quick-actions button{
-
-        width:100%;
-
-        height:58px;
-
-    }
-
-
-    /* ---------- SECTION HEADER ---------- */
-
-    .section-header{
-
-        flex-direction:column;
-
-        align-items:stretch;
-
-        gap:14px;
-
-        margin-bottom:20px;
-
-    }
-
-
-    .section-header h2{
-
-        font-size:22px;
-
-    }
-
-
-    /* ---------- SEARCH ---------- */
-
-    .search-box{
-
-        width:100%;
-
-        min-width:0;
-
-        padding:
-            13px 15px;
-
-    }
-
-
-    .search-box input{
-
-        width:100%;
-
-        min-width:0;
-
-    }
-
-
-    /* ---------- CUSTOMER PREVIEW ---------- */
-
-    .customer-preview{
-
-        flex-direction:column;
-
-        align-items:center;
-
-        text-align:center;
-
-        gap:14px;
-
-    }
-
-
-    .customer-info{
-
-        width:100%;
-
-        text-align:center;
-
-    }
-
-
-    .customer-photo{
-
-        width:90px;
-
-        height:90px;
-
-    }
-
-
-    .customer-info h3{
-
-        font-size:21px;
-
-    }
-
-
-    /* ---------- STAMP GRID ---------- */
-
-    .stamp-grid{
-
-        grid-template-columns:1fr;
-
-        gap:12px;
-
-    }
-
-
-    /* ---------- BUTTON GROUPS ---------- */
-
-    .scanner-controls,
-    .customer-buttons{
-
-        flex-direction:column;
-
-        gap:12px;
-
-    }
-
-
-    .gold-btn,
-    .red-btn,
-    .gray-btn{
-
-        width:100%;
-
-        min-height:54px;
-
-    }
-
-
-    /* ---------- TABLE ---------- */
-
-    .table-card{
-
-        width:100%;
-
-        margin:0;
-
-        overflow-x:auto;
-
-        border-radius:14px;
-
-    }
-
-
-    table{
-
-        min-width:700px;
-
-    }
-
-
-    /* ---------- STATUS ---------- */
-
-    .status-row{
-
-        align-items:flex-start;
-
-        flex-direction:column;
-
-        gap:6px;
-
-    }
-
-
-    .status-row strong{
-
-        text-align:left;
-
-    }
-
-}
-
-
-/* =======================================================
-   SMALL MOBILE
-======================================================= */
-
-@media (max-width:480px){
-
-    /* ---------- MAIN ---------- */
-
-    .dashboard-wrapper{
-
-        padding:12px;
-
-        gap:16px;
-
-    }
-
-
-    /* ---------- HEADER ---------- */
-
-    .app-header{
-
-        padding:14px;
-
-    }
-
-
-    .logo-area{
-
-        gap:10px;
-
-    }
-
-
-    .logo-area img{
-
-        width:50px;
-
-        height:50px;
-
-        border-radius:14px;
-
-    }
-
-
-    .logo-area h2{
-
-        font-size:18px;
-
-    }
-
-
-    .logo-area p{
-
-        font-size:11px;
-
-    }
-
-
-    /* ---------- NAVIGATION ---------- */
-
-    .app-nav{
-
-        padding:10px;
-
-        gap:8px;
-
-    }
-
-
-    .app-nav button{
-
-        min-height:50px;
-
-        padding:
-            0 8px;
-
-        border-radius:13px;
-
-        gap:7px;
-
-    }
-
-
-    .app-nav button i{
-
-        font-size:16px;
-
-    }
-
-
-    .app-nav button span{
-
-        font-size:12px;
-
-    }
-
-
-    /* ---------- CARDS ---------- */
-
-    .scanner-card,
-    .customer-card,
-    .customer-section,
-    .status-card,
-    .stat-card{
-
-        padding:15px;
-
-        border-radius:16px;
-
-    }
-
-
-    /* ---------- CARD TITLE ---------- */
-
-    .card-title{
-
-        margin-bottom:18px;
-
-    }
-
-
-    .card-title h2{
-
-        font-size:20px;
-
-    }
-
-
-    .card-title h2 i{
-
-        font-size:20px;
-
-    }
-
-
-    .card-title p{
-
-        font-size:12px;
-
-    }
-
-
-    /* ---------- SCANNER ---------- */
-
-    .scanner-box{
-
-        min-height:250px;
-
-        border-radius:16px;
-
-    }
-
-
-    #qr-reader{
-
-        min-height:250px;
-
-    }
-
-
-    #qr-reader video{
-
-        min-height:250px;
-
-        border-radius:14px;
-
-    }
-
-
-    /* ---------- CAMERA OVERLAY ---------- */
-
-    .camera-overlay{
-
-        padding:16px;
-
-        gap:10px;
-
-    }
-
-
-    .camera-overlay i{
-
-        font-size:48px;
-
-    }
-
-
-    .camera-overlay h3{
-
-        font-size:19px;
-
-    }
-
-
-    .camera-overlay p{
-
-        font-size:12px;
-
-        line-height:1.5;
-
-    }
-
-
-    /* ---------- CUSTOMER ---------- */
-
-    .customer-photo{
-
-        width:80px;
-
-        height:80px;
-
-        border-width:3px;
-
-    }
-
-
-    .customer-info h3{
-
-        font-size:19px;
-
-    }
-
-
-    .customer-info p{
-
-        font-size:12px;
-
-    }
-
-
-    /* ---------- STAMPS ---------- */
-
-    .stamp-box{
-
-        padding:16px;
-
-    }
-
-
-    .stamp-box strong{
-
-        font-size:21px;
-
-    }
-
-
-    /* ---------- STATS ---------- */
-
-    .stat-card strong{
-
-        font-size:28px;
-
-    }
-
-
-    .stat-card i{
-
-        font-size:36px;
-
-    }
-
-
-    /* ---------- QUICK ACTIONS ---------- */
-
-    .quick-actions button{
-
-        height:54px;
-
-        font-size:14px;
-
-        border-radius:15px;
-
-    }
-
-
-    /* ---------- STATUS ---------- */
-
-    .status-card h2{
-
-        font-size:20px;
-
-    }
-
-
-    .status-row{
-
-        padding:13px 0;
-
-    }
-
-
-    .status-row span,
-    .status-row strong{
-
-        font-size:13px;
-
-    }
-
-}
-
-
-/* =======================================================
-   VERY SMALL MOBILE
-======================================================= */
-
-@media (max-width:360px){
-
-    .app-nav{
-
-        grid-template-columns:1fr;
-
-    }
-
-
-    .app-nav button{
-
-        min-height:48px;
-
-    }
-
-
-    .dashboard-wrapper{
-
-        padding:10px;
-
-    }
-
-
-    .scanner-card,
-    .customer-card,
-    .customer-section,
-    .status-card,
-    .stat-card{
-
-        padding:13px;
-
-    }
-
-
-    .card-title h2{
-
-        font-size:18px;
-
-    }
-
-
-    .section-header h2{
-
-        font-size:20px;
-
-    }
-
-
-    .scanner-box{
-
-        min-height:230px;
-
-    }
-
-
-    #qr-reader{
-
-        min-height:230px;
-
-    }
-
-
-    #qr-reader video{
-
-        min-height:230px;
-
-    }
-
-}
-
-
-/* =======================================================
-   TOUCH DEVICES
-======================================================= */
-
-@media (hover:none){
-
-    .stat-card:hover,
-    .scanner-card:hover,
-    .customer-card:hover,
-    .customer-section:hover,
-    .status-card:hover{
-
-        transform:none;
-
-        box-shadow:var(--shadow);
-
-    }
-
-
-    .app-nav button:hover{
-
-        transform:none;
-
-    }
-
-
-    .quick-actions button:hover{
-
-        transform:none;
-
-    }
-
-
-    tbody button:hover{
-
-        transform:none;
-
-        box-shadow:none;
-
-    }
-
-
-    .stamp-box:hover{
-
-        transform:none;
-
-        box-shadow:none;
-
-    }
-
-}
-
-
-/* =======================================================
-   LANDSCAPE MOBILE
-======================================================= */
-
-@media (max-width:768px) and (orientation:landscape){
-
-    .app-header{
-
-        flex-direction:row;
-
-        align-items:center;
-
-    }
-
-
-    .header-right{
-
-        width:auto;
-
-    }
-
-
-    .live-indicator{
-
-        width:auto;
-
-    }
-
-
-    .app-nav{
-
-        grid-template-columns:
-            repeat(3,minmax(0,1fr));
-
-    }
-
-
-    .scanner-box{
-
-        min-height:280px;
-
-    }
-
-
-    #qr-reader{
-
-        min-height:280px;
-
-    }
-
-
-    #qr-reader video{
-
-        min-height:280px;
-
-    }
-
-}
-
-
-/* =======================================================
-   END PART 5 / 6
-======================================================= */
-/* =======================================================
-   RIO MAGGI POINT
-   PREMIUM ADMIN DASHBOARD V5
-   ADMIN-DASHBOARD.CSS
-   PART 6 / 6
-   FINAL POLISH + ANIMATIONS + ACCESSIBILITY
-   CLEAN FINAL VERSION
-======================================================= */
 
 
-/* =======================================================
-   BUTTON INTERACTION FOUNDATION
-======================================================= */
+/* =========================================================
+   14. BUTTON SYSTEM
+========================================================= */
 
-.app-nav button,
-.quick-actions button,
 .gold-btn,
 .red-btn,
 .gray-btn,
-tbody button{
+.quick-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
 
-    position:relative;
+  min-height: 44px;
 
-    overflow:hidden;
+  padding: 10px 18px;
 
-    isolation:isolate;
+  border-radius: var(--radius-sm);
 
+  font-size: 0.82rem;
+  font-weight: 700;
+
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition),
+    background var(--transition),
+    border-color var(--transition);
+}
+
+.gold-btn {
+  color: #171000;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--gold-light),
+      var(--gold)
+    );
+
+  box-shadow: var(--shadow-gold);
+}
+
+.gold-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 30px rgba(212, 175, 55, 0.28);
+}
+
+.red-btn {
+  color: var(--white);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--red),
+      var(--red-dark)
+    );
+
+  box-shadow: var(--shadow-red);
+}
+
+.red-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--red-light),
+      var(--red)
+    );
+}
+
+.gray-btn {
+  color: var(--text-primary);
+
+  background: #252525;
+
+  border: 1px solid var(--border);
+}
+
+.gray-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+
+  background: #303030;
+
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 
-/* =======================================================
-   BUTTON RIPPLE / PRESS EFFECT
-======================================================= */
+/* =========================================================
+   15. CUSTOMER PREVIEW
+========================================================= */
 
-.app-nav button::after,
-.quick-actions button::before,
-.gold-btn::before,
-.red-btn::before,
-.gray-btn::before,
-tbody button::before{
+.customer-preview {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 
-    content:"";
+  padding: 24px;
+}
 
-    position:absolute;
+.customer-photo {
+  width: 72px;
+  height: 72px;
 
-    top:50%;
+  flex: 0 0 72px;
 
-    left:50%;
+  object-fit: cover;
 
-    width:20px;
+  border-radius: 50%;
 
-    height:20px;
+  border: 2px solid var(--gold);
 
-    border-radius:50%;
+  background: #080808;
+}
 
-    pointer-events:none;
+.customer-info {
+  min-width: 0;
+}
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.30) 0%,
-            rgba(255,255,255,.10) 35%,
-            transparent 70%
-        );
+.customer-info h3 {
+  overflow: hidden;
 
-    transform:
-        translate(-50%,-50%)
-        scale(0);
+  color: var(--white);
 
-    opacity:0;
+  font-size: 1rem;
+  font-weight: 700;
 
-    z-index:-1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
+.customer-info p {
+  margin-top: 4px;
+
+  color: var(--gold);
+
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  letter-spacing: 0.5px;
 }
 
 
-/* =======================================================
-   ACTIVE PRESS EFFECT
-======================================================= */
+/* =========================================================
+   16. STAMP GRID
+========================================================= */
 
-.app-nav button:active::after,
-.quick-actions button:active::before,
-.gold-btn:active::before,
-.red-btn:active::before,
-.gray-btn:active::before,
-tbody button:active::before{
+.stamp-grid {
+  display: grid;
 
-    animation:
-        buttonRipple .5s ease-out;
+  grid-template-columns: repeat(2, 1fr);
 
+  gap: 12px;
+
+  padding: 0 24px 24px;
+}
+
+.stamp-box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  padding: 16px;
+
+  background: rgba(255, 255, 255, 0.03);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-md);
+}
+
+.stamp-box span {
+  color: var(--text-muted);
+
+  font-size: 0.7rem;
+  font-weight: 600;
+
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.stamp-box strong {
+  color: var(--white);
+
+  font-size: 1.05rem;
+}
+
+.stamp-box strong.pending {
+  color: var(--yellow);
 }
 
 
-@keyframes buttonRipple{
+/* =========================================================
+   17. CUSTOMER BUTTONS
+========================================================= */
 
-    0%{
+.customer-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 
-        transform:
-            translate(-50%,-50%)
-            scale(0);
+  padding: 0 24px 24px;
+}
 
-        opacity:.8;
-
-    }
-
-    100%{
-
-        transform:
-            translate(-50%,-50%)
-            scale(18);
-
-        opacity:0;
-
-    }
-
+.customer-buttons button {
+  flex: 1;
 }
 
 
-/* =======================================================
-   BUTTON ACTIVE FEEDBACK
-======================================================= */
+/* =========================================================
+   18. STATS SECTION
+========================================================= */
 
-.app-nav button:active,
-.quick-actions button:active,
-.gold-btn:active,
-.red-btn:active,
-.gray-btn:active,
-tbody button:active{
+.stats-section {
+  display: grid;
 
-    transform:
-        translateY(1px)
-        scale(.98);
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
 
+  gap: 18px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  min-height: 120px;
+
+  padding: 22px;
+
+  transition:
+    transform var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+
+  border-color: var(--border-gold);
+
+  box-shadow: var(--shadow-gold);
+}
+
+.stat-icon {
+  width: 52px;
+  height: 52px;
+
+  flex: 0 0 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  color: var(--gold);
+
+  background: rgba(212, 175, 55, 0.08);
+
+  border: 1px solid var(--border-gold);
+
+  font-size: 1.15rem;
+}
+
+.stat-content {
+  min-width: 0;
+}
+
+.stat-content h4 {
+  color: var(--text-muted);
+
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.stat-content strong {
+  display: block;
+
+  margin-top: 3px;
+
+  color: var(--white);
+
+  font-size: 1.55rem;
+  font-weight: 800;
 }
 
 
-/* =======================================================
-   FLOATING CUSTOMER IMAGE ANIMATION
-======================================================= */
+/* =========================================================
+   19. CUSTOMER SECTION
+========================================================= */
 
-@keyframes floating{
+.customer-section {
+  width: 100%;
+}
 
-    0%{
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-        transform:
-            translateY(0);
+  gap: 20px;
 
-    }
+  margin-bottom: 16px;
+}
 
-    50%{
+.section-title h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
-        transform:
-            translateY(-5px);
+  color: var(--white);
 
-    }
+  font-size: 1.15rem;
+}
 
-    100%{
-
-        transform:
-            translateY(0);
-
-    }
-
+.section-title h2 i {
+  color: var(--gold);
 }
 
 
-/* =======================================================
-   LOADING STATE
-======================================================= */
+/* =========================================================
+   20. SEARCH BOX
+========================================================= */
 
-.loading{
+.search-box {
+  width: min(100%, 400px);
 
-    position:relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 
-    pointer-events:none;
+  padding: 0 14px;
 
-    opacity:.65;
+  min-height: 44px;
 
-    filter:
-        grayscale(.20);
+  background: var(--bg-input);
 
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-sm);
+
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.search-box:focus-within {
+  border-color: var(--gold);
+
+  box-shadow:
+    0 0 0 3px rgba(212, 175, 55, 0.08);
+}
+
+.search-box i {
+  color: var(--text-muted);
+
+  font-size: 0.85rem;
+}
+
+.search-box input {
+  width: 100%;
+
+  min-width: 0;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+
+  color: var(--white);
+
+  font-size: 0.78rem;
+}
+
+.search-box input::placeholder {
+  color: var(--text-muted);
 }
 
 
-/* =======================================================
-   LOADING SPINNER
-======================================================= */
+/* =========================================================
+   21. CUSTOMER TABLE
+========================================================= */
 
-.loading::after{
+.table-card {
+  width: 100%;
 
-    content:"";
+  overflow: hidden;
+}
 
-    display:inline-block;
+.table-responsive {
+  width: 100%;
 
-    width:18px;
+  overflow-x: auto;
 
-    height:18px;
+  scrollbar-width: thin;
+}
 
-    margin-left:10px;
+.table-responsive::-webkit-scrollbar {
+  height: 5px;
+}
 
-    vertical-align:-4px;
+.table-responsive::-webkit-scrollbar-thumb {
+  background: var(--gold-dark);
 
-    border:
-        2px solid rgba(255,255,255,.25);
+  border-radius: 20px;
+}
 
-    border-top-color:
-        #ffffff;
+table {
+  width: 100%;
 
-    border-radius:50%;
+  min-width: 850px;
 
-    animation:
-        spin .8s linear infinite;
+  border-collapse: collapse;
+}
 
+thead {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(217, 4, 41, 0.12),
+      rgba(212, 175, 55, 0.05)
+    );
+}
+
+th {
+  padding: 15px 18px;
+
+  color: var(--gold-light);
+
+  font-size: 0.72rem;
+  font-weight: 700;
+
+  text-align: left;
+
+  white-space: nowrap;
+
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 14px 18px;
+
+  color: var(--text-secondary);
+
+  font-size: 0.76rem;
+
+  border-bottom: 1px solid var(--border);
+
+  white-space: nowrap;
+}
+
+tbody tr {
+  transition: background var(--transition);
+}
+
+tbody tr:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+tbody tr:last-child td {
+  border-bottom: 0;
 }
 
 
-@keyframes spin{
+/* =========================================================
+   22. QUICK ACTIONS
+========================================================= */
 
-    to{
+.quick-actions {
+  display: grid;
 
-        transform:
-            rotate(360deg);
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
 
-    }
+  gap: 14px;
+}
 
+.quick-action-btn {
+  width: 100%;
+
+  color: var(--text-primary);
+
+  background: var(--bg-card);
+
+  border: 1px solid var(--border);
+}
+
+.quick-action-btn:hover {
+  color: var(--gold-light);
+
+  background: var(--bg-card-soft);
+
+  border-color: var(--border-gold);
+
+  transform: translateY(-2px);
+
+  box-shadow: var(--shadow-gold);
+}
+
+.quick-action-btn i {
+  color: var(--gold);
 }
 
 
-/* =======================================================
-   DISABLED ELEMENTS
-======================================================= */
+/* =========================================================
+   23. SYSTEM STATUS
+========================================================= */
 
-button:disabled,
-input:disabled,
-textarea:disabled,
-select:disabled{
+.status-section {
+  width: 100%;
+}
 
-    cursor:not-allowed;
+.status-card {
+  width: 100%;
 
+  padding: 24px;
+}
+
+.status-card-header {
+  padding-bottom: 16px;
+
+  margin-bottom: 5px;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.status-card-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: var(--white);
+
+  font-size: 1.05rem;
+}
+
+.status-card-header h2 i {
+  color: var(--gold);
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.status-row:last-child {
+  border-bottom: 0;
+}
+
+.status-row span {
+  color: var(--text-secondary);
+
+  font-size: 0.78rem;
+}
+
+.status-row strong {
+  font-size: 0.76rem;
+
+  font-weight: 700;
+
+  text-align: right;
+}
+
+.status-row strong.online {
+  color: var(--green);
+}
+
+.status-row strong.ready {
+  color: var(--yellow);
 }
 
 
-/* =======================================================
-   FOCUS ACCESSIBILITY
-======================================================= */
+/* =========================================================
+   24. FOCUS ACCESSIBILITY
+========================================================= */
 
 button:focus-visible,
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible,
-a:focus-visible{
+input:focus-visible {
+  outline: 2px solid var(--gold);
 
-    outline:
-        2px solid var(--gold);
+  outline-offset: 3px;
+}
 
-    outline-offset:
-        3px;
+
+/* =========================================================
+   25. TABLET RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .dashboard-wrapper {
+    padding: 24px;
+  }
+
+  .scanner-section {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-section {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .quick-actions {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
 
 }
 
 
-/* =======================================================
-   INPUT AUTOFILL FIX
-======================================================= */
+/* =========================================================
+   26. SMALL TABLET
+========================================================= */
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-select:-webkit-autofill{
+@media (max-width: 800px) {
 
-    -webkit-text-fill-color:
-        #ffffff;
+  .app-header {
+    padding: 12px 18px;
+  }
 
-    caret-color:
-        #ffffff;
+  .app-nav {
+    top: 72px;
 
-    transition:
-        background-color 9999s ease-in-out 0s;
+    padding: 9px 14px;
+  }
 
-}
+  .dashboard-wrapper {
+    padding: 20px 16px;
 
+    gap: 22px;
+  }
 
-/* =======================================================
-   PLACEHOLDER
-======================================================= */
+  .section-header {
+    align-items: stretch;
 
-::placeholder{
+    flex-direction: column;
+  }
 
-    color:#888;
+  .search-box {
+    width: 100%;
+  }
 
-    opacity:1;
-
-}
-
-
-/* =======================================================
-   TEXT SELECTION
-======================================================= */
-
-::selection{
-
-    background:
-        var(--gold);
-
-    color:
-        #111111;
+  .scanner-box {
+    min-height: 280px;
+  }
 
 }
 
 
-/* =======================================================
-   SMOOTH IMAGE RENDERING
-======================================================= */
+/* =========================================================
+   27. MOBILE
+========================================================= */
 
-img{
+@media (max-width: 600px) {
 
-    image-rendering:
-        auto;
+  .app-header {
+    min-height: 70px;
+
+    padding: 10px 14px;
+  }
+
+  .logo-area {
+    gap: 10px;
+  }
+
+  .logo-area img {
+    width: 42px;
+    height: 42px;
+  }
+
+  .logo-text h2 {
+    font-size: 0.85rem;
+
+    letter-spacing: 1px;
+  }
+
+  .logo-text p {
+    font-size: 0.62rem;
+  }
+
+  .live-indicator {
+    padding: 6px 9px;
+
+    font-size: 0.65rem;
+  }
+
+  .app-nav {
+    top: 70px;
+
+    gap: 6px;
+
+    padding: 8px 10px;
+  }
+
+  .nav-button {
+    min-height: 38px;
+
+    padding: 8px 12px;
+
+    font-size: 0.72rem;
+  }
+
+  .nav-button i {
+    font-size: 0.78rem;
+  }
+
+  .logout-nav {
+    margin-left: 0;
+  }
+
+  .dashboard-wrapper {
+    padding: 16px 12px;
+
+    gap: 18px;
+  }
+
+  .scanner-section {
+    gap: 18px;
+  }
+
+  .card-title {
+    padding: 18px 16px 14px;
+  }
+
+  .card-title h2 {
+    font-size: 0.95rem;
+  }
+
+  .card-title p {
+    font-size: 0.7rem;
+  }
+
+  .scanner-box {
+    width: calc(100% - 32px);
+
+    min-height: 240px;
+
+    margin: 16px;
+  }
+
+  .qr-reader {
+    min-height: 220px;
+  }
+
+  .scanner-controls {
+    flex-direction: column;
+
+    padding: 0 16px 16px;
+  }
+
+  .scanner-controls button {
+    width: 100%;
+  }
+
+  .customer-preview {
+    padding: 18px 16px;
+  }
+
+  .customer-photo {
+    width: 60px;
+    height: 60px;
+
+    flex-basis: 60px;
+  }
+
+  .customer-info h3 {
+    font-size: 0.88rem;
+  }
+
+  .stamp-grid {
+    grid-template-columns: 1fr;
+
+    padding: 0 16px 16px;
+  }
+
+  .customer-buttons {
+    flex-direction: column;
+
+    padding: 0 16px 16px;
+  }
+
+  .customer-buttons button {
+    width: 100%;
+  }
+
+  .stats-section {
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+  }
+
+  .stat-card {
+    min-height: 100px;
+
+    padding: 18px;
+  }
+
+  .stat-content strong {
+    font-size: 1.3rem;
+  }
+
+  .quick-actions {
+    grid-template-columns: 1fr;
+
+    gap: 10px;
+  }
+
+  .status-card {
+    padding: 18px 16px;
+  }
+
+  .status-row {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 5px;
+  }
+
+  .status-row strong {
+    text-align: left;
+  }
 
 }
 
 
-/* =======================================================
-   HIDDEN UTILITY
-======================================================= */
+/* =========================================================
+   28. EXTRA SMALL MOBILE
+========================================================= */
 
-[hidden]{
+@media (max-width: 380px) {
 
-    display:none !important;
+  .logo-text p {
+    display: none;
+  }
 
-}
+  .logo-text h2 {
+    font-size: 0.76rem;
+  }
 
+  .header-right {
+    display: none;
+  }
 
-/* =======================================================
-   VISUALLY HIDDEN ACCESSIBILITY UTILITY
-======================================================= */
+  .dashboard-wrapper {
+    padding: 14px 10px;
+  }
 
-.sr-only{
+  .nav-button span {
+    font-size: 0.68rem;
+  }
 
-    position:absolute;
-
-    width:1px;
-
-    height:1px;
-
-    padding:0;
-
-    margin:-1px;
-
-    overflow:hidden;
-
-    clip:rect(0,0,0,0);
-
-    white-space:nowrap;
-
-    border:0;
+  .camera-overlay i {
+    font-size: 2rem;
+  }
 
 }
 
 
-/* =======================================================
-   ADMIN READY ANIMATION
-======================================================= */
-
-.admin-ready{
-
-    animation:
-        fadeUp .5s ease both;
-
-}
-
-
-/* =======================================================
-   SUCCESS FEEDBACK ANIMATION
-======================================================= */
-
-.success-feedback{
-
-    animation:
-        successPulse .6s ease;
-
-}
-
-
-@keyframes successPulse{
-
-    0%{
-
-        transform:
-            scale(1);
-
-    }
-
-    50%{
-
-        transform:
-            scale(1.03);
-
-    }
-
-    100%{
-
-        transform:
-            scale(1);
-
-    }
-
-}
-
-
-/* =======================================================
-   ERROR FEEDBACK ANIMATION
-======================================================= */
-
-.error-feedback{
-
-    animation:
-        errorShake .45s ease;
-
-}
-
-
-@keyframes errorShake{
-
-    0%,
-    100%{
-
-        transform:
-            translateX(0);
-
-    }
-
-    25%{
-
-        transform:
-            translateX(-5px);
-
-    }
-
-    50%{
-
-        transform:
-            translateX(5px);
-
-    }
-
-    75%{
-
-        transform:
-            translateX(-3px);
-
-    }
-
-}
-
-
-/* =======================================================
-   REDUCE MOTION
-======================================================= */
-
-@media (prefers-reduced-motion:reduce){
-
-    html{
-
-        scroll-behavior:
-            auto;
-
-    }
-
-
-    *,
-    *::before,
-    *::after{
-
-        animation-duration:
-            .01ms !important;
-
-        animation-iteration-count:
-            1 !important;
-
-        transition-duration:
-            .01ms !important;
-
-        scroll-behavior:
-            auto !important;
-
-    }
-
-}
-
-
-/* =======================================================
-   PRINT MODE
-======================================================= */
-
-@media print{
-
-    /* ---------- HIDE INTERACTIVE UI ---------- */
-
-    .app-nav,
-    .scanner-controls,
-    .customer-buttons,
-    .quick-actions,
-    .header-right,
-    .search-box{
-
-        display:none !important;
-
-    }
-
-
-    /* ---------- RESET PAGE ---------- */
-
-    html,
-    body{
-
-        min-height:
-            auto;
-
-        width:
-            100%;
-
-        background:
-            #ffffff !important;
-
-        color:
-            #000000 !important;
-
-    }
-
-
-    body{
-
-        padding:
-            0;
-
-        overflow:
-            visible;
-
-    }
-
-
-    /* ---------- ADMIN APP ---------- */
-
-    .admin-app{
-
-        min-height:
-            auto;
-
-        display:
-            block;
-
-    }
-
-
-    /* ---------- HEADER ---------- */
-
-    .app-header{
-
-        position:
-            static;
-
-        display:
-            block;
-
-        padding:
-            15px 0;
-
-        background:
-            #ffffff !important;
-
-        border-bottom:
-            1px solid #cccccc;
-
-        box-shadow:
-            none;
-
-    }
-
-
-    .logo-area img{
-
-        border-color:
-            #999999;
-
-        box-shadow:
-            none;
-
-    }
-
-
-    .logo-area h2{
-
-        color:
-            #000000 !important;
-
-    }
-
-
-    .logo-area p{
-
-        color:
-            #555555 !important;
-
-    }
-
-
-    /* ---------- DASHBOARD ---------- */
-
-    .dashboard-wrapper{
-
-        width:
-            100%;
-
-        max-width:
-            none;
-
-        padding:
-            20px 0;
-
-    }
-
-
-    /* ---------- CARDS ---------- */
-
-    .scanner-card,
-    .customer-card,
-    .stat-card,
-    .customer-section,
-    .status-card{
-
-        color:
-            #000000 !important;
-
-        background:
-            #ffffff !important;
-
-        border:
-            1px solid #cccccc;
-
-        box-shadow:
-            none;
-
-        backdrop-filter:
-            none;
-
-        -webkit-backdrop-filter:
-            none;
-
-        transform:
-            none !important;
-
-    }
-
-
-    /* ---------- TEXT ---------- */
-
-    .card-title h2,
-    .section-header h2,
-    .status-card h2{
-
-        color:
-            #000000 !important;
-
-    }
-
-
-    .card-title p,
-    .customer-info p,
-    .stamp-box span,
-    .status-row span{
-
-        color:
-            #555555 !important;
-
-    }
-
-
-    .customer-info h3,
-    .stat-card strong,
-    .status-row strong{
-
-        color:
-            #000000 !important;
-
-    }
-
-
-    /* ---------- TABLE ---------- */
-
-    .table-card{
-
-        overflow:
-            visible;
-
-        border:
-            1px solid #cccccc;
-
-    }
-
-
-    table{
-
-        width:
-            100%;
-
-        min-width:
-            0;
-
-    }
-
-
-    thead{
-
-        position:
-            static;
-
-        background:
-            #eeeeee !important;
-
-    }
-
-
-    thead th{
-
-        color:
-            #000000 !important;
-
-        border-bottom:
-            1px solid #999999;
-
-    }
-
-
-    tbody td{
-
-        color:
-            #000000 !important;
-
-        border-bottom:
-            1px solid #dddddd;
-
-    }
-
-
-    /* ---------- HIDE SCANNER ---------- */
-
-    .scanner-section{
-
-        display:
-            block;
-
-    }
-
-
-    .scanner-card{
-
-        display:
-            none;
-
-    }
-
-}
-
-
-/* =======================================================
-   FINAL SAFETY OVERRIDE
-   PREVENTS HORIZONTAL PAGE OVERFLOW
-======================================================= */
-
-html,
-body{
-
-    max-width:
-        100%;
-
-    overflow-x:
-        hidden;
-
-}
-
-
-/* =======================================================
-   FINAL CARD CONTENT SAFETY
-======================================================= */
-
-.scanner-card > *,
-.customer-card > *,
-.stat-card > *,
-.customer-section > *,
-.status-card > *{
-
-    max-width:
-        100%;
-
-}
-
-
-/* =======================================================
-   FINAL TABLE CONTENT SAFETY
-======================================================= */
-
-td,
-th{
-
-    overflow-wrap:
-        anywhere;
-
-}
-
-
-/* =======================================================
-   END OF FILE
-=======================================================
-
-   RIO MAGGI POINT
-   PREMIUM ADMIN DASHBOARD V5
-
-   ADMIN-DASHBOARD.CSS
-   PART 1 / 6  ✓
-   PART 2 / 6  ✓
-   PART 3 / 6  ✓
-   PART 4 / 6  ✓
-   PART 5 / 6  ✓
-   PART 6 / 6  ✓
-
-   COMPLETE
-   CLEAN
-   RESPONSIVE
-   ACCESSIBLE
-   ANIMATION READY
-
-======================================================= */
+/* =========================================================
+   END OF ADMIN-DASHBOARD.CSS
+========================================================= */
