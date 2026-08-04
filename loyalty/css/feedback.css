@@ -1,657 +1,2367 @@
-/* =========================================
+/* =========================================================
    RIO MAGGI POINT
+   PREMIUM CUSTOMER REVIEW SYSTEM
    FEEDBACK.CSS
-   FINAL PREMIUM VERSION
-   PART 1 / 3
-========================================= */
+   FINAL FIXED VERSION
+   RESPONSIVE:
+   MOBILE / TABLET / LAPTOP / DESKTOP
+========================================================= */
 
 
-/* =========================================
-RESET
-========================================= */
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
 
-*{
+*,
+*::before,
+*::after {
 
-margin:0;
+    margin: 0;
 
-padding:0;
+    padding: 0;
 
-box-sizing:border-box;
-
-font-family:'Poppins',sans-serif;
-
-}
-
-html{
-
-scroll-behavior:smooth;
-
-}
-
-body{
-
-background:#111111;
-
-color:#ffffff;
-
-min-height:100vh;
-
-overflow-x:hidden;
+    box-sizing: border-box;
 
 }
 
 
-/* =========================================
-PAGE
-========================================= */
+html {
 
-.page{
+    width: 100%;
 
-width:100%;
+    min-height: 100%;
 
-display:flex;
+    scroll-behavior: smooth;
 
-justify-content:center;
-
-padding:20px 15px 110px;
+    -webkit-text-size-adjust: 100%;
 
 }
 
 
-/* =========================================
-CARD
-========================================= */
+body {
 
-.feedback-card{
+    width: 100%;
 
-width:100%;
+    min-height: 100vh;
 
-max-width:420px;
+    margin: 0;
 
-position:relative;
+    padding: 0;
 
-overflow:hidden;
+    font-family:
+        "Poppins",
+        sans-serif;
 
-}
+    background:
+        radial-gradient(
+            circle at top,
+            #2a0f0f 0%,
+            #111111 38%,
+            #080808 100%
+        );
 
+    color: #ffffff;
 
-/* =========================================
-BACKGROUND EFFECTS
-========================================= */
-
-.card-glow{
-
-position:absolute;
-
-top:-120px;
-
-right:-120px;
-
-width:240px;
-
-height:240px;
-
-border-radius:50%;
-
-background:rgba(212,175,55,.12);
-
-filter:blur(40px);
-
-pointer-events:none;
-
-}
-
-.card-shine{
-
-position:absolute;
-
-top:-120px;
-
-left:-60px;
-
-width:120px;
-
-height:420px;
-
-background:rgba(255,255,255,.05);
-
-transform:rotate(25deg);
-
-pointer-events:none;
+    overflow-x: hidden;
 
 }
 
 
-/* =========================================
-HEADER
-========================================= */
+/* =========================================================
+   ROOT VARIABLES
+========================================================= */
 
-.feedback-header{
+:root {
 
-text-align:center;
+    --black:
+        #111111;
 
-margin-bottom:24px;
+    --black-soft:
+        #171717;
 
-position:relative;
+    --black-card:
+        #202020;
 
-z-index:2;
+    --black-light:
+        #292929;
 
-}
+    --red:
+        #c62828;
 
-.feedback-header h1{
+    --red-dark:
+        #8f1515;
 
-font-size:24px;
+    --red-light:
+        #e53935;
 
-font-weight:800;
+    --gold:
+        #ffd54f;
 
-color:#ffd86a;
+    --gold-dark:
+        #d19b4a;
 
-letter-spacing:1px;
+    --cream:
+        #fff8e7;
 
-}
+    --cream-soft:
+        #fffdf5;
 
-.feedback-header p{
+    --text-dark:
+        #241c1c;
 
-margin-top:6px;
+    --text-muted:
+        #75645c;
 
-font-size:12px;
+    --white:
+        #ffffff;
 
-opacity:.8;
-
-}
-
-
-/* =========================================
-CUSTOMER
-========================================= */
-
-.customer-section{
-
-text-align:center;
-
-margin-bottom:24px;
-
-position:relative;
-
-z-index:2;
-
-}
-
-.avatar-frame{
-
-width:90px;
-
-height:90px;
-
-margin:auto;
-
-border-radius:50%;
-
-overflow:hidden;
-
-border:3px solid #d4af37;
-
-box-shadow:
-
-0 0 18px rgba(212,175,55,.35);
+    --border-light:
+        rgba(
+            209,
+            155,
+            74,
+            .45
+        );
 
 }
 
-.avatar-frame img{
 
-width:100%;
+/* =========================================================
+   PAGE
+========================================================= */
 
-height:100%;
+.page {
 
-object-fit:cover;
+    position: relative;
 
-}
+    width: 100%;
 
-.customer-name{
+    min-height: 100vh;
 
-margin-top:12px;
+    padding:
+        24px
+        20px
+        120px;
 
-font-size:19px;
+    display: flex;
 
-font-weight:700;
+    justify-content: center;
 
-}
+    align-items: flex-start;
 
-.customer-id{
-
-margin-top:6px;
-
-font-size:12px;
-
-font-weight:600;
-
-color:#ffd86a;
-
-}
-/* =========================================
-RATING BOX
-========================================= */
-
-.rating-box{
-
-background:rgba(255,255,255,.05);
-
-border:1px solid rgba(212,175,55,.22);
-
-border-radius:18px;
-
-padding:18px;
-
-margin-bottom:18px;
-
-text-align:center;
-
-}
-
-.rating-box h2{
-
-font-size:15px;
-
-font-weight:700;
-
-margin-bottom:14px;
-
-}
-
-.star-rating{
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-gap:10px;
-
-margin-bottom:10px;
-
-}
-
-.star{
-
-font-size:30px;
-
-color:#666666;
-
-cursor:pointer;
-
-transition:.25s ease;
-
-}
-
-.star:hover{
-
-transform:scale(1.15);
-
-}
-
-.star.active,
-
-.star.fa-solid{
-
-color:#ffd86a;
-
-}
-
-#ratingText{
-
-font-size:12px;
-
-font-weight:600;
-
-color:#ffd86a;
+    overflow: hidden;
 
 }
 
 
-/* =========================================
-EMOJI BOX
-========================================= */
+/* =========================================================
+   PAGE BACKGROUND GLOW
+========================================================= */
 
-.emoji-box{
+.page::before {
 
-background:rgba(255,255,255,.05);
+    content: "";
 
-border:1px solid rgba(212,175,55,.22);
+    position: fixed;
 
-border-radius:18px;
+    top: -180px;
 
-padding:18px;
+    left: 50%;
 
-margin-bottom:18px;
+    width: 560px;
 
-text-align:center;
+    height: 560px;
 
-}
+    transform:
+        translateX(-50%);
 
-.emoji-box h2{
+    background:
+        radial-gradient(
+            circle,
+            rgba(
+                198,
+                40,
+                40,
+                .20
+            ) 0%,
+            rgba(
+                198,
+                40,
+                40,
+                .06
+            ) 42%,
+            transparent 72%
+        );
 
-font-size:15px;
+    pointer-events: none;
 
-margin-bottom:14px;
-
-}
-
-.emoji-list{
-
-display:flex;
-
-justify-content:center;
-
-flex-wrap:wrap;
-
-gap:12px;
-
-}
-
-.emoji-btn{
-
-width:48px;
-
-height:48px;
-
-border:none;
-
-border-radius:50%;
-
-background:#222222;
-
-font-size:22px;
-
-cursor:pointer;
-
-transition:.25s ease;
-
-}
-
-.emoji-btn:hover{
-
-transform:translateY(-3px);
-
-background:#2d2d2d;
-
-}
-
-.emoji-btn.active{
-
-background:#d4af37;
-
-transform:scale(1.08);
+    z-index: 0;
 
 }
 
 
-/* =========================================
-REVIEW BOX
-========================================= */
+/* =========================================================
+   FEEDBACK CARD
+========================================================= */
 
-.review-box{
+.feedback-card {
 
-background:rgba(255,255,255,.05);
+    position: relative;
 
-border:1px solid rgba(212,175,55,.22);
+    z-index: 1;
 
-border-radius:18px;
+    width: 100%;
 
-padding:18px;
+    max-width: 820px;
 
-margin-bottom:18px;
+    margin:
+        0
+        auto;
 
-}
+    overflow: hidden;
 
-.review-box h2{
+    border:
+        1px solid
+        var(--border-light);
 
-font-size:15px;
+    border-radius: 26px;
 
-margin-bottom:12px;
+    background:
+        linear-gradient(
+            145deg,
+            var(--cream),
+            #f8e8c4
+        );
 
-}
+    box-shadow:
+        0 20px 60px
+        rgba(
+            0,
+            0,
+            0,
+            .40
+        );
 
-.review-box textarea{
-
-width:100%;
-
-height:120px;
-
-border:none;
-
-outline:none;
-
-resize:none;
-
-border-radius:14px;
-
-padding:14px;
-
-background:#ffffff;
-
-color:#111111;
-
-font-size:13px;
-
-line-height:1.5;
-
-}
-
-.review-box textarea::placeholder{
-
-color:#666666;
-
-}
-
-.character-count{
-
-margin-top:8px;
-
-text-align:right;
-
-font-size:11px;
-
-opacity:.7;
-
-}
-/* =========================================
-SUBMIT BUTTON
-========================================= */
-
-.submit-box{
-
-margin-bottom:20px;
-
-}
-
-.submit-btn{
-
-width:100%;
-
-height:50px;
-
-border:none;
-
-border-radius:14px;
-
-background:#d4af37;
-
-color:#111111;
-
-font-size:15px;
-
-font-weight:800;
-
-cursor:pointer;
-
-transition:.25s ease;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-gap:8px;
-
-}
-
-.submit-btn:hover{
-
-transform:translateY(-2px);
-
-box-shadow:
-
-0 10px 22px rgba(212,175,55,.35);
-
-}
-
-.submit-btn:disabled{
-
-opacity:.65;
-
-cursor:not-allowed;
-
-transform:none;
-
-box-shadow:none;
+    animation:
+        feedbackCardEnter
+        .7s
+        ease
+        both;
 
 }
 
 
-/* =========================================
-THANK YOU BOX
-========================================= */
+/* =========================================================
+   CARD ENTRY ANIMATION
+========================================================= */
 
-.thankyou-box{
+@keyframes feedbackCardEnter {
 
-display:none;
+    from {
 
-margin-bottom:20px;
+        opacity: 0;
 
-padding:18px;
+        transform:
+            translateY(28px);
 
-text-align:center;
+    }
 
-border-radius:18px;
+    to {
 
-background:rgba(212,175,55,.12);
+        opacity: 1;
 
-border:1px solid #d4af37;
+        transform:
+            translateY(0);
 
-}
-
-.thankyou-box h2{
-
-font-size:20px;
-
-color:#ffd86a;
-
-margin-bottom:8px;
-
-}
-
-.thankyou-box p{
-
-font-size:13px;
-
-opacity:.85;
+    }
 
 }
 
 
-/* =========================================
-BOTTOM SPACE
-========================================= */
+/* =========================================================
+   CARD GLOW
+========================================================= */
 
-.nav-space{
+.card-glow {
 
-height:90px;
+    position: absolute;
 
-}
+    top: -120px;
 
+    right: -120px;
 
-/* =========================================
-RESPONSIVE
-========================================= */
+    width: 280px;
 
-@media (max-width:480px){
+    height: 280px;
 
-.page{
+    border-radius: 50%;
 
-padding:15px 12px 100px;
+    background:
+        radial-gradient(
+            circle,
+            rgba(
+                198,
+                40,
+                40,
+                .22
+            ),
+            transparent 70%
+        );
 
-}
+    pointer-events: none;
 
-.feedback-card{
-
-width:100%;
-
-}
-
-.avatar-frame{
-
-width:80px;
-
-height:80px;
-
-}
-
-.star{
-
-font-size:28px;
-
-}
-
-.emoji-btn{
-
-width:44px;
-
-height:44px;
-
-font-size:20px;
-
-}
-
-}
-
-@media (min-width:900px){
-
-.feedback-card{
-
-max-width:420px;
-
-}
+    z-index: 0;
 
 }
 
 
-/* =========================================
-SCROLLBAR
-========================================= */
+/* =========================================================
+   CARD SHINE
+========================================================= */
 
-::-webkit-scrollbar{
+.card-shine {
 
-width:6px;
+    position: absolute;
+
+    top: 0;
+
+    left: -120%;
+
+    width: 70%;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(
+                255,
+                255,
+                255,
+                .18
+            ),
+            transparent
+        );
+
+    transform:
+        skewX(-18deg);
+
+    pointer-events: none;
+
+    z-index: 4;
+
+    animation:
+        cardShineMove
+        6s
+        ease-in-out
+        infinite;
 
 }
 
-::-webkit-scrollbar-track{
 
-background:#1a1a1a;
+@keyframes cardShineMove {
+
+    0% {
+
+        left:
+            -120%;
+
+    }
+
+    35% {
+
+        left:
+            130%;
+
+    }
+
+    100% {
+
+        left:
+            130%;
+
+    }
 
 }
 
-::-webkit-scrollbar-thumb{
 
-background:#d4af37;
+/* =========================================================
+   FEEDBACK HEADER
+========================================================= */
 
-border-radius:10px;
+.feedback-header {
+
+    position: relative;
+
+    z-index: 2;
+
+    padding:
+        30px
+        24px
+        26px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #151515,
+            #241010
+        );
+
+    border-bottom:
+        1px solid
+        rgba(
+            198,
+            40,
+            40,
+            .45
+        );
 
 }
 
 
-/* =========================================
-END
-========================================= */
+.feedback-header h1 {
+
+    font-size:
+        clamp(
+            22px,
+            5vw,
+            32px
+        );
+
+    line-height:
+        1.2;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.5px;
+
+    color:
+        var(--white);
+
+}
+
+
+.feedback-header p {
+
+    margin-top:
+        8px;
+
+    font-size:
+        clamp(
+            12px,
+            2.5vw,
+            15px
+        );
+
+    line-height:
+        1.5;
+
+    font-weight:
+        400;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .70
+        );
+
+}
+
+
+/* =========================================================
+   CUSTOMER SECTION
+========================================================= */
+
+.customer-section {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding:
+        28px
+        20px
+        24px;
+
+    text-align: center;
+
+}
+
+
+.avatar-frame {
+
+    position: relative;
+
+    width: 96px;
+
+    height: 96px;
+
+    padding: 4px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--red),
+            var(--gold)
+        );
+
+    box-shadow:
+        0 12px 30px
+        rgba(
+            198,
+            40,
+            40,
+            .28
+        );
+
+    animation:
+        avatarFloat
+        3s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes avatarFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-5px);
+
+    }
+
+}
+
+
+.avatar-frame img {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    background:
+        var(--cream);
+
+    border:
+        3px solid
+        var(--cream);
+
+}
+
+
+.customer-name {
+
+    margin-top:
+        14px;
+
+    font-size:
+        clamp(
+            18px,
+            4vw,
+            23px
+        );
+
+    line-height:
+        1.3;
+
+    font-weight:
+        800;
+
+    color:
+        var(--black);
+
+}
+
+
+.customer-id {
+
+    margin-top:
+        5px;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.5;
+
+    font-weight:
+        600;
+
+    letter-spacing:
+        .6px;
+
+    color:
+        var(--text-muted);
+
+}
+
+
+.customer-id span {
+
+    color:
+        var(--red);
+
+}
+
+
+/* =========================================================
+   COMMON CONTENT BOX
+========================================================= */
+
+.rating-box,
+.emoji-box,
+.review-box {
+
+    position: relative;
+
+    z-index: 2;
+
+    margin:
+        0
+        20px
+        20px;
+
+    padding:
+        24px
+        18px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .62
+        );
+
+    border:
+        2px solid
+        var(--border-light);
+
+    border-radius:
+        20px;
+
+    box-shadow:
+        0 10px 25px
+        rgba(
+            0,
+            0,
+            0,
+            .08
+        );
+
+}
+
+
+/* =========================================================
+   SECTION TITLES
+========================================================= */
+
+.rating-box h2,
+.emoji-box h2,
+.review-box h2 {
+
+    font-size:
+        clamp(
+            18px,
+            4vw,
+            23px
+        );
+
+    line-height:
+        1.3;
+
+    font-weight:
+        800;
+
+    color:
+        var(--black);
+
+}
+
+
+/* =========================================================
+   RATING BOX
+========================================================= */
+
+.rating-box {
+
+    text-align:
+        center;
+
+}
+
+
+/* =========================================================
+   STAR RATING
+========================================================= */
+
+.star-rating {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        10px;
+
+    margin-top:
+        17px;
+
+}
+
+
+/* =========================================================
+   STAR
+========================================================= */
+
+.star {
+
+    width:
+        42px;
+
+    height:
+        42px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        12px;
+
+    font-size:
+        27px;
+
+    color:
+        var(--gold-dark);
+
+    cursor:
+        pointer;
+
+    transition:
+        transform
+        .25s
+        ease,
+        color
+        .25s
+        ease,
+        background
+        .25s
+        ease;
+
+}
+
+
+.star:hover {
+
+    transform:
+        translateY(-4px)
+        scale(1.08);
+
+    color:
+        var(--red);
+
+    background:
+        rgba(
+            198,
+            40,
+            40,
+            .08
+        );
+
+}
+
+
+.star:focus-visible {
+
+    outline:
+        3px solid
+        rgba(
+            198,
+            40,
+            40,
+            .35
+        );
+
+    outline-offset:
+        3px;
+
+}
+
+
+.star.fa-solid {
+
+    color:
+        var(--red);
+
+}
+
+
+.star.active {
+
+    color:
+        var(--red);
+
+    transform:
+        scale(1.08);
+
+}
+
+
+/* =========================================================
+   RATING TEXT
+========================================================= */
+
+#ratingText {
+
+    min-height:
+        22px;
+
+    margin-top:
+        10px;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.5;
+
+    font-weight:
+        600;
+
+    color:
+        var(--text-muted);
+
+}
+
+
+/* =========================================================
+   EMOJI BOX
+========================================================= */
+
+.emoji-box {
+
+    text-align:
+        center;
+
+}
+
+
+.emoji-list {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        12px;
+
+    margin-top:
+        17px;
+
+}
+
+
+.emoji-btn {
+
+    width:
+        52px;
+
+    height:
+        52px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        1px solid
+        rgba(
+            209,
+            155,
+            74,
+            .30
+        );
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .70
+        );
+
+    font-size:
+        24px;
+
+    line-height:
+        1;
+
+    cursor:
+        pointer;
+
+    transition:
+        transform
+        .25s
+        ease,
+        background
+        .25s
+        ease,
+        box-shadow
+        .25s
+        ease;
+
+}
+
+
+.emoji-btn:hover {
+
+    transform:
+        translateY(-4px)
+        scale(1.05);
+
+    background:
+        var(--white);
+
+    box-shadow:
+        0 8px 18px
+        rgba(
+            198,
+            40,
+            40,
+            .15
+        );
+
+}
+
+
+.emoji-btn.active {
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--red),
+            var(--red-light)
+        );
+
+    border-color:
+        var(--red);
+
+    transform:
+        translateY(-3px)
+        scale(1.08);
+
+    box-shadow:
+        0 8px 20px
+        rgba(
+            198,
+            40,
+            40,
+            .25
+        );
+
+}
+
+
+.emoji-btn:focus-visible {
+
+    outline:
+        3px solid
+        rgba(
+            198,
+            40,
+            40,
+            .30
+        );
+
+    outline-offset:
+        3px;
+
+}
+
+
+/* =========================================================
+   REVIEW BOX
+========================================================= */
+
+.review-box {
+
+    padding-bottom:
+        18px;
+
+}
+
+
+.review-box h2 {
+
+    margin-bottom:
+        14px;
+
+}
+
+
+.review-box textarea {
+
+    width:
+        100%;
+
+    min-height:
+        130px;
+
+    display:
+        block;
+
+    padding:
+        14px
+        16px;
+
+    border:
+        1px solid
+        rgba(
+            117,
+            100,
+            92,
+            .25
+        );
+
+    border-radius:
+        14px;
+
+    outline:
+        none;
+
+    resize:
+        vertical;
+
+    background:
+        var(--white);
+
+    color:
+        var(--text-dark);
+
+    font-family:
+        "Poppins",
+        sans-serif;
+
+    font-size:
+        13px;
+
+    line-height:
+        1.6;
+
+    transition:
+        border-color
+        .25s
+        ease,
+        box-shadow
+        .25s
+        ease;
+
+}
+
+
+.review-box textarea:focus {
+
+    border-color:
+        var(--red);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(
+            198,
+            40,
+            40,
+            .10
+        );
+
+}
+
+
+.review-box textarea::placeholder {
+
+    color:
+        #8b817b;
+
+}
+
+
+.character-count {
+
+    margin-top:
+        8px;
+
+    text-align:
+        right;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.5;
+
+    font-weight:
+        600;
+
+    color:
+        var(--text-muted);
+
+}
+
+
+/* =========================================================
+   SUBMIT BOX
+========================================================= */
+
+.submit-box {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    margin:
+        0
+        20px
+        20px;
+
+}
+
+
+.submit-btn {
+
+    width:
+        100%;
+
+    min-height:
+        54px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        9px;
+
+    padding:
+        12px
+        20px;
+
+    border:
+        none;
+
+    border-radius:
+        15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--red),
+            var(--red-light)
+        );
+
+    color:
+        var(--white);
+
+    font-family:
+        "Poppins",
+        sans-serif;
+
+    font-size:
+        15px;
+
+    font-weight:
+        800;
+
+    cursor:
+        pointer;
+
+    box-shadow:
+        0 10px 25px
+        rgba(
+            198,
+            40,
+            40,
+            .22
+        );
+
+    transition:
+        transform
+        .25s
+        ease,
+        box-shadow
+        .25s
+        ease,
+        opacity
+        .25s
+        ease;
+
+}
+
+
+.submit-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 14px 30px
+        rgba(
+            198,
+            40,
+            40,
+            .32
+        );
+
+}
+
+
+.submit-btn:active {
+
+    transform:
+        translateY(0);
+
+}
+
+
+.submit-btn:disabled {
+
+    opacity:
+        .65;
+
+    cursor:
+        not-allowed;
+
+    transform:
+        none;
+
+    box-shadow:
+        none;
+
+}
+
+
+.submit-btn:focus-visible {
+
+    outline:
+        3px solid
+        rgba(
+            198,
+            40,
+            40,
+            .30
+        );
+
+    outline-offset:
+        3px;
+
+}
+
+
+/* =========================================================
+   SUBMIT LOADING ICON
+========================================================= */
+
+.submit-loading-icon {
+
+    display:
+        none;
+
+}
+
+
+/* =========================================================
+   ERROR MESSAGE
+========================================================= */
+
+.feedback-error {
+
+    display:
+        none;
+
+    margin-top:
+        10px;
+
+    padding:
+        10px
+        12px;
+
+    border-radius:
+        10px;
+
+    background:
+        rgba(
+            198,
+            40,
+            40,
+            .10
+        );
+
+    border:
+        1px solid
+        rgba(
+            198,
+            40,
+            40,
+            .30
+        );
+
+    color:
+        var(--red-dark);
+
+    font-size:
+        12px;
+
+    line-height:
+        1.5;
+
+    font-weight:
+        600;
+
+    text-align:
+        center;
+
+}
+
+
+/* =========================================================
+   THANK YOU BOX
+========================================================= */
+
+.thankyou-box {
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    margin:
+        0
+        20px
+        20px;
+
+    padding:
+        22px
+        18px;
+
+    text-align:
+        center;
+
+    border-radius:
+        20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(
+                198,
+                40,
+                40,
+                .10
+            ),
+            rgba(
+                209,
+                155,
+                74,
+                .15
+            )
+        );
+
+    border:
+        1px solid
+        var(--border-light);
+
+    box-shadow:
+        0 10px 25px
+        rgba(
+            0,
+            0,
+            0,
+            .08
+        );
+
+    animation:
+        thankYouEnter
+        .45s
+        ease
+        both;
+
+}
+
+
+@keyframes thankYouEnter {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(12px)
+            scale(.98);
+
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+.thankyou-icon {
+
+    width:
+        52px;
+
+    height:
+        52px;
+
+    margin:
+        0
+        auto
+        10px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--red);
+
+    color:
+        var(--white);
+
+    font-size:
+        25px;
+
+    box-shadow:
+        0 8px 20px
+        rgba(
+            198,
+            40,
+            40,
+            .25
+        );
+
+}
+
+
+.thankyou-box h2 {
+
+    margin-bottom:
+        7px;
+
+    font-size:
+        21px;
+
+    line-height:
+        1.3;
+
+    font-weight:
+        800;
+
+    color:
+        var(--red-dark);
+
+}
+
+
+.thankyou-box p {
+
+    font-size:
+        13px;
+
+    line-height:
+        1.6;
+
+    font-weight:
+        600;
+
+    color:
+        var(--text-dark);
+
+}
+
+
+.thankyou-box span {
+
+    display:
+        block;
+
+    margin-top:
+        7px;
+
+    font-size:
+        11px;
+
+    line-height:
+        1.5;
+
+    color:
+        var(--text-muted);
+
+}
+
+
+/* =========================================================
+   NAVIGATION SAFE SPACE
+========================================================= */
+
+.nav-space {
+
+    width:
+        100%;
+
+    height:
+        90px;
+
+}
+
+
+/* =========================================================
+   BOTTOM NAVIGATION
+   Compatible with common.css
+========================================================= */
+
+.bottom-nav {
+
+    position:
+        fixed;
+
+    left:
+        50%;
+
+    bottom:
+        0;
+
+    z-index:
+        1000;
+
+    width:
+        min(
+            calc(
+                100% - 20px
+            ),
+            820px
+        );
+
+    min-height:
+        68px;
+
+    transform:
+        translateX(-50%);
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-around;
+
+    padding:
+        8px
+        6px;
+
+    border:
+        1px solid
+        rgba(
+            209,
+            155,
+            74,
+            .35
+        );
+
+    border-bottom:
+        none;
+
+    border-radius:
+        20px
+        20px
+        0
+        0;
+
+    background:
+        rgba(
+            17,
+            17,
+            17,
+            .96
+        );
+
+    box-shadow:
+        0 -10px 35px
+        rgba(
+            0,
+            0,
+            0,
+            .35
+        );
+
+    backdrop-filter:
+        blur(16px);
+
+    -webkit-backdrop-filter:
+        blur(16px);
+
+}
+
+
+.bottom-nav .nav-item {
+
+    min-width:
+        58px;
+
+    min-height:
+        54px;
+
+    display:
+        flex;
+
+    flex:
+        1;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        3px;
+
+    padding:
+        5px
+        4px;
+
+    border-radius:
+        12px;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .60
+        );
+
+    text-decoration:
+        none;
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
+
+    transition:
+        color
+        .25s
+        ease,
+        background
+        .25s
+        ease,
+        transform
+        .25s
+        ease;
+
+}
+
+
+.bottom-nav .nav-item i {
+
+    font-size:
+        18px;
+
+}
+
+
+.bottom-nav .nav-item:hover {
+
+    color:
+        var(--gold);
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .05
+        );
+
+}
+
+
+.bottom-nav .nav-item.active {
+
+    color:
+        var(--gold);
+
+    background:
+        rgba(
+            198,
+            40,
+            40,
+            .15
+        );
+
+}
+
+
+.bottom-nav .nav-item.active i {
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+/* =========================================================
+   MOBILE
+   480px AND BELOW
+========================================================= */
+
+@media (
+    max-width: 480px
+) {
+
+    .page {
+
+        padding:
+            12px
+            10px
+            110px;
+
+    }
+
+
+    .feedback-card {
+
+        border-radius:
+            20px;
+
+    }
+
+
+    .feedback-header {
+
+        padding:
+            22px
+            16px
+            20px;
+
+    }
+
+
+    .feedback-header h1 {
+
+        font-size:
+            21px;
+
+        letter-spacing:
+            1px;
+
+    }
+
+
+    .feedback-header p {
+
+        font-size:
+            11px;
+
+    }
+
+
+    .customer-section {
+
+        padding:
+            24px
+            16px
+            20px;
+
+    }
+
+
+    .avatar-frame {
+
+        width:
+            82px;
+
+        height:
+            82px;
+
+    }
+
+
+    .customer-name {
+
+        font-size:
+            18px;
+
+    }
+
+
+    .rating-box,
+    .emoji-box,
+    .review-box {
+
+        margin-left:
+            12px;
+
+        margin-right:
+            12px;
+
+        margin-bottom:
+            14px;
+
+        padding:
+            20px
+            12px;
+
+        border-radius:
+            17px;
+
+    }
+
+
+    .rating-box h2,
+    .emoji-box h2,
+    .review-box h2 {
+
+        font-size:
+            17px;
+
+    }
+
+
+    .star-rating {
+
+        gap:
+            4px;
+
+    }
+
+
+    .star {
+
+        width:
+            39px;
+
+        height:
+            39px;
+
+        font-size:
+            24px;
+
+    }
+
+
+    .emoji-list {
+
+        gap:
+            9px;
+
+    }
+
+
+    .emoji-btn {
+
+        width:
+            44px;
+
+        height:
+            44px;
+
+        font-size:
+            20px;
+
+    }
+
+
+    .review-box textarea {
+
+        min-height:
+            115px;
+
+        font-size:
+            12px;
+
+    }
+
+
+    .submit-box,
+    .thankyou-box {
+
+        margin-left:
+            12px;
+
+        margin-right:
+            12px;
+
+    }
+
+
+    .submit-btn {
+
+        min-height:
+            50px;
+
+        font-size:
+            14px;
+
+    }
+
+
+    .bottom-nav {
+
+        width:
+            calc(
+                100% - 12px
+            );
+
+        border-radius:
+            16px
+            16px
+            0
+            0;
+
+    }
+
+
+    .bottom-nav .nav-item {
+
+        min-width:
+            48px;
+
+        font-size:
+            9px;
+
+    }
+
+
+    .bottom-nav .nav-item i {
+
+        font-size:
+            16px;
+
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   360px AND BELOW
+========================================================= */
+
+@media (
+    max-width: 360px
+) {
+
+    .page {
+
+        padding-left:
+            7px;
+
+        padding-right:
+            7px;
+
+    }
+
+
+    .feedback-header {
+
+        padding:
+            19px
+            12px;
+
+    }
+
+
+    .feedback-header h1 {
+
+        font-size:
+            19px;
+
+    }
+
+
+    .avatar-frame {
+
+        width:
+            76px;
+
+        height:
+            76px;
+
+    }
+
+
+    .rating-box,
+    .emoji-box,
+    .review-box {
+
+        margin-left:
+            9px;
+
+        margin-right:
+            9px;
+
+    }
+
+
+    .star-rating {
+
+        gap:
+            2px;
+
+    }
+
+
+    .star {
+
+        width:
+            36px;
+
+        height:
+            36px;
+
+        font-size:
+            22px;
+
+    }
+
+
+    .emoji-list {
+
+        gap:
+            7px;
+
+    }
+
+
+    .emoji-btn {
+
+        width:
+            40px;
+
+        height:
+            40px;
+
+        font-size:
+            18px;
+
+    }
+
+
+    .bottom-nav .nav-item {
+
+        min-width:
+            42px;
+
+        font-size:
+            8px;
+
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+   481px - 1024px
+========================================================= */
+
+@media (
+    min-width: 481px
+)
+and (
+    max-width: 1024px
+) {
+
+    .page {
+
+        padding:
+            30px
+            24px
+            125px;
+
+    }
+
+
+    .feedback-card {
+
+        max-width:
+            720px;
+
+        border-radius:
+            26px;
+
+    }
+
+
+    .feedback-header {
+
+        padding:
+            30px;
+
+    }
+
+
+    .customer-section {
+
+        padding:
+            32px
+            24px
+            28px;
+
+    }
+
+
+    .rating-box,
+    .emoji-box,
+    .review-box {
+
+        margin-left:
+            24px;
+
+        margin-right:
+            24px;
+
+    }
+
+
+    .submit-box,
+    .thankyou-box {
+
+        margin-left:
+            24px;
+
+        margin-right:
+            24px;
+
+    }
+
+}
+
+
+/* =========================================================
+   LAPTOP
+   1025px - 1440px
+========================================================= */
+
+@media (
+    min-width: 1025px
+)
+and (
+    max-width: 1440px
+) {
+
+    .page {
+
+        padding:
+            38px
+            30px
+            135px;
+
+    }
+
+
+    .feedback-card {
+
+        max-width:
+            780px;
+
+    }
+
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+   1441px+
+========================================================= */
+
+@media (
+    min-width: 1441px
+) {
+
+    .page {
+
+        padding:
+            45px
+            30px
+            145px;
+
+    }
+
+
+    .feedback-card {
+
+        max-width:
+            820px;
+
+    }
+
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+
+    width:
+        6px;
+
+}
+
+
+::-webkit-scrollbar-track {
+
+    background:
+        #1a1a1a;
+
+}
+
+
+::-webkit-scrollbar-thumb {
+
+    background:
+        var(--gold-dark);
+
+    border-radius:
+        10px;
+
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+
+    background:
+        var(--gold);
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (
+    prefers-reduced-motion: reduce
+) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        scroll-behavior:
+            auto !important;
+
+        transition-duration:
+            0.01ms !important;
+
+    }
+
+}
+
+
+/* =========================================================
+   END OF FEEDBACK.CSS
+========================================================= */
