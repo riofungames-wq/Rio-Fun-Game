@@ -2,11 +2,6 @@
 <html lang="en">
 
 <head>
-
-  <!-- ================================================= -->
-  <!-- BASIC DOCUMENT SETTINGS -->
-  <!-- ================================================= -->
-
   <meta charset="UTF-8">
 
   <meta
@@ -32,15 +27,13 @@
   <title>Rio Maggi Point • Premium Admin Dashboard</title>
 
 
-  <!-- ================================================= -->
   <!-- PWA -->
-  <!-- ================================================= -->
-
   <link
     rel="manifest"
     href="manifest.json"
   >
 
+  <!-- Favicon -->
   <link
     rel="icon"
     href="favicon.ico"
@@ -53,10 +46,7 @@
   >
 
 
-  <!-- ================================================= -->
-  <!-- GOOGLE FONTS -->
-  <!-- ================================================= -->
-
+  <!-- Google Fonts -->
   <link
     rel="preconnect"
     href="https://fonts.googleapis.com"
@@ -74,43 +64,31 @@
   >
 
 
-  <!-- ================================================= -->
-  <!-- FONT AWESOME -->
-  <!-- ================================================= -->
-
+  <!-- Font Awesome -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
   >
 
 
-  <!-- ================================================= -->
-  <!-- ADMIN DASHBOARD CSS -->
-  <!-- ================================================= -->
-
+  <!-- Admin Dashboard CSS -->
   <link
     rel="stylesheet"
     href="css/admin-dashboard.css"
   >
-
 </head>
 
 
 <body>
-
-  <!-- ================================================= -->
-  <!-- ADMIN APP -->
-  <!-- ================================================= -->
 
   <div
     class="admin-app"
     id="adminApp"
   >
 
-
-    <!-- ================================================= -->
-    <!-- APP HEADER -->
-    <!-- ================================================= -->
+    <!-- =========================================
+         HEADER
+    ========================================== -->
 
     <header class="app-header">
 
@@ -133,8 +111,6 @@
       </div>
 
 
-      <!-- HEADER STATUS -->
-
       <div class="header-right">
 
         <span
@@ -142,11 +118,8 @@
           id="liveIndicator"
           aria-live="polite"
         >
-
           <span aria-hidden="true">🟢</span>
-
           LIVE
-
         </span>
 
       </div>
@@ -154,164 +127,124 @@
     </header>
 
 
-    <!-- ================================================= -->
-    <!-- ADMIN NAVIGATION -->
-    <!-- ================================================= -->
+    <!-- =========================================
+         ADMIN NAVIGATION
+    ========================================== -->
 
     <nav
       class="app-nav"
       aria-label="Admin Navigation"
     >
 
-      <!-- DASHBOARD -->
-
       <button
         id="dashboardMenu"
         type="button"
         class="nav-button active"
       >
-
         <i
           class="fa-solid fa-chart-line"
           aria-hidden="true"
         ></i>
-
         <span>Dashboard</span>
-
       </button>
 
-
-      <!-- SCANNER -->
 
       <button
         id="scannerMenu"
         type="button"
         class="nav-button"
       >
-
         <i
           class="fa-solid fa-camera"
           aria-hidden="true"
         ></i>
-
         <span>Scanner</span>
-
       </button>
 
-
-      <!-- CUSTOMERS -->
 
       <button
         id="customersMenu"
         type="button"
         class="nav-button"
       >
-
         <i
           class="fa-solid fa-users"
           aria-hidden="true"
         ></i>
-
         <span>Customers</span>
-
       </button>
 
-
-      <!-- STAMPS -->
 
       <button
         id="stampMenu"
         type="button"
         class="nav-button"
       >
-
         <i
           class="fa-solid fa-star"
           aria-hidden="true"
         ></i>
-
         <span>Stamps</span>
-
       </button>
 
-
-      <!-- REWARDS -->
 
       <button
         id="rewardMenu"
         type="button"
         class="nav-button"
       >
-
         <i
           class="fa-solid fa-gift"
           aria-hidden="true"
         ></i>
-
         <span>Rewards</span>
-
       </button>
 
-
-      <!-- REPORTS -->
 
       <button
         id="reportMenu"
         type="button"
         class="nav-button"
       >
-
         <i
           class="fa-solid fa-chart-column"
           aria-hidden="true"
         ></i>
-
         <span>Reports</span>
-
       </button>
 
-
-      <!-- SETTINGS -->
 
       <button
         id="settingMenu"
         type="button"
         class="nav-button"
       >
-
         <i
           class="fa-solid fa-gear"
           aria-hidden="true"
         ></i>
-
         <span>Settings</span>
-
       </button>
 
-
-      <!-- LOGOUT -->
 
       <button
         id="logoutBtn"
         type="button"
         class="nav-button logout-nav"
       >
-
         <i
           class="fa-solid fa-right-from-bracket"
           aria-hidden="true"
         ></i>
-
         <span>Logout</span>
-
       </button>
 
     </nav>
 
 
-    <!-- ================================================= -->
-    <!-- MAIN DASHBOARD -->
-    <!-- ================================================= -->
+    <!-- =========================================
+         MAIN DASHBOARD
+    ========================================== -->
 
     <main
       class="dashboard-wrapper"
@@ -319,9 +252,9 @@
     >
 
 
-      <!-- ================================================= -->
-      <!-- QR SCANNER + CUSTOMER PREVIEW -->
-      <!-- ================================================= -->
+      <!-- =========================================
+           SCANNER + CUSTOMER PREVIEW
+      ========================================== -->
 
       <section
         class="scanner-section"
@@ -329,23 +262,19 @@
       >
 
 
-        <!-- ================================================= -->
-        <!-- LIVE QR SCANNER -->
-        <!-- ================================================= -->
+        <!-- QR SCANNER -->
 
         <div class="scanner-card">
 
           <div class="card-title">
 
             <h2>
-
               <i
                 class="fa-solid fa-camera"
                 aria-hidden="true"
               ></i>
 
               <span>Live QR Scanner</span>
-
             </h2>
 
             <p>
@@ -355,11 +284,7 @@
           </div>
 
 
-          <!-- SCANNER BOX -->
-
           <div class="scanner-box">
-
-            <!-- CAMERA OVERLAY -->
 
             <div
               id="cameraOverlay"
@@ -378,8 +303,6 @@
             </div>
 
 
-            <!-- QR READER -->
-
             <div
               id="qr-reader"
               class="qr-reader"
@@ -388,8 +311,6 @@
 
           </div>
 
-
-          <!-- SCANNER CONTROLS -->
 
           <div class="scanner-controls">
 
@@ -430,9 +351,7 @@
         </div>
 
 
-        <!-- ================================================= -->
         <!-- CUSTOMER PREVIEW -->
-        <!-- ================================================= -->
 
         <div class="customer-card">
 
@@ -452,8 +371,6 @@
           </div>
 
 
-          <!-- CUSTOMER INFO -->
-
           <div class="customer-preview">
 
             <img
@@ -463,6 +380,7 @@
               class="customer-photo"
               loading="lazy"
             >
+
 
             <div class="customer-info">
 
@@ -478,8 +396,6 @@
 
           </div>
 
-
-          <!-- STAMP INFORMATION -->
 
           <div class="stamp-grid">
 
@@ -509,8 +425,6 @@
 
           </div>
 
-
-          <!-- CUSTOMER ACTIONS -->
 
           <div class="customer-buttons">
 
@@ -553,16 +467,14 @@
       </section>
 
 
-      <!-- ================================================= -->
-      <!-- DASHBOARD STATS -->
-      <!-- ================================================= -->
+      <!-- =========================================
+           DASHBOARD STATS
+      ========================================== -->
 
       <section
         class="stats-section"
         id="statsSection"
       >
-
-        <!-- TOTAL CUSTOMERS -->
 
         <div class="stat-card">
 
@@ -570,9 +482,7 @@
             class="stat-icon"
             aria-hidden="true"
           >
-
             <i class="fa-solid fa-users"></i>
-
           </div>
 
           <div class="stat-content">
@@ -588,17 +498,13 @@
         </div>
 
 
-        <!-- TOTAL STAMPS -->
-
         <div class="stat-card">
 
           <div
             class="stat-icon"
             aria-hidden="true"
           >
-
             <i class="fa-solid fa-star"></i>
-
           </div>
 
           <div class="stat-content">
@@ -614,17 +520,13 @@
         </div>
 
 
-        <!-- REWARDS READY -->
-
         <div class="stat-card">
 
           <div
             class="stat-icon"
             aria-hidden="true"
           >
-
             <i class="fa-solid fa-gift"></i>
-
           </div>
 
           <div class="stat-content">
@@ -640,17 +542,13 @@
         </div>
 
 
-        <!-- TODAY'S SCANS -->
-
         <div class="stat-card">
 
           <div
             class="stat-icon"
             aria-hidden="true"
           >
-
             <i class="fa-solid fa-camera"></i>
-
           </div>
 
           <div class="stat-content">
@@ -668,9 +566,9 @@
       </section>
 
 
-      <!-- ================================================= -->
-      <!-- CUSTOMER LIST -->
-      <!-- ================================================= -->
+      <!-- =========================================
+           CUSTOMER LIST
+      ========================================== -->
 
       <section
         class="customer-section"
@@ -695,8 +593,6 @@
           </div>
 
 
-          <!-- CUSTOMER SEARCH -->
-
           <div class="search-box">
 
             <i
@@ -718,8 +614,6 @@
         </div>
 
 
-        <!-- CUSTOMER TABLE -->
-
         <div class="table-card">
 
           <div class="table-responsive">
@@ -730,33 +624,19 @@
 
                 <tr>
 
-                  <th scope="col">
-                    Photo
-                  </th>
+                  <th scope="col">Photo</th>
 
-                  <th scope="col">
-                    Name
-                  </th>
+                  <th scope="col">Name</th>
 
-                  <th scope="col">
-                    Member ID
-                  </th>
+                  <th scope="col">Member ID</th>
 
-                  <th scope="col">
-                    Mobile
-                  </th>
+                  <th scope="col">Mobile</th>
 
-                  <th scope="col">
-                    Stamps
-                  </th>
+                  <th scope="col">Stamps</th>
 
-                  <th scope="col">
-                    Reward
-                  </th>
+                  <th scope="col">Reward</th>
 
-                  <th scope="col">
-                    Action
-                  </th>
+                  <th scope="col">Action</th>
 
                 </tr>
 
@@ -765,7 +645,7 @@
 
               <tbody id="customerTable">
 
-                <!-- Firebase customer data will be rendered here -->
+                <!-- Firebase customer records will be rendered here -->
 
               </tbody>
 
@@ -778,16 +658,14 @@
       </section>
 
 
-      <!-- ================================================= -->
-      <!-- QUICK ACTIONS -->
-      <!-- ================================================= -->
+      <!-- =========================================
+           QUICK ACTIONS
+      ========================================== -->
 
       <section
         class="quick-actions"
         id="quickActions"
       >
-
-        <!-- REFRESH -->
 
         <button
           id="refreshBtn"
@@ -805,8 +683,6 @@
         </button>
 
 
-        <!-- EXPORT -->
-
         <button
           id="exportBtn"
           type="button"
@@ -823,8 +699,6 @@
         </button>
 
 
-        <!-- REWARD MANAGER -->
-
         <button
           id="rewardBtn"
           type="button"
@@ -840,8 +714,6 @@
 
         </button>
 
-
-        <!-- SETTINGS -->
 
         <button
           id="settingsBtn"
@@ -861,9 +733,9 @@
       </section>
 
 
-      <!-- ================================================= -->
-      <!-- SYSTEM STATUS -->
-      <!-- ================================================= -->
+      <!-- =========================================
+           SYSTEM STATUS
+      ========================================== -->
 
       <section
         class="status-section"
@@ -888,8 +760,6 @@
           </div>
 
 
-          <!-- FIREBASE STATUS -->
-
           <div class="status-row">
 
             <span>Firebase</span>
@@ -903,8 +773,6 @@
 
           </div>
 
-
-          <!-- ADMIN STATUS -->
 
           <div class="status-row">
 
@@ -920,8 +788,6 @@
           </div>
 
 
-          <!-- SCANNER STATUS -->
-
           <div class="status-row">
 
             <span>Scanner</span>
@@ -935,8 +801,6 @@
 
           </div>
 
-
-          <!-- LAST REFRESH -->
 
           <div class="status-row">
 
@@ -957,18 +821,18 @@
   </div>
 
 
-  <!-- ================================================= -->
-  <!-- HTML5 QR CODE SCANNER LIBRARY -->
-  <!-- ================================================= -->
+  <!-- =========================================
+       HTML5 QR CODE LIBRARY
+  ========================================== -->
 
   <script
     src="https://unpkg.com/html5-qrcode"
   ></script>
 
 
-  <!-- ================================================= -->
-  <!-- ADMIN DASHBOARD JAVASCRIPT -->
-  <!-- ================================================= -->
+  <!-- =========================================
+       ADMIN DASHBOARD JAVASCRIPT
+  ========================================== -->
 
   <script
     type="module"
