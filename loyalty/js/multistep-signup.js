@@ -4,8 +4,6 @@
 // FINAL FIXED VERSION
 // ======================================
 
-// ---------- Elements ----------
-
 const steps = document.querySelectorAll(".signup-step");
 const nextButtons = document.querySelectorAll(".next-btn");
 const backButtons = document.querySelectorAll(".back-btn");
@@ -19,20 +17,15 @@ const nameInput = document.getElementById("name");
 const mobileInput = document.getElementById("mobile");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
-const confirmPasswordInput =
-    document.getElementById("confirmPassword");
+const confirmPasswordInput = document.getElementById("confirmPassword");
 
-const photoInput =
-    document.getElementById("photoInput");
+const photoInput = document.getElementById("photoInput");
+const previewImage = document.getElementById("previewImage");
+const finalPreview = document.getElementById("finalPreview");
 
-const previewImage =
-    document.getElementById("previewImage");
-
-const finalPreview =
-    document.getElementById("finalPreview");
-
-
-// ---------- Variables ----------
+const avatarGrid = document.getElementById("avatarGrid");
+const uploadPhotoBtn = document.getElementById("uploadPhotoBtn");
+const agreeTerms = document.getElementById("agreeTerms");
 
 let currentStep = 0;
 let selectedGender = "";
@@ -40,56 +33,83 @@ let selectedAvatar = "";
 
 
 // ======================================
+// DEFAULT AVATARS
+// ======================================
+
+const DEFAULT_AVATARS = {
+
+    male: "assets/avatars/male.png",
+
+    female: "assets/avatars/female.png",
+
+    other: "assets/avatars/other.png"
+
+};
+
+
+// ======================================
 // SHOW STEP
 // ======================================
 
-function showStep(index){
+function showStep(index) {
 
-    if(!steps.length) return;
+    if (!steps.length) {
+        return;
+    }
 
-    steps.forEach((step, i)=>{
+    currentStep = Math.max(
+        0,
+        Math.min(index, steps.length - 1)
+    );
+
+    steps.forEach((step, i) => {
 
         step.classList.toggle(
             "active",
-            i === index
+            i === currentStep
         );
 
     });
 
-    if(stepNumber){
+    if (stepNumber) {
 
         stepNumber.textContent =
-            index + 1;
+            currentStep + 1;
 
     }
 
-    if(progressFill){
+    if (progressFill) {
 
         const percent =
-            ((index + 1) / steps.length) * 100;
+            ((currentStep + 1) / steps.length) * 100;
 
         progressFill.style.width =
-            percent + "%";
+            `${percent}%`;
 
     }
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 
 }
 
 
 // ======================================
-// STEP 1 VALIDATION
+// VALIDATE STEP 1
 // ======================================
 
-function validateStepOne(){
+function validateStepOne() {
 
     const name =
-        nameInput?.value.trim();
+        nameInput?.value.trim() || "";
 
     const mobile =
-        mobileInput?.value.trim();
+        mobileInput?.value.trim() || "";
 
     const email =
-        emailInput?.value.trim();
+        emailInput?.value.trim() || "";
 
     const password =
         passwordInput?.value || "";
@@ -98,13 +118,13 @@ function validateStepOne(){
         confirmPasswordInput?.value || "";
 
 
-    if(
+    if (
         !name ||
         !mobile ||
         !email ||
         !password ||
         !confirmPassword
-    ){
+    ) {
 
         alert(
             "Please fill all required fields."
@@ -115,7 +135,7 @@ function validateStepOne(){
     }
 
 
-    if(name.length < 2){
+    if (name.length < 2) {
 
         alert(
             "Please enter a valid full name."
@@ -126,7 +146,14 @@ function validateStepOne(){
     }
 
 
-    if(!/^\+?[0-9\s\-()]{7,20}$/.test(mobile)){
+    const cleanMobile =
+        mobile.replace(/\D/g, "");
+
+
+    if (
+        cleanMobile.length < 10 ||
+        cleanMobile.length > 15
+    ) {
 
         alert(
             "Please enter a valid mobile number."
@@ -137,7 +164,22 @@ function validateStepOne(){
     }
 
 
-    if(password.length < 6){
+    const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+    if (!emailPattern.test(email)) {
+
+        alert(
+            "Please enter a valid email address."
+        );
+
+        return false;
+
+    }
+
+
+    if (password.length < 6) {
 
         alert(
             "Password must be at least 6 characters."
@@ -148,7 +190,7 @@ function validateStepOne(){
     }
 
 
-    if(password !== confirmPassword){
+    if (password !== confirmPassword) {
 
         alert(
             "Passwords do not match."
@@ -165,193 +207,20 @@ function validateStepOne(){
 
 
 // ======================================
-// NEXT BUTTON
+// LOAD AVATARS
 // ======================================
 
-nextButtons.forEach(button=>{
+function loadAvatars(gender) {
 
-    button.addEventListener(
-        "click",
-        ()=>{
-
-            if(currentStep === 0){
-
-                if(!validateStepOne()){
-
-                    return;
-
-                }
-
-            }
-
-
-            if(currentStep === 1){
-
-                if(!selectedGender){
-
-                    alert(
-                        "Please select your gender."
-                    );
-
-                    return;
-
-                }
-
-            }
-
-
-            if(currentStep === 2){
-
-                if(!selectedAvatar){
-
-                    alert(
-                        "Please select an avatar or upload a photo."
-                    );
-
-                    return;
-
-                }
-
-            }
-
-
-            if(
-                currentStep <
-                steps.length - 1
-            ){
-
-                currentStep++;
-
-                showStep(
-                    currentStep
-                );
-
-            }
-
-
-            if(
-                currentStep ===
-                steps.length - 1
-            ){
-
-                updateReview();
-
-            }
-
-        }
-    );
-
-});
-
-
-// ======================================
-// BACK BUTTON
-// ======================================
-
-backButtons.forEach(button=>{
-
-    button.addEventListener(
-        "click",
-        ()=>{
-
-            if(currentStep > 0){
-
-                currentStep--;
-
-                showStep(
-                    currentStep
-                );
-
-            }
-
-        }
-    );
-
-});
-
-
-// ======================================
-// GENDER SELECT
-// ======================================
-
-document
-.querySelectorAll(".gender-card")
-.forEach(card=>{
-
-    card.addEventListener(
-        "click",
-        ()=>{
-
-            document
-            .querySelectorAll(".gender-card")
-            .forEach(c=>{
-
-                c.classList.remove(
-                    "active"
-                );
-
-            });
-
-
-            card.classList.add(
-                "active"
-            );
-
-
-            selectedGender =
-                card.dataset.gender || "";
-
-
-            loadAvatars(
-                selectedGender
-            );
-
-        }
-    );
-
-});
-
-
-// ======================================
-// AVATAR SYSTEM
-// ======================================
-
-function loadAvatars(gender){
-
-    const avatarGrid =
-        document.getElementById(
-            "avatarGrid"
-        );
-
-
-    if(!avatarGrid){
-
+    if (!avatarGrid) {
         return;
-
     }
-
 
     avatarGrid.innerHTML = "";
 
-
-    let avatarPath =
-        "assets/avatars/male.png";
-
-
-    if(gender === "female"){
-
-        avatarPath =
-            "assets/avatars/female.png";
-
-    }
-
-
-    if(gender === "other"){
-
-        avatarPath =
-            "assets/avatars/other.png";
-
-    }
+    selectedAvatar =
+        DEFAULT_AVATARS[gender] ||
+        DEFAULT_AVATARS.other;
 
 
     // ==================================
@@ -359,58 +228,32 @@ function loadAvatars(gender){
     // ==================================
 
     const avatar =
-        document.createElement(
-            "div"
-        );
-
+        document.createElement("div");
 
     avatar.className =
         "avatar-item active";
 
-
     avatar.innerHTML = `
-
         <img
-            src="${avatarPath}"
-            alt="Default Avatar"
+            src="${selectedAvatar}"
+            alt="${gender} Avatar"
         >
-
     `;
-
-
-    selectedAvatar =
-        avatarPath;
-
-
-    if(previewImage){
-
-        previewImage.src =
-            avatarPath;
-
-    }
-
-
-    if(finalPreview){
-
-        finalPreview.src =
-            avatarPath;
-
-    }
 
 
     avatar.addEventListener(
         "click",
-        ()=>{
+        () => {
 
             document
-            .querySelectorAll(".avatar-item")
-            .forEach(item=>{
+                .querySelectorAll(".avatar-item")
+                .forEach(item => {
 
-                item.classList.remove(
-                    "active"
-                );
+                    item.classList.remove(
+                        "active"
+                    );
 
-            });
+                });
 
 
             avatar.classList.add(
@@ -419,23 +262,11 @@ function loadAvatars(gender){
 
 
             selectedAvatar =
-                avatarPath;
+                DEFAULT_AVATARS[gender] ||
+                DEFAULT_AVATARS.other;
 
 
-            if(previewImage){
-
-                previewImage.src =
-                    selectedAvatar;
-
-            }
-
-
-            if(finalPreview){
-
-                finalPreview.src =
-                    selectedAvatar;
-
-            }
+            updatePreview();
 
         }
     );
@@ -447,21 +278,26 @@ function loadAvatars(gender){
 
 
     // ==================================
-    // UPLOAD PHOTO BUTTON
+    // UPLOAD AVATAR
     // ==================================
 
     const upload =
-        document.createElement(
-            "div"
-        );
-
+        document.createElement("div");
 
     upload.className =
         "avatar-item upload-avatar";
 
+    upload.setAttribute(
+        "role",
+        "button"
+    );
+
+    upload.setAttribute(
+        "tabindex",
+        "0"
+    );
 
     upload.innerHTML = `
-
         <div
             style="
                 width:100%;
@@ -472,23 +308,36 @@ function loadAvatars(gender){
                 font-size:30px;
             "
         >
-
-            <i
-                class="fa-solid fa-camera"
-            ></i>
-
+            <i class="fa-solid fa-camera"></i>
         </div>
-
     `;
+
+
+    const openUpload = () => {
+
+        photoInput?.click();
+
+    };
 
 
     upload.addEventListener(
         "click",
-        ()=>{
+        openUpload
+    );
 
-            if(photoInput){
 
-                photoInput.click();
+    upload.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (
+                event.key === "Enter" ||
+                event.key === " "
+            ) {
+
+                event.preventDefault();
+
+                openUpload();
 
             }
 
@@ -500,6 +349,132 @@ function loadAvatars(gender){
         upload
     );
 
+
+    updatePreview();
+
+}
+
+
+// ======================================
+// UPDATE PREVIEW
+// ======================================
+
+function updatePreview() {
+
+    if (!selectedAvatar) {
+        return;
+    }
+
+
+    if (previewImage) {
+
+        previewImage.src =
+            selectedAvatar;
+
+    }
+
+
+    if (finalPreview) {
+
+        finalPreview.src =
+            selectedAvatar;
+
+    }
+
+}
+
+
+// ======================================
+// GENDER SELECTION
+// ======================================
+
+document
+    .querySelectorAll(".gender-card")
+    .forEach(card => {
+
+        const selectGender = () => {
+
+            document
+                .querySelectorAll(".gender-card")
+                .forEach(item => {
+
+                    item.classList.remove(
+                        "active"
+                    );
+
+                });
+
+
+            card.classList.add(
+                "active"
+            );
+
+
+            selectedGender =
+                card.dataset.gender || "";
+
+
+            const genderInput =
+                document.getElementById("gender");
+
+
+            if (genderInput) {
+
+                genderInput.value =
+                    selectedGender;
+
+            }
+
+
+            loadAvatars(
+                selectedGender
+            );
+
+        };
+
+
+        card.addEventListener(
+            "click",
+            selectGender
+        );
+
+
+        card.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Enter" ||
+                    event.key === " "
+                ) {
+
+                    event.preventDefault();
+
+                    selectGender();
+
+                }
+
+            }
+        );
+
+    });
+
+
+// ======================================
+// UPLOAD BUTTON
+// ======================================
+
+if (uploadPhotoBtn) {
+
+    uploadPhotoBtn.addEventListener(
+        "click",
+        () => {
+
+            photoInput?.click();
+
+        }
+    );
+
 }
 
 
@@ -507,27 +482,40 @@ function loadAvatars(gender){
 // PHOTO UPLOAD
 // ======================================
 
-if(photoInput){
+if (photoInput) {
 
     photoInput.addEventListener(
         "change",
-        (event)=>{
+        event => {
 
             const file =
                 event.target.files?.[0];
 
 
-            if(!file){
-
+            if (!file) {
                 return;
-
             }
 
 
-            if(!file.type.startsWith("image/")){
+            const allowedTypes = [
+
+                "image/jpeg",
+
+                "image/png",
+
+                "image/webp"
+
+            ];
+
+
+            if (
+                !allowedTypes.includes(
+                    file.type
+                )
+            ) {
 
                 alert(
-                    "Please select a valid image."
+                    "Please select a JPG, PNG, or WEBP image."
                 );
 
                 photoInput.value = "";
@@ -541,7 +529,7 @@ if(photoInput){
                 5 * 1024 * 1024;
 
 
-            if(file.size > maxSize){
+            if (file.size > maxSize) {
 
                 alert(
                     "Image size must be less than 5MB."
@@ -558,34 +546,18 @@ if(photoInput){
                 new FileReader();
 
 
-            reader.onload =
-                function(e){
+            reader.onload = event => {
 
-                    selectedAvatar =
-                        e.target.result;
-
-
-                    if(previewImage){
-
-                        previewImage.src =
-                            selectedAvatar;
-
-                    }
+                selectedAvatar =
+                    event.target.result;
 
 
-                    if(finalPreview){
-
-                        finalPreview.src =
-                            selectedAvatar;
-
-                    }
+                updatePreview();
 
 
-                    document
-                    .querySelectorAll(
-                        ".avatar-item"
-                    )
-                    .forEach(item=>{
+                document
+                    .querySelectorAll(".avatar-item")
+                    .forEach(item => {
 
                         item.classList.remove(
                             "active"
@@ -593,17 +565,18 @@ if(photoInput){
 
                     });
 
-                };
+            };
 
 
-            reader.onerror =
-                function(){
+            reader.onerror = () => {
 
-                    alert(
-                        "Unable to read selected image."
-                    );
+                alert(
+                    "Unable to read selected image."
+                );
 
-                };
+                photoInput.value = "";
+
+            };
 
 
             reader.readAsDataURL(
@@ -620,7 +593,7 @@ if(photoInput){
 // UPDATE REVIEW
 // ======================================
 
-function updateReview(){
+function updateReview() {
 
     const reviewName =
         document.getElementById(
@@ -643,7 +616,7 @@ function updateReview(){
         );
 
 
-    if(reviewName){
+    if (reviewName) {
 
         reviewName.textContent =
             nameInput?.value.trim() || "-";
@@ -651,7 +624,7 @@ function updateReview(){
     }
 
 
-    if(reviewMobile){
+    if (reviewMobile) {
 
         reviewMobile.textContent =
             mobileInput?.value.trim() || "-";
@@ -659,7 +632,7 @@ function updateReview(){
     }
 
 
-    if(reviewEmail){
+    if (reviewEmail) {
 
         reviewEmail.textContent =
             emailInput?.value.trim() || "-";
@@ -667,7 +640,7 @@ function updateReview(){
     }
 
 
-    if(reviewGender){
+    if (reviewGender) {
 
         reviewGender.textContent =
             selectedGender || "-";
@@ -675,41 +648,129 @@ function updateReview(){
     }
 
 
-    if(
-        selectedAvatar &&
-        finalPreview
-    ){
-
-        finalPreview.src =
-            selectedAvatar;
-
-    }
+    updatePreview();
 
 }
+
+
+// ======================================
+// NEXT BUTTON
+// ======================================
+
+nextButtons.forEach(button => {
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            if (currentStep === 0) {
+
+                if (!validateStepOne()) {
+                    return;
+                }
+
+            }
+
+
+            if (currentStep === 1) {
+
+                if (!selectedGender) {
+
+                    alert(
+                        "Please select your gender."
+                    );
+
+                    return;
+
+                }
+
+            }
+
+
+            if (currentStep === 2) {
+
+                if (!selectedAvatar) {
+
+                    alert(
+                        "Please select an avatar or upload a photo."
+                    );
+
+                    return;
+
+                }
+
+            }
+
+
+            if (
+                currentStep <
+                steps.length - 1
+            ) {
+
+                currentStep++;
+
+                showStep(
+                    currentStep
+                );
+
+            }
+
+
+            if (
+                currentStep ===
+                steps.length - 1
+            ) {
+
+                updateReview();
+
+            }
+
+        }
+    );
+
+});
+
+
+// ======================================
+// BACK BUTTON
+// ======================================
+
+backButtons.forEach(button => {
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            if (currentStep > 0) {
+
+                currentStep--;
+
+                showStep(
+                    currentStep
+                );
+
+            }
+
+        }
+    );
+
+});
 
 
 // ======================================
 // FORM SUBMIT
 // ======================================
 
-if(form){
+if (form) {
 
     form.addEventListener(
         "submit",
-        (event)=>{
+        event => {
 
             event.preventDefault();
 
 
-            const agree =
-                document.getElementById(
-                    "agreeTerms"
-                );
-
-
-            if(
-                !validateStepOne()
-            ){
+            if (!validateStepOne()) {
 
                 currentStep = 0;
 
@@ -722,7 +783,7 @@ if(form){
             }
 
 
-            if(!selectedGender){
+            if (!selectedGender) {
 
                 alert(
                     "Please select your gender."
@@ -739,7 +800,7 @@ if(form){
             }
 
 
-            if(!selectedAvatar){
+            if (!selectedAvatar) {
 
                 alert(
                     "Please select an avatar or upload a photo."
@@ -756,13 +817,13 @@ if(form){
             }
 
 
-            if(
-                !agree ||
-                !agree.checked
-            ){
+            if (
+                !agreeTerms ||
+                !agreeTerms.checked
+            ) {
 
                 alert(
-                    "Please accept the Terms & Conditions."
+                    "Please accept the confirmation checkbox."
                 );
 
                 return;
@@ -794,11 +855,9 @@ if(form){
 
 
             document.dispatchEvent(
-
                 new CustomEvent(
                     "signup-ready"
                 )
-
             );
 
         }
