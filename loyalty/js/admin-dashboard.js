@@ -59,7 +59,7 @@ const LOYALTY_CYCLE_MS =
 // -----------------------------------------------------
 
 const DEFAULT_PROFILE_IMAGE =
-  "./assets/default-profile.png";
+  "../assets/default-profile.png";
 
 
 const QR_SCANNER_CONFIG = {
