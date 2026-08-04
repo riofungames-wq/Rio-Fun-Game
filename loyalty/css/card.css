@@ -1,1880 +1,1576 @@
-/* =========================================
-   RIO MAGGI POINT
-   PREMIUM LOYALTY CARD
-   CARD.CSS - PART 1 OF 3
-   CORRECTED FINAL VERSION
-========================================= */
+// =====================================
+// RIO MAGGI POINT
+// PREMIUM LOYALTY CARD SYSTEM
+// CARD.JS - FINAL CLEAN VERSION
+// =====================================
 
-:root {
-    --bg: #080808;
-    --card: #171717;
-    --card-dark: #111111;
-    --gold: #d4af37;
-    --gold-light: #f7de8b;
-    --gold-pale: #fff6d4;
-    --white: #ffffff;
-    --text: #ececec;
-    --muted: #bdbdbd;
-    --border: rgba(212,175,55,.35);
-    --shadow: rgba(0,0,0,.55);
-    --game-blue: #00e5ff;
-    --game-purple: #7c4dff;
-}
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-}
+// =====================================
+// FIREBASE IMPORTS
+// =====================================
 
-html {
-    min-height: 100%;
-    background: var(--bg);
-}
+import {
+    auth,
+    db
+} from "./firebase.js";
 
-body {
-    min-height: 100vh;
-    background:
-        radial-gradient(
-            circle at top,
-            rgba(212,175,55,.08),
-            transparent 35%
-        ),
-        var(--bg);
-    color: var(--white);
-    display: flex;
-    justify-content: center;
-    padding: 18px 12px 100px;
-}
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-.page {
-    width: 100%;
-    max-width: 430px;
-    padding-bottom: 110px;
-}
+import {
+    doc,
+    getDoc,
+    updateDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-.premium-card {
-    position: relative;
-    width: 100%;
-    background:
-        linear-gradient(
-            180deg,
-            #1c1c1c,
-            #121212
-        );
-    border: 2px solid var(--gold);
-    border-radius: 28px;
-    padding: 22px;
-    overflow: hidden;
-    isolation: isolate;
-    box-shadow:
-        0 0 18px
-        rgba(212,175,55,.18),
-        0 20px 50px
-        var(--shadow);
-}
 
-.card-glow {
-    position: absolute;
-    right: -80px;
-    top: -80px;
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    background:
-        radial-gradient(
-            circle,
-            rgba(212,175,55,.22),
-            transparent 70%
-        );
-    pointer-events: none;
-    z-index: 0;
-}
+// =====================================
+// GLOBAL USER
+// =====================================
 
-.card-shine {
-    position: absolute;
-    left: -40%;
-    top: -25%;
-    width: 55%;
-    height: 180%;
-    transform: rotate(25deg);
-    background:
-        linear-gradient(
-            to right,
-            transparent,
-            rgba(255,255,255,.08),
-            transparent
-        );
-    pointer-events: none;
-    z-index: 1;
-}
+window.currentRioUser = null;
 
-.premium-card > *:not(.card-glow):not(.card-shine) {
-    position: relative;
-    z-index: 2;
+window.rioCurrentStamps = 0;
+window.rioCountdownDays = 40;
+window.rioMemberSince = null;
+window.rioCustomerMobile = null;
+
+
+// =====================================
+// LOYALTY CONFIGURATION
+// =====================================
+
+const TOTAL_STAMPS = 6;
+const STAMP_RESET_DAYS = 40;
+
+const CUSTOMER_PHONE = "7987827979";
+const CUSTOMER_PHONE_TEL = "+917987827979";
+
+
+// =====================================
+// INTERNAL STATE
+// =====================================
+
+let countdownInterval = null;
+let isCardInitialized = false;
+
+
+// =====================================
+// DOM READY
+// =====================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initializeCardUI,
+    {
+        once: true
+    }
+);
+
+
+// =====================================
+// INITIALIZE CARD UI
+// =====================================
+
+function initializeCardUI() {
+
+    setupGameButton();
+    setupCallButton();
+    setupWhatsAppButton();
+    setupMapButton();
+    setupDeliveryButton();
+
 }
 
 
-/* =========================================
-   HEADER
-========================================= */
+// =====================================
+// FREE GAME BUTTON
+// =====================================
 
-.card-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
+function setupGameButton() {
 
-.brand-title {
-    font-size: 30px;
-    font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: 1px;
-    background:
-        linear-gradient(
-            90deg,
-            var(--gold-pale),
-            var(--gold),
-            var(--gold-pale)
-        );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-}
+    const gameButton =
+        document.getElementById("gameLink");
 
-.brand-subtitle {
-    margin-top: 5px;
-    font-size: 11px;
-    font-weight: 600;
-    color: #d8c27a;
-    letter-spacing: .8px;
-}
-
-
-/* =========================================
-   CUSTOMER SECTION
-========================================= */
-
-.customer-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 22px;
-}
-
-.avatar-frame {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    padding: 4px;
-    background:
-        linear-gradient(
-            135deg,
-            var(--gold-light),
-            var(--gold)
-        );
-    box-shadow:
-        0 0 18px
-        rgba(212,175,55,.45);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 14px;
-}
-
-.avatar-frame::after {
-    content: "";
-    position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-    border:
-        1px solid
-        rgba(255,240,184,.45);
-    pointer-events: none;
-}
-
-.avatar-frame img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    background: #222;
-    display: block;
-}
-
-.customer-name {
-    font-family: Georgia, serif;
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: .5px;
-    color: #ffffff;
-    text-align: center;
-    margin-bottom: 6px;
-    word-break: break-word;
-}
-
-.customer-id {
-    font-size: 14px;
-    font-weight: 600;
-    color: #e7cb74;
-    margin-bottom: 10px;
-}
-
-.premium-member {
-    padding: 6px 18px;
-    border-radius: 999px;
-    background:
-        rgba(212,175,55,.12);
-    border:
-        1px solid
-        rgba(212,175,55,.45);
-    box-shadow:
-        0 0 12px
-        rgba(212,175,55,.08);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: #f7de8b;
-    margin-bottom: 16px;
-}
-
-
-/* =========================================
-   FREE GAME BUTTON
-========================================= */
-
-.game-button {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 9px;
-    min-width: 205px;
-    padding: 11px 18px;
-    border: 1px solid
-        rgba(255,255,255,.28);
-    border-radius: 999px;
-    background:
-        linear-gradient(
-            135deg,
-            #7b2cff 0%,
-            #4c1d95 45%,
-            #111 100%
-        );
-    color: #ffffff;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: .6px;
-    cursor: pointer;
-    overflow: hidden;
-    box-shadow:
-        0 0 0 1px
-        rgba(123,44,255,.25),
-        0 8px 20px
-        rgba(90,30,180,.35),
-        inset 0 1px 0
-        rgba(255,255,255,.2);
-    animation:
-        gameButtonGlow
-        2s
-        ease-in-out
-        infinite;
-    transition:
-        transform .25s ease,
-        box-shadow .25s ease;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.game-button::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -120%;
-    width: 70%;
-    height: 100%;
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.35),
-            transparent
-        );
-    transform: skewX(-20deg);
-    animation:
-        gameButtonShine
-        3s
-        ease-in-out
-        infinite;
-    pointer-events: none;
-}
-
-.game-button::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 999px;
-    border:
-        1px solid
-        rgba(255,255,255,.15);
-    pointer-events: none;
-}
-
-.game-button .game-icon {
-    position: relative;
-    z-index: 2;
-    width: 27px;
-    height: 27px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background:
-        rgba(255,255,255,.14);
-}
-
-.game-button .game-icon i {
-    font-size: 13px;
-    color: #ffffff;
-}
-
-.game-button .game-text {
-    position: relative;
-    z-index: 2;
-    white-space: nowrap;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: .7px;
-    text-shadow:
-        0 1px 4px
-        rgba(0,0,0,.5);
-}
-
-.game-button .game-arrow {
-    position: relative;
-    z-index: 2;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background:
-        rgba(255,255,255,.16);
-}
-
-.game-button .game-arrow i {
-    font-size: 11px;
-    color: #ffe66d;
-}
-
-.game-button:hover {
-    transform:
-        translateY(-3px)
-        scale(1.02);
-    box-shadow:
-        0 0 18px
-        rgba(123,44,255,.55),
-        0 12px 28px
-        rgba(90,30,180,.45);
-}
-
-.game-button:active {
-    transform: scale(.96);
-}
-
-.game-button-clicked {
-    animation: none;
-    transform: scale(.94);
-}
-
-
-/* =========================================
-   GAME BUTTON ANIMATIONS
-========================================= */
-
-@keyframes gameButtonGlow {
-
-    0%,
-    100% {
-        box-shadow:
-            0 0 0 1px
-            rgba(123,44,255,.25),
-            0 8px 20px
-            rgba(90,30,180,.35);
+    if (!gameButton) {
+        return;
     }
 
-    50% {
-        box-shadow:
-            0 0 0 2px
-            rgba(123,44,255,.35),
-            0 0 22px
-            rgba(123,44,255,.5),
-            0 10px 26px
-            rgba(90,30,180,.45);
+    gameButton.addEventListener(
+        "click",
+        handleGameButtonClick,
+        {
+            once: false
+        }
+    );
+
+}
+
+
+// =====================================
+// GAME BUTTON ACTION
+// =====================================
+
+function handleGameButtonClick() {
+
+    gameButtonAnimation();
+
+    window.location.href =
+        "../index.html";
+
+}
+
+
+// =====================================
+// GAME BUTTON ANIMATION
+// =====================================
+
+function gameButtonAnimation() {
+
+    const gameButton =
+        document.getElementById("gameLink");
+
+    if (!gameButton) {
+        return;
     }
 
+    gameButton.classList.add(
+        "game-button-clicked"
+    );
+
+    setTimeout(
+        () => {
+
+            gameButton.classList.remove(
+                "game-button-clicked"
+            );
+
+        },
+        300
+    );
+
 }
 
-@keyframes gameButtonShine {
 
-    0% {
-        left: -120%;
+// =====================================
+// CALL BUTTON
+// =====================================
+
+function setupCallButton() {
+
+    const callButton =
+        document.getElementById("callBtn");
+
+    if (!callButton) {
+        return;
     }
 
-    45%,
-    100% {
-        left: 150%;
+    callButton.addEventListener(
+        "click",
+        () => {
+
+            window.location.href =
+                "tel:" +
+                CUSTOMER_PHONE_TEL;
+
+        }
+    );
+
+}
+
+
+// =====================================
+// WHATSAPP BUTTON
+// =====================================
+
+function setupWhatsAppButton() {
+
+    const whatsappButton =
+        document.getElementById("whatsappBtn");
+
+    if (!whatsappButton) {
+        return;
     }
 
+    whatsappButton.addEventListener(
+        "click",
+        () => {
+
+            const whatsappMessage =
+                encodeURIComponent(
+                    "Hello Rio Maggi Point, I want to know more about the loyalty program."
+                );
+
+            const whatsappUrl =
+                "https://wa.me/" +
+                CUSTOMER_PHONE +
+                "?text=" +
+                whatsappMessage;
+
+            window.open(
+                whatsappUrl,
+                "_blank",
+                "noopener,noreferrer"
+            );
+
+        }
+    );
+
 }
 
 
-/* =========================================
-   STAMP TITLE
-========================================= */
+// =====================================
+// MAP BUTTON
+// =====================================
 
-.stamp-title {
-    width: 100%;
-    text-align: center;
-    padding: 9px 12px;
-    border-radius: 14px;
-    background:
-        linear-gradient(
-            90deg,
-            var(--gold),
-            var(--gold-light),
-            var(--gold)
-        );
-    color: #111;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .3px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 18px;
-    box-shadow:
-        0 5px 14px
-        rgba(212,175,55,.30);
-}
+function setupMapButton() {
 
+    const mapButton =
+        document.getElementById("mapBtn");
 
-/* =========================================
-   PART 1 END
-========================================= */
-/* =========================================
-   RIO MAGGI POINT
-   PREMIUM LOYALTY CARD
-   CARD.CSS - PART 2 OF 3
-   CONTINUED FROM PART 1
-========================================= */
-
-
-/* =========================================
-   STAMP SECTION
-========================================= */
-
-.stamp-section {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-
-/* =========================================
-   STAMP ROW
-========================================= */
-
-.stamp-row {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 4px;
-    overflow: visible;
-}
-
-
-/* =========================================
-   STAMP ITEM
-========================================= */
-
-.stamp-item {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 5px;
-    flex-shrink: 1;
-}
-
-
-/* =========================================
-   STAMP CIRCLE
-========================================= */
-
-.stamp-circle {
-    position: relative;
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background:
-        linear-gradient(
-            145deg,
-            #292929,
-            #181818
-        );
-    border:
-        2px solid
-        rgba(212,175,55,.35);
-    color: #d8c17b;
-    font-size: 15px;
-    font-weight: 700;
-    box-shadow:
-        inset 0 2px 6px
-        rgba(0,0,0,.55),
-        0 2px 5px
-        rgba(0,0,0,.25);
-    transition:
-        transform .3s ease,
-        box-shadow .3s ease,
-        background .3s ease;
-}
-
-
-/* =========================================
-   STAMP NUMBER
-========================================= */
-
-.stamp-circle span {
-    position: relative;
-    z-index: 2;
-}
-
-
-/* =========================================
-   ACTIVE STAMP
-========================================= */
-
-.stamp-circle.active {
-    background:
-        radial-gradient(
-            circle at 30% 25%,
-            #fff8d8 0%,
-            #f7de8b 25%,
-            #d4af37 65%,
-            #9b7620 100%
-        );
-    color: #111;
-    border:
-        2px solid
-        #ffeaa7;
-    box-shadow:
-        0 0 0 3px
-        rgba(212,175,55,.12),
-        0 0 14px
-        rgba(212,175,55,.65),
-        0 5px 12px
-        rgba(0,0,0,.45);
-    transform: scale(1.04);
-}
-
-
-/* =========================================
-   ACTIVE STAMP NUMBER
-========================================= */
-
-.stamp-circle.active span {
-    font-weight: 800;
-    color: #171717;
-    text-shadow:
-        0 1px 0
-        rgba(255,255,255,.45);
-}
-
-
-/* =========================================
-   ACTIVE STAMP SHINE
-========================================= */
-
-.stamp-circle.active::after {
-    content: "";
-    position: absolute;
-    top: 5px;
-    left: 7px;
-    width: 10px;
-    height: 6px;
-    border-radius: 50%;
-    background:
-        rgba(255,255,255,.65);
-    transform: rotate(-25deg);
-    pointer-events: none;
-}
-
-
-/* =========================================
-   COLLECTED STAMP
-========================================= */
-
-.stamp-circle.stamp-collected {
-    transform: scale(1.05);
-}
-
-
-/* =========================================
-   STAMP POP ANIMATION
-========================================= */
-
-.stamp-circle.stamp-pop {
-    animation:
-        stampPop
-        .5s
-        ease-out;
-}
-
-@keyframes stampPop {
-
-    0% {
-        transform:
-            scale(.75)
-            rotate(-15deg);
+    if (!mapButton) {
+        return;
     }
 
-    60% {
-        transform:
-            scale(1.15)
-            rotate(5deg);
+    mapButton.addEventListener(
+        "click",
+        () => {
+
+            // =================================
+            // MAP LOCATION COMING SOON
+            // =================================
+
+            showComingSoonMessage(
+                "Google Maps location is coming soon."
+            );
+
+        }
+    );
+
+}
+
+
+// =====================================
+// DELIVERY BUTTON
+// =====================================
+
+function setupDeliveryButton() {
+
+    const deliveryButton =
+        document.getElementById("deliveryBtn");
+
+    if (!deliveryButton) {
+        return;
     }
 
-    100% {
-        transform:
-            scale(1.05)
-            rotate(0);
-    }
+    deliveryButton.addEventListener(
+        "click",
+        () => {
+
+            showComingSoonMessage(
+                "Delivery service is coming soon."
+            );
+
+        }
+    );
 
 }
 
 
-/* =========================================
-   STAMP DATE
-========================================= */
-
-.stamp-date {
-    width: 100%;
-    min-height: 16px;
-    margin-top: 1px;
-    text-align: center;
-    color: #777;
-    font-size: 7px;
-    font-weight: 600;
-    line-height: 1;
-    white-space: nowrap;
-    opacity: .75;
-    letter-spacing: .2px;
-}
-
-
-/* =========================================
-   ACTIVE STAMP DATE
-========================================= */
-
-.stamp-item:has(.stamp-circle.active) .stamp-date {
-    color: #d8c17b;
-    opacity: 1;
-}
-
-
-/* =========================================
-   REWARD ITEM
-========================================= */
-
-.reward-item {
-    position: relative;
-    margin-left: 2px;
-}
-
-
-/* =========================================
-   REWARD CIRCLE
-========================================= */
-
-.reward-circle {
-    position: relative;
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background:
-        linear-gradient(
-            135deg,
-            #fff0b8,
-            var(--gold)
-        );
-    color: #111;
-    font-size: 7px;
-    font-weight: 800;
-    line-height: 8px;
-    text-align: center;
-    padding: 2px;
-    border:
-        2px solid
-        var(--gold-light);
-}
-
-
-/* =========================================
-   REWARD LABEL
-========================================= */
-
-.reward-label {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    line-height: 7px;
-}
-
-
-/* =========================================
-   REWARD ICON
-========================================= */
-
-.reward-label i {
-    font-size: 9px;
-    margin-bottom: 2px;
-}
-
-
-/* =========================================
-   ACTIVE REWARD
-========================================= */
-
-.reward-circle.active {
-    background:
-        radial-gradient(
-            circle at 30% 25%,
-            #ffffff 0%,
-            #fff0b8 20%,
-            #f7de8b 45%,
-            #d4af37 75%,
-            #9b7620 100%
-        );
-    border:
-        2px solid
-        #fff0b8;
-    box-shadow:
-        0 0 0 3px
-        rgba(212,175,55,.15),
-        0 0 20px
-        rgba(255,215,80,.75),
-        0 0 35px
-        rgba(212,175,55,.35);
-    animation:
-        rewardPulse
-        1.8s
-        ease-in-out
-        infinite;
-}
-
-
-/* =========================================
-   ACTIVE REWARD INNER BORDER
-========================================= */
-
-.reward-circle.active::before {
-    content: "";
-    position: absolute;
-    inset: 3px;
-    border-radius: 50%;
-    border:
-        1px dashed
-        rgba(80,55,5,.65);
-    pointer-events: none;
-}
-
-
-/* =========================================
-   REWARD UNLOCKED
-========================================= */
-
-.reward-circle.reward-unlocked {
-    animation:
-        rewardGlow
-        1.5s
-        ease-in-out
-        infinite;
-}
-
-
-/* =========================================
-   REWARD ANIMATIONS
-========================================= */
-
-@keyframes rewardPulse {
-
-    0%,
-    100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.08);
-    }
-
-}
-
-@keyframes rewardGlow {
-
-    0%,
-    100% {
-        box-shadow:
-            0 0 10px
-            rgba(212,175,55,.5);
-    }
-
-    50% {
-        box-shadow:
-            0 0 25px
-            rgba(212,175,55,.95);
-    }
-
-}
-
-
-/* =========================================
-   COUNTDOWN BOX
-========================================= */
-
-.countdown-box {
-    position: relative;
-    width: 100%;
-    min-height: 58px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    margin-bottom: 20px;
-    padding: 10px;
-    border:
-        1px solid
-        rgba(212,175,55,.35);
-    border-radius: 15px;
-    background:
-        linear-gradient(
-            180deg,
-            rgba(212,175,55,.10),
-            rgba(212,175,55,.04)
-        );
-    overflow: hidden;
-}
-
-
-/* =========================================
-   COUNTDOWN SHINE
-========================================= */
-
-.countdown-box::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 60%;
-    height: 100%;
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.05),
-            transparent
-        );
-    animation:
-        countdownShine
-        4s
-        ease-in-out
-        infinite;
-    pointer-events: none;
-}
-
-
-/* =========================================
-   COUNTDOWN TEXT
-========================================= */
-
-.countdown-text {
-    position: relative;
-    z-index: 2;
-    color: #a99b72;
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 1px;
-}
-
-
-/* =========================================
-   COUNTDOWN DAYS
-========================================= */
-
-.countdown-days {
-    position: relative;
-    z-index: 2;
-    color: #f7de8b;
-    font-size: 17px;
-    font-weight: 800;
-    letter-spacing: .5px;
-    text-shadow:
-        0 0 10px
-        rgba(255,255,255,.15);
-}
-
-
-/* =========================================
-   COUNTDOWN ANIMATION
-========================================= */
-
-@keyframes countdownShine {
-
-    0% {
-        left: -100%;
-    }
-
-    50%,
-    100% {
-        left: 150%;
-    }
-
-}
-
-
-/* =========================================
-   QUICK BUTTONS
-========================================= */
-
-.quick-buttons {
-    width: 100%;
-    display: grid;
-    grid-template-columns:
-        repeat(4, minmax(0, 1fr));
-    gap: 7px;
-    margin-top: 20px;
-    margin-bottom: 4px;
-}
-
-
-/* =========================================
-   QUICK BUTTON
-========================================= */
-
-.quick-buttons button {
-    position: relative;
-    min-width: 0;
-    min-height: 72px;
-    padding: 9px 4px;
-    border-radius: 14px;
-    border:
-        1px solid
-        rgba(212,175,55,.30);
-    background:
-        linear-gradient(
-            180deg,
-            #202020,
-            #151515
-        );
-    color: #ffffff;
-    font-size: 10px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    transition:
-        transform .25s ease,
-        background .25s ease,
-        box-shadow .25s ease;
-    overflow: hidden;
-    -webkit-tap-highlight-color: transparent;
-}
-
-
-/* =========================================
-   QUICK BUTTON ICON
-========================================= */
-
-.quick-buttons button i {
-    font-size: 18px;
-    color: #f7de8b;
-    transition:
-        transform .25s ease,
-        color .25s ease;
-}
-
-
-/* =========================================
-   QUICK BUTTON HOVER
-========================================= */
-
-.quick-buttons button:hover {
-    background:
-        linear-gradient(
-            180deg,
-            #292929,
-            #191919
-        );
-    transform: translateY(-3px);
-    box-shadow:
-        0 8px 18px
-        rgba(0,0,0,.35);
-}
-
-
-/* =========================================
-   QUICK BUTTON ICON HOVER
-========================================= */
-
-.quick-buttons button:hover i {
-    transform: scale(1.12);
-    color: #ffffff;
-}
-
-
-/* =========================================
-   CALL ICON
-========================================= */
-
-#callBtn i {
-    color: #7ee787;
-}
-
-
-/* =========================================
-   WHATSAPP ICON
-========================================= */
-
-#whatsappBtn i {
-    color: #25d366;
-}
-
-
-/* =========================================
-   MAP ICON
-========================================= */
-
-#mapBtn i {
-    color: #f7de8b;
-}
-
-
-/* =========================================
-   DELIVERY ICON
-========================================= */
-
-#deliveryBtn i {
-    color: #f7de8b;
-}
-
-
-/* =========================================
-   PART 2 END
-========================================= */
-/* =========================================
-   RIO MAGGI POINT
-   PREMIUM LOYALTY CARD
-   CARD.CSS - PART 3 OF 3
-   FINAL RESPONSIVE + COMING SOON
-========================================= */
-
-
-/* =========================================
-   RESPONSIVE BASE SAFETY
-========================================= */
-
-html,
-body {
-    width: 100%;
-    min-height: 100%;
-    overflow-x: hidden;
-}
-
-img {
-    max-width: 100%;
-}
-
-button,
-a {
-    -webkit-tap-highlight-color: transparent;
-}
-
-
-/* =========================================
-   STAMP ROW MOBILE SAFETY
-========================================= */
-
-.stamp-row {
-    width: 100%;
-    overflow: visible;
-}
-
-.stamp-item {
-    min-width: 0;
-    flex-shrink: 1;
-}
-
-.stamp-circle {
-    position: relative;
-}
-
-
-/* =========================================
-   EMPTY STAMP DESIGN
-========================================= */
-
-.stamp-circle:not(.active) {
-    background:
-        linear-gradient(
-            145deg,
-            #292929,
-            #181818
+// =====================================
+// COMING SOON MESSAGE
+// =====================================
+
+function showComingSoonMessage(message) {
+
+    if (
+        typeof window.showToast ===
+        "function"
+    ) {
+
+        window.showToast(
+            message
         );
 
-    border:
-        2px solid
-        rgba(212,175,55,.35);
+        return;
 
-    box-shadow:
-        inset 0 2px 6px
-        rgba(0,0,0,.55),
-        0 2px 5px
-        rgba(0,0,0,.25);
+    }
+
+    alert(message);
+
 }
 
 
-/* =========================================
-   STAMP DATE EMPTY STATE
-========================================= */
+// =====================================
+// GET USER DOCUMENT
+// =====================================
 
-.stamp-date {
-    color: #777;
-}
+async function getCustomerDocument(user) {
 
-.stamp-item:has(.stamp-circle.active) .stamp-date {
-    color: #d8c17b;
-    opacity: 1;
-}
+    if (
+        !user ||
+        !user.uid
+    ) {
 
-
-/* =========================================
-   COUNTDOWN NUMBER
-========================================= */
-
-.countdown-days {
-    text-shadow:
-        0 0 10px
-        rgba(255,255,255,.15);
-}
-
-
-/* =========================================
-   COUNTDOWN ACTIVE
-========================================= */
-
-.countdown-box.active {
-    border-color:
-        rgba(212,175,55,.65);
-
-    background:
-        rgba(212,175,55,.15);
-
-    box-shadow:
-        0 0 18px
-        rgba(212,175,55,.12);
-}
-
-
-/* =========================================
-   REWARD UNLOCKED
-========================================= */
-
-.countdown-box.reward-unlocked {
-    border-color:
-        rgba(255,215,80,.7);
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(212,175,55,.18),
-            rgba(255,240,184,.08)
-        );
-}
-
-.countdown-box.reward-unlocked .countdown-days {
-    color: #f7de8b;
-}
-
-
-/* =========================================
-   PREMIUM MEMBER BADGE
-========================================= */
-
-.premium-member {
-    box-shadow:
-        0 0 12px
-        rgba(212,175,55,.08);
-}
-
-
-/* =========================================
-   CUSTOMER PHOTO PREMIUM EFFECT
-========================================= */
-
-.avatar-frame {
-    position: relative;
-}
-
-.avatar-frame::after {
-    content: "";
-    position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-
-    border:
-        1px solid
-        rgba(255,240,184,.45);
-
-    pointer-events: none;
-}
-
-
-/* =========================================
-   CARD CONTENT SAFETY
-========================================= */
-
-.premium-card > *:not(.card-glow):not(.card-shine) {
-    position: relative;
-    z-index: 2;
-}
-
-
-/* =========================================
-   DISABLE TEXT SELECTION
-========================================= */
-
-.game-button,
-.quick-buttons button,
-.bottom-nav a {
-    user-select: none;
-    -webkit-user-select: none;
-}
-
-
-/* =========================================
-   TOUCH EFFECT
-========================================= */
-
-.game-button:active,
-.quick-buttons button:active {
-    transform: scale(.96);
-}
-
-
-/* =========================================
-   DELIVERY COMING SOON
-========================================= */
-
-#deliveryBtn {
-    position: relative;
-    background:
-        linear-gradient(
-            180deg,
-            #202020,
-            #151515
+        throw new Error(
+            "Invalid Firebase user."
         );
 
-    cursor: default;
-}
+    }
 
-#deliveryBtn small {
-    display: block;
-    margin-top: 2px;
-    color: #d8c17b;
-    font-size: 8px;
-    font-weight: 600;
-}
-
-
-/* =========================================
-   MAP COMING SOON
-========================================= */
-
-#mapBtn {
-    position: relative;
-    background:
-        linear-gradient(
-            180deg,
-            #202020,
-            #151515
+    const userRef =
+        doc(
+            db,
+            "users",
+            user.uid
         );
 
-    cursor: default;
-}
+    const userSnap =
+        await getDoc(
+            userRef
+        );
 
-#mapBtn small {
-    display: block;
-    margin-top: 2px;
-    color: #d8c17b;
-    font-size: 8px;
-    font-weight: 600;
-}
+    if (
+        !userSnap.exists()
+    ) {
 
+        return null;
 
-/* =========================================
-   BOTTOM NAV PREMIUM ACTIVE EFFECT
-========================================= */
-
-.bottom-nav a.active {
-    text-shadow:
-        0 0 8px
-        rgba(247,222,139,.25);
-}
-
-.bottom-nav a.active i {
-    color: #f7de8b;
-}
-
-
-/* =========================================
-   BOTTOM NAV TOUCH
-========================================= */
-
-.bottom-nav a:active {
-    transform: scale(.94);
-}
-
-
-/* =========================================
-   SMALL MOBILE
-   UP TO 350PX
-========================================= */
-
-@media (max-width: 350px) {
-
-    body {
-        padding:
-            12px
-            8px
-            90px;
     }
 
-    .page {
-        max-width: 100%;
-        padding-bottom: 90px;
-    }
-
-    .premium-card {
-        padding: 15px;
-        border-radius: 22px;
-    }
-
-    .brand-title {
-        font-size: 22px;
-    }
-
-    .brand-subtitle {
-        font-size: 9px;
-    }
-
-    .avatar-frame {
-        width: 95px;
-        height: 95px;
-    }
-
-    .customer-name {
-        font-size: 20px;
-    }
-
-    .customer-id {
-        font-size: 12px;
-    }
-
-    .stamp-row {
-        gap: 2px;
-    }
-
-    .stamp-circle {
-        width: 34px;
-        height: 34px;
-        min-width: 34px;
-        font-size: 12px;
-    }
-
-    .reward-circle {
-        width: 34px;
-        height: 34px;
-        min-width: 34px;
-        font-size: 6px;
-        line-height: 7px;
-    }
-
-    .stamp-date {
-        font-size: 5px;
-    }
-
-    .quick-buttons {
-        gap: 3px;
-    }
-
-    .quick-buttons button {
-        min-height: 64px;
-        padding:
-            7px
-            2px;
-
-        font-size: 8px;
-    }
-
-    .quick-buttons button i {
-        font-size: 15px;
-    }
-
-    .quick-buttons button small {
-        font-size: 6px;
-    }
-
-    .game-button {
-        min-width: 165px;
-        padding:
-            9px
-            12px;
-    }
-
-    .game-button .game-text {
-        font-size: 10px;
-        letter-spacing: .4px;
-    }
-
-    .bottom-nav {
-        width:
-            calc(100% - 12px);
-
-        height: 64px;
-
-        bottom: 6px;
-
-        border-radius: 19px;
-    }
-
-    .bottom-nav a {
-        font-size: 8px;
-    }
-
-    .bottom-nav a i {
-        font-size: 15px;
-    }
+    return {
+        ref: userRef,
+        data: userSnap.data()
+    };
 
 }
 
 
-/* =========================================
-   MOBILE
-   351PX - 599PX
-========================================= */
+// =====================================
+// GET STAMP COUNT
+// =====================================
 
-@media (min-width: 351px) and (max-width: 599px) {
+function getStampCount(userData) {
 
-    body {
-        padding:
-            15px
-            10px
-            95px;
+    let stampCount =
+        Number(
+            userData.stamps ??
+            userData.currentStamps ??
+            0
+        );
+
+    if (
+        !Number.isFinite(
+            stampCount
+        )
+    ) {
+
+        stampCount = 0;
+
     }
 
-    .page {
-        width: 100%;
-        max-width: 430px;
-    }
-
-    .premium-card {
-        width: 100%;
-    }
-
-    .quick-buttons {
-        grid-template-columns:
-            repeat(4, minmax(0, 1fr));
-    }
+    return Math.max(
+        0,
+        Math.min(
+            stampCount,
+            TOTAL_STAMPS
+        )
+    );
 
 }
 
 
-/* =========================================
-   TABLET
-   600PX - 899PX
-========================================= */
+// =====================================
+// GET VALID STAMP DATES
+// =====================================
 
-@media (min-width: 600px) and (max-width: 899px) {
+function getValidStampDates(
+    stampDates
+) {
 
-    body {
-        padding:
-            28px
-            24px
-            120px;
+    if (
+        !Array.isArray(
+            stampDates
+        )
+    ) {
+
+        return [];
+
     }
 
-    .page {
-        width: 100%;
-        max-width: 650px;
+    return stampDates
+        .slice(
+            0,
+            TOTAL_STAMPS
+        )
+        .map(
+            parseFirebaseDate
+        )
+        .filter(
+            Boolean
+        );
+
+}
+
+
+// =====================================
+// LOAD CUSTOMER PROFILE
+// =====================================
+
+function renderCustomerData(
+    user,
+    userData
+) {
+
+    // =================================
+    // CUSTOMER NAME
+    // =================================
+
+    const customerName =
+        document.getElementById(
+            "customerName"
+        );
+
+    if (customerName) {
+
+        customerName.textContent =
+            userData.name ||
+            userData.fullName ||
+            user.displayName ||
+            "Rio Customer";
+
     }
 
-    .premium-card {
-        padding: 30px;
-        border-radius: 30px;
+
+    // =================================
+    // MEMBER ID
+    // =================================
+
+    const memberId =
+        document.getElementById(
+            "memberId"
+        );
+
+    if (memberId) {
+
+        memberId.textContent =
+            userData.memberId ||
+            (
+                "RIO-" +
+                user.uid
+                    .slice(
+                        0,
+                        10
+                    )
+                    .toUpperCase()
+            );
+
     }
 
-    .brand-title {
-        font-size: 36px;
+
+    // =================================
+    // CUSTOMER PHOTO
+    // =================================
+
+    const customerPhoto =
+        document.getElementById(
+            "customerPhoto"
+        );
+
+    if (
+        customerPhoto
+    ) {
+
+        const photoURL =
+            userData.photoURL ||
+            user.photoURL;
+
+        if (
+            photoURL
+        ) {
+
+            customerPhoto.src =
+                photoURL;
+
+        }
+
     }
 
-    .brand-subtitle {
-        font-size: 13px;
+
+    // =================================
+    // MEMBER SINCE
+    // =================================
+
+    if (
+        userData.memberSince
+    ) {
+
+        window.rioMemberSince =
+            userData.memberSince;
+
     }
 
-    .avatar-frame {
-        width: 140px;
-        height: 140px;
-    }
 
-    .customer-name {
-        font-size: 28px;
-    }
+    // =================================
+    // MOBILE NUMBER
+    // =================================
 
-    .customer-id {
-        font-size: 15px;
-    }
+    if (
+        userData.mobile
+    ) {
 
-    .game-button {
-        min-width: 230px;
-        padding:
-            13px
-            22px;
-    }
+        window.rioCustomerMobile =
+            userData.mobile;
 
-    .game-button .game-text {
-        font-size: 13px;
-    }
-
-    .stamp-circle,
-    .reward-circle {
-        width: 52px;
-        height: 52px;
-        min-width: 52px;
-    }
-
-    .stamp-circle {
-        font-size: 18px;
-    }
-
-    .reward-circle {
-        font-size: 8px;
-        line-height: 9px;
-    }
-
-    .stamp-date {
-        font-size: 8px;
-    }
-
-    .quick-buttons {
-        gap: 10px;
-    }
-
-    .quick-buttons button {
-        min-height: 85px;
-        font-size: 12px;
-    }
-
-    .quick-buttons button i {
-        font-size: 22px;
     }
 
 }
 
 
-/* =========================================
-   LAPTOP
-   900PX - 1199PX
-========================================= */
+// =====================================
+// RENDER STAMP DATA
+// =====================================
 
-@media (min-width: 900px) and (max-width: 1199px) {
+function renderStampData(
+    userData
+) {
 
-    body {
-        padding:
-            35px
-            30px
-            120px;
+    const stampCount =
+        getStampCount(
+            userData
+        );
+
+    const stampDates =
+        getValidStampDates(
+            userData.stampDates
+        );
+
+
+    // =================================
+    // UPDATE STAMP CIRCLES
+    // =================================
+
+    for (
+        let i = 1;
+        i <= TOTAL_STAMPS;
+        i++
+    ) {
+
+        const stampCircle =
+            document.getElementById(
+                "stamp" + i
+            );
+
+        if (
+            !stampCircle
+        ) {
+
+            continue;
+
+        }
+
+
+        const isCollected =
+            i <= stampCount;
+
+
+        stampCircle.classList.toggle(
+            "active",
+            isCollected
+        );
+
+        stampCircle.classList.toggle(
+            "stamp-collected",
+            isCollected
+        );
+
+
+        if (
+            isCollected
+        ) {
+
+            stampCircle.innerHTML =
+                '<i class="fa-solid fa-check"></i>';
+
+        } else {
+
+            stampCircle.innerHTML =
+                "<span>" +
+                i +
+                "</span>";
+
+        }
+
     }
 
-    .page {
-        width: 100%;
-        max-width: 760px;
+
+    // =================================
+    // UPDATE STAMP DATES
+    // =================================
+
+    for (
+        let i = 1;
+        i <= TOTAL_STAMPS;
+        i++
+    ) {
+
+        const dateElement =
+            document.getElementById(
+                "stampDate" + i
+            );
+
+        if (
+            !dateElement
+        ) {
+
+            continue;
+
+        }
+
+
+        const stampDate =
+            stampDates[i - 1];
+
+
+        dateElement.textContent =
+            stampDate
+                ? formatStampDate(
+                    stampDate
+                )
+                : "--";
+
     }
 
-    .premium-card {
-        padding: 34px;
-        border-radius: 32px;
+
+    // =================================
+    // UPDATE REWARD
+    // =================================
+
+    checkRewardStatus(
+        stampCount
+    );
+
+
+    // =================================
+    // GLOBAL STAMP COUNT
+    // =================================
+
+    window.rioCurrentStamps =
+        stampCount;
+
+
+    return stampCount;
+
+}
+
+
+// =====================================
+// FORMAT STAMP DATE
+// =====================================
+
+function formatStampDate(
+    dateValue
+) {
+
+    const date =
+        parseFirebaseDate(
+            dateValue
+        );
+
+    if (
+        !date
+    ) {
+
+        return "--";
+
     }
 
-    .brand-title {
-        font-size: 40px;
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short"
+        }
+    );
+
+}
+
+
+// =====================================
+// CHECK REWARD STATUS
+// =====================================
+
+function checkRewardStatus(
+    stampCount
+) {
+
+    const rewardCircle =
+        document.getElementById(
+            "rewardCircle"
+        );
+
+    if (
+        !rewardCircle
+    ) {
+
+        return;
+
     }
 
-    .brand-subtitle {
-        font-size: 14px;
+
+    const isUnlocked =
+        Number(
+            stampCount
+        ) >=
+        TOTAL_STAMPS;
+
+
+    rewardCircle.classList.toggle(
+        "active",
+        isUnlocked
+    );
+
+    rewardCircle.classList.toggle(
+        "reward-unlocked",
+        isUnlocked
+    );
+
+
+    rewardCircle.setAttribute(
+        "aria-label",
+        isUnlocked
+            ? "Free Veg Maggi reward unlocked"
+            : "Reward locked"
+    );
+
+}
+
+
+// =====================================
+// GET LAST STAMP DATE
+// =====================================
+
+function getLastStampDate(
+    userData
+) {
+
+    const stampDates =
+        getValidStampDates(
+            userData.stampDates
+        );
+
+
+    if (
+        stampDates.length === 0
+    ) {
+
+        return null;
+
     }
 
-    .avatar-frame {
-        width: 150px;
-        height: 150px;
+
+    return stampDates[
+        stampDates.length - 1
+    ];
+
+}
+
+
+// =====================================
+// CALCULATE DAYS PASSED
+// =====================================
+
+function calculateDaysPassed(
+    startDate
+) {
+
+    if (
+        !startDate
+    ) {
+
+        return 0;
+
     }
 
-    .customer-name {
-        font-size: 30px;
+
+    const now =
+        Date.now();
+
+
+    const difference =
+        Math.max(
+            0,
+            now -
+            startDate.getTime()
+        );
+
+
+    return Math.floor(
+        difference /
+        (
+            1000 *
+            60 *
+            60 *
+            24
+        )
+    );
+
+}
+
+
+// =====================================
+// LOAD COUNTDOWN DATA
+// =====================================
+
+function renderCountdownData(
+    userData
+) {
+
+    const stampCount =
+        getStampCount(
+            userData
+        );
+
+
+    // =================================
+    // COMPLETED REWARD
+    // =================================
+
+    if (
+        stampCount >=
+        TOTAL_STAMPS
+    ) {
+
+        updateCountdownDisplay(
+            0,
+            true
+        );
+
+        window.rioCountdownDays =
+            0;
+
+        return;
+
     }
 
-    .game-button {
-        min-width: 250px;
-        padding:
-            14px
-            24px;
+
+    // =================================
+    // GET LAST STAMP
+    // =================================
+
+    const lastStampDate =
+        getLastStampDate(
+            userData
+        );
+
+
+    // =================================
+    // NO STAMP YET
+    // =================================
+
+    if (
+        !lastStampDate
+    ) {
+
+        updateCountdownDisplay(
+            STAMP_RESET_DAYS,
+            false
+        );
+
+        window.rioCountdownDays =
+            STAMP_RESET_DAYS;
+
+        return;
+
     }
 
-    .stamp-circle,
-    .reward-circle {
-        width: 58px;
-        height: 58px;
-        min-width: 58px;
+
+    // =================================
+    // DAYS PASSED
+    // =================================
+
+    const daysPassed =
+        calculateDaysPassed(
+            lastStampDate
+        );
+
+
+    // =================================
+    // REMAINING DAYS
+    // =================================
+
+    const remainingDays =
+        Math.max(
+            0,
+            STAMP_RESET_DAYS -
+            daysPassed
+        );
+
+
+    // =================================
+    // UPDATE UI
+    // =================================
+
+    updateCountdownDisplay(
+        remainingDays,
+        false
+    );
+
+
+    window.rioCountdownDays =
+        remainingDays;
+
+}
+
+
+// =====================================
+// UPDATE COUNTDOWN UI
+// =====================================
+
+function updateCountdownDisplay(
+    days,
+    rewardUnlocked
+) {
+
+    const countdownBox =
+        document.querySelector(
+            ".countdown-box"
+        );
+
+    const countdownDays =
+        document.getElementById(
+            "countdownDays"
+        );
+
+
+    if (
+        !countdownDays
+    ) {
+
+        return;
+
     }
 
-    .stamp-circle {
-        font-size: 20px;
-    }
 
-    .reward-circle {
-        font-size: 9px;
-        line-height: 10px;
-    }
+    const safeDays =
+        Math.max(
+            0,
+            Number(
+                days
+            ) || 0
+        );
 
-    .quick-buttons {
-        gap: 12px;
-    }
 
-    .quick-buttons button {
-        min-height: 95px;
-        font-size: 13px;
-    }
+    countdownDays.textContent =
+        safeDays +
+        (
+            safeDays === 1
+                ? " DAY"
+                : " DAYS"
+        );
 
-    .quick-buttons button i {
-        font-size: 24px;
+
+    if (
+        countdownBox
+    ) {
+
+        countdownBox.classList.toggle(
+            "active",
+            Boolean(
+                rewardUnlocked
+            )
+        );
+
+        countdownBox.classList.toggle(
+            "reward-unlocked",
+            Boolean(
+                rewardUnlocked
+            )
+        );
+
     }
 
 }
 
 
-/* =========================================
-   DESKTOP
-   1200PX AND ABOVE
-========================================= */
+// =====================================
+// PARSE FIREBASE DATE
+// =====================================
 
-@media (min-width: 1200px) {
+function parseFirebaseDate(
+    dateValue
+) {
 
-    body {
-        padding:
-            40px
-            40px
-            130px;
+    try {
+
+        if (
+            !dateValue
+        ) {
+
+            return null;
+
+        }
+
+
+        // =================================
+        // FIREBASE TIMESTAMP
+        // =================================
+
+        if (
+            typeof dateValue.toDate ===
+            "function"
+        ) {
+
+            const date =
+                dateValue.toDate();
+
+
+            return isNaN(
+                date.getTime()
+            )
+                ? null
+                : date;
+
+        }
+
+
+        // =================================
+        // JAVASCRIPT DATE
+        // =================================
+
+        if (
+            dateValue instanceof Date
+        ) {
+
+            return isNaN(
+                dateValue.getTime()
+            )
+                ? null
+                : dateValue;
+
+        }
+
+
+        // =================================
+        // SERIALIZED FIREBASE TIMESTAMP
+        // =================================
+
+        if (
+            typeof dateValue ===
+            "object" &&
+            dateValue.seconds !==
+            undefined
+        ) {
+
+            const seconds =
+                Number(
+                    dateValue.seconds
+                );
+
+
+            const nanoseconds =
+                Number(
+                    dateValue.nanoseconds ||
+                    0
+                );
+
+
+            const date =
+                new Date(
+                    (
+                        seconds *
+                        1000
+                    ) +
+                    Math.floor(
+                        nanoseconds /
+                        1000000
+                    )
+                );
+
+
+            return isNaN(
+                date.getTime()
+            )
+                ? null
+                : date;
+
+        }
+
+
+        // =================================
+        // STRING / NUMBER
+        // =================================
+
+        const date =
+            new Date(
+                dateValue
+            );
+
+
+        return isNaN(
+            date.getTime()
+        )
+            ? null
+            : date;
+
     }
 
-    .page {
-        width: 100%;
-        max-width: 850px;
-    }
+    catch (
+        error
+    ) {
 
-    .premium-card {
-        padding: 38px;
-        border-radius: 34px;
-    }
+        console.error(
+            "Date parsing failed:",
+            error
+        );
 
-    .brand-title {
-        font-size: 44px;
-    }
+        return null;
 
-    .brand-subtitle {
-        font-size: 15px;
-    }
-
-    .avatar-frame {
-        width: 165px;
-        height: 165px;
-    }
-
-    .customer-name {
-        font-size: 34px;
-    }
-
-    .customer-id {
-        font-size: 16px;
-    }
-
-    .game-button {
-        min-width: 270px;
-        padding:
-            15px
-            26px;
-    }
-
-    .game-button .game-text {
-        font-size: 14px;
-    }
-
-    .stamp-circle,
-    .reward-circle {
-        width: 64px;
-        height: 64px;
-        min-width: 64px;
-    }
-
-    .stamp-circle {
-        font-size: 22px;
-    }
-
-    .reward-circle {
-        font-size: 10px;
-        line-height: 11px;
-    }
-
-    .stamp-date {
-        font-size: 9px;
-    }
-
-    .quick-buttons {
-        gap: 14px;
-    }
-
-    .quick-buttons button {
-        min-height: 105px;
-        font-size: 14px;
-    }
-
-    .quick-buttons button i {
-        font-size: 26px;
     }
 
 }
 
 
-/* =========================================
-   ULTRA WIDE DESKTOP
-   1600PX AND ABOVE
-========================================= */
+// =====================================
+// CHECK & RESET EXPIRED CYCLE
+// =====================================
 
-@media (min-width: 1600px) {
+async function resetExpiredCycleIfNeeded(
+    userRef,
+    userData
+) {
 
-    .page {
-        max-width: 900px;
+    const stampCount =
+        getStampCount(
+            userData
+        );
+
+
+    // =================================
+    // NEVER RESET COMPLETED REWARD
+    // =================================
+
+    if (
+        stampCount >=
+        TOTAL_STAMPS
+    ) {
+
+        return {
+            data: userData,
+            reset: false
+        };
+
     }
 
-    .premium-card {
-        padding: 42px;
+
+    // =================================
+    // GET LAST STAMP DATE
+    // =================================
+
+    const lastStampDate =
+        getLastStampDate(
+            userData
+        );
+
+
+    if (
+        !lastStampDate
+    ) {
+
+        return {
+            data: userData,
+            reset: false
+        };
+
+    }
+
+
+    // =================================
+    // CHECK EXPIRY
+    // =================================
+
+    const daysPassed =
+        calculateDaysPassed(
+            lastStampDate
+        );
+
+
+    if (
+        daysPassed <
+        STAMP_RESET_DAYS
+    ) {
+
+        return {
+            data: userData,
+            reset: false
+        };
+
+    }
+
+
+    // =================================
+    // RESET LOYALTY CYCLE
+    // =================================
+
+    const resetData = {
+
+        stamps: 0,
+
+        currentStamps: 0,
+
+        stampDates: []
+
+    };
+
+
+    await updateDoc(
+        userRef,
+        resetData
+    );
+
+
+    console.log(
+        "40-day loyalty cycle expired. Stamps reset to 0."
+    );
+
+
+    return {
+        data: {
+            ...userData,
+            ...resetData
+        },
+        reset: true
+    };
+
+}
+
+
+// =====================================
+// LOAD ALL CUSTOMER DATA
+// =====================================
+
+async function loadCardData(
+    user
+) {
+
+    try {
+
+        // =================================
+        // ONLY ONE FIRESTORE READ
+        // =================================
+
+        const customerDocument =
+            await getCustomerDocument(
+                user
+            );
+
+
+        if (
+            !customerDocument
+        ) {
+
+            console.warn(
+                "Customer profile not found."
+            );
+
+            return;
+
+        }
+
+
+        let {
+            ref: userRef,
+            data: userData
+        } =
+            customerDocument;
+
+
+        // =================================
+        // CHECK 40-DAY EXPIRY
+        // =================================
+
+        const cycleResult =
+            await resetExpiredCycleIfNeeded(
+                userRef,
+                userData
+            );
+
+
+        userData =
+            cycleResult.data;
+
+
+        // =================================
+        // CUSTOMER PROFILE
+        // =================================
+
+        renderCustomerData(
+            user,
+            userData
+        );
+
+
+        // =================================
+        // STAMPS
+        // =================================
+
+        renderStampData(
+            userData
+        );
+
+
+        // =================================
+        // COUNTDOWN
+        // =================================
+
+        renderCountdownData(
+            userData
+        );
+
+
+        console.log(
+            "Rio Maggi Point card data loaded successfully."
+        );
+
+
+        console.log(
+            "Current Stamps:",
+            window.rioCurrentStamps +
+            " / " +
+            TOTAL_STAMPS
+        );
+
+
+        console.log(
+            "Countdown:",
+            window.rioCountdownDays,
+            "Days"
+        );
+
+    }
+
+    catch (
+        error
+    ) {
+
+        console.error(
+            "Card data loading failed:",
+            error
+        );
+
     }
 
 }
 
 
-/* =========================================
-   REDUCED MOTION
-========================================= */
+// =====================================
+// REFRESH CARD DATA
+// =====================================
 
-@media (prefers-reduced-motion: reduce) {
+async function refreshCardData() {
 
-    *,
-    *::before,
-    *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
-        scroll-behavior: auto !important;
+    if (
+        !window.currentRioUser
+    ) {
+
+        return;
+
+    }
+
+
+    await loadCardData(
+        window.currentRioUser
+    );
+
+}
+
+
+// =====================================
+// START COUNTDOWN REFRESH
+// =====================================
+
+function startCountdownRefresh() {
+
+    // =================================
+    // PREVENT DUPLICATE INTERVAL
+    // =================================
+
+    if (
+        countdownInterval
+    ) {
+
+        clearInterval(
+            countdownInterval
+        );
+
+    }
+
+
+    countdownInterval =
+        setInterval(
+            refreshCardData,
+            60 *
+            1000
+        );
+
+}
+
+
+// =====================================
+// STOP COUNTDOWN REFRESH
+// =====================================
+
+function stopCountdownRefresh() {
+
+    if (
+        countdownInterval
+    ) {
+
+        clearInterval(
+            countdownInterval
+        );
+
+        countdownInterval =
+            null;
+
     }
 
 }
 
 
-/* =========================================
-   FINAL CARD POLISH
-========================================= */
+// =====================================
+// FIREBASE AUTHENTICATION
+// =====================================
 
-.premium-card {
-    isolation: isolate;
-}
+onAuthStateChanged(
+    auth,
+    async (user) => {
 
-.card-glow {
-    pointer-events: none;
-}
+        // =================================
+        // USER LOGGED OUT
+        // =================================
 
-.card-shine {
-    z-index: 3;
-    pointer-events: none;
-}
+        if (
+            !user
+        ) {
 
-.game-button {
-    position: relative;
-    z-index: 4;
-}
+            window.currentRioUser =
+                null;
 
 
-/* =========================================
-   ACCESSIBILITY FOCUS
-========================================= */
-
-.game-button:focus-visible,
-.quick-buttons button:focus-visible,
-.bottom-nav a:focus-visible {
-    outline:
-        2px solid
-        var(--gold-light);
-
-    outline-offset: 3px;
-}
+            stopCountdownRefresh();
 
 
-/* =========================================
-   PREVENT OVERFLOW
-========================================= */
-
-.premium-card,
-.quick-buttons,
-.stamp-section,
-.stamp-row {
-    max-width: 100%;
-}
+            console.warn(
+                "No logged-in user found."
+            );
 
 
-/* =========================================
-   END OF CARD.CSS
-   PART 3 OF 3
-========================================= */
+            if (
+                !window.location.pathname
+                    .endsWith(
+                        "login.html"
+                    )
+            ) {
+
+                window.location.href =
+                    "login.html";
+
+            }
+
+
+            return;
+
+        }
+
+
+        // =================================
+        // SAVE USER
+        // =================================
+
+        window.currentRioUser =
+            user;
+
+
+        console.log(
+            "LOGIN UID:",
+            user.uid
+        );
+
+
+        // =================================
+        // PREVENT DUPLICATE INITIALIZATION
+        // =================================
+
+        if (
+            isCardInitialized
+        ) {
+
+            await refreshCardData();
+
+            return;
+
+        }
+
+
+        isCardInitialized =
+            true;
+
+
+        // =================================
+        // LOAD COMPLETE CARD
+        // =================================
+
+        await loadCardData(
+            user
+        );
+
+
+        // =================================
+        // START REFRESH
+        // =================================
+
+        startCountdownRefresh();
+
+
+        console.log(
+            "================================"
+        );
+
+        console.log(
+            "🍜 Rio Maggi Point"
+        );
+
+        console.log(
+            "Premium Loyalty Card Loaded Successfully"
+        );
+
+        console.log(
+            "Customer UID:",
+            user.uid
+        );
+
+        console.log(
+            "================================"
+        );
+
+    }
+);
+
+
+// =====================================
+// GLOBAL REFRESH FUNCTION
+// =====================================
+
+window.refreshRioCard =
+    refreshCardData;
+
+
+// =====================================
+// FINAL READY MESSAGE
+// =====================================
+
+console.log(
+    "Rio Maggi Point Premium Loyalty Card System Ready"
+);
