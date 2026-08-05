@@ -1,7 +1,7 @@
 // =====================================================
 // RIO MAGGI POINT
 // PREMIUM ADMIN CUSTOMER MANAGER
-// admin-customers.js — PART 1 OF 4
+// admin-customers.js — PART 1 OF 4 (FIXED)
 //
 // RESPONSIBILITY:
 // - Firebase Configuration Import
@@ -11,24 +11,16 @@
 // - DOM References
 // - Global Application State
 // - Safe Customer Helpers
-// - Date Helpers
-// - Reward Helpers
+// - Loyalty Rule Helpers Foundation
 // - Modal Foundation
 //
-// IMPORTANT:
-// This file is ONE ES MODULE.
+// NO:
+// - Event Listeners
+// - Auth Listener
+// - Customer Loading
+// - Table Rendering
+// - Action Handlers
 //
-// PART 1 MUST NOT contain:
-// - Event listeners
-// - Authentication listener
-// - Customer loading
-// - Table rendering
-// - Search logic
-// - Customer action handlers
-// - Auto refresh
-// - Duplicate declarations
-//
-// Those responsibilities belong to PART 2, PART 3 and PART 4.
 // =====================================================
 
 
@@ -37,8 +29,8 @@
 // =====================================================
 
 import {
-  auth,
-  db
+    auth,
+    db
 } from "./firebase-config.js";
 
 
@@ -47,24 +39,25 @@ import {
 // =====================================================
 
 import {
-  collection,
-  getDocs,
-  getDoc,
-  doc,
-  updateDoc,
-  deleteDoc,
-  serverTimestamp,
-  query,
-  orderBy
+    collection,
+    getDocs,
+    getDoc,
+    doc,
+    updateDoc,
+    deleteDoc,
+    serverTimestamp,
+    query,
+    orderBy,
+    addDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
 // =====================================================
-// FIREBASE AUTH IMPORTS
+// FIREBASE AUTH IMPORT
 // =====================================================
 
 import {
-  onAuthStateChanged
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 
@@ -72,19 +65,18 @@ import {
 // APPLICATION CONSTANTS
 // =====================================================
 
-// Maximum number of loyalty stamps required for one complete reward cycle.
 const MAX_STAMPS = 6;
 
-// Admin login page.
-const ADMIN_LOGIN_PAGE = "admin-login.html";
+const LOYALTY_VALIDITY_DAYS = 40;
 
-// Admin dashboard page.
-const ADMIN_DASHBOARD_PAGE = "admin-dashboard.html";
-
-// Customer Firestore collection name.
 const CUSTOMER_COLLECTION = "customers";
 
-// Customer manager auto-refresh interval.
+const STAMP_HISTORY_COLLECTION = "stampHistory";
+
+const ADMIN_LOGIN_PAGE = "admin-login.html";
+
+const ADMIN_DASHBOARD_PAGE = "admin-dashboard.html";
+
 const CUSTOMER_AUTO_REFRESH_INTERVAL = 30000;
 
 
@@ -92,68 +84,135 @@ const CUSTOMER_AUTO_REFRESH_INTERVAL = 30000;
 // DEFAULT AVATARS
 // =====================================================
 
-const DEFAULT_MALE_AVATAR = "assets/avatars/male.png";
-const DEFAULT_FEMALE_AVATAR = "assets/avatars/female.png";
+const DEFAULT_MALE_AVATAR =
+    "assets/avatars/male.png";
+
+const DEFAULT_FEMALE_AVATAR =
+    "assets/avatars/female.png";
 
 
 // =====================================================
 // DOM REFERENCES
 // =====================================================
 
-// CUSTOMER TABLE
-const customerTable = document.getElementById("customerTable");
 
-// CUSTOMER SEARCH INPUT
-const searchCustomer = document.getElementById("searchCustomer");
+// Customer table
+const customerTable =
+    document.getElementById("customerTable");
 
-// REFRESH BUTTON
-const refreshBtn = document.getElementById("refreshBtn");
 
-// STATISTICS
-const totalCustomers = document.getElementById("totalCustomers");
-const rewardReady = document.getElementById("rewardReady");
-const todayJoined = document.getElementById("todayJoined");
+// Search
+const searchCustomer =
+    document.getElementById("searchCustomer");
 
-// CUSTOMER MODAL
-const customerModal = document.getElementById("customerModal");
 
-// CLOSE MODAL BUTTON
-const closeModalBtn = document.getElementById("closeModal");
+// Refresh
+const refreshBtn =
+    document.getElementById("refreshBtn");
 
-// MODAL CUSTOMER DETAILS
-const modalPhoto = document.getElementById("modalPhoto");
-const modalName = document.getElementById("modalName");
-const modalMember = document.getElementById("modalMember");
-const modalMobile = document.getElementById("modalMobile");
-const modalStamp = document.getElementById("modalStamp");
-const modalReward = document.getElementById("modalReward");
 
-// MODAL ACTION BUTTONS
-const giveStampBtn = document.getElementById("giveStampBtn");
-const removeStampBtn = document.getElementById("removeStampBtn");
-const unlockRewardBtn = document.getElementById("unlockRewardBtn");
-const deleteCustomerBtn = document.getElementById("deleteCustomerBtn");
+// Statistics
+
+const totalCustomers =
+    document.getElementById("totalCustomers");
+
+const rewardReady =
+    document.getElementById("rewardReady");
+
+const todayJoined =
+    document.getElementById("todayJoined");
+
+
+// Modal
+
+const customerModal =
+    document.getElementById("customerModal");
+
+
+const closeModalBtn =
+    document.getElementById("closeModal");
+
+
+// Modal Details
+
+const modalPhoto =
+    document.getElementById("modalPhoto");
+
+const modalName =
+    document.getElementById("modalName");
+
+const modalMember =
+    document.getElementById("modalMember");
+
+const modalMobile =
+    document.getElementById("modalMobile");
+
+const modalStamp =
+    document.getElementById("modalStamp");
+
+const modalReward =
+    document.getElementById("modalReward");
+
+
+// Action Buttons
+
+const giveStampBtn =
+    document.getElementById("giveStampBtn");
+
+
+const removeStampBtn =
+    document.getElementById("removeStampBtn");
+
+
+const unlockRewardBtn =
+    document.getElementById("unlockRewardBtn");
+
+
+const deleteCustomerBtn =
+    document.getElementById("deleteCustomerBtn");
+
+
+// Future secure reset button
+const resetLoyaltyBtn =
+    document.getElementById("resetLoyaltyBtn");
 
 
 // =====================================================
 // GLOBAL APPLICATION STATE
 // =====================================================
 
+
 let customers = [];
+
 let selectedCustomer = null;
+
 let authenticatedUser = null;
 
+
 let customersLoading = false;
-let customerRefreshProcessing = false;
+
 let refreshProcessing = false;
 
+let customerRefreshProcessing = false;
+
+
 let customerActionProcessing = false;
+
+
 let giveStampProcessing = false;
+
 let removeStampProcessing = false;
+
 let unlockRewardProcessing = false;
+
+let resetLoyaltyProcessing = false;
+
 let deleteCustomerProcessing = false;
 
+
 let customerAutoRefreshTimer = null;
+
+
 let customerPageInitialized = false;
 
 
@@ -161,199 +220,350 @@ let customerPageInitialized = false;
 // SAFE VALUE HELPERS
 // =====================================================
 
-function getCustomerMobile(customer) {
-  if (!customer) return "-";
-  const mobile = customer.mobile || customer.phone || customer.phoneNumber || "";
-  const cleanMobile = String(mobile).trim();
-  return cleanMobile || "-";
+
+function getCustomerMobile(customer){
+
+    if(!customer) return "-";
+
+    const mobile =
+        customer.mobile ||
+        customer.phone ||
+        customer.phoneNumber ||
+        "";
+
+    return String(mobile).trim() || "-";
 }
 
-function getCustomerStamps(customer) {
-  if (!customer) return 0;
-  const stamps = Number(customer.stamps);
-  if (!Number.isFinite(stamps)) return 0;
-  return Math.min(Math.max(Math.floor(stamps), 0), MAX_STAMPS);
+
+
+function getCustomerName(customer){
+
+    if(!customer)
+        return "Unknown Customer";
+
+
+    return String(customer.name || "").trim()
+        || "Unknown Customer";
 }
 
-function getCustomerAvatar(customer) {
-  if (!customer) return DEFAULT_MALE_AVATAR;
 
-  const possiblePhotos = [
-    customer.photoURL,
-    customer.photoUrl,
-    customer.photo,
-    customer.avatar
-  ];
 
-  const validPhoto = possiblePhotos.find(
-    (photo) => typeof photo === "string" && photo.trim() !== ""
-  );
+function getCustomerMemberId(customer){
 
-  if (validPhoto) return validPhoto;
+    if(!customer)
+        return "RIO-000000";
 
-  const gender = String(customer.gender || "").trim().toLowerCase();
-  if (gender === "female" || gender === "woman" || gender === "girl") {
-    return DEFAULT_FEMALE_AVATAR;
-  }
 
-  return DEFAULT_MALE_AVATAR;
+    return String(customer.memberId || "").trim()
+        || "RIO-000000";
 }
 
-function escapeHtml(value) {
-  if (value === null || value === undefined) return "";
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+
+
+function getCustomerStamps(customer){
+
+    if(!customer)
+        return 0;
+
+
+    const value =
+        Number(customer.stamps);
+
+
+    if(!Number.isFinite(value))
+        return 0;
+
+
+    return Math.min(
+        Math.max(Math.floor(value),0),
+        MAX_STAMPS
+    );
 }
+
+
+
+function escapeHtml(value){
+
+    if(value === null || value === undefined)
+        return "";
+
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
 
 
 // =====================================================
-// DATE & REWARD HELPERS
+// AVATAR HELPER
 // =====================================================
 
-function getTodayKey() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const day = String(now.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
 
-function toSafeDate(value) {
-  if (value === null || value === undefined || value === "") return null;
+function getCustomerAvatar(customer){
 
-  if (typeof value.toDate === "function") {
-    try {
-      const date = value.toDate();
-      return (date instanceof Date && !Number.isNaN(date.getTime())) ? date : null;
-    } catch (error) {
-      console.warn("⚠️ Unable to convert Firestore timestamp.", error);
-      return null;
+    if(!customer)
+        return DEFAULT_MALE_AVATAR;
+
+
+    const photos = [
+        customer.photoURL,
+        customer.photoUrl,
+        customer.photo,
+        customer.avatar
+    ];
+
+
+    const valid =
+        photos.find(
+            item =>
+            typeof item === "string" &&
+            item.trim() !== ""
+        );
+
+
+    if(valid)
+        return valid;
+
+
+
+    const gender =
+        String(customer.gender || "")
+        .toLowerCase();
+
+
+    if(
+        gender === "female" ||
+        gender === "girl" ||
+        gender === "woman"
+    ){
+        return DEFAULT_FEMALE_AVATAR;
     }
-  }
 
-  if (value instanceof Date) {
-    return !Number.isNaN(value.getTime()) ? value : null;
-  }
 
-  const parsedDate = new Date(value);
-  if (Number.isNaN(parsedDate.getTime())) return null;
-
-  return parsedDate;
-}
-
-function isCustomerCreatedToday(customer) {
-  if (!customer) return false;
-  const createdDate = toSafeDate(customer.createdAt);
-  if (!createdDate) return false;
-
-  const today = new Date();
-  return (
-    createdDate.getFullYear() === today.getFullYear() &&
-    createdDate.getMonth() === today.getMonth() &&
-    createdDate.getDate() === today.getDate()
-  );
-}
-
-function isRewardReady(customer) {
-  if (!customer) return false;
-  return customer.rewardUnlocked === true || getCustomerStamps(customer) >= MAX_STAMPS;
-}
-
-function hasStampToday(customer) {
-  if (!customer) return false;
-  const todayKey = getTodayKey();
-  return customer.dailyStampDate === todayKey || customer.lastStampDate === todayKey;
-}
-
-function getCustomerName(customer) {
-  if (!customer) return "Unknown Customer";
-  const name = String(customer.name || "").trim();
-  return name || "Unknown Customer";
-}
-
-function getCustomerMemberId(customer) {
-  if (!customer) return "RIO-000000";
-  const memberId = String(customer.memberId || "").trim();
-  return memberId || "RIO-000000";
+    return DEFAULT_MALE_AVATAR;
 }
 
 
 // =====================================================
-// MODAL FOUNDATION & CONTROLS
+// DATE HELPERS
 // =====================================================
 
-function resetCustomerModal() {
-  selectedCustomer = null;
 
-  if (modalPhoto) {
-    modalPhoto.src = DEFAULT_MALE_AVATAR;
-    modalPhoto.alt = "Customer Photo";
-    modalPhoto.dataset.fallbackApplied = "false";
-  }
+function getTodayKey(){
 
-  if (modalName) modalName.textContent = "Customer Name";
-  if (modalMember) modalMember.textContent = "RIO-000000";
-  if (modalMobile) modalMobile.textContent = "-";
-  if (modalStamp) modalStamp.textContent = `0 / ${MAX_STAMPS}`;
-  if (modalReward) modalReward.textContent = "Locked";
+    const date = new Date();
 
-  if (giveStampBtn) giveStampBtn.disabled = true;
-  if (removeStampBtn) removeStampBtn.disabled = true;
-  if (unlockRewardBtn) unlockRewardBtn.disabled = true;
-  if (deleteCustomerBtn) deleteCustomerBtn.disabled = true;
+
+    return `${date.getFullYear()}-${
+        String(date.getMonth()+1).padStart(2,"0")
+    }-${
+        String(date.getDate()).padStart(2,"0")
+    }`;
 }
 
-function setCustomerModalVisible(visible) {
-  if (!customerModal) return;
-  customerModal.style.display = visible ? "flex" : "none";
+
+
+function toSafeDate(value){
+
+    if(!value)
+        return null;
+
+
+    if(typeof value.toDate === "function"){
+
+        const date = value.toDate();
+
+        return Number.isNaN(date.getTime())
+            ? null
+            : date;
+    }
+
+
+    const date = new Date(value);
+
+
+    return Number.isNaN(date.getTime())
+        ? null
+        : date;
 }
 
-// Global modal close function (Single Declaration)
-function closeCustomerModal() {
-  setCustomerModalVisible(false);
-  resetCustomerModal();
+
+
+// =====================================================
+// LOYALTY FOUNDATION HELPERS
+// =====================================================
+
+
+function isRewardReady(customer){
+
+    if(!customer)
+        return false;
+
+
+    return (
+        customer.rewardUnlocked === true ||
+        getCustomerStamps(customer) >= MAX_STAMPS
+    );
 }
 
-if (customerModal) {
-  customerModal.style.display = "none";
+
+
+function hasStampToday(customer){
+
+    if(!customer)
+        return false;
+
+
+    const today =
+        getTodayKey();
+
+
+    return (
+        customer.dailyStampDate === today ||
+        customer.lastStampDate === today
+    );
 }
+
+
+
+function isCycleExpired(customer){
+
+    if(!customer)
+        return false;
+
+
+    const expiry =
+        toSafeDate(customer.cycleExpiryAt);
+
+
+    if(!expiry)
+        return false;
+
+
+    return expiry.getTime() < Date.now();
+}
+
+
+
+function calculateCycleExpiry(startDate){
+
+    const date =
+        new Date(startDate);
+
+
+    date.setDate(
+        date.getDate()+LOYALTY_VALIDITY_DAYS
+    );
+
+
+    return date;
+}
+
+
+
+// =====================================================
+// MODAL FOUNDATION
+// =====================================================
+
+
+function setCustomerModalVisible(status){
+
+    if(!customerModal)
+        return;
+
+
+    customerModal.style.display =
+        status ? "flex" : "none";
+}
+
+
+
+function resetCustomerModal(){
+
+    selectedCustomer = null;
+
+
+    if(modalPhoto){
+
+        modalPhoto.src =
+            DEFAULT_MALE_AVATAR;
+
+        modalPhoto.alt =
+            "Customer Photo";
+    }
+
+
+    if(modalName)
+        modalName.textContent =
+        "Customer Name";
+
+
+    if(modalMember)
+        modalMember.textContent =
+        "RIO-000000";
+
+
+    if(modalMobile)
+        modalMobile.textContent =
+        "-";
+
+
+    if(modalStamp)
+        modalStamp.textContent =
+        `0 / ${MAX_STAMPS}`;
+
+
+    if(modalReward)
+        modalReward.textContent =
+        "Locked";
+}
+
+
+
+function closeCustomerModal(){
+
+    setCustomerModalVisible(false);
+
+    resetCustomerModal();
+}
+
+
+if(customerModal){
+
+    customerModal.style.display="none";
+
+}
+
 
 resetCustomerModal();
 
 
-// =====================================================
-// PART 1 DEVELOPMENT LOG
-// =====================================================
 
-console.log("========================================");
-console.log("🍜 RIO MAGGI POINT - Admin Customers JS Part 1 Loaded");
-console.log("========================================");
+console.log(
+"🍜 RIO MAGGI POINT - Admin Customers Part 1 Fixed Loaded"
+);
 
-// =====================================================
-// END OF PART 1
-// =====================================================
+
+// END PART 1
 // =====================================================
 // RIO MAGGI POINT
 // PREMIUM ADMIN CUSTOMER MANAGER
-// admin-customers.js — PART 2 OF 4
+// admin-customers.js — PART 2 OF 4 (FIXED)
 //
 // RESPONSIBILITY:
 // - Load Customers From Firestore
 // - Sort Customers
-// - Customer Table Rendering
-// - Customer Search
-// - Customer Statistics
+// - Render Customer Table
+// - Search Filtering
+// - Statistics Update
 // - Fresh Customer Fetch
-// - Local Customer State Update
-// - Customer Modal Data Update
+// - Local State Update
+// - Modal Data Update
 //
-// IMPORTANT:
-// Continuation of PART 1.
-// No duplicate imports, constants, or global state.
 // =====================================================
 
 
@@ -361,1050 +571,2205 @@ console.log("========================================");
 // LOAD CUSTOMERS FROM FIRESTORE
 // =====================================================
 
-async function loadCustomers() {
-  if (customersLoading) return;
+async function loadCustomers(){
 
-  customersLoading = true;
+    if(customersLoading)
+        return;
 
-  if (customerTable) {
-    customerTable.innerHTML = `
-      <tr>
-        <td colspan="7" class="empty-table-message">
-          Loading Customers...
-        </td>
-      </tr>
-    `;
-  }
 
-  try {
-    const customersRef = collection(db, CUSTOMER_COLLECTION);
-    let snapshot;
+    customersLoading = true;
 
-    try {
-      const orderedQuery = query(customersRef, orderBy("createdAt", "desc"));
-      snapshot = await getDocs(orderedQuery);
-    } catch (orderError) {
-      console.warn("⚠️ Customer ordered query failed. Falling back to unordered query.", orderError);
-      snapshot = await getDocs(customersRef);
+
+    if(customerTable){
+
+        customerTable.innerHTML = `
+            <tr>
+                <td colspan="7"
+                class="empty-table-message">
+                    Loading Customers...
+                </td>
+            </tr>
+        `;
     }
 
-    const loadedCustomers = [];
 
-    snapshot.forEach((customerDoc) => {
-      loadedCustomers.push({
-        ...customerDoc.data(),
-        uid: customerDoc.id
-      });
-    });
+    try{
 
-    // Safe Local Sort (Newest First)
-    loadedCustomers.sort((customerA, customerB) => {
-      const dateA = toSafeDate(customerA.createdAt);
-      const dateB = toSafeDate(customerB.createdAt);
 
-      if (!dateA && !dateB) return 0;
-      if (!dateA) return 1;
-      if (!dateB) return -1;
+        const customerRef =
+            collection(
+                db,
+                CUSTOMER_COLLECTION
+            );
 
-      return dateB.getTime() - dateA.getTime();
-    });
 
-    customers = loadedCustomers;
+        let snapshot;
 
-    updateCustomerStats();
-    refreshCustomerTable();
 
-    // Restore selected customer if modal is open
-    if (selectedCustomer && selectedCustomer.uid) {
-      const refreshedCustomer = customers.find(
-        (customer) => customer.uid === selectedCustomer.uid
-      );
+        try{
 
-      if (refreshedCustomer) {
-        selectedCustomer = refreshedCustomer;
-        updateCustomerModal(refreshedCustomer, false);
-      } else {
-        closeCustomerModal();
-      }
+            const orderedQuery =
+                query(
+                    customerRef,
+                    orderBy(
+                        "createdAt",
+                        "desc"
+                    )
+                );
+
+
+            snapshot =
+                await getDocs(
+                    orderedQuery
+                );
+
+
+        }catch(error){
+
+
+            console.warn(
+                "Ordered customer fetch failed. Using fallback.",
+                error
+            );
+
+
+            snapshot =
+                await getDocs(
+                    customerRef
+                );
+
+        }
+
+
+
+        const loadedCustomers = [];
+
+
+
+        snapshot.forEach(item=>{
+
+
+            loadedCustomers.push({
+
+                ...item.data(),
+
+                uid:item.id
+
+            });
+
+
+        });
+
+
+
+        // Safe local sorting
+
+        loadedCustomers.sort(
+            (a,b)=>{
+
+
+                const dateA =
+                    toSafeDate(
+                        a.createdAt
+                    );
+
+
+                const dateB =
+                    toSafeDate(
+                        b.createdAt
+                    );
+
+
+                if(!dateA && !dateB)
+                    return 0;
+
+
+                if(!dateA)
+                    return 1;
+
+
+                if(!dateB)
+                    return -1;
+
+
+                return (
+                    dateB.getTime()
+                    -
+                    dateA.getTime()
+                );
+
+            }
+        );
+
+
+
+        customers =
+            loadedCustomers;
+
+
+
+        updateCustomerStats();
+
+
+        refreshCustomerTable();
+
+
+
+        // Restore modal customer
+
+        if(
+            selectedCustomer &&
+            selectedCustomer.uid
+        ){
+
+
+            const updated =
+                customers.find(
+                    item =>
+                    item.uid === selectedCustomer.uid
+                );
+
+
+
+            if(updated){
+
+                selectedCustomer =
+                    updated;
+
+
+                updateCustomerModal(
+                    updated,
+                    false
+                );
+
+            }
+            else{
+
+                closeCustomerModal();
+
+            }
+
+        }
+
+
+
+        console.log(
+            `✅ ${customers.length} Customers Loaded`
+        );
+
+
+    }catch(error){
+
+
+        console.error(
+            "❌ Customer Load Error:",
+            error
+        );
+
+
+        customers=[];
+
+
+        updateCustomerStats();
+
+
+
+        if(customerTable){
+
+            customerTable.innerHTML=`
+
+            <tr>
+                <td colspan="7"
+                class="empty-table-message">
+
+                Unable To Load Customers
+
+                <br>
+
+                <small>
+                Please refresh again.
+                </small>
+
+                </td>
+            </tr>
+
+            `;
+        }
+
+
+    }
+    finally{
+
+        customersLoading=false;
+
     }
 
-    console.log(`✅ ${customers.length} customers loaded`);
-  } catch (error) {
-    console.error("❌ Load Customers Error:", error);
-    customers = [];
-    updateCustomerStats();
-
-    if (customerTable) {
-      customerTable.innerHTML = `
-        <tr>
-          <td colspan="7" class="empty-table-message">
-            Unable To Load Customers<br>
-            <small>Please refresh and try again.</small>
-          </td>
-        </tr>
-      `;
-    }
-  } finally {
-    customersLoading = false;
-  }
 }
+
+
 
 
 // =====================================================
 // CREATE CUSTOMER TABLE ROW
 // =====================================================
 
-function createCustomerRow(customer) {
-  if (!customerTable || !customer) return;
+function createCustomerRow(customer){
 
-  const uid = String(customer.uid || "");
-  if (!uid) return;
 
-  const name = getCustomerName(customer);
-  const memberId = getCustomerMemberId(customer);
-  const mobile = getCustomerMobile(customer);
-  const stamps = getCustomerStamps(customer);
-  const rewardReadyStatus = isRewardReady(customer);
-  const avatar = getCustomerAvatar(customer);
+    if(!customerTable || !customer)
+        return;
 
-  const tr = document.createElement("tr");
 
-  // Photo Cell
-  const photoCell = document.createElement("td");
-  const photo = document.createElement("img");
-  photo.src = avatar;
-  photo.alt = `${name} Photo`;
-  photo.loading = "lazy";
-  photo.dataset.fallbackApplied = "false";
-  photo.onerror = () => {
-    if (photo.dataset.fallbackApplied === "true") return;
-    photo.dataset.fallbackApplied = "true";
-    photo.src = DEFAULT_MALE_AVATAR;
-  };
-  photoCell.appendChild(photo);
 
-  // Name Cell
-  const nameCell = document.createElement("td");
-  nameCell.textContent = name;
+    const uid =
+        String(customer.uid || "");
 
-  // Member ID Cell
-  const memberCell = document.createElement("td");
-  memberCell.textContent = memberId;
 
-  // Mobile Cell
-  const mobileCell = document.createElement("td");
-  mobileCell.textContent = mobile;
 
-  // Stamp Cell
-  const stampCell = document.createElement("td");
-  stampCell.textContent = `${stamps} / ${MAX_STAMPS}`;
+    if(!uid)
+        return;
 
-  // Reward Status Cell
-  const statusCell = document.createElement("td");
-  const statusBadge = document.createElement("span");
-  statusBadge.className = rewardReadyStatus
-    ? "customer-status ready"
-    : "customer-status locked";
-  statusBadge.textContent = rewardReadyStatus
-    ? "🟢 Reward Ready"
-    : "🔒 Locked";
-  statusCell.appendChild(statusBadge);
 
-  // Action Cell
-  const actionCell = document.createElement("td");
-  const actionButton = document.createElement("button");
-  actionButton.type = "button";
-  actionButton.className = "actionBtn";
-  actionButton.textContent = "View";
-  actionButton.dataset.uid = uid;
-  actionButton.setAttribute("aria-label", `View ${name} details`);
 
-  actionButton.addEventListener("click", () => {
-    const customerToOpen = customers.find((item) => item.uid === uid);
-    if (!customerToOpen) {
-      console.warn("⚠️ Customer not found:", uid);
-      return;
-    }
-    updateCustomerModal(customerToOpen, true);
-  });
+    const name =
+        getCustomerName(customer);
 
-  actionCell.appendChild(actionButton);
 
-  tr.append(
-    photoCell,
-    nameCell,
-    memberCell,
-    mobileCell,
-    stampCell,
-    statusCell,
-    actionCell
-  );
+    const memberId =
+        getCustomerMemberId(customer);
 
-  customerTable.appendChild(tr);
+
+    const mobile =
+        getCustomerMobile(customer);
+
+
+
+    const stamps =
+        getCustomerStamps(customer);
+
+
+
+    const rewardStatus =
+        isRewardReady(customer);
+
+
+
+    const expired =
+        isCycleExpired(customer);
+
+
+
+    const avatar =
+        getCustomerAvatar(customer);
+
+
+
+    const row =
+        document.createElement("tr");
+
+
+
+    row.innerHTML = `
+
+        <td>
+
+            <img
+            src="${escapeHtml(avatar)}"
+            alt="${escapeHtml(name)}"
+            loading="lazy"
+            class="customer-avatar">
+
+        </td>
+
+
+        <td>
+            ${escapeHtml(name)}
+        </td>
+
+
+        <td>
+            ${escapeHtml(memberId)}
+        </td>
+
+
+        <td>
+            ${escapeHtml(mobile)}
+        </td>
+
+
+        <td>
+
+            ${stamps} / ${MAX_STAMPS}
+
+            ${
+                expired
+                ?
+                `<br>
+                <small>
+                ⏳ Expired
+                </small>`
+                :
+                ""
+            }
+
+        </td>
+
+
+        <td>
+
+            <span class="
+            customer-status
+            ${rewardStatus ? "ready":"locked"}
+            ">
+
+            ${
+                rewardStatus
+                ?
+                "🟢 Reward Ready"
+                :
+                "🔒 Locked"
+            }
+
+            </span>
+
+
+        </td>
+
+
+        <td>
+
+
+            <button
+            type="button"
+            class="actionBtn"
+            data-uid="${escapeHtml(uid)}">
+
+                View
+
+            </button>
+
+
+        </td>
+
+    `;
+
+
+
+    const button =
+        row.querySelector(".actionBtn");
+
+
+
+    button?.addEventListener(
+        "click",
+        ()=>{
+
+
+            const target =
+                customers.find(
+                    item =>
+                    item.uid===uid
+                );
+
+
+            if(target){
+
+                updateCustomerModal(
+                    target,
+                    true
+                );
+
+            }
+
+
+        }
+    );
+
+
+
+    customerTable.appendChild(row);
+
 }
+
 
 
 // =====================================================
 // REFRESH CUSTOMER TABLE
 // =====================================================
 
-function refreshCustomerTable() {
-  if (!customerTable) return;
+function refreshCustomerTable(){
 
-  customerTable.innerHTML = "";
 
-  const keyword = searchCustomer
-    ? searchCustomer.value.trim().toLowerCase()
-    : "";
+    if(!customerTable)
+        return;
 
-  const filteredCustomers = customers.filter((customer) => {
-    if (!keyword) return true;
 
-    const name = String(customer.name || "").trim().toLowerCase();
-    const memberId = String(customer.memberId || "").trim().toLowerCase();
-    const mobile = getCustomerMobile(customer).toLowerCase();
-    const email = String(customer.email || "").trim().toLowerCase();
 
-    return (
-      name.includes(keyword) ||
-      memberId.includes(keyword) ||
-      mobile.includes(keyword) ||
-      email.includes(keyword)
-    );
-  });
+    customerTable.innerHTML="";
 
-  if (filteredCustomers.length === 0) {
-    customerTable.innerHTML = `
-      <tr>
-        <td colspan="7" class="empty-table-message">
-          ${keyword ? "No Customers Found" : "No Customers Available"}
+
+
+    const keyword =
+        searchCustomer
+        ?
+        searchCustomer.value
+        .trim()
+        .toLowerCase()
+        :
+        "";
+
+
+
+    const filtered =
+        customers.filter(customer=>{
+
+
+            if(!keyword)
+                return true;
+
+
+
+            const name =
+                String(customer.name||"")
+                .toLowerCase();
+
+
+
+            const email =
+                String(customer.email||"")
+                .toLowerCase();
+
+
+
+            const member =
+                String(customer.memberId||"")
+                .toLowerCase();
+
+
+
+            const mobile =
+                getCustomerMobile(customer)
+                .toLowerCase();
+
+
+
+            return (
+
+                name.includes(keyword)
+                ||
+                email.includes(keyword)
+                ||
+                member.includes(keyword)
+                ||
+                mobile.includes(keyword)
+
+            );
+
+
+        });
+
+
+
+    if(filtered.length===0){
+
+
+        customerTable.innerHTML=`
+
+        <tr>
+
+        <td colspan="7"
+        class="empty-table-message">
+
+        ${
+            keyword
+            ?
+            "No Customers Found"
+            :
+            "No Customers Available"
+        }
+
+
         </td>
-      </tr>
-    `;
-    return;
-  }
 
-  filteredCustomers.forEach(createCustomerRow);
+        </tr>
+
+        `;
+
+
+        return;
+
+    }
+
+
+
+    filtered.forEach(
+        createCustomerRow
+    );
+
 }
+
+
+
 
 
 // =====================================================
 // UPDATE CUSTOMER STATISTICS
 // =====================================================
 
-function updateCustomerStats() {
-  if (totalCustomers) {
-    totalCustomers.textContent = String(customers.length);
-  }
+function updateCustomerStats(){
 
-  const readyCount = customers.filter((customer) => isRewardReady(customer)).length;
-  if (rewardReady) {
-    rewardReady.textContent = String(readyCount);
-  }
 
-  const todayCount = customers.filter((customer) => isCustomerCreatedToday(customer)).length;
-  if (todayJoined) {
-    todayJoined.textContent = String(todayCount);
-  }
+    if(totalCustomers){
+
+        totalCustomers.textContent =
+            customers.length;
+
+    }
+
+
+
+    if(rewardReady){
+
+
+        rewardReady.textContent =
+
+            customers.filter(
+                customer =>
+                isRewardReady(customer)
+            ).length;
+
+
+    }
+
+
+
+    if(todayJoined){
+
+
+        const today =
+            new Date();
+
+
+
+        const count =
+            customers.filter(customer=>{
+
+
+                const created =
+                    toSafeDate(
+                        customer.createdAt
+                    );
+
+
+                if(!created)
+                    return false;
+
+
+
+                return (
+
+                    created.getDate()
+                    ===
+                    today.getDate()
+
+                    &&
+                    created.getMonth()
+                    ===
+                    today.getMonth()
+
+                    &&
+                    created.getFullYear()
+                    ===
+                    today.getFullYear()
+
+                );
+
+
+            }).length;
+
+
+
+        todayJoined.textContent =
+            count;
+
+    }
+
 }
 
 
+
+
+
 // =====================================================
-// GET FRESH CUSTOMER FROM FIRESTORE
+// GET FRESH CUSTOMER
 // =====================================================
 
-async function getFreshCustomer(uid) {
-  if (!uid) return null;
+async function getFreshCustomer(uid){
 
-  const customerRef = doc(db, CUSTOMER_COLLECTION, uid);
-  const snapshot = await getDoc(customerRef);
 
-  if (!snapshot.exists()) return null;
+    if(!uid)
+        return null;
 
-  return {
-    ...snapshot.data(),
-    uid: snapshot.id
-  };
+
+
+    const ref =
+        doc(
+            db,
+            CUSTOMER_COLLECTION,
+            uid
+        );
+
+
+
+    const snap =
+        await getDoc(ref);
+
+
+
+    if(!snap.exists())
+        return null;
+
+
+
+    return {
+
+        ...snap.data(),
+
+        uid:snap.id
+
+    };
+
+
 }
+
+
+
 
 
 // =====================================================
 // UPDATE LOCAL CUSTOMER
 // =====================================================
 
-function updateLocalCustomer(updatedCustomer) {
-  if (!updatedCustomer || !updatedCustomer.uid) return false;
+function updateLocalCustomer(customer){
 
-  const index = customers.findIndex(
-    (customer) => customer.uid === updatedCustomer.uid
-  );
 
-  if (index === -1) {
-    customers.push(updatedCustomer);
-    return true;
-  }
+    if(
+        !customer ||
+        !customer.uid
+    )
+        return;
 
-  customers[index] = {
-    ...customers[index],
-    ...updatedCustomer
-  };
 
-  return true;
+
+    const index =
+        customers.findIndex(
+            item =>
+            item.uid===customer.uid
+        );
+
+
+
+    if(index===-1){
+
+        customers.push(customer);
+
+        return;
+
+    }
+
+
+
+    customers[index]={
+
+        ...customers[index],
+
+        ...customer
+
+    };
+
+
 }
 
 
+
+
+
 // =====================================================
-// UPDATE CUSTOMER MODAL
+// UPDATE CUSTOMER MODAL DATA
 // =====================================================
 
-function updateCustomerModal(customer, showModal = true) {
-  if (!customer) return;
+function updateCustomerModal(
+    customer,
+    showModal=true
+){
 
-  selectedCustomer = customer;
 
-  if (modalPhoto) {
-    modalPhoto.dataset.fallbackApplied = "false";
-    modalPhoto.src = getCustomerAvatar(customer);
-    modalPhoto.alt = `${getCustomerName(customer)} Photo`;
-  }
+    if(!customer)
+        return;
 
-  if (modalName) modalName.textContent = getCustomerName(customer);
-  if (modalMember) modalMember.textContent = getCustomerMemberId(customer);
-  if (modalMobile) modalMobile.textContent = getCustomerMobile(customer);
 
-  const stamps = getCustomerStamps(customer);
-  if (modalStamp) modalStamp.textContent = `${stamps} / ${MAX_STAMPS}`;
 
-  if (modalReward) {
-    modalReward.textContent = isRewardReady(customer) ? "Ready" : "Locked";
-  }
+    selectedCustomer =
+        customer;
 
-  if (typeof syncActionButtons === "function") {
-    syncActionButtons();
-  }
 
-  if (showModal) {
-    setCustomerModalVisible(true);
-  }
+
+    if(modalPhoto){
+
+        modalPhoto.src =
+            getCustomerAvatar(customer);
+
+        modalPhoto.alt =
+            getCustomerName(customer);
+
+    }
+
+
+
+    if(modalName)
+        modalName.textContent =
+        getCustomerName(customer);
+
+
+
+    if(modalMember)
+        modalMember.textContent =
+        getCustomerMemberId(customer);
+
+
+
+    if(modalMobile)
+        modalMobile.textContent =
+        getCustomerMobile(customer);
+
+
+
+    if(modalStamp)
+        modalStamp.textContent =
+        `${getCustomerStamps(customer)}
+        / ${MAX_STAMPS}`;
+
+
+
+    if(modalReward)
+        modalReward.textContent =
+
+        isRewardReady(customer)
+        ?
+        "Ready"
+        :
+        "Locked";
+
+
+
+    if(
+        typeof syncActionButtons === "function"
+    ){
+
+        syncActionButtons();
+
+    }
+
+
+
+    if(showModal){
+
+        setCustomerModalVisible(true);
+
+    }
+
 }
 
 
-// =====================================================
-// SEARCH EVENT LISTENER
-// =====================================================
 
-searchCustomer?.addEventListener("input", () => {
-  refreshCustomerTable();
-});
 
 
 // =====================================================
-// PART 2 PUBLIC API EXPORT
+// EXPORT PART 2
 // =====================================================
 
 window.adminCustomers = {
-  ...(window.adminCustomers || {}),
-  loadCustomers,
-  createCustomerRow,
-  refreshCustomerTable,
-  updateCustomerStats,
-  getFreshCustomer,
-  updateLocalCustomer,
-  updateCustomerModal
+
+    ...(window.adminCustomers || {}),
+
+
+    loadCustomers,
+
+    createCustomerRow,
+
+    refreshCustomerTable,
+
+    updateCustomerStats,
+
+    getFreshCustomer,
+
+    updateLocalCustomer,
+
+    updateCustomerModal
+
 };
 
 
-// =====================================================
-// PART 2 DEVELOPMENT LOG
-// =====================================================
 
-console.log("========================================");
-console.log("🍜 RIO MAGGI POINT - Admin Customers JS Part 2 Loaded");
-console.log("========================================");
 
-// =====================================================
-// END OF PART 2
-// =====================================================
+console.log(
+"🍜 RIO MAGGI POINT - Admin Customers Part 2 Fixed Loaded"
+);
+
+
+// END PART 2
 // =====================================================
 // RIO MAGGI POINT
 // PREMIUM ADMIN CUSTOMER MANAGER
-// admin-customers.js — PART 3 OF 4
+// admin-customers.js — PART 3 OF 4 (FIXED)
 //
 // RESPONSIBILITY:
-// - Customer Modal Events
-// - Give Stamp
-// - Remove Stamp
-// - Unlock Reward
+// - Customer Actions
+// - Stamp Management
+// - Reward Unlock
+// - Loyalty Reset Foundation
 // - Delete Customer
-// - Action Button State Management
-// - Modal Close Controls
+// - Modal Controls
 //
-// IMPORTANT:
-// Continuation of PART 1 + PART 2.
-// No duplicate imports, constants, or global state.
 // =====================================================
 
 
 // =====================================================
-// ACTION BUTTON STATE HELPER
+// ACTION BUTTON STATE
 // =====================================================
 
-function syncActionButtons() {
-  const hasSelectedCustomer = Boolean(selectedCustomer && selectedCustomer.uid);
-  const stamps = hasSelectedCustomer ? getCustomerStamps(selectedCustomer) : 0;
-  const alreadyStampedToday = hasSelectedCustomer ? hasStampToday(selectedCustomer) : false;
+function syncActionButtons(){
 
-  // Give Stamp Button
-  if (giveStampBtn) {
-    giveStampBtn.disabled = (
-      !hasSelectedCustomer ||
-      customerActionProcessing ||
-      giveStampProcessing ||
-      alreadyStampedToday ||
-      stamps >= MAX_STAMPS
-    );
-  }
 
-  // Remove Stamp Button
-  if (removeStampBtn) {
-    removeStampBtn.disabled = (
-      !hasSelectedCustomer ||
-      customerActionProcessing ||
-      removeStampProcessing ||
-      stamps <= 0
-    );
-  }
+    const hasCustomer =
+        Boolean(
+            selectedCustomer &&
+            selectedCustomer.uid
+        );
 
-  // Unlock Reward Button
-  if (unlockRewardBtn) {
-    const rewardAlreadyUnlocked = (
-      selectedCustomer && selectedCustomer.rewardUnlocked === true
-    );
 
-    unlockRewardBtn.disabled = (
-      !hasSelectedCustomer ||
-      customerActionProcessing ||
-      unlockRewardProcessing ||
-      rewardAlreadyUnlocked
-    );
-  }
 
-  // Delete Customer Button
-  if (deleteCustomerBtn) {
-    deleteCustomerBtn.disabled = (
-      !hasSelectedCustomer ||
-      customerActionProcessing ||
-      deleteCustomerProcessing
-    );
-  }
+    const stamps =
+        hasCustomer
+        ?
+        getCustomerStamps(selectedCustomer)
+        :
+        0;
+
+
+
+    const stampedToday =
+        hasCustomer
+        ?
+        hasStampToday(selectedCustomer)
+        :
+        false;
+
+
+
+    if(giveStampBtn){
+
+        giveStampBtn.disabled =
+
+            !hasCustomer
+            ||
+            customerActionProcessing
+            ||
+            giveStampProcessing
+            ||
+            stampedToday
+            ||
+            stamps >= MAX_STAMPS;
+
+    }
+
+
+
+    if(removeStampBtn){
+
+        removeStampBtn.disabled =
+
+            !hasCustomer
+            ||
+            customerActionProcessing
+            ||
+            removeStampProcessing
+            ||
+            stamps <=0;
+
+    }
+
+
+
+    if(unlockRewardBtn){
+
+        unlockRewardBtn.disabled =
+
+            !hasCustomer
+            ||
+            customerActionProcessing
+            ||
+            unlockRewardProcessing
+            ||
+            selectedCustomer.rewardUnlocked===true;
+
+    }
+
+
+
+    if(resetLoyaltyBtn){
+
+        resetLoyaltyBtn.disabled =
+
+            !hasCustomer
+            ||
+            customerActionProcessing
+            ||
+            resetLoyaltyProcessing;
+
+    }
+
+
+
+    if(deleteCustomerBtn){
+
+        deleteCustomerBtn.disabled =
+
+            !hasCustomer
+            ||
+            customerActionProcessing
+            ||
+            deleteCustomerProcessing;
+
+    }
+
 }
 
 
+
+
+
 // =====================================================
-// SET ACTION BUTTON LOADING STATE
+// BUTTON LOADING
 // =====================================================
 
-function setActionButtonLoading(button, isLoading, loadingText, defaultText) {
-  if (!button) return;
+function setActionButtonLoading(
+    button,
+    loading,
+    loadingText
+){
 
-  if (isLoading) {
-    button.disabled = true;
-    button.dataset.originalContent = button.innerHTML;
-    button.innerHTML = `
-      <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-      ${loadingText}
-    `;
-    return;
-  }
 
-  button.disabled = false;
-  button.innerHTML = button.dataset.originalContent || defaultText;
+    if(!button)
+        return;
+
+
+
+    if(loading){
+
+        button.disabled=true;
+
+        button.dataset.oldText =
+            button.innerHTML;
+
+
+        button.innerHTML =
+        `
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        ${loadingText}
+        `;
+
+
+    }
+    else{
+
+
+        button.disabled=false;
+
+
+        button.innerHTML =
+            button.dataset.oldText
+            ||
+            button.innerHTML;
+
+    }
+
 }
 
 
-// =====================================================
-// REFRESH SELECTED CUSTOMER FROM FIRESTORE
-// =====================================================
 
-async function refreshSelectedCustomer() {
-  if (!selectedCustomer || !selectedCustomer.uid) return null;
-
-  const freshCustomer = await getFreshCustomer(selectedCustomer.uid);
-
-  if (!freshCustomer) {
-    closeCustomerModal();
-    return null;
-  }
-
-  selectedCustomer = freshCustomer;
-  updateLocalCustomer(freshCustomer);
-  updateCustomerModal(freshCustomer, false);
-  syncActionButtons();
-
-  return freshCustomer;
-}
 
 
 // =====================================================
 // GIVE STAMP
 // =====================================================
 
-async function giveCustomerStamp() {
-  if (giveStampProcessing) return;
+async function giveCustomerStamp(){
 
-  if (!selectedCustomer || !selectedCustomer.uid) {
-    alert("Please select a customer first.");
-    return;
-  }
 
-  giveStampProcessing = true;
-  customerActionProcessing = true;
-  syncActionButtons();
+    if(giveStampProcessing)
+        return;
 
-  setActionButtonLoading(giveStampBtn, true, "Adding...", "➕ Give Stamp");
 
-  try {
-    const customer = await getFreshCustomer(selectedCustomer.uid);
 
-    if (!customer) {
-      alert("Customer no longer exists.");
-      closeCustomerModal();
-      return;
-    }
+    if(!selectedCustomer)
+        return;
 
-    if (hasStampToday(customer)) {
-      alert("This customer has already received today's stamp.");
-      selectedCustomer = customer;
-      updateLocalCustomer(customer);
-      updateCustomerModal(customer, false);
-      return;
-    }
 
-    const currentStamps = getCustomerStamps(customer);
 
-    if (currentStamps >= MAX_STAMPS) {
-      alert("This customer already has the maximum number of stamps.");
-      selectedCustomer = customer;
-      updateLocalCustomer(customer);
-      updateCustomerModal(customer, false);
-      return;
-    }
+    giveStampProcessing=true;
 
-    const newStampCount = Math.min(currentStamps + 1, MAX_STAMPS);
-    const todayKey = getTodayKey();
-    const customerRef = doc(db, CUSTOMER_COLLECTION, customer.uid);
+    customerActionProcessing=true;
 
-    await updateDoc(customerRef, {
-      stamps: newStampCount,
-      dailyStampDate: todayKey,
-      lastStampDate: todayKey,
-      updatedAt: serverTimestamp()
-    });
-
-    const updatedCustomer = {
-      ...customer,
-      stamps: newStampCount,
-      dailyStampDate: todayKey,
-      lastStampDate: todayKey
-    };
-
-    selectedCustomer = updatedCustomer;
-    updateLocalCustomer(updatedCustomer);
-
-    updateCustomerStats();
-    refreshCustomerTable();
-    updateCustomerModal(updatedCustomer, false);
     syncActionButtons();
 
-    console.log(`✅ Stamp added to customer: ${customer.uid}`);
-  } catch (error) {
-    console.error("❌ Give Stamp Error:", error);
-    alert("Unable to give stamp. Please try again.");
-  } finally {
-    giveStampProcessing = false;
-    customerActionProcessing = false;
-    setActionButtonLoading(giveStampBtn, false, "", "➕ Give Stamp");
-    syncActionButtons();
-  }
+
+
+    setActionButtonLoading(
+        giveStampBtn,
+        true,
+        "Adding..."
+    );
+
+
+
+    try{
+
+
+        const customer =
+            await getFreshCustomer(
+                selectedCustomer.uid
+            );
+
+
+
+        if(!customer)
+            throw new Error(
+                "Customer not found"
+            );
+
+
+
+        // Same calendar day protection
+
+        if(hasStampToday(customer)){
+
+
+            alert(
+            "Today's stamp already given."
+            );
+
+
+            return;
+
+        }
+
+
+
+        let current =
+            getCustomerStamps(customer);
+
+
+
+        if(current>=MAX_STAMPS){
+
+
+            alert(
+            "Maximum stamps completed."
+            );
+
+
+            return;
+
+        }
+
+
+
+
+        const updateData = {
+
+
+            stamps:
+                current+1,
+
+
+            dailyStampDate:
+                getTodayKey(),
+
+
+            lastStampDate:
+                getTodayKey(),
+
+
+
+            updatedAt:
+                serverTimestamp()
+
+
+        };
+
+
+
+
+        // Start 40 day cycle on first stamp
+
+        if(current===0){
+
+
+            updateData.cycleStartedAt =
+                serverTimestamp();
+
+
+
+            updateData.cycleExpiryAt =
+                calculateCycleExpiry(
+                    new Date()
+                );
+
+
+        }
+
+
+
+
+
+        await updateDoc(
+
+            doc(
+                db,
+                CUSTOMER_COLLECTION,
+                customer.uid
+            ),
+
+            updateData
+
+        );
+
+
+
+
+
+        const updated = {
+
+            ...customer,
+
+            ...updateData,
+
+            stamps:current+1
+
+        };
+
+
+
+        updateLocalCustomer(updated);
+
+
+        selectedCustomer=updated;
+
+
+        updateCustomerStats();
+
+
+        refreshCustomerTable();
+
+
+        updateCustomerModal(
+            updated,
+            false
+        );
+
+
+
+        alert(
+        "✅ Stamp Added Successfully"
+        );
+
+
+
+    }
+    catch(error){
+
+
+        console.error(
+            "Stamp Error:",
+            error
+        );
+
+
+        alert(
+        "Unable to add stamp."
+        );
+
+
+    }
+    finally{
+
+
+        giveStampProcessing=false;
+
+        customerActionProcessing=false;
+
+
+        setActionButtonLoading(
+            giveStampBtn,
+            false
+        );
+
+
+        syncActionButtons();
+
+    }
+
+
 }
+
+
+
+
 
 
 // =====================================================
 // REMOVE STAMP
 // =====================================================
 
-async function removeCustomerStamp() {
-  if (removeStampProcessing) return;
+async function removeCustomerStamp(){
 
-  if (!selectedCustomer || !selectedCustomer.uid) {
-    alert("Please select a customer first.");
-    return;
-  }
 
-  const confirmed = window.confirm(
-    "Are you sure you want to remove one stamp from this customer?"
-  );
+    if(removeStampProcessing)
+        return;
 
-  if (!confirmed) return;
 
-  removeStampProcessing = true;
-  customerActionProcessing = true;
-  syncActionButtons();
 
-  setActionButtonLoading(removeStampBtn, true, "Removing...", "➖ Remove Stamp");
+    if(!selectedCustomer)
+        return;
 
-  try {
-    const customer = await getFreshCustomer(selectedCustomer.uid);
 
-    if (!customer) {
-      alert("Customer no longer exists.");
-      closeCustomerModal();
-      return;
+
+    const confirmDelete =
+        confirm(
+        "Remove one stamp?"
+        );
+
+
+    if(!confirmDelete)
+        return;
+
+
+
+    removeStampProcessing=true;
+
+    customerActionProcessing=true;
+
+
+
+    try{
+
+
+        const customer =
+            await getFreshCustomer(
+                selectedCustomer.uid
+            );
+
+
+
+        if(!customer)
+            return;
+
+
+
+        const stamps =
+            getCustomerStamps(customer);
+
+
+
+        if(stamps<=0)
+            return;
+
+
+
+        await updateDoc(
+
+            doc(
+                db,
+                CUSTOMER_COLLECTION,
+                customer.uid
+            ),
+
+            {
+
+                stamps:stamps-1,
+
+                updatedAt:
+                serverTimestamp()
+
+            }
+
+        );
+
+
+
+        const updated={
+
+            ...customer,
+
+            stamps:stamps-1
+
+        };
+
+
+
+        updateLocalCustomer(updated);
+
+        selectedCustomer=updated;
+
+
+        updateCustomerStats();
+
+        refreshCustomerTable();
+
+        updateCustomerModal(
+            updated,
+            false
+        );
+
+
+
+    }
+    catch(error){
+
+        console.error(
+        error
+        );
+
+    }
+    finally{
+
+
+        removeStampProcessing=false;
+
+        customerActionProcessing=false;
+
+        syncActionButtons();
+
     }
 
-    const currentStamps = getCustomerStamps(customer);
-
-    if (currentStamps <= 0) {
-      alert("Customer has no stamps to remove.");
-      selectedCustomer = customer;
-      updateLocalCustomer(customer);
-      updateCustomerModal(customer, false);
-      return;
-    }
-
-    const newStampCount = Math.max(currentStamps - 1, 0);
-    const customerRef = doc(db, CUSTOMER_COLLECTION, customer.uid);
-
-    await updateDoc(customerRef, {
-      stamps: newStampCount,
-      updatedAt: serverTimestamp()
-    });
-
-    const updatedCustomer = {
-      ...customer,
-      stamps: newStampCount
-    };
-
-    selectedCustomer = updatedCustomer;
-    updateLocalCustomer(updatedCustomer);
-
-    updateCustomerStats();
-    refreshCustomerTable();
-    updateCustomerModal(updatedCustomer, false);
-    syncActionButtons();
-
-    console.log(`✅ Stamp removed from customer: ${customer.uid}`);
-  } catch (error) {
-    console.error("❌ Remove Stamp Error:", error);
-    alert("Unable to remove stamp. Please try again.");
-  } finally {
-    removeStampProcessing = false;
-    customerActionProcessing = false;
-    setActionButtonLoading(removeStampBtn, false, "", "➖ Remove Stamp");
-    syncActionButtons();
-  }
 }
+
+
+
 
 
 // =====================================================
 // UNLOCK REWARD
 // =====================================================
 
-async function unlockCustomerReward() {
-  if (unlockRewardProcessing) return;
+async function unlockCustomerReward(){
 
-  if (!selectedCustomer || !selectedCustomer.uid) {
-    alert("Please select a customer first.");
-    return;
-  }
 
-  const confirmed = window.confirm(
-    "Are you sure you want to unlock this customer's reward?"
-  );
+    if(unlockRewardProcessing)
+        return;
 
-  if (!confirmed) return;
 
-  unlockRewardProcessing = true;
-  customerActionProcessing = true;
-  syncActionButtons();
 
-  setActionButtonLoading(unlockRewardBtn, true, "Unlocking...", "🎁 Unlock Reward");
+    if(!selectedCustomer)
+        return;
 
-  try {
-    const customer = await getFreshCustomer(selectedCustomer.uid);
 
-    if (!customer) {
-      alert("Customer no longer exists.");
-      closeCustomerModal();
-      return;
+
+    unlockRewardProcessing=true;
+
+    customerActionProcessing=true;
+
+
+
+    try{
+
+
+        const customer =
+            await getFreshCustomer(
+                selectedCustomer.uid
+            );
+
+
+
+        if(
+            getCustomerStamps(customer)
+            <
+            MAX_STAMPS
+        ){
+
+            alert(
+            "Complete 6 stamps first."
+            );
+
+            return;
+
+        }
+
+
+
+
+        await updateDoc(
+
+            doc(
+                db,
+                CUSTOMER_COLLECTION,
+                customer.uid
+            ),
+
+            {
+
+                rewardUnlocked:true,
+
+
+                rewardUnlockedAt:
+                serverTimestamp(),
+
+
+                updatedAt:
+                serverTimestamp()
+
+            }
+
+        );
+
+
+
+        const updated={
+
+            ...customer,
+
+            rewardUnlocked:true
+
+        };
+
+
+
+        updateLocalCustomer(updated);
+
+        selectedCustomer=updated;
+
+
+        updateCustomerStats();
+
+        refreshCustomerTable();
+
+        updateCustomerModal(
+            updated,
+            false
+        );
+
+
+        alert(
+        "🎁 Reward Unlocked"
+        );
+
+
+    }
+    catch(error){
+
+
+        console.error(error);
+
+
+    }
+    finally{
+
+
+        unlockRewardProcessing=false;
+
+        customerActionProcessing=false;
+
+
+        syncActionButtons();
+
     }
 
-    const currentStamps = getCustomerStamps(customer);
-
-    if (currentStamps < MAX_STAMPS) {
-      alert(`Customer needs ${MAX_STAMPS} stamps before the reward can be unlocked.`);
-      selectedCustomer = customer;
-      updateLocalCustomer(customer);
-      updateCustomerModal(customer, false);
-      return;
-    }
-
-    if (customer.rewardUnlocked === true) {
-      alert("Reward is already unlocked for this customer.");
-      selectedCustomer = customer;
-      updateLocalCustomer(customer);
-      updateCustomerModal(customer, false);
-      return;
-    }
-
-    const customerRef = doc(db, CUSTOMER_COLLECTION, customer.uid);
-
-    await updateDoc(customerRef, {
-      rewardUnlocked: true,
-      rewardUnlockedAt: serverTimestamp(),
-      updatedAt: serverTimestamp()
-    });
-
-    const updatedCustomer = {
-      ...customer,
-      rewardUnlocked: true
-    };
-
-    selectedCustomer = updatedCustomer;
-    updateLocalCustomer(updatedCustomer);
-
-    updateCustomerStats();
-    refreshCustomerTable();
-    updateCustomerModal(updatedCustomer, false);
-    syncActionButtons();
-
-    console.log(`✅ Reward unlocked for customer: ${customer.uid}`);
-  } catch (error) {
-    console.error("❌ Unlock Reward Error:", error);
-    alert("Unable to unlock reward. Please try again.");
-  } finally {
-    unlockRewardProcessing = false;
-    customerActionProcessing = false;
-    setActionButtonLoading(unlockRewardBtn, false, "", "🎁 Unlock Reward");
-    syncActionButtons();
-  }
 }
+
+
+
+
+
+// =====================================================
+// RESET LOYALTY FOUNDATION
+// =====================================================
+
+async function resetCustomerLoyalty(){
+
+
+    if(resetLoyaltyProcessing)
+        return;
+
+
+
+    if(!selectedCustomer)
+        return;
+
+
+
+    const ok =
+        confirm(
+        "Reset loyalty cycle?"
+        );
+
+
+    if(!ok)
+        return;
+
+
+
+    resetLoyaltyProcessing=true;
+
+
+    try{
+
+
+        await updateDoc(
+
+            doc(
+                db,
+                CUSTOMER_COLLECTION,
+                selectedCustomer.uid
+            ),
+
+            {
+
+
+            stamps:0,
+
+
+            rewardUnlocked:false,
+
+
+            cycleStartedAt:null,
+
+
+            cycleExpiryAt:null,
+
+
+            updatedAt:
+            serverTimestamp()
+
+
+            }
+
+        );
+
+
+
+        await refreshSelectedCustomer();
+
+
+
+        alert(
+        "Loyalty Cycle Reset"
+        );
+
+
+
+    }
+    catch(error){
+
+
+        console.error(error);
+
+
+    }
+    finally{
+
+
+        resetLoyaltyProcessing=false;
+
+        syncActionButtons();
+
+    }
+
+
+}
+
+
+
 
 
 // =====================================================
 // DELETE CUSTOMER
 // =====================================================
 
-async function deleteSelectedCustomer() {
-  if (deleteCustomerProcessing) return;
+async function deleteSelectedCustomer(){
 
-  if (!selectedCustomer || !selectedCustomer.uid) {
-    alert("Please select a customer first.");
-    return;
-  }
 
-  const customerName = getCustomerName(selectedCustomer);
+    if(deleteCustomerProcessing)
+        return;
 
-  const confirmed = window.confirm(
-    `Are you sure you want to permanently delete ${customerName}? This action cannot be undone.`
-  );
 
-  if (!confirmed) return;
 
-  deleteCustomerProcessing = true;
-  customerActionProcessing = true;
-  syncActionButtons();
+    if(!selectedCustomer)
+        return;
 
-  setActionButtonLoading(deleteCustomerBtn, true, "Deleting...", "🗑 Delete Customer");
 
-  try {
-    const customer = await getFreshCustomer(selectedCustomer.uid);
 
-    if (!customer) {
-      alert("Customer no longer exists.");
-      closeCustomerModal();
-      return;
+    const ok =
+        confirm(
+        "Delete customer permanently?"
+        );
+
+
+
+    if(!ok)
+        return;
+
+
+
+    deleteCustomerProcessing=true;
+
+
+    try{
+
+
+        await deleteDoc(
+
+            doc(
+                db,
+                CUSTOMER_COLLECTION,
+                selectedCustomer.uid
+            )
+
+        );
+
+
+
+        customers =
+            customers.filter(
+                item =>
+                item.uid !== selectedCustomer.uid
+            );
+
+
+
+        closeCustomerModal();
+
+
+        updateCustomerStats();
+
+
+        refreshCustomerTable();
+
+
+
+    }
+    catch(error){
+
+        console.error(error);
+
+    }
+    finally{
+
+
+        deleteCustomerProcessing=false;
+
+        syncActionButtons();
+
     }
 
-    const customerRef = doc(db, CUSTOMER_COLLECTION, customer.uid);
 
-    await deleteDoc(customerRef);
-
-    customers = customers.filter((item) => item.uid !== customer.uid);
-
-    closeCustomerModal();
-    updateCustomerStats();
-    refreshCustomerTable();
-
-    console.log(`✅ Customer deleted: ${customer.uid}`);
-  } catch (error) {
-    console.error("❌ Delete Customer Error:", error);
-    alert("Unable to delete customer. Please try again.");
-  } finally {
-    deleteCustomerProcessing = false;
-    customerActionProcessing = false;
-    setActionButtonLoading(deleteCustomerBtn, false, "", "🗑 Delete Customer");
-    syncActionButtons();
-  }
 }
 
 
+
+
 // =====================================================
-// MODAL VISIBILITY HELPERS
+// REFRESH SELECTED CUSTOMER
 // =====================================================
 
-function openCustomerModal() {
-  if (!customerModal || !selectedCustomer || !selectedCustomer.uid) return;
-  setCustomerModalVisible(true);
-  syncActionButtons();
+async function refreshSelectedCustomer(){
+
+
+    if(
+        !selectedCustomer ||
+        !selectedCustomer.uid
+    )
+        return;
+
+
+
+    const fresh =
+        await getFreshCustomer(
+            selectedCustomer.uid
+        );
+
+
+
+    if(!fresh){
+
+        closeCustomerModal();
+
+        return;
+
+    }
+
+
+
+    selectedCustomer=fresh;
+
+
+    updateLocalCustomer(fresh);
+
+
+    updateCustomerModal(
+        fresh,
+        false
+    );
+
 }
 
 
-// =====================================================
-// EVENT LISTENERS FOR MODAL & ACTIONS
-// =====================================================
 
-closeModalBtn?.addEventListener("click", () => {
-  closeCustomerModal();
-});
-
-customerModal?.addEventListener("click", (event) => {
-  if (event.target === customerModal) {
-    closeCustomerModal();
-  }
-});
-
-document.addEventListener("keydown", (event) => {
-  if (event.key !== "Escape" || !customerModal) return;
-  if (customerModal.style.display === "flex") {
-    closeCustomerModal();
-  }
-});
-
-modalPhoto?.addEventListener("error", () => {
-  if (modalPhoto.dataset.fallbackApplied === "true") return;
-  modalPhoto.dataset.fallbackApplied = "true";
-  modalPhoto.src = DEFAULT_MALE_AVATAR;
-});
-
-modalPhoto?.addEventListener("load", () => {
-  modalPhoto.dataset.fallbackApplied = "false";
-});
-
-giveStampBtn?.addEventListener("click", giveCustomerStamp);
-removeStampBtn?.addEventListener("click", removeCustomerStamp);
-unlockRewardBtn?.addEventListener("click", unlockCustomerReward);
-deleteCustomerBtn?.addEventListener("click", deleteSelectedCustomer);
 
 
 // =====================================================
-// PART 3 PUBLIC API EXPORT
+// EXPORT PART 3
 // =====================================================
 
-window.adminCustomers = {
-  ...(window.adminCustomers || {}),
-  syncActionButtons,
-  setActionButtonLoading,
-  refreshSelectedCustomer,
-  giveCustomerStamp,
-  removeCustomerStamp,
-  unlockCustomerReward,
-  deleteSelectedCustomer,
-  openCustomerModal,
-  closeCustomerModal
+window.adminCustomers={
+
+...(window.adminCustomers||{}),
+
+syncActionButtons,
+
+setActionButtonLoading,
+
+giveCustomerStamp,
+
+removeCustomerStamp,
+
+unlockCustomerReward,
+
+resetCustomerLoyalty,
+
+deleteSelectedCustomer,
+
+refreshSelectedCustomer,
+
+closeCustomerModal
+
 };
 
 
-// =====================================================
-// PART 3 DEVELOPMENT LOG
-// =====================================================
 
-console.log("========================================");
-console.log("🍜 RIO MAGGI POINT - Admin Customers JS Part 3 Loaded");
-console.log("========================================");
+console.log(
+"🍜 RIO MAGGI POINT - Admin Customers Part 3 Fixed Loaded"
+);
 
+
+// END PART 3
 // =====================================================
-// END OF PART 3
-// =====================================================// =====================================================
 // RIO MAGGI POINT
 // PREMIUM ADMIN CUSTOMER MANAGER
-// admin-customers.js — PART 4 OF 4
+// admin-customers.js — PART 4 OF 4 (FIXED)
 //
 // RESPONSIBILITY:
-// - Authentication Listener
-// - Admin Guard / Access Control
-// - Application Initialization
-// - Auto Refresh System
-// - Manual Refresh System
-// - Page Cleanup
-//
-// IMPORTANT:
-// Final continuation of PART 1, PART 2 and PART 3.
-// Completes the entire module without duplicate state.
-// =====================================================
-
-
-// =====================================================
-// AUTHENTICATION GUARD & LISTENER
-// =====================================================
-//
-// Ensures only logged-in admin users can view data.
-// Redirects unauthorized users to the login page.
+// - Admin Authentication Guard
+// - Page Initialization
+// - Manual Refresh
+// - Auto Refresh
+// - Cleanup
+// - Final Module Export
 //
 // =====================================================
 
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    console.warn("🔒 Unauthorized access attempt. Redirecting to login...");
-    authenticatedUser = null;
-    stopCustomerAutoRefresh();
-    window.location.href = ADMIN_LOGIN_PAGE;
-    return;
-  }
 
-  authenticatedUser = user;
-  console.log(`👤 Admin authenticated: ${user.email || user.uid}`);
+// =====================================================
+// AUTHENTICATION GUARD
+// =====================================================
 
-  // Initialize page on first auth event
-  if (!customerPageInitialized) {
-    await initAdminCustomerManager();
-  }
+onAuthStateChanged(auth, async (user)=>{
+
+
+    if(!user){
+
+
+        console.warn(
+            "🔒 Unauthorized Admin Access"
+        );
+
+
+        authenticatedUser=null;
+
+
+        stopCustomerAutoRefresh();
+
+
+
+        window.location.href =
+            ADMIN_LOGIN_PAGE;
+
+
+
+        return;
+
+    }
+
+
+
+    authenticatedUser=user;
+
+
+
+    console.log(
+        "👤 Admin Logged:",
+        user.email || user.uid
+    );
+
+
+
+    if(!customerPageInitialized){
+
+
+        await initAdminCustomerManager();
+
+
+    }
+
+
 });
+
+
 
 
 // =====================================================
 // INITIALIZE ADMIN CUSTOMER MANAGER
 // =====================================================
 
-async function initAdminCustomerManager() {
-  if (customerPageInitialized) return;
+async function initAdminCustomerManager(){
 
-  customerPageInitialized = true;
 
-  try {
-    // 1. Initial Customer Data Load
-    await loadCustomers();
+    if(customerPageInitialized)
+        return;
 
-    // 2. Start Auto Refresh Cycle
-    startCustomerAutoRefresh();
 
-    console.log("🚀 Admin Customer Manager Initialized Successfully");
-  } catch (error) {
-    console.error("❌ Initialization Error:", error);
-  }
+
+    customerPageInitialized=true;
+
+
+
+    try{
+
+
+        await loadCustomers();
+
+
+
+        startCustomerAutoRefresh();
+
+
+
+        console.log(
+            "🚀 Admin Customer Manager Ready"
+        );
+
+
+
+    }
+    catch(error){
+
+
+        console.error(
+            "Initialization Error:",
+            error
+        );
+
+
+    }
+
+
 }
+
+
+
 
 
 // =====================================================
 // MANUAL REFRESH
 // =====================================================
 
-async function handleManualRefresh() {
-  if (refreshProcessing || customerRefreshProcessing) return;
+async function handleManualRefresh(){
 
-  refreshProcessing = true;
-  customerRefreshProcessing = true;
 
-  // Set loading UI on refresh button
-  if (refreshBtn) {
-    refreshBtn.disabled = true;
-    refreshBtn.classList.add("refreshing");
-  }
+    if(
+        refreshProcessing ||
+        customerRefreshProcessing
+    )
+        return;
 
-  try {
-    console.log("🔄 Performing manual customer refresh...");
-    await loadCustomers();
-  } catch (error) {
-    console.error("❌ Manual Refresh Error:", error);
-  } finally {
-    refreshProcessing = false;
-    customerRefreshProcessing = false;
 
-    if (refreshBtn) {
-      refreshBtn.disabled = false;
-      refreshBtn.classList.remove("refreshing");
+
+    refreshProcessing=true;
+
+    customerRefreshProcessing=true;
+
+
+
+    if(refreshBtn){
+
+
+        refreshBtn.disabled=true;
+
+        refreshBtn.classList.add(
+            "refreshing"
+        );
+
+
     }
-  }
+
+
+
+    try{
+
+
+        console.log(
+            "🔄 Manual Customer Refresh"
+        );
+
+
+
+        await loadCustomers();
+
+
+
+    }
+    catch(error){
+
+
+        console.error(
+            "Refresh Error:",
+            error
+        );
+
+
+    }
+    finally{
+
+
+        refreshProcessing=false;
+
+        customerRefreshProcessing=false;
+
+
+
+        if(refreshBtn){
+
+
+            refreshBtn.disabled=false;
+
+
+            refreshBtn.classList.remove(
+                "refreshing"
+            );
+
+
+        }
+
+
+    }
+
+
 }
+
+
+
 
 
 // =====================================================
 // AUTO REFRESH SYSTEM
 // =====================================================
 
-function startCustomerAutoRefresh() {
-  stopCustomerAutoRefresh();
-
-  customerAutoRefreshTimer = setInterval(async () => {
-    // Skip auto-refresh if an action is currently processing or user is editing
-    if (
-      customersLoading ||
-      customerActionProcessing ||
-      refreshProcessing ||
-      customerRefreshProcessing
-    ) {
-      return;
-    }
-
-    try {
-      console.log("⏱️ Auto-refreshing customer data...");
-      await loadCustomers();
-    } catch (error) {
-      console.warn("⚠️ Auto Refresh Warning:", error);
-    }
-  }, CUSTOMER_AUTO_REFRESH_INTERVAL);
-}
-
-function stopCustomerAutoRefresh() {
-  if (customerAutoRefreshTimer) {
-    clearInterval(customerAutoRefreshTimer);
-    customerAutoRefreshTimer = null;
-  }
-}
+function startCustomerAutoRefresh(){
 
 
-// =====================================================
-// EVENT LISTENERS FOR PART 4
-// =====================================================
 
-refreshBtn?.addEventListener("click", handleManualRefresh);
-
-// Stop timer when page is hidden or unloaded
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
     stopCustomerAutoRefresh();
-  } else if (authenticatedUser) {
-    startCustomerAutoRefresh();
-  }
-});
 
-window.addEventListener("beforeunload", () => {
-  stopCustomerAutoRefresh();
-});
+
+
+
+    customerAutoRefreshTimer = setInterval(
+        async ()=>{
+
+
+            if(
+                customersLoading ||
+                customerActionProcessing ||
+                refreshProcessing ||
+                customerRefreshProcessing
+            ){
+
+                return;
+
+            }
+
+
+
+            try{
+
+
+                console.log(
+                    "⏱ Auto Refresh Customers"
+                );
+
+
+
+                await loadCustomers();
+
+
+
+            }
+            catch(error){
+
+
+                console.warn(
+                    "Auto Refresh Error:",
+                    error
+                );
+
+
+            }
+
+
+
+        },
+        CUSTOMER_AUTO_REFRESH_INTERVAL
+    );
+
+
+}
+
+
+
+
+
+function stopCustomerAutoRefresh(){
+
+
+
+    if(customerAutoRefreshTimer){
+
+
+        clearInterval(
+            customerAutoRefreshTimer
+        );
+
+
+        customerAutoRefreshTimer=null;
+
+
+    }
+
+
+}
+
+
+
 
 
 // =====================================================
-// FINAL PUBLIC API EXPORT
+// PAGE VISIBILITY CONTROL
 // =====================================================
 
-window.adminCustomers = {
-  ...(window.adminCustomers || {}),
-  initAdminCustomerManager,
-  handleManualRefresh,
-  startCustomerAutoRefresh,
-  stopCustomerAutoRefresh
+document.addEventListener(
+    "visibilitychange",
+    ()=>{
+
+
+        if(document.hidden){
+
+
+            stopCustomerAutoRefresh();
+
+
+        }
+        else if(authenticatedUser){
+
+
+            startCustomerAutoRefresh();
+
+
+        }
+
+
+    }
+);
+
+
+
+
+// =====================================================
+// PAGE CLOSE CLEANUP
+// =====================================================
+
+window.addEventListener(
+    "beforeunload",
+    ()=>{
+
+
+        stopCustomerAutoRefresh();
+
+
+    }
+);
+
+
+
+
+// =====================================================
+// EVENT LISTENERS
+// =====================================================
+
+refreshBtn?.addEventListener(
+    "click",
+    handleManualRefresh
+);
+
+
+
+
+
+// =====================================================
+// FINAL PUBLIC API
+// =====================================================
+
+window.adminCustomers={
+
+    ...(window.adminCustomers || {}),
+
+
+    initAdminCustomerManager,
+
+
+    handleManualRefresh,
+
+
+    startCustomerAutoRefresh,
+
+
+    stopCustomerAutoRefresh
+
 };
 
 
-// =====================================================
-// PART 4 DEVELOPMENT LOG
-// =====================================================
 
-console.log("========================================");
-console.log("🍜 RIO MAGGI POINT - Admin Customers JS Part 4 Loaded");
-console.log("✅ Complete ES Module Ready");
-console.log("========================================");
+
+
+console.log(
+"🍜 RIO MAGGI POINT - Admin Customers Part 4 Fixed Loaded"
+);
+
+
+console.log(
+"✅ COMPLETE admin-customers.js READY"
+);
+
 
 // =====================================================
-// END OF PART 4 & COMPLETE FILE
+// END PART 4 / COMPLETE FILE
 // =====================================================
