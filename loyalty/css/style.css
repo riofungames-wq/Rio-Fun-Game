@@ -3560,3 +3560,352 @@ input[type="radio"] {
    END OF STYLE.CSS v2.0
    PRODUCTION READY
 ========================================================= */
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+
+   PART 7:
+   HOMEPAGE PREMIUM LANDING UI
+
+   SECTION 2A (FIXED):
+   HERO VISUAL + PREMIUM FOOD CARD
+========================================================= */
+
+
+/* =========================
+   HERO VISUAL
+========================= */
+
+.hero-visual{
+
+    position:relative;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+.hero-card-glow{
+
+    position:absolute;
+
+    width:420px;
+
+    height:420px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(212,175,55,.25),
+        transparent 70%
+    );
+
+    filter:blur(10px);
+
+    animation:heroGlow 5s ease-in-out infinite;
+
+}
+
+
+
+@keyframes heroGlow{
+
+    0%,
+    100%{
+
+        transform:scale(1);
+
+        opacity:.7;
+
+    }
+
+
+    50%{
+
+        transform:scale(1.15);
+
+        opacity:1;
+
+    }
+
+}
+
+
+
+/* =========================
+   PREMIUM FOOD CARD
+========================= */
+
+
+.premium-food-card{
+
+    position:relative;
+
+    width:100%;
+
+    max-width:390px;
+
+    background:
+    linear-gradient(
+        145deg,
+        #1f1f1f,
+        #101010
+    );
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    border:1px solid rgba(212,175,55,.25);
+
+    box-shadow:
+    0 25px 60px rgba(0,0,0,.45);
+
+    z-index:2;
+
+    transition:var(--transition);
+
+}
+
+
+
+@media(hover:hover){
+
+    .premium-food-card:hover{
+
+        transform:translateY(-8px);
+
+        box-shadow:
+        0 35px 70px rgba(0,0,0,.55);
+
+    }
+
+}
+
+
+
+/* =========================
+   FOOD CARD TOP
+========================= */
+
+
+.food-card-top{
+
+    padding:18px 22px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    color:var(--gold);
+
+    font-size:13px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+}
+
+
+
+.food-card-top i{
+
+    color:#ff4b5c;
+
+    font-size:18px;
+
+}
+
+
+
+/* =========================
+   FOOD IMAGE
+========================= */
+
+
+.food-card-image{
+
+    width:100%;
+
+    height:280px;
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+
+
+.food-card-image::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    linear-gradient(
+        to top,
+        rgba(15,15,15,.7),
+        transparent 40%
+    );
+
+}
+
+
+
+.food-card-image img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transition:transform .5s ease;
+
+}
+
+
+
+@media(hover:hover){
+
+    .premium-food-card:hover
+    .food-card-image img{
+
+        transform:scale(1.08);
+
+    }
+
+}
+
+
+
+/* =========================
+   FOOD CARD CONTENT
+========================= */
+
+
+.food-card-content{
+
+    padding:20px 22px;
+
+}
+
+
+
+.food-card-label{
+
+    color:var(--gold);
+
+    font-size:12px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+}
+
+
+
+.food-card-content h2{
+
+    margin-top:8px;
+
+    font-size:28px;
+
+    color:#fff;
+
+    font-weight:800;
+
+}
+
+
+
+.food-card-content p{
+
+    color:var(--text-muted);
+
+    margin-top:5px;
+
+}
+
+
+
+/* =========================
+   FOOD CARD FOOTER
+========================= */
+
+
+.food-card-footer{
+
+    margin:0 22px 22px;
+
+    padding-top:15px;
+
+    border-top:1px solid var(--border);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    color:var(--text-light);
+
+    font-size:13px;
+
+}
+
+
+
+.food-card-footer i{
+
+    color:var(--gold);
+
+}
+.floating-loyalty-badge {
+    position: absolute;
+    left: -30px;
+    bottom: 35px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    min-width: 240px;
+    border-radius: 18px;
+    background: rgba(27, 27, 27, 0.96);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(12px);
+    animation: badgeFloat 4s ease-in-out infinite;
+}
+
+@media (max-width: 600px) {
+    .floating-loyalty-badge {
+        position: relative;
+        left: auto;
+        bottom: auto;
+        margin: 20px auto 0;
+        width: calc(100% - 20px);
+        max-width: 320px;
+        animation: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .floating-loyalty-badge {
+        animation: none;
+    }
+}
