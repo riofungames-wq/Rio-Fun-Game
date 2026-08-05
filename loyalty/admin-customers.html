@@ -3,87 +3,44 @@
 
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="theme-color"
-    content="#ff7b00"
-  >
+<meta name="theme-color" content="#b30000">
 
-  <meta
-    name="description"
-    content="Rio Maggi Point Admin Customer Manager"
-  >
+<meta name="description" content="Rio Maggi Point Admin Customer Manager">
 
-  <title>
-    Rio Maggi Point | Customer Manager
-  </title>
+<title>
+Rio Maggi Point | Customer Manager
+</title>
 
 
-  <!-- =========================================
-       MANIFEST
-  ========================================== -->
-
-  <link
-    rel="manifest"
-    href="manifest.json"
-  >
+<!-- MANIFEST -->
+<link rel="manifest" href="manifest.json">
 
 
-  <!-- =========================================
-       FAVICON
-  ========================================== -->
-
-  <link
-    rel="icon"
-    href="favicon.ico"
-  >
+<!-- FAVICON -->
+<link rel="icon" href="favicon.ico">
 
 
-  <!-- =========================================
-       GOOGLE FONT
-  ========================================== -->
+<!-- GOOGLE FONT -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  >
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 
-  <!-- =========================================
-       FONT AWESOME
-  ========================================== -->
-
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-  >
+<!-- FONT AWESOME -->
+<link 
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 
-  <!-- =========================================
-       CUSTOMER MANAGER CSS
-  ========================================== -->
+<!-- ADMIN CUSTOMER CSS -->
+<link rel="stylesheet" href="css/admin-customers.css">
 
-  <link
-    rel="stylesheet"
-    href="css/admin-customers.css"
-  >
 
 </head>
 
@@ -91,599 +48,818 @@
 <body>
 
 
-  <!-- =========================================
-       PAGE APP WRAPPER
-  ========================================== -->
+<div class="customer-manager-app">
 
-  <div class="customer-manager-app">
 
 
-    <!-- =======================================
-         HEADER
-    ======================================== -->
+<!-- ================================
+     TOP HEADER
+================================ -->
 
-    <header
-      class="topBar"
-      id="customerManagerHeader"
-    >
+<header class="topBar" id="customerManagerHeader">
 
-      <div class="leftHeader">
 
-        <a
-          href="admin-dashboard.html"
-          class="backBtn"
-          aria-label="Back to Admin Dashboard"
-          title="Back to Dashboard"
-        >
+<div class="leftHeader">
 
-          <i
-            class="fa-solid fa-arrow-left"
-            aria-hidden="true"
-          ></i>
 
-        </a>
+<a 
+href="admin-dashboard.html"
+class="backBtn"
+title="Back To Dashboard"
+aria-label="Back To Dashboard">
 
+<i class="fa-solid fa-arrow-left"></i>
 
-        <div class="headerInfo">
+</a>
 
-          <h1>
 
-            <i
-              class="fa-solid fa-users"
-              aria-hidden="true"
-            ></i>
 
-            Customer Manager
+<div class="headerInfo">
 
-          </h1>
 
-          <p>
+<h1>
 
-            Rio Maggi Point Admin Panel
+<i class="fa-solid fa-users"></i>
 
-          </p>
+Customer Manager
 
-        </div>
+</h1>
 
-      </div>
 
+<p>
+Rio Maggi Point Admin Panel
+</p>
 
-      <div class="rightHeader">
 
-        <button
-          type="button"
-          id="refreshBtn"
-          aria-label="Refresh Customer List"
-        >
+</div>
 
-          <i
-            class="fa-solid fa-rotate"
-            aria-hidden="true"
-          ></i>
 
-          <span>
-            Refresh
-          </span>
+</div>
 
-        </button>
 
-      </div>
 
-    </header>
+<div class="rightHeader">
 
 
+<button 
+type="button"
+id="refreshBtn"
+class="refreshBtn">
 
-    <!-- =======================================
-         SEARCH SECTION
-    ======================================== -->
+<i class="fa-solid fa-rotate"></i>
 
-    <main
-      class="customer-manager-main"
-      id="customerManagerMain"
-    >
+<span>
+Refresh
+</span>
 
+</button>
 
-      <section
-        class="searchCard"
-        aria-label="Customer Search"
-      >
 
-        <div class="searchBox">
+</div>
 
-          <i
-            class="fa-solid fa-magnifying-glass"
-            aria-hidden="true"
-          ></i>
 
-          <input
-            id="searchCustomer"
-            type="search"
-            autocomplete="off"
-            spellcheck="false"
-            placeholder="Search Customer Name / Member ID / Mobile"
-            aria-label="Search customers"
-          >
 
-        </div>
+</header>
 
-      </section>
 
 
 
-      <!-- =====================================
-           STATISTICS
-      ====================================== -->
 
-      <section
-        class="statsGrid"
-        aria-label="Customer Statistics"
-      >
+<!-- ================================
+     MAIN CONTENT
+================================ -->
 
 
-        <!-- TOTAL CUSTOMERS -->
+<main 
+class="customer-manager-main"
+id="customerManagerMain">
 
-        <article class="statCard">
 
-          <div class="statIcon">
 
-            <i
-              class="fa-solid fa-users"
-              aria-hidden="true"
-            ></i>
 
-          </div>
 
-          <div class="statContent">
+<!-- SEARCH -->
 
-            <h2 id="totalCustomers">
-              0
-            </h2>
+<section class="searchCard">
 
-            <p>
-              Total Customers
-            </p>
 
-          </div>
+<div class="searchBox">
 
-        </article>
 
+<i class="fa-solid fa-magnifying-glass"></i>
 
-        <!-- REWARD READY -->
 
-        <article class="statCard">
+<input
 
-          <div class="statIcon">
+id="searchCustomer"
 
-            <i
-              class="fa-solid fa-gift"
-              aria-hidden="true"
-            ></i>
+type="search"
 
-          </div>
+placeholder="Search Name / Member ID / Mobile"
 
-          <div class="statContent">
+autocomplete="off"
 
-            <h2 id="rewardReady">
-              0
-            </h2>
+>
 
-            <p>
-              Reward Ready
-            </p>
 
-          </div>
+</div>
 
-        </article>
 
+</section>
 
-        <!-- TODAY JOINED -->
 
-        <article class="statCard">
 
-          <div class="statIcon">
 
-            <i
-              class="fa-solid fa-user-plus"
-              aria-hidden="true"
-            ></i>
 
-          </div>
+<!-- STAT CARDS -->
 
-          <div class="statContent">
 
-            <h2 id="todayJoined">
-              0
-            </h2>
+<section class="statsGrid">
 
-            <p>
-              Today's Customers
-            </p>
 
-          </div>
 
-        </article>
+<article class="statCard">
 
-      </section>
 
+<div class="statIcon">
 
+<i class="fa-solid fa-users"></i>
 
-      <!-- =====================================
-           CUSTOMER TABLE
-      ====================================== -->
+</div>
 
-      <section
-        class="tableCard"
-        aria-label="Customer List"
-      >
 
-        <div class="tableHeader">
+<div class="statContent">
 
-          <div>
 
-            <h2>
-              <i
-                class="fa-solid fa-users"
-                aria-hidden="true"
-              ></i>
+<h2 id="totalCustomers">
+0
+</h2>
 
-              All Customers
-            </h2>
 
-            <p>
-              Manage customer loyalty stamps and rewards
-            </p>
+<p>
+Total Customers
+</p>
 
-          </div>
 
-        </div>
+</div>
 
 
-        <div class="tableWrapper">
+</article>
 
-          <table>
 
-            <thead>
 
-              <tr>
 
-                <th scope="col">
-                  Photo
-                </th>
 
-                <th scope="col">
-                  Name
-                </th>
+<article class="statCard">
 
-                <th scope="col">
-                  Member ID
-                </th>
 
-                <th scope="col">
-                  Mobile
-                </th>
+<div class="statIcon">
 
-                <th scope="col">
-                  Stamps
-                </th>
+<i class="fa-solid fa-gift"></i>
 
-                <th scope="col">
-                  Reward
-                </th>
+</div>
 
-                <th scope="col">
-                  Action
-                </th>
 
-              </tr>
+<div class="statContent">
 
-            </thead>
 
+<h2 id="rewardReady">
+0
+</h2>
 
-            <tbody id="customerTable">
 
-              <tr>
+<p>
+Reward Ready
+</p>
 
-                <td
-                  colspan="7"
-                  class="tableLoading"
-                >
 
-                  <i
-                    class="fa-solid fa-spinner fa-spin"
-                    aria-hidden="true"
-                  ></i>
+</div>
 
-                  Loading Customers...
 
-                </td>
+</article>
 
-              </tr>
 
-            </tbody>
 
-          </table>
 
-        </div>
 
-      </section>
+<article class="statCard">
 
-    </main>
 
+<div class="statIcon">
 
+<i class="fa-solid fa-user-plus"></i>
 
-    <!-- =======================================
-         CUSTOMER DETAILS MODAL
-    ======================================== -->
+</div>
 
-    <div
-      id="customerModal"
-      class="modal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="customerModalTitle"
-      aria-hidden="true"
-    >
 
-      <div class="modalCard">
+<div class="statContent">
 
 
-        <!-- MODAL HEADER -->
+<h2 id="todayJoined">
+0
+</h2>
 
-        <div class="modalHeader">
 
-          <div>
+<p>
+Today's Customers
+</p>
 
-            <h2 id="customerModalTitle">
-              Customer Details
-            </h2>
 
-            <p>
-              Manage customer loyalty account
-            </p>
+</div>
 
-          </div>
 
+</article>
 
-          <button
-            type="button"
-            id="closeModal"
-            aria-label="Close Customer Details"
-            title="Close"
-          >
 
-            <i
-              class="fa-solid fa-xmark"
-              aria-hidden="true"
-            ></i>
 
-          </button>
+</section>
 
-        </div>
 
 
 
-        <!-- MODAL BODY -->
 
-        <div class="modalBody">
 
+<!-- CUSTOMER TABLE -->
 
-          <!-- CUSTOMER PROFILE -->
 
-          <div class="profileBox">
+<section class="tableCard">
 
-            <div class="profileImageWrapper">
 
-              <img
-                id="modalPhoto"
-                src="assets/avatars/male.png"
-                alt="Customer Photo"
-                loading="lazy"
-              >
 
-            </div>
+<div class="tableHeader">
 
 
-            <h3 id="modalName">
-              Customer Name
-            </h3>
+<div>
 
 
-            <p id="modalMember">
-              RIO-000000
-            </p>
+<h2>
 
-          </div>
+<i class="fa-solid fa-users"></i>
 
+All Customers
 
+</h2>
 
-          <!-- CUSTOMER MOBILE -->
 
-          <div class="detailRow">
+<p>
+Manage loyalty stamps and rewards
+</p>
 
-            <span>
 
-              <i
-                class="fa-solid fa-phone"
-                aria-hidden="true"
-              ></i>
+</div>
 
-              Mobile
 
-            </span>
+</div>
 
-            <strong id="modalMobile">
-              -
-            </strong>
 
-          </div>
 
 
 
-          <!-- CUSTOMER STAMPS -->
+<div class="tableWrapper">
 
-          <div class="detailRow">
 
-            <span>
 
-              <i
-                class="fa-solid fa-star"
-                aria-hidden="true"
-              ></i>
+<table>
 
-              Stamps
 
-            </span>
+<thead>
 
-            <strong id="modalStamp">
-              0 / 6
-            </strong>
 
-          </div>
+<tr>
 
 
+<th>
+Photo
+</th>
 
-          <!-- CUSTOMER REWARD -->
 
-          <div class="detailRow">
+<th>
+Name
+</th>
 
-            <span>
 
-              <i
-                class="fa-solid fa-gift"
-                aria-hidden="true"
-              ></i>
+<th>
+Member ID
+</th>
 
-              Reward
 
-            </span>
+<th>
+Mobile
+</th>
 
-            <strong id="modalReward">
-              Locked
-            </strong>
 
-          </div>
+<th>
+Stamps
+</th>
 
 
+<th>
+Reward
+</th>
 
-          <!-- ACTION BUTTONS -->
 
-          <div
-            class="actionGrid"
-            aria-label="Customer Actions"
-          >
+<th>
+Action
+</th>
 
 
-            <!-- GIVE STAMP -->
+</tr>
 
-            <button
-              type="button"
-              id="giveStampBtn"
-              disabled
-            >
 
-              <i
-                class="fa-solid fa-plus"
-                aria-hidden="true"
-              ></i>
+</thead>
 
-              Give Stamp
 
-            </button>
 
 
+<tbody id="customerTable">
 
-            <!-- REMOVE STAMP -->
 
-            <button
-              type="button"
-              id="removeStampBtn"
-              disabled
-            >
+<tr>
 
-              <i
-                class="fa-solid fa-minus"
-                aria-hidden="true"
-              ></i>
 
-              Remove Stamp
+<td 
+colspan="7"
+class="tableLoading">
 
-            </button>
 
+<i class="fa-solid fa-spinner fa-spin"></i>
 
 
-            <!-- UNLOCK REWARD -->
+Loading Customers...
 
-            <button
-              type="button"
-              id="unlockRewardBtn"
-              disabled
-            >
 
-              <i
-                class="fa-solid fa-gift"
-                aria-hidden="true"
-              ></i>
+</td>
 
-              Unlock Reward
 
-            </button>
+</tr>
 
 
+</tbody>
 
-            <!-- DELETE CUSTOMER -->
 
-            <button
-              type="button"
-              id="deleteCustomerBtn"
-              disabled
-            >
 
-              <i
-                class="fa-solid fa-trash"
-                aria-hidden="true"
-              ></i>
+</table>
 
-              Delete Customer
 
-            </button>
 
-          </div>
+</div>
 
-        </div>
 
-      </div>
 
-    </div>
+</section>
+  <!-- ================================
+     CUSTOMER DETAILS MODAL
+================================ -->
 
+<div
+id="customerModal"
+class="modal"
+role="dialog"
+aria-modal="true"
+aria-hidden="true"
+>
 
 
-    <!-- =======================================
-         FOOTER
-    ======================================== -->
+<div class="modalCard">
 
-    <footer class="footer">
 
-      <p>
-        © Rio Maggi Point Admin Panel
-      </p>
 
-    </footer>
+<!-- MODAL HEADER -->
 
+<div class="modalHeader">
 
-  </div>
 
+<div>
 
+<h2 id="customerModalTitle">
+Customer Details
+</h2>
 
-  <!-- =========================================
-       ADMIN CUSTOMERS JAVASCRIPT
-  ========================================== -->
 
-  <script
-    type="module"
-    src="js/admin-customers.js"
-  ></script>
+<p>
+Manage customer loyalty account
+</p>
+
+
+</div>
+
+
+
+<button
+type="button"
+id="closeModal"
+class="closeModalBtn"
+aria-label="Close Modal">
+
+
+<i class="fa-solid fa-xmark"></i>
+
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+<!-- MODAL BODY -->
+
+<div class="modalBody">
+
+
+
+
+
+<!-- PROFILE -->
+
+<div class="profileBox">
+
+
+<div class="profileImageWrapper">
+
+
+<img
+
+id="modalPhoto"
+
+src="assets/avatars/default.png"
+
+alt="Customer Photo"
+
+loading="lazy"
+
+>
+
+
+</div>
+
+
+
+
+<h3 id="modalName">
+Customer Name
+</h3>
+
+
+
+<p id="modalMember">
+RIO-000000
+</p>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- DETAILS -->
+
+
+<div class="detailRow">
+
+
+<span>
+
+<i class="fa-solid fa-phone"></i>
+
+Mobile
+
+</span>
+
+
+<strong id="modalMobile">
+-
+</strong>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="detailRow">
+
+
+<span>
+
+<i class="fa-solid fa-star"></i>
+
+Current Stamps
+
+</span>
+
+
+<strong id="modalStamp">
+0 / 6
+</strong>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- LOYALTY TIMER -->
+
+
+<div class="detailRow">
+
+
+<span>
+
+<i class="fa-solid fa-clock"></i>
+
+Cycle Validity
+
+</span>
+
+
+<strong id="modalCycle">
+40 Days
+
+</strong>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- REWARD STATUS -->
+
+
+<div class="detailRow">
+
+
+<span>
+
+<i class="fa-solid fa-gift"></i>
+
+Reward Status
+
+</span>
+
+
+<strong id="modalReward">
+
+Locked
+
+</strong>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- STAMP PROGRESS -->
+
+<div class="stampProgressBox">
+
+
+<h3>
+
+<i class="fa-solid fa-layer-group"></i>
+
+Stamp Progress
+
+</h3>
+
+
+
+<div class="stampGrid" id="modalStampGrid">
+
+
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- ACTION BUTTONS -->
+
+<div class="actionGrid">
+
+
+
+
+
+
+<button
+
+type="button"
+
+id="giveStampBtn"
+
+class="primaryAction"
+
+disabled
+
+>
+
+
+<i class="fa-solid fa-plus"></i>
+
+
+Give Stamp
+
+
+</button>
+
+
+
+
+
+
+
+<button
+
+type="button"
+
+id="removeStampBtn"
+
+class="dangerAction"
+
+disabled
+
+>
+
+
+<i class="fa-solid fa-minus"></i>
+
+
+Remove Stamp
+
+
+</button>
+
+
+
+
+
+
+
+<button
+
+type="button"
+
+id="unlockRewardBtn"
+
+class="rewardAction"
+
+disabled
+
+>
+
+
+<i class="fa-solid fa-gift"></i>
+
+
+Unlock Reward
+
+
+</button>
+
+
+
+
+
+
+
+<button
+
+type="button"
+
+id="deleteCustomerBtn"
+
+class="deleteAction"
+
+disabled
+
+>
+
+
+<i class="fa-solid fa-trash"></i>
+
+
+Delete Customer
+
+
+</button>
+
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- ================================
+     FOOTER
+================================ -->
+
+
+<footer class="footer">
+
+
+<p>
+
+© Rio Maggi Point Admin Panel
+
+</p>
+
+
+</footer>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- ================================
+     JAVASCRIPT
+================================ -->
+
+
+<script
+
+type="module"
+
+src="js/admin-customers.js">
+
+</script>
+
+
+
 
 
 </body>
 
 </html>
+
+
+
+
