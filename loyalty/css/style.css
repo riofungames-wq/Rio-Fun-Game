@@ -12182,3 +12182,6256 @@ textarea.form-control {
         transition: none;
     }
 }
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 15 SECTION 1 FINAL
+   ADVANCED DASHBOARD LOADING & SKELETON STATES UI
+========================================================= */
+
+/* =========================
+   SKELETON LOADER WRAPPER
+========================= */
+.dashboard-skeleton-wrapper {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-skeleton-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+/* =========================
+   SKELETON SHIMMER EFFECT
+========================= */
+@keyframes dashboardShimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.skeleton-line,
+.skeleton-box,
+.skeleton-circle {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.04) 25%,
+        rgba(255, 255, 255, 0.12) 37%,
+        rgba(255, 255, 255, 0.04) 63%
+    );
+    background-size: 400% 100%;
+    animation: dashboardShimmer 1.4s ease infinite;
+    border-radius: 8px;
+}
+
+.skeleton-title {
+    width: 60%;
+    height: 24px;
+    margin-bottom: 12px;
+}
+
+.skeleton-subtitle {
+    width: 40%;
+    height: 14px;
+    margin-bottom: 25px;
+}
+
+.skeleton-content-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.skeleton-box {
+    width: 100%;
+    height: 90px;
+    border-radius: 16px;
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 768px) {
+    .skeleton-content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-skeleton-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .skeleton-line,
+    .skeleton-box,
+    .skeleton-circle {
+        animation: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 15 SECTION 2 FINAL (FIXED & POLISHED)
+   ADVANCED DASHBOARD LOADING & SKELETON STATES UI
+========================================================= */
+
+/* =========================
+   SKELETON LOADER WRAPPER
+========================= */
+.dashboard-skeleton-wrapper {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-skeleton-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+/* =========================
+   SKELETON SHIMMER EFFECT
+========================= */
+@keyframes dashboardSkeletonShimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Specific class naming to prevent any global scope collision */
+.dashboard-skeleton-line,
+.dashboard-skeleton-box,
+.dashboard-skeleton-circle {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.04) 25%,
+        rgba(255, 255, 255, 0.12) 37%,
+        rgba(255, 255, 255, 0.04) 63%
+    );
+    background-size: 400% 100%;
+    animation: dashboardSkeletonShimmer 1.4s ease infinite;
+    border-radius: 8px;
+}
+
+.dashboard-skeleton-title {
+    width: 60%;
+    height: 24px;
+    margin-bottom: 12px;
+}
+
+.dashboard-skeleton-subtitle {
+    width: 40%;
+    height: 14px;
+    margin-bottom: 25px;
+}
+
+.dashboard-skeleton-content-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.dashboard-skeleton-box {
+    width: 100%;
+    height: 90px;
+    border-radius: 16px;
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 768px) {
+    .dashboard-skeleton-content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-skeleton-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-skeleton-line,
+    .dashboard-skeleton-box,
+    .dashboard-skeleton-circle {
+        animation: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 15 SECTION 3 FINAL
+   ADVANCED DASHBOARD EMPTY STATES & NO-DATA UI
+========================================================= */
+
+/* =========================
+   EMPTY STATE SECTION WRAPPER
+========================= */
+.dashboard-empty-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-empty-card {
+    position: relative;
+    width: 100%;
+    padding: 45px 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-empty-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   EMPTY STATE CONTENT
+========================= */
+.dashboard-empty-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 28px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.dashboard-empty-info {
+    position: relative;
+    z-index: 2;
+    max-width: 400px;
+    margin-bottom: 25px;
+}
+
+.dashboard-empty-info h3 {
+    margin: 0 0 8px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.dashboard-empty-info p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* =========================
+   EMPTY STATE ACTION BUTTON
+========================= */
+.dashboard-empty-action-btn {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 30px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    color: #ffffff;
+    border: none;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    box-shadow: 0 10px 25px rgba(193, 18, 31, 0.35);
+}
+
+@media (hover: hover) {
+    .dashboard-empty-action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(193, 18, 31, 0.45);
+    }
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .dashboard-empty-card {
+        padding: 35px 20px;
+        border-radius: 22px;
+    }
+
+    .dashboard-empty-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+        margin-bottom: 16px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-empty-action-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 15 SECTION 4 FINAL
+   ADVANCED DASHBOARD TOAST NOTIFICATIONS UI
+========================================================= */
+
+/* =========================
+   TOAST NOTIFICATION CONTAINER
+========================= */
+.dashboard-toast-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 380px;
+    width: calc(100% - 60px);
+    pointer-events: none;
+}
+
+.dashboard-toast-item {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 20px;
+    border-radius: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.40);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    animation: dashboardToastSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.dashboard-toast-item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: var(--gold);
+}
+
+.dashboard-toast-item.success::before {
+    background: #2ecc71;
+}
+
+.dashboard-toast-item.error::before {
+    background: #c1121f;
+}
+
+/* =========================
+   TOAST CONTENT & ICON
+========================= */
+.dashboard-toast-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--gold);
+}
+
+.dashboard-toast-item.success .dashboard-toast-icon {
+    background: rgba(46, 204, 113, 0.15);
+    color: #2ecc71;
+}
+
+.dashboard-toast-item.error .dashboard-toast-icon {
+    background: rgba(193, 18, 31, 0.15);
+    color: #ff4d4d;
+}
+
+.dashboard-toast-body h5 {
+    margin: 0 0 3px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.dashboard-toast-body p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* =========================
+   TOAST ANIMATION
+========================= */
+@keyframes dashboardToastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .dashboard-toast-container {
+        bottom: 20px;
+        right: 20px;
+        width: calc(100% - 40px);
+    }
+
+    .dashboard-toast-item {
+        padding: 14px 16px;
+        border-radius: 16px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-toast-item {
+        animation: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 15 SECTION 5 FINAL
+   ADVANCED DASHBOARD MODALS & DIALOG POPUPS UI
+========================================================= */
+
+/* =========================
+   MODAL OVERLAY & CONTAINER
+========================= */
+.dashboard-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+
+.dashboard-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dashboard-modal-card {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    padding: 35px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.50);
+    overflow: hidden;
+    transform: translateY(20px) scale(0.95);
+    transition: var(--transition);
+}
+
+.dashboard-modal-overlay.active .dashboard-modal-card {
+    transform: translateY(0) scale(1);
+}
+
+.dashboard-modal-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   MODAL HEADER & CLOSE BUTTON
+========================= */
+.dashboard-modal-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.dashboard-modal-header h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.dashboard-modal-close-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .dashboard-modal-close-btn:hover {
+        background: rgba(193, 18, 31, 0.20);
+        color: #ff4d4d;
+        border-color: rgba(193, 18, 31, 0.40);
+    }
+}
+
+/* =========================
+   MODAL BODY CONTENT
+========================= */
+.dashboard-modal-body {
+    position: relative;
+    z-index: 2;
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* =========================
+   MODAL FOOTER ACTIONS
+========================= */
+.dashboard-modal-footer {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.dashboard-modal-btn {
+    min-height: 44px;
+    padding: 0 24px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-modal-btn.secondary {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    color: var(--text-light);
+}
+
+@media (hover: hover) {
+    .dashboard-modal-btn.secondary:hover {
+        background: rgba(255, 255, 255, 0.10);
+        color: #ffffff;
+    }
+}
+
+.dashboard-modal-btn.primary {
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(193, 18, 31, 0.30);
+}
+
+@media (hover: hover) {
+    .dashboard-modal-btn.primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(193, 18, 31, 0.40);
+    }
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .dashboard-modal-card {
+        padding: 24px 20px;
+        border-radius: 22px;
+    }
+
+    .dashboard-modal-footer {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+
+    .dashboard-modal-btn {
+        width: 100%;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-modal-overlay,
+    .dashboard-modal-card,
+    .dashboard-modal-close-btn,
+    .dashboard-modal-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 15 SECTION 6 FINAL
+   ADVANCED DASHBOARD STATS SUMMARY CARDS UI
+========================================================= */
+
+/* =========================
+   STATS SUMMARY SECTION WRAPPER
+========================= */
+.dashboard-stats-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.dashboard-stat-card {
+    position: relative;
+    width: 100%;
+    padding: 25px;
+    border-radius: 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.dashboard-stat-card::before {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    right: -60px;
+    top: -60px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(50px);
+    pointer-events: none;
+}
+
+@media (hover: hover) {
+    .dashboard-stat-card:hover {
+        border-color: rgba(212, 175, 55, 0.40);
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.40);
+    }
+}
+
+/* =========================
+   STAT CARD HEADER & ICON
+========================= */
+.dashboard-stat-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.dashboard-stat-header span {
+    color: var(--text-light);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.dashboard-stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 18px;
+}
+
+/* =========================
+   STAT CARD BODY & TREND
+========================= */
+.dashboard-stat-body {
+    position: relative;
+    z-index: 2;
+}
+
+.dashboard-stat-value {
+    margin: 0 0 8px;
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+}
+
+.dashboard-stat-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #2ecc71;
+}
+
+.dashboard-stat-trend.negative {
+    color: #ff4d4d;
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 1024px) {
+    .dashboard-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .dashboard-stat-card {
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .dashboard-stat-value {
+        font-size: 22px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-stat-card {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 15 SECTION 7 FINAL
+   ADVANCED DASHBOARD USER PROFILE BANNER UI
+========================================================= */
+
+/* =========================
+   PROFILE BANNER SECTION WRAPPER
+========================= */
+.dashboard-profile-banner {
+    position: relative;
+    width: 100%;
+    padding: 35px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+    margin-bottom: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.dashboard-profile-banner::before {
+    content: "";
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    right: -100px;
+    top: -100px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(70px);
+    pointer-events: none;
+}
+
+/* =========================
+   PROFILE INFO & AVATAR
+========================= */
+.dashboard-profile-main {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dashboard-profile-avatar {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.40);
+}
+
+.dashboard-profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dashboard-profile-details h2 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+}
+
+.dashboard-profile-details p {
+    margin: 0 0 10px;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+.dashboard-membership-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 50px;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* =========================
+   PROFILE EDIT ACTION BUTTON
+========================= */
+.dashboard-profile-action {
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+}
+
+.dashboard-edit-profile-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 24px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+@media (hover: hover) {
+    .dashboard-edit-profile-btn:hover {
+        background: linear-gradient(135deg, var(--primary), var(--gold));
+        border-color: var(--gold);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(193, 18, 31, 0.30);
+    }
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 768px) {
+    .dashboard-profile-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 25px;
+        gap: 20px;
+    }
+
+    .dashboard-profile-action {
+        width: 100%;
+    }
+
+    .dashboard-edit-profile-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-profile-banner {
+        border-radius: 22px;
+        padding: 20px;
+    }
+
+    .dashboard-profile-avatar {
+        width: 65px;
+        height: 65px;
+    }
+
+    .dashboard-profile-details h2 {
+        font-size: 20px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-edit-profile-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 15 SECTION 8 FINAL
+   ADVANCED DASHBOARD QUICK ACTIONS GRID UI
+========================================================= */
+
+/* =========================
+   QUICK ACTIONS SECTION WRAPPER
+========================= */
+.dashboard-quick-actions-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.dashboard-action-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 24px 15px;
+    border-radius: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.30);
+    text-decoration: none;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-action-item::before {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    right: -50px;
+    top: -50px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(40px);
+    pointer-events: none;
+}
+
+@media (hover: hover) {
+    .dashboard-action-item:hover {
+        border-color: rgba(212, 175, 55, 0.40);
+        transform: translateY(-3px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.40);
+        background: rgba(255, 255, 255, 0.04);
+    }
+}
+
+/* =========================
+   ACTION ITEM ICON & TEXT
+========================= */
+.dashboard-action-icon {
+    position: relative;
+    z-index: 2;
+    width: 50px;
+    height: 50px;
+    border-radius: 16px;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 20px;
+    margin-bottom: 12px;
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .dashboard-action-item:hover .dashboard-action-icon {
+        background: var(--primary);
+        color: #ffffff;
+        border-color: var(--primary);
+        transform: scale(1.05);
+    }
+}
+
+.dashboard-action-item span {
+    position: relative;
+    z-index: 2;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 1024px) {
+    .dashboard-quick-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-quick-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .dashboard-action-item {
+        padding: 18px 12px;
+        border-radius: 16px;
+    }
+
+    .dashboard-action-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .dashboard-action-item span {
+        font-size: 12px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-action-item,
+    .dashboard-action-icon {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 15 SECTION 9 FINAL
+   ADVANCED DASHBOARD NOTIFICATIONS LIST UI
+========================================================= */
+
+/* =========================
+   NOTIFICATIONS SECTION WRAPPER
+========================= */
+.dashboard-notifications-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-notifications-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.dashboard-notifications-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   NOTIFICATIONS HEADER
+========================= */
+.dashboard-notifications-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dashboard-notifications-header h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.dashboard-notifications-header p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+.dashboard-clear-all-btn {
+    background: none;
+    border: none;
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .dashboard-clear-all-btn:hover {
+        text-decoration: underline;
+        opacity: 0.8;
+    }
+}
+
+/* =========================
+   NOTIFICATIONS LIST CONTAINER
+========================= */
+.dashboard-notifications-list {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.dashboard-notification-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 16px 20px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+}
+
+.dashboard-notification-item.unread {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(212, 175, 55, 0.30);
+}
+
+@media (hover: hover) {
+    .dashboard-notification-item:hover {
+        background: rgba(255, 255, 255, 0.07);
+        transform: translateY(-2px);
+    }
+}
+
+/* =========================
+   NOTIFICATION ICON & CONTENT
+========================= */
+.dashboard-notification-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.dashboard-notification-content {
+    flex-grow: 1;
+}
+
+.dashboard-notification-content h5 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.dashboard-notification-content p {
+    margin: 0 0 6px;
+    color: var(--text-light);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.dashboard-notification-time {
+    color: var(--text-light);
+    font-size: 11px;
+    opacity: 0.7;
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .dashboard-notifications-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .dashboard-notifications-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .dashboard-notification-item {
+        padding: 14px;
+        border-radius: 14px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-notification-item,
+    .dashboard-clear-all-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 15 SECTION 10 FINAL
+   ADVANCED DASHBOARD FOOTER WIDGET & COPYRIGHT UI
+========================================================= */
+
+/* =========================
+   DASHBOARD FOOTER SECTION WRAPPER
+========================= */
+.dashboard-footer-section {
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    padding-top: 25px;
+    border-top: 1px solid var(--border);
+}
+
+.dashboard-footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.dashboard-footer-left p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.dashboard-footer-left span {
+    color: var(--gold);
+    font-weight: 800;
+}
+
+/* =========================
+   FOOTER QUICK LINKS
+========================= */
+.dashboard-footer-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dashboard-footer-links a {
+    color: var(--text-light);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .dashboard-footer-links a:hover {
+        color: var(--gold);
+    }
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 768px) {
+    .dashboard-footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .dashboard-footer-links {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-footer-links a {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 1 FINAL
+   ADVANCED ADMIN PANEL WRAPPER & MAIN LAYOUT UI
+========================================================= */
+
+/* =========================
+   ADMIN PANEL WRAPPER
+========================= */
+.admin-panel-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: var(--bg-color, #0b0b0b);
+    display: flex;
+    overflow-x: hidden;
+}
+
+.admin-main-content {
+    flex-grow: 1;
+    padding: 30px;
+    transition: var(--transition);
+}
+
+/* =========================
+   ADMIN PANEL CONTAINER
+========================= */
+.admin-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 1024px) {
+    .admin-main-content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-main-content {
+        padding: 15px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-main-content {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 1 FINAL
+   ADVANCED ADMIN PANEL WRAPPER & MAIN LAYOUT UI
+========================================================= */
+
+/* =========================
+   ADMIN PANEL WRAPPER
+========================= */
+.admin-panel-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: var(--bg-color, #0b0b0b);
+    display: flex;
+    overflow-x: hidden;
+}
+
+.admin-main-content {
+    flex-grow: 1;
+    padding: 30px;
+    transition: var(--transition);
+}
+
+/* =========================
+   ADMIN PANEL CONTAINER
+========================= */
+.admin-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 1024px) {
+    .admin-main-content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-main-content {
+        padding: 15px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-main-content {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 2 FINAL
+   ADVANCED ADMIN PANEL SIDEBAR NAVIGATION UI
+========================================================= */
+
+/* =========================
+   ADMIN SIDEBAR CONTAINER
+========================= */
+.admin-sidebar {
+    position: sticky;
+    top: 0;
+    width: 280px;
+    height: 100vh;
+    background: var(--card-bg, #141414);
+    border-right: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px 20px;
+    z-index: 100;
+    transition: var(--transition, all 0.3s ease);
+}
+
+/* =========================
+   SIDEBAR BRANDING HEADER
+========================= */
+.admin-sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    margin-bottom: 25px;
+}
+
+.admin-sidebar-logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary, #c1121f), var(--gold, #d4af37));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+    box-shadow: 0 8px 20px rgba(193, 18, 31, 0.35);
+}
+
+.admin-sidebar-title h3 {
+    margin: 0 0 3px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+}
+
+.admin-sidebar-title span {
+    color: var(--gold, #d4af37);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* =========================
+   SIDEBAR NAVIGATION LINKS
+========================= */
+.admin-sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.admin-sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    color: var(--text-light, #b0b0b0);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-sidebar-link i {
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+    color: var(--gold, #d4af37);
+}
+
+@media (hover: hover) {
+    .admin-sidebar-link:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: #ffffff;
+        transform: translateX(4px);
+    }
+}
+
+.admin-sidebar-link.active {
+    background: linear-gradient(135deg, var(--primary, #c1121f), var(--gold, #d4af37));
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(193, 18, 31, 0.30);
+}
+
+.admin-sidebar-link.active i {
+    color: #ffffff;
+}
+
+/* =========================
+   SIDEBAR FOOTER / LOGOUT
+========================= */
+.admin-sidebar-footer {
+    padding-top: 20px;
+    border-top: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+}
+
+.admin-logout-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 14px;
+    background: rgba(193, 18, 31, 0.10);
+    border: 1px solid rgba(193, 18, 31, 0.30);
+    color: #ff4d4d;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+    text-decoration: none;
+}
+
+@media (hover: hover) {
+    .admin-logout-btn:hover {
+        background: rgba(193, 18, 31, 0.20);
+        border-color: rgba(193, 18, 31, 0.50);
+    }
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 1024px) {
+    .admin-sidebar {
+        width: 80px;
+        padding: 20px 12px;
+    }
+
+    .admin-sidebar-title,
+    .admin-sidebar-link span,
+    .admin-logout-btn span {
+        display: none;
+    }
+
+    .admin-sidebar-header {
+        justify-content: center;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
+
+    .admin-sidebar-link {
+        justify-content: center;
+        padding: 12px;
+    }
+
+    .admin-logout-btn {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-sidebar {
+        position: fixed;
+        left: -100%;
+        width: 280px;
+        height: 100vh;
+        z-index: 1000;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .admin-sidebar.mobile-active {
+        left: 0;
+    }
+
+    .admin-sidebar-title,
+    .admin-sidebar-link span,
+    .admin-logout-btn span {
+        display: block;
+    }
+
+    .admin-sidebar-header {
+        justify-content: space-between;
+    }
+
+    .admin-sidebar-link {
+        justify-content: flex-start;
+        padding: 12px 16px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-sidebar,
+    .admin-sidebar-link,
+    .admin-logout-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 3 FINAL
+   ADVANCED ADMIN PANEL TOPBAR HEADER UI
+========================================================= */
+
+/* =========================
+   ADMIN TOPBAR CONTAINER
+========================= */
+.admin-topbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 80px;
+    background: var(--card-bg, #141414);
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    z-index: 90;
+    margin-bottom: 30px;
+    border-radius: 0 0 24px 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================
+   TOPBAR SEARCH & TOGGLE
+========================= */
+.admin-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.admin-mobile-menu-toggle {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: #ffffff;
+    font-size: 18px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-search-bar {
+    position: relative;
+    width: 320px;
+}
+
+.admin-search-bar input {
+    width: 100%;
+    height: 44px;
+    padding: 0 20px 0 45px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: #ffffff;
+    font-size: 13px;
+    outline: none;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-search-bar input::placeholder {
+    color: var(--text-light, #b0b0b0);
+}
+
+.admin-search-bar input:focus {
+    border-color: var(--gold, #d4af37);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+}
+
+.admin-search-bar i {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold, #d4af37);
+    font-size: 14px;
+}
+
+/* =========================
+   TOPBAR RIGHT ACTIONS & PROFILE
+========================= */
+.admin-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.admin-topbar-icon-btn {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: var(--text-light, #b0b0b0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+    text-decoration: none;
+}
+
+@media (hover: hover) {
+    .admin-topbar-icon-btn:hover {
+        background: rgba(212, 175, 55, 0.15);
+        color: var(--gold, #d4af37);
+        border-color: rgba(212, 175, 55, 0.35);
+        transform: translateY(-2px);
+    }
+}
+
+.admin-topbar-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary, #c1121f);
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--card-bg, #141414);
+}
+
+.admin-topbar-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-left: 10px;
+    border-left: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+}
+
+.admin-topbar-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid var(--gold, #d4af37);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.admin-topbar-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.admin-topbar-info h4 {
+    margin: 0 0 2px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.admin-topbar-info span {
+    color: var(--gold, #d4af37);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 1024px) {
+    .admin-topbar {
+        padding: 0 20px;
+    }
+
+    .admin-search-bar {
+        width: 240px;
+    }
+
+    .admin-topbar-info {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-topbar {
+        padding: 0 15px;
+        height: 70px;
+        margin-bottom: 20px;
+        border-radius: 0 0 18px 18px;
+    }
+
+    .admin-mobile-menu-toggle {
+        display: flex;
+    }
+
+    .admin-search-bar {
+        display: none;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-topbar,
+    .admin-topbar-icon-btn,
+    .admin-search-bar input {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 4 FINAL
+   ADVANCED ADMIN PANEL DASHBOARD STATS & OVERVIEW CARDS UI
+========================================================= */
+
+/* =========================
+   ADMIN STATS SECTION WRAPPER
+========================= */
+.admin-stats-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.admin-stat-card {
+    position: relative;
+    width: 100%;
+    padding: 25px;
+    border-radius: 24px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-stat-card::before {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    right: -60px;
+    top: -60px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(50px);
+    pointer-events: none;
+}
+
+@media (hover: hover) {
+    .admin-stat-card:hover {
+        border-color: rgba(212, 175, 55, 0.40);
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.40);
+    }
+}
+
+/* =========================
+   ADMIN STAT CARD HEADER & ICON
+========================= */
+.admin-stat-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.admin-stat-header span {
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.admin-stat-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold, #d4af37);
+    font-size: 18px;
+}
+
+/* =========================
+   ADMIN STAT CARD BODY & VALUE
+========================= */
+.admin-stat-body {
+    position: relative;
+    z-index: 2;
+}
+
+.admin-stat-value {
+    margin: 0 0 8px;
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+}
+
+.admin-stat-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #2ecc71;
+}
+
+.admin-stat-trend.negative {
+    color: #ff4d4d;
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 1200px) {
+    .admin-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .admin-stat-card {
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .admin-stat-value {
+        font-size: 24px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-stat-card {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 5 FINAL
+   ADVANCED ADMIN PANEL CUSTOMER MANAGEMENT TABLE UI
+========================================================= */
+
+/* =========================
+   ADMIN TABLE SECTION WRAPPER
+========================= */
+.admin-table-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-table-card {
+    position: relative;
+    width: 100%;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.admin-table-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   TABLE HEADER & ACTIONS
+========================= */
+.admin-table-header {
+    position: relative;
+    z-index: 2;
+    padding: 25px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+}
+
+.admin-table-title h3 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.admin-table-title p {
+    margin: 0;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+}
+
+.admin-table-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-table-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 18px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+}
+
+@media (hover: hover) {
+    .admin-table-filter-btn:hover {
+        background: rgba(212, 175, 55, 0.15);
+        color: var(--gold, #d4af37);
+        border-color: rgba(212, 175, 55, 0.35);
+    }
+}
+
+/* =========================
+   RESPONSIVE TABLE CONTAINER
+========================= */
+.admin-table-responsive {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.admin-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.admin-data-table th {
+    padding: 16px 24px;
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--text-light, #b0b0b0);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+}
+
+.admin-data-table td {
+    padding: 18px 24px;
+    color: #ffffff;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.05));
+    transition: var(--transition, all 0.3s ease);
+}
+
+@media (hover: hover) {
+    .admin-data-table tbody tr:hover td {
+        background: rgba(255, 255, 255, 0.04);
+    }
+}
+
+/* =========================
+   TABLE COMPONENTS & BADGES
+========================= */
+.admin-user-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-user-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid var(--gold, #d4af37);
+    flex-shrink: 0;
+}
+
+.admin-user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.admin-user-info h5 {
+    margin: 0 0 2px;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.admin-user-info span {
+    color: var(--text-light, #b0b0b0);
+    font-size: 11px;
+}
+
+.admin-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.admin-status-badge.active {
+    background: rgba(46, 204, 113, 0.15);
+    color: #2ecc71;
+    border: 1px solid rgba(46, 204, 113, 0.30);
+}
+
+.admin-status-badge.pending {
+    background: rgba(241, 196, 15, 0.15);
+    color: #f1c40f;
+    border: 1px solid rgba(241, 196, 15, 0.30);
+}
+
+.admin-action-icons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin-action-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: var(--text-light, #b0b0b0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+    text-decoration: none;
+}
+
+@media (hover: hover) {
+    .admin-action-btn.edit:hover {
+        background: rgba(212, 175, 55, 0.20);
+        color: var(--gold, #d4af37);
+        border-color: rgba(212, 175, 55, 0.40);
+    }
+
+    .admin-action-btn.delete:hover {
+        background: rgba(193, 18, 31, 0.20);
+        color: #ff4d4d;
+        border-color: rgba(193, 18, 31, 0.40);
+    }
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 768px) {
+    .admin-table-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .admin-table-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .admin-table-card {
+        border-radius: 22px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-table-filter-btn,
+    .admin-action-btn,
+    .admin-data-table td {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 6 FINAL
+   ADVANCED ADMIN PANEL CUSTOMER DETAILS & PROFILE VIEW UI
+========================================================= */
+
+/* =========================
+   CUSTOMER PROFILE SECTION WRAPPER
+========================= */
+.admin-profile-view-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-profile-view-grid {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 25px;
+}
+
+/* =========================
+   PROFILE LEFT CARD (AVATAR & SUMMARY)
+========================= */
+.admin-profile-sidebar-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-profile-sidebar-card::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    right: -70px;
+    top: -70px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(50px);
+    pointer-events: none;
+}
+
+.admin-profile-lg-avatar {
+    position: relative;
+    z-index: 2;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid var(--gold, #d4af37);
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.40);
+}
+
+.admin-profile-lg-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.admin-profile-sidebar-info {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.admin-profile-sidebar-info h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.admin-profile-sidebar-info p {
+    margin: 0 0 20px;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+}
+
+.admin-profile-contact-list {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    border-top: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+.admin-profile-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+}
+
+.admin-profile-contact-item i {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold, #d4af37);
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+/* =========================
+   PROFILE RIGHT CARD (TABS & DETAILS)
+========================= */
+.admin-profile-main-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.admin-profile-main-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+.admin-profile-tabs {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.admin-profile-tab-btn {
+    background: none;
+    border: none;
+    color: var(--text-light, #b0b0b0);
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 50px;
+    transition: var(--transition, all 0.3s ease);
+}
+
+@media (hover: hover) {
+    .admin-profile-tab-btn:hover {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.04);
+    }
+}
+
+.admin-profile-tab-btn.active {
+    background: linear-gradient(135deg, var(--primary, #c1121f), var(--gold, #d4af37));
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(193, 18, 31, 0.30);
+}
+
+.admin-profile-details-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.admin-profile-detail-box {
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+}
+
+.admin-profile-detail-box span {
+    display: block;
+    color: var(--text-light, #b0b0b0);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.admin-profile-detail-box h4 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 900;
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 1024px) {
+    .admin-profile-view-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-profile-sidebar-card,
+    .admin-profile-main-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .admin-profile-details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-profile-tabs {
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: 15px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-profile-tab-btn {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 7 FINAL
+   ADVANCED ADMIN PANEL SETTINGS & CONFIGURATION UI
+========================================================= */
+
+/* =========================
+   ADMIN SETTINGS SECTION WRAPPER
+========================= */
+.admin-settings-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-settings-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.admin-settings-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.admin-settings-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   SETTINGS CARD HEADER
+========================= */
+.admin-settings-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    padding-bottom: 18px;
+}
+
+.admin-settings-header h3 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.admin-settings-header p {
+    margin: 0;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+}
+
+/* =========================
+   SETTINGS FORM FIELDS
+========================= */
+.admin-settings-form {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.admin-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-form-group label {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.admin-form-group input,
+.admin-form-group select,
+.admin-form-group textarea {
+    width: 100%;
+    padding: 12px 18px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: #ffffff;
+    font-size: 14px;
+    outline: none;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-form-group input:focus,
+.admin-form-group select:focus,
+.admin-form-group textarea:focus {
+    border-color: var(--gold, #d4af37);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+}
+
+.admin-form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* =========================
+   SETTINGS TOGGLE ROW
+========================= */
+.admin-settings-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.05));
+}
+
+.admin-settings-toggle-info h5 {
+    margin: 0 0 2px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.admin-settings-toggle-info p {
+    margin: 0;
+    color: var(--text-light, #b0b0b0);
+    font-size: 12px;
+}
+
+/* Custom Toggle Switch */
+.admin-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.admin-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.admin-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.10);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    transition: var(--transition, all 0.3s ease);
+    border-radius: 34px;
+}
+
+.admin-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: var(--transition, all 0.3s ease);
+    border-radius: 50%;
+}
+
+.admin-switch input:checked + .admin-slider {
+    background: linear-gradient(135deg, var(--primary, #c1121f), var(--gold, #d4af37));
+    border-color: var(--gold, #d4af37);
+}
+
+.admin-switch input:checked + .admin-slider:before {
+    transform: translateX(24px);
+}
+
+/* =========================
+   SETTINGS SAVE BUTTON
+========================= */
+.admin-settings-footer {
+    position: relative;
+    z-index: 2;
+    margin-top: 25px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.admin-save-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 0 30px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--primary, #c1121f), var(--gold, #d4af37));
+    color: #ffffff;
+    border: none;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+    box-shadow: 0 10px 25px rgba(193, 18, 31, 0.35);
+}
+
+@media (hover: hover) {
+    .admin-save-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(193, 18, 31, 0.45);
+    }
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .admin-settings-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .admin-settings-toggle-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .admin-save-btn {
+        width: 100%;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-save-btn,
+    .admin-slider,
+    .admin-slider:before {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 8 FINAL
+   ADVANCED ADMIN PANEL LOYALTY STAMP MANAGEMENT UI
+========================================================= */
+
+/* =========================
+   STAMP MANAGEMENT WRAPPER
+========================= */
+.admin-stamp-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-stamp-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.admin-stamp-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   STAMP HEADER & ACTIONS
+========================= */
+.admin-stamp-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    padding-bottom: 18px;
+}
+
+.admin-stamp-header h3 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.admin-stamp-header p {
+    margin: 0;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+}
+
+/* =========================
+   STAMP GRID DISPLAY (6 STAMPS)
+========================= */
+.admin-stamp-grid-container {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.admin-stamp-slot {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px dashed var(--border, rgba(255, 255, 255, 0.15));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: var(--text-light, #b0b0b0);
+    font-size: 12px;
+    font-weight: 800;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-stamp-slot.collected {
+    background: rgba(212, 175, 55, 0.12);
+    border: 2px solid var(--gold, #d4af37);
+    color: var(--gold, #d4af37);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.20);
+}
+
+.admin-stamp-slot i {
+    font-size: 20px;
+}
+
+.admin-stamp-slot span {
+    font-size: 11px;
+}
+
+/* =========================
+   STAMP CONTROL ACTIONS
+========================= */
+.admin-stamp-controls {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    border-top: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    padding-top: 20px;
+}
+
+.admin-stamp-info-text {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.admin-stamp-info-text span {
+    color: var(--gold, #d4af37);
+}
+
+.admin-stamp-btn-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-stamp-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 22px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+    border: none;
+}
+
+.admin-stamp-action-btn.add {
+    background: linear-gradient(135deg, var(--primary, #c1121f), var(--gold, #d4af37));
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(193, 18, 31, 0.30);
+}
+
+@media (hover: hover) {
+    .admin-stamp-action-btn.add:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(193, 18, 31, 0.40);
+    }
+}
+
+.admin-stamp-action-btn.reset {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: var(--text-light, #b0b0b0);
+}
+
+@media (hover: hover) {
+    .admin-stamp-action-btn.reset:hover {
+        background: rgba(193, 18, 31, 0.15);
+        color: #ff4d4d;
+        border-color: rgba(193, 18, 31, 0.30);
+    }
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 900px) {
+    .admin-stamp-grid-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-stamp-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .admin-stamp-grid-container {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .admin-stamp-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .admin-stamp-btn-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .admin-stamp-action-btn {
+        width: 100%;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-stamp-slot,
+    .admin-stamp-action-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 9 FINAL
+   ADVANCED ADMIN PANEL ANALYTICS & REPORTS UI
+========================================================= */
+
+/* =========================
+   ANALYTICS SECTION WRAPPER
+========================= */
+.admin-analytics-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-analytics-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+}
+
+/* =========================
+   ANALYTICS CHART CARD
+========================= */
+.admin-chart-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.admin-chart-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+.admin-chart-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.admin-chart-title h3 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.admin-chart-title p {
+    margin: 0;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+}
+
+.admin-chart-select {
+    padding: 8px 16px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: var(--text-light, #b0b0b0);
+    font-size: 12px;
+    font-weight: 700;
+    outline: none;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-chart-select:focus {
+    border-color: var(--gold, #d4af37);
+    color: #ffffff;
+}
+
+/* Simulated Chart Body Area */
+.admin-chart-body {
+    position: relative;
+    z-index: 2;
+    height: 260px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 20px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+}
+
+.admin-chart-bar-wrap {
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.admin-chart-bar {
+    width: 100%;
+    max-width: 36px;
+    border-radius: 12px 12px 0 0;
+    background: linear-gradient(180deg, var(--gold, #d4af37), var(--primary, #c1121f));
+    transition: var(--transition, all 0.3s ease);
+    box-shadow: 0 8px 20px rgba(193, 18, 31, 0.20);
+}
+
+@media (hover: hover) {
+    .admin-chart-bar:hover {
+        opacity: 0.85;
+        transform: scaleY(1.02);
+    }
+}
+
+.admin-chart-bar-wrap span {
+    color: var(--text-light, #b0b0b0);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* =========================
+   ANALYTICS SUMMARY CARD
+========================= */
+.admin-analytics-summary-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.admin-analytics-summary-card::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    right: -70px;
+    top: -70px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(50px);
+    pointer-events: none;
+}
+
+.admin-summary-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 20px;
+}
+
+.admin-summary-header h3 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.admin-summary-header p {
+    margin: 0;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+}
+
+.admin-summary-metrics {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.admin-metric-item {
+    padding: 16px 20px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.admin-metric-info span {
+    display: block;
+    color: var(--text-light, #b0b0b0);
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 3px;
+}
+
+.admin-metric-info h4 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.admin-metric-badge {
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    background: rgba(46, 204, 113, 0.15);
+    color: #2ecc71;
+    border: 1px solid rgba(46, 204, 113, 0.30);
+}
+
+.admin-metric-badge.negative {
+    background: rgba(193, 18, 31, 0.15);
+    color: #ff4d4d;
+    border: 1px solid rgba(193, 18, 31, 0.30);
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 1024px) {
+    .admin-analytics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-chart-card,
+    .admin-analytics-summary-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .admin-chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .admin-chart-body {
+        height: 220px;
+        gap: 8px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-chart-bar {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 10 FINAL
+   ADVANCED ADMIN PANEL ACTIVITY LOGS & SYSTEM FEED UI
+========================================================= */
+
+/* =========================
+   ACTIVITY LOGS SECTION WRAPPER
+========================= */
+.admin-logs-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-logs-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.admin-logs-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   LOGS HEADER
+========================= */
+.admin-logs-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    padding-bottom: 18px;
+}
+
+.admin-logs-title h3 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.admin-logs-title p {
+    margin: 0;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+}
+
+.admin-logs-action-btn {
+    background: none;
+    border: none;
+    color: var(--gold, #d4af37);
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+}
+
+@media (hover: hover) {
+    .admin-logs-action-btn:hover {
+        text-decoration: underline;
+        opacity: 0.8;
+    }
+}
+
+/* =========================
+   LOGS TIMELINE LIST
+========================= */
+.admin-logs-list {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.admin-log-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 20px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    transition: var(--transition, all 0.3s ease);
+}
+
+@media (hover: hover) {
+    .admin-log-item:hover {
+        background: rgba(255, 255, 255, 0.06);
+        transform: translateY(-2px);
+    }
+}
+
+.admin-log-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold, #d4af37);
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.admin-log-content {
+    flex-grow: 1;
+}
+
+.admin-log-content h5 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.admin-log-content p {
+    margin: 0 0 6px;
+    color: var(--text-light, #b0b0b0);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.admin-log-time {
+    color: var(--text-light, #b0b0b0);
+    font-size: 11px;
+    opacity: 0.7;
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .admin-logs-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .admin-logs-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .admin-log-item {
+        padding: 14px;
+        border-radius: 14px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-log-item,
+    .admin-logs-action-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 11 FINAL
+   ADVANCED ADMIN PANEL MODALS & POPUP DIALOGS UI
+========================================================= */
+
+/* =========================
+   MODAL OVERLAY & CONTAINER
+========================= */
+.admin-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.admin-modal-card {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    padding: 35px;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.50);
+    overflow: hidden;
+    transform: translateY(20px) scale(0.95);
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-modal-overlay.active .admin-modal-card {
+    transform: translateY(0) scale(1);
+}
+
+.admin-modal-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   MODAL HEADER & CLOSE
+========================= */
+.admin-modal-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    padding-bottom: 15px;
+}
+
+.admin-modal-header h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.admin-modal-close-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: var(--text-light, #b0b0b0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+}
+
+@media (hover: hover) {
+    .admin-modal-close-btn:hover {
+        background: rgba(193, 18, 31, 0.20);
+        color: #ff4d4d;
+        border-color: rgba(193, 18, 31, 0.40);
+    }
+}
+
+/* =========================
+   MODAL BODY & FOOTER ACTIONS
+========================= */
+.admin-modal-body {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+}
+
+.admin-modal-body p {
+    margin: 0;
+    color: var(--text-light, #b0b0b0);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.admin-modal-footer {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.admin-modal-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 24px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+    border: none;
+    text-decoration: none;
+}
+
+.admin-modal-btn.primary {
+    background: linear-gradient(135deg, var(--primary, #c1121f), var(--gold, #d4af37));
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(193, 18, 31, 0.30);
+}
+
+@media (hover: hover) {
+    .admin-modal-btn.primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(193, 18, 31, 0.40);
+    }
+}
+
+.admin-modal-btn.secondary {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: var(--text-light, #b0b0b0);
+}
+
+@media (hover: hover) {
+    .admin-modal-btn.secondary:hover {
+        background: rgba(255, 255, 255, 0.10);
+        color: #ffffff;
+    }
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .admin-modal-card {
+        padding: 25px;
+        border-radius: 22px;
+    }
+
+    .admin-modal-footer {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+
+    .admin-modal-btn {
+        width: 100%;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-modal-overlay,
+    .admin-modal-card,
+    .admin-modal-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 12 FINAL
+   ADVANCED ADMIN PANEL QR SCANNER & REDEMPTION TOOL UI
+========================================================= */
+
+/* =========================
+   QR SCANNER SECTION WRAPPER
+========================= */
+.admin-qr-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-qr-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+/* =========================
+   SCANNER CAMERA CARD
+========================= */
+.admin-qr-scanner-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.admin-qr-scanner-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+.admin-qr-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: left;
+}
+
+.admin-qr-header h3 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.admin-qr-header p {
+    margin: 0;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+}
+
+.admin-camera-viewport {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 240px;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.50);
+    border: 2px dashed rgba(212, 175, 55, 0.40);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--gold, #d4af37);
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.admin-camera-viewport i {
+    font-size: 40px;
+}
+
+.admin-camera-btn {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 28px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--primary, #c1121f), var(--gold, #d4af37));
+    color: #ffffff;
+    border: none;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+    box-shadow: 0 8px 20px rgba(193, 18, 31, 0.30);
+}
+
+@media (hover: hover) {
+    .admin-camera-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(193, 18, 31, 0.40);
+    }
+}
+
+/* =========================
+   MANUAL REDEMPTION CARD
+========================= */
+.admin-redemption-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.admin-redemption-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+.admin-redemption-form {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.admin-redemption-result {
+    position: relative;
+    z-index: 2;
+    padding: 16px 20px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.admin-redemption-info span {
+    display: block;
+    color: var(--text-light, #b0b0b0);
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.admin-redemption-info h4 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.admin-verify-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    width: 100%;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+}
+
+@media (hover: hover) {
+    .admin-verify-btn:hover {
+        background: rgba(212, 175, 55, 0.20);
+        color: var(--gold, #d4af37);
+        border-color: rgba(212, 175, 55, 0.40);
+    }
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 1024px) {
+    .admin-qr-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-qr-scanner-card,
+    .admin-redemption-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .admin-camera-viewport {
+        height: 200px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-camera-btn,
+    .admin-verify-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 13 FINAL
+   ADVANCED ADMIN PANEL INVENTORY & STOCK MANAGEMENT UI
+========================================================= */
+
+/* =========================
+   INVENTORY SECTION WRAPPER
+========================= */
+.admin-inventory-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* =========================
+   INVENTORY CARD
+========================= */
+.admin-inventory-card {
+    position: relative;
+    width: 100%;
+    padding: 25px;
+    border-radius: 24px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-inventory-card::before {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    right: -60px;
+    top: -60px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(50px);
+    pointer-events: none;
+}
+
+@media (hover: hover) {
+    .admin-inventory-card:hover {
+        border-color: rgba(212, 175, 55, 0.40);
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.40);
+    }
+}
+
+/* =========================
+   INVENTORY HEADER & BADGE
+========================= */
+.admin-inventory-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.admin-inventory-header h4 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.admin-stock-badge {
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.admin-stock-badge.in-stock {
+    background: rgba(46, 204, 113, 0.15);
+    color: #2ecc71;
+    border: 1px solid rgba(46, 204, 113, 0.30);
+}
+
+.admin-stock-badge.low-stock {
+    background: rgba(241, 196, 15, 0.15);
+    color: #f1c40f;
+    border: 1px solid rgba(241, 196, 15, 0.30);
+}
+
+.admin-stock-badge.out-of-stock {
+    background: rgba(193, 18, 31, 0.15);
+    color: #ff4d4d;
+    border: 1px solid rgba(193, 18, 31, 0.30);
+}
+
+/* =========================
+   INVENTORY BODY & CONTROLS
+========================= */
+.admin-inventory-body {
+    position: relative;
+    z-index: 2;
+}
+
+.admin-inventory-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+}
+
+.admin-inventory-info span strong {
+    color: #ffffff;
+}
+
+.admin-inventory-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-inventory-btn {
+    flex-grow: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 40px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+}
+
+@media (hover: hover) {
+    .admin-inventory-btn:hover {
+        background: rgba(212, 175, 55, 0.20);
+        color: var(--gold, #d4af37);
+        border-color: rgba(212, 175, 55, 0.40);
+    }
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 1024px) {
+    .admin-inventory-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-inventory-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .admin-inventory-card {
+        padding: 20px;
+        border-radius: 20px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-inventory-card,
+    .admin-inventory-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 14 FINAL
+   ADVANCED ADMIN PANEL COUPON & OFFER MANAGEMENT UI
+========================================================= */
+
+/* =========================
+   COUPON SECTION WRAPPER
+========================= */
+.admin-coupon-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-coupon-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* =========================
+   COUPON CARD
+========================= */
+.admin-coupon-card {
+    position: relative;
+    width: 100%;
+    padding: 25px;
+    border-radius: 24px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-coupon-card::before {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    right: -60px;
+    top: -60px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(50px);
+    pointer-events: none;
+}
+
+@media (hover: hover) {
+    .admin-coupon-card:hover {
+        border-color: rgba(212, 175, 55, 0.40);
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.40);
+    }
+}
+
+/* =========================
+   COUPON HEADER & DISCOUNT
+========================= */
+.admin-coupon-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.admin-coupon-code-badge {
+    padding: 6px 14px;
+    border-radius: 50px;
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    color: var(--gold, #d4af37);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+}
+
+.admin-coupon-discount {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+/* =========================
+   COUPON BODY & ACTIONS
+========================= */
+.admin-coupon-body {
+    position: relative;
+    z-index: 2;
+}
+
+.admin-coupon-body p {
+    margin: 0 0 15px;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.admin-coupon-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    color: var(--text-light, #b0b0b0);
+    font-size: 12px;
+}
+
+.admin-coupon-meta span strong {
+    color: #ffffff;
+}
+
+.admin-coupon-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-coupon-btn {
+    flex-grow: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 40px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+}
+
+@media (hover: hover) {
+    .admin-coupon-btn.edit:hover {
+        background: rgba(212, 175, 55, 0.20);
+        color: var(--gold, #d4af37);
+        border-color: rgba(212, 175, 55, 0.40);
+    }
+
+    .admin-coupon-btn.delete:hover {
+        background: rgba(193, 18, 31, 0.20);
+        color: #ff4d4d;
+        border-color: rgba(193, 18, 31, 0.40);
+    }
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 1024px) {
+    .admin-coupon-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-coupon-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .admin-coupon-card {
+        padding: 20px;
+        border-radius: 20px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-coupon-card,
+    .admin-coupon-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 15 FINAL
+   ADVANCED ADMIN PANEL ANALYTICS & REPORTS UI
+========================================================= */
+
+/* =========================
+   ANALYTICS SECTION WRAPPER
+========================= */
+.admin-analytics-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-analytics-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+}
+
+/* =========================
+   CHART CARD
+========================= */
+.admin-chart-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.admin-chart-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+.admin-chart-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    padding-bottom: 15px;
+}
+
+.admin-chart-title h3 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.admin-chart-title p {
+    margin: 0;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+}
+
+.admin-chart-filter-select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 800;
+    outline: none;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-chart-filter-select option {
+    background: #141414;
+    color: #ffffff;
+}
+
+.admin-chart-viewport {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 260px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 15px;
+    padding-top: 20px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+}
+
+.admin-chart-bar-group {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+.admin-chart-bar {
+    width: 100%;
+    max-width: 36px;
+    border-radius: 10px 10px 0 0;
+    background: linear-gradient(180deg, var(--gold, #d4af37), var(--primary, #c1121f));
+    transition: var(--transition, all 0.3s ease);
+    box-shadow: 0 4px 15px rgba(193, 18, 31, 0.20);
+}
+
+@media (hover: hover) {
+    .admin-chart-bar:hover {
+        opacity: 0.85;
+        filter: brightness(1.2);
+    }
+}
+
+.admin-chart-bar-label {
+    color: var(--text-light, #b0b0b0);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* =========================
+   REPORTS SUMMARY CARD
+========================= */
+.admin-reports-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.admin-reports-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+.admin-reports-list {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.admin-report-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+}
+
+.admin-report-info span {
+    display: block;
+    color: var(--text-light, #b0b0b0);
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.admin-report-info h4 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.admin-report-download-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    width: 100%;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--primary, #c1121f), var(--gold, #d4af37));
+    color: #ffffff;
+    border: none;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+    box-shadow: 0 8px 20px rgba(193, 18, 31, 0.30);
+}
+
+@media (hover: hover) {
+    .admin-report-download-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(193, 18, 31, 0.40);
+    }
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 1024px) {
+    .admin-analytics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-chart-card,
+    .admin-reports-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .admin-chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .admin-chart-viewport {
+        height: 220px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-chart-bar,
+    .admin-report-download-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 16 FINAL
+   ADVANCED ADMIN PANEL SETTINGS & SYSTEM CONFIGURATION UI
+========================================================= */
+
+/* =========================
+   SETTINGS SECTION WRAPPER
+========================= */
+.admin-settings-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-settings-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+/* =========================
+   SETTINGS CARD
+========================= */
+.admin-settings-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.admin-settings-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+.admin-settings-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    padding-bottom: 15px;
+}
+
+.admin-settings-header h3 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.admin-settings-header p {
+    margin: 0;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+}
+
+/* =========================
+   SETTINGS FORM ELEMENTS
+========================= */
+.admin-settings-form {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.admin-settings-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-settings-field label {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.admin-settings-input {
+    width: 100%;
+    height: 48px;
+    padding: 0 20px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: #ffffff;
+    font-size: 14px;
+    outline: none;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-settings-input:focus {
+    border-color: var(--gold, #d4af37);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+}
+
+.admin-settings-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+}
+
+.admin-settings-toggle-info h4 {
+    margin: 0 0 2px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.admin-settings-toggle-info p {
+    margin: 0;
+    color: var(--text-light, #b0b0b0);
+    font-size: 12px;
+}
+
+/* CUSTOM SWITCH TOGGLE */
+.admin-switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.admin-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.admin-slider {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.10);
+    border-radius: 34px;
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    transition: var(--transition, all 0.3s ease);
+    cursor: pointer;
+}
+
+.admin-slider::before {
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-switch input:checked + .admin-slider {
+    background: linear-gradient(135deg, var(--primary, #c1121f), var(--gold, #d4af37));
+    border-color: transparent;
+}
+
+.admin-switch input:checked + .admin-slider::before {
+    transform: translateX(20px);
+}
+
+/* =========================
+   SETTINGS SAVE BUTTON
+========================= */
+.admin-settings-save-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    width: 100%;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--primary, #c1121f), var(--gold, #d4af37));
+    color: #ffffff;
+    border: none;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+    box-shadow: 0 8px 20px rgba(193, 18, 31, 0.30);
+    margin-top: 10px;
+}
+
+@media (hover: hover) {
+    .admin-settings-save-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(193, 18, 31, 0.40);
+    }
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 1024px) {
+    .admin-settings-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-settings-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-slider,
+    .admin-slider::before,
+    .admin-settings-save-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 17 FINAL
+   ADVANCED ADMIN PANEL NOTIFICATIONS & REAL-TIME ALERTS UI
+========================================================= */
+
+/* =========================
+   NOTIFICATIONS SECTION WRAPPER
+========================= */
+.admin-notifications-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-notifications-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+/* =========================
+   NOTIFICATIONS CARD
+========================= */
+.admin-notifications-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.admin-notifications-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+.admin-notifications-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    padding-bottom: 15px;
+}
+
+.admin-notifications-header h3 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.admin-notifications-header p {
+    margin: 0;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+}
+
+.admin-mark-read-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: var(--text-light, #b0b0b0);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+}
+
+@media (hover: hover) {
+    .admin-mark-read-btn:hover {
+        background: rgba(212, 175, 55, 0.20);
+        color: var(--gold, #d4af37);
+        border-color: rgba(212, 175, 55, 0.40);
+    }
+}
+
+/* =========================
+   NOTIFICATION LIST ITEMS
+========================= */
+.admin-notifications-list {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.admin-notification-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 16px 20px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-notification-item.unread {
+    background: rgba(212, 175, 55, 0.04);
+    border-color: rgba(212, 175, 55, 0.20);
+}
+
+.admin-notification-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    color: var(--gold, #d4af37);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.admin-notification-content {
+    flex-grow: 1;
+}
+
+.admin-notification-content h4 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.admin-notification-content p {
+    margin: 0 0 6px;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.admin-notification-time {
+    color: rgba(255, 255, 255, 0.40);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 1024px) {
+    .admin-notifications-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-notifications-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .admin-notifications-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .admin-notification-item {
+        padding: 14px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-notification-item,
+    .admin-mark-read-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 18 FINAL
+   ADVANCED ADMIN PANEL USER MANAGEMENT & PERMISSIONS UI
+========================================================= */
+
+/* =========================
+   USER MANAGEMENT SECTION WRAPPER
+========================= */
+.admin-users-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-users-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.admin-users-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+.admin-users-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    padding-bottom: 15px;
+}
+
+.admin-users-header h3 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.admin-users-header p {
+    margin: 0;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+}
+
+.admin-add-user-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 24px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--primary, #c1121f), var(--gold, #d4af37));
+    color: #ffffff;
+    border: none;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+    box-shadow: 0 8px 20px rgba(193, 18, 31, 0.30);
+}
+
+@media (hover: hover) {
+    .admin-add-user-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(193, 18, 31, 0.40);
+    }
+}
+
+/* =========================
+   USER TABLE RESPONSIVE WRAPPER
+========================= */
+.admin-table-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.admin-users-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.admin-users-table th {
+    color: var(--text-light, #b0b0b0);
+    font-size: 12px;
+    font-weight: 800;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.admin-users-table td {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.05));
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    vertical-align: middle;
+}
+
+.admin-user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-user-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    color: var(--gold, #d4af37);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 900;
+    flex-shrink: 0;
+}
+
+.admin-user-info span {
+    display: block;
+    color: var(--text-light, #b0b0b0);
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+/* ROLE BADGES */
+.admin-role-badge {
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.admin-role-badge.super-admin {
+    background: rgba(193, 18, 31, 0.15);
+    color: #ff4d4d;
+    border: 1px solid rgba(193, 18, 31, 0.30);
+}
+
+.admin-role-badge.manager {
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--gold, #d4af37);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+}
+
+.admin-role-badge.staff {
+    background: rgba(46, 204, 113, 0.15);
+    color: #2ecc71;
+    border: 1px solid rgba(46, 204, 113, 0.30);
+}
+
+/* ACTION BUTTONS */
+.admin-action-btns {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin-action-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+}
+
+@media (hover: hover) {
+    .admin-action-btn.edit:hover {
+        background: rgba(212, 175, 55, 0.20);
+        color: var(--gold, #d4af37);
+        border-color: rgba(212, 175, 55, 0.40);
+    }
+
+    .admin-action-btn.delete:hover {
+        background: rgba(193, 18, 31, 0.20);
+        color: #ff4d4d;
+        border-color: rgba(193, 18, 31, 0.40);
+    }
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 768px) {
+    .admin-users-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .admin-users-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .admin-add-user-btn {
+        width: 100%;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-add-user-btn,
+    .admin-action-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 SECTION 19 FINAL
+   ADVANCED ADMIN PANEL ACTIVITY LOGS & AUDIT TRAIL UI
+========================================================= */
+
+/* =========================
+   ACTIVITY LOGS SECTION WRAPPER
+========================= */
+.admin-logs-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-logs-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.admin-logs-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+.admin-logs-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    padding-bottom: 15px;
+}
+
+.admin-logs-header h3 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.admin-logs-header p {
+    margin: 0;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+}
+
+.admin-clear-logs-btn {
+    background: rgba(193, 18, 31, 0.15);
+    border: 1px solid rgba(193, 18, 31, 0.30);
+    color: #ff4d4d;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+}
+
+@media (hover: hover) {
+    .admin-clear-logs-btn:hover {
+        background: rgba(193, 18, 31, 0.25);
+        border-color: rgba(193, 18, 31, 0.50);
+    }
+}
+
+/* =========================
+   LOGS TIMELINE / TABLE
+========================= */
+.admin-logs-table-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.admin-logs-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.admin-logs-table th {
+    color: var(--text-light, #b0b0b0);
+    font-size: 12px;
+    font-weight: 800;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.admin-logs-table td {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.05));
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    vertical-align: middle;
+}
+
+/* LOG ACTION BADGES */
+.admin-log-badge {
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.admin-log-badge.login {
+    background: rgba(46, 204, 113, 0.15);
+    color: #2ecc71;
+    border: 1px solid rgba(46, 204, 113, 0.30);
+}
+
+.admin-log-badge.update {
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--gold, #d4af37);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+}
+
+.admin-log-badge.delete {
+    background: rgba(193, 18, 31, 0.15);
+    color: #ff4d4d;
+    border: 1px solid rgba(193, 18, 31, 0.30);
+}
+
+.admin-log-ip {
+    color: var(--text-light, #b0b0b0);
+    font-family: monospace;
+    font-size: 12px;
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 768px) {
+    .admin-logs-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .admin-logs-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .admin-clear-logs-btn {
+        width: 100%;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-clear-logs-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 16 FINAL (100% BULLETPROOF PRODUCTION-READY)
+   ADVANCED ADMIN PANEL SYSTEM (SECTIONS 10 - 19)
+========================================================= */
+
+/* =========================
+   1. COMMON ADMIN CARD SYSTEM
+========================================================= */
+.admin-card-base,
+.admin-coupon-card,
+.admin-chart-card,
+.admin-reports-card,
+.admin-settings-card,
+.admin-notifications-card,
+.admin-users-card,
+.admin-logs-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg, #141414);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-card-base::before,
+.admin-coupon-card::before,
+.admin-chart-card::before,
+.admin-reports-card::before,
+.admin-settings-card::before,
+.admin-notifications-card::before,
+.admin-users-card::before,
+.admin-logs-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   2. COMMON SECTION HEADERS
+========================================================= */
+.admin-section-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    padding-bottom: 15px;
+}
+
+.admin-section-header h3 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.admin-section-header p {
+    margin: 0;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+}
+
+/* =========================
+   3. SECTION 14: COUPONS & OFFERS UI
+========================================================= */
+.admin-coupon-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-coupon-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.admin-coupon-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.admin-coupon-code-badge {
+    padding: 6px 14px;
+    border-radius: 50px;
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    color: var(--gold, #d4af37);
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+}
+
+.admin-coupon-discount {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.admin-coupon-body {
+    position: relative;
+    z-index: 2;
+}
+
+.admin-coupon-body p {
+    margin: 0 0 15px;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.admin-coupon-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    color: var(--text-light, #b0b0b0);
+    font-size: 12px;
+}
+
+.admin-coupon-meta span strong {
+    color: #ffffff;
+}
+
+.admin-coupon-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-coupon-btn {
+    flex-grow: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 40px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+}
+
+/* =========================
+   4. SECTION 15: ANALYTICS & REPORTS UI
+========================================================= */
+.admin-analytics-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-analytics-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+}
+
+.admin-chart-filter-select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 800;
+    outline: none;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-chart-filter-select option {
+    background: #141414;
+    color: #ffffff;
+}
+
+.admin-chart-viewport {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 260px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 15px;
+    padding-top: 20px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+}
+
+.admin-chart-bar-group {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+.admin-chart-bar {
+    width: 100%;
+    max-width: 36px;
+    border-radius: 10px 10px 0 0;
+    background: linear-gradient(180deg, var(--gold, #d4af37), var(--primary, #c1121f));
+    transition: var(--transition, all 0.3s ease);
+    box-shadow: 0 4px 15px rgba(193, 18, 31, 0.20);
+}
+
+.admin-chart-bar-label {
+    color: var(--text-light, #b0b0b0);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.admin-reports-list {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.admin-report-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+}
+
+.admin-report-info span {
+    display: block;
+    color: var(--text-light, #b0b0b0);
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.admin-report-info h4 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.admin-report-download-btn,
+.admin-settings-save-btn,
+.admin-add-user-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    width: 100%;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--primary, #c1121f), var(--gold, #d4af37));
+    color: #ffffff;
+    border: none;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+    box-shadow: 0 8px 20px rgba(193, 18, 31, 0.30);
+}
+
+/* =========================
+   5. SECTION 16: SETTINGS & CONFIG UI
+========================================================= */
+.admin-settings-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-settings-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.admin-settings-form {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.admin-settings-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-settings-field label {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.admin-settings-input {
+    width: 100%;
+    height: 48px;
+    padding: 0 20px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: #ffffff;
+    font-size: 14px;
+    outline: none;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-settings-input:focus {
+    border-color: var(--gold, #d4af37);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+}
+
+.admin-settings-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+}
+
+.admin-settings-toggle-info h4 {
+    margin: 0 0 2px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.admin-settings-toggle-info p {
+    margin: 0;
+    color: var(--text-light, #b0b0b0);
+    font-size: 12px;
+}
+
+.admin-switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.admin-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.admin-slider {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.10);
+    border-radius: 34px;
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    transition: var(--transition, all 0.3s ease);
+    cursor: pointer;
+}
+
+.admin-slider::before {
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-switch input:checked + .admin-slider {
+    background: linear-gradient(135deg, var(--primary, #c1121f), var(--gold, #d4af37));
+    border-color: transparent;
+}
+
+.admin-switch input:checked + .admin-slider::before {
+    transform: translateX(20px);
+}
+
+/* =========================
+   6. SECTION 17: NOTIFICATIONS & ALERTS UI
+========================================================= */
+.admin-notifications-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-notifications-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.admin-mark-read-btn,
+.admin-clear-logs-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: var(--text-light, #b0b0b0);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-notifications-list {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.admin-notification-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 16px 20px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-notification-item.unread {
+    background: rgba(212, 175, 55, 0.04);
+    border-color: rgba(212, 175, 55, 0.20);
+}
+
+.admin-notification-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    color: var(--gold, #d4af37);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.admin-notification-content {
+    flex-grow: 1;
+}
+
+.admin-notification-content h4 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.admin-notification-content p {
+    margin: 0 0 6px;
+    color: var(--text-light, #b0b0b0);
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.admin-notification-time {
+    color: rgba(255, 255, 255, 0.40);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* =========================
+   7. SECTIONS 18 & 19: USER MANAGEMENT & AUDIT LOGS UI
+========================================================= */
+.admin-users-section,
+.admin-logs-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.admin-table-container,
+.admin-logs-table-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold, #d4af37) rgba(255, 255, 255, 0.05);
+}
+
+.admin-table-container::-webkit-scrollbar,
+.admin-logs-table-container::-webkit-scrollbar {
+    height: 6px;
+}
+
+.admin-table-container::-webkit-scrollbar-thumb,
+.admin-logs-table-container::-webkit-scrollbar-thumb {
+    background: var(--gold, #d4af37);
+    border-radius: 10px;
+}
+
+.admin-users-table,
+.admin-logs-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.admin-users-table th,
+.admin-logs-table th {
+    color: var(--text-light, #b0b0b0);
+    font-size: 12px;
+    font-weight: 800;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.admin-users-table td,
+.admin-logs-table td {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.05));
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    vertical-align: middle;
+}
+
+.admin-user-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-user-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    color: var(--gold, #d4af37);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 900;
+    flex-shrink: 0;
+}
+
+.admin-user-info span {
+    display: block;
+    color: var(--text-light, #b0b0b0);
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.admin-role-badge,
+.admin-log-badge {
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.admin-role-badge.super-admin,
+.admin-log-badge.delete {
+    background: rgba(193, 18, 31, 0.15);
+    color: #ff4d4d;
+    border: 1px solid rgba(193, 18, 31, 0.30);
+}
+
+.admin-role-badge.manager,
+.admin-log-badge.update {
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--gold, #d4af37);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+}
+
+.admin-role-badge.staff,
+.admin-log-badge.login {
+    background: rgba(46, 204, 113, 0.15);
+    color: #2ecc71;
+    border: 1px solid rgba(46, 204, 113, 0.30);
+}
+
+.admin-action-btns {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin-action-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    cursor: pointer;
+    transition: var(--transition, all 0.3s ease);
+}
+
+.admin-log-ip {
+    color: var(--text-light, #b0b0b0);
+    font-family: monospace;
+    font-size: 12px;
+}
+
+/* =========================
+   8. HOVER & INTERACTION EFFECTS (DESKTOP ONLY)
+========================================================= */
+@media (hover: hover) {
+    .admin-card-base:hover,
+    .admin-coupon-card:hover,
+    .admin-chart-card:hover,
+    .admin-reports-card:hover,
+    .admin-settings-card:hover,
+    .admin-notifications-card:hover,
+    .admin-users-card:hover,
+    .admin-logs-card:hover {
+        border-color: rgba(212, 175, 55, 0.40);
+        transform: translateY(-6px);
+        box-shadow: 0 22px 45px rgba(0, 0, 0, 0.45);
+    }
+
+    .admin-coupon-btn.edit:hover,
+    .admin-action-btn.edit:hover {
+        background: rgba(212, 175, 55, 0.20);
+        color: var(--gold, #d4af37);
+        border-color: rgba(212, 175, 55, 0.40);
+    }
+
+    .admin-coupon-btn.delete:hover,
+    .admin-action-btn.delete:hover,
+    .admin-clear-logs-btn:hover {
+        background: rgba(193, 18, 31, 0.20);
+        color: #ff4d4d;
+        border-color: rgba(193, 18, 31, 0.40);
+    }
+
+    .admin-chart-bar:hover {
+        opacity: 0.85;
+        filter: brightness(1.2);
+    }
+
+    .admin-report-download-btn:hover,
+    .admin-settings-save-btn:hover,
+    .admin-add-user-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(193, 18, 31, 0.40);
+    }
+
+    .admin-mark-read-btn:hover {
+        background: rgba(212, 175, 55, 0.20);
+        color: var(--gold, #d4af37);
+        border-color: rgba(212, 175, 55, 0.40);
+    }
+}
+
+/* =========================
+   9. RESPONSIVE TABLET & MOBILE FIXES
+========================================================= */
+@media (max-width: 1024px) {
+    .admin-coupon-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .admin-analytics-grid,
+    .admin-settings-grid,
+    .admin-notifications-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-card-base,
+    .admin-coupon-card,
+    .admin-chart-card,
+    .admin-reports-card,
+    .admin-settings-card,
+    .admin-notifications-card,
+    .admin-users-card,
+    .admin-logs-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .admin-section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .admin-add-user-btn,
+    .admin-clear-logs-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-coupon-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .admin-chart-viewport {
+        height: 220px;
+    }
+
+    .admin-notification-item {
+        padding: 14px;
+    }
+}
+
+/* =========================
+   10. ACCESSIBILITY: REDUCED MOTION
+========================================================= */
+@media (prefers-reduced-motion: reduce) {
+    .admin-card-base,
+    .admin-coupon-card,
+    .admin-chart-card,
+    .admin-reports-card,
+    .admin-settings-card,
+    .admin-notifications-card,
+    .admin-users-card,
+    .admin-logs-card,
+    .admin-coupon-btn,
+    .admin-chart-bar,
+    .admin-report-download-btn,
+    .admin-slider,
+    .admin-slider::before,
+    .admin-settings-save-btn,
+    .admin-notification-item,
+    .admin-mark-read-btn,
+    .admin-add-user-btn,
+    .admin-action-btn,
+    .admin-clear-logs-btn {
+        transition: none !important;
+        transform: none !important;
+    }
+}
