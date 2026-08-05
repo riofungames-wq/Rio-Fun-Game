@@ -1,200 +1,388 @@
 // ======================================
 // RIO LOYALTY CLUB
 // DASHBOARD
-// FINAL VERSION
-// PART 1
+// FINAL FIXED VERSION
 // ======================================
 
-// ---------- Elements ----------
 
-const customerName = document.getElementById("customerName");
-const memberId = document.getElementById("memberId");
-const customerAvatar = document.getElementById("customerAvatar");
+// ======================================
+// FIREBASE AUTH IMPORT
+// ======================================
 
-const infoName = document.getElementById("infoName");
-const infoEmail = document.getElementById("infoEmail");
-const infoMobile = document.getElementById("infoMobile");
-const infoGender = document.getElementById("infoGender");
-const infoStatus = document.getElementById("infoStatus");
+import {
+    auth
+} from "./firebase-config.js";
 
-const rewardStatus = document.getElementById("rewardStatus");
 
-const logoutBtn = document.getElementById("logoutBtn");
+import {
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-// ---------- Stamp Boxes ----------
+
+
+
+// ======================================
+// ELEMENTS
+// ======================================
+
+const customerName =
+document.getElementById("customerName");
+
+
+const memberId =
+document.getElementById("memberId");
+
+
+const customerAvatar =
+document.getElementById("customerAvatar");
+
+
+const infoName =
+document.getElementById("infoName");
+
+
+const infoEmail =
+document.getElementById("infoEmail");
+
+
+const infoMobile =
+document.getElementById("infoMobile");
+
+
+const infoGender =
+document.getElementById("infoGender");
+
+
+const infoStatus =
+document.getElementById("infoStatus");
+
+
+const rewardStatus =
+document.getElementById("rewardStatus");
+
+
+const logoutBtn =
+document.getElementById("logoutBtn");
+
+
+
+
+// ======================================
+// STAMP BOXES
+// ======================================
 
 const stamps = [
 
-document.getElementById("stamp1"),
-
-document.getElementById("stamp2"),
-
-document.getElementById("stamp3"),
-
-document.getElementById("stamp4"),
-
-document.getElementById("stamp5"),
-
-document.getElementById("stamp6")
+    document.getElementById("stamp1"),
+    document.getElementById("stamp2"),
+    document.getElementById("stamp3"),
+    document.getElementById("stamp4"),
+    document.getElementById("stamp5"),
+    document.getElementById("stamp6")
 
 ];
 
+
+
+
 // ======================================
-// WAIT FOR FIREBASE DATA
+// LOAD CUSTOMER DATA
 // ======================================
 
-window.addEventListener("dashboard-ready", () => {
+window.addEventListener(
+"dashboard-ready",
+()=>{
 
-const user = window.currentUser;
 
-if (!user) return;
+    const user =
+    window.currentUser;
 
-// Header
 
-customerName.textContent = user.name;
+    if(!user)
+        return;
 
-memberId.textContent = "Member ID : " + user.memberId;
 
-// Profile
 
-if (user.avatar) {
 
-customerAvatar.src = user.avatar;
+    if(customerName){
 
-}
+        customerName.textContent =
+        user.name || "Customer";
 
-// Member Details
+    }
 
-infoName.textContent = user.name;
 
-infoEmail.textContent = user.email;
 
-infoMobile.textContent = user.mobile;
+    if(memberId){
 
-infoGender.textContent = user.gender;
+        memberId.textContent =
+        "Member ID : "
+        +
+        (
+            user.memberId ||
+            "RIO-000000"
+        );
 
-infoStatus.textContent = user.status || "Active";
+    }
 
-// Stamp Update
 
-updateStamps(user.stamps || 0);
+
+
+    if(customerAvatar){
+
+        customerAvatar.src =
+
+        user.avatar
+        ||
+        user.photoURL
+        ||
+        "assets/avatars/default.png";
+
+    }
+
+
+
+
+    if(infoName){
+
+        infoName.textContent =
+        user.name || "-";
+
+    }
+
+
+
+
+    if(infoEmail){
+
+        infoEmail.textContent =
+        user.email || "-";
+
+    }
+
+
+
+
+    if(infoMobile){
+
+        infoMobile.textContent =
+        user.mobile
+        ||
+        user.phone
+        ||
+        "-";
+
+    }
+
+
+
+
+    if(infoGender){
+
+        infoGender.textContent =
+        user.gender || "-";
+
+    }
+
+
+
+
+    if(infoStatus){
+
+        infoStatus.textContent =
+        user.status
+        ||
+        "Active";
+
+    }
+
+
+
+
+    updateStamps(
+        Number(user.stamps || 0)
+    );
+
 
 });
+
+
+
+
 // ======================================
-// PART 2
-// STAMP SYSTEM
+// STAMP UPDATE SYSTEM
 // ======================================
 
 function updateStamps(totalStamps){
 
-// Reset All
 
-stamps.forEach(box=>{
+    stamps.forEach(box=>{
 
-box.classList.remove("active");
+        if(box){
 
-});
+            box.classList.remove(
+                "active"
+            );
 
-// Fill Active Stamps
+        }
 
-for(let i=0;i<totalStamps && i<6;i++){
+    });
 
-stamps[i].classList.add("active");
+
+
+    for(
+        let i=0;
+        i<totalStamps && i<6;
+        i++
+    ){
+
+        if(stamps[i]){
+
+            stamps[i].classList.add(
+                "active"
+            );
+
+        }
+
+    }
+
+
+
+
+    if(!rewardStatus)
+        return;
+
+
+
+    if(totalStamps >= 6){
+
+
+        rewardStatus.innerHTML = `
+
+        🎉 <b>Congratulations!</b>
+
+        <br><br>
+
+        You earned
+
+        <br>
+
+        <b>1 FREE Veg Maggi 🍜</b>
+
+        `;
+
+
+    }
+    else{
+
+
+        const remaining =
+        6-totalStamps;
+
+
+
+        rewardStatus.innerHTML = `
+
+        You have
+
+        <b>${totalStamps}</b>
+
+        stamp${totalStamps===1?"":"s"}.
+
+        <br><br>
+
+        Collect
+
+        <b>${remaining}</b>
+
+        more stamp${remaining===1?"":"s"}
+
+        to get
+
+        <b>1 FREE Veg Maggi 🍜</b>
+
+        `;
+
+
+    }
+
 
 }
 
-// Reward Message
 
-if(totalStamps>=6){
 
-rewardStatus.innerHTML=
 
-`
-🎉 <b>Congratulations!</b><br>
-
-You earned
-
-<b>1 FREE Veg Maggi 🍜</b>
-
-`;
-
-}else{
-
-const remaining = 6-totalStamps;
-
-rewardStatus.innerHTML=
-
-`
-You have <b>${totalStamps}</b>
-stamp${totalStamps===1?"":"s"}.
-
-<br><br>
-
-Collect
-
-<b>${remaining}</b>
-
-more stamp${remaining===1?"":"s"}
-
-to get
-
-<b>1 FREE Veg Maggi 🍜</b>
-
-`;
-
-}
-
-}
 // ======================================
-// PART 3
 // LOGOUT
 // ======================================
 
-logoutBtn.addEventListener("click", async () => {
+if(logoutBtn){
 
-    const confirmLogout = confirm(
-        "Are you sure you want to logout?"
+
+logoutBtn.addEventListener(
+"click",
+async()=>{
+
+
+    const confirmLogout =
+    confirm(
+    "Are you sure you want to logout?"
     );
 
-    if (!confirmLogout) return;
 
-    try {
+    if(!confirmLogout)
+        return;
 
-        // Firebase Logout
 
-        const {
-            getAuth,
-            signOut
-        } = await import(
-            "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js"
-        );
 
-        const auth = getAuth();
+    try{
+
 
         await signOut(auth);
 
-        // Clear Global Data
+
 
         window.currentUser = null;
 
-        sessionStorage.removeItem("rioLoggedIn");
 
-        // Redirect
 
-        window.location.replace("login.html");
+        sessionStorage.removeItem(
+            "rioLoggedIn"
+        );
+
+
+
+        window.location.replace(
+            "login.html"
+        );
+
 
     }
-
     catch(error){
 
-        console.error("Logout Error :", error);
 
-        alert("Logout failed. Please try again.");
+        console.error(
+            "Logout Error:",
+            error
+        );
+
+
+        alert(
+        "Logout failed. Please try again."
+        );
+
 
     }
+
 
 });
 
-// ======================================
-// END OF FILE
-// ======================================
+
+}
+
+
+
+
+console.log(
+"🍜 Rio Dashboard JS Loaded"
+);
