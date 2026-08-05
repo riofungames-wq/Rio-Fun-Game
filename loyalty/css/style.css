@@ -3909,3 +3909,8276 @@ input[type="radio"] {
         animation: none;
     }
 }
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 7 SECTION 3 FINAL (100% PRODUCTION READY)
+   HERO CONTENT + ACTIONS + TRUST POINTS
+========================================================= */
+
+/* =========================
+   HERO CONTENT
+========================= */
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+    border-radius: 50px;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    color: var(--gold-light);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+}
+
+.hero-eyebrow i {
+    color: var(--gold);
+}
+
+.hero-content h1 {
+    margin-bottom: 20px;
+    color: #ffffff;
+    font-size: clamp(38px, 5vw, 64px);
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.hero-content h1 span {
+    display: block;
+    color: var(--gold);
+}
+
+.hero-description {
+    max-width: 520px;
+    margin-bottom: 30px;
+    color: var(--text-light);
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+/* =========================
+   HERO ACTION BUTTONS
+========================= */
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+.primary-action-btn,
+.secondary-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 24px;
+    border-radius: 14px;
+    font-weight: 700;
+    transition: var(--transition);
+}
+
+.primary-action-btn {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #ffffff;
+    box-shadow: 0 12px 30px rgba(193, 18, 31, 0.35);
+}
+
+.secondary-action-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    color: #ffffff;
+}
+
+/* HOVER EFFECTS FOR DESKTOP ONLY */
+@media (hover: hover) {
+    .primary-action-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 18px 35px rgba(193, 18, 31, 0.45);
+    }
+
+    .secondary-action-btn:hover {
+        transform: translateY(-3px);
+        border-color: var(--gold);
+        color: var(--gold-light);
+    }
+}
+
+/* =========================
+   HERO TRUST POINTS
+========================= */
+.hero-trust-points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.trust-point {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+.trust-point i {
+    color: var(--gold);
+    font-size: 15px;
+}
+
+/* =========================
+   HERO BACKGROUND GLOW
+========================= */
+.hero-background-glow {
+    position: absolute;
+    top: -120px;
+    left: -120px;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: rgba(193, 18, 31, 0.18);
+    filter: blur(80px);
+    pointer-events: none;
+}
+
+.hero-background-glow.secondary {
+    top: auto;
+    left: auto;
+    right: -100px;
+    bottom: -100px;
+    background: rgba(212, 175, 55, 0.12);
+}
+
+/* =========================
+   DESKTOP ALIGNMENT
+========================= */
+@media (min-width: 1025px) {
+    .hero-content {
+        padding-right: 20px;
+    }
+}
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 1024px) {
+    .hero-content h1 {
+        font-size: 44px;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 600px) {
+    .hero-eyebrow {
+        font-size: 12px;
+        padding: 7px 14px;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(32px, 8vw, 34px);
+    }
+
+    .hero-description {
+        font-size: 15px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+    }
+
+    .primary-action-btn,
+    .secondary-action-btn {
+        width: 100%;
+    }
+
+    .hero-trust-points {
+        justify-content: center;
+    }
+
+    .trust-point {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+.reduce-motion .primary-action-btn,
+.reduce-motion .secondary-action-btn {
+    transition: none;
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 7 SECTION 5 FINAL (100% PRODUCTION READY)
+   HERO ANIMATIONS + ENTRANCE + REDUCED MOTION
+========================================================= */
+
+/* =========================
+   KEYFRAME ANIMATIONS
+========================= */
+@keyframes heroBadgeFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes heroGlowPulse {
+    0%, 100% {
+        opacity: 0.18;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.28;
+        transform: scale(1.05);
+    }
+}
+
+@keyframes heroCardEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =========================
+   ANIMATION APPLIERS
+========================= */
+.floating-loyalty-badge {
+    animation: heroBadgeFloat 4s ease-in-out infinite;
+}
+
+.hero-card-glow {
+    animation: heroGlowPulse 6s ease-in-out infinite;
+}
+
+.premium-food-card {
+    animation: heroCardEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* =========================
+   REDUCED MOTION OPTIMIZATION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .floating-loyalty-badge,
+    .hero-card-glow,
+    .premium-food-card {
+        animation: none;
+        transform: none;
+    }
+
+    .food-card-image img {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 8 SECTION 1 FINAL
+   LOYALTY INTRO SECTION + SECTION HEADING SYSTEM
+========================================================= */
+
+/* =========================
+   LOYALTY INTRO SECTION
+========================= */
+.loyalty-intro-section {
+    position: relative;
+    width: 100%;
+    padding: 90px 0;
+    overflow: clip;
+}
+
+/* =========================
+   SECTION CONTAINER
+========================= */
+.section-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* =========================
+   SECTION HEADING
+========================= */
+.section-heading {
+    max-width: 720px;
+    margin: 0 auto 50px;
+    text-align: center;
+}
+
+.section-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    margin-bottom: 18px;
+    border-radius: 50px;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    color: var(--gold-light);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+}
+
+.section-label i {
+    color: var(--gold);
+}
+
+/* =========================
+   SECTION TITLE
+========================= */
+.section-heading h2 {
+    margin-bottom: 18px;
+    color: #ffffff;
+    font-size: 42px;
+    line-height: 1.25;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.section-heading h2 span {
+    display: block;
+    color: var(--gold);
+}
+
+.section-heading p {
+    max-width: 620px;
+    margin: 0 auto;
+    color: var(--text-light);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+    .loyalty-intro-section {
+        padding: 70px 0;
+    }
+
+    .section-heading h2 {
+        font-size: 36px;
+    }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+    .loyalty-intro-section {
+        padding: 55px 0;
+    }
+
+    .section-container {
+        padding: 0 16px;
+    }
+
+    .section-heading {
+        margin-bottom: 35px;
+    }
+
+    .section-label {
+        font-size: 12px;
+        padding: 7px 14px;
+    }
+
+    .section-heading h2 {
+        font-size: 30px;
+        letter-spacing: -0.5px;
+    }
+
+    .section-heading p {
+        font-size: 15px;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 8 SECTION 2 FINAL
+   LOYALTY STEPS CARDS + ICON DESIGN + RESPONSIVE
+========================================================= */
+
+/* =========================
+   LOYALTY STEPS GRID
+========================= */
+.loyalty-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    width: 100%;
+}
+
+/* =========================
+   LOYALTY STEP CARD
+========================= */
+.loyalty-step-card {
+    position: relative;
+    overflow: hidden;
+    padding: 32px 24px;
+    border-radius: 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: var(--transition);
+}
+
+/* GOLD TOP EFFECT */
+.loyalty-step-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+/* CARD HOVER */
+@media (hover: hover) {
+    .loyalty-step-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(212, 175, 55, 0.45);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+    }
+
+    .loyalty-step-card:hover::before {
+        opacity: 1;
+    }
+}
+
+/* =========================
+   STEP NUMBER
+========================= */
+.step-number {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    font-size: 42px;
+    font-weight: 800;
+    color: rgba(212, 175, 55, 0.08);
+    line-height: 1;
+}
+
+/* =========================
+   STEP ICON
+========================= */
+.step-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(193, 18, 31, 0.18), rgba(212, 175, 55, 0.15));
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    color: var(--gold);
+    font-size: 28px;
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .loyalty-step-card:hover .step-icon {
+        transform: scale(1.08) rotate(5deg);
+        background: linear-gradient(135deg, rgba(193, 18, 31, 0.35), rgba(212, 175, 55, 0.25));
+    }
+}
+
+/* =========================
+   STEP TITLE
+========================= */
+.loyalty-step-card h3 {
+    margin-bottom: 12px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* =========================
+   STEP DESCRIPTION
+========================= */
+.loyalty-step-card p {
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+    .loyalty-steps {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .loyalty-step-card {
+        padding: 30px 20px;
+    }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+    .loyalty-steps {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .loyalty-step-card {
+        padding: 28px 18px;
+    }
+
+    .step-icon {
+        width: 64px;
+        height: 64px;
+        font-size: 24px;
+    }
+
+    .loyalty-step-card h3 {
+        font-size: 18px;
+    }
+
+    .loyalty-step-card p {
+        font-size: 14px;
+    }
+
+    .step-number {
+        font-size: 36px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .loyalty-step-card,
+    .step-icon {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 8 SECTION 3 FINAL
+   LOYALTY REWARD CARD + STAMP PROGRESS UI
+========================================================= */
+
+/* =========================
+   LOYALTY REWARD AREA
+========================= */
+.loyalty-reward-area {
+    position: relative;
+    width: 100%;
+    margin-top: 60px;
+}
+
+/* =========================
+   REWARD CARD
+========================= */
+.loyalty-reward-card {
+    position: relative;
+    overflow: hidden;
+    padding: 40px;
+    border-radius: 28px;
+    background: linear-gradient(145deg, rgba(193, 18, 31, 0.18), rgba(27, 27, 27, 0.95));
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+}
+
+/* GOLD GLOW EFFECT */
+.loyalty-reward-card::before {
+    content: "";
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.15);
+    filter: blur(70px);
+    pointer-events: none;
+}
+
+/* =========================
+   REWARD HEADER
+========================= */
+.reward-header {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.reward-header h3 {
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.reward-header h3 span {
+    color: var(--gold);
+}
+
+.reward-header p {
+    color: var(--text-light);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* =========================
+   STAMP PROGRESS GRID
+========================= */
+.stamp-progress {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+    margin: 35px 0;
+}
+
+/* =========================
+   STAMP ITEM
+========================= */
+.stamp-item {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 22px;
+    font-weight: 800;
+    transition: var(--transition);
+}
+
+/* ACTIVE STAMP */
+.stamp-item.active {
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    color: #ffffff;
+    border-color: var(--gold);
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.25);
+}
+
+/* COMPLETED STAMP */
+.stamp-item.completed {
+    background: rgba(212, 175, 55, 0.18);
+    color: var(--gold);
+    border-color: var(--gold);
+}
+
+/* =========================
+   REWARD STATUS
+========================= */
+.reward-status {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.reward-status strong {
+    display: block;
+    color: #ffffff;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.reward-status span {
+    color: var(--gold-light);
+    font-size: 14px;
+}
+
+/* =========================
+   PROGRESS BAR
+========================= */
+.reward-progress-bar {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 10px;
+    margin-top: 25px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.reward-progress-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--primary), var(--gold));
+    transition: width 0.5s ease;
+}
+
+/* =========================
+   CLAIM BUTTON
+========================= */
+.reward-claim-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: max-content;
+    margin: 30px auto 0;
+    padding: 14px 32px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--gold), #f7d774);
+    color: #111111;
+    font-weight: 800;
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .reward-claim-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(212, 175, 55, 0.35);
+    }
+}
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+    .loyalty-reward-card {
+        padding: 32px;
+    }
+
+    .stamp-progress {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+    .loyalty-reward-area {
+        margin-top: 40px;
+    }
+
+    .loyalty-reward-card {
+        padding: 24px 18px;
+        border-radius: 22px;
+    }
+
+    .reward-header h3 {
+        font-size: 24px;
+    }
+
+    .stamp-progress {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+
+    .stamp-item {
+        font-size: 18px;
+    }
+
+    .reward-status strong {
+        font-size: 18px;
+    }
+
+    .reward-claim-btn {
+        width: 100%;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .stamp-item,
+    .reward-progress-fill,
+    .reward-claim-btn {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 8 SECTION 4 FINAL
+   LOYALTY BENEFITS + FEATURE CARDS + RESPONSIVE LAYOUT
+========================================================= */
+
+/* =========================
+   LOYALTY BENEFITS SECTION
+========================= */
+.loyalty-benefits {
+    position: relative;
+    width: 100%;
+    margin-top: 70px;
+}
+
+/* =========================
+   BENEFITS GRID
+========================= */
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+}
+
+/* =========================
+   BENEFIT CARD
+========================= */
+.benefit-card {
+    position: relative;
+    overflow: hidden;
+    padding: 32px 24px;
+    border-radius: 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: var(--transition);
+}
+
+/* GOLD BORDER EFFECT */
+.benefit-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+/* HOVER EFFECT */
+@media (hover: hover) {
+    .benefit-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(212, 175, 55, 0.45);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+    }
+
+    .benefit-card:hover::before {
+        opacity: 1;
+    }
+}
+
+/* =========================
+   BENEFIT ICON
+========================= */
+.benefit-icon {
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(193, 18, 31, 0.18), rgba(212, 175, 55, 0.15));
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    color: var(--gold);
+    font-size: 30px;
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .benefit-card:hover .benefit-icon {
+        transform: scale(1.08) rotate(5deg);
+        background: linear-gradient(135deg, rgba(193, 18, 31, 0.35), rgba(212, 175, 55, 0.25));
+    }
+}
+
+/* =========================
+   BENEFIT TEXT
+========================= */
+.benefit-card h4 {
+    margin-bottom: 12px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.benefit-card p {
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+    .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .benefit-card {
+        padding: 28px 20px;
+    }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+    .loyalty-benefits {
+        margin-top: 45px;
+    }
+
+    .benefits-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .benefit-card {
+        padding: 24px 18px;
+    }
+
+    .benefit-icon {
+        width: 68px;
+        height: 68px;
+        font-size: 26px;
+    }
+
+    .benefit-card h4 {
+        font-size: 18px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .benefit-card,
+    .benefit-icon {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 8 SECTION 5 FINAL
+   LOYALTY CTA BANNER + FINAL SECTION POLISH + RESPONSIVE FIXES
+========================================================= */
+
+/* =========================
+   LOYALTY CTA SECTION
+========================= */
+.loyalty-cta-section {
+    position: relative;
+    width: 100%;
+    margin-top: 80px;
+    padding: 70px 0;
+    overflow: hidden;
+}
+
+/* =========================
+   CTA CARD
+========================= */
+.loyalty-cta-card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 45px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, rgba(193, 18, 31, 0.22), rgba(27, 27, 27, 0.96));
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+}
+
+/* GOLD GLOW */
+.loyalty-cta-card::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(70px);
+    pointer-events: none;
+}
+
+/* =========================
+   CTA CONTENT
+========================= */
+.loyalty-cta-content {
+    position: relative;
+    z-index: 2;
+    max-width: 650px;
+}
+
+.loyalty-cta-content h2 {
+    margin-bottom: 15px;
+    color: #ffffff;
+    font-size: 36px;
+    line-height: 1.25;
+    font-weight: 800;
+}
+
+.loyalty-cta-content h2 span {
+    color: var(--gold);
+}
+
+.loyalty-cta-content p {
+    color: var(--text-light);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* =========================
+   CTA BUTTON AREA
+========================= */
+.loyalty-cta-actions {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loyalty-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 54px;
+    padding: 0 32px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--gold), #f7d774);
+    color: #111111;
+    font-weight: 800;
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .loyalty-cta-btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 40px rgba(212, 175, 55, 0.35);
+    }
+}
+
+/* =========================
+   SECTION DIVIDER
+========================= */
+.loyalty-section-divider {
+    width: 100%;
+    height: 1px;
+    margin: 70px 0;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.35), transparent);
+}
+
+/* =========================
+   FLOATING DECOR ELEMENTS
+========================= */
+.loyalty-decoration {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.loyalty-decoration.one {
+    width: 180px;
+    height: 180px;
+    top: 10%;
+    right: -80px;
+    background: rgba(193, 18, 31, 0.12);
+    filter: blur(60px);
+}
+
+.loyalty-decoration.two {
+    width: 150px;
+    height: 150px;
+    bottom: 5%;
+    left: -60px;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(50px);
+}
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+    .loyalty-cta-section {
+        padding: 60px 0;
+    }
+
+    .loyalty-cta-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 38px 30px;
+    }
+
+    .loyalty-cta-content {
+        max-width: 100%;
+    }
+
+    .loyalty-cta-content h2 {
+        font-size: 32px;
+    }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+    .loyalty-cta-section {
+        margin-top: 50px;
+        padding: 45px 0;
+    }
+
+    .loyalty-cta-card {
+        padding: 28px 18px;
+        border-radius: 22px;
+        gap: 22px;
+    }
+
+    .loyalty-cta-content h2 {
+        font-size: 26px;
+    }
+
+    .loyalty-cta-content p {
+        font-size: 14px;
+    }
+
+    .loyalty-cta-btn {
+        width: 100%;
+        min-height: 50px;
+    }
+
+    .loyalty-section-divider {
+        margin: 45px 0;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .loyalty-cta-btn {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 9 SECTION 1 FINAL
+   CUSTOMER EXPERIENCE SECTION + PREMIUM CARD SYSTEM
+========================================================= */
+
+/* =========================
+   CUSTOMER EXPERIENCE SECTION
+========================= */
+.customer-experience-section {
+    position: relative;
+    width: 100%;
+    padding: 90px 0;
+    overflow: hidden;
+}
+
+/* =========================
+   EXPERIENCE GRID
+========================= */
+.experience-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+}
+
+/* =========================
+   EXPERIENCE CARD
+========================= */
+.experience-card {
+    position: relative;
+    overflow: hidden;
+    padding: 35px 28px;
+    border-radius: 26px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: var(--transition);
+}
+
+/* GOLD TOP LINE */
+.experience-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+/* CARD HOVER */
+@media (hover: hover) {
+    .experience-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(212, 175, 55, 0.45);
+        box-shadow: 0 22px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    .experience-card:hover::before {
+        opacity: 1;
+    }
+}
+
+/* =========================
+   EXPERIENCE ICON
+========================= */
+.experience-icon {
+    width: 78px;
+    height: 78px;
+    margin: 0 auto 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(193, 18, 31, 0.20), rgba(212, 175, 55, 0.18));
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    color: var(--gold);
+    font-size: 32px;
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .experience-card:hover .experience-icon {
+        transform: scale(1.08) rotate(5deg);
+        background: linear-gradient(135deg, rgba(193, 18, 31, 0.35), rgba(212, 175, 55, 0.30));
+    }
+}
+
+/* =========================
+   EXPERIENCE TITLE
+========================= */
+.experience-card h3 {
+    margin-bottom: 12px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+/* =========================
+   EXPERIENCE TEXT
+========================= */
+.experience-card p {
+    color: var(--text-light);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+    .customer-experience-section {
+        padding: 70px 0;
+    }
+
+    .experience-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+    .customer-experience-section {
+        padding: 55px 0;
+    }
+
+    .experience-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .experience-card {
+        padding: 28px 18px;
+    }
+
+    .experience-icon {
+        width: 68px;
+        height: 68px;
+        font-size: 26px;
+    }
+
+    .experience-card h3 {
+        font-size: 19px;
+    }
+
+    .experience-card p {
+        font-size: 14px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .experience-card,
+    .experience-icon {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 9 SECTION 2 FINAL
+   MENU PREVIEW CARDS + FOOD ITEM PREMIUM GRID
+========================================================= */
+
+/* =========================
+   MENU PREVIEW SECTION
+========================= */
+.menu-preview-section {
+    position: relative;
+    width: 100%;
+    padding: 90px 0;
+    overflow: hidden;
+}
+
+/* =========================
+   MENU GRID
+========================= */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    width: 100%;
+}
+
+/* =========================
+   MENU CARD
+========================= */
+.menu-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+}
+
+/* =========================
+   MENU IMAGE AREA
+========================= */
+.menu-card-image {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+}
+
+.menu-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* IMAGE OVERLAY */
+.menu-card-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.55));
+}
+
+/* =========================
+   MENU CONTENT
+========================= */
+.menu-card-content {
+    padding: 24px;
+}
+
+.menu-card-content h3 {
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.menu-card-content p {
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* =========================
+   PRICE TAG
+========================= */
+.menu-price {
+    display: inline-flex;
+    margin-top: 18px;
+    padding: 8px 16px;
+    border-radius: 50px;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    color: var(--gold);
+    font-size: 14px;
+    font-weight: 800;
+}
+
+/* =========================
+   MENU HOVER EFFECT
+========================= */
+@media (hover: hover) {
+    .menu-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(212, 175, 55, 0.45);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+    }
+
+    .menu-card:hover img {
+        transform: scale(1.08);
+    }
+}
+
+/* =========================
+   FEATURE BADGE
+========================= */
+.menu-badge {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    z-index: 2;
+    padding: 7px 14px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--gold), #f7d774);
+    color: #111111;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+    .menu-preview-section {
+        padding: 70px 0;
+    }
+
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .menu-card-image {
+        height: 200px;
+    }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+    .menu-preview-section {
+        padding: 55px 0;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .menu-card-image {
+        height: 190px;
+    }
+
+    .menu-card-content {
+        padding: 20px 18px;
+    }
+
+    .menu-card-content h3 {
+        font-size: 19px;
+    }
+
+    .menu-card-content p {
+        font-size: 14px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .menu-card,
+    .menu-card-image img {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 9 SECTION 3 FINAL
+   MENU FILTER + CUSTOMER REVIEWS + TRUST SYSTEM
+========================================================= */
+
+/* =========================
+   MENU CATEGORY FILTER
+========================= */
+.menu-filter-area {
+    width: 100%;
+    margin-bottom: 45px;
+}
+
+.menu-filter-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* FILTER BUTTON */
+.menu-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 22px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    color: var(--text-light);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+/* ACTIVE FILTER */
+.menu-filter-btn.active {
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    color: #ffffff;
+    border-color: var(--gold);
+}
+
+/* FILTER HOVER */
+@media (hover: hover) {
+    .menu-filter-btn:hover {
+        transform: translateY(-3px);
+        border-color: var(--gold);
+        color: var(--gold-light);
+    }
+}
+
+/* =========================
+   CUSTOMER REVIEW SECTION
+========================= */
+.customer-review-section {
+    position: relative;
+    width: 100%;
+    padding: 90px 0;
+}
+
+/* REVIEW GRID */
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/* =========================
+   REVIEW CARD
+========================= */
+.review-card {
+    position: relative;
+    overflow: hidden;
+    padding: 32px 26px;
+    border-radius: 24px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+}
+
+/* REVIEW TOP GLOW */
+.review-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .review-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(212, 175, 55, 0.45);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+    }
+
+    .review-card:hover::before {
+        opacity: 1;
+    }
+}
+
+/* =========================
+   REVIEW USER
+========================= */
+.review-user {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.review-avatar {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(193, 18, 31, 0.25), rgba(212, 175, 55, 0.20));
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    color: var(--gold);
+    font-size: 20px;
+}
+
+/* REVIEW NAME */
+.review-user h4 {
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+/* REVIEW TEXT */
+.review-card p {
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* =========================
+   STAR RATING
+========================= */
+.review-stars {
+    display: flex;
+    gap: 5px;
+    margin-top: 18px;
+}
+
+.review-stars i {
+    color: var(--gold);
+    font-size: 15px;
+}
+
+/* =========================
+   TRUST BADGES
+========================= */
+.trust-badges {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 50px;
+}
+
+.trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    color: var(--text-light);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.trust-badge i {
+    color: var(--gold);
+}
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+    .review-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+    .customer-review-section {
+        padding: 55px 0;
+    }
+
+    .review-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .review-card {
+        padding: 24px 18px;
+    }
+
+    .trust-badges {
+        gap: 12px;
+        margin-top: 35px;
+    }
+
+    .trust-badge {
+        font-size: 13px;
+        padding: 10px 16px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .menu-filter-btn,
+    .review-card {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 9 SECTION 4 FINAL
+   CUSTOMER FEEDBACK CTA + SOCIAL PROOF + RESPONSIVE POLISH
+========================================================= */
+
+/* =========================
+   CUSTOMER FEEDBACK CTA
+========================= */
+.feedback-cta-section {
+    position: relative;
+    width: 100%;
+    padding: 90px 0;
+    overflow: hidden;
+}
+
+/* =========================
+   FEEDBACK CTA CARD
+========================= */
+.feedback-cta-card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 45px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, rgba(193, 18, 31, 0.20), rgba(27, 27, 27, 0.96));
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+}
+
+/* GOLD GLOW */
+.feedback-cta-card::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(70px);
+    pointer-events: none;
+}
+
+/* =========================
+   FEEDBACK CONTENT
+========================= */
+.feedback-content {
+    position: relative;
+    z-index: 2;
+    max-width: 650px;
+}
+
+.feedback-content h2 {
+    margin-bottom: 15px;
+    color: #ffffff;
+    font-size: 36px;
+    line-height: 1.25;
+    font-weight: 800;
+}
+
+.feedback-content h2 span {
+    color: var(--gold);
+}
+
+.feedback-content p {
+    color: var(--text-light);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* =========================
+   FEEDBACK ACTION BUTTON
+========================= */
+.feedback-action {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.feedback-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 54px;
+    padding: 0 34px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    color: #ffffff;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.feedback-btn:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+}
+
+@media (hover: hover) {
+    .feedback-btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 40px rgba(193, 18, 31, 0.35);
+    }
+}
+
+/* =========================
+   SOCIAL PROOF AREA
+========================= */
+.social-proof-area {
+    width: 100%;
+    margin-top: 60px;
+}
+
+.social-proof-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+/* =========================
+   SOCIAL PROOF CARD
+========================= */
+.social-proof-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 25px 18px;
+    border-radius: 22px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .social-proof-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(212, 175, 55, 0.45);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    }
+}
+
+.social-proof-card i {
+    color: var(--gold);
+    font-size: 28px;
+}
+
+.social-proof-card strong {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.social-proof-card span {
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+/* =========================
+   SECTION DECORATION
+========================= */
+.feedback-decoration {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.feedback-decoration.one {
+    width: 180px;
+    height: 180px;
+    left: -80px;
+    top: 20%;
+    background: rgba(193, 18, 31, 0.12);
+    filter: blur(60px);
+}
+
+.feedback-decoration.two {
+    width: 150px;
+    height: 150px;
+    right: -60px;
+    bottom: 10%;
+    background: rgba(212, 175, 55, 0.10);
+    filter: blur(50px);
+}
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+    .feedback-cta-section {
+        padding: 70px 0;
+    }
+
+    .feedback-cta-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 38px 30px;
+    }
+
+    .feedback-content {
+        max-width: 100%;
+    }
+
+    .feedback-content h2 {
+        font-size: 32px;
+    }
+
+    .social-proof-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+    .feedback-cta-section {
+        padding: 55px 0;
+    }
+
+    .feedback-cta-card {
+        padding: 28px 18px;
+        border-radius: 22px;
+        gap: 22px;
+    }
+
+    .feedback-content h2 {
+        font-size: 26px;
+    }
+
+    .feedback-content p {
+        font-size: 14px;
+    }
+
+    .feedback-btn {
+        width: 100%;
+        min-height: 50px;
+    }
+
+    .social-proof-area {
+        margin-top: 40px;
+    }
+
+    .social-proof-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .social-proof-card {
+        padding: 22px 16px;
+    }
+
+    .social-proof-card strong {
+        font-size: 22px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .feedback-btn,
+    .social-proof-card {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 10 SECTION 1 FINAL
+   CONTACT SECTION + WHATSAPP CTA + RESPONSIVE DESIGN
+========================================================= */
+
+/* =========================
+   CONTACT SECTION
+========================= */
+.contact-section {
+    position: relative;
+    width: 100%;
+    padding: 90px 0;
+    overflow: hidden;
+}
+
+/* =========================
+   CONTACT GRID
+========================= */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+/* =========================
+   CONTACT INFO CARD
+========================= */
+.contact-card {
+    position: relative;
+    overflow: hidden;
+    padding: 35px;
+    border-radius: 26px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+}
+
+.contact-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .contact-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(212, 175, 55, 0.45);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+    }
+
+    .contact-card:hover::before {
+        opacity: 1;
+    }
+}
+
+/* =========================
+   CONTACT ICON
+========================= */
+.contact-icon {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(193, 18, 31, 0.25), rgba(212, 175, 55, 0.20));
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    color: var(--gold);
+    font-size: 28px;
+}
+
+/* =========================
+   CONTACT TEXT
+========================= */
+.contact-card h3 {
+    margin-bottom: 12px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.contact-card p {
+    color: var(--text-light);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* =========================
+   CONTACT BUTTONS
+========================= */
+.contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 25px;
+}
+
+.contact-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 24px;
+    border-radius: 50px;
+    font-weight: 800;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.contact-btn.call {
+    background: linear-gradient(135deg, var(--primary), #e63946);
+    color: #ffffff;
+}
+
+.contact-btn.whatsapp {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: #ffffff;
+}
+
+.contact-btn:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+}
+
+@media (hover: hover) {
+    .contact-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.30);
+    }
+}
+
+/* =========================
+   MAP PLACEHOLDER
+========================= */
+.contact-map-box {
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 26px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px dashed rgba(212, 175, 55, 0.35);
+    color: var(--gold-light);
+    font-weight: 700;
+}
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+    .contact-section {
+        padding: 70px 0;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+    .contact-section {
+        padding: 55px 0;
+    }
+
+    .contact-card {
+        padding: 25px 18px;
+    }
+
+    .contact-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+
+    .contact-card h3 {
+        font-size: 19px;
+    }
+
+    .contact-card p {
+        font-size: 14px;
+    }
+
+    .contact-actions {
+        flex-direction: column;
+    }
+
+    .contact-btn {
+        width: 100%;
+    }
+
+    .contact-map-box {
+        min-height: 220px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .contact-card,
+    .contact-btn {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 10 SECTION 2 FINAL
+   FOOTER SECTION + FINAL NAVIGATION PREPARATION + RESPONSIVE POLISH
+========================================================= */
+
+/* =========================
+   FOOTER SECTION
+========================= */
+.site-footer {
+    position: relative;
+    width: 100%;
+    margin-top: 80px;
+    padding: 70px 0 30px;
+    background: linear-gradient(180deg, rgba(15, 15, 15, 0.95), #0a0a0a);
+    border-top: 1px solid rgba(212, 175, 55, 0.25);
+    overflow: hidden;
+}
+
+/* =========================
+   FOOTER GRID
+========================= */
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+/* =========================
+   FOOTER BRAND COLUMN
+========================= */
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.footer-brand h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.footer-brand h3 span {
+    color: var(--gold);
+}
+
+.footer-brand p {
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* =========================
+   FOOTER COLUMN HEADINGS
+========================= */
+.footer-col h4 {
+    margin: 0 0 20px 0;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 800;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-col h4::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 35px;
+    height: 2px;
+    background: var(--gold);
+}
+
+/* =========================
+   FOOTER LINKS
+========================= */
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-links a {
+    color: var(--text-light);
+    font-size: 14px;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-links a:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+@media (hover: hover) {
+    .footer-links a:hover {
+        color: var(--gold);
+        transform: translateX(5px);
+    }
+}
+
+/* =========================
+   FOOTER SOCIAL ICONS
+========================= */
+.footer-socials {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.footer-social-btn {
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    font-size: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.footer-social-btn:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+}
+
+@media (hover: hover) {
+    .footer-social-btn:hover {
+        transform: translateY(-4px);
+        background: linear-gradient(135deg, var(--primary), var(--gold));
+        color: #ffffff;
+        border-color: var(--gold);
+    }
+}
+
+/* =========================
+   BOTTOM BAR & COPYRIGHT
+========================= */
+.footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 13px;
+    color: var(--text-light);
+}
+
+.footer-bottom p {
+    margin: 0;
+}
+
+.footer-bottom span {
+    color: var(--gold);
+}
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+    .site-footer {
+        padding: 55px 0 25px;
+    }
+
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 35px 25px;
+    }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+    .site-footer {
+        margin-top: 50px;
+        padding: 45px 0 20px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .footer-links a,
+    .footer-social-btn {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 10 SECTION 3 FINAL
+   MOBILE BOTTOM NAVIGATION + ACTIVE STATE + RESPONSIVE SYSTEM
+========================================================= */
+
+/* =========================
+   MOBILE BOTTOM NAVIGATION
+========================= */
+.bottom-navigation {
+    position: fixed;
+    left: 50%;
+    bottom: 18px;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    max-width: 520px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 14px;
+    border-radius: 50px;
+    background: rgba(18, 18, 18, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.50);
+}
+
+/* =========================
+   BOTTOM NAV ITEM
+========================= */
+.bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.bottom-nav-item i {
+    font-size: 18px;
+    transition: var(--transition);
+}
+
+.bottom-nav-item:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+    border-radius: 8px;
+}
+
+/* =========================
+   ACTIVE & HOVER STATES
+========================= */
+.bottom-nav-item.active,
+.bottom-nav-item:hover {
+    color: var(--gold);
+}
+
+.bottom-nav-item.active i,
+.bottom-nav-item:hover i {
+    transform: translateY(-2px);
+    color: var(--gold);
+}
+
+/* =========================
+   DESKTOP DISPLAY HIDE
+========================= */
+@media (min-width: 1025px) {
+    .bottom-navigation {
+        display: none !important;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .bottom-navigation,
+    .bottom-nav-item,
+    .bottom-nav-item i {
+        transition: none;
+    }
+}/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 10 SECTION 4 FINAL
+   GLOBAL ANIMATION SYSTEM + PREMIUM EFFECTS + FINAL POLISH
+========================================================= */
+
+/* =========================
+   GLOBAL SCROLL BEHAVIOR
+========================= */
+html {
+    scroll-behavior: smooth;
+}
+
+/* =========================
+   PREMIUM FADE ANIMATION
+========================= */
+.fade-in {
+    animation: rioFadeIn 0.8s ease forwards;
+}
+
+@keyframes rioFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   SLIDE ANIMATIONS
+========================= */
+.slide-left {
+    animation: rioSlideLeft 0.8s ease forwards;
+}
+
+@keyframes rioSlideLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-right {
+    animation: rioSlideRight 0.8s ease forwards;
+}
+
+@keyframes rioSlideRight {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* =========================
+   PREMIUM GLOW EFFECT
+========================= */
+.gold-glow {
+    animation: goldPulse 3s infinite ease-in-out;
+}
+
+@keyframes goldPulse {
+    0% {
+        box-shadow: 0 0 0 rgba(212, 175, 55, 0);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(212, 175, 55, 0.35);
+    }
+    100% {
+        box-shadow: 0 0 0 rgba(212, 175, 55, 0);
+    }
+}
+
+/* =========================
+   FLOATING EFFECT
+========================= */
+.float-animation {
+    animation: rioFloat 4s ease-in-out infinite;
+}
+
+@keyframes rioFloat {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   BUTTON PRESS EFFECT
+========================= */
+button,
+.btn,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:active,
+.btn:active,
+a:active {
+    transform: scale(0.97);
+}
+
+/* =========================
+   IMAGE PREMIUM EFFECT
+========================= */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.premium-image {
+    overflow: hidden;
+    border-radius: 24px;
+}
+
+.premium-image img {
+    transition: transform 0.5s ease;
+}
+
+@media (hover: hover) {
+    .premium-image:hover img {
+        transform: scale(1.08);
+    }
+}
+
+/* =========================
+   CARD COMMON POLISH
+========================= */
+.card-hover {
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+    }
+}
+
+/* =========================
+   SECTION HEADING SYSTEM
+========================= */
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 38px;
+    font-weight: 900;
+}
+
+.section-title h2 span {
+    color: var(--gold);
+}
+
+.section-title p {
+    max-width: 650px;
+    margin: 15px auto 0;
+    color: var(--text-light);
+    line-height: 1.8;
+}
+
+/* =========================
+   RESPONSIVE HEADING FIX
+========================= */
+@media (max-width: 1024px) {
+    .section-title h2 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 600px) {
+    .section-title {
+        margin-bottom: 35px;
+    }
+
+    .section-title h2 {
+        font-size: 26px;
+    }
+
+    .section-title p {
+        font-size: 14px;
+    }
+}
+
+/* =========================
+   LOADING SHIMMER
+========================= */
+.loading-shimmer {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(212, 175, 55, 0.18), rgba(255, 255, 255, 0.05));
+    background-size: 200% 100%;
+    animation: shimmer 1.8s infinite;
+}
+
+@keyframes shimmer {
+    from {
+        background-position: 200% 0;
+    }
+    to {
+        background-position: -200% 0;
+    }
+}
+
+/* =========================
+   ACCESSIBILITY
+========================= */
+:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 11 SECTION 1 FINAL
+   UTILITY CLASSES + COMMON COMPONENT SYSTEM + FINAL CLEANUP
+========================================================= */
+
+/* =========================
+   DISPLAY UTILITIES
+========================= */
+.d-none {
+    display: none !important;
+}
+
+.d-block {
+    display: block !important;
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.d-grid {
+    display: grid !important;
+}
+
+/* =========================
+   TEXT ALIGNMENT UTILITIES
+========================= */
+.text-center {
+    text-align: center !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-right {
+    text-align: right !important;
+}
+
+/* =========================
+   COLOR UTILITIES
+========================= */
+.text-gold {
+    color: var(--gold) !important;
+}
+
+.text-white {
+    color: #ffffff !important;
+}
+
+.text-muted {
+    color: var(--text-light) !important;
+}
+
+.bg-dark {
+    background-color: var(--bg-dark) !important;
+}
+
+.bg-card {
+    background-color: var(--card-bg) !important;
+}
+
+/* =========================
+   SPACING UTILITIES (MARGIN)
+========================= */
+.m-0 { margin: 0 !important; }
+.mt-1 { margin-top: 10px !important; }
+.mt-2 { margin-top: 20px !important; }
+.mt-3 { margin-top: 30px !important; }
+.mb-1 { margin-bottom: 10px !important; }
+.mb-2 { margin-bottom: 20px !important; }
+.mb-3 { margin-bottom: 30px !important; }
+
+/* =========================
+   SPACING UTILITIES (PADDING)
+========================= */
+.p-0 { padding: 0 !important; }
+.pt-1 { padding-top: 10px !important; }
+.pt-2 { padding-top: 20px !important; }
+.pt-3 { padding-top: 30px !important; }
+.pb-1 { padding-bottom: 10px !important; }
+.pb-2 { padding-bottom: 20px !important; }
+.pb-3 { padding-bottom: 30px !important; }
+
+/* =========================
+   FLEXBOX ALIGNMENT HELPERS
+========================= */
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================
+   COMMON CONTAINER & WRAPPER
+========================= */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* =========================
+   GLOBAL OVERLAY POLISH
+========================= */
+.overlay-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.overlay-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* =========================
+   RESPONSIVE UTILITIES
+========================= */
+@media (max-width: 1024px) {
+    .hide-tablet {
+        display: none !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .hide-mobile {
+        display: none !important;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+}
+
+/* =========================
+   ACCESSIBILITY & FOCUS POLISH
+========================= */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+}
+
+/* =========================
+   FINAL REDUCED MOTION SAFEGUARD
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 11 SECTION 2 FINAL
+   FORM SYSTEM + INPUT POLISH + BUTTON COMPONENTS
+========================================================= */
+
+/* =========================
+   GLOBAL FORM SYSTEM
+========================= */
+.form-group {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* =========================
+   INPUT & TEXTAREA FIELDS
+========================= */
+.form-control {
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 18px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    color: #ffffff;
+    font-size: 15px;
+    outline: none;
+    transition: var(--transition);
+}
+
+textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-control::placeholder {
+    color: var(--text-light);
+    opacity: 0.6;
+}
+
+.form-control:focus {
+    border-color: var(--gold);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+}
+
+.form-control:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+}
+
+/* =========================
+   BUTTON COMPONENTS
+========================= */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 30px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 30px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+}
+
+@media (hover: hover) {
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(193, 18, 31, 0.35);
+    }
+
+    .btn-secondary:hover {
+        transform: translateY(-3px);
+        border-color: var(--gold);
+        color: var(--gold);
+    }
+}
+
+/* =========================
+   MOBILE FORM POLISH
+========================= */
+@media (max-width: 600px) {
+    .form-control {
+        min-height: 48px;
+        font-size: 14px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        min-height: 48px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION SAFEGUARD
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .form-control,
+    .btn-primary,
+    .btn-secondary {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 11 SECTION 2 FINAL
+   FORM SYSTEM + INPUT POLISH + BUTTON COMPONENTS
+========================================================= */
+
+/* =========================
+   GLOBAL FORM SYSTEM
+========================= */
+.form-group {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* =========================
+   INPUT & TEXTAREA FIELDS
+========================= */
+.form-control {
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 18px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    color: #ffffff;
+    font-size: 15px;
+    outline: none;
+    transition: var(--transition);
+}
+
+textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-control::placeholder {
+    color: var(--text-light);
+    opacity: 0.6;
+}
+
+.form-control:focus {
+    border-color: var(--gold);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+}
+
+.form-control:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+}
+
+/* =========================
+   BUTTON COMPONENTS
+========================= */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 30px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 30px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+}
+
+@media (hover: hover) {
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(193, 18, 31, 0.35);
+    }
+
+    .btn-secondary:hover {
+        transform: translateY(-3px);
+        border-color: var(--gold);
+        color: var(--gold);
+    }
+}
+
+/* =========================
+   MOBILE FORM POLISH
+========================= */
+@media (max-width: 600px) {
+    .form-control {
+        min-height: 48px;
+        font-size: 14px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        min-height: 48px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION SAFEGUARD
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .form-control,
+    .btn-primary,
+    .btn-secondary {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 11 SECTION 3 FINAL
+   ALERT SYSTEM + BADGES + STATUS COMPONENTS
+========================================================= */
+
+/* =========================
+   ALERT SYSTEM
+========================= */
+.alert-box {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 20px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.6;
+    border: 1px solid var(--border);
+}
+
+.alert-box i {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+/* SUCCESS */
+.alert-success {
+    background: rgba(34, 197, 94, 0.12);
+    border-color: rgba(34, 197, 94, 0.35);
+    color: #86efac;
+}
+
+/* ERROR */
+.alert-error {
+    background: rgba(193, 18, 31, 0.15);
+    border-color: rgba(193, 18, 31, 0.40);
+    color: #ff9b9b;
+}
+
+/* WARNING */
+.alert-warning {
+    background: rgba(212, 175, 55, 0.12);
+    border-color: rgba(212, 175, 55, 0.40);
+    color: #ffe28a;
+}
+
+/* INFO */
+.alert-info {
+    background: rgba(0, 123, 255, 0.12);
+    border-color: rgba(0, 123, 255, 0.35);
+    color: #8fc8ff;
+}
+
+/* =========================
+   BADGE SYSTEM
+========================= */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+/* GOLD BADGE */
+.badge-gold {
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.40);
+    color: var(--gold);
+}
+
+/* PREMIUM BADGE */
+.badge-premium {
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    color: #ffffff;
+}
+
+/* SUCCESS BADGE */
+.badge-success {
+    background: rgba(40, 167, 69, 0.15);
+    color: #7dff9b;
+    border: 1px solid rgba(40, 167, 69, 0.35);
+}
+
+/* =========================
+   STATUS INDICATORS
+========================= */
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-online {
+    background: #22c55e;
+    box-shadow: 0 0 12px rgba(34, 197, 94, 0.7);
+}
+
+.status-offline {
+    background: #ef4444;
+}
+
+.status-pending {
+    background: var(--gold);
+}
+
+/* =========================
+   LOYALTY STAMP STATUS
+========================= */
+.stamp-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+}
+
+.stamp-status i {
+    color: var(--gold);
+    font-size: 20px;
+}
+
+.stamp-status span {
+    color: var(--text-light);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* =========================
+   EMPTY STATE COMPONENT
+========================= */
+.empty-state {
+    width: 100%;
+    padding: 50px 20px;
+    text-align: center;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px dashed var(--border);
+}
+
+.empty-state i {
+    font-size: 45px;
+    color: var(--gold);
+    margin-bottom: 18px;
+}
+
+.empty-state h3 {
+    color: #ffffff;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+/* =========================
+   RESPONSIVE POLISH
+========================= */
+@media (max-width: 600px) {
+    .alert-box {
+        padding: 15px;
+        font-size: 13px;
+    }
+
+    .stamp-status {
+        padding: 10px 14px;
+    }
+
+    .empty-state {
+        padding: 35px 15px;
+    }
+
+    .empty-state h3 {
+        font-size: 19px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .status-dot {
+        box-shadow: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 11 SECTION 4 FINAL
+   LOYALTY CARD + STAMP PROGRESS + REWARD UI SYSTEM
+========================================================= */
+
+/* =========================
+   LOYALTY CARD MAIN
+========================= */
+.loyalty-card {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 30px;
+    border-radius: 28px;
+    background: linear-gradient(135deg, rgba(193, 18, 31, 0.20), rgba(20, 20, 20, 0.95));
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+}
+
+/* GOLD SHINE */
+.loyalty-card::before {
+    content: "";
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   LOYALTY HEADER
+========================= */
+.loyalty-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 2;
+}
+
+.loyalty-title h3 {
+    margin: 0 0 5px 0;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.loyalty-title p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   STAMP GRID SYSTEM
+========================= */
+.stamp-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 2;
+}
+
+.stamp-slot {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px dashed rgba(212, 175, 55, 0.30);
+    color: var(--text-light);
+    font-size: 16px;
+    font-weight: 800;
+    transition: var(--transition);
+}
+
+.stamp-slot.collected {
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+}
+
+.stamp-slot.reward-slot {
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    border: 1px solid #ffffff;
+    color: #ffffff;
+}
+
+/* =========================
+   PROGRESS BAR
+========================= */
+.loyalty-progress-box {
+    position: relative;
+    z-index: 2;
+}
+
+.progress-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+.progress-bar-track {
+    width: 100%;
+    height: 10px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 50px;
+    background: linear-gradient(90deg, var(--primary), var(--gold));
+    transition: width 0.6s ease;
+}
+
+/* =========================
+   REWARD REQUISITION BOX
+========================= */
+.reward-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 25px;
+    padding: 18px 22px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    position: relative;
+    z-index: 2;
+}
+
+.reward-info h4 {
+    margin: 0 0 4px 0;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.reward-info p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   RESPONSIVE POLISH
+========================= */
+@media (max-width: 768px) {
+    .stamp-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .loyalty-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .loyalty-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .reward-box {
+        flex-direction: column;
+        text-align: center;
+        padding: 16px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .stamp-slot,
+    .progress-bar-fill {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 12 SECTION 1 FINAL
+   CUSTOMER DASHBOARD COMPONENTS + PROFILE + QR SYSTEM
+========================================================= */
+
+/* =========================
+   CUSTOMER PROFILE CARD
+========================= */
+.customer-profile-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.30);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 25px;
+}
+
+.profile-avatar-wrap {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--gold);
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.30);
+}
+
+.profile-avatar-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-details {
+    flex-grow: 1;
+}
+
+.profile-details h2 {
+    margin: 0 0 6px 0;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.profile-details p {
+    margin: 0 0 12px 0;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+/* =========================
+   QR CODE DISPLAY SYSTEM
+========================= */
+.qr-container {
+    width: 100%;
+    padding: 30px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px dashed rgba(212, 175, 55, 0.40);
+    text-align: center;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.qr-box-inner {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 18px auto;
+    padding: 12px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-box-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.qr-container h4 {
+    color: #ffffff;
+    font-size: 18px;
+    margin-bottom: 6px;
+    font-weight: 800;
+}
+
+.qr-container p {
+    color: var(--text-light);
+    font-size: 13px;
+    margin: 0;
+}
+
+/* =========================
+   DASHBOARD STATS GRID
+========================= */
+.dashboard-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    text-align: center;
+    transition: var(--transition);
+}
+
+.stat-card i {
+    font-size: 24px;
+    color: var(--gold);
+    margin-bottom: 10px;
+}
+
+.stat-card h3 {
+    margin: 0 0 4px 0;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.stat-card p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+@media (hover: hover) {
+    .stat-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(212, 175, 55, 0.45);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    }
+}
+
+/* =========================
+   RESPONSIVE POLISH
+========================= */
+@media (max-width: 768px) {
+    .customer-profile-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px 20px;
+    }
+
+    .dashboard-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    .qr-container {
+        padding: 20px 15px;
+    }
+
+    .qr-box-inner {
+        width: 170px;
+        height: 170px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .stat-card {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 12 SECTION 2 FINAL
+   CUSTOMER DASHBOARD MENU + HISTORY + REWARD STATUS UI
+========================================================= */
+
+/* =========================
+   DASHBOARD NAVIGATION MENU
+========================= */
+.dashboard-menu {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.dashboard-menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 20px;
+    border-radius: 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text-light);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.dashboard-menu-item i {
+    color: var(--gold);
+    font-size: 18px;
+}
+
+/* ACTIVE STATE */
+.dashboard-menu-item.active {
+    background: linear-gradient(135deg, rgba(193, 18, 31, 0.25), rgba(212, 175, 55, 0.20));
+    border-color: rgba(212, 175, 55, 0.45);
+    color: #ffffff;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.30);
+}
+
+@media (hover: hover) {
+    .dashboard-menu-item:hover {
+        transform: translateY(-4px);
+        background: linear-gradient(135deg, rgba(193, 18, 31, 0.25), rgba(212, 175, 55, 0.20));
+        border-color: rgba(212, 175, 55, 0.45);
+        color: #ffffff;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+}
+
+/* =========================
+   HISTORY SECTION
+========================= */
+.history-section-title {
+    margin-bottom: 20px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 24px;
+    border-radius: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .history-item:hover {
+        transform: translateY(-5px);
+        border-color: rgba(212, 175, 55, 0.45);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.30);
+    }
+}
+
+/* HISTORY LEFT */
+.history-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.history-icon-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    color: var(--gold);
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.history-details h4 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.history-details p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* HISTORY RIGHT */
+.history-meta {
+    text-align: right;
+}
+
+.history-meta .points {
+    display: block;
+    color: var(--gold);
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.history-meta .date {
+    display: block;
+    margin-top: 4px;
+    color: var(--text-light);
+    font-size: 12px;
+}
+
+/* =========================
+   REWARD STATUS BOX
+========================= */
+.redemption-status-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 26px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    margin-bottom: 25px;
+}
+
+.redemption-info h4 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.redemption-info p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+    .dashboard-menu {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+    .dashboard-menu {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .dashboard-menu-item {
+        padding: 14px;
+    }
+
+    .history-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+    }
+
+    .history-meta {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .redemption-status-box {
+        flex-direction: column;
+        text-align: center;
+        padding: 18px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .history-item,
+    .dashboard-menu-item {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 12 SECTION 3 FINAL
+   CUSTOMER DASHBOARD NOTIFICATION + ACTIVITY + PROFILE ACTION UI
+========================================================= */
+
+/* =========================
+   CUSTOMER NOTIFICATION PANEL
+========================= */
+.customer-notification-box {
+    position: relative;
+    width: 100%;
+    padding: 22px 25px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(193, 18, 31, 0.18), rgba(255, 255, 255, 0.04));
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.customer-notification-box::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(50px);
+    pointer-events: none;
+}
+
+.notification-content {
+    position: relative;
+    z-index: 2;
+}
+
+.notification-content h4 {
+    margin: 0 0 4px 0;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.notification-content p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   PROFILE ACTION BUTTONS
+========================= */
+.profile-action-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+}
+
+.profile-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 20px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.profile-action-btn.primary {
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    color: #ffffff;
+    border: none;
+}
+
+.profile-action-btn.secondary {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border);
+    color: #ffffff;
+}
+
+@media (hover: hover) {
+    .profile-action-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.30);
+    }
+}
+
+/* =========================
+   RESPONSIVE POLISH
+========================= */
+@media (max-width: 768px) {
+    .customer-notification-box {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+    }
+
+    .profile-action-group {
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .profile-action-btn {
+        width: 100%;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .profile-action-btn {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 12 SECTION 4 FINAL
+   CUSTOMER DASHBOARD QUICK ACTIONS + MENU CARDS + RESPONSIVE UI
+========================================================= */
+
+/* =========================
+   QUICK ACTION SECTION
+========================= */
+.quick-action-section {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.quick-action-title {
+    margin-bottom: 20px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.quick-action-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    width: 100%;
+}
+
+/* =========================
+   QUICK ACTION CARD
+========================= */
+.quick-action-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 130px;
+    padding: 20px;
+    border-radius: 22px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: #ffffff;
+    text-decoration: none;
+    text-align: center;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.quick-action-card::before {
+    content: "";
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    top: -60px;
+    right: -60px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(35px);
+    pointer-events: none;
+}
+
+.quick-action-card i {
+    position: relative;
+    z-index: 2;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(193, 18, 31, 0.18);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    color: var(--gold);
+    font-size: 22px;
+}
+
+.quick-action-card span {
+    position: relative;
+    z-index: 2;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+@media (hover: hover) {
+    .quick-action-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(212, 175, 55, 0.50);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .quick-action-card:hover i {
+        background: linear-gradient(135deg, var(--primary), var(--gold));
+        color: #ffffff;
+    }
+}
+
+/* =========================
+   CUSTOMER MENU CARD SYSTEM
+========================= */
+.customer-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    width: 100%;
+}
+
+.customer-menu-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: #ffffff;
+    transition: var(--transition);
+}
+
+.customer-menu-card i {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    color: var(--gold);
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.customer-menu-card h4 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.customer-menu-card p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 12px;
+}
+
+@media (hover: hover) {
+    .customer-menu-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(212, 175, 55, 0.45);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.30);
+    }
+}
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+    .quick-action-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .customer-menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+    .quick-action-title {
+        font-size: 19px;
+    }
+
+    .quick-action-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .quick-action-card {
+        min-height: 110px;
+    }
+
+    .customer-menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .customer-menu-card {
+        padding: 16px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .quick-action-card,
+    .customer-menu-card {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 13 SECTION 1 FINAL
+   CUSTOMER DASHBOARD LOYALTY REWARD CARD + CLAIM SYSTEM UI
+========================================================= */
+
+/* =========================
+   REWARD SECTION WRAPPER
+========================= */
+.reward-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+/* =========================
+   REWARD CARD
+========================= */
+.reward-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(193, 18, 31, 0.22), rgba(20, 20, 20, 0.96));
+    border: 1px solid rgba(212, 175, 55, 0.40);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+}
+
+.reward-card::before {
+    content: "";
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    right: -100px;
+    top: -100px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.15);
+    filter: blur(70px);
+    pointer-events: none;
+}
+
+.reward-card-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* =========================
+   REWARD HEADER
+========================= */
+.reward-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.reward-title h3 {
+    margin: 0 0 6px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.reward-title p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+/* =========================
+   REWARD ICON
+========================= */
+.reward-icon {
+    width: 65px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    color: #ffffff;
+    font-size: 28px;
+    box-shadow: 0 10px 25px rgba(193, 18, 31, 0.35);
+    flex-shrink: 0;
+}
+
+/* =========================
+   CLAIM STATUS
+========================= */
+.claim-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 22px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    margin-top: 20px;
+}
+
+.claim-info h4 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.claim-info p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   CLAIM BUTTON
+========================= */
+.claim-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 28px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    color: #ffffff;
+    border: none;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .claim-btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 15px 35px rgba(193, 18, 31, 0.35);
+    }
+}
+
+/* =========================
+   LOCKED REWARD STATE
+========================= */
+.reward-locked {
+    opacity: 0.65;
+}
+
+.reward-locked .claim-btn {
+    background: rgba(255, 255, 255, 0.10);
+    cursor: not-allowed;
+}
+
+@media (hover: hover) {
+    .reward-locked .claim-btn:hover {
+        transform: none;
+        box-shadow: none;
+    }
+}
+
+/* =========================
+   RESPONSIVE TABLET
+========================= */
+@media (max-width: 1024px) {
+    .reward-card {
+        padding: 25px;
+    }
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .reward-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .reward-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .claim-status {
+        flex-direction: column;
+        text-align: center;
+        padding: 16px;
+    }
+
+    .claim-btn {
+        width: 100%;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .claim-btn {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 13 SECTION 2 FINAL
+   CUSTOMER DASHBOARD STAMP TRACKER + CYCLE TIMER + PROGRESS UI
+========================================================= */
+
+/* =========================
+   STAMP TRACKER WRAPPER
+========================= */
+.stamp-tracker-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+/* =========================
+   TRACKER CARD
+========================= */
+.stamp-tracker-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.stamp-tracker-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   STAMP HEADER
+========================= */
+.stamp-tracker-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.stamp-tracker-title h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.stamp-tracker-title p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   STAMP CIRCLE GRID
+========================= */
+.stamp-circle-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+    margin-bottom: 25px;
+}
+
+.stamp-circle {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px dashed rgba(212, 175, 55, 0.35);
+    color: var(--text-light);
+    font-size: 18px;
+    font-weight: 900;
+    transition: var(--transition);
+}
+
+.stamp-circle.active {
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    color: #ffffff;
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+}
+
+/* =========================
+   CYCLE TIMER
+========================= */
+.cycle-timer-box {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 22px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+}
+
+.cycle-timer-info h4 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.cycle-timer-info p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+.cycle-time {
+    color: var(--gold);
+    font-size: 20px;
+    font-weight: 900;
+}
+
+/* =========================
+   COMPLETED CYCLE STATE
+========================= */
+.stamp-cycle-complete {
+    border-color: rgba(212, 175, 55, 0.65);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.20);
+}
+
+/* =========================
+   RESPONSIVE TABLET
+========================= */
+@media (max-width: 1024px) {
+    .stamp-circle-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .stamp-tracker-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .stamp-tracker-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .stamp-circle-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .stamp-circle {
+        font-size: 16px;
+    }
+
+    .cycle-timer-box {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .stamp-circle {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 13 SECTION 3 FINAL
+   CUSTOMER DASHBOARD ANNOUNCEMENT + OFFER BANNER + PROMOTION UI
+========================================================= */
+
+/* =========================
+   ANNOUNCEMENT SECTION
+========================= */
+.announcement-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+/* =========================
+   ANNOUNCEMENT CARD
+========================= */
+.announcement-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.18), rgba(20, 20, 20, 0.95));
+    border: 1px solid rgba(212, 175, 55, 0.40);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.announcement-card::before {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    right: -90px;
+    top: -90px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.15);
+    filter: blur(65px);
+    pointer-events: none;
+}
+
+.announcement-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* =========================
+   ANNOUNCEMENT DETAILS
+========================= */
+.announcement-info h3 {
+    margin: 0 0 6px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.announcement-info p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* =========================
+   ANNOUNCEMENT BADGE / ICON
+========================= */
+.announcement-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 50px;
+    background: rgba(212, 175, 55, 0.20);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+/* =========================
+   RESPONSIVE TABLET
+========================= */
+@media (max-width: 1024px) {
+    .announcement-card {
+        padding: 24px;
+    }
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .announcement-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .announcement-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .announcement-badge {
+        width: 100%;
+        justify-content: center;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 13 SECTION 4 FINAL
+   CUSTOMER DASHBOARD VISIT COUNTER + QR STATUS + ACTIVITY TIMELINE UI
+========================================================= */
+
+/* =========================
+   VISIT COUNTER SECTION
+========================= */
+.visit-counter-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.visit-counter-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.visit-counter-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   COUNTER GRID
+========================= */
+.counter-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.counter-item {
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+}
+
+.counter-item i {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: var(--gold);
+}
+
+.counter-item h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.counter-item p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+@media (hover: hover) {
+    .counter-item:hover {
+        transform: translateY(-4px);
+        border-color: rgba(212, 175, 55, 0.45);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.30);
+    }
+}
+
+/* =========================
+   QR SCAN STATUS CARD
+========================= */
+.qr-status-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 26px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    margin-bottom: 30px;
+}
+
+.qr-status-info h4 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.qr-status-info p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   ACTIVITY TIMELINE (CLEAN SYSTEM)
+========================= */
+.activity-timeline {
+    position: relative;
+    width: 100%;
+    padding-left: 35px;
+}
+
+.activity-timeline::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(212, 175, 55, 0.35);
+}
+
+.activity-item {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.activity-item::before {
+    content: "";
+    position: absolute;
+    left: -31px;
+    top: 5px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.45);
+}
+
+.activity-box {
+    padding: 18px 20px;
+    border-radius: 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .activity-box:hover {
+        border-color: rgba(212, 175, 55, 0.40);
+        background: rgba(255, 255, 255, 0.07);
+    }
+}
+
+.activity-box h4 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.activity-box p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+    .counter-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+    .visit-counter-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .counter-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .qr-status-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 18px;
+    }
+
+    .activity-timeline {
+        padding-left: 30px;
+    }
+
+    .activity-item::before {
+        left: -26px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .counter-item,
+    .activity-box,
+    .activity-item::before {
+        transition: none;
+        box-shadow: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 1 FINAL
+   CUSTOMER DASHBOARD SETTINGS CARD + PREFERENCES UI
+========================================================= */
+
+/* =========================
+   SETTINGS SECTION WRAPPER
+========================= */
+.settings-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.settings-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.settings-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   SETTINGS HEADER
+========================= */
+.settings-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+}
+
+.settings-header h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.settings-header p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   SETTINGS OPTIONS LIST
+========================= */
+.settings-list {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .setting-item:hover {
+        border-color: rgba(212, 175, 55, 0.40);
+        background: rgba(255, 255, 255, 0.07);
+    }
+}
+
+.setting-info h4 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.setting-info p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   CUSTOM TOGGLE SWITCH
+========================= */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid var(--border);
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 34px;
+}
+
+.toggle-slider::before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #ffffff;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 50%;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    border-color: var(--gold);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+    transform: translateX(24px);
+}
+
+/* =========================
+   RESPONSIVE TABLET
+========================= */
+@media (max-width: 1024px) {
+    .settings-card {
+        padding: 24px;
+    }
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .settings-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .setting-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 16px;
+    }
+
+    .toggle-switch {
+        align-self: flex-end;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .setting-item,
+    .toggle-slider,
+    .toggle-slider::before {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 2 FINAL
+   CUSTOMER DASHBOARD ACCOUNT ACTIONS + LOGOUT UI
+========================================================= */
+
+/* =========================
+   ACCOUNT ACTIONS WRAPPER
+========================= */
+.account-actions-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.account-actions-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.account-actions-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(193, 18, 31, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   ACTIONS HEADER
+========================= */
+.account-actions-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+}
+
+.account-actions-header h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.account-actions-header p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   ACTION BUTTONS LIST
+========================= */
+.account-actions-list {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.account-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 18px 22px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.account-action-btn span {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.account-action-btn i {
+    font-size: 18px;
+    color: var(--gold);
+}
+
+.account-action-btn.danger-action {
+    background: rgba(193, 18, 31, 0.10);
+    border-color: rgba(193, 18, 31, 0.30);
+    color: #ff4d4d;
+}
+
+.account-action-btn.danger-action i {
+    color: #ff4d4d;
+}
+
+@media (hover: hover) {
+    .account-action-btn:hover {
+        transform: translateY(-3px);
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(212, 175, 55, 0.40);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.30);
+    }
+
+    .account-action-btn.danger-action:hover {
+        background: rgba(193, 18, 31, 0.20);
+        border-color: rgba(193, 18, 31, 0.50);
+    }
+}
+
+/* =========================
+   RESPONSIVE TABLET
+========================= */
+@media (max-width: 1024px) {
+    .account-actions-card {
+        padding: 24px;
+    }
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .account-actions-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .account-action-btn {
+        padding: 16px;
+        font-size: 14px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .account-action-btn {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 3 FINAL
+   CUSTOMER DASHBOARD MODAL POPUP + ALERT DIALOG UI
+========================================================= */
+
+/* =========================
+   MODAL OVERLAY WRAPPER
+========================= */
+.dashboard-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+
+.dashboard-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* =========================
+   MODAL CARD
+========================= */
+.dashboard-modal-card {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    padding: 35px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid rgba(212, 175, 55, 0.40);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.50);
+    overflow: hidden;
+    transform: translateY(20px) scale(0.95);
+    transition: var(--transition);
+}
+
+.dashboard-modal-overlay.active .dashboard-modal-card {
+    transform: translateY(0) scale(1);
+}
+
+.dashboard-modal-card::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    right: -70px;
+    top: -70px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.15);
+    filter: blur(50px);
+    pointer-events: none;
+}
+
+/* =========================
+   MODAL HEADER
+========================= */
+.dashboard-modal-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.dashboard-modal-header h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.dashboard-modal-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    color: var(--text-light);
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+@media (hover: hover) {
+    .dashboard-modal-close:hover {
+        background: rgba(193, 18, 31, 0.20);
+        color: #ffffff;
+        border-color: rgba(193, 18, 31, 0.40);
+    }
+}
+
+/* =========================
+   MODAL BODY
+========================= */
+.dashboard-modal-body {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 30px;
+}
+
+.dashboard-modal-body p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* =========================
+   MODAL FOOTER ACTIONS
+========================= */
+.dashboard-modal-footer {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.modal-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 24px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    text-decoration: none;
+}
+
+.modal-btn.modal-btn-secondary {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border);
+    color: #ffffff;
+}
+
+.modal-btn.modal-btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    color: #ffffff;
+    box-shadow: 0 10px 25px rgba(193, 18, 31, 0.35);
+}
+
+@media (hover: hover) {
+    .modal-btn.modal-btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(212, 175, 55, 0.30);
+    }
+
+    .modal-btn.modal-btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(193, 18, 31, 0.45);
+    }
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .dashboard-modal-card {
+        padding: 24px;
+        border-radius: 22px;
+    }
+
+    .dashboard-modal-footer {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+
+    .modal-btn {
+        width: 100%;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-modal-overlay,
+    .dashboard-modal-card,
+    .modal-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 4 FINAL
+   CUSTOMER DASHBOARD TOAST NOTIFICATIONS + ALERTS UI
+========================================================= */
+
+/* =========================
+   TOAST CONTAINER WRAPPER
+========================= */
+.toast-notification-container {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 9998;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 380px;
+    width: 100%;
+    pointer-events: none;
+}
+
+/* =========================
+   TOAST CARD ITEM
+========================= */
+.toast-notification {
+    pointer-events: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 20px;
+    border-radius: 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.40);
+    overflow: hidden;
+    transform: translateX(120%);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+}
+
+.toast-notification.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast-notification::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--gold);
+}
+
+/* =========================
+   TOAST VARIANTS
+========================= */
+.toast-notification.success::before {
+    background: #2ecc71;
+}
+
+.toast-notification.error::before {
+    background: #ff4d4d;
+}
+
+.toast-notification.warning::before {
+    background: var(--gold);
+}
+
+/* =========================
+   TOAST ICON & CONTENT
+========================= */
+.toast-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.toast-notification.success .toast-icon {
+    color: #2ecc71;
+    border-color: rgba(46, 204, 113, 0.3);
+}
+
+.toast-notification.error .toast-icon {
+    color: #ff4d4d;
+    border-color: rgba(255, 77, 77, 0.3);
+}
+
+.toast-content h4 {
+    margin: 0 0 3px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.toast-content p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .toast-notification-container {
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+        max-width: none;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .toast-notification {
+        transition: opacity 0.2s ease;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 5 FINAL
+   CUSTOMER DASHBOARD PROFILE HEADER & STATS BAR UI
+========================================================= */
+
+/* =========================
+   PROFILE SECTION WRAPPER
+========================= */
+.dashboard-profile-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-profile-card {
+    position: relative;
+    width: 100%;
+    padding: 35px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.dashboard-profile-card::before {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   PROFILE INFO HEADER
+========================= */
+.dashboard-profile-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.dashboard-avatar-wrapper {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    padding: 4px;
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    flex-shrink: 0;
+    box-shadow: 0 10px 25px rgba(193, 18, 31, 0.30);
+}
+
+.dashboard-avatar-wrapper img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #111111;
+}
+
+.dashboard-user-meta h2 {
+    margin: 0 0 6px;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.dashboard-user-meta p {
+    margin: 0 0 10px;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+.dashboard-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 50px;
+    background: rgba(212, 175, 55, 0.12);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* =========================
+   PROFILE STATS BAR
+========================= */
+.dashboard-stats-bar {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dashboard-stat-box {
+    text-align: center;
+    padding: 15px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .dashboard-stat-box:hover {
+        border-color: rgba(212, 175, 55, 0.40);
+        background: rgba(255, 255, 255, 0.06);
+        transform: translateY(-3px);
+    }
+}
+
+.dashboard-stat-box h4 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.dashboard-stat-box span {
+    color: var(--text-light);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 768px) {
+    .dashboard-profile-card {
+        padding: 25px;
+        border-radius: 24px;
+    }
+
+    .dashboard-profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 16px;
+    }
+
+    .dashboard-avatar-wrapper {
+        width: 80px;
+        height: 80px;
+    }
+
+    .dashboard-stats-bar {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-stat-box {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 6 FINAL
+   CUSTOMER DASHBOARD REFERRAL & REWARDS SHARING UI
+========================================================= */
+
+/* =========================
+   REFERRAL SECTION WRAPPER
+========================= */
+.dashboard-referral-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-referral-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.dashboard-referral-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   REFERRAL HEADER
+========================= */
+.dashboard-referral-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+}
+
+.dashboard-referral-header h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.dashboard-referral-header p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   REFERRAL CODE BOX
+========================= */
+.referral-input-group {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+}
+
+.referral-input-field {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 10px 15px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.referral-input-field::placeholder {
+    color: var(--text-light);
+}
+
+.referral-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    color: #ffffff;
+    border: none;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 8px 20px rgba(193, 18, 31, 0.30);
+    flex-shrink: 0;
+}
+
+@media (hover: hover) {
+    .referral-copy-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px rgba(193, 18, 31, 0.45);
+    }
+}
+
+/* =========================
+   REFERRAL INFO FOOTER
+========================= */
+.referral-info-text {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+.referral-info-text i {
+    color: var(--gold);
+    font-size: 16px;
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .dashboard-referral-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .referral-input-group {
+        flex-direction: column;
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .referral-copy-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .referral-copy-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 7 FINAL
+   CUSTOMER DASHBOARD COUPONS & OFFERS GRID UI
+========================================================= */
+
+/* =========================
+   COUPONS SECTION WRAPPER
+========================= */
+.dashboard-coupons-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-coupons-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.dashboard-coupons-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   COUPONS HEADER
+========================= */
+.dashboard-coupons-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+}
+
+.dashboard-coupons-header h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.dashboard-coupons-header p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   COUPONS GRID
+========================= */
+.coupons-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.coupon-item-box {
+    position: relative;
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px dashed rgba(212, 175, 55, 0.40);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+@media (hover: hover) {
+    .coupon-item-box:hover {
+        border-style: solid;
+        border-color: var(--gold);
+        background: rgba(255, 255, 255, 0.07);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.30);
+    }
+}
+
+.coupon-info-top h4 {
+    margin: 0 0 4px;
+    color: var(--gold);
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.coupon-info-top p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+.coupon-code-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border);
+}
+
+.coupon-code-text {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.coupon-apply-btn {
+    background: transparent;
+    border: none;
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.coupon-apply-btn:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 768px) {
+    .coupons-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-coupons-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .coupon-item-box {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 8 FINAL
+   CUSTOMER DASHBOARD ORDER HISTORY & RECENT ACTIVITY LIST UI
+========================================================= */
+
+/* =========================
+   ORDERS HISTORY SECTION WRAPPER
+========================= */
+.dashboard-orders-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-orders-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.dashboard-orders-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   ORDERS HEADER
+========================= */
+.dashboard-orders-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+}
+
+.dashboard-orders-header h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.dashboard-orders-header p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   ORDERS LIST CONTAINER
+========================= */
+.dashboard-orders-list {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.dashboard-order-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+    gap: 15px;
+}
+
+@media (hover: hover) {
+    .dashboard-order-item:hover {
+        border-color: rgba(212, 175, 55, 0.40);
+        background: rgba(255, 255, 255, 0.07);
+        transform: translateY(-2px);
+    }
+}
+
+.order-item-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.order-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: rgba(212, 175, 55, 0.10);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.order-details h4 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.order-details p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+.order-item-right {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.order-price {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.order-status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.order-status.success {
+    background: rgba(46, 204, 113, 0.15);
+    color: #2ecc71;
+    border: 1px solid rgba(46, 204, 113, 0.30);
+}
+
+.order-status.pending {
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--gold);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 768px) {
+    .dashboard-order-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .order-item-right {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-orders-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-order-item {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 9 FINAL
+   CUSTOMER DASHBOARD SUPPORT & HELP DESK UI
+========================================================= */
+
+/* =========================
+   SUPPORT SECTION WRAPPER
+========================= */
+.dashboard-support-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-support-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.dashboard-support-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   SUPPORT HEADER
+========================= */
+.dashboard-support-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+}
+
+.dashboard-support-header h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.dashboard-support-header p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   SUPPORT OPTIONS GRID
+========================= */
+.dashboard-support-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.support-option-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+@media (hover: hover) {
+    .support-option-item:hover {
+        border-color: rgba(212, 175, 55, 0.40);
+        background: rgba(255, 255, 255, 0.07);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.30);
+    }
+}
+
+.support-icon-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 16px;
+    background: rgba(212, 175, 55, 0.10);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.support-details h4 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.support-details p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 768px) {
+    .dashboard-support-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-support-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .support-option-item {
+        padding: 16px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .support-option-item {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 10 FINAL
+   CUSTOMER DASHBOARD SETTINGS & PREFERENCES FORM UI
+========================================================= */
+
+/* =========================
+   SETTINGS SECTION WRAPPER
+========================= */
+.dashboard-settings-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-settings-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.dashboard-settings-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   SETTINGS HEADER
+========================= */
+.dashboard-settings-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+}
+
+.dashboard-settings-header h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.dashboard-settings-header p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   SETTINGS FORM GROUPS
+========================= */
+.dashboard-settings-form {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.settings-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.settings-input-group label {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.settings-input-group input,
+.settings-input-group select {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    outline: none;
+    transition: var(--transition);
+}
+
+.settings-input-group input:focus,
+.settings-input-group select:focus {
+    border-color: var(--gold);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.20);
+}
+
+.settings-input-group select option {
+    background: #111111;
+    color: #ffffff;
+}
+
+/* =========================
+   SETTINGS SAVE BUTTON
+========================= */
+.settings-save-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 16px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    color: #ffffff;
+    border: none;
+    font-size: 15px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 10px 25px rgba(193, 18, 31, 0.35);
+    margin-top: 10px;
+}
+
+@media (hover: hover) {
+    .settings-save-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(193, 18, 31, 0.45);
+    }
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .dashboard-settings-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .settings-save-btn,
+    .settings-input-group input,
+    .settings-input-group select {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 11 FINAL
+   CUSTOMER DASHBOARD ANALYTICS & SPENDING CHART UI
+========================================================= */
+
+/* =========================
+   ANALYTICS SECTION WRAPPER
+========================= */
+.dashboard-analytics-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-analytics-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.dashboard-analytics-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   ANALYTICS HEADER
+========================= */
+.dashboard-analytics-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+}
+
+.dashboard-analytics-header h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.dashboard-analytics-header p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   ANALYTICS CHART MOCKUP BODY
+========================= */
+.dashboard-chart-container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 180px;
+    padding: 20px 10px 10px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    gap: 12px;
+}
+
+.chart-bar-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+.chart-bar-fill {
+    width: 100%;
+    max-width: 32px;
+    background: linear-gradient(to top, var(--primary), var(--gold));
+    border-radius: 8px 8px 0 0;
+    transition: height 0.6s ease;
+    box-shadow: 0 5px 15px rgba(193, 18, 31, 0.25);
+}
+
+.chart-bar-item span {
+    color: var(--text-light);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .dashboard-analytics-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .dashboard-chart-container {
+        height: 150px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .chart-bar-fill {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 12 FINAL
+   CUSTOMER DASHBOARD WISHLIST & FAVORITES GRID UI
+========================================================= */
+
+/* =========================
+   WISHLIST SECTION WRAPPER
+========================= */
+.dashboard-wishlist-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-wishlist-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.dashboard-wishlist-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   WISHLIST HEADER
+========================= */
+.dashboard-wishlist-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+}
+
+.dashboard-wishlist-header h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.dashboard-wishlist-header p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   WISHLIST GRID
+========================= */
+.dashboard-wishlist-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.wishlist-item-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+    gap: 15px;
+}
+
+@media (hover: hover) {
+    .wishlist-item-box:hover {
+        border-color: rgba(212, 175, 55, 0.40);
+        background: rgba(255, 255, 255, 0.07);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.30);
+    }
+}
+
+.wishlist-item-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.wishlist-thumb {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    object-fit: cover;
+    background: #111111;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.wishlist-details h4 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.wishlist-details span {
+    color: var(--gold);
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.wishlist-action-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(193, 18, 31, 0.15);
+    border: 1px solid rgba(193, 18, 31, 0.30);
+    color: #ff4d4d;
+    font-size: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+@media (hover: hover) {
+    .wishlist-action-btn:hover {
+        background: rgba(193, 18, 31, 0.30);
+        transform: scale(1.05);
+    }
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 768px) {
+    .dashboard-wishlist-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-wishlist-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .wishlist-item-box,
+    .wishlist-action-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 13 FINAL
+   CUSTOMER DASHBOARD NOTIFICATIONS SETTINGS & PREFERENCES UI
+========================================================= */
+
+/* =========================
+   NOTIFICATIONS SECTION WRAPPER
+========================= */
+.dashboard-notifications-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-notifications-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.dashboard-notifications-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   NOTIFICATIONS HEADER
+========================= */
+.dashboard-notifications-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+}
+
+.dashboard-notifications-header h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.dashboard-notifications-header p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   NOTIFICATIONS LIST CONTAINER
+========================= */
+.dashboard-notifications-list {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.notification-toggle-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+    gap: 15px;
+}
+
+@media (hover: hover) {
+    .notification-toggle-item:hover {
+        border-color: rgba(212, 175, 55, 0.40);
+        background: rgba(255, 255, 255, 0.07);
+    }
+}
+
+.notification-toggle-info h4 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.notification-toggle-info p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   CUSTOM TOGGLE SWITCH UI
+========================= */
+.dashboard-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.dashboard-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.dashboard-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid var(--border);
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 34px;
+}
+
+.dashboard-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background: #ffffff;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-switch input:checked + .dashboard-slider {
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    border-color: var(--gold);
+}
+
+.dashboard-switch input:checked + .dashboard-slider:before {
+    transform: translateX(22px);
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .dashboard-notifications-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .notification-toggle-item {
+        padding: 14px 16px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-slider,
+    .dashboard-slider:before,
+    .notification-toggle-item {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 13 FINAL
+   CUSTOMER DASHBOARD NOTIFICATIONS SETTINGS & PREFERENCES UI
+========================================================= */
+
+/* =========================
+   NOTIFICATIONS SECTION WRAPPER
+========================= */
+.dashboard-notifications-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-notifications-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.dashboard-notifications-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   NOTIFICATIONS HEADER
+========================= */
+.dashboard-notifications-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+}
+
+.dashboard-notifications-header h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.dashboard-notifications-header p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   NOTIFICATIONS LIST CONTAINER
+========================= */
+.dashboard-notifications-list {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.notification-toggle-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+    gap: 15px;
+}
+
+@media (hover: hover) {
+    .notification-toggle-item:hover {
+        border-color: rgba(212, 175, 55, 0.40);
+        background: rgba(255, 255, 255, 0.07);
+    }
+}
+
+.notification-toggle-info h4 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.notification-toggle-info p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   CUSTOM TOGGLE SWITCH UI
+========================= */
+.dashboard-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.dashboard-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.dashboard-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid var(--border);
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 34px;
+}
+
+.dashboard-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background: #ffffff;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-switch input:checked + .dashboard-slider {
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    border-color: var(--gold);
+}
+
+.dashboard-switch input:checked + .dashboard-slider:before {
+    transform: translateX(22px);
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .dashboard-notifications-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .notification-toggle-item {
+        padding: 14px 16px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-slider,
+    .dashboard-slider:before,
+    .notification-toggle-item {
+        transition: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 14 FINAL
+   CUSTOMER DASHBOARD LOGOUT & SESSION TERMINATION UI
+========================================================= */
+
+/* =========================
+   LOGOUT SECTION WRAPPER
+========================= */
+.dashboard-logout-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-logout-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid rgba(193, 18, 31, 0.30);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.dashboard-logout-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(193, 18, 31, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   LOGOUT CONTENT WRAPPER
+   ========================= */
+.dashboard-logout-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.dashboard-logout-info h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.dashboard-logout-info p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   LOGOUT ACTION BUTTON
+========================= */
+.dashboard-logout-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 28px;
+    border-radius: 50px;
+    background: rgba(193, 18, 31, 0.15);
+    border: 1px solid rgba(193, 18, 31, 0.40);
+    color: #ff4d4d;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+@media (hover: hover) {
+    .dashboard-logout-btn:hover {
+        background: #c1121f;
+        color: #ffffff;
+        border-color: #c1121f;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(193, 18, 31, 0.40);
+    }
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .dashboard-logout-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .dashboard-logout-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .dashboard-logout-btn {
+        width: 100%;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-logout-btn {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 15 FINAL
+   CUSTOMER DASHBOARD REVIEWS & FEEDBACK SUBMISSION UI
+========================================================= */
+
+/* =========================
+   REVIEWS SECTION WRAPPER
+========================= */
+.dashboard-reviews-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-reviews-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.dashboard-reviews-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   REVIEWS HEADER
+========================= */
+.dashboard-reviews-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+}
+
+.dashboard-reviews-header h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.dashboard-reviews-header p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   REVIEWS FORM CONTAINER
+========================= */
+.dashboard-reviews-form {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.review-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.review-input-group label {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.review-input-group textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    outline: none;
+    resize: vertical;
+    transition: var(--transition);
+}
+
+.review-input-group textarea:focus {
+    border-color: var(--gold);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.20);
+}
+
+.review-input-group textarea::placeholder {
+    color: var(--text-light);
+}
+
+/* =========================
+   SUBMIT REVIEW BUTTON
+========================= */
+.review-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 16px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    color: #ffffff;
+    border: none;
+    font-size: 15px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 10px 25px rgba(193, 18, 31, 0.35);
+    margin-top: 5px;
+}
+
+@media (hover: hover) {
+    .review-submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(193, 18, 31, 0.45);
+    }
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .dashboard-reviews-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .review-submit-btn,
+    .review-input-group textarea {
+        transition: none;
+        transform: none;
+    }
+}/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 15 FINAL
+   CUSTOMER DASHBOARD REVIEWS & FEEDBACK SUBMISSION UI
+========================================================= */
+
+/* =========================
+   REVIEWS SECTION WRAPPER
+========================= */
+.dashboard-reviews-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-reviews-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.dashboard-reviews-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   REVIEWS HEADER
+========================= */
+.dashboard-reviews-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+}
+
+.dashboard-reviews-header h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.dashboard-reviews-header p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   REVIEWS FORM CONTAINER
+========================= */
+.dashboard-reviews-form {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.review-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.review-input-group label {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.review-input-group textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 14px 18px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    outline: none;
+    resize: vertical;
+    transition: var(--transition);
+}
+
+.review-input-group textarea:focus {
+    border-color: var(--gold);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.20);
+}
+
+.review-input-group textarea::placeholder {
+    color: var(--text-light);
+}
+
+/* =========================
+   SUBMIT REVIEW BUTTON
+========================= */
+.review-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 16px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    color: #ffffff;
+    border: none;
+    font-size: 15px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 10px 25px rgba(193, 18, 31, 0.35);
+    margin-top: 5px;
+}
+
+@media (hover: hover) {
+    .review-submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(193, 18, 31, 0.45);
+    }
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .dashboard-reviews-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .review-submit-btn,
+    .review-input-group textarea {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 16 FINAL
+   CUSTOMER DASHBOARD LOYALTY POINTS & REWARDS BADGES UI
+========================================================= */
+
+/* =========================
+   LOYALTY SECTION WRAPPER
+========================= */
+.dashboard-loyalty-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-loyalty-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.dashboard-loyalty-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   LOYALTY HEADER
+========================= */
+.dashboard-loyalty-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+}
+
+.dashboard-loyalty-header h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.dashboard-loyalty-header p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+/* =========================
+   LOYALTY BADGES GRID
+========================= */
+.dashboard-loyalty-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.loyalty-badge-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 22px 15px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+    gap: 12px;
+}
+
+@media (hover: hover) {
+    .loyalty-badge-item:hover {
+        border-color: rgba(212, 175, 55, 0.40);
+        background: rgba(255, 255, 255, 0.07);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.30);
+    }
+}
+
+.loyalty-badge-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.10);
+    border: 1px solid rgba(212, 175, 55, 0.30);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 22px;
+}
+
+.loyalty-badge-info h4 {
+    margin: 0 0 4px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.loyalty-badge-info p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 12px;
+}
+
+/* =========================
+   RESPONSIVE TABLET & MOBILE
+========================= */
+@media (max-width: 768px) {
+    .dashboard-loyalty-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-loyalty-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .loyalty-badge-item {
+        transition: none;
+        transform: none;
+    }
+}
+/* =========================================================
+   RIO MAGGI POINT - STYLE.CSS v2.0
+   PART 14 SECTION 17 FINAL
+   CUSTOMER DASHBOARD ACTIVE ORDERS LIVE TRACKER UI
+========================================================= */
+
+/* =========================
+   LIVE TRACKER SECTION WRAPPER
+========================= */
+.dashboard-tracker-section {
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.dashboard-tracker-card {
+    position: relative;
+    width: 100%;
+    padding: 30px;
+    border-radius: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.30);
+    overflow: hidden;
+}
+
+.dashboard-tracker-card::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    right: -80px;
+    top: -80px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.12);
+    filter: blur(60px);
+    pointer-events: none;
+}
+
+/* =========================
+   TRACKER HEADER
+========================= */
+.dashboard-tracker-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dashboard-tracker-header h3 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.dashboard-tracker-header p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 13px;
+}
+
+.tracker-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 50px;
+    background: rgba(46, 204, 113, 0.15);
+    border: 1px solid rgba(46, 204, 113, 0.30);
+    color: #2ecc71;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tracker-live-badge span {
+    width: 8px;
+    height: 8px;
+    background: #2ecc71;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #2ecc71;
+}
+
+/* =========================
+   TRACKER STEPS TIMELINE
+========================= */
+.dashboard-tracker-steps {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    gap: 10px;
+}
+
+.tracker-step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    position: relative;
+}
+
+.tracker-step-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    font-size: 16px;
+    margin-bottom: 10px;
+    transition: var(--transition);
+    position: relative;
+    z-index: 2;
+}
+
+.tracker-step-item.completed .tracker-step-icon,
+.tracker-step-item.active .tracker-step-icon {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: var(--gold);
+    color: var(--gold);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+}
+
+.tracker-step-item span {
+    color: var(--text-light);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.tracker-step-item.completed span,
+.tracker-step-item.active span {
+    color: #ffffff;
+    font-weight: 800;
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 600px) {
+    .dashboard-tracker-card {
+        padding: 20px;
+        border-radius: 22px;
+    }
+
+    .dashboard-tracker-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .dashboard-tracker-steps {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        padding-left: 10px;
+    }
+
+    .tracker-step-item {
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+        text-align: left;
+    }
+
+    .tracker-step-icon {
+        margin-bottom: 0;
+        width: 38px;
+        height: 38px;
+        font-size: 14px;
+    }
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+@media (prefers-reduced-motion: reduce) {
+    .tracker-step-icon {
+        transition: none;
+    }
+}
