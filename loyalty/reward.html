@@ -6,7 +6,7 @@ PART 1/2
 ===================================================== -->
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 
 
 <head>
@@ -19,39 +19,22 @@ PART 1/2
 content="width=device-width, initial-scale=1.0">
 
 
+<meta name="theme-color"
+content="#111111">
+
+
 
 <title>
-Rio Maggi Point • FREE Veg Maggi Reward
+Rio Maggi Point - FREE Veg Maggi Reward
 </title>
 
 
 
-<meta name="description"
-content="Rio Maggi Point loyalty reward page. Collect stamps and claim FREE Veg Maggi reward.">
 
 
-
-
-
-<!-- =====================================================
-PWA
-===================================================== -->
-
-
-<link rel="manifest"
-href="manifest.json">
-
-
-<link rel="icon"
-href="favicon.ico">
-
-
-
-
-
-<!-- =====================================================
+<!-- ===============================
 GOOGLE FONT
-===================================================== -->
+================================ -->
 
 
 <link rel="preconnect"
@@ -64,7 +47,7 @@ crossorigin>
 
 
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
 rel="stylesheet">
 
 
@@ -72,22 +55,27 @@ rel="stylesheet">
 
 
 
-<!-- =====================================================
+<!-- ===============================
 FONT AWESOME
-===================================================== -->
+================================ -->
 
 
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+integrity="sha512-REPLACE"
+crossorigin="anonymous"
+referrerpolicy="no-referrer">
 
 
 
 
 
 
-<!-- =====================================================
+
+
+<!-- ===============================
 CSS
-===================================================== -->
+================================ -->
 
 
 <link rel="stylesheet"
@@ -100,9 +88,8 @@ href="css/reward.css">
 
 
 
-
-
 </head>
+
 
 
 
@@ -115,50 +102,6 @@ href="css/reward.css">
 
 
 
-<!-- =====================================================
-PAGE LOADER
-===================================================== -->
-
-
-<div id="pageLoader"
-class="page-loader"
-aria-hidden="true">
-
-
-
-<div class="loader-logo">
-
-<i class="fa-solid fa-gift"></i>
-
-</div>
-
-
-
-
-<div class="loader-spinner"></div>
-
-
-
-<p>
-Loading Reward...
-</p>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- =====================================================
-MAIN PAGE
-===================================================== -->
-
 
 <main class="page reward-page">
 
@@ -168,9 +111,9 @@ MAIN PAGE
 
 
 
-<!-- =====================================================
+<!-- ===============================
 HEADER
-===================================================== -->
+================================ -->
 
 
 <header class="reward-header">
@@ -204,9 +147,8 @@ FREE Veg Maggi Reward
 
 
 
-
 <p>
-Your loyalty reward
+Your Loyalty Reward
 </p>
 
 
@@ -225,9 +167,9 @@ Your loyalty reward
 
 
 
-<!-- =====================================================
+<!-- ===============================
 CUSTOMER PROFILE
-===================================================== -->
+================================ -->
 
 
 <section class="reward-profile">
@@ -239,7 +181,6 @@ CUSTOMER PROFILE
 <div class="reward-avatar-wrapper">
 
 
-
 <img
 id="rewardCustomerPhoto"
 src="assets/default-avatar.png"
@@ -248,7 +189,6 @@ alt="Rio Maggi Customer">
 
 
 </div>
-
 
 
 
@@ -268,7 +208,6 @@ Rio Maggi Member
 
 
 
-
 </section>
 
 
@@ -279,9 +218,9 @@ Rio Maggi Member
 
 
 
-<!-- =====================================================
+<!-- ===============================
 LOYALTY CARD
-===================================================== -->
+================================ -->
 
 
 <section class="reward-card">
@@ -293,6 +232,7 @@ LOYALTY CARD
 <h2>
 Loyalty Progress
 </h2>
+
 
 
 
@@ -324,8 +264,9 @@ Valid Stamps
 
 
 
-
-<!-- PROGRESS -->
+<!-- ===============================
+PROGRESS BAR
+================================ -->
 
 
 <div class="reward-progress">
@@ -357,7 +298,6 @@ class="progress-fill">
 
 
 
-
 </div>
 
 
@@ -367,9 +307,10 @@ class="progress-fill">
 
 
 
-<!-- =====================================================
+
+<!-- ===============================
 STAMP BOXES
-===================================================== -->
+================================ -->
 
 
 <div id="rewardStampContainer"
@@ -497,6 +438,7 @@ FREE
 
 
 
+
 </div>
 
 
@@ -504,24 +446,23 @@ FREE
 
 
 
-
 </section>
-
-
-
-
-
-
-
 <!-- =====================================================
-REWARD STATUS
+PART 2/2
+REWARD STATUS + CYCLE + CLAIM + HISTORY + SCRIPT
 ===================================================== -->
 
 
-<div id="rewardStatus"
+
+
+
+<!-- ===============================
+REWARD STATUS
+================================ -->
+
+
+<section id="rewardStatus"
 class="reward-status">
-
-
 
 
 
@@ -537,34 +478,29 @@ class="reward-status">
 
 
 
-
 <div class="reward-status-content">
 
 
 
-<strong>
-Reward Locked
+<strong id="rewardStatusTitle">
+Reward Status
 </strong>
 
 
 
 
-
-<span>
-Collect 6 valid stamps within 40 days to unlock FREE Veg Maggi.
+<span id="rewardStatusText">
+Loading...
 </span>
 
 
 
-
 </div>
 
 
 
 
-
-</div>
-
+</section>
 
 
 
@@ -573,9 +509,10 @@ Collect 6 valid stamps within 40 days to unlock FREE Veg Maggi.
 
 
 
-<!-- =====================================================
+
+<!-- ===============================
 CLAIM BUTTON
-===================================================== -->
+================================ -->
 
 
 <section class="reward-action-area">
@@ -586,7 +523,7 @@ CLAIM BUTTON
 
 <button
 id="claimRewardBtn"
-class="claim-btn reward-locked-btn"
+class="claim-btn"
 disabled>
 
 
@@ -613,105 +550,41 @@ Collect 6 Stamps to Unlock
 
 
 </section>
-<!-- =====================================================
-RIO MAGGI POINT
-REWARD.HTML
-FINAL FIXED PRODUCTION VERSION
-PART 2/2
-===================================================== -->
 
 
 
 
 
-<!-- =====================================================
-40 DAYS VALIDITY
-===================================================== -->
-
-
-<section class="redeem-status">
 
 
 
-<div class="status-card">
+
+<!-- ===============================
+40 DAY CYCLE
+================================ -->
 
 
-
-<div class="status-icon">
-
-<i class="fa-solid fa-clock"></i>
-
-</div>
+<section class="cycle-info-card">
 
 
 
 
 
-<div class="status-content">
+<div class="cycle-header">
+
+
+
+<i class="fa-solid fa-calendar-check"></i>
+
+
 
 
 <h3>
-Reward Cycle Validity
+40-Day Stamp Cycle
 </h3>
 
 
 
-<p id="rewardCycleDays">
-40 DAYS
-</p>
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-<!-- =====================================================
-REWARD DETAILS
-===================================================== -->
-
-
-<section class="reward-info-card">
-
-
-
-
-
-<div class="info-header">
-
-
-
-<div class="info-icon">
-
-
-<i class="fa-solid fa-circle-info"></i>
-
-
-</div>
-
-
-
-
-<h2>
-Reward Details
-</h2>
-
-
-
 
 </div>
 
@@ -721,292 +594,41 @@ Reward Details
 
 
 
+<div class="cycle-details">
 
-<div class="reward-info-list">
-
-
-
-
-
-<div class="reward-info-item">
-
-
-
-<span>
-
-<i class="fa-solid fa-calendar-days"></i>
-
-40 Days Validity
-
-</span>
-
-
-
-
-<strong>
-Complete 6 stamps
-</strong>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="reward-info-item">
-
-
-
-<span>
-
-
-<i class="fa-solid fa-bowl-food"></i>
-
-
-Free Reward
-
-
-</span>
-
-
-
-
-
-<strong>
-FREE Veg Maggi
-</strong>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<div class="reward-info-item">
-
-
-
-<span>
-
-
-<i class="fa-solid fa-shield-halved"></i>
-
-
-Secure Loyalty
-
-
-</span>
-
-
-
-
-
-<strong>
-Protected System
-</strong>
-
-
-
-</div>
-
-
-
-
-
-
-</div>
-
-
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-<!-- =====================================================
-HOW REWARD WORKS
-===================================================== -->
-
-
-<section class="reward-rules">
-
-
-
-
-
-<div class="rules-header">
-
-
-
-<div class="rules-icon">
-
-
-<i class="fa-solid fa-star"></i>
-
-
-</div>
-
-
-
-
-<h2>
-How Reward Works
-</h2>
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<ul>
-
-
-
-<li>
-
-
-<i class="fa-solid fa-check rule-icon"></i>
-
-
-Collect 6 valid stamps from Rio Maggi Point.
-
-
-</li>
-
-
-
-
-
-
-<li>
-
-
-<i class="fa-solid fa-check rule-icon"></i>
-
-
-Complete your loyalty cycle within 40 days.
-
-
-</li>
-
-
-
-
-
-
-
-<li>
-
-
-<i class="fa-solid fa-check rule-icon"></i>
-
-
-After 6 stamps, FREE Veg Maggi reward unlocks.
-
-
-</li>
-
-
-
-
-
-
-
-<li>
-
-
-<i class="fa-solid fa-check rule-icon"></i>
-
-
-After claiming reward, your new loyalty cycle starts.
-
-
-</li>
-
-
-
-
-
-
-</ul>
-
-
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-<!-- =====================================================
-SECURITY NOTICE
-===================================================== -->
-
-
-<section class="reward-security-notice">
-
-
-
-
-
-<div class="security-icon">
-
-
-<i class="fa-solid fa-shield-halved"></i>
-
-
-</div>
-
-
-
-
-
-
-
-<div class="security-content">
-
-
-<h3>
-Secure Loyalty System
-</h3>
 
 
 
 
 <p>
-Your reward is protected by Rio Maggi Point loyalty rules.
+
+Cycle Start Date:
+
+<strong id="cycleStartDate">
+--
+</strong>
+
+
 </p>
+
+
+
+
+
+
+<p>
+
+Remaining Days:
+
+
+<strong id="rewardCycleDays">
+--
+</strong>
+
+
+
+</p>
+
 
 
 
@@ -1017,49 +639,59 @@ Your reward is protected by Rio Maggi Point loyalty rules.
 
 
 
-</section>
+
+
+
+<div id="expiryWarning"
+class="expiry-warning-box is-hidden">
 
 
 
 
 
-
-
-
-
-<!-- =====================================================
-BACK BUTTON
-===================================================== -->
-
-
-<section class="reward-back-section">
-
-
-
-
-
-<a href="card.html"
-class="premium-action-btn back-dashboard-btn">
-
-
-
-
-
-<i class="fa-solid fa-arrow-left"></i>
+<i class="fa-solid fa-triangle-exclamation"></i>
 
 
 
 
 
 <span>
-Back To Loyalty Card
+Your stamp cycle is about to expire.
 </span>
 
 
 
 
+</div>
 
-</a>
+
+
+
+
+
+
+
+<p id="autoResetMessage"
+class="auto-reset-note">
+
+
+
+
+
+<i class="fa-solid fa-circle-info"></i>
+
+
+
+
+
+40 days complete होने पर incomplete stamp cycle automatically reset होगा।
+
+
+
+
+
+
+</p>
 
 
 
@@ -1069,6 +701,178 @@ Back To Loyalty Card
 </section>
 
 
+
+
+
+
+
+
+
+
+
+
+<!-- ===============================
+REWARD MESSAGE
+================================ -->
+
+
+<div id="rewardMessage"
+class="reward-message-banner is-hidden">
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ===============================
+AVAILABLE REWARD
+================================ -->
+
+
+<section class="rewards-section">
+
+
+
+
+
+<div class="section-title">
+
+
+<h2>
+Available Reward
+</h2>
+
+
+</div>
+
+
+
+
+
+
+
+<div id="rewardsListContainer"
+class="rewards-grid">
+
+
+
+
+
+
+
+<div class="reward-loading">
+
+
+
+<i class="fa-solid fa-spinner fa-spin"></i>
+
+
+
+<p>
+Reward loading...
+</p>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ===============================
+REWARD HISTORY
+================================ -->
+
+
+<section class="rewards-history-section">
+
+
+
+
+
+<div class="section-title">
+
+
+
+<h2>
+Claim History
+</h2>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div id="rewardHistoryContainer"
+class="history-list">
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- ===============================
+BOTTOM SPACE
+================================ -->
+
+
+<div class="navigation-space"></div>
 
 
 
@@ -1086,91 +890,16 @@ Back To Loyalty Card
 
 
 
-<!-- =====================================================
-REWARD CONTROLLER
-===================================================== -->
+<!-- ===============================
+REWARD JS
+================================ -->
 
 
 <script
 type="module"
 src="js/reward.js">
-</script>
-
-
-
-
-
-
-
-
-
-<!-- =====================================================
-SERVICE WORKER
-===================================================== -->
-
-
-<script>
-
-
-if(
-    "serviceWorker" in navigator
-){
-
-
-window.addEventListener(
-"load",
-()=>{
-
-
-navigator.serviceWorker
-.register(
-"./service-worker.js"
-)
-
-
-.then(
-()=>{
-
-
-console.log(
-"Rio Maggi Point Service Worker Registered"
-);
-
-
-}
-)
-
-
-.catch(
-(error)=>{
-
-
-console.error(
-"Service Worker Registration Failed:",
-error
-);
-
-
-}
-);
-
-
-
-},
-{
-once:true
-}
-
-);
-
-
-}
-
-
 
 </script>
-
-
 
 
 
