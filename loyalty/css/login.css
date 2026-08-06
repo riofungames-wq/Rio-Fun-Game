@@ -1,7 +1,12 @@
 /* ==========================================
    RIO LOYALTY CLUB
    LOGIN PAGE
-   PART 1
+   RESPONSIVE FINAL VERSION
+========================================== */
+
+
+/* ==========================================
+   LOGIN PAGE WRAPPER
 ========================================== */
 
 .login-page{
@@ -16,7 +21,15 @@
 
     padding:20px;
 
+    box-sizing:border-box;
+
 }
+
+
+
+/* ==========================================
+   LOGIN CARD
+========================================== */
 
 .login-card{
 
@@ -38,7 +51,11 @@
 
     overflow:hidden;
 
+    box-sizing:border-box;
+
 }
+
+
 
 .login-card::before{
 
@@ -54,62 +71,83 @@
 
     height:6px;
 
-   background:linear-gradient(
-    135deg,
-    var(--gold),
-    var(--gold-dark)
-);
+    background:linear-gradient(
+        135deg,
+        var(--gold),
+        var(--gold-dark)
+    );
 
 }
 
-/* Logo */
+
+
+/* ==========================================
+   LOGO SECTION
+========================================== */
 
 .logo-box{
 
     text-align:center;
 
-    margin-bottom:30px;
+    margin-bottom:24px;
 
 }
+
 
 .logo-box img{
 
     width:90px;
 
+    max-width:100%;
+
     margin:auto;
 
-    margin-bottom:15px;
+    margin-bottom:12px;
 
 }
+
 
 .logo-box h1{
 
     color:var(--green);
 
-    margin-bottom:6px;
+    margin:0 0 6px;
+
+    font-size:28px;
 
 }
+
 
 .logo-box p{
 
     color:var(--text-light);
 
+    margin:0;
+
+    font-size:15px;
+
 }
+
+
+
 /* ==========================================
    FORM
 ========================================== */
 
+
 .form-group{
 
-    margin-bottom:18px;
+    margin-bottom:16px;
 
 }
+
+
 
 .form-group label{
 
     display:block;
 
-    margin-bottom:8px;
+    margin-bottom:7px;
 
     font-size:14px;
 
@@ -119,11 +157,15 @@
 
 }
 
+
+
 .form-group input{
 
     width:100%;
 
-    padding:14px 16px;
+    height:48px;
+
+    padding:0 15px;
 
     border:2px solid var(--border);
 
@@ -135,21 +177,30 @@
 
     font-size:15px;
 
+    box-sizing:border-box;
+
     transition:.25s;
 
 }
+
+
 
 .form-group input:focus{
 
     border-color:var(--gold);
 
+    outline:none;
+
     box-shadow:0 0 0 4px rgba(212,175,55,.15);
 
 }
 
+
+
 /* ==========================================
-   PASSWORD BOX
+   PASSWORD
 ========================================== */
+
 
 .password-box{
 
@@ -157,11 +208,13 @@
 
 }
 
+
 .password-box input{
 
     padding-right:55px;
 
 }
+
 
 .toggle-password{
 
@@ -185,9 +238,12 @@
 
 }
 
+
+
 /* ==========================================
-   REMEMBER + FORGOT
+   REMEMBER FORGOT
 ========================================== */
+
 
 .remember-row{
 
@@ -197,9 +253,10 @@
 
     align-items:center;
 
-    margin-bottom:24px;
+    margin-bottom:20px;
 
 }
+
 
 .remember-me{
 
@@ -211,9 +268,9 @@
 
     font-size:14px;
 
-    cursor:pointer;
-
 }
+
+
 
 .forgot-link{
 
@@ -225,26 +282,18 @@
 
 }
 
-.forgot-link:hover{
 
-    text-decoration:underline;
 
-}
 /* ==========================================
    LOGIN BUTTON
 ========================================== */
 
-.button-area{
-
-    margin-top:10px;
-
-}
 
 .login-btn{
 
     width:100%;
 
-    padding:15px;
+    height:48px;
 
     border:none;
 
@@ -268,6 +317,8 @@
 
 }
 
+
+
 .login-btn:hover{
 
     transform:translateY(-2px);
@@ -276,29 +327,37 @@
 
 }
 
+
 .login-btn:active{
 
     transform:scale(.98);
 
 }
 
+
+
 /* ==========================================
-   SIGNUP LINK
+   SIGNUP
 ========================================== */
+
 
 .signup-link{
 
     text-align:center;
 
-    margin-top:22px;
+    margin-top:20px;
 
 }
+
 
 .signup-link p{
 
     color:var(--text-light);
 
+    margin:0;
+
 }
+
 
 .signup-link a{
 
@@ -308,21 +367,18 @@
 
 }
 
-.signup-link a:hover{
 
-    text-decoration:underline;
-
-}
 
 /* ==========================================
-   ADS PLACEHOLDER
+   ADS
 ========================================== */
+
 
 .ads-placeholder{
 
-    margin-top:24px;
+    margin-top:22px;
 
-    padding:18px;
+    padding:16px;
 
     border:2px dashed var(--border);
 
@@ -338,17 +394,152 @@
 
 }
 
+
+
 /* ==========================================
-   RESPONSIVE
+   TABLET
 ========================================== */
 
+
+@media (min-width:481px) and (max-width:1023px){
+
+    .login-card{
+
+        max-width:400px;
+
+        padding:26px;
+
+    }
+
+
+    .logo-box img{
+
+        width:85px;
+
+    }
+
+
+    .logo-box h1{
+
+        font-size:26px;
+
+    }
+
+}
+
+
+
+
+/* ==========================================
+   LAPTOP
+========================================== */
+
+
+@media (min-width:1024px){
+
+
+    .login-page{
+
+        padding:30px;
+
+    }
+
+
+    .login-card{
+
+        max-width:390px;
+
+        padding:26px;
+
+    }
+
+
+    .logo-box img{
+
+        width:80px;
+
+    }
+
+
+    .logo-box h1{
+
+        font-size:24px;
+
+    }
+
+
+    .logo-box p{
+
+        font-size:14px;
+
+    }
+
+
+    .form-group input{
+
+        height:45px;
+
+    }
+
+
+    .login-btn{
+
+        height:45px;
+
+    }
+
+}
+
+
+
+/* ==========================================
+   LARGE DESKTOP
+========================================== */
+
+
+@media (min-width:1440px){
+
+
+    .login-card{
+
+        max-width:400px;
+
+    }
+
+}
+
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+
 @media(max-width:480px){
+
+
+    .login-page{
+
+        padding:15px;
+
+    }
+
 
     .login-card{
 
         padding:22px;
 
+        border-radius:20px;
+
     }
+
+
+    .logo-box{
+
+        margin-bottom:20px;
+
+    }
+
 
     .logo-box img{
 
@@ -356,9 +547,31 @@
 
     }
 
+
     .logo-box h1{
 
-        font-size:26px;
+        font-size:23px;
+
+    }
+
+
+    .logo-box p{
+
+        font-size:14px;
+
+    }
+
+
+    .form-group input{
+
+        height:46px;
+
+    }
+
+
+    .login-btn{
+
+        height:46px;
 
     }
 
