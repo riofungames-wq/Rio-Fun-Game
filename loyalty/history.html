@@ -1,97 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loyalty History - Rio Maggi Point</title>
+    <meta name="theme-color" content="#111111">
+    <title>Rio Maggi Point - History</title>
 
-    <!-- Google Fonts -->
+    <!-- Font Preloading & Optimization -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Poppins Font with display=swap -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/history.css">
+    <link rel="stylesheet" href="history.css">
 </head>
 <body>
 
     <main class="history-page">
-        <!-- HEADER SECTION -->
+        <!-- Header Section -->
         <header class="history-header">
             <div class="header-content">
-                <a href="index.html" class="back-btn" aria-label="Go Back">
+                <a href="index.html" class="back-btn" aria-label="मुख्य पृष्ठ पर वापस जाएं">
                     <i class="fa-solid fa-arrow-left"></i>
                 </a>
-                <h1>Loyalty History</h1>
+                <h1>पुरस्कार और स्टैम्प इतिहास</h1>
             </div>
         </header>
 
-        <!-- LOYALTY SUMMARY CARDS -->
-        <section class="loyalty-summary" aria-label="Loyalty Summary">
+        <!-- Loyalty Summary Cards -->
+        <section class="loyalty-summary" aria-label="पुरस्कार का सारांश">
             <div class="summary-item">
                 <div class="summary-icon">
                     <i class="fa-solid fa-stamp"></i>
                 </div>
                 <div class="summary-info">
-                    <span class="summary-label">Total Stamps</span>
+                    <span class="summary-label">कुल अर्जित स्टैम्प</span>
                     <h2 id="totalStamps">0</h2>
                 </div>
             </div>
 
             <div class="summary-item">
                 <div class="summary-icon">
-                    <i class="fa-solid fa-award"></i>
+                    <i class="fa-solid fa-gift"></i>
                 </div>
                 <div class="summary-info">
-                    <span class="summary-label">Rewards Earned</span>
+                    <span class="summary-label">रिडीम किए पुरस्कार</span>
                     <h2 id="totalRewards">0</h2>
                 </div>
             </div>
         </section>
 
-        <!-- DAILY RULE / INFO BANNER -->
-        <div class="daily-rule-banner">
+        <!-- Daily Rule Info Banner (Updated with 40-Day Cycle Rule) -->
+        <section class="daily-rule-banner">
             <div class="rule-icon">
                 <i class="fa-solid fa-circle-info"></i>
             </div>
             <div class="rule-text">
-                <h3>Loyalty Program Rules</h3>
-                <p>Collect 6 stamps within 40 days to unlock your FREE Veg Maggi. If the cycle is not completed within 40 days, the stamp count resets automatically.</p>
-            </div>
-        </div>
-
-        <!-- HISTORY SECTION -->
-        <section class="history-section">
-            <div class="section-title">
-                <h2>Activity Log</h2>
-            </div>
-
-            <!-- LOADING STATE -->
-            <div id="historyLoading" class="history-loading">
-                <i class="fa-solid fa-spinner fa-spin"></i>
-                <p>Loading your history...</p>
-            </div>
-
-            <!-- EMPTY STATE -->
-            <div id="historyEmpty" class="history-empty" style="display: none;">
-                <i class="fa-solid fa-box-open"></i>
-                <p>No activity recorded yet.</p>
-            </div>
-
-            <!-- HISTORY CONTAINER (WITH ARIA-LIVE) -->
-            <div id="historyContainer" class="history-container" style="display: none;" aria-live="polite">
-                <!-- Dynamic Items from history.js will render here -->
+                <h3>वॉयल्टी नियम एवं शर्तें</h3>
+                <p>प्रतिदिन अधिकतम 1 स्टैम्प अर्जित करें। 40-दिनों की चक्र अवधि में 6 स्टैम्प इकट्ठा करने पर आपका फ्री रिवॉर्ड अनलॉक हो जाएगा!</p>
             </div>
         </section>
 
-        <!-- BOTTOM NAV SPACE -->
+        <!-- History List Section -->
+        <section class="history-section">
+            <div class="section-title">
+                <h2>गतिविधि इतिहास</h2>
+            </div>
+
+            <!-- Fix 1 & 2: Added JS Element States & Removed Duplicate Hardcoded Loader -->
+            <div id="historyLoading" class="history-loading">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <p>इतिहास लोड हो रहा है...</p>
+            </div>
+
+            <div id="historyEmpty" class="history-empty" style="display: none;">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <p>अभी तक कोई गतिविधि इतिहास उपलब्ध नहीं है।</p>
+            </div>
+
+            <div id="historyContainer" class="history-container">
+                <!-- Dynamically populated by history.js -->
+            </div>
+        </section>
+
+        <!-- Bottom Spacing for Mobile Navigation -->
         <div class="navigation-space"></div>
     </main>
 
-    <!-- Firebase & Custom JS Module -->
+    <!-- Custom JS (Path Fix & Module Enabled) -->
     <script type="module" src="js/history.js"></script>
 </body>
 </html>
