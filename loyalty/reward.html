@@ -24,6 +24,7 @@ Rio Maggi Point • FREE Veg Maggi Reward
 content="Claim your Rio Maggi Point loyalty reward">
 
 
+
 <!-- =====================================================
 PWA
 ===================================================== -->
@@ -31,6 +32,7 @@ PWA
 <link rel="manifest" href="manifest.json">
 
 <link rel="icon" href="favicon.ico">
+
 
 
 <!-- =====================================================
@@ -59,7 +61,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 
 <!-- =====================================================
-COMMON CSS
+CSS
 ===================================================== -->
 
 <link rel="stylesheet"
@@ -232,6 +234,7 @@ Loyalty Progress
 
 
 
+
 <div class="reward-stamp-count">
 
 
@@ -246,6 +249,7 @@ Valid Stamps
 
 
 </div>
+
 
 
 
@@ -278,6 +282,7 @@ class="reward-progress-fill">
 
 
 
+
 <!-- =====================================================
 STAMP BOXES
 ===================================================== -->
@@ -285,6 +290,7 @@ STAMP BOXES
 
 <div id="rewardStampContainer"
 class="reward-stamp-container">
+
 
 
 <div class="reward-stamp-box"
@@ -297,6 +303,7 @@ data-stamp="1">
 </span>
 
 </div>
+
 
 
 
@@ -327,7 +334,6 @@ data-stamp="3">
 
 
 
-
 <div class="reward-stamp-box"
 data-stamp="4">
 
@@ -341,7 +347,6 @@ data-stamp="4">
 
 
 
-
 <div class="reward-stamp-box"
 data-stamp="5">
 
@@ -352,7 +357,6 @@ data-stamp="5">
 </span>
 
 </div>
-
 
 
 
@@ -373,11 +377,6 @@ FREE
 
 
 </div>
-
-
-
-
-
 <!-- =====================================================
 REWARD STATUS
 ===================================================== -->
@@ -419,6 +418,8 @@ Collect 6 valid stamps within 40 days to unlock FREE Veg Maggi.
 
 
 
+
+
 <!-- =====================================================
 CLAIM BUTTON
 ===================================================== -->
@@ -445,9 +446,12 @@ Collect 6 Stamps to Unlock
 
 
 </div>
-<!-- =====================================================
-PART 2/2
-===================================================== -->
+
+
+
+</section>
+
+
 
 
 
@@ -459,6 +463,7 @@ REWARD INFORMATION
 
 
 <section class="reward-info-section app-card">
+
 
 
 <div class="reward-info-item">
@@ -488,6 +493,7 @@ Complete your loyalty cycle within 40 days.
 
 
 
+
 <div class="reward-info-item">
 
 
@@ -510,6 +516,7 @@ Enjoy your reward after collecting 6 valid stamps.
 
 
 </div>
+
 
 
 
@@ -547,6 +554,8 @@ Your reward is protected by our loyalty system.
 
 
 
+
+
 <!-- =====================================================
 BACK BUTTON
 ===================================================== -->
@@ -576,7 +585,9 @@ Back To Loyalty Card
 
 
 
+
 </main>
+
 
 
 
@@ -591,8 +602,12 @@ REWARD CONTROLLER
 
 <script
 type="module"
-src="js/reward-page.js">
+src="js/reward.js">
 </script>
+
+
+
+
 
 
 
@@ -619,6 +634,7 @@ navigator.serviceWorker
 .register(
 "./service-worker.js"
 )
+
 .then(()=>{
 
 
@@ -628,12 +644,13 @@ console.log(
 
 
 })
+
 .catch(
 (error)=>{
 
 
 console.error(
-"Service Worker Error:",
+"Service Worker Registration Failed:",
 error
 );
 
@@ -645,6 +662,7 @@ error
 {
 once:true
 }
+
 );
 
 
@@ -657,7 +675,8 @@ once:true
 
 
 
-</body>
 
+
+</body>
 
 </html>
