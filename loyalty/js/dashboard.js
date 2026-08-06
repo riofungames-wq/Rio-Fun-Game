@@ -1,12 +1,12 @@
 // ======================================
-// RIO LOYALTY CLUB
-// DASHBOARD
-// FINAL FIXED VERSION
+// RIO MAGGI POINT
+// DASHBOARD.JS
+// FINAL CLEAN FIXED VERSION
 // ======================================
 
 
 // ======================================
-// FIREBASE AUTH IMPORT
+// IMPORTS
 // ======================================
 
 import {
@@ -20,56 +20,48 @@ import {
 
 
 
+// ======================================
+// CONSTANTS
+// ======================================
+
+const REWARD_STAMP_LIMIT = 6;
+
+
 
 // ======================================
-// ELEMENTS
+// DOM ELEMENTS
 // ======================================
 
 const customerName =
 document.getElementById("customerName");
 
-
 const memberId =
 document.getElementById("memberId");
-
 
 const customerAvatar =
 document.getElementById("customerAvatar");
 
-
 const infoName =
 document.getElementById("infoName");
-
 
 const infoEmail =
 document.getElementById("infoEmail");
 
-
 const infoMobile =
 document.getElementById("infoMobile");
-
 
 const infoGender =
 document.getElementById("infoGender");
 
-
 const infoStatus =
 document.getElementById("infoStatus");
-
 
 const rewardStatus =
 document.getElementById("rewardStatus");
 
-
 const logoutBtn =
 document.getElementById("logoutBtn");
 
-
-
-
-// ======================================
-// STAMP BOXES
-// ======================================
 
 const stamps = [
 
@@ -84,230 +76,254 @@ const stamps = [
 
 
 
-
 // ======================================
-// LOAD CUSTOMER DATA
+// RENDER CUSTOMER DATA
 // ======================================
 
-window.addEventListener(
-"dashboard-ready",
-()=>{
+function renderCustomer(customer){
 
 
-    const user =
-    window.currentUser;
+    if(!customer)
 
-
-    if(!user)
         return;
 
 
 
-
-    if(customerName){
+    if(customerName)
 
         customerName.textContent =
-        user.name || "Customer";
-
-    }
+        customer.name || "Customer";
 
 
 
-    if(memberId){
+    if(memberId)
 
         memberId.textContent =
-        "Member ID : "
-        +
+        "Member ID : " +
         (
-            user.memberId ||
+            customer.memberId ||
             "RIO-000000"
         );
 
-    }
 
 
-
-
-    if(customerAvatar){
+    if(customerAvatar)
 
         customerAvatar.src =
-
-        user.avatar
-        ||
-        user.photoURL
-        ||
+        customer.avatar ||
+        customer.photoURL ||
         "assets/avatars/default.png";
 
-    }
 
 
-
-
-    if(infoName){
+    if(infoName)
 
         infoName.textContent =
-        user.name || "-";
-
-    }
+        customer.name || "-";
 
 
 
-
-    if(infoEmail){
+    if(infoEmail)
 
         infoEmail.textContent =
-        user.email || "-";
-
-    }
+        customer.email || "-";
 
 
 
-
-    if(infoMobile){
+    if(infoMobile)
 
         infoMobile.textContent =
-        user.mobile
-        ||
-        user.phone
-        ||
+        customer.mobile ||
+        customer.phone ||
         "-";
 
-    }
 
 
-
-
-    if(infoGender){
+    if(infoGender)
 
         infoGender.textContent =
-        user.gender || "-";
-
-    }
+        customer.gender || "-";
 
 
 
-
-    if(infoStatus){
+    if(infoStatus)
 
         infoStatus.textContent =
-        user.status
-        ||
+        customer.status ||
         "Active";
-
-    }
-
 
 
 
     updateStamps(
-        Number(user.stamps || 0)
+        Number(customer.stamps || 0)
+    );
+
+}
+
+
+
+// ======================================
+// UPDATE STAMP DISPLAY
+// ======================================
+
+function updateStamps(count){
+
+
+    const total = Math.min(
+
+        Math.max(
+            Number(count) || 0,
+            0
+        ),
+
+        REWARD_STAMP_LIMIT
+
     );
 
 
-});
 
+    stamps.forEach(
+        box=>{
 
+            if(box)
 
-
-// ======================================
-// STAMP UPDATE SYSTEM
-// ======================================
-
-function updateStamps(totalStamps){
-
-
-    stamps.forEach(box=>{
-
-        if(box){
-
-            box.classList.remove(
-                "active"
-            );
+                box.classList.remove(
+                    "active"
+                );
 
         }
-
-    });
+    );
 
 
 
     for(
-        let i=0;
-        i<totalStamps && i<6;
+        let i = 0;
+        i < total;
         i++
     ){
 
-        if(stamps[i]){
+        if(stamps[i])
 
             stamps[i].classList.add(
                 "active"
             );
 
-        }
-
     }
 
 
 
+    updateRewardStatus(total);
+
+}
+
+
+
+
+// ======================================
+// REWARD STATUS
+// ======================================
+
+function updateRewardStatus(stampCount){
+
 
     if(!rewardStatus)
+
         return;
 
 
 
-    if(totalStamps >= 6){
+    if(stampCount >= REWARD_STAMP_LIMIT){
 
 
         rewardStatus.innerHTML = `
 
-        🎉 <b>Congratulations!</b>
+        🎉 Congratulations!
 
         <br><br>
 
-        You earned
+        Your reward is unlocked.
 
         <br>
 
-        <b>1 FREE Veg Maggi 🍜</b>
+        <strong>
+        FREE Veg Maggi 🍜
+        </strong>
 
         `;
 
 
-    }
-    else{
-
-
-        const remaining =
-        6-totalStamps;
-
-
-
-        rewardStatus.innerHTML = `
-
-        You have
-
-        <b>${totalStamps}</b>
-
-        stamp${totalStamps===1?"":"s"}.
-
-        <br><br>
-
-        Collect
-
-        <b>${remaining}</b>
-
-        more stamp${remaining===1?"":"s"}
-
-        to get
-
-        <b>1 FREE Veg Maggi 🍜</b>
-
-        `;
-
+        return;
 
     }
+
+
+
+    const remaining =
+    REWARD_STAMP_LIMIT - stampCount;
+
+
+
+    rewardStatus.innerHTML = `
+
+    You have
+
+    <strong>
+    ${stampCount}
+    </strong>
+
+    stamp${stampCount === 1 ? "" : "s"}
+
+    <br><br>
+
+    Collect
+
+    <strong>
+    ${remaining}
+    </strong>
+
+    more stamp${remaining === 1 ? "" : "s"}
+
+    to get
+
+    <strong>
+    FREE Veg Maggi 🍜
+    </strong>
+
+    `;
 
 
 }
+
+
+
+// ======================================
+// DASHBOARD DATA EVENT
+// ======================================
+
+window.addEventListener(
+
+"dashboard-ready",
+
+()=>{
+
+
+    const customer =
+    window.currentUser;
+
+
+
+    if(!customer)
+
+        return;
+
+
+
+    renderCustomer(customer);
+
+
+}
+
+);
 
 
 
@@ -319,63 +335,67 @@ function updateStamps(totalStamps){
 if(logoutBtn){
 
 
-logoutBtn.addEventListener(
-"click",
-async()=>{
+    logoutBtn.addEventListener(
+
+    "click",
+
+    async()=>{
 
 
-    const confirmLogout =
-    confirm(
-    "Are you sure you want to logout?"
-    );
-
-
-    if(!confirmLogout)
-        return;
-
-
-
-    try{
-
-
-        await signOut(auth);
-
-
-
-        window.currentUser = null;
-
-
-
-        sessionStorage.removeItem(
-            "rioLoggedIn"
+        const confirmLogout =
+        confirm(
+            "Are you sure you want to logout?"
         );
 
 
 
-        window.location.replace(
-            "login.html"
-        );
+        if(!confirmLogout)
+
+            return;
 
 
-    }
-    catch(error){
+
+        try{
 
 
-        console.error(
-            "Logout Error:",
-            error
-        );
+            await signOut(auth);
 
 
-        alert(
-        "Logout failed. Please try again."
-        );
+
+            sessionStorage.clear();
 
 
-    }
+
+            window.currentUser =
+            null;
 
 
-});
+
+            window.location.replace(
+                "login.html"
+            );
+
+
+        }
+
+        catch(error){
+
+
+            console.error(
+                "Logout Error:",
+                error
+            );
+
+
+            alert(
+                "Logout failed. Please try again."
+            );
+
+
+        }
+
+
+    });
 
 
 }
@@ -383,6 +403,15 @@ async()=>{
 
 
 
+// ======================================
+// EXPORT FOR OTHER MODULES
+// ======================================
+
+window.updateDashboardStamps =
+updateStamps;
+
+
+
 console.log(
-"🍜 Rio Dashboard JS Loaded"
+"🍜 Rio Dashboard.js Loaded Successfully"
 );
