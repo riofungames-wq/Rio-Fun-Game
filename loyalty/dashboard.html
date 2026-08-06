@@ -1,18 +1,20 @@
 <!-- =====================================================
      RIO MAGGI POINT
-     CUSTOMER DASHBOARD
-     FINAL CLEAN HTML
+     CUSTOMER DASHBOARD.HTML
+     NEW CLEAN BUILD
+     PART 1/4
 ===================================================== -->
 
+
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
 <title>
@@ -20,68 +22,24 @@ Rio Maggi Point | Dashboard
 </title>
 
 
-<link rel="icon"
-href="favicon.ico">
+<link rel="stylesheet" href="css/style.css">
 
-
-<!-- GOOGLE FONT -->
-
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap"
-rel="stylesheet">
-
-
-
-<!-- ICONS -->
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
-
-<!-- DASHBOARD CSS -->
-
-<link rel="stylesheet"
-href="css/style.css">
-
-
 </head>
 
 
-
 <body>
-
-
-<!-- LOADING -->
-
-<div id="loadingScreen"
-style="text-align:center;padding:50px;color:white;">
-
-<h2>
-Loading Rio Maggi Point...
-</h2>
-
-</div>
-
-
-
 
 
 <div class="container">
 
 
 
-<!-- =====================
-HEADER
-===================== -->
-
+<!-- HEADER -->
 
 <header class="header">
 
@@ -93,15 +51,17 @@ HEADER
 alt="Rio Maggi Point">
 
 
-<div class="logo-text">
+<div>
 
+
+<h2 class="logo-text">
 RIO MAGGI POINT
+</h2>
 
-<br>
 
-<span style="font-size:12px;color:#d4af37;">
+<p>
 Premium Loyalty Club
-</span>
+</p>
 
 
 </div>
@@ -111,9 +71,7 @@ Premium Loyalty Club
 
 
 
-
-<button
-id="logoutBtn"
+<button id="logoutBtn"
 class="btn btn-logout">
 
 
@@ -132,26 +90,25 @@ Logout
 
 
 
-<!-- =====================
-WELCOME
-===================== -->
+
+<!-- WELCOME -->
 
 
-<section class="card text-center">
+<section class="card welcome-card">
+
+
+<h1>
+
+WELCOME BACK
+
+</h1>
 
 
 <h3>
-WELCOME BACK
-</h3>
 
-
-<p>
-
-<span id="customerName">
 Premium Member
-</span>
 
-</p>
+</h3>
 
 
 <p>
@@ -169,12 +126,10 @@ Keep collecting stamps and enjoy your reward.
 
 
 
-<!-- =====================
-LOYALTY CARD
-===================== -->
+<!-- LOYALTY CARD -->
 
 
-<section class="loyalty-card card-margin">
+<section class="loyalty-card">
 
 
 
@@ -188,7 +143,7 @@ LOYALTY CARD
 
 src="assets/avatars/default.png"
 
-alt="Customer Photo">
+alt="Customer">
 
 
 </div>
@@ -200,13 +155,13 @@ alt="Customer Photo">
 <div>
 
 
-<h2 class="customer-name"
-id="infoName">
+<h2 id="customerName"
 
-Rio Maggi Member
+class="customer-name">
+
+Customer
 
 </h2>
-
 
 
 <p class="customer-role">
@@ -216,22 +171,13 @@ Premium Member
 </p>
 
 
+<p id="memberId">
 
-<p class="customer-role">
-
-Member ID:
-
-<span id="memberId">
-
-RIO-000000
-
-</span>
-
+Member ID : RIO-000000
 
 </p>
 
 
-
 </div>
 
 
@@ -240,11 +186,6 @@ RIO-000000
 
 
 
-
-
-
-
-<!-- REWARD -->
 
 
 <div class="reward-box">
@@ -265,89 +206,306 @@ Collect 6 valid stamps & get
 1 Veg Maggi FREE
 </strong>
 
-
 </p>
 
 
-<br>
-
-
-<div id="rewardStatus">
-
-
-Reward Locked
-
-<br>
-
-Collect all 6 valid stamps within 40 days to unlock your FREE Veg Maggi.
-
-
-</div>
-
-
-
 </div>
 
 
 
 
 
-
-<!-- STAMPS -->
-
-
-<div class="stamp-grid">
+<div class="stamp-section">
 
 
-<div class="stamp-box" id="stamp1">
-1
-</div>
+<h3>
 
+Collect Your Stamps
 
-<div class="stamp-box" id="stamp2">
-2
-</div>
-
-
-<div class="stamp-box" id="stamp3">
-3
-</div>
-
-
-<div class="stamp-box" id="stamp4">
-4
-</div>
-
-
-<div class="stamp-box" id="stamp5">
-5
-</div>
-
-
-<div class="stamp-box reward" id="stamp6">
-FREE
-</div>
-
-
-</div>
-
+</h3>
 
 
 
 <div class="stamp-count">
 
 
-0/6
+<span id="stampCount">
 
+0
 
-<br>
+</span>
 
-
-0 of 6 valid stamps collected
+/6
 
 
 </div>
 
+
+
+
+
+<div class="stamp-grid">
+
+
+<div id="stamp1"
+class="stamp-box">
+
+1
+
+</div>
+
+
+<div id="stamp2"
+class="stamp-box">
+
+2
+
+</div>
+
+
+<div id="stamp3"
+class="stamp-box">
+
+3
+
+</div>
+
+
+<div id="stamp4"
+class="stamp-box">
+
+4
+
+</div>
+
+
+<div id="stamp5"
+class="stamp-box">
+
+5
+
+</div>
+
+
+<div id="stamp6"
+class="stamp-box reward">
+
+FREE
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<div id="rewardStatus"
+class="reward-status">
+
+
+Reward Locked
+
+<br>
+
+Collect all 6 valid stamps within 40 days.
+
+
+</div>
+
+
+
+</section>
+<!-- =====================================================
+     RIO MAGGI POINT
+     CUSTOMER DASHBOARD.HTML
+     PART 2/4
+
+     QUICK ACTIONS + CUSTOMER SERVICES
+===================================================== -->
+
+
+
+
+
+<!-- QUICK ACTIONS -->
+
+<section class="card card-margin">
+
+
+<h3>
+
+Quick Actions
+
+</h3>
+
+
+<p>
+
+Everything you need in one place
+
+</p>
+
+
+
+
+<div class="quick-actions">
+
+
+
+
+
+<a href="menu.html"
+class="quick-action-card">
+
+
+<i class="fa-solid fa-utensils"></i>
+
+
+<h4>
+
+View Menu
+
+</h4>
+
+
+<p>
+
+Explore our delicious menu
+
+</p>
+
+
+</a>
+
+
+
+
+
+
+
+<a href="qr.html"
+class="quick-action-card">
+
+
+<i class="fa-solid fa-qrcode"></i>
+
+
+<h4>
+
+My QR Code
+
+</h4>
+
+
+<p>
+
+Show your loyalty QR code
+
+</p>
+
+
+</a>
+
+
+
+
+
+
+
+<a href="history.html"
+class="quick-action-card">
+
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+
+<h4>
+
+Stamp History
+
+</h4>
+
+
+<p>
+
+View your purchase history
+
+</p>
+
+
+</a>
+
+
+
+
+
+
+
+<a href="feedback.html"
+class="quick-action-card">
+
+
+<i class="fa-solid fa-star"></i>
+
+
+<h4>
+
+Give a Review
+
+</h4>
+
+
+<p>
+
+Share your experience
+
+</p>
+
+
+</a>
+
+
+
+
+
+
+
+<a href="profile.html"
+class="quick-action-card">
+
+
+<i class="fa-solid fa-user"></i>
+
+
+<h4>
+
+My Profile
+
+</h4>
+
+
+<p>
+
+Manage your account
+
+</p>
+
+
+</a>
+
+
+
+
+
+
+</div>
 
 
 </section>
@@ -356,17 +514,19 @@ FREE
 
 
 
-<!-- =====================
-PROFILE DETAILS
-===================== -->
+
+
+
+<!-- CUSTOMER DETAILS -->
 
 
 <section class="card card-margin">
 
 
+
 <h3>
 
-<i class="fa-solid fa-user"></i>
+<i class="fa-solid fa-id-card"></i>
 
 Member Details
 
@@ -378,7 +538,9 @@ Member Details
 <div class="info-row">
 
 <span>
+
 Name
+
 </span>
 
 
@@ -395,10 +557,13 @@ Name
 
 
 
+
 <div class="info-row">
 
 <span>
+
 Email
+
 </span>
 
 
@@ -415,10 +580,13 @@ Email
 
 
 
+
 <div class="info-row">
 
 <span>
+
 Mobile
+
 </span>
 
 
@@ -435,10 +603,13 @@ Mobile
 
 
 
+
 <div class="info-row">
 
 <span>
+
 Gender
+
 </span>
 
 
@@ -455,10 +626,13 @@ Gender
 
 
 
+
 <div class="info-row">
 
 <span>
+
 Status
+
 </span>
 
 
@@ -473,172 +647,29 @@ Active
 
 
 
-</section>
-<!-- =====================
-QUICK ACTIONS
-===================== -->
-
-
-<section class="card card-margin">
-
-
-<h3 class="text-center">
-
-<i class="fa-solid fa-bolt"></i>
-
-Quick Actions
-
-</h3>
-
-
-<p class="text-center">
-
-Everything you need in one place
-
-</p>
-
-
-
-
-<div class="quick-actions">
-
-
-
-<a href="menu.html"
-class="quick-action-card">
-
-
-<i class="fa-solid fa-utensils"></i>
-
-
-<h4>
-View Menu
-</h4>
-
-
-<p>
-Explore our delicious menu
-</p>
-
-
-</a>
-
-
-
-
-
-<a href="qr.html"
-class="quick-action-card">
-
-
-<i class="fa-solid fa-qrcode"></i>
-
-
-<h4>
-My QR Code
-</h4>
-
-
-<p>
-Show your loyalty QR code
-</p>
-
-
-</a>
-
-
-
-
-
-<a href="history.html"
-class="quick-action-card">
-
-
-<i class="fa-solid fa-clock-rotate-left"></i>
-
-
-<h4>
-Stamp History
-</h4>
-
-
-<p>
-View your purchase history
-</p>
-
-
-</a>
-
-
-
-
-
-<a href="feedback.html"
-class="quick-action-card">
-
-
-<i class="fa-solid fa-star"></i>
-
-
-<h4>
-Give Review
-</h4>
-
-
-<p>
-Share your experience
-</p>
-
-
-</a>
-
-
-
-
-
-<a href="profile.html"
-class="quick-action-card">
-
-
-<i class="fa-solid fa-user"></i>
-
-
-<h4>
-My Profile
-</h4>
-
-
-<p>
-Manage your account
-</p>
-
-
-</a>
-
-
-
-</div>
-
 
 </section>
+<!-- =====================================================
+     RIO MAGGI POINT
+     CUSTOMER DASHBOARD.HTML
+     PART 3/4
+
+     VISIT + CONTACT + COMING SOON + GAME
+===================================================== -->
 
 
 
 
 
 
-
-<!-- =====================
-VISIT SECTION
-===================== -->
+<!-- VISIT RIO MAGGI POINT -->
 
 
 <section class="card visit-card">
 
 
-<h3>
 
-<i class="fa-solid fa-location-dot"></i>
+<h3>
 
 Visit Rio Maggi Point
 
@@ -655,15 +686,18 @@ We are happy to serve you
 
 
 
+
 <div class="contact-buttons">
 
 
 
 <a href="tel:7987827979"
+
 class="contact-btn call-btn">
 
 
 <i class="fa-solid fa-phone"></i>
+
 
 Call Us
 
@@ -675,11 +709,14 @@ Call Us
 
 
 <a href="https://wa.me/917987827979"
+
 target="_blank"
+
 class="contact-btn whatsapp-btn">
 
 
 <i class="fa-brands fa-whatsapp"></i>
+
 
 WhatsApp
 
@@ -692,7 +729,6 @@ WhatsApp
 
 
 
-
 </section>
 
 
@@ -700,15 +736,16 @@ WhatsApp
 
 
 
-<!-- =====================
-LOCATION
-===================== -->
+
+<!-- LOCATION -->
 
 
 <section class="coming-soon">
 
 
-<i class="fa-solid fa-map-location-dot"></i>
+
+<i class="fa-solid fa-location-dot"></i>
+
 
 
 <h3>
@@ -718,11 +755,13 @@ Find Us
 </h3>
 
 
+
 <p>
 
-Location Coming Soon
+Location service is coming soon.
 
 </p>
+
 
 
 <span class="coming-tag">
@@ -741,21 +780,22 @@ COMING SOON
 
 
 
-<!-- =====================
-HOME DELIVERY
-===================== -->
+
+<!-- HOME DELIVERY -->
 
 
-<section class="card offer-card">
+<section class="card game-card">
+
 
 
 <h3>
 
-<i class="fa-solid fa-truck"></i>
+<i class="fa-solid fa-motorcycle"></i>
 
 Home Delivery
 
 </h3>
+
 
 
 <p>
@@ -765,11 +805,13 @@ Delicious Maggi delivered to your doorstep.
 </p>
 
 
+
 <span class="coming-tag">
 
 COMING SOON
 
 </span>
+
 
 
 </section>
@@ -780,12 +822,12 @@ COMING SOON
 
 
 
-<!-- =====================
-GAME SECTION
-===================== -->
+
+<!-- RIO FUN GAME -->
 
 
 <section class="card game-card">
+
 
 
 <h3>
@@ -797,11 +839,13 @@ RIO FUN GAME
 </h3>
 
 
+
 <p>
 
 Play While You Wait!
 
 </p>
+
 
 
 <p>
@@ -812,11 +856,15 @@ Enjoy free games while your delicious food is being prepared.
 
 
 
-<a href="../games/index.html"
+
+
+<a href="games/index.html"
+
 class="game-btn">
 
 
 <i class="fa-solid fa-play"></i>
+
 
 Play Free Games
 
@@ -826,25 +874,19 @@ Play Free Games
 
 
 </section>
+<!-- =====================================================
+     RIO MAGGI POINT
+     CUSTOMER DASHBOARD.HTML
+     PART 4/4
+
+     BOTTOM NAV + SCRIPTS
+===================================================== -->
 
 
 
 
 
-
-
-
-</div>
-
-
-
-
-
-
-
-<!-- =====================
-BOTTOM NAVIGATION
-===================== -->
+<!-- BOTTOM NAVIGATION -->
 
 
 <nav class="bottom-nav">
@@ -856,6 +898,7 @@ class="active">
 
 <i class="fa-solid fa-house"></i>
 
+
 <span>
 Home
 </span>
@@ -866,10 +909,12 @@ Home
 
 
 
+
 <a href="qr.html">
 
 
 <i class="fa-solid fa-qrcode"></i>
+
 
 <span>
 QR
@@ -881,10 +926,12 @@ QR
 
 
 
+
 <a href="history.html">
 
 
 <i class="fa-solid fa-clock"></i>
+
 
 <span>
 History
@@ -896,10 +943,12 @@ History
 
 
 
+
 <a href="menu.html">
 
 
 <i class="fa-solid fa-utensils"></i>
+
 
 <span>
 Menu
@@ -911,10 +960,12 @@ Menu
 
 
 
+
 <a href="feedback.html">
 
 
 <i class="fa-solid fa-star"></i>
+
 
 <span>
 Review
@@ -922,6 +973,7 @@ Review
 
 
 </a>
+
 
 
 
@@ -933,10 +985,17 @@ Review
 
 
 
+</div>
 
-<!-- =====================
-JAVASCRIPT
-===================== -->
+<!-- CONTAINER END -->
+
+
+
+
+
+
+
+<!-- FIREBASE + DASHBOARD SCRIPTS -->
 
 
 <script type="module"
@@ -951,30 +1010,6 @@ src="js/dashboard.js">
 
 
 
-
-<script>
-
-
-window.addEventListener(
-"load",
-()=>{
-
-const loader =
-document.getElementById(
-"loadingScreen"
-);
-
-
-if(loader){
-
-loader.style.display="none";
-
-}
-
-});
-
-
-</script>
 
 
 
