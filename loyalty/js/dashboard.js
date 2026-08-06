@@ -1,7 +1,7 @@
 // ======================================
 // RIO MAGGI POINT
 // DASHBOARD.JS
-// FINAL CLEAN FIXED VERSION
+// FINAL FIXED LOYALTY VERSION
 // ======================================
 
 
@@ -35,32 +35,42 @@ const REWARD_STAMP_LIMIT = 6;
 const customerName =
 document.getElementById("customerName");
 
+
 const memberId =
 document.getElementById("memberId");
+
 
 const customerAvatar =
 document.getElementById("customerAvatar");
 
+
 const infoName =
 document.getElementById("infoName");
+
 
 const infoEmail =
 document.getElementById("infoEmail");
 
+
 const infoMobile =
 document.getElementById("infoMobile");
+
 
 const infoGender =
 document.getElementById("infoGender");
 
+
 const infoStatus =
 document.getElementById("infoStatus");
+
 
 const rewardStatus =
 document.getElementById("rewardStatus");
 
+
 const logoutBtn =
 document.getElementById("logoutBtn");
+
 
 
 const stamps = [
@@ -73,6 +83,7 @@ const stamps = [
     document.getElementById("stamp6")
 
 ];
+
 
 
 
@@ -154,8 +165,17 @@ function renderCustomer(customer){
 
 
 
+    // 40 DAY RESET CHECK
+    const stampCount =
+    customer.cycleReset
+    ? 0
+    : Number(customer.stamps || 0);
+
+
+
     updateStamps(
-        Number(customer.stamps || 0)
+        stampCount,
+        customer.rewardClaimed === true
     );
 
 }
@@ -166,7 +186,10 @@ function renderCustomer(customer){
 // UPDATE STAMP DISPLAY
 // ======================================
 
-function updateStamps(count){
+function updateStamps(
+    count,
+    rewardClaimed = false
+){
 
 
     const total = Math.min(
@@ -212,10 +235,12 @@ function updateStamps(count){
 
 
 
-    updateRewardStatus(total);
+    updateRewardStatus(
+        total,
+        rewardClaimed
+    );
 
 }
-
 
 
 
@@ -223,7 +248,10 @@ function updateStamps(count){
 // REWARD STATUS
 // ======================================
 
-function updateRewardStatus(stampCount){
+function updateRewardStatus(
+    stampCount,
+    rewardClaimed
+){
 
 
     if(!rewardStatus)
@@ -232,7 +260,34 @@ function updateRewardStatus(stampCount){
 
 
 
-    if(stampCount >= REWARD_STAMP_LIMIT){
+    // Reward already consumed
+
+    if(rewardClaimed){
+
+
+        rewardStatus.innerHTML = `
+
+        Reward already claimed.
+
+        <br><br>
+
+        Start collecting stamps again
+
+        🍜
+
+        `;
+
+
+        return;
+
+    }
+
+
+
+
+    if(
+        stampCount >= REWARD_STAMP_LIMIT
+    ){
 
 
         rewardStatus.innerHTML = `
@@ -293,6 +348,8 @@ function updateRewardStatus(stampCount){
 
 
 }
+
+
 
 
 
@@ -404,7 +461,7 @@ if(logoutBtn){
 
 
 // ======================================
-// EXPORT FOR OTHER MODULES
+// EXPORT
 // ======================================
 
 window.updateDashboardStamps =
@@ -413,5 +470,5 @@ updateStamps;
 
 
 console.log(
-"🍜 Rio Dashboard.js Loaded Successfully"
+"🍜 Rio Dashboard.js Final Loyalty Loaded"
 );
