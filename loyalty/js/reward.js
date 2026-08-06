@@ -1,13 +1,13 @@
 // =========================================================
 // RIO MAGGI POINT
 // REWARD.JS
-// FINAL FIXED LOYALTY SYSTEM
-// PART 1/2
+// FINAL FIXED LOYALTY VERSION
+// PART 1/3
 // =========================================================
 
 
 // =========================================================
-// FIREBASE IMPORT
+// IMPORTS
 // =========================================================
 
 import {
@@ -19,14 +19,13 @@ import {
     doc,
     getDoc,
     runTransaction,
-    serverTimestamp,
-    updateDoc
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
 
 // =========================================================
-// LOYALTY CONFIG
+// CONFIG
 // =========================================================
 
 const REQUIRED_STAMPS = 6;
@@ -39,21 +38,21 @@ const CYCLE_DAYS = 40;
 // INITIAL STATE
 // =========================================================
 
-function getInitialLoyaltyState(){
+function getInitialState(){
 
     return {
 
-        stamps: 0,
+        stamps:0,
 
-        rewardUnlocked: false,
+        rewardUnlocked:false,
 
-        rewardClaimed: false,
+        rewardClaimed:false,
 
-        cycleStartedAt: null,
+        cycleStartedAt:null,
 
-        lastStampDate: null,
+        lastStampDate:null,
 
-        lastRewardClaimDate: null
+        lastRewardClaimDate:null
 
     };
 
@@ -67,27 +66,21 @@ function getInitialLoyaltyState(){
 
 function convertDate(value){
 
-    if(!value) return null;
+    if(!value){
+
+        return null;
+
+    }
 
 
     try{
+
 
         if(
             typeof value.toDate === "function"
         ){
 
             return value.toDate();
-
-        }
-
-
-        if(
-            value.seconds !== undefined
-        ){
-
-            return new Date(
-                value.seconds * 1000
-            );
 
         }
 
@@ -99,7 +92,7 @@ function convertDate(value){
     catch(error){
 
         console.error(
-            "Date convert error:",
+            "Date convert error",
             error
         );
 
@@ -111,75 +104,29 @@ function convertDate(value){
 
 
 
-
 // =========================================================
-// CHECK SAME DAY STAMP
+// CHECK 40 DAY CYCLE
 // =========================================================
 
-function isSameCalendarDay(value){
-
-    const lastDate =
-        convertDate(value);
+function isCycleExpired(startDate){
 
 
-    if(!lastDate){
+    const date =
+        convertDate(startDate);
+
+
+
+    if(!date){
 
         return false;
 
     }
 
-
-    const today =
-        new Date();
-
-
-
-    return (
-
-        lastDate.getFullYear()
-        ===
-        today.getFullYear()
-
-        &&
-
-        lastDate.getMonth()
-        ===
-        today.getMonth()
-
-        &&
-
-        lastDate.getDate()
-        ===
-        today.getDate()
-
-    );
-
-}
-
-
-
-
-// =========================================================
-// CHECK 40 DAYS EXPIRY
-// =========================================================
-
-function isCycleExpired(value){
-
-    const startDate =
-        convertDate(value);
-
-
-    if(!startDate){
-
-        return false;
-
-    }
 
 
     const difference =
-        Date.now()
-        -
-        startDate.getTime();
+        Date.now() -
+        date.getTime();
 
 
 
@@ -193,10 +140,11 @@ function isCycleExpired(value){
         );
 
 
+
     return days >= CYCLE_DAYS;
 
-}
 
+}
 
 
 
@@ -218,6 +166,7 @@ export async function loadReward(customerId){
             );
 
 
+
         const snapshot =
             await getDoc(
                 customerRef
@@ -229,72 +178,7 @@ export async function loadReward(customerId){
             !snapshot.exists()
         ){
 
-            return getInitialLoyaltyState();
-
-        }
-
-
-
-        const data =
-            snapshot.data();
-
-
-
-        let stamps =
-            Number(
-                data.stamps || 0
-            );
-
-
-
-        let rewardUnlocked =
-            stamps >= REQUIRED_STAMPS;
-
-
-
-        // 40 DAYS CHECK
-
-        if(
-            isCycleExpired(
-                data.cycleStartedAt
-            )
-
-            &&
-
-            stamps < REQUIRED_STAMPS
-
-            &&
-
-            data.rewardClaimed !== true
-
-        ){
-
-            await updateDoc(
-                customerRef,
-                {
-
-                    stamps:0,
-
-                    rewardUnlocked:false,
-
-                    rewardClaimed:false,
-
-                    lastStampDate:null,
-
-                    cycleStartedAt:
-                        serverTimestamp(),
-
-                    updatedAt:
-                        serverTimestamp()
-
-                }
-            );
-
-
-
-            stamps = 0;
-
-            rewardUnlocked = false;
+            return getInitialState();
 
         }
 
@@ -302,11 +186,9 @@ export async function loadReward(customerId){
 
         return {
 
-            ...data,
+            ...getInitialState(),
 
-            stamps,
-
-            rewardUnlocked
+            ...snapshot.data()
 
         };
 
@@ -321,19 +203,57 @@ export async function loadReward(customerId){
         );
 
 
-        return getInitialLoyaltyState();
-
+        return getInitialState();
 
     }
 
 
 }
 // =========================================================
-// RIO MAGGI POINT
-// REWARD.JS
-// FINAL FIXED LOYALTY SYSTEM
-// PART 2/2
+// CHECK REWARD ELIGIBILITY
 // =========================================================
+
+function checkRewardEligibility(data){
+
+    if(!data){
+
+        return false;
+
+    }
+
+
+
+    const stamps =
+        Number(
+            data.stamps || 0
+        );
+
+
+
+    if(
+        stamps < REQUIRED_STAMPS
+    ){
+
+        return false;
+
+    }
+
+
+
+    if(
+        data.rewardClaimed === true
+    ){
+
+        return false;
+
+    }
+
+
+
+    return true;
+
+}
+
 
 
 
@@ -354,6 +274,28 @@ export async function updateRewardUI(customerId){
 
 
 
+        const stampElement =
+            document.getElementById(
+                "rewardStampCount"
+            );
+
+
+
+        const statusElement =
+            document.getElementById(
+                "rewardStatus"
+            );
+
+
+
+        const buttonElement =
+            document.getElementById(
+                "claimRewardBtn"
+            );
+
+
+
+
         const stampCount =
             Number(
                 data.stamps || 0
@@ -361,45 +303,34 @@ export async function updateRewardUI(customerId){
 
 
 
-        const rewardCount =
-            document.getElementById(
-                "rewardStampCount"
+        const unlocked =
+            checkRewardEligibility(
+                data
             );
 
 
 
-        const rewardStatus =
-            document.getElementById(
-                "rewardStatus"
-            );
+
+        if(stampElement){
 
 
-
-        const claimButton =
-            document.getElementById(
-                "claimRewardBtn"
-            );
-
-
-
-        if(rewardCount){
-
-            rewardCount.textContent =
+            stampElement.textContent =
                 `${stampCount}/${REQUIRED_STAMPS}`;
 
         }
 
 
 
-        if(rewardStatus){
 
 
-            if(
-                data.rewardUnlocked
-            ){
+        if(statusElement){
 
-                rewardStatus.textContent =
-                    "FREE Veg Maggi Reward Unlocked! 🎉";
+
+            if(unlocked){
+
+
+                statusElement.textContent =
+                "🎉 FREE Veg Maggi Reward Unlocked!";
 
 
             }
@@ -411,45 +342,77 @@ export async function updateRewardUI(customerId){
                     stampCount;
 
 
-                rewardStatus.textContent =
-                    `${remaining} more valid stamp${remaining === 1 ? "" : "s"} required`;
+
+                statusElement.textContent =
+                `Collect ${remaining} more valid stamp${remaining === 1 ? "" : "s"} within 40 days.`;
 
             }
+
 
         }
 
 
 
 
-        if(claimButton){
+
+        if(buttonElement){
 
 
-            const unlocked =
-                data.rewardUnlocked === true
-                &&
-                data.rewardClaimed !== true;
-
-
-
-            claimButton.disabled =
+            buttonElement.disabled =
                 !unlocked;
 
 
 
-            claimButton.classList.toggle(
-                "reward-unlocked-btn",
-                unlocked
-            );
+            if(unlocked){
 
 
+                buttonElement.classList.remove(
+                    "reward-locked-btn"
+                );
 
-            claimButton.classList.toggle(
-                "reward-locked-btn",
-                !unlocked
-            );
+
+                buttonElement.classList.add(
+                    "reward-unlocked-btn"
+                );
+
+
+                buttonElement.innerHTML =
+                `
+                <i class="fa-solid fa-gift"></i>
+                <span>
+                    Claim FREE Veg Maggi
+                </span>
+                `;
+
+
+            }
+            else{
+
+
+                buttonElement.classList.add(
+                    "reward-locked-btn"
+                );
+
+
+                buttonElement.classList.remove(
+                    "reward-unlocked-btn"
+                );
+
+
+                buttonElement.innerHTML =
+                `
+                <i class="fa-solid fa-lock"></i>
+                <span>
+                    Collect 6 Stamps to Unlock
+                </span>
+                `;
+
+
+            }
 
 
         }
+
 
 
 
@@ -466,6 +429,9 @@ export async function updateRewardUI(customerId){
         );
 
 
+        return null;
+
+
     }
 
 
@@ -474,9 +440,8 @@ export async function updateRewardUI(customerId){
 
 
 
-
 // =========================================================
-// CLAIM CUSTOMER REWARD
+// CLAIM REWARD TRANSACTION
 // =========================================================
 
 export async function claimCustomerReward(customerId){
@@ -523,40 +488,26 @@ export async function claimCustomerReward(customerId){
 
 
 
-                const stamps =
-                    Number(
-                        customer.stamps || 0
-                    );
-
-
 
                 if(
-                    stamps < REQUIRED_STAMPS
+                    !checkRewardEligibility(
+                        customer
+                    )
                 ){
 
                     throw new Error(
-                        "Reward not unlocked"
+                        "Reward is not available"
                     );
 
                 }
-
-
-
-                if(
-                    customer.rewardClaimed === true
-                ){
-
-                    throw new Error(
-                        "Reward already claimed"
-                    );
-
-                }
-
-
-
+// =========================================================
+// COMPLETE CLAIM TRANSACTION
+// =========================================================
 
                 transaction.update(
+
                     customerRef,
+
                     {
 
                         stamps:0,
@@ -566,10 +517,10 @@ export async function claimCustomerReward(customerId){
                         rewardClaimed:true,
 
 
-                        lastStampDate:null,
-
-
                         cycleStartedAt:null,
+
+
+                        lastStampDate:null,
 
 
                         lastRewardClaimDate:
@@ -580,11 +531,12 @@ export async function claimCustomerReward(customerId){
                             serverTimestamp()
 
                     }
+
                 );
 
 
-
             }
+
         );
 
 
@@ -597,7 +549,9 @@ export async function claimCustomerReward(customerId){
 
         return {
 
+
             success:true,
+
 
             message:
             "FREE Veg Maggi claimed successfully!"
@@ -605,12 +559,13 @@ export async function claimCustomerReward(customerId){
         };
 
 
+
     }
     catch(error){
 
 
         console.error(
-            "Reward claim error:",
+            "Claim reward error:",
             error
         );
 
@@ -618,58 +573,131 @@ export async function claimCustomerReward(customerId){
 
         return {
 
+
             success:false,
 
+
             message:
-            error.message
+            error.message ||
+            "Reward claim failed"
+
 
         };
 
 
     }
 
+
 }
 
 
 
-
-
 // =========================================================
-// INITIALIZE REWARD PAGE
+// REWARD PAGE INITIALIZER
 // =========================================================
 
 export async function initializeRewardPage(
     customerId
 ){
 
+
     await updateRewardUI(
         customerId
     );
+
 
 }
 
 
 
+// =========================================================
+// AUTO CONNECT CLAIM BUTTON
+// =========================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    ()=>{
+
+
+        const claimButton =
+            document.getElementById(
+                "claimRewardBtn"
+            );
+
+
+
+        if(
+            !claimButton
+        ){
+
+            return;
+
+        }
+
+
+
+        claimButton.addEventListener(
+            "click",
+            async()=>{
+
+
+                const user =
+                    window.currentRioUser;
+
+
+
+                if(
+                    !user
+                ){
+
+                    alert(
+                        "Please login again."
+                    );
+
+                    return;
+
+                }
+
+
+
+                const result =
+                    await claimCustomerReward(
+                        user.uid
+                    );
+
+
+
+                alert(
+                    result.message
+                );
+
+
+
+                if(
+                    result.success
+                ){
+
+                    window.location.reload();
+
+                }
+
+
+            }
+        );
+
+
+    },
+    {
+        once:true
+    }
+);
+
 
 
 // =========================================================
-// EXPORT HELPERS
+// FINAL READY
 // =========================================================
-
-window.RioReward = {
-
-    loadReward,
-
-    updateRewardUI,
-
-    claimCustomerReward
-
-};
-
-
-
-
 
 console.log(
-    "🍜 Rio Maggi Point Reward System Loaded Successfully"
+    "🍜 Rio Maggi Point Reward.js Loaded Successfully"
 );
