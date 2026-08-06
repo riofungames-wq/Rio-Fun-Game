@@ -1,18 +1,22 @@
 <!-- =====================================================
 RIO MAGGI POINT
 REWARD.HTML
-FINAL FIXED REWARD PAGE
+FINAL FIXED PRODUCTION VERSION
 PART 1/2
 ===================================================== -->
 
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
+
 
 <meta charset="UTF-8">
 
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
 
 <title>
@@ -20,8 +24,9 @@ Rio Maggi Point • FREE Veg Maggi Reward
 </title>
 
 
+
 <meta name="description"
-content="Claim your Rio Maggi Point loyalty reward">
+content="Rio Maggi Point loyalty reward page. Collect stamps and claim FREE Veg Maggi reward.">
 
 
 
@@ -29,9 +34,13 @@ content="Claim your Rio Maggi Point loyalty reward">
 PWA
 ===================================================== -->
 
+
 <link rel="manifest" href="manifest.json">
 
+
 <link rel="icon" href="favicon.ico">
+
+
 
 
 
@@ -39,11 +48,15 @@ PWA
 GOOGLE FONT
 ===================================================== -->
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
 
 <link rel="preconnect"
 href="https://fonts.gstatic.com"
 crossorigin>
+
 
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
@@ -51,18 +64,24 @@ rel="stylesheet">
 
 
 
+
+
 <!-- =====================================================
 FONT AWESOME
 ===================================================== -->
+
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 
 
+
+
 <!-- =====================================================
 CSS
 ===================================================== -->
+
 
 <link rel="stylesheet"
 href="css/common.css">
@@ -73,7 +92,11 @@ href="css/reward.css">
 
 
 
+
+
 </head>
+
+
 
 
 
@@ -81,9 +104,12 @@ href="css/reward.css">
 
 
 
+
+
 <!-- =====================================================
 PAGE LOADER
 ===================================================== -->
+
 
 <div id="pageLoader"
 class="page-loader"
@@ -97,7 +123,9 @@ aria-hidden="true">
 </div>
 
 
+
 <div class="loader-spinner"></div>
+
 
 
 <p>
@@ -111,12 +139,17 @@ Loading Reward...
 
 
 
+
+
 <!-- =====================================================
-MAIN
+MAIN PAGE
 ===================================================== -->
 
 
-<main class="reward-page app-page">
+<main class="page reward-page">
+
+
+
 
 
 
@@ -127,22 +160,28 @@ HEADER
 ===================================================== -->
 
 
-<header class="reward-header app-card">
+<header class="reward-header">
+
 
 
 <div class="reward-header-icon">
 
+
 <i class="fa-solid fa-gift"></i>
+
 
 </div>
 
 
 
+
 <div>
+
 
 <span>
 RIO MAGGI POINT
 </span>
+
 
 
 <h1>
@@ -150,13 +189,14 @@ FREE Veg Maggi Reward
 </h1>
 
 
+
 <p>
 Your loyalty reward
 </p>
 
 
-</div>
 
+</div>
 
 
 </header>
@@ -167,30 +207,34 @@ Your loyalty reward
 
 
 
+
 <!-- =====================================================
-CUSTOMER REWARD CARD
+CUSTOMER PROFILE
 ===================================================== -->
 
 
-<section class="reward-card app-card">
+<section class="reward-profile">
 
 
 
-<div class="reward-welcome">
+<div class="reward-avatar-wrapper">
 
 
-<div class="reward-user-icon">
+<img
+id="rewardCustomerPhoto"
+src="assets/images/default-avatar.png"
+alt="Customer Profile">
 
-<i class="fa-solid fa-user"></i>
 
 </div>
 
 
-<div>
+
 
 <p>
 Premium Member
 </p>
+
 
 
 <h2 id="rewardCustomerName">
@@ -198,10 +242,9 @@ Rio Maggi Member
 </h2>
 
 
-</div>
 
+</section>
 
-</div>
 
 
 
@@ -210,29 +253,26 @@ Rio Maggi Member
 
 
 <!-- =====================================================
-STAMP SUMMARY
+LOYALTY REWARD CARD
 ===================================================== -->
 
 
-<div class="reward-summary">
+<section class="reward-card">
 
 
 
-<div class="summary-title">
 
 
-<i class="fa-solid fa-star"></i>
-
-
-<h3>
+<h2>
 Loyalty Progress
-</h3>
-
-
-</div>
+</h2>
 
 
 
+
+
+
+<!-- STAMP COUNT -->
 
 
 <div class="reward-stamp-count">
@@ -241,6 +281,7 @@ Loyalty Progress
 <strong id="rewardStampCount">
 0/6
 </strong>
+
 
 
 <span>
@@ -254,29 +295,39 @@ Valid Stamps
 
 
 
+
+
+<!-- PROGRESS BAR -->
+
+
 <div class="reward-progress">
 
 
-<div class="reward-progress-track">
+<div class="progress-bar">
 
 
 <div id="rewardProgressBar"
-class="reward-progress-fill">
+class="progress-fill">
 
 </div>
 
 
 </div>
+
 
 
 
 <p id="rewardProgressText">
+
 0 of 6 valid stamps collected
+
 </p>
 
 
-
 </div>
+
+
+
 
 
 
@@ -293,16 +344,22 @@ class="reward-stamp-container">
 
 
 
+
+
 <div class="reward-stamp-box"
 data-stamp="1">
 
+
 <i class="fa-solid fa-star"></i>
+
 
 <span>
 1
 </span>
 
+
 </div>
+
 
 
 
@@ -310,13 +367,18 @@ data-stamp="1">
 <div class="reward-stamp-box"
 data-stamp="2">
 
+
 <i class="fa-solid fa-star"></i>
+
 
 <span>
 2
 </span>
 
+
 </div>
+
+
 
 
 
@@ -324,73 +386,116 @@ data-stamp="2">
 <div class="reward-stamp-box"
 data-stamp="3">
 
+
 <i class="fa-solid fa-star"></i>
+
 
 <span>
 3
 </span>
 
+
 </div>
+
+
+
+
 
 
 
 <div class="reward-stamp-box"
 data-stamp="4">
 
+
 <i class="fa-solid fa-star"></i>
+
 
 <span>
 4
 </span>
 
+
 </div>
+
+
+
+
+
 
 
 
 <div class="reward-stamp-box"
 data-stamp="5">
 
+
 <i class="fa-solid fa-star"></i>
+
 
 <span>
 5
 </span>
 
+
 </div>
+
+
+
+
 
 
 
 <div class="reward-stamp-box"
 data-stamp="6">
 
+
 <i class="fa-solid fa-gift"></i>
+
 
 <span>
 FREE
 </span>
 
-</div>
-
-
 
 </div>
 
 
+
+
+
 </div>
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
 <!-- =====================================================
 REWARD STATUS
 ===================================================== -->
 
 
 <div id="rewardStatus"
-class="reward-status app-card">
+class="reward-status">
+
 
 
 <div class="reward-status-icon">
 
+
 <i class="fa-solid fa-lock"></i>
 
+
 </div>
+
+
 
 
 
@@ -412,6 +517,8 @@ Collect 6 valid stamps within 40 days to unlock FREE Veg Maggi.
 </div>
 
 
+
+
 </div>
 
 
@@ -425,7 +532,8 @@ CLAIM BUTTON
 ===================================================== -->
 
 
-<div class="reward-action-area">
+<section class="reward-action-area">
+
 
 
 <button
@@ -434,7 +542,9 @@ class="premium-action-btn reward-locked-btn"
 disabled>
 
 
+
 <i class="fa-solid fa-lock"></i>
+
 
 
 <span>
@@ -442,7 +552,68 @@ Collect 6 Stamps to Unlock
 </span>
 
 
+
 </button>
+
+
+
+
+</section>
+<!-- =====================================================
+RIO MAGGI POINT
+REWARD.HTML
+FINAL FIXED PRODUCTION VERSION
+PART 2/2
+===================================================== -->
+
+
+
+
+
+
+<!-- =====================================================
+40 DAY CYCLE DISPLAY
+===================================================== -->
+
+
+<section class="redeem-status">
+
+
+
+<div class="status-card">
+
+
+
+<div class="status-icon">
+
+
+<i class="fa-solid fa-clock"></i>
+
+
+</div>
+
+
+
+
+
+<div class="status-content">
+
+
+<h3>
+Reward Cycle Validity
+</h3>
+
+
+
+<p id="rewardCycleDays">
+40 DAYS
+</p>
+
+
+
+</div>
+
+
 
 
 </div>
@@ -450,6 +621,8 @@ Collect 6 Stamps to Unlock
 
 
 </section>
+
+
 
 
 
@@ -462,32 +635,68 @@ REWARD INFORMATION
 ===================================================== -->
 
 
-<section class="reward-info-section app-card">
+<section class="reward-info-card">
+
+
+
+<div class="info-header">
+
+
+<div class="info-icon">
+
+
+<i class="fa-solid fa-circle-info"></i>
+
+
+</div>
+
+
+
+<h2>
+Reward Details
+</h2>
+
+
+
+</div>
+
+
+
+
+
+
+<div class="reward-info-list">
+
+
+
 
 
 
 <div class="reward-info-item">
 
 
-<i class="fa-solid fa-clock"></i>
+<span>
 
 
-<div>
+<i class="fa-solid fa-calendar-days"></i>
 
-<h3>
+
 40 Days Validity
-</h3>
 
 
-<p>
-Complete your loyalty cycle within 40 days.
-</p>
+</span>
+
+
+
+<strong>
+Complete 6 stamps
+</strong>
+
 
 
 </div>
 
 
-</div>
 
 
 
@@ -495,27 +704,32 @@ Complete your loyalty cycle within 40 days.
 
 
 <div class="reward-info-item">
+
+
+<span>
 
 
 <i class="fa-solid fa-bowl-food"></i>
 
 
-<div>
-
-<h3>
-FREE Veg Maggi
-</h3>
+Free Reward
 
 
-<p>
-Enjoy your reward after collecting 6 valid stamps.
-</p>
+</span>
+
+
+
+<strong>
+Veg Maggi
+
+
+</strong>
+
 
 
 </div>
 
 
-</div>
 
 
 
@@ -525,29 +739,39 @@ Enjoy your reward after collecting 6 valid stamps.
 <div class="reward-info-item">
 
 
+<span>
+
+
 <i class="fa-solid fa-shield-halved"></i>
 
 
-<div>
-
-<h3>
 Secure Loyalty
-</h3>
 
 
-<p>
-Your reward is protected by our loyalty system.
-</p>
+</span>
+
+
+
+<strong>
+Protected System
+</strong>
+
 
 
 </div>
 
 
+
+
+
+
 </div>
+
 
 
 
 </section>
+
 
 
 
@@ -557,18 +781,176 @@ Your reward is protected by our loyalty system.
 
 
 <!-- =====================================================
-BACK BUTTON
+LOYALTY RULES
+===================================================== -->
+
+
+<section class="reward-rules">
+
+
+
+<div class="rules-header">
+
+
+<div class="rules-icon">
+
+
+<i class="fa-solid fa-star"></i>
+
+
+</div>
+
+
+
+<h2>
+How Reward Works
+</h2>
+
+
+
+</div>
+
+
+
+
+
+
+<ul>
+
+
+<li>
+
+<i class="fa-solid fa-check rule-icon"></i>
+
+
+Collect 6 valid stamps from Rio Maggi Point.
+
+</li>
+
+
+
+
+
+<li>
+
+<i class="fa-solid fa-check rule-icon"></i>
+
+
+Complete your stamp cycle within 40 days.
+
+</li>
+
+
+
+
+
+<li>
+
+<i class="fa-solid fa-check rule-icon"></i>
+
+
+After 6 stamps, FREE Veg Maggi reward unlocks.
+
+</li>
+
+
+
+
+
+<li>
+
+<i class="fa-solid fa-check rule-icon"></i>
+
+
+After claiming reward, a new loyalty cycle starts.
+
+</li>
+
+
+
+</ul>
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =====================================================
+SECURITY NOTICE
+===================================================== -->
+
+
+<section class="reward-security-notice">
+
+
+
+<div class="security-icon">
+
+
+<i class="fa-solid fa-shield"></i>
+
+
+</div>
+
+
+
+
+
+<div class="security-content">
+
+
+<h3>
+Secure Loyalty System
+</h3>
+
+
+
+<p>
+
+Your reward is protected by Rio Maggi Point loyalty rules.
+
+</p>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =====================================================
+BACK TO CARD
 ===================================================== -->
 
 
 <section class="reward-back-section">
 
 
+
 <a href="card.html"
 class="premium-action-btn back-dashboard-btn">
 
 
+
 <i class="fa-solid fa-arrow-left"></i>
+
 
 
 <span>
@@ -576,10 +958,14 @@ Back To Loyalty Card
 </span>
 
 
+
 </a>
 
 
+
+
 </section>
+
 
 
 
@@ -596,7 +982,7 @@ Back To Loyalty Card
 
 
 <!-- =====================================================
-REWARD CONTROLLER
+REWARD JS
 ===================================================== -->
 
 
@@ -604,6 +990,7 @@ REWARD CONTROLLER
 type="module"
 src="js/reward.js">
 </script>
+
 
 
 
@@ -635,7 +1022,9 @@ navigator.serviceWorker
 "./service-worker.js"
 )
 
-.then(()=>{
+
+.then(
+()=>{
 
 
 console.log(
@@ -643,7 +1032,10 @@ console.log(
 );
 
 
-})
+}
+
+)
+
 
 .catch(
 (error)=>{
@@ -655,7 +1047,10 @@ error
 );
 
 
-});
+}
+
+);
+
 
 
 },
@@ -677,6 +1072,8 @@ once:true
 
 
 
+
 </body>
+
 
 </html>
