@@ -1,12 +1,12 @@
 // ======================================
-// RIO LOYALTY CLUB
-// DASHBOARD FIREBASE
-// FINAL FIXED
+// RIO MAGGI POINT
+// DASHBOARD-FIREBASE.JS
+// FINAL FIXED LOYALTY VERSION
 // ======================================
 
 
 // ======================================
-// FIREBASE CONFIG IMPORT
+// IMPORTS
 // ======================================
 
 import {
@@ -15,38 +15,215 @@ import {
 } from "./firebase-config.js";
 
 
-// ======================================
-// FIREBASE IMPORTS
-// ======================================
-
 import {
-
     onAuthStateChanged
-
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 
 import {
-
     doc,
-    getDoc
-
+    getDoc,
+    updateDoc,
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
 
+// ======================================
+// CONSTANTS
+// ======================================
+
+const STAMP_LIMIT = 6;
+
+const CYCLE_DAYS = 40;
+
+
 
 // ======================================
-// LOAD CURRENT USER
+// CHECK CYCLE EXPIRY
 // ======================================
 
-onAuthStateChanged(auth, async (user)=>{
+function isCycleExpired(customer) {
+
+    if (
+        !customer ||
+        !customer.cycleStartedAt
+    ) {
+        return false;
+    }
+
+
+    try {
+
+        const startDate =
+            customer.cycleStartedAt.toDate
+            ? customer.cycleStartedAt.toDate()
+            : new Date(customer.cycleStartedAt);
+
+
+
+        const difference =
+            Date.now() - startDate.getTime();
+
+
+
+        const days =
+            difference /
+            (1000 * 60 * 60 * 24);
+
+
+
+        return days > CYCLE_DAYS;
+
+
+    } catch(error) {
+
+        console.error(
+            "Cycle expiry check error:",
+            error
+        );
+
+        return false;
+
+    }
+
+}
+
+
+
+
+// ======================================
+// AUTO RESET EXPIRED CYCLE
+// ======================================
+
+async function resetExpiredCycle(
+    customerRef,
+    customer
+){
+
+    const stamps =
+        Number(
+            customer.stamps || 0
+        );
+
+
+    if(
+
+        !isCycleExpired(customer)
+
+        ||
+
+        stamps >= STAMP_LIMIT
+
+        ||
+
+        customer.rewardClaimed === true
+
+    ){
+
+        return customer;
+
+    }
+
+
+
+    const resetData = {
+
+
+        stamps:0,
+
+
+        rewardUnlocked:false,
+
+
+        rewardClaimed:false,
+
+
+        lastStampDate:null,
+
+
+        cycleStartedAt:
+            serverTimestamp(),
+
+
+        updatedAt:
+            serverTimestamp()
+
+    };
+
+
+
+
+    try {
+
+
+        await updateDoc(
+            customerRef,
+            resetData
+        );
+
+
+
+        return {
+
+
+            ...customer,
+
+
+            stamps:0,
+
+
+            rewardUnlocked:false,
+
+
+            rewardClaimed:false,
+
+
+            lastStampDate:null,
+
+
+            cycleReset:true
+
+
+        };
+
+
+
+    } catch(error){
+
+
+        console.error(
+            "Cycle reset error:",
+            error
+        );
+
+
+        return customer;
+
+
+    }
+
+}
+
+
+
+
+// ======================================
+// LOAD CUSTOMER DATA
+// ======================================
+
+onAuthStateChanged(
+auth,
+async(user)=>{
 
 
     if(!user){
 
-        window.location.href =
-        "login.html";
+
+        window.location.replace(
+            "login.html"
+        );
+
 
         return;
 
@@ -57,25 +234,29 @@ onAuthStateChanged(auth, async (user)=>{
     try{
 
 
-        const userRef =
-        doc(
-            db,
-            "customers",
-            user.uid
-        );
+        const customerRef =
+            doc(
+                db,
+                "customers",
+                user.uid
+            );
 
 
 
-        const userSnap =
-        await getDoc(userRef);
+        const snapshot =
+            await getDoc(
+                customerRef
+            );
 
 
 
-        if(!userSnap.exists()){
+        if(
+            !snapshot.exists()
+        ){
 
 
             alert(
-            "Customer record not found."
+                "Customer profile not found."
             );
 
 
@@ -85,20 +266,34 @@ onAuthStateChanged(auth, async (user)=>{
 
 
 
-        const customer = {
+        let customer = {
 
 
-            uid:user.uid,
+            uid:
+                user.uid,
 
-            ...userSnap.data()
+
+            ...snapshot.data()
 
 
         };
 
 
 
+        // 40 DAYS AUTO RESET
+
+        customer =
+            await resetExpiredCycle(
+                customerRef,
+                customer
+            );
+
+
+
+
         window.currentUser =
-        customer;
+            customer;
+
 
 
 
@@ -123,187 +318,20 @@ onAuthStateChanged(auth, async (user)=>{
 
 
         alert(
-        "Unable to load profile."
+            "Unable to load dashboard."
         );
 
 
     }
+
 
 
 });
 
 
 
-
-// ======================================
-// DASHBOARD DATA UPDATE
-// ======================================
-
-
-window.addEventListener(
-"dashboard-ready",
-()=>{
-
-
-    const customer =
-    window.currentUser;
-
-
-
-    if(!customer)
-        return;
-
-
-
-
-    const name =
-    document.getElementById(
-        "customerName"
-    );
-
-
-    if(name){
-
-        name.textContent =
-        customer.name || "Customer";
-
-    }
-
-
-
-
-    const member =
-    document.getElementById(
-        "memberId"
-    );
-
-
-    if(member){
-
-        member.textContent =
-        "Member ID : "
-        +
-        (
-            customer.memberId
-            ||
-            "RIO-000000"
-        );
-
-    }
-
-
-
-
-
-    const avatar =
-    document.getElementById(
-        "customerAvatar"
-    );
-
-
-    if(avatar){
-
-        avatar.src =
-
-        customer.avatar
-        ||
-        customer.photoURL
-        ||
-        "assets/avatars/default.png";
-
-    }
-
-
-
-
-    const infoName =
-    document.getElementById(
-        "infoName"
-    );
-
-
-    if(infoName){
-
-        infoName.textContent =
-        customer.name || "-";
-
-    }
-
-
-
-
-
-    const infoEmail =
-    document.getElementById(
-        "infoEmail"
-    );
-
-
-    if(infoEmail){
-
-        infoEmail.textContent =
-        customer.email || "-";
-
-    }
-
-
-
-
-
-    const infoMobile =
-    document.getElementById(
-        "infoMobile"
-    );
-
-
-    if(infoMobile){
-
-        infoMobile.textContent =
-        customer.mobile
-        ||
-        customer.phone
-        ||
-        "-";
-
-    }
-
-
-
-
-
-    const infoGender =
-    document.getElementById(
-        "infoGender"
-    );
-
-
-    if(infoGender){
-
-        infoGender.textContent =
-        customer.gender || "-";
-
-    }
-
-
-
-
-
-    if(
-        typeof updateStamps === "function"
-    ){
-
-        updateStamps(
-            customer.stamps || 0
-        );
-
-    }
-
-
-
-
-});
 
 
 console.log(
-"🍜 Rio Dashboard Firebase Loaded"
+"🍜 Dashboard Firebase Loyalty System Loaded"
 );
