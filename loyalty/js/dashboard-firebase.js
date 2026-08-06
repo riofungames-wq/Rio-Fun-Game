@@ -1,8 +1,10 @@
 // ======================================
 // RIO MAGGI POINT
 // DASHBOARD-FIREBASE.JS
-// FINAL FIXED LOYALTY VERSION
+// CLEAN FIXED VERSION
+// PART 1/3
 // ======================================
+
 
 
 // ======================================
@@ -29,71 +31,158 @@ import {
 
 
 
+
+
 // ======================================
-// CONSTANTS
+// LOYALTY CONSTANTS
 // ======================================
 
 const STAMP_LIMIT = 6;
 
-const CYCLE_DAYS = 40;
+const CYCLE_VALIDITY_DAYS = 40;
+
+
 
 
 
 // ======================================
-// CHECK CYCLE EXPIRY
+// CHECK 40 DAYS CYCLE EXPIRY
 // ======================================
 
-function isCycleExpired(customer) {
+function isCycleExpired(customer){
 
-    if (
+
+    if(
         !customer ||
         !customer.cycleStartedAt
-    ) {
+    ){
+
         return false;
+
     }
 
 
-    try {
 
-        const startDate =
+    try{
+
+
+        let startDate;
+
+
+
+        if(
             customer.cycleStartedAt.toDate
-            ? customer.cycleStartedAt.toDate()
-            : new Date(customer.cycleStartedAt);
+        ){
+
+            startDate =
+            customer.cycleStartedAt.toDate();
+
+        }
+        else{
+
+
+            startDate =
+            new Date(
+                customer.cycleStartedAt
+            );
+
+        }
+
+
+
+
+        if(
+            isNaN(
+                startDate.getTime()
+            )
+        ){
+
+            return false;
+
+        }
+
 
 
 
         const difference =
-            Date.now() - startDate.getTime();
+        Date.now()
+        -
+        startDate.getTime();
 
 
 
-        const days =
-            difference /
-            (1000 * 60 * 60 * 24);
+
+        const daysPassed =
+        difference /
+        (
+            1000 *
+            60 *
+            60 *
+            24
+        );
 
 
 
-        return days > CYCLE_DAYS;
+
+        return (
+            daysPassed >
+            CYCLE_VALIDITY_DAYS
+        );
 
 
-    } catch(error) {
+
+    }
+    catch(error){
+
 
         console.error(
-            "Cycle expiry check error:",
+            "Cycle expiry check failed:",
             error
         );
 
+
         return false;
 
+
     }
+
 
 }
 
 
 
 
+
+
 // ======================================
-// AUTO RESET EXPIRED CYCLE
+// EXPORT FOR DEBUG
+// ======================================
+
+window.RioLoyalty = {
+
+    STAMP_LIMIT,
+
+    CYCLE_VALIDITY_DAYS,
+
+    isCycleExpired
+
+};
+
+
+console.log(
+"🍜 Dashboard Firebase Part 1 Loaded"
+);
+// ======================================
+// RIO MAGGI POINT
+// DASHBOARD-FIREBASE.JS
+// CLEAN FIXED VERSION
+// PART 2/3
+// ======================================
+
+
+
+// ======================================
+// RESET EXPIRED LOYALTY CYCLE
 // ======================================
 
 async function resetExpiredCycle(
@@ -101,10 +190,18 @@ async function resetExpiredCycle(
     customer
 ){
 
-    const stamps =
-        Number(
-            customer.stamps || 0
-        );
+
+    const currentStamps =
+    Number(
+        customer.stamps || 0
+    );
+
+
+
+    // Reset only when:
+    // 1. Cycle expired
+    // 2. Customer has incomplete stamps
+    // 3. Reward not already claimed
 
 
     if(
@@ -113,7 +210,11 @@ async function resetExpiredCycle(
 
         ||
 
-        stamps >= STAMP_LIMIT
+        currentStamps <= 0
+
+        ||
+
+        currentStamps >= STAMP_LIMIT
 
         ||
 
@@ -124,6 +225,7 @@ async function resetExpiredCycle(
         return customer;
 
     }
+
 
 
 
@@ -143,18 +245,20 @@ async function resetExpiredCycle(
 
 
         cycleStartedAt:
-            serverTimestamp(),
+        serverTimestamp(),
 
 
         updatedAt:
-            serverTimestamp()
+        serverTimestamp()
+
 
     };
 
 
 
 
-    try {
+
+    try{
 
 
         await updateDoc(
@@ -189,13 +293,15 @@ async function resetExpiredCycle(
 
 
 
-    } catch(error){
+    }
+    catch(error){
 
 
         console.error(
-            "Cycle reset error:",
+            "Loyalty cycle reset error:",
             error
         );
+
 
 
         return customer;
@@ -203,27 +309,118 @@ async function resetExpiredCycle(
 
     }
 
+
 }
 
 
 
 
+
 // ======================================
-// LOAD CUSTOMER DATA
+// LOAD CUSTOMER PROFILE
 // ======================================
 
-onAuthStateChanged(
-auth,
-async(user)=>{
+async function loadCustomerProfile(
+    user
+){
 
 
     if(!user){
 
+        return null;
 
-        window.location.replace(
-            "login.html"
+    }
+
+
+
+
+    const customerRef =
+    doc(
+        db,
+        "customers",
+        user.uid
+    );
+
+
+
+
+    const snapshot =
+    await getDoc(
+        customerRef
+    );
+
+
+
+
+    if(
+        !snapshot.exists()
+    ){
+
+
+        throw new Error(
+            "Customer profile not found"
         );
 
+
+    }
+
+
+
+
+    let customer = {
+
+
+        uid:user.uid,
+
+
+        ...snapshot.data()
+
+
+    };
+
+
+
+
+    customer =
+    await resetExpiredCycle(
+        customerRef,
+        customer
+    );
+
+
+
+
+    return customer;
+
+
+}
+// ======================================
+// RIO MAGGI POINT
+// DASHBOARD-FIREBASE.JS
+// CLEAN FIXED VERSION
+// PART 3/3 FINAL
+// ======================================
+
+
+
+// ======================================
+// AUTH STATE LISTENER
+// ======================================
+
+let dashboardLoading = false;
+
+
+
+onAuthStateChanged(
+
+auth,
+
+async(user)=>{
+
+
+    if(
+        dashboardLoading
+    ){
 
         return;
 
@@ -231,68 +428,44 @@ async(user)=>{
 
 
 
+    dashboardLoading = true;
+
+
+
     try{
 
 
-        const customerRef =
-            doc(
-                db,
-                "customers",
-                user.uid
-            );
+        // USER NOT LOGGED IN
+
+        if(!user){
 
 
-
-        const snapshot =
-            await getDoc(
-                customerRef
-            );
-
-
-
-        if(
-            !snapshot.exists()
-        ){
-
-
-            alert(
-                "Customer profile not found."
+            window.location.replace(
+                "login.html"
             );
 
 
             return;
 
+
         }
 
 
 
-        let customer = {
 
 
-            uid:
-                user.uid,
+        const customer =
+        await loadCustomerProfile(
+            user
+        );
 
-
-            ...snapshot.data()
-
-
-        };
-
-
-
-        // 40 DAYS AUTO RESET
-
-        customer =
-            await resetExpiredCycle(
-                customerRef,
-                customer
-            );
 
 
 
 
         window.currentUser =
-            customer;
+        customer;
+
 
 
 
@@ -300,10 +473,14 @@ async(user)=>{
         window.dispatchEvent(
 
             new CustomEvent(
-                "dashboard-ready"
+                "dashboard-ready",
+                {
+                    detail:customer
+                }
             )
 
         );
+
 
 
 
@@ -312,18 +489,27 @@ async(user)=>{
 
 
         console.error(
-            "Dashboard Firebase Error:",
+
+            "Dashboard Firebase Load Error:",
             error
+
         );
 
 
+
         alert(
-            "Unable to load dashboard."
+            "Unable to load customer dashboard."
         );
 
 
     }
+    finally{
 
+
+        dashboardLoading = false;
+
+
+    }
 
 
 });
@@ -332,6 +518,10 @@ async(user)=>{
 
 
 
+// ======================================
+// DEBUG
+// ======================================
+
 console.log(
-"🍜 Dashboard Firebase Loyalty System Loaded"
+"🍜 Dashboard Firebase Loyalty System Loaded Successfully"
 );
