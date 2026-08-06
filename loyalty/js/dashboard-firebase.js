@@ -1,147 +1,128 @@
-// ======================================
-// RIO MAGGI POINT
-// DASHBOARD-FIREBASE.JS
-// CLEAN FIXED VERSION
-// PART 1/3
-// ======================================
+/* =====================================================
+   RIO MAGGI POINT
+   DASHBOARD-FIREBASE.JS
+   NEW CLEAN BUILD
+   PART 1/3
+
+   FIREBASE AUTH + CUSTOMER DATA LOAD
+===================================================== */
 
 
 
-// ======================================
+// =========================
 // IMPORTS
-// ======================================
+// =========================
+
+
 
 import {
+
     auth,
+
     db
+
 } from "./firebase-config.js";
 
 
+
+
+
 import {
+
     onAuthStateChanged
+
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 
+
+
+
 import {
+
     doc,
+
     getDoc,
+
     updateDoc,
+
     serverTimestamp
+
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
 
 
 
-// ======================================
-// LOYALTY CONSTANTS
-// ======================================
+
+
+// =========================
+// CONSTANTS
+// =========================
+
+
 
 const STAMP_LIMIT = 6;
 
-const CYCLE_VALIDITY_DAYS = 40;
+
+const CYCLE_LIMIT_DAYS = 40;
 
 
 
 
 
-// ======================================
-// CHECK 40 DAYS CYCLE EXPIRY
-// ======================================
-
-function isCycleExpired(customer){
 
 
-    if(
-        !customer ||
-        !customer.cycleStartedAt
-    ){
 
-        return false;
+// =========================
+// DATE CONVERTER
+// =========================
 
-    }
+
+
+function convertDate(value){
+
+
+
+    if(!value)
+
+        return null;
+
 
 
 
     try{
 
 
-        let startDate;
 
+        if(value.toDate){
 
-
-        if(
-            customer.cycleStartedAt.toDate
-        ){
-
-            startDate =
-            customer.cycleStartedAt.toDate();
-
-        }
-        else{
-
-
-            startDate =
-            new Date(
-                customer.cycleStartedAt
-            );
+            return value.toDate();
 
         }
 
 
 
-
-        if(
-            isNaN(
-                startDate.getTime()
-            )
-        ){
-
-            return false;
-
-        }
-
-
-
-
-        const difference =
-        Date.now()
-        -
-        startDate.getTime();
-
-
-
-
-        const daysPassed =
-        difference /
-        (
-            1000 *
-            60 *
-            60 *
-            24
-        );
-
-
-
-
-        return (
-            daysPassed >
-            CYCLE_VALIDITY_DAYS
-        );
+        return new Date(value);
 
 
 
     }
+
     catch(error){
 
 
+
         console.error(
-            "Cycle expiry check failed:",
+
+            "Date conversion error",
+
             error
+
         );
 
 
-        return false;
+
+        return null;
 
 
     }
@@ -154,77 +135,151 @@ function isCycleExpired(customer){
 
 
 
-// ======================================
-// EXPORT FOR DEBUG
-// ======================================
-
-window.RioLoyalty = {
-
-    STAMP_LIMIT,
-
-    CYCLE_VALIDITY_DAYS,
-
-    isCycleExpired
-
-};
 
 
-console.log(
-"🍜 Dashboard Firebase Part 1 Loaded"
-);
-// ======================================
-// RIO MAGGI POINT
-// DASHBOARD-FIREBASE.JS
-// CLEAN FIXED VERSION
-// PART 2/3
-// ======================================
+// =========================
+// CHECK CYCLE EXPIRY
+// =========================
 
 
 
-// ======================================
-// RESET EXPIRED LOYALTY CYCLE
-// ======================================
+function checkCycleExpired(customer){
 
-async function resetExpiredCycle(
-    customerRef,
-    customer
-){
-
-
-    const currentStamps =
-    Number(
-        customer.stamps || 0
-    );
-
-
-
-    // Reset only when:
-    // 1. Cycle expired
-    // 2. Customer has incomplete stamps
-    // 3. Reward not already claimed
 
 
     if(
 
-        !isCycleExpired(customer)
+        !customer ||
 
-        ||
-
-        currentStamps <= 0
-
-        ||
-
-        currentStamps >= STAMP_LIMIT
-
-        ||
-
-        customer.rewardClaimed === true
+        !customer.cycleStartedAt
 
     ){
 
-        return customer;
+        return false;
 
     }
+
+
+
+
+
+    const startDate =
+
+    convertDate(
+
+        customer.cycleStartedAt
+
+    );
+
+
+
+
+
+    if(!startDate)
+
+        return false;
+
+
+
+
+
+    const difference =
+
+    Date.now() -
+
+    startDate.getTime();
+
+
+
+
+
+    const days =
+
+    difference /
+
+    (1000 * 60 * 60 * 24);
+
+
+
+
+
+    return days > CYCLE_LIMIT_DAYS;
+
+
+
+}
+
+
+
+
+
+
+
+
+// =========================
+// RESET EXPIRED CYCLE
+// =========================
+
+
+
+async function resetExpiredCycle(
+
+customerRef,
+
+customer
+
+){
+
+
+
+    const stamps =
+
+    Number(
+
+        customer.stamps || 0
+
+    );
+
+
+
+
+
+    if(
+
+
+
+        !checkCycleExpired(customer)
+
+
+
+        ||
+
+
+
+        stamps >= STAMP_LIMIT
+
+
+
+        ||
+
+
+
+        customer.rewardClaimed === true
+
+
+
+    ){
+
+
+
+        return customer;
+
+
+    }
+
+
+
+
 
 
 
@@ -232,24 +287,33 @@ async function resetExpiredCycle(
     const resetData = {
 
 
+
         stamps:0,
+
 
 
         rewardUnlocked:false,
 
 
+
         rewardClaimed:false,
+
 
 
         lastStampDate:null,
 
 
+
         cycleStartedAt:
+
         serverTimestamp(),
 
 
+
         updatedAt:
+
         serverTimestamp()
+
 
 
     };
@@ -258,48 +322,65 @@ async function resetExpiredCycle(
 
 
 
+
+
     try{
 
 
+
         await updateDoc(
+
             customerRef,
+
             resetData
+
         );
+
+
 
 
 
         return {
 
 
+
             ...customer,
+
 
 
             stamps:0,
 
 
+
             rewardUnlocked:false,
+
 
 
             rewardClaimed:false,
 
 
-            lastStampDate:null,
-
 
             cycleReset:true
+
 
 
         };
 
 
 
+
     }
+
     catch(error){
 
 
+
         console.error(
-            "Loyalty cycle reset error:",
+
+            "Cycle reset failed",
+
             error
+
         );
 
 
@@ -310,104 +391,19 @@ async function resetExpiredCycle(
     }
 
 
-}
-
-
-
-
-
-// ======================================
-// LOAD CUSTOMER PROFILE
-// ======================================
-
-async function loadCustomerProfile(
-    user
-){
-
-
-    if(!user){
-
-        return null;
-
-    }
-
-
-
-
-    const customerRef =
-    doc(
-        db,
-        "customers",
-        user.uid
-    );
-
-
-
-
-    const snapshot =
-    await getDoc(
-        customerRef
-    );
-
-
-
-
-    if(
-        !snapshot.exists()
-    ){
-
-
-        throw new Error(
-            "Customer profile not found"
-        );
-
-
-    }
-
-
-
-
-    let customer = {
-
-
-        uid:user.uid,
-
-
-        ...snapshot.data()
-
-
-    };
-
-
-
-
-    customer =
-    await resetExpiredCycle(
-        customerRef,
-        customer
-    );
-
-
-
-
-    return customer;
-
 
 }
-// ======================================
-// RIO MAGGI POINT
-// DASHBOARD-FIREBASE.JS
-// CLEAN FIXED VERSION
-// PART 3/3 FINAL
-// ======================================
 
 
 
-// ======================================
-// AUTH STATE LISTENER
-// ======================================
 
-let dashboardLoading = false;
+
+
+
+
+// =========================
+// LOAD CUSTOMER
+// =========================
 
 
 
@@ -418,30 +414,71 @@ auth,
 async(user)=>{
 
 
-    if(
-        dashboardLoading
-    ){
+
+    if(!user){
+
+
+
+        window.location.replace(
+
+            "login.html"
+
+        );
+
 
         return;
+
 
     }
 
 
-
-    dashboardLoading = true;
 
 
 
     try{
 
 
-        // USER NOT LOGGED IN
 
-        if(!user){
+        const customerRef =
+
+        doc(
+
+            db,
+
+            "customers",
+
+            user.uid
+
+        );
 
 
-            window.location.replace(
-                "login.html"
+
+
+
+
+
+        const snapshot =
+
+        await getDoc(
+
+            customerRef
+
+        );
+
+
+
+
+
+
+
+        if(!snapshot.exists()){
+
+
+
+            alert(
+
+            "Customer profile not found"
+
             );
 
 
@@ -454,17 +491,42 @@ async(user)=>{
 
 
 
-        const customer =
-        await loadCustomerProfile(
-            user
+
+
+
+        let customer = {
+
+
+
+            uid:user.uid,
+
+
+
+            ...snapshot.data()
+
+
+
+        };
+
+
+
+
+
+        customer =
+
+        await resetExpiredCycle(
+
+            customerRef,
+
+            customer
+
         );
 
 
 
 
 
-        window.currentUser =
-        customer;
+        window.currentUser = customer;
 
 
 
@@ -473,10 +535,9 @@ async(user)=>{
         window.dispatchEvent(
 
             new CustomEvent(
-                "dashboard-ready",
-                {
-                    detail:customer
-                }
+
+                "dashboard-ready"
+
             )
 
         );
@@ -484,32 +545,37 @@ async(user)=>{
 
 
 
+
+
+
     }
+
     catch(error){
+
 
 
         console.error(
 
-            "Dashboard Firebase Load Error:",
-            error
+        "Dashboard Firebase Error",
+
+        error
 
         );
 
 
 
         alert(
-            "Unable to load customer dashboard."
+
+        "Unable to load dashboard"
+
         );
 
 
-    }
-    finally{
-
-
-        dashboardLoading = false;
-
 
     }
+
+
+
 
 
 });
@@ -518,10 +584,547 @@ async(user)=>{
 
 
 
-// ======================================
-// DEBUG
-// ======================================
+
 
 console.log(
-"🍜 Dashboard Firebase Loyalty System Loaded Successfully"
+
+"🍜 Dashboard Firebase Loader Part 1 Loaded"
+
+);
+/* =====================================================
+   RIO MAGGI POINT
+   DASHBOARD-FIREBASE.JS
+   NEW CLEAN BUILD
+   PART 2/3
+
+   CUSTOMER SYNC + STAMP VALIDATION
+===================================================== */
+
+
+
+// =========================
+// CUSTOMER DATA REFRESH
+// =========================
+
+
+
+async function refreshCustomerData(){
+
+
+
+    const user = auth.currentUser;
+
+
+
+    if(!user)
+
+        return null;
+
+
+
+
+
+    try{
+
+
+
+        const customerRef =
+
+        doc(
+
+            db,
+
+            "customers",
+
+            user.uid
+
+        );
+
+
+
+
+
+
+        const snapshot =
+
+        await getDoc(
+
+            customerRef
+
+        );
+
+
+
+
+
+
+
+        if(!snapshot.exists())
+
+            return null;
+
+
+
+
+
+
+
+        let customer = {
+
+
+
+            uid:user.uid,
+
+            ...snapshot.data()
+
+
+
+        };
+
+
+
+
+
+
+
+
+        customer =
+
+        await resetExpiredCycle(
+
+            customerRef,
+
+            customer
+
+        );
+
+
+
+
+
+
+
+        window.currentUser = customer;
+
+
+
+
+
+
+
+        window.dispatchEvent(
+
+
+
+            new CustomEvent(
+
+                "customer-updated",
+
+                {
+
+                    detail:customer
+
+                }
+
+            )
+
+
+
+        );
+
+
+
+
+
+
+
+        return customer;
+
+
+
+
+
+
+
+    }
+
+    catch(error){
+
+
+
+        console.error(
+
+            "Customer refresh error",
+
+            error
+
+        );
+
+
+
+        return null;
+
+
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+// =========================
+// STAMP VALIDATION
+// =========================
+
+
+
+function validateStampCount(value){
+
+
+
+    let stamps =
+
+    Number(value) || 0;
+
+
+
+
+
+    if(stamps < 0)
+
+        stamps = 0;
+
+
+
+
+
+    if(stamps > STAMP_LIMIT)
+
+        stamps = STAMP_LIMIT;
+
+
+
+
+
+    return stamps;
+
+
+
+}
+
+
+
+
+
+
+
+
+// =========================
+// UPDATE LOCAL STAMP VIEW
+// =========================
+
+
+
+window.updateCustomerStamps = function(
+
+stampCount,
+
+rewardClaimed=false
+
+){
+
+
+
+    const validCount =
+
+    validateStampCount(
+
+        stampCount
+
+    );
+
+
+
+
+
+    window.dispatchEvent(
+
+        new CustomEvent(
+
+            "customer-updated",
+
+            {
+
+                detail:{
+
+                    ...window.currentUser,
+
+                    stamps:validCount,
+
+                    rewardClaimed
+
+                }
+
+            }
+
+        )
+
+    );
+
+
+
+};
+
+
+
+
+
+
+
+
+// =========================
+// CUSTOMER REFRESH BUTTON HOOK
+// =========================
+
+
+
+window.reloadCustomerDashboard =
+
+async function(){
+
+
+
+    await refreshCustomerData();
+
+
+
+};
+
+
+
+
+
+
+
+
+// =========================
+// INITIAL DATA CHECK
+// =========================
+
+
+
+window.addEventListener(
+
+"request-customer-refresh",
+
+()=>{
+
+
+
+    refreshCustomerData();
+
+
+
+}
+
+);
+
+
+
+
+
+
+
+
+console.log(
+
+"🍜 Dashboard Firebase Sync Part 2 Loaded"
+
+);
+/* =====================================================
+   RIO MAGGI POINT
+   DASHBOARD-FIREBASE.JS
+   NEW CLEAN BUILD
+   PART 3/3
+
+   FINAL EXPORT + CLEANUP
+===================================================== */
+
+
+
+// =========================
+// FIREBASE LOGOUT FUNCTION
+// =========================
+
+
+
+import {
+
+    signOut
+
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+
+
+
+
+
+
+
+window.logoutCustomer = async function(){
+
+
+
+    try{
+
+
+
+        await signOut(auth);
+
+
+
+
+
+        sessionStorage.clear();
+
+
+
+        localStorage.removeItem(
+            "rioCustomer"
+        );
+
+
+
+
+
+        window.currentUser = null;
+
+
+
+
+
+        window.location.replace(
+
+            "login.html"
+
+        );
+
+
+
+
+
+    }
+
+    catch(error){
+
+
+
+        console.error(
+
+            "Logout Error",
+
+            error
+
+        );
+
+
+
+        alert(
+
+            "Logout failed. Try again."
+
+        );
+
+
+
+    }
+
+
+
+};
+
+
+
+
+
+
+
+
+// =========================
+// GLOBAL FIREBASE STATUS
+// =========================
+
+
+
+window.RioFirebaseDashboard = {
+
+
+
+    refreshCustomerData,
+
+    validateStampCount,
+
+    resetExpiredCycle,
+
+    checkCycleExpired
+
+
+
+};
+
+
+
+
+
+
+
+
+// =========================
+// PREVENT DUPLICATE LOAD
+// =========================
+
+
+
+if(window.__RIO_DASHBOARD_FIREBASE_LOADED){
+
+
+
+    console.warn(
+
+        "Dashboard Firebase already loaded"
+
+    );
+
+
+
+}
+
+else{
+
+
+
+    window.__RIO_DASHBOARD_FIREBASE_LOADED = true;
+
+
+
+}
+
+
+
+
+
+
+
+
+console.log(
+
+"🍜 Dashboard Firebase Completed Successfully"
+
 );
