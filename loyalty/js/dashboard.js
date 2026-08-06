@@ -1,18 +1,11 @@
 // ======================================
 // RIO MAGGI POINT
 // DASHBOARD.JS
-// FINAL FIXED LOYALTY VERSION
+// CLEAN CUSTOMER UI CONTROLLER
 // ======================================
 
 
-// ======================================
-// IMPORTS
-// ======================================
-
-import {
-    auth
-} from "./firebase-config.js";
-
+import { auth } from "./firebase-config.js";
 
 import {
     signOut
@@ -21,66 +14,45 @@ import {
 
 
 // ======================================
-// CONSTANTS
+// CONSTANT
 // ======================================
 
-const REWARD_STAMP_LIMIT = 6;
+const STAMP_LIMIT = 6;
 
 
 
 // ======================================
-// DOM ELEMENTS
+// DOM
 // ======================================
 
-const customerName =
-document.getElementById("customerName");
-
-
-const memberId =
-document.getElementById("memberId");
-
-
-const customerAvatar =
-document.getElementById("customerAvatar");
-
-
-const infoName =
-document.getElementById("infoName");
-
-
-const infoEmail =
-document.getElementById("infoEmail");
-
-
-const infoMobile =
-document.getElementById("infoMobile");
-
-
-const infoGender =
-document.getElementById("infoGender");
-
-
-const infoStatus =
-document.getElementById("infoStatus");
-
-
-const rewardStatus =
-document.getElementById("rewardStatus");
-
-
-const logoutBtn =
-document.getElementById("logoutBtn");
+const $ = (id)=>document.getElementById(id);
 
 
 
-const stamps = [
+const customerName = $("customerName");
+const memberId = $("memberId");
+const customerAvatar = $("customerAvatar");
 
-    document.getElementById("stamp1"),
-    document.getElementById("stamp2"),
-    document.getElementById("stamp3"),
-    document.getElementById("stamp4"),
-    document.getElementById("stamp5"),
-    document.getElementById("stamp6")
+const infoName = $("infoName");
+const infoEmail = $("infoEmail");
+const infoMobile = $("infoMobile");
+const infoGender = $("infoGender");
+const infoStatus = $("infoStatus");
+
+const rewardStatus = $("rewardStatus");
+
+const logoutBtn = $("logoutBtn");
+
+
+
+const stampBoxes = [
+
+    $("stamp1"),
+    $("stamp2"),
+    $("stamp3"),
+    $("stamp4"),
+    $("stamp5"),
+    $("stamp6")
 
 ];
 
@@ -88,131 +60,140 @@ const stamps = [
 
 
 // ======================================
-// RENDER CUSTOMER DATA
+// LOAD CUSTOMER UI
 // ======================================
 
-function renderCustomer(customer){
 
+function loadCustomer(customer){
 
-    if(!customer)
-
-        return;
-
-
-
-    if(customerName)
-
-        customerName.textContent =
-        customer.name || "Customer";
+    if(!customer) return;
 
 
 
-    if(memberId)
-
-        memberId.textContent =
-        "Member ID : " +
-        (
-            customer.memberId ||
-            "RIO-000000"
-        );
+    setText(
+        customerName,
+        customer.name || "Rio Member"
+    );
 
 
+    setText(
+        memberId,
+        `Member ID : ${customer.memberId || "RIO-000000"}`
+    );
 
-    if(customerAvatar)
+
+
+    if(customerAvatar){
 
         customerAvatar.src =
         customer.avatar ||
         customer.photoURL ||
         "assets/avatars/default.png";
 
-
-
-    if(infoName)
-
-        infoName.textContent =
-        customer.name || "-";
+    }
 
 
 
-    if(infoEmail)
+    setText(
+        infoName,
+        customer.name || "-"
+    );
 
-        infoEmail.textContent =
-        customer.email || "-";
+
+    setText(
+        infoEmail,
+        customer.email || "-"
+    );
 
 
-
-    if(infoMobile)
-
-        infoMobile.textContent =
+    setText(
+        infoMobile,
         customer.mobile ||
         customer.phone ||
-        "-";
+        "-"
+    );
+
+
+    setText(
+        infoGender,
+        customer.gender || "-"
+    );
+
+
+    setText(
+        infoStatus,
+        customer.status || "Active"
+    );
 
 
 
-    if(infoGender)
-
-        infoGender.textContent =
-        customer.gender || "-";
-
-
-
-    if(infoStatus)
-
-        infoStatus.textContent =
-        customer.status ||
-        "Active";
-
-
-
-    // 40 DAY RESET CHECK
-    const stampCount =
+    const stamps =
     customer.cycleReset
     ? 0
     : Number(customer.stamps || 0);
 
 
 
-    updateStamps(
-        stampCount,
-        customer.rewardClaimed === true
+    updateStampUI(
+        stamps,
+        customer.rewardClaimed
     );
 
 }
 
 
 
+
+
 // ======================================
-// UPDATE STAMP DISPLAY
+// TEXT HELPER
 // ======================================
 
-function updateStamps(
-    count,
+
+function setText(element,value){
+
+    if(element){
+
+        element.textContent = value;
+
+    }
+
+}
+
+
+
+// ======================================
+// STAMP UI
+// ======================================
+
+
+function updateStampUI(
+    count = 0,
     rewardClaimed = false
 ){
 
 
-    const total = Math.min(
-
+    let total = Math.min(
         Math.max(
             Number(count) || 0,
             0
         ),
-
-        REWARD_STAMP_LIMIT
-
+        STAMP_LIMIT
     );
 
 
 
-    stamps.forEach(
+    stampBoxes.forEach(
         box=>{
 
-            if(box)
+            if(box){
 
                 box.classList.remove(
-                    "active"
+                    "active",
+                    "reward"
                 );
+
+            }
 
         }
     );
@@ -220,22 +201,37 @@ function updateStamps(
 
 
     for(
-        let i = 0;
-        i < total;
+        let i=0;
+        i<total;
         i++
     ){
 
-        if(stamps[i])
+        if(stampBoxes[i]){
 
-            stamps[i].classList.add(
-                "active"
-            );
+            stampBoxes[i]
+            .classList
+            .add("active");
+
+        }
 
     }
 
 
 
-    updateRewardStatus(
+    if(
+        total >= STAMP_LIMIT &&
+        stampBoxes[5]
+    ){
+
+        stampBoxes[5]
+        .classList
+        .add("reward");
+
+    }
+
+
+
+    updateReward(
         total,
         rewardClaimed
     );
@@ -244,37 +240,33 @@ function updateStamps(
 
 
 
+
+
 // ======================================
-// REWARD STATUS
+// REWARD MESSAGE
 // ======================================
 
-function updateRewardStatus(
-    stampCount,
-    rewardClaimed
+
+function updateReward(
+    stamps,
+    claimed
 ){
 
 
     if(!rewardStatus)
-
         return;
 
 
 
-    // Reward already consumed
-
-    if(rewardClaimed){
+    if(claimed){
 
 
-        rewardStatus.innerHTML = `
+        rewardStatus.innerHTML =
 
-        Reward already claimed.
-
-        <br><br>
-
-        Start collecting stamps again
-
-        🍜
-
+        `
+        Reward Claimed 🍜
+        <br>
+        Start collecting again.
         `;
 
 
@@ -284,26 +276,17 @@ function updateRewardStatus(
 
 
 
-
-    if(
-        stampCount >= REWARD_STAMP_LIMIT
-    ){
+    if(stamps >= STAMP_LIMIT){
 
 
-        rewardStatus.innerHTML = `
+        rewardStatus.innerHTML =
 
-        🎉 Congratulations!
-
-        <br><br>
-
-        Your reward is unlocked.
-
+        `
+        🎉 Reward Unlocked
         <br>
-
         <strong>
         FREE Veg Maggi 🍜
         </strong>
-
         `;
 
 
@@ -314,36 +297,23 @@ function updateRewardStatus(
 
 
     const remaining =
-    REWARD_STAMP_LIMIT - stampCount;
+    STAMP_LIMIT - stamps;
 
 
 
-    rewardStatus.innerHTML = `
+    rewardStatus.innerHTML =
 
-    You have
-
-    <strong>
-    ${stampCount}
-    </strong>
-
-    stamp${stampCount === 1 ? "" : "s"}
-
-    <br><br>
-
-    Collect
-
+    `
+    Collect 
     <strong>
     ${remaining}
     </strong>
-
-    more stamp${remaining === 1 ? "" : "s"}
-
+    more stamps
+    <br>
     to get
-
     <strong>
     FREE Veg Maggi 🍜
     </strong>
-
     `;
 
 
@@ -352,35 +322,22 @@ function updateRewardStatus(
 
 
 
+// ======================================
+// DASHBOARD EVENT
+// ======================================
 
-// ======================================
-// DASHBOARD DATA EVENT
-// ======================================
 
 window.addEventListener(
+    "dashboard-ready",
+    ()=>{
 
-"dashboard-ready",
+        loadCustomer(
+            window.currentUser
+        );
 
-()=>{
-
-
-    const customer =
-    window.currentUser;
-
-
-
-    if(!customer)
-
-        return;
-
-
-
-    renderCustomer(customer);
-
-
-}
-
+    }
 );
+
 
 
 
@@ -389,70 +346,61 @@ window.addEventListener(
 // LOGOUT
 // ======================================
 
+
 if(logoutBtn){
 
 
     logoutBtn.addEventListener(
-
-    "click",
-
-    async()=>{
+        "click",
+        async()=>{
 
 
-        const confirmLogout =
-        confirm(
-            "Are you sure you want to logout?"
-        );
-
-
-
-        if(!confirmLogout)
-
-            return;
-
-
-
-        try{
-
-
-            await signOut(auth);
-
-
-
-            sessionStorage.clear();
-
-
-
-            window.currentUser =
-            null;
-
-
-
-            window.location.replace(
-                "login.html"
+            const ok =
+            confirm(
+            "Logout from Rio Maggi Point?"
             );
+
+
+            if(!ok)
+                return;
+
+
+
+            try{
+
+
+                await signOut(auth);
+
+
+                sessionStorage.clear();
+
+
+                window.currentUser=null;
+
+
+                location.href="login.html";
+
+
+            }
+            catch(error){
+
+
+                console.error(
+                    "Logout Error",
+                    error
+                );
+
+
+                alert(
+                "Logout failed"
+                );
+
+
+            }
 
 
         }
-
-        catch(error){
-
-
-            console.error(
-                "Logout Error:",
-                error
-            );
-
-
-            alert(
-                "Logout failed. Please try again."
-            );
-
-
-        }
-
-
-    });
+    );
 
 
 }
@@ -460,15 +408,17 @@ if(logoutBtn){
 
 
 
+
 // ======================================
-// EXPORT
+// GLOBAL ACCESS
 // ======================================
 
+
 window.updateDashboardStamps =
-updateStamps;
+updateStampUI;
 
 
 
 console.log(
-"🍜 Rio Dashboard.js Final Loyalty Loaded"
+"🍜 Rio Dashboard UI Loaded"
 );
