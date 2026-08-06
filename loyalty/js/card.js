@@ -1,18 +1,25 @@
-// ======================================
+// =========================================================
 // RIO MAGGI POINT
 // CARD.JS
-// FINAL CLEAN FIXED VERSION
-// CENTRAL APP ARCHITECTURE
-// ======================================
+// FINAL FIXED LOYALTY CARD SYSTEM
+// PART 1/3
+// =========================================================
 
 
-// ======================================
-// IMPORTS
-// ======================================
+// =========================================================
+// FIREBASE IMPORT
+// =========================================================
 
 import {
-    RioApp
-} from "./app.js";
+    auth,
+    db
+} from "./firebase-config.js";
+
+
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
 
 import {
     doc,
@@ -21,258 +28,166 @@ import {
 
 
 
-// ======================================
-// FIREBASE SERVICES
-// ======================================
+// =========================================================
+// LOYALTY CONFIG
+// =========================================================
 
-const {
-    auth,
-    db
-} = RioApp;
+const TOTAL_STAMPS = 6;
 
-
-
-// ======================================
-// CONFIG
-// ======================================
-
-const TOTAL_STAMPS = 
-    RioApp.config.loyaltyStampsRequired || 6;
-
-
-const CYCLE_DAYS =
-    RioApp.config.loyaltyCycleDays || 40;
-
-
-const SHOP_PHONE =
-    RioApp.config.contactNumber;
-
-
-const WHATSAPP_NUMBER =
-    RioApp.config.whatsappNumber;
+const CYCLE_DAYS = 40;
 
 
 
-// ======================================
+// =========================================================
 // GLOBAL STATE
-// ======================================
+// =========================================================
+
+window.currentRioUser = null;
 
 window.rioCustomerData = null;
 
 window.rioCurrentStamps = 0;
 
+
 let countdownTimer = null;
 
+let cardInitialized = false;
 
 
-// ======================================
+
+
+// =========================================================
 // DOM READY
-// ======================================
+// =========================================================
 
 document.addEventListener(
-"DOMContentLoaded",
-()=>{
+    "DOMContentLoaded",
+    () => {
 
-    initializeCardButtons();
+        initializeCardActions();
 
-});
+    },
+    {
+        once:true
+    }
+);
 
 
 
-// ======================================
-// BUTTON EVENTS
-// ======================================
 
-function initializeCardButtons(){
+// =========================================================
+// INITIALIZE BUTTON ACTIONS
+// =========================================================
+
+function initializeCardActions(){
 
 
     const freeGameBtn =
-    document.getElementById(
-        "freeGameBtn"
-    );
+        document.getElementById(
+            "freeGameBtn"
+        );
 
 
     if(freeGameBtn){
 
-        freeGameBtn.onclick = ()=>{
+        freeGameBtn.addEventListener(
+            "click",
+            ()=>{
 
-            window.location.href =
-            "../index.html";
+                window.location.href =
+                    "../index.html";
 
-        };
+            }
+        );
 
     }
+
 
 
 
     const freeGamePromoBtn =
-    document.getElementById(
-        "freeGamePromoBtn"
-    );
+        document.getElementById(
+            "freeGamePromoBtn"
+        );
 
 
     if(freeGamePromoBtn){
 
-        freeGamePromoBtn.onclick =
-        (e)=>{
-
-            e.preventDefault();
-
-            window.location.href =
-            "../index.html";
-
-        };
-
-    }
+        freeGamePromoBtn.addEventListener(
+            "click",
+            (event)=>{
 
 
+                event.preventDefault();
 
 
-    const callBtn =
-    document.getElementById(
-        "callShopBtn"
-    );
+                window.location.href =
+                    "../index.html";
 
 
-    if(callBtn){
-
-        callBtn.href =
-        `tel:+91${SHOP_PHONE}`;
+            }
+        );
 
     }
 
 
 
 
-    const whatsappBtn =
-    document.getElementById(
-        "whatsappShopBtn"
-    );
-
-
-    if(whatsappBtn){
-
-        const message =
-        encodeURIComponent(
-        "Hello Rio Maggi Point, I want information about loyalty program."
+    const mapShopBtn =
+        document.getElementById(
+            "mapShopBtn"
         );
 
 
-        whatsappBtn.href =
-        `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+    if(mapShopBtn){
+
+        mapShopBtn.addEventListener(
+            "click",
+            ()=>{
+
+                alert(
+                    "Rio Maggi Point location coming soon."
+                );
+
+            }
+        );
 
     }
 
-
-
-
-    const mapBtn =
-    document.getElementById(
-        "mapShopBtn"
-    );
-
-
-    if(mapBtn){
-
-        mapBtn.onclick = ()=>{
-
-            alert(
-            "Rio Maggi Point location coming soon."
-            );
-
-        };
-
-    }
-
-
-
-
-    const rewardBtn =
-    document.getElementById(
-        "claimRewardBtn"
-    );
-
-
-    if(rewardBtn){
-
-        rewardBtn.onclick = ()=>{
-
-            window.location.href =
-            "reward.html";
-
-        };
-
-    }
 
 
 }
 
 
 
-// ======================================
-// LOAD CUSTOMER CARD
-// ======================================
+
+// =========================================================
+// AUTH CHECK
+// =========================================================
+
+onAuthStateChanged(
+    auth,
+    async(user)=>{
 
 
-window.addEventListener(
-"rio-auth-state-changed",
-async(event)=>{
+        if(cardInitialized){
+
+            return;
+
+        }
 
 
-    const user =
-    event.detail.user;
-
-
-    if(!user){
-
-        window.location.href =
-        "login.html";
-
-        return;
-
-    }
-
-
-    await loadCustomerCard(
-        user.uid
-    );
-
-
-});
+        cardInitialized = true;
 
 
 
-
-// ======================================
-// GET CUSTOMER DATA
-// ======================================
+        if(!user){
 
 
-async function loadCustomerCard(uid){
+            window.location.replace(
+                "login.html"
+            );
 
-
-    try{
-
-
-        const customerRef =
-        doc(
-            db,
-            "customers",
-            uid
-        );
-
-
-        const snap =
-        await getDoc(
-            customerRef
-        );
-
-
-
-        if(!snap.exists()){
-
-
-            showDefaultCustomerData();
 
             return;
 
@@ -280,145 +195,320 @@ async function loadCustomerCard(uid){
 
 
 
-        const customer = {
+        window.currentRioUser =
+            user;
 
+
+
+        await loadCustomerCard(
+            user.uid
+        );
+
+
+    }
+);
+
+
+
+
+
+// =========================================================
+// LOAD CUSTOMER CARD DATA
+// =========================================================
+
+async function loadCustomerCard(
+    uid
+){
+
+
+    try{
+
+
+        showLoader();
+
+
+
+        const customerRef =
+            doc(
+                db,
+                "customers",
+                uid
+            );
+
+
+
+        const snapshot =
+            await getDoc(
+                customerRef
+            );
+
+
+
+        if(
+            !snapshot.exists()
+        ){
+
+
+            console.warn(
+                "Customer document not found"
+            );
+
+
+            renderDefaultCard();
+
+
+            hideLoader();
+
+
+            return;
+
+        }
+
+
+
+        let customer =
+        {
 
             uid,
 
-            ...snap.data()
-
+            ...snapshot.data()
 
         };
 
 
 
+        customer =
+            validateCycle(
+                customer
+            );
+
+
+
         window.rioCustomerData =
-        customer;
+            customer;
 
 
 
-        const stamps =
+        window.rioCurrentStamps =
+            Number(
+                customer.stamps || 0
+            );
+
+
+
+        renderCustomerProfile(
+            customer
+        );
+
+
+        renderStampCard(
+            customer
+        );
+
+
+        renderRewardStatus(
+            customer
+        );
+
+
+
+        hideLoader();
+
+
+
+        console.log(
+            "🍜 Card loaded successfully"
+        );
+
+
+    }
+    catch(error){
+
+
+        console.error(
+            "Card loading error:",
+            error
+        );
+
+
+        hideLoader();
+
+
+    }
+
+
+}
+
+
+
+
+
+// =========================================================
+// CYCLE VALIDATION
+// =========================================================
+
+function validateCycle(
+    customer
+){
+
+
+    const stamps =
         Number(
             customer.stamps || 0
         );
 
 
 
-        window.rioCurrentStamps =
-        stamps;
+    if(
+
+        isExpired(
+            customer.cycleStartedAt
+        )
+
+        &&
+
+        stamps < TOTAL_STAMPS
+
+        &&
+
+        customer.rewardClaimed !== true
+
+    ){
 
 
+        return {
 
-        updateCustomerProfile(
-            customer
-        );
+            ...customer,
 
+            stamps:0,
 
+            rewardUnlocked:false
 
-        updateStampUI(
-            stamps
-        );
-
-
-
-        updateRewardUI(
-            stamps
-        );
-
-
-
-        updateCountdown(
-            customer,
-            stamps
-        );
-
-
-    }
-
-
-    catch(error){
-
-
-        console.error(
-        "Card Load Error:",
-        error
-        );
+        };
 
 
     }
+
+
+
+    return customer;
 
 
 }
+// =========================================================
+// RIO MAGGI POINT
+// CARD.JS
+// FINAL FIXED LOYALTY CARD SYSTEM
+// PART 2/3
+// =========================================================
 
 
 
+// =========================================================
+// RENDER CUSTOMER PROFILE
+// =========================================================
 
-// ======================================
-// PROFILE UPDATE
-// ======================================
-
-
-function updateCustomerProfile(customer){
+function renderCustomerProfile(
+    customer
+){
 
 
     const name =
-    customer.name ||
-    "Rio Maggi Member";
+        customer.name ||
+        customer.fullName ||
+        "Rio Maggi Member";
 
 
 
-    const nameBox =
-    document.getElementById(
-        "loyaltyCustomerName"
-    );
+    const welcomeName =
+        document.getElementById(
+            "welcomeUserName"
+        );
 
 
-    const welcome =
-    document.getElementById(
-        "welcomeUserName"
-    );
+    const customerName =
+        document.getElementById(
+            "loyaltyCustomerName"
+        );
 
 
-    if(nameBox)
-        nameBox.textContent=name;
+    if(welcomeName){
+
+        welcomeName.textContent =
+            name;
+
+    }
 
 
-    if(welcome)
-        welcome.textContent=name;
+
+    if(customerName){
+
+        customerName.textContent =
+            name;
+
+    }
 
 
 
 
     const photo =
-    document.getElementById(
-        "loyaltyCustomerPhoto"
-    );
+        document.getElementById(
+            "loyaltyCustomerPhoto"
+        );
+
 
 
     if(photo){
 
+
         photo.src =
-        customer.avatar ||
-        customer.photoURL ||
-        "assets/default-avatar.png";
+            customer.photoURL ||
+            customer.avatar ||
+            "assets/default-avatar.png";
+
 
     }
 
 
 
 
-    const dateBox =
-    document.getElementById(
-        "memberSinceDate"
-    );
 
-
-    if(dateBox){
-
-        dateBox.textContent =
-        formatDate(
-            customer.createdAt
+    const memberDate =
+        document.getElementById(
+            "memberSinceDate"
         );
+
+
+
+    if(memberDate){
+
+
+        memberDate.textContent =
+            formatDate(
+                customer.createdAt ||
+                customer.memberSince ||
+                customer.cycleStartedAt
+            );
+
+
+    }
+
+
+
+
+    const welcomeMessage =
+        document.getElementById(
+            "welcomeMessage"
+        );
+
+
+
+    if(welcomeMessage){
+
+
+        welcomeMessage.textContent =
+            "Keep collecting stamps and enjoy your FREE Veg Maggi reward.";
+
 
     }
 
@@ -428,302 +518,632 @@ function updateCustomerProfile(customer){
 
 
 
-// ======================================
-// STAMP UI
-// ======================================
+
+// =========================================================
+// RENDER STAMP CARD
+// =========================================================
+
+function renderStampCard(
+    customer
+){
 
 
-function updateStampUI(count){
+    const count =
+        Math.min(
+            Number(customer.stamps || 0),
+            TOTAL_STAMPS
+        );
 
 
-    const total =
-    Math.min(
-        Math.max(Number(count)||0,0),
-        TOTAL_STAMPS
+
+    const stampBoxes =
+        document.querySelectorAll(
+            "#stampContainer .stamp-box"
+        );
+
+
+
+    stampBoxes.forEach(
+        (box)=>{
+
+
+            const number =
+                Number(
+                    box.dataset.stamp
+                );
+
+
+
+            const active =
+                number <= count;
+
+
+
+            box.classList.toggle(
+                "active",
+                active
+            );
+
+
+            box.classList.toggle(
+                "collected",
+                active
+            );
+
+
+
+        }
     );
 
-
-
-    document
-    .querySelectorAll(
-        ".stamp-box"
-    )
-    .forEach(
-    box=>{
-
-
-        const number =
-        Number(
-            box.dataset.stamp
-        );
-
-
-        box.classList.toggle(
-            "active",
-            number <= total
-        );
-
-
-    });
 
 
 
     const countText =
-    document.getElementById(
-        "stampCountText"
-    );
+        document.getElementById(
+            "stampCountText"
+        );
 
 
-    if(countText)
+
+    if(countText){
+
         countText.textContent =
-        `${total}/${TOTAL_STAMPS}`;
+            `${count}/${TOTAL_STAMPS}`;
+
+    }
 
 
 
-    const bar =
-    document.getElementById(
-        "stampProgressBar"
-    );
 
-
-    if(bar)
-        bar.style.width =
-        `${(total/TOTAL_STAMPS)*100}%`;
+    const progressBar =
+        document.getElementById(
+            "stampProgressBar"
+        );
 
 
 
-    const text =
-    document.getElementById(
-        "stampProgressText"
-    );
+    if(progressBar){
 
 
-    if(text)
-        text.textContent =
-        `${total} of ${TOTAL_STAMPS} valid stamps collected`;
+        progressBar.style.width =
+            `${(count / TOTAL_STAMPS) * 100}%`;
+
+
+    }
+
+
+
+
+    const progressText =
+        document.getElementById(
+            "stampProgressText"
+        );
+
+
+
+    if(progressText){
+
+
+        progressText.textContent =
+            `${count} of ${TOTAL_STAMPS} valid stamps collected`;
+
+
+    }
+
+
 
 }
 
 
 
-// ======================================
-// REWARD UI
-// ======================================
 
 
-function updateRewardUI(stamps){
+// =========================================================
+// RENDER REWARD STATUS
+// =========================================================
 
-
-    const status =
-    document.getElementById(
-        "rewardStatus"
-    );
-
-
-    const btn =
-    document.getElementById(
-        "claimRewardBtn"
-    );
+function renderRewardStatus(
+    customer
+){
 
 
 
-    if(stamps >= TOTAL_STAMPS){
-
-
-        if(status)
-        status.innerHTML =
-        `
-        🎉 Reward Unlocked!
-        <br><br>
-        FREE Veg Maggi 🍜
-        `;
+    const stamps =
+        Number(
+            customer.stamps || 0
+        );
 
 
 
-        if(btn){
+    const unlocked =
+        stamps >= TOTAL_STAMPS;
 
-            btn.disabled=false;
 
-            btn.innerHTML =
+
+    const rewardStatus =
+        document.getElementById(
+            "rewardStatus"
+        );
+
+
+
+    const claimButton =
+        document.getElementById(
+            "claimRewardBtn"
+        );
+
+
+
+    const title =
+        rewardStatus?.querySelector(
+            ".reward-status-content strong"
+        );
+
+
+
+    const text =
+        rewardStatus?.querySelector(
+            ".reward-status-content span"
+        );
+
+
+
+    const icon =
+        rewardStatus?.querySelector(
+            ".reward-status-icon i"
+        );
+
+
+
+
+
+    if(unlocked){
+
+
+
+        if(rewardStatus){
+
+            rewardStatus.classList.add(
+                "reward-unlocked"
+            );
+
+        }
+
+
+
+        if(icon){
+
+            icon.className =
+                "fa-solid fa-gift";
+
+        }
+
+
+
+        if(title){
+
+            title.textContent =
+                "Reward Unlocked!";
+
+        }
+
+
+
+        if(text){
+
+            text.textContent =
+                "Your FREE Veg Maggi is ready to claim.";
+
+        }
+
+
+
+        if(claimButton){
+
+
+            claimButton.disabled =
+                false;
+
+
+            claimButton.innerHTML =
             `
             <i class="fa-solid fa-gift"></i>
-            Claim Your FREE Veg Maggi
+            <span>Claim Your FREE Veg Maggi</span>
             `;
+
 
         }
 
 
     }
 
-}
+    else{
 
 
 
-// ======================================
-// 40 DAYS COUNTDOWN
-// ======================================
-
-
-function updateCountdown(customer,stamps){
-
-
-    const element =
-    document.getElementById(
-        "countdownDays"
-    );
-
-
-    if(!element)
-        return;
+        const remaining =
+            TOTAL_STAMPS - stamps;
 
 
 
-    if(stamps >= TOTAL_STAMPS){
+        if(icon){
 
-        element.textContent =
-        "REWARD READY";
+            icon.className =
+                "fa-solid fa-lock";
 
-        return;
+        }
+
+
+
+        if(title){
+
+            title.textContent =
+                "Reward Locked";
+
+        }
+
+
+
+        if(text){
+
+            text.textContent =
+                `Collect ${remaining} more valid stamp${remaining === 1 ? "" : "s"} within 40 days.`;
+
+        }
+
+
+
+        if(claimButton){
+
+            claimButton.disabled =
+                true;
+
+
+            claimButton.innerHTML =
+            `
+            <i class="fa-solid fa-lock"></i>
+            <span>Collect ${TOTAL_STAMPS} Stamps to Unlock</span>
+            `;
+
+
+        }
+
 
     }
 
 
 
-    let start =
-    parseDate(
-        customer.cycleStartedAt
-    );
-
-
-
-    if(!start){
-
-        element.textContent =
-        `${CYCLE_DAYS} DAYS`;
-
-        return;
-
-    }
-
-
-
-    const passed =
-    Math.floor(
-    (
-        Date.now()
-        -
-        start.getTime()
-    )
-    /
-    86400000
-    );
-
-
-
-    const remaining =
-    Math.max(
-        0,
-        CYCLE_DAYS-passed
-    );
-
-
-
-    element.textContent =
-    `${remaining} DAYS`;
-
 }
 
 
 
-// ======================================
-// DATE HELPERS
-// ======================================
 
 
-function parseDate(value){
+// =========================================================
+// DATE FORMAT
+// =========================================================
 
-
-    if(!value)
-        return null;
-
-
-    if(value.toDate)
-        return value.toDate();
+function formatDate(
+    value
+){
 
 
     const date =
-    new Date(value);
-
-
-    return isNaN(date)
-    ? null
-    : date;
-
-}
+        convertDate(
+            value
+        );
 
 
 
-function formatDate(value){
+    if(!date){
 
-
-    const date =
-    parseDate(value);
-
-
-    if(!date)
         return "--";
+
+    }
+
 
 
     return date.toLocaleDateString(
         "en-IN",
         {
+
             day:"2-digit",
+
             month:"short",
+
             year:"numeric"
+
         }
     );
 
-}
-
-
-
-// ======================================
-// DEFAULT DATA
-// ======================================
-
-
-function showDefaultCustomerData(){
-
-
-    updateStampUI(0);
-
-    updateRewardUI(0);
-
 
 }
 
 
 
-// ======================================
-// CLEANUP
-// ======================================
+
+// =========================================================
+// DATE CONVERTER
+// =========================================================
+
+function convertDate(
+    value
+){
 
 
-window.addEventListener(
-"beforeunload",
-()=>{
+    if(!value){
+
+        return null;
+
+    }
 
 
-    if(countdownTimer)
-        clearInterval(
-            countdownTimer
+
+    try{
+
+
+        if(
+            typeof value.toDate === "function"
+        ){
+
+            return value.toDate();
+
+        }
+
+
+
+        if(
+            value.seconds !== undefined
+        ){
+
+            return new Date(
+                value.seconds * 1000
+            );
+
+        }
+
+
+
+        return new Date(value);
+
+
+    }
+    catch(error){
+
+        return null;
+
+    }
+
+
+}
+// =========================================================
+// RIO MAGGI POINT
+// CARD.JS
+// FINAL FIXED LOYALTY CARD SYSTEM
+// PART 3/3
+// =========================================================
+
+
+
+// =========================================================
+// CHECK 40 DAYS EXPIRY
+// =========================================================
+
+function isExpired(
+    value
+){
+
+    const startDate =
+        convertDate(
+            value
         );
 
 
-});
+    if(!startDate){
+
+        return false;
+
+    }
+
+
+
+    const difference =
+        Date.now()
+        -
+        startDate.getTime();
+
+
+
+    const days =
+        difference /
+        (
+            1000 *
+            60 *
+            60 *
+            24
+        );
+
+
+
+    return days >= CYCLE_DAYS;
+
+}
+
+
+
+
+
+// =========================================================
+// LOADER
+// =========================================================
+
+function showLoader(){
+
+    const loader =
+        document.getElementById(
+            "pageLoader"
+        );
+
+
+    if(loader){
+
+        loader.classList.remove(
+            "hidden"
+        );
+
+        loader.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+    }
+
+}
+
+
+
+function hideLoader(){
+
+    const loader =
+        document.getElementById(
+            "pageLoader"
+        );
+
+
+    if(loader){
+
+        loader.classList.add(
+            "hidden"
+        );
+
+        loader.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+    }
+
+}
+
+
+
+
+
+// =========================================================
+// DEFAULT CARD
+// =========================================================
+
+function renderDefaultCard(){
+
+
+    const welcome =
+        document.getElementById(
+            "welcomeUserName"
+        );
+
+
+    const customer =
+        document.getElementById(
+            "loyaltyCustomerName"
+        );
+
+
+
+    if(welcome){
+
+        welcome.textContent =
+            "Premium Member";
+
+    }
+
+
+
+    if(customer){
+
+        customer.textContent =
+            "Rio Maggi Member";
+
+    }
+
+
+
+    renderStampCard({
+
+        stamps:0
+
+    });
+
+
+
+    renderRewardStatus({
+
+        stamps:0
+
+    });
+
+
+}
+
+
+
+
+
+// =========================================================
+// CLEANUP TIMER
+// =========================================================
+
+window.addEventListener(
+    "beforeunload",
+    ()=>{
+
+
+        if(countdownTimer){
+
+
+            clearInterval(
+                countdownTimer
+            );
+
+
+            countdownTimer =
+                null;
+
+
+        }
+
+
+    },
+    {
+        once:true
+    }
+);
+
+
+
+
+
+// =========================================================
+// GLOBAL EXPORT
+// =========================================================
+
+window.RioCard = {
+
+
+    reload:loadCustomerCard,
+
+
+    renderStampCard,
+
+
+    renderRewardStatus
+
+
+};
+
+
 
 
 
 console.log(
-"🍜 Rio Maggi Point Card.js Loaded"
+    "🍜 RIO MAGGI POINT CARD.JS FINAL VERSION LOADED"
 );
