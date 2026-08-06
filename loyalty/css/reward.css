@@ -15,35 +15,37 @@
 
 :root {
 
-    --reward-red: #c62828;
-    --reward-red-dark: #8e1b1b;
-    --reward-red-light: #e53935;
+    --reward-red:#c62828;
+    --reward-red-dark:#8e1b1b;
+    --reward-red-light:#e53935;
 
-    --reward-gold: #d4af37;
-    --reward-gold-light: #f5d77a;
+    --reward-gold:#d4af37;
+    --reward-gold-light:#f5d77a;
 
-    --reward-black: #0b0b0b;
-    --reward-card: #171717;
-    --reward-card-soft: #222222;
+    --reward-black:#090909;
+    --reward-card:#151515;
+    --reward-card-soft:#202020;
 
-    --reward-white: #ffffff;
-    --reward-text: #f5f5f5;
-    --reward-muted: #b5b5b5;
+    --reward-white:#ffffff;
+    --reward-text:#f5f5f5;
+    --reward-muted:#b5b5b5;
 
-    --reward-green: #25d366;
+    --reward-green:#25d366;
+    --reward-orange:#ff9800;
 
     --reward-border:
-        rgba(212,175,55,0.25);
+    rgba(212,175,55,0.25);
 
     --reward-shadow:
-        0 15px 40px
-        rgba(0,0,0,0.45);
+    0 15px 40px rgba(0,0,0,.45);
 
-    --reward-radius-sm: 12px;
-    --reward-radius-md: 18px;
-    --reward-radius-lg: 26px;
 
-    --content-width: 760px;
+    --radius-sm:12px;
+    --radius-md:18px;
+    --radius-lg:26px;
+
+
+    --content-width:760px;
 
 }
 
@@ -53,7 +55,8 @@
    RESET
 ========================================================= */
 
-* {
+
+*{
 
     margin:0;
     padding:0;
@@ -63,7 +66,7 @@
 
 
 
-html {
+html{
 
     scroll-behavior:smooth;
 
@@ -71,34 +74,32 @@ html {
 
 
 
-body.reward-page-body {
+body{
 
     min-height:100vh;
 
     font-family:
-        "Poppins",
-        Arial,
-        sans-serif;
+    "Poppins",
+    Arial,
+    sans-serif;
 
-
-    color:
-        var(--reward-text);
+    color:var(--reward-text);
 
 
     background:
 
-        radial-gradient(
-            circle at top,
-            rgba(198,40,40,0.20),
-            transparent 35%
-        ),
+    radial-gradient(
+        circle at top,
+        rgba(198,40,40,.20),
+        transparent 35%
+    ),
 
-        linear-gradient(
-            135deg,
-            #070707,
-            #121212,
-            #070707
-        );
+    linear-gradient(
+        135deg,
+        #050505,
+        #121212,
+        #050505
+    );
 
 
     overflow-x:hidden;
@@ -107,12 +108,8 @@ body.reward-page-body {
 
 
 
-/* =========================================================
-   COMMON ELEMENTS
-========================================================= */
 
-
-a {
+a{
 
     text-decoration:none;
 
@@ -122,7 +119,7 @@ a {
 
 
 
-button {
+button{
 
     font-family:inherit;
 
@@ -130,7 +127,7 @@ button {
 
 
 
-img {
+img{
 
     max-width:100%;
 
@@ -138,180 +135,33 @@ img {
 
 
 
-.reward-page {
+
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+
+.reward-page{
 
     width:100%;
 
-    max-width:
-        var(--content-width);
+    max-width:var(--content-width);
 
-    margin:
-        auto;
+    margin:auto;
 
 
     padding:
 
-        20px
+    20px
 
-        20px
+    18px
 
-        40px;
-
-}
-
-
-
-/* =========================================================
-   PAGE LOADER
-   Compatible with reward.html #pageLoader
-========================================================= */
-
-
-#pageLoader {
-
-    position:fixed;
-
-    inset:0;
-
-    z-index:9999;
-
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-
-    gap:15px;
-
-
-    background:
-
-        radial-gradient(
-            circle,
-            #241010,
-            #050505 75%
-        );
-
-
-    transition:
-        opacity .35s ease,
-        visibility .35s ease;
+    50px;
 
 }
 
 
-
-#pageLoader.hidden {
-
-    opacity:0;
-
-    visibility:hidden;
-
-    pointer-events:none;
-
-}
-
-
-
-.loader-logo {
-
-    width:70px;
-
-    height:70px;
-
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-
-    border-radius:50%;
-
-
-    background:
-
-        linear-gradient(
-            135deg,
-            var(--reward-gold-light),
-            var(--reward-gold)
-        );
-
-
-    color:
-        var(--reward-black);
-
-
-    font-size:2rem;
-
-
-}
-
-
-
-.loader-spinner {
-
-    width:45px;
-
-    height:45px;
-
-
-    border-radius:50%;
-
-
-    border:
-
-        4px solid
-        rgba(212,175,55,.25);
-
-
-    border-top-color:
-        var(--reward-gold);
-
-
-    animation:
-
-        rewardSpin
-        0.8s
-        linear
-        infinite;
-
-}
-
-
-
-@keyframes rewardSpin {
-
-    from {
-
-        transform:rotate(0deg);
-
-    }
-
-
-    to {
-
-        transform:rotate(360deg);
-
-    }
-
-}
-
-
-
-#pageLoader p {
-
-    color:
-        var(--reward-muted);
-
-    font-size:.85rem;
-
-}
 
 
 
@@ -320,7 +170,7 @@ img {
 ========================================================= */
 
 
-.reward-header {
+.reward-header{
 
     position:relative;
 
@@ -329,43 +179,35 @@ img {
 
     align-items:center;
 
-    gap:16px;
+
+    margin-bottom:20px;
 
 
     padding:22px;
 
 
-    margin-bottom:20px;
-
-
-    border:
-
-        1px solid
-        var(--reward-border);
-
-
     border-radius:
 
-        var(--reward-radius-lg);
-
+    var(--radius-lg);
 
 
     background:
 
-        linear-gradient(
+    linear-gradient(
+        135deg,
+        rgba(198,40,40,.95),
+        rgba(100,20,20,.95)
+    );
 
-            135deg,
 
-            rgba(198,40,40,.95),
+    border:
 
-            rgba(100,20,20,.95)
-
-        );
+    1px solid var(--reward-border);
 
 
     box-shadow:
 
-        var(--reward-shadow);
+    var(--reward-shadow);
 
 
     overflow:hidden;
@@ -374,7 +216,7 @@ img {
 
 
 
-.reward-header::after {
+.reward-header::after{
 
     content:"";
 
@@ -397,26 +239,39 @@ img {
 
     background:
 
-        rgba(212,175,55,.15);
+    rgba(212,175,55,.15);
 
 }
 
 
 
-.reward-header-icon {
 
+
+.header-content{
 
     position:relative;
 
-    z-index:1;
+    z-index:2;
 
 
-    width:58px;
+    display:flex;
 
-    height:58px;
+    align-items:center;
+
+    gap:15px;
+
+    width:100%;
+
+}
 
 
-    flex-shrink:0;
+
+
+.back-btn{
+
+    width:45px;
+
+    height:45px;
 
 
     display:flex;
@@ -426,96 +281,193 @@ img {
     justify-content:center;
 
 
-    border-radius:18px;
+    border-radius:50%;
 
 
     background:
 
-        linear-gradient(
-
-            135deg,
-
-            var(--reward-gold-light),
-
-            var(--reward-gold)
-
-        );
+    rgba(0,0,0,.25);
 
 
-    color:
-
-        var(--reward-black);
+    color:white;
 
 
-    font-size:1.5rem;
+    font-size:1.1rem;
 
+
+    transition:.3s ease;
 
 }
 
 
 
-.reward-header span {
 
-    position:relative;
+.back-btn:hover{
 
-    z-index:1;
+    transform:translateX(-4px);
 
+    background:
 
-    color:
-
-        var(--reward-gold-light);
-
-
-    font-size:.75rem;
-
-
-    font-weight:700;
-
-
-    letter-spacing:1.5px;
+    rgba(0,0,0,.45);
 
 }
 
 
 
-.reward-header h1 {
-
-    position:relative;
-
-    z-index:1;
 
 
-    margin-top:3px;
+.reward-header h1{
 
-
-    font-size:1.45rem;
-
+    font-size:1.35rem;
 
     font-weight:800;
 
 
+    color:white;
+
 }
 
 
 
-.reward-header p {
-
-    position:relative;
-
-    z-index:1;
 
 
-    margin-top:5px;
+/* =========================================================
+   REWARD SUMMARY CARD
+========================================================= */
+
+
+.reward-summary-card{
+
+
+    padding:22px;
+
+
+    margin-bottom:20px;
+
+
+    border-radius:
+
+    var(--radius-lg);
+
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #202020,
+        #111111
+    );
+
+
+    border:
+
+    1px solid rgba(255,255,255,.08);
+
+
+    box-shadow:
+
+    var(--reward-shadow);
+
+}
+
+
+
+
+.summary-box{
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:18px;
+
+}
+
+
+
+
+
+.summary-icon{
+
+
+    width:65px;
+
+    height:65px;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+    justify-content:center;
+
+
+    border-radius:20px;
+
+
+    background:
+
+    linear-gradient(
+        135deg,
+        var(--reward-gold-light),
+        var(--reward-gold)
+    );
 
 
     color:
 
-        rgba(255,255,255,.75);
+    var(--reward-black);
 
 
-    font-size:.8rem;
+    font-size:1.7rem;
+
 
 }
+
+
+
+
+
+.summary-details .label{
+
+
+    display:block;
+
+
+    color:
+
+    var(--reward-muted);
+
+
+    font-size:.85rem;
+
+}
+
+
+
+.summary-details h2{
+
+
+    margin-top:4px;
+
+
+    font-size:2rem;
+
+
+    font-weight:900;
+
+
+    color:
+
+    var(--reward-gold-light);
+
+}
+
+
 
 
 /* =========================================================
@@ -532,344 +484,22 @@ img {
 ========================================================= */
 
 
-
 /* =========================================================
-   CUSTOMER PROFILE CARD
+   STAMP PROGRESS SECTION
 ========================================================= */
 
 
-.reward-profile {
+.progress-container{
 
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    text-align:center;
-
-
-    padding:26px 20px;
-
-
-    margin-bottom:20px;
-
-
-    border:
-
-        1px solid
-        rgba(255,255,255,.08);
-
-
-    border-radius:
-
-        var(--reward-radius-lg);
-
-
-    background:
-
-        linear-gradient(
-
-            145deg,
-
-            #222222,
-
-            #111111
-
-        );
-
-
-    box-shadow:
-
-        var(--reward-shadow);
+    margin-top:22px;
 
 }
 
 
 
-.reward-avatar-wrapper {
-
-    width:100px;
-
-    height:100px;
-
-
-    padding:4px;
-
-
-    margin-bottom:12px;
-
-
-    border-radius:50%;
-
-
-    background:
-
-        linear-gradient(
-
-            135deg,
-
-            var(--reward-gold),
-
-            var(--reward-red),
-
-            var(--reward-gold-light)
-
-        );
-
-
-}
-
-
-
-.reward-avatar-wrapper img {
+.progress-bar-container{
 
     width:100%;
-
-    height:100%;
-
-
-    object-fit:cover;
-
-
-    border-radius:50%;
-
-
-    background:
-
-        var(--reward-card);
-
-}
-
-
-
-.reward-profile p {
-
-    color:
-
-        var(--reward-gold-light);
-
-
-    font-size:.78rem;
-
-
-    font-weight:700;
-
-
-    letter-spacing:1px;
-
-}
-
-
-
-.reward-profile h2 {
-
-    margin-top:5px;
-
-
-    font-size:1.2rem;
-
-
-    font-weight:800;
-
-}
-
-
-
-/* =========================================================
-   MAIN REWARD CARD
-========================================================= */
-
-
-.reward-card {
-
-    position:relative;
-
-
-    padding:28px 22px;
-
-
-    margin-bottom:20px;
-
-
-    text-align:center;
-
-
-    overflow:hidden;
-
-
-    border:
-
-        1px solid
-        var(--reward-border);
-
-
-    border-radius:
-
-        var(--reward-radius-lg);
-
-
-
-    background:
-
-        linear-gradient(
-
-            145deg,
-
-            #252525,
-
-            #101010
-
-        );
-
-
-    box-shadow:
-
-        var(--reward-shadow);
-
-}
-
-
-
-.reward-card::before {
-
-    content:"";
-
-
-    position:absolute;
-
-
-    width:240px;
-
-    height:240px;
-
-
-    left:50%;
-
-    top:-160px;
-
-
-    transform:
-
-        translateX(-50%);
-
-
-    border-radius:50%;
-
-
-    background:
-
-        rgba(198,40,40,.18);
-
-
-}
-
-
-
-.reward-card h2 {
-
-
-    position:relative;
-
-
-    color:
-
-        var(--reward-gold-light);
-
-
-    font-size:1.35rem;
-
-
-    font-weight:800;
-
-
-    letter-spacing:1px;
-
-}
-
-
-
-/* =========================================================
-   STAMP COUNT
-========================================================= */
-
-
-.reward-stamp-count {
-
-    position:relative;
-
-
-    display:flex;
-
-    flex-direction:column;
-
-
-    align-items:center;
-
-
-    margin-top:20px;
-
-}
-
-
-
-.reward-stamp-count strong {
-
-
-    color:
-
-        var(--reward-gold-light);
-
-
-    font-size:2.2rem;
-
-
-    font-weight:900;
-
-
-}
-
-
-
-.reward-stamp-count span {
-
-
-    color:
-
-        var(--reward-muted);
-
-
-    font-size:.8rem;
-
-
-    margin-top:4px;
-
-
-}
-
-
-
-/* =========================================================
-   PROGRESS BAR
-========================================================= */
-
-
-.reward-progress {
-
-    position:relative;
-
-
-    margin-top:25px;
-
-}
-
-
-
-.progress-bar {
-
-
-    width:100%;
-
 
     height:12px;
 
@@ -882,21 +512,18 @@ img {
 
     background:
 
-        rgba(255,255,255,.10);
+    rgba(255,255,255,.10);
 
 
     border:
 
-        1px solid
-        rgba(255,255,255,.08);
-
+    1px solid rgba(255,255,255,.08);
 
 }
 
 
 
-.progress-fill {
-
+.progress-bar-fill{
 
     width:0%;
 
@@ -909,33 +536,30 @@ img {
 
     background:
 
-
-        linear-gradient(
-
-            90deg,
-
-            var(--reward-red),
-
-            var(--reward-gold-light)
-
-        );
+    linear-gradient(
+        90deg,
+        var(--reward-red),
+        var(--reward-gold-light)
+    );
 
 
     box-shadow:
 
-        0 0 15px
-        rgba(212,175,55,.45);
+    0 0 15px rgba(212,175,55,.45);
 
 
     transition:
 
-        width .6s ease;
+    width .6s ease;
 
 }
 
 
 
-.reward-progress p {
+.progress-text{
+
+
+    display:block;
 
 
     margin-top:10px;
@@ -943,167 +567,220 @@ img {
 
     color:
 
-        var(--reward-muted);
+    var(--reward-muted);
 
 
-    font-size:.8rem;
+    text-align:center;
 
+
+    font-size:.82rem;
+
+
+    line-height:1.5;
 
 }
+
+
 
 
 
 /* =========================================================
-   STAMP BOXES
+   REWARD STATUS BADGE
+
+   JS Controlled:
+   status-locked
+   status-unlocked
+   status-claimed
+   status-expired
 ========================================================= */
 
 
-.reward-stamp-container {
+.reward-status-badge{
 
 
-    position:relative;
-
-
-    display:grid;
-
-
-    grid-template-columns:
-
-        repeat(3,1fr);
-
-
-    gap:14px;
-
-
-    margin-top:28px;
-
-}
-
-
-
-.reward-stamp-box {
-
-
-    aspect-ratio:1/1;
-
-
-    display:flex;
-
-
-    flex-direction:column;
+    display:inline-flex;
 
 
     align-items:center;
-
-
-    justify-content:center;
 
 
     gap:8px;
 
 
-    border-radius:18px;
+    margin-top:20px;
 
 
-    border:
+    padding:
 
-        1px solid
-        rgba(255,255,255,.12);
+    8px
 
-
-    background:
-
-        rgba(255,255,255,.04);
+    16px;
 
 
-    color:
-
-        var(--reward-muted);
+    border-radius:50px;
 
 
-    transition:
-
-        all .3s ease;
-
-}
-
-
-
-.reward-stamp-box i {
-
-
-    font-size:1.3rem;
-
-
-}
-
-
-
-.reward-stamp-box span {
-
-
-    font-size:.75rem;
+    font-size:.8rem;
 
 
     font-weight:700;
 
 
+    transition:.3s ease;
+
 }
 
 
 
-/* COLLECTED STAMP */
+
+/* LOCKED */
 
 
-.reward-stamp-box.active,
-
-.reward-stamp-box.collected {
+.reward-status-badge.status-locked{
 
 
     background:
 
-
-        linear-gradient(
-
-            135deg,
-
-            rgba(198,40,40,.85),
-
-            rgba(212,175,55,.75)
-
-        );
+    rgba(255,255,255,.08);
 
 
     color:
 
-        #ffffff;
+    var(--reward-muted);
 
 
-    border-color:
+    border:
 
-        var(--reward-gold);
-
-
-    transform:
-
-        translateY(-3px);
-
-
-    box-shadow:
-
-        0 8px 20px
-        rgba(212,175,55,.25);
+    1px solid rgba(255,255,255,.12);
 
 }
 
 
 
+
+
+/* UNLOCKED */
+
+
+.reward-status-badge.status-unlocked{
+
+
+    background:
+
+    rgba(212,175,55,.18);
+
+
+    color:
+
+    var(--reward-gold-light);
+
+
+    border:
+
+    1px solid var(--reward-gold);
+
+}
+
+
+
+
+
+/* CLAIMED */
+
+
+.reward-status-badge.status-claimed{
+
+
+    background:
+
+    rgba(37,211,102,.15);
+
+
+    color:
+
+    var(--reward-green);
+
+
+    border:
+
+    1px solid rgba(37,211,102,.4);
+
+}
+
+
+
+
+
+/* EXPIRED */
+
+
+.reward-status-badge.status-expired{
+
+
+    background:
+
+    rgba(198,40,40,.18);
+
+
+    color:
+
+    #ff8a80;
+
+
+    border:
+
+    1px solid rgba(198,40,40,.5);
+
+}
+
+
+
+
+
 /* =========================================================
-   REWARD STATUS
+   40 DAYS CYCLE CARD
 ========================================================= */
 
 
-.reward-status {
+.cycle-info-card{
+
+
+    padding:22px;
+
+
+    margin-bottom:20px;
+
+
+    border-radius:
+
+    var(--radius-lg);
+
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #202020,
+        #101010
+    );
+
+
+    border:
+
+    1px solid var(--reward-border);
+
+
+    box-shadow:
+
+    var(--reward-shadow);
+
+}
+
+
+
+
+
+.cycle-header{
 
 
     display:flex;
@@ -1112,56 +789,23 @@ img {
     align-items:center;
 
 
-    gap:14px;
-
-
-    padding:18px;
+    gap:12px;
 
 
     margin-bottom:18px;
-
-
-    border-radius:
-
-        var(--reward-radius-md);
-
-
-    border:
-
-        1px solid
-        rgba(255,255,255,.08);
-
-
-    background:
-
-        linear-gradient(
-
-            145deg,
-
-            #202020,
-
-            #111111
-
-        );
-
-
-    box-shadow:
-
-        var(--reward-shadow);
 
 }
 
 
 
-.reward-status-icon {
 
 
-    width:50px;
-
-    height:50px;
+.cycle-header i{
 
 
-    flex-shrink:0;
+    width:45px;
+
+    height:45px;
 
 
     display:flex;
@@ -1172,17 +816,17 @@ img {
     justify-content:center;
 
 
-    border-radius:15px;
+    border-radius:14px;
 
 
     background:
 
-        rgba(212,175,55,.12);
+    rgba(212,175,55,.15);
 
 
     color:
 
-        var(--reward-gold-light);
+    var(--reward-gold-light);
 
 
     font-size:1.2rem;
@@ -1191,7 +835,24 @@ img {
 
 
 
-.reward-status-content {
+
+
+.cycle-header h3{
+
+
+    font-size:1rem;
+
+
+    font-weight:800;
+
+
+}
+
+
+
+
+
+.cycle-details{
 
 
     display:flex;
@@ -1200,28 +861,111 @@ img {
     flex-direction:column;
 
 
-    gap:5px;
+    gap:10px;
 
 }
 
 
 
-.reward-status-content strong {
 
 
-    font-size:.95rem;
+.cycle-details p{
 
 
-}
+    display:flex;
 
 
+    justify-content:space-between;
 
-.reward-status-content span {
+
+    gap:10px;
 
 
     color:
 
-        var(--reward-muted);
+    var(--reward-muted);
+
+
+    font-size:.82rem;
+
+
+}
+
+
+
+
+
+.cycle-details strong{
+
+
+    color:
+
+    var(--reward-white);
+
+
+}
+
+
+
+
+
+.highlight-days{
+
+
+    color:
+
+    var(--reward-gold-light);
+
+
+    font-weight:800;
+
+}
+
+
+
+
+
+/* =========================================================
+   EXPIRY WARNING
+========================================================= */
+
+
+.expiry-warning-box{
+
+
+    display:flex;
+
+
+    align-items:flex-start;
+
+
+    gap:10px;
+
+
+    margin-top:18px;
+
+
+    padding:14px;
+
+
+    border-radius:
+
+    var(--radius-sm);
+
+
+    background:
+
+    rgba(255,152,0,.12);
+
+
+    border:
+
+    1px solid rgba(255,152,0,.35);
+
+
+    color:
+
+    #ffc107;
 
 
     font-size:.78rem;
@@ -1233,55 +977,40 @@ img {
 
 
 
-/* UNLOCKED STATE */
+
+.expiry-warning-box i{
 
 
-.reward-status.reward-unlocked {
-
-
-    border-color:
-
-        rgba(212,175,55,.55);
-
-
-    background:
-
-
-        linear-gradient(
-
-            145deg,
-
-            rgba(212,175,55,.15),
-
-            #151515
-
-        );
+    margin-top:3px;
 
 }
+
+
+
+
+
+/* Hidden utility */
+
+.is-hidden{
+
+
+    display:none !important;
+
+}
+
+
 
 
 
 /* =========================================================
-   CLAIM BUTTON AREA
+   AUTO RESET NOTE
 ========================================================= */
 
 
-.reward-action-area {
+.auto-reset-note{
 
 
-    margin-bottom:20px;
-
-}
-
-
-
-.premium-action-btn {
-
-
-    width:100%;
-
-
-    min-height:54px;
+    margin-top:15px;
 
 
     display:flex;
@@ -1290,112 +1019,84 @@ img {
     align-items:center;
 
 
-    justify-content:center;
+    gap:8px;
 
 
-    gap:10px;
+    color:
+
+    var(--reward-muted);
 
 
-    padding:14px 20px;
+    font-size:.75rem;
 
 
-    border:none;
+    line-height:1.5;
+
+}
+
+
+
+
+
+.auto-reset-note i{
+
+
+    color:
+
+    var(--reward-gold);
+
+}
+
+
+
+
+
+/* =========================================================
+   REWARD MESSAGE BANNER
+========================================================= */
+
+
+.reward-message-banner{
+
+
+    padding:15px;
+
+
+    margin-bottom:20px;
 
 
     border-radius:
 
-        var(--reward-radius-md);
+    var(--radius-md);
 
 
-    cursor:pointer;
+    text-align:center;
 
 
-    font-size:.9rem;
+    font-size:.85rem;
 
 
-    font-weight:800;
-
-
-    transition:
-
-        transform .25s ease,
-
-        box-shadow .25s ease;
-
-}
-
-
-
-#claimRewardBtn:not(:disabled) {
+    font-weight:600;
 
 
     background:
 
-        linear-gradient(
+    rgba(212,175,55,.12);
 
-            135deg,
 
-            var(--reward-gold-light),
+    border:
 
-            var(--reward-gold)
-
-        );
+    1px solid rgba(212,175,55,.3);
 
 
     color:
 
-        #111;
-
-
-    box-shadow:
-
-        0 10px 30px
-        rgba(212,175,55,.3);
+    var(--reward-gold-light);
 
 }
 
 
 
-#claimRewardBtn:not(:disabled):hover {
-
-
-    transform:
-
-        translateY(-2px);
-
-}
-
-
-
-#claimRewardBtn:disabled {
-
-
-    background:
-
-        linear-gradient(
-
-            135deg,
-
-            #666,
-
-            #444
-
-        );
-
-
-    color:
-
-        #ddd;
-
-
-    cursor:
-
-        not-allowed;
-
-
-    opacity:.65;
-
-}
 
 
 /* =========================================================
@@ -1414,68 +1115,206 @@ img {
 
 
 /* =========================================================
-   40 DAY CYCLE STATUS
+   SECTION TITLE
 ========================================================= */
 
 
-.redeem-status {
+.section-title{
 
-    margin-bottom:20px;
+    margin-bottom:18px;
 
 }
 
 
 
-.status-card {
+.section-title h2{
+
+
+    font-size:1.15rem;
+
+
+    font-weight:800;
+
+
+    color:
+
+    var(--reward-gold-light);
+
 
     display:flex;
 
+
     align-items:center;
 
-    gap:15px;
+
+    gap:10px;
+
+}
 
 
-    padding:20px;
 
 
-    border:
 
-        1px solid
-        rgba(255,255,255,.08);
+/* =========================================================
+   REWARDS GRID
+========================================================= */
+
+
+.rewards-grid{
+
+
+    display:grid;
+
+
+    grid-template-columns:
+
+    repeat(1,1fr);
+
+
+    gap:18px;
+
+
+    margin-bottom:25px;
+
+}
+
+
+
+
+
+/* =========================================================
+   REWARD ITEM CARD
+========================================================= */
+
+
+.reward-item-card{
+
+
+    position:relative;
+
+
+    padding:22px;
 
 
     border-radius:
 
-        var(--reward-radius-md);
+    var(--reward-radius-lg);
 
 
     background:
 
-        linear-gradient(
+    linear-gradient(
+        145deg,
+        #222222,
+        #111111
+    );
 
-            135deg,
 
-            #242424,
+    border:
 
-            #111111
-
-        );
+    1px solid rgba(255,255,255,.08);
 
 
     box-shadow:
 
-        var(--reward-shadow);
+    var(--reward-shadow);
+
+
+    overflow:hidden;
+
+
+    transition:
+
+    transform .3s ease,
+
+    border-color .3s ease;
 
 }
 
 
 
-.status-icon {
 
 
-    width:52px;
+.reward-item-card:hover{
 
-    height:52px;
+
+    transform:
+
+    translateY(-4px);
+
+
+    border-color:
+
+    var(--reward-gold);
+
+}
+
+
+
+
+
+.reward-item-card::before{
+
+
+    content:"";
+
+
+    position:absolute;
+
+
+    width:150px;
+
+
+    height:150px;
+
+
+    right:-60px;
+
+
+    top:-60px;
+
+
+    border-radius:50%;
+
+
+    background:
+
+    rgba(212,175,55,.10);
+
+}
+
+
+
+
+
+.reward-item-header{
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:15px;
+
+
+    position:relative;
+
+
+}
+
+
+
+
+
+.reward-item-icon{
+
+
+    width:55px;
+
+
+    height:55px;
 
 
     flex-shrink:0;
@@ -1483,34 +1322,509 @@ img {
 
     display:flex;
 
+
     align-items:center;
+
 
     justify-content:center;
 
 
-    border-radius:16px;
+    border-radius:18px;
 
 
     background:
 
-        rgba(212,175,55,.12);
+    linear-gradient(
+        135deg,
+        var(--reward-gold-light),
+        var(--reward-gold)
+    );
 
 
     color:
 
-        var(--reward-gold-light);
+    var(--reward-black);
 
 
-    font-size:1.25rem;
+    font-size:1.4rem;
 
 }
 
 
 
-.status-content h3 {
 
 
-    font-size:.95rem;
+.reward-item-title{
+
+
+    font-size:1rem;
+
+
+    font-weight:800;
+
+
+}
+
+
+
+
+
+.reward-item-desc{
+
+
+    margin-top:5px;
+
+
+    color:
+
+    var(--reward-muted);
+
+
+    font-size:.78rem;
+
+
+    line-height:1.5;
+
+}
+
+
+
+
+
+/* =========================================================
+   LOCKED REWARD
+========================================================= */
+
+
+.reward-item-card.locked{
+
+
+    opacity:.75;
+
+}
+
+
+
+
+
+.reward-item-card.locked .reward-item-icon{
+
+
+    background:
+
+    rgba(255,255,255,.08);
+
+
+    color:
+
+    var(--reward-muted);
+
+}
+
+
+
+
+
+/* =========================================================
+   UNLOCKED REWARD
+========================================================= */
+
+
+.reward-item-card.unlocked{
+
+
+    border-color:
+
+    var(--reward-gold);
+
+
+    box-shadow:
+
+    0 0 25px rgba(212,175,55,.20);
+
+}
+
+
+
+
+
+.reward-item-card.unlocked::after{
+
+
+    content:"";
+
+
+    position:absolute;
+
+
+    inset:0;
+
+
+    border-radius:inherit;
+
+
+    pointer-events:none;
+
+
+    background:
+
+    linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,.08),
+        transparent
+    );
+
+
+}
+
+
+
+
+
+/* =========================================================
+   REWARD BUTTON
+========================================================= */
+
+
+.reward-claim-btn{
+
+
+    width:100%;
+
+
+    margin-top:20px;
+
+
+    min-height:48px;
+
+
+    border:none;
+
+
+    border-radius:
+
+    var(--reward-radius-md);
+
+
+    cursor:pointer;
+
+
+    font-weight:800;
+
+
+    font-size:.9rem;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    gap:10px;
+
+
+    transition:.25s ease;
+
+}
+
+
+
+
+
+.reward-claim-btn.active{
+
+
+    background:
+
+    linear-gradient(
+        135deg,
+        var(--reward-gold-light),
+        var(--reward-gold)
+    );
+
+
+    color:
+
+    #111;
+
+
+    box-shadow:
+
+    0 10px 25px rgba(212,175,55,.3);
+
+}
+
+
+
+
+
+.reward-claim-btn.active:hover{
+
+
+    transform:
+
+    translateY(-2px);
+
+}
+
+
+
+
+
+.reward-claim-btn.disabled{
+
+
+    background:
+
+    #444;
+
+
+    color:
+
+    #aaa;
+
+
+    cursor:not-allowed;
+
+}
+
+
+
+
+
+/* =========================================================
+   LOADING STATE
+========================================================= */
+
+
+.reward-loading{
+
+
+    min-height:150px;
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    gap:12px;
+
+
+    color:
+
+    var(--reward-muted);
+
+
+}
+
+
+
+
+
+.reward-loading i{
+
+
+    font-size:2rem;
+
+
+    color:
+
+    var(--reward-gold);
+
+}
+
+
+
+
+
+/* =========================================================
+   HISTORY SECTION
+========================================================= */
+
+
+.rewards-history-section{
+
+
+    margin-top:30px;
+
+
+}
+
+
+
+
+
+.history-list{
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    gap:14px;
+
+}
+
+
+
+
+
+.history-card{
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:space-between;
+
+
+    gap:15px;
+
+
+    padding:18px;
+
+
+    border-radius:
+
+    var(--reward-radius-md);
+
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #202020,
+        #111111
+    );
+
+
+    border:
+
+    1px solid rgba(255,255,255,.08);
+
+
+}
+
+
+
+
+
+.history-left{
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:12px;
+
+}
+
+
+
+
+
+.history-icon{
+
+
+    width:42px;
+
+
+    height:42px;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    border-radius:14px;
+
+
+    background:
+
+    rgba(212,175,55,.15);
+
+
+    color:
+
+    var(--reward-gold-light);
+
+}
+
+
+
+
+
+.history-title{
+
+
+    font-size:.9rem;
+
+
+    font-weight:700;
+
+}
+
+
+
+
+
+.history-date{
+
+
+    margin-top:4px;
+
+
+    color:
+
+    var(--reward-muted);
+
+
+    font-size:.72rem;
+
+}
+
+
+
+
+
+.history-status{
+
+
+    padding:
+
+    6px 12px;
+
+
+    border-radius:50px;
+
+
+    font-size:.7rem;
 
 
     font-weight:700;
@@ -1520,590 +1834,86 @@ img {
 
 
 
-#rewardCycleDays {
 
 
-    margin-top:5px;
+.history-status.success{
 
 
     color:
 
-        var(--reward-gold-light);
+    var(--reward-green);
 
 
-    font-size:.85rem;
+    background:
 
-
-    font-weight:800;
-
-
-    letter-spacing:1px;
+    rgba(37,211,102,.12);
 
 }
 
 
 
-/* =========================================================
-   REWARD INFORMATION CARD
-========================================================= */
 
 
-.reward-info-card {
+.history-status.pending{
 
 
-    padding:24px;
+    color:
+
+    var(--reward-gold-light);
 
 
-    margin-bottom:20px;
+    background:
+
+    rgba(212,175,55,.12);
+
+}
 
 
-    border:
 
-        1px solid
-        var(--reward-border);
+
+
+.history-empty{
+
+
+    padding:30px;
+
+
+    text-align:center;
+
+
+    color:
+
+    var(--reward-muted);
+
+
+    background:
+
+    rgba(255,255,255,.04);
 
 
     border-radius:
 
-        var(--reward-radius-md);
-
-
-
-    background:
-
-        linear-gradient(
-
-            145deg,
-
-            #202020,
-
-            #111111
-
-        );
-
-
-    box-shadow:
-
-        var(--reward-shadow);
+    var(--reward-radius-md);
 
 }
 
 
-
-.info-header {
-
-
-    display:flex;
-
-
-    align-items:center;
-
-
-    gap:12px;
-
-
-    margin-bottom:18px;
-
-}
-
-
-
-.info-icon {
-
-
-    width:45px;
-
-    height:45px;
-
-
-    display:flex;
-
-
-    align-items:center;
-
-    justify-content:center;
-
-
-    border-radius:14px;
-
-
-    background:
-
-        rgba(212,175,55,.12);
-
-
-    color:
-
-        var(--reward-gold-light);
-
-}
-
-
-
-.info-header h2 {
-
-
-    font-size:1.05rem;
-
-
-    font-weight:800;
-
-}
-
-
-
-.reward-info-list {
-
-
-    display:flex;
-
-
-    flex-direction:column;
-
-}
-
-
-
-.reward-info-item {
-
-
-    display:flex;
-
-
-    justify-content:space-between;
-
-
-    align-items:center;
-
-
-    gap:15px;
-
-
-    padding:15px 0;
-
-
-    border-bottom:
-
-
-        1px solid
-
-        rgba(255,255,255,.08);
-
-}
-
-
-
-.reward-info-item:last-child {
-
-
-    border-bottom:none;
-
-}
-
-
-
-.reward-info-item span {
-
-
-    display:flex;
-
-
-    align-items:center;
-
-
-    gap:9px;
-
-
-    color:
-
-        var(--reward-muted);
-
-
-    font-size:.82rem;
-
-}
-
-
-
-.reward-info-item span i {
-
-
-    color:
-
-        var(--reward-gold);
-
-
-}
-
-
-
-.reward-info-item strong {
-
-
-    color:
-
-        var(--reward-white);
-
-
-    font-size:.82rem;
-
-
-    text-align:right;
-
-}
 
 
 
 /* =========================================================
-   HOW REWARD WORKS RULES
+   NAVIGATION SPACE
 ========================================================= */
 
 
-.reward-rules {
+.navigation-space{
 
 
-    padding:24px;
-
-
-    margin-bottom:20px;
-
-
-    border:
-
-        1px solid
-        rgba(255,255,255,.08);
-
-
-    border-radius:
-
-        var(--reward-radius-md);
-
-
-    background:
-
-        var(--reward-card);
-
-
-    box-shadow:
-
-        var(--reward-shadow);
+    height:80px;
 
 }
 
 
-
-.rules-header {
-
-
-    display:flex;
-
-
-    align-items:center;
-
-
-    gap:12px;
-
-
-    margin-bottom:18px;
-
-}
-
-
-
-.rules-icon {
-
-
-    width:45px;
-
-
-    height:45px;
-
-
-    display:flex;
-
-
-    align-items:center;
-
-
-    justify-content:center;
-
-
-    border-radius:14px;
-
-
-    background:
-
-        rgba(198,40,40,.18);
-
-
-    color:
-
-        var(--reward-gold-light);
-
-}
-
-
-
-.rules-header h2 {
-
-
-    font-size:1.05rem;
-
-
-    font-weight:800;
-
-}
-
-
-
-.reward-rules ul {
-
-
-    list-style:none;
-
-
-    display:flex;
-
-
-    flex-direction:column;
-
-
-    gap:13px;
-
-}
-
-
-
-.reward-rules li {
-
-
-    display:flex;
-
-
-    align-items:flex-start;
-
-
-    gap:10px;
-
-
-    color:
-
-        var(--reward-muted);
-
-
-    font-size:.82rem;
-
-
-    line-height:1.6;
-
-}
-
-
-
-.rule-icon {
-
-
-    flex-shrink:0;
-
-
-    margin-top:3px;
-
-
-    color:
-
-        var(--reward-gold-light);
-
-}
-
-
-
-/* =========================================================
-   SECURITY NOTICE
-========================================================= */
-
-
-.reward-security-notice {
-
-
-    display:flex;
-
-
-    align-items:flex-start;
-
-
-    gap:14px;
-
-
-    padding:20px;
-
-
-    margin-bottom:20px;
-
-
-    border:
-
-        1px solid
-
-        rgba(37,211,102,.18);
-
-
-    border-radius:
-
-        var(--reward-radius-md);
-
-
-    background:
-
-        rgba(37,211,102,.05);
-
-}
-
-
-
-.security-icon {
-
-
-    width:45px;
-
-
-    height:45px;
-
-
-    flex-shrink:0;
-
-
-    display:flex;
-
-
-    align-items:center;
-
-
-    justify-content:center;
-
-
-    border-radius:14px;
-
-
-    background:
-
-        rgba(37,211,102,.10);
-
-
-    color:
-
-        var(--reward-green);
-
-}
-
-
-
-.security-content h3 {
-
-
-    font-size:.95rem;
-
-
-    margin-bottom:5px;
-
-
-}
-
-
-
-.security-content p {
-
-
-    color:
-
-        var(--reward-muted);
-
-
-    font-size:.78rem;
-
-
-    line-height:1.6;
-
-}
-
-
-
-/* =========================================================
-   BACK BUTTON
-========================================================= */
-
-
-.reward-back-section {
-
-
-    margin-bottom:25px;
-
-}
-
-
-
-.back-dashboard-btn {
-
-
-    background:
-
-        linear-gradient(
-
-            135deg,
-
-            var(--reward-red),
-
-            var(--reward-red-dark)
-
-        );
-
-
-    color:
-
-        var(--reward-white);
-
-
-    box-shadow:
-
-        0 10px 25px
-
-        rgba(198,40,40,.25);
-
-}
-
-
-
-.back-dashboard-btn:hover {
-
-
-    transform:
-
-        translateY(-2px);
-
-}
-
-
-
-/* =========================================================
-   ACCESSIBILITY
-========================================================= */
-
-
-button:focus-visible,
-a:focus-visible {
-
-
-    outline:
-
-        2px solid
-
-        var(--reward-gold-light);
-
-
-    outline-offset:
-
-        3px;
-
-}
 
 
 
@@ -2118,7 +1928,6 @@ a:focus-visible {
    FINAL FIXED PRODUCTION VERSION
 
    PART 4/4
-   RESPONSIVE + FINAL POLISH
 ========================================================= */
 
 
@@ -2128,48 +1937,34 @@ a:focus-visible {
 ========================================================= */
 
 
-@media (max-width:380px){
+@media(max-width:380px){
 
 
-    .reward-page {
+    .reward-page{
 
         padding:
 
-            14px
+        14px
 
-            12px
+        12px
 
-            30px;
+        30px;
 
     }
 
 
 
-    .reward-header {
+    .reward-header{
 
         padding:18px;
 
-        gap:12px;
+        border-radius:20px;
 
     }
 
 
 
-    .reward-header-icon {
-
-        width:48px;
-
-        height:48px;
-
-        font-size:1.2rem;
-
-        border-radius:14px;
-
-    }
-
-
-
-    .reward-header h1 {
+    .reward-header h1{
 
         font-size:1.15rem;
 
@@ -2177,81 +1972,56 @@ a:focus-visible {
 
 
 
-    .reward-header span {
+    .reward-summary-card,
+    .cycle-info-card,
+    .reward-item-card,
+    .history-card{
 
-        font-size:.65rem;
-
-    }
-
-
-
-    .reward-profile {
-
-        padding:22px 15px;
+        padding:16px;
 
     }
 
 
 
-    .reward-avatar-wrapper {
+    .summary-icon{
 
-        width:85px;
+        width:45px;
 
-        height:85px;
-
-    }
-
-
-
-    .reward-card {
-
-        padding:22px 15px;
+        height:45px;
 
     }
 
 
 
-    .reward-card h2 {
+    .summary-details h2{
 
-        font-size:1.15rem;
-
-    }
-
-
-
-    .reward-stamp-count strong {
-
-        font-size:1.8rem;
+        font-size:1.5rem;
 
     }
 
 
 
-    .reward-stamp-container {
+    .cycle-details p{
 
-        gap:10px;
+        flex-direction:column;
 
-    }
-
-
-
-    .reward-stamp-box {
-
-        border-radius:14px;
+        gap:4px;
 
     }
 
 
 
-    .reward-info-card,
-    .reward-rules {
+    .reward-item-title{
 
-        padding:18px;
+        font-size:.9rem;
 
     }
+
 
 
 }
+
+
 
 
 
@@ -2260,50 +2030,51 @@ a:focus-visible {
 ========================================================= */
 
 
-@media
-(max-height:500px)
-and
-(orientation:landscape){
+@media(max-height:500px)
+and (orientation:landscape){
 
 
-    .reward-profile {
+    .reward-page{
 
-        padding:15px;
+        padding-top:15px;
 
     }
 
 
 
-    .reward-avatar-wrapper {
+    .reward-header{
 
-        width:70px;
-
-        height:70px;
+        margin-bottom:15px;
 
     }
 
 
 
-    .reward-card {
+    .reward-item-card{
 
-        padding:20px;
+        padding:18px;
 
     }
+
 
 
 }
 
 
 
+
+
 /* =========================================================
-   TABLET
+   TABLET DEVICES
 ========================================================= */
 
 
-@media (min-width:600px){
+@media(min-width:600px){
 
 
-    .reward-page {
+
+    .reward-page{
+
 
         padding-left:30px;
 
@@ -2313,7 +2084,31 @@ and
 
 
 
-    .reward-header {
+
+    .rewards-grid{
+
+
+        grid-template-columns:
+
+        repeat(2,1fr);
+
+    }
+
+
+
+
+    .reward-header h1{
+
+
+        font-size:1.6rem;
+
+    }
+
+
+
+
+    .cycle-info-card{
+
 
         padding:28px;
 
@@ -2321,57 +2116,11 @@ and
 
 
 
-    .reward-header h1 {
-
-        font-size:1.65rem;
-
-    }
-
-
-
-    .reward-profile {
-
-        padding:35px;
-
-    }
-
-
-
-    .reward-avatar-wrapper {
-
-        width:120px;
-
-        height:120px;
-
-    }
-
-
-
-    .reward-card {
-
-        padding:38px;
-
-    }
-
-
-
-    .reward-stamp-container {
-
-        gap:18px;
-
-    }
-
-
-
-    .reward-stamp-box {
-
-        border-radius:22px;
-
-    }
-
-
-
 }
+
+
+
+
 
 
 
@@ -2380,12 +2129,15 @@ and
 ========================================================= */
 
 
-@media (min-width:900px){
+@media(min-width:900px){
 
 
-    .reward-page {
+
+    .reward-page{
+
 
         max-width:820px;
+
 
         padding-top:35px;
 
@@ -2393,53 +2145,46 @@ and
 
 
 
-    .reward-header {
 
-        padding:
+    .rewards-grid{
 
-            30px
-
-            35px;
-
-    }
-
-
-
-    .reward-profile h2 {
-
-        font-size:1.35rem;
-
-    }
-
-
-
-    .reward-card {
-
-        padding:45px;
-
-    }
-
-
-
-    .reward-stamp-container {
 
         grid-template-columns:
 
-            repeat(6,1fr);
+        repeat(2,1fr);
 
     }
 
 
 
-    .reward-stamp-box {
 
-        min-height:90px;
+    .reward-header{
+
+
+        padding:30px;
 
     }
+
+
+
+
+    .reward-item-card:hover{
+
+
+        transform:
+
+        translateY(-5px);
+
+    }
+
 
 
 
 }
+
+
+
+
 
 
 
@@ -2448,10 +2193,12 @@ and
 ========================================================= */
 
 
-@media (min-width:1200px){
+@media(min-width:1200px){
 
 
-    .reward-page {
+
+    .reward-page{
+
 
         max-width:900px;
 
@@ -2459,48 +2206,95 @@ and
 
 
 
-    .reward-card {
 
-        padding:55px;
+    .rewards-grid{
+
+
+        grid-template-columns:
+
+        repeat(3,1fr);
 
     }
 
 
 
+
 }
+
+
+
+
 
 
 
 /* =========================================================
-   BUTTON TOUCH IMPROVEMENT
+   TOUCH DEVICE OPTIMIZATION
 ========================================================= */
 
 
-@media (hover:none){
+@media(hover:none){
 
 
-    .premium-action-btn:active {
+
+    .reward-item-card:active{
 
 
         transform:
 
-            scale(.97);
+        scale(.98);
 
     }
 
 
 
-    .reward-stamp-box:active {
+    .reward-claim-btn:active{
 
 
         transform:
 
-            scale(.96);
+        scale(.97);
 
     }
+
 
 
 }
+
+
+
+
+
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+
+button:focus-visible,
+a:focus-visible{
+
+
+    outline:
+
+
+    2px solid
+
+    var(--reward-gold-light);
+
+
+
+    outline-offset:
+
+    3px;
+
+
+
+}
+
+
+
+
 
 
 
@@ -2509,33 +2303,39 @@ and
 ========================================================= */
 
 
-@media
-(prefers-reduced-motion:reduce){
+@media(prefers-reduced-motion:reduce){
 
 
     *,
     *::before,
-    *::after {
+    *::after{
 
 
         animation-duration:
 
-            .01ms !important;
+        .01ms !important;
+
 
 
         transition-duration:
 
-            .01ms !important;
+        .01ms !important;
+
 
 
         scroll-behavior:
 
-            auto !important;
+        auto !important;
+
 
     }
 
 
 }
+
+
+
+
 
 
 
@@ -2547,49 +2347,44 @@ and
 @media print{
 
 
-    body.reward-page-body {
+
+    body{
 
 
-        background:#ffffff;
+        background:#fff;
 
-        color:#000000;
-
-    }
-
-
-
-    #pageLoader {
-
-
-        display:none;
+        color:#000;
 
     }
 
 
 
-    .reward-card,
-    .reward-profile,
-    .reward-info-card,
-    .reward-rules,
-    .reward-security-notice,
-    .status-card {
+    .reward-header,
+    .reward-item-card,
+    .cycle-info-card,
+    .history-card{
 
-
-        background:#ffffff;
-
-        color:#000000;
 
         box-shadow:none;
 
+
         border:
 
-            1px solid #cccccc;
+        1px solid #ccc;
+
+
+        background:#fff;
+
+
+        color:#000;
+
 
     }
 
 
 
-    .reward-back-section {
+    .reward-claim-btn,
+    .navigation-space{
 
 
         display:none;
@@ -2597,50 +2392,62 @@ and
     }
 
 
+
 }
+
+
+
+
 
 
 
 /* =========================================================
-   FINAL UTILITY FIXES
+   FINAL FIXES
 ========================================================= */
 
 
-/* Prevent overflow */
 
 .reward-page,
-.reward-card,
-.reward-info-card,
-.reward-rules {
+.reward-item-card,
+.cycle-info-card,
+.history-card{
+
 
     overflow:hidden;
 
+
 }
 
 
 
-/* Smooth image rendering */
 
-.reward-avatar-wrapper img {
+img{
+
 
     image-rendering:auto;
 
+
 }
 
 
 
-/* Remove tap highlight */
+
 
 button,
-a {
+a{
+
 
     -webkit-tap-highlight-color:transparent;
 
+
 }
+
+
 
 
 
 /* =========================================================
    END OF REWARD.CSS
-   FINAL FIXED VERSION
+
+   FINAL FIXED PRODUCTION VERSION
 ========================================================= */
