@@ -3,13 +3,9 @@
    PREMIUM REWARD SYSTEM
 
    FILE : reward.css
-   COMPLETE VERSION
+   FINAL FIXED PRODUCTION VERSION
 
-   RESPONSIVE
-   MOBILE
-   TABLET
-   LAPTOP
-   DESKTOP
+   PART 1/4
 ========================================================= */
 
 
@@ -19,40 +15,38 @@
 
 :root {
 
-    --red: #c62828;
-    --red-dark: #8e1b1b;
-    --red-light: #e53935;
+    --reward-red: #c62828;
+    --reward-red-dark: #8e1b1b;
+    --reward-red-light: #e53935;
 
-    --gold: #d4af37;
-    --gold-light: #f5d77a;
-    --gold-dark: #9c7a16;
+    --reward-gold: #d4af37;
+    --reward-gold-light: #f5d77a;
 
-    --black: #0d0d0d;
-    --black-soft: #151515;
-    --black-card: #1b1b1b;
+    --reward-black: #0b0b0b;
+    --reward-card: #171717;
+    --reward-card-soft: #222222;
 
-    --white: #ffffff;
-    --text-light: #f5f5f5;
-    --text-muted: #b8b8b8;
+    --reward-white: #ffffff;
+    --reward-text: #f5f5f5;
+    --reward-muted: #b5b5b5;
 
-    --green: #25d366;
+    --reward-green: #25d366;
 
-    --border: rgba(212, 175, 55, 0.25);
+    --reward-border:
+        rgba(212,175,55,0.25);
 
-    --shadow:
-        0 15px 40px rgba(0, 0, 0, 0.35);
+    --reward-shadow:
+        0 15px 40px
+        rgba(0,0,0,0.45);
 
-    --gold-shadow:
-        0 10px 30px rgba(212, 175, 55, 0.15);
+    --reward-radius-sm: 12px;
+    --reward-radius-md: 18px;
+    --reward-radius-lg: 26px;
 
-    --radius-sm: 10px;
-    --radius-md: 16px;
-    --radius-lg: 24px;
-    --radius-xl: 30px;
-
-    --nav-height: 78px;
+    --content-width: 760px;
 
 }
+
 
 
 /* =========================================================
@@ -61,91 +55,99 @@
 
 * {
 
-    margin: 0;
-
-    padding: 0;
-
-    box-sizing: border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 
 }
+
 
 
 html {
 
-    scroll-behavior: smooth;
+    scroll-behavior:smooth;
 
 }
 
 
-body {
 
-    min-height: 100vh;
+body.reward-page-body {
+
+    min-height:100vh;
 
     font-family:
         "Poppins",
         Arial,
         sans-serif;
 
+
+    color:
+        var(--reward-text);
+
+
     background:
+
         radial-gradient(
             circle at top,
-            rgba(198, 40, 40, 0.18),
+            rgba(198,40,40,0.20),
             transparent 35%
         ),
+
         linear-gradient(
             135deg,
-            #080808,
-            #111111 50%,
-            #080808
+            #070707,
+            #121212,
+            #070707
         );
 
-    color: var(--text-light);
 
-    overflow-x: hidden;
+    overflow-x:hidden;
 
 }
+
 
 
 /* =========================================================
-   LINKS
+   COMMON ELEMENTS
 ========================================================= */
 
+
 a {
 
-    color: inherit;
+    text-decoration:none;
 
-    text-decoration: none;
+    color:inherit;
 
 }
 
-
-button,
-a {
-
-    -webkit-tap-highlight-color:
-        transparent;
-
-}
 
 
 button {
 
-    font-family: inherit;
+    font-family:inherit;
 
 }
 
 
-/* =========================================================
-   PAGE
-========================================================= */
 
-.page {
+img {
 
-    width: 100%;
+    max-width:100%;
 
-    max-width: 760px;
+}
 
-    margin: 0 auto;
+
+
+.reward-page {
+
+    width:100%;
+
+    max-width:
+        var(--content-width);
+
+    margin:
+        auto;
+
 
     padding:
 
@@ -153,1796 +155,2492 @@ button {
 
         20px
 
-        calc(
-            var(--nav-height) + 35px
-        );
+        40px;
 
 }
+
 
 
 /* =========================================================
    PAGE LOADER
+   Compatible with reward.html #pageLoader
 ========================================================= */
 
-.reward-loader {
 
-    position: fixed;
+#pageLoader {
 
-    inset: 0;
+    position:fixed;
 
-    z-index: 9999;
+    inset:0;
 
-    display: flex;
+    z-index:9999;
 
-    flex-direction: column;
 
-    align-items: center;
+    display:flex;
 
-    justify-content: center;
+    flex-direction:column;
 
-    gap: 16px;
+    align-items:center;
+
+    justify-content:center;
+
+
+    gap:15px;
+
 
     background:
+
         radial-gradient(
-            circle at center,
+            circle,
             #241010,
-            #080808 70%
+            #050505 75%
         );
 
-    opacity: 1;
-
-    visibility: visible;
 
     transition:
-        opacity 0.4s ease,
-        visibility 0.4s ease;
+        opacity .35s ease,
+        visibility .35s ease;
 
 }
 
 
-.reward-loader.hidden {
 
-    opacity: 0;
+#pageLoader.hidden {
 
-    visibility: hidden;
+    opacity:0;
 
-    pointer-events: none;
+    visibility:hidden;
 
-}
-
-
-.reward-loader h2 {
-
-    color: var(--gold-light);
-
-    font-size: 1.15rem;
-
-    font-weight: 700;
-
-    letter-spacing: 2px;
+    pointer-events:none;
 
 }
 
 
-.reward-loader p {
 
-    color: var(--text-muted);
+.loader-logo {
 
-    font-size: 0.85rem;
+    width:70px;
+
+    height:70px;
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+    border-radius:50%;
+
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--reward-gold-light),
+            var(--reward-gold)
+        );
+
+
+    color:
+        var(--reward-black);
+
+
+    font-size:2rem;
+
 
 }
 
 
-.loader-ring {
 
-    width: 55px;
+.loader-spinner {
 
-    height: 55px;
+    width:45px;
 
-    border-radius: 50%;
+    height:45px;
 
-    border: 4px solid
-        rgba(212, 175, 55, 0.2);
+
+    border-radius:50%;
+
+
+    border:
+
+        4px solid
+        rgba(212,175,55,.25);
+
 
     border-top-color:
-        var(--gold);
+        var(--reward-gold);
+
 
     animation:
-        rewardLoaderSpin
-        0.9s
+
+        rewardSpin
+        0.8s
         linear
         infinite;
 
 }
 
 
-@keyframes rewardLoaderSpin {
+
+@keyframes rewardSpin {
+
+    from {
+
+        transform:rotate(0deg);
+
+    }
+
 
     to {
 
-        transform:
-            rotate(360deg);
+        transform:rotate(360deg);
 
     }
 
 }
 
 
+
+#pageLoader p {
+
+    color:
+        var(--reward-muted);
+
+    font-size:.85rem;
+
+}
+
+
+
 /* =========================================================
-   REWARD HEADER
+   HEADER
 ========================================================= */
+
 
 .reward-header {
 
-    position: relative;
+    position:relative;
 
-    display: flex;
 
-    align-items: center;
+    display:flex;
 
-    gap: 16px;
+    align-items:center;
 
-    padding: 22px;
+    gap:16px;
 
-    margin-bottom: 18px;
+
+    padding:22px;
+
+
+    margin-bottom:20px;
+
 
     border:
+
         1px solid
-        var(--border);
+        var(--reward-border);
+
 
     border-radius:
-        var(--radius-lg);
+
+        var(--reward-radius-lg);
+
+
 
     background:
+
         linear-gradient(
+
             135deg,
-            rgba(198, 40, 40, 0.9),
-            rgba(90, 15, 15, 0.95)
+
+            rgba(198,40,40,.95),
+
+            rgba(100,20,20,.95)
+
         );
 
+
     box-shadow:
-        var(--shadow);
 
-    overflow: hidden;
-
-}
+        var(--reward-shadow);
 
 
-.reward-header::before {
-
-    content: "";
-
-    position: absolute;
-
-    width: 150px;
-
-    height: 150px;
-
-    right: -60px;
-
-    top: -70px;
-
-    border-radius: 50%;
-
-    background:
-        rgba(212, 175, 55, 0.15);
+    overflow:hidden;
 
 }
 
 
-.header-icon {
 
-    position: relative;
+.reward-header::after {
 
-    z-index: 1;
+    content:"";
 
-    width: 58px;
 
-    height: 58px;
+    position:absolute;
 
-    flex-shrink: 0;
 
-    display: flex;
+    width:180px;
 
-    align-items: center;
+    height:180px;
 
-    justify-content: center;
 
-    border-radius: 18px;
+    right:-70px;
+
+    top:-80px;
+
+
+    border-radius:50%;
+
 
     background:
+
+        rgba(212,175,55,.15);
+
+}
+
+
+
+.reward-header-icon {
+
+
+    position:relative;
+
+    z-index:1;
+
+
+    width:58px;
+
+    height:58px;
+
+
+    flex-shrink:0;
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+    border-radius:18px;
+
+
+    background:
+
         linear-gradient(
+
             135deg,
-            var(--gold-light),
-            var(--gold)
+
+            var(--reward-gold-light),
+
+            var(--reward-gold)
+
         );
 
-    color: var(--black);
 
-    font-size: 1.5rem;
+    color:
 
-    box-shadow:
-        var(--gold-shadow);
+        var(--reward-black);
+
+
+    font-size:1.5rem;
+
 
 }
+
+
+
+.reward-header span {
+
+    position:relative;
+
+    z-index:1;
+
+
+    color:
+
+        var(--reward-gold-light);
+
+
+    font-size:.75rem;
+
+
+    font-weight:700;
+
+
+    letter-spacing:1.5px;
+
+}
+
 
 
 .reward-header h1 {
 
-    position: relative;
+    position:relative;
 
-    z-index: 1;
+    z-index:1;
 
-    font-size: 1.45rem;
 
-    line-height: 1.2;
+    margin-top:3px;
 
-    font-weight: 800;
+
+    font-size:1.45rem;
+
+
+    font-weight:800;
+
 
 }
+
 
 
 .reward-header p {
 
-    position: relative;
+    position:relative;
 
-    z-index: 1;
+    z-index:1;
 
-    margin-top: 5px;
+
+    margin-top:5px;
+
 
     color:
-        rgba(255, 255, 255, 0.75);
 
-    font-size: 0.78rem;
+        rgba(255,255,255,.75);
+
+
+    font-size:.8rem;
 
 }
 
 
 /* =========================================================
-   CUSTOMER PROFILE
+   END PART 1/4
 ========================================================= */
+/* =========================================================
+   RIO MAGGI POINT
+   PREMIUM REWARD SYSTEM
+
+   FILE : reward.css
+   FINAL FIXED PRODUCTION VERSION
+
+   PART 2/4
+========================================================= */
+
+
+
+/* =========================================================
+   CUSTOMER PROFILE CARD
+========================================================= */
+
 
 .reward-profile {
 
-    display: flex;
+    display:flex;
 
-    flex-direction: column;
+    flex-direction:column;
 
-    align-items: center;
+    align-items:center;
 
-    text-align: center;
+    text-align:center;
 
-    padding: 25px 20px;
 
-    margin-bottom: 18px;
+    padding:26px 20px;
+
+
+    margin-bottom:20px;
+
 
     border:
+
         1px solid
-        rgba(255, 255, 255, 0.07);
+        rgba(255,255,255,.08);
+
 
     border-radius:
-        var(--radius-lg);
+
+        var(--reward-radius-lg);
+
 
     background:
+
         linear-gradient(
+
             145deg,
-            rgba(35, 35, 35, 0.95),
-            rgba(15, 15, 15, 0.98)
+
+            #222222,
+
+            #111111
+
         );
 
+
     box-shadow:
-        var(--shadow);
+
+        var(--reward-shadow);
 
 }
+
 
 
 .reward-avatar-wrapper {
 
-    width: 100px;
+    width:100px;
 
-    height: 100px;
+    height:100px;
 
-    padding: 4px;
 
-    margin-bottom: 12px;
+    padding:4px;
 
-    border-radius: 50%;
+
+    margin-bottom:12px;
+
+
+    border-radius:50%;
+
 
     background:
+
         linear-gradient(
+
             135deg,
-            var(--gold-light),
-            var(--red),
-            var(--gold)
+
+            var(--reward-gold),
+
+            var(--reward-red),
+
+            var(--reward-gold-light)
+
         );
 
-    box-shadow:
-        0 0 0 5px
-            rgba(212, 175, 55, 0.08),
-        0 10px 25px
-            rgba(0, 0, 0, 0.4);
 
 }
+
 
 
 .reward-avatar-wrapper img {
 
-    width: 100%;
+    width:100%;
 
-    height: 100%;
+    height:100%;
 
-    display: block;
 
-    object-fit: cover;
+    object-fit:cover;
 
-    border-radius: 50%;
+
+    border-radius:50%;
+
 
     background:
-        var(--black-soft);
+
+        var(--reward-card);
 
 }
 
-
-.reward-profile h2 {
-
-    font-size: 1.2rem;
-
-    font-weight: 700;
-
-}
 
 
 .reward-profile p {
 
-    margin-top: 4px;
+    color:
 
-    color: var(--gold-light);
+        var(--reward-gold-light);
 
-    font-size: 0.78rem;
 
-    font-weight: 600;
+    font-size:.78rem;
 
-    letter-spacing: 1px;
+
+    font-weight:700;
+
+
+    letter-spacing:1px;
 
 }
+
+
+
+.reward-profile h2 {
+
+    margin-top:5px;
+
+
+    font-size:1.2rem;
+
+
+    font-weight:800;
+
+}
+
 
 
 /* =========================================================
-   REWARD CARD
+   MAIN REWARD CARD
 ========================================================= */
+
 
 .reward-card {
 
-    position: relative;
+    position:relative;
 
-    text-align: center;
 
-    padding: 28px 22px;
+    padding:28px 22px;
 
-    margin-bottom: 18px;
+
+    margin-bottom:20px;
+
+
+    text-align:center;
+
+
+    overflow:hidden;
+
 
     border:
+
         1px solid
-        var(--border);
+        var(--reward-border);
+
 
     border-radius:
-        var(--radius-xl);
+
+        var(--reward-radius-lg);
+
+
 
     background:
+
         linear-gradient(
+
             145deg,
-            #242424,
+
+            #252525,
+
             #101010
+
         );
 
-    box-shadow:
-        var(--shadow),
-        inset 0 1px 0
-            rgba(255, 255, 255, 0.04);
 
-    overflow: hidden;
+    box-shadow:
+
+        var(--reward-shadow);
 
 }
+
 
 
 .reward-card::before {
 
-    content: "";
+    content:"";
 
-    position: absolute;
 
-    width: 220px;
+    position:absolute;
 
-    height: 220px;
 
-    left: 50%;
+    width:240px;
 
-    top: -140px;
+    height:240px;
+
+
+    left:50%;
+
+    top:-160px;
+
 
     transform:
+
         translateX(-50%);
 
-    border-radius: 50%;
+
+    border-radius:50%;
+
 
     background:
-        rgba(198, 40, 40, 0.15);
 
-    filter:
-        blur(5px);
+        rgba(198,40,40,.18);
+
 
 }
 
-
-.reward-image {
-
-    position: relative;
-
-    width: 150px;
-
-    height: 150px;
-
-    margin: 0 auto 18px;
-
-    padding: 8px;
-
-    border-radius: 50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--gold),
-            var(--red)
-        );
-
-    box-shadow:
-        0 12px 35px
-        rgba(0, 0, 0, 0.45);
-
-}
-
-
-.reward-image img {
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: cover;
-
-    border-radius: 50%;
-
-    background:
-        var(--black-soft);
-
-}
 
 
 .reward-card h2 {
 
-    position: relative;
 
-    font-size: 1.35rem;
+    position:relative;
 
-    font-weight: 800;
 
     color:
-        var(--gold-light);
 
-    letter-spacing: 1px;
-
-}
+        var(--reward-gold-light);
 
 
-#rewardStatus {
+    font-size:1.35rem;
 
-    position: relative;
 
-    margin-top: 8px;
+    font-weight:800;
 
-    color: var(--text-muted);
 
-    font-size: 0.85rem;
-
-    font-weight: 600;
+    letter-spacing:1px;
 
 }
+
 
 
 /* =========================================================
-   REWARD PROGRESS
+   STAMP COUNT
 ========================================================= */
+
+
+.reward-stamp-count {
+
+    position:relative;
+
+
+    display:flex;
+
+    flex-direction:column;
+
+
+    align-items:center;
+
+
+    margin-top:20px;
+
+}
+
+
+
+.reward-stamp-count strong {
+
+
+    color:
+
+        var(--reward-gold-light);
+
+
+    font-size:2.2rem;
+
+
+    font-weight:900;
+
+
+}
+
+
+
+.reward-stamp-count span {
+
+
+    color:
+
+        var(--reward-muted);
+
+
+    font-size:.8rem;
+
+
+    margin-top:4px;
+
+
+}
+
+
+
+/* =========================================================
+   PROGRESS BAR
+========================================================= */
+
 
 .reward-progress {
 
-    position: relative;
+    position:relative;
 
-    margin-top: 25px;
+
+    margin-top:25px;
 
 }
+
 
 
 .progress-bar {
 
-    width: 100%;
 
-    height: 12px;
+    width:100%;
 
-    overflow: hidden;
 
-    border-radius: 50px;
+    height:12px;
+
+
+    overflow:hidden;
+
+
+    border-radius:50px;
+
 
     background:
-        rgba(255, 255, 255, 0.08);
+
+        rgba(255,255,255,.10);
+
 
     border:
+
         1px solid
-        rgba(255, 255, 255, 0.08);
+        rgba(255,255,255,.08);
+
 
 }
+
 
 
 .progress-fill {
 
-    width: 0%;
 
-    height: 100%;
+    width:0%;
 
-    border-radius: inherit;
+
+    height:100%;
+
+
+    border-radius:inherit;
+
 
     background:
+
+
         linear-gradient(
+
             90deg,
-            var(--red),
-            var(--gold-light)
+
+            var(--reward-red),
+
+            var(--reward-gold-light)
+
         );
+
 
     box-shadow:
+
         0 0 15px
-        rgba(212, 175, 55, 0.4);
+        rgba(212,175,55,.45);
+
 
     transition:
-        width 0.6s
-        cubic-bezier(
-            0.22,
-            1,
-            0.36,
-            1
-        );
+
+        width .6s ease;
 
 }
+
 
 
 .reward-progress p {
 
-    margin-top: 10px;
 
-    color: var(--text-muted);
-
-    font-size: 0.8rem;
-
-}
+    margin-top:10px;
 
 
-#rewardStampCount {
+    color:
 
-    color: var(--gold-light);
+        var(--reward-muted);
 
-    font-weight: 800;
+
+    font-size:.8rem;
+
 
 }
+
 
 
 /* =========================================================
-   CLAIM SECTION
+   STAMP BOXES
 ========================================================= */
 
-.claim-section {
 
-    padding: 24px;
+.reward-stamp-container {
 
-    margin-bottom: 18px;
+
+    position:relative;
+
+
+    display:grid;
+
+
+    grid-template-columns:
+
+        repeat(3,1fr);
+
+
+    gap:14px;
+
+
+    margin-top:28px;
+
+}
+
+
+
+.reward-stamp-box {
+
+
+    aspect-ratio:1/1;
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    gap:8px;
+
+
+    border-radius:18px;
+
 
     border:
+
         1px solid
-        var(--border);
+        rgba(255,255,255,.12);
 
-    border-radius:
-        var(--radius-lg);
 
     background:
-        linear-gradient(
-            145deg,
-            rgba(35, 35, 35, 0.98),
-            rgba(17, 17, 17, 0.98)
-        );
 
-    box-shadow:
-        var(--shadow);
+        rgba(255,255,255,.04);
 
-}
-
-
-.claim-header {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-
-}
-
-
-.claim-icon {
-
-    width: 50px;
-
-    height: 50px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 15px;
-
-    background:
-        rgba(198, 40, 40, 0.18);
 
     color:
-        var(--gold-light);
 
-    font-size: 1.25rem;
+        var(--reward-muted);
 
-}
-
-
-.section-label {
-
-    display: block;
-
-    margin-bottom: 3px;
-
-    color: var(--gold);
-
-    font-size: 0.68rem;
-
-    font-weight: 700;
-
-    letter-spacing: 1.5px;
-
-}
-
-
-.claim-header h2 {
-
-    font-size: 1.05rem;
-
-    font-weight: 700;
-
-}
-
-
-.claim-message {
-
-    margin-top: 18px;
-
-    padding: 14px;
-
-    border-radius:
-        var(--radius-sm);
-
-    background:
-        rgba(255, 255, 255, 0.04);
-
-    color:
-        var(--text-muted);
-
-    font-size: 0.82rem;
-
-    line-height: 1.6;
-
-}
-
-
-/* =========================================================
-   CLAIM BUTTON
-========================================================= */
-
-.claim-btn {
-
-    width: 100%;
-
-    min-height: 54px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 10px;
-
-    margin-top: 18px;
-
-    padding: 14px 20px;
-
-    border: none;
-
-    border-radius:
-        var(--radius-md);
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--gold-light),
-            var(--gold)
-        );
-
-    color: var(--black);
-
-    font-size: 0.92rem;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 10px 25px
-        rgba(212, 175, 55, 0.18);
 
     transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        opacity 0.25s ease;
+
+        all .3s ease;
 
 }
 
 
-.claim-btn:not(:disabled):hover {
 
-    transform:
-        translateY(-2px);
+.reward-stamp-box i {
 
-    box-shadow:
-        0 15px 30px
-        rgba(212, 175, 55, 0.3);
+
+    font-size:1.3rem;
+
 
 }
 
 
-.claim-btn:not(:disabled):active {
 
-    transform:
-        translateY(0);
+.reward-stamp-box span {
+
+
+    font-size:.75rem;
+
+
+    font-weight:700;
+
 
 }
 
 
-.claim-btn:disabled {
 
-    cursor:
-        not-allowed;
+/* COLLECTED STAMP */
 
-    opacity:
-        0.45;
+
+.reward-stamp-box.active,
+
+.reward-stamp-box.collected {
+
 
     background:
+
+
         linear-gradient(
+
             135deg,
-            #666,
-            #444
+
+            rgba(198,40,40,.85),
+
+            rgba(212,175,55,.75)
+
         );
 
+
     color:
-        #ddd;
+
+        #ffffff;
+
+
+    border-color:
+
+        var(--reward-gold);
+
+
+    transform:
+
+        translateY(-3px);
+
 
     box-shadow:
-        none;
+
+        0 8px 20px
+        rgba(212,175,55,.25);
 
 }
 
-
-.claim-processing {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 9px;
-
-    margin-top: 14px;
-
-    color:
-        var(--gold-light);
-
-    font-size: 0.8rem;
-
-}
 
 
 /* =========================================================
-   REWARD RULES
+   REWARD STATUS
 ========================================================= */
 
-.reward-rules {
 
-    padding: 24px;
+.reward-status {
 
-    margin-bottom: 18px;
 
-    border:
-        1px solid
-        rgba(255, 255, 255, 0.07);
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:14px;
+
+
+    padding:18px;
+
+
+    margin-bottom:18px;
+
 
     border-radius:
-        var(--radius-lg);
+
+        var(--reward-radius-md);
+
+
+    border:
+
+        1px solid
+        rgba(255,255,255,.08);
+
 
     background:
-        var(--black-card);
+
+        linear-gradient(
+
+            145deg,
+
+            #202020,
+
+            #111111
+
+        );
+
 
     box-shadow:
-        var(--shadow);
+
+        var(--reward-shadow);
 
 }
 
 
-.rules-header {
 
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    margin-bottom: 18px;
-
-}
+.reward-status-icon {
 
 
-.rules-icon {
+    width:50px;
 
-    width: 44px;
+    height:50px;
 
-    height: 44px;
 
-    display: flex;
+    flex-shrink:0;
 
-    align-items: center;
 
-    justify-content: center;
+    display:flex;
 
-    border-radius: 13px;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+    border-radius:15px;
+
 
     background:
-        rgba(198, 40, 40, 0.18);
+
+        rgba(212,175,55,.12);
+
 
     color:
-        var(--gold-light);
+
+        var(--reward-gold-light);
+
+
+    font-size:1.2rem;
 
 }
 
 
-.rules-header h2 {
 
-    font-size: 1.05rem;
-
-}
+.reward-status-content {
 
 
-.reward-rules ul {
+    display:flex;
 
-    display: flex;
 
-    flex-direction: column;
+    flex-direction:column;
 
-    gap: 12px;
 
-    list-style: none;
+    gap:5px;
 
 }
 
 
-.reward-rules li {
 
-    display: flex;
+.reward-status-content strong {
 
-    align-items: flex-start;
 
-    gap: 10px;
+    font-size:.95rem;
+
+
+}
+
+
+
+.reward-status-content span {
+
 
     color:
-        var(--text-muted);
 
-    font-size: 0.8rem;
+        var(--reward-muted);
 
-    line-height: 1.55;
+
+    font-size:.78rem;
+
+
+    line-height:1.5;
 
 }
 
 
-.rule-icon {
 
-    flex-shrink: 0;
+/* UNLOCKED STATE */
 
-    width: 24px;
+
+.reward-status.reward-unlocked {
+
+
+    border-color:
+
+        rgba(212,175,55,.55);
+
+
+    background:
+
+
+        linear-gradient(
+
+            145deg,
+
+            rgba(212,175,55,.15),
+
+            #151515
+
+        );
+
+}
+
+
+
+/* =========================================================
+   CLAIM BUTTON AREA
+========================================================= */
+
+
+.reward-action-area {
+
+
+    margin-bottom:20px;
+
+}
+
+
+
+.premium-action-btn {
+
+
+    width:100%;
+
+
+    min-height:54px;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    gap:10px;
+
+
+    padding:14px 20px;
+
+
+    border:none;
+
+
+    border-radius:
+
+        var(--reward-radius-md);
+
+
+    cursor:pointer;
+
+
+    font-size:.9rem;
+
+
+    font-weight:800;
+
+
+    transition:
+
+        transform .25s ease,
+
+        box-shadow .25s ease;
+
+}
+
+
+
+#claimRewardBtn:not(:disabled) {
+
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            var(--reward-gold-light),
+
+            var(--reward-gold)
+
+        );
+
+
+    color:
+
+        #111;
+
+
+    box-shadow:
+
+        0 10px 30px
+        rgba(212,175,55,.3);
+
+}
+
+
+
+#claimRewardBtn:not(:disabled):hover {
+
+
+    transform:
+
+        translateY(-2px);
+
+}
+
+
+
+#claimRewardBtn:disabled {
+
+
+    background:
+
+        linear-gradient(
+
+            135deg,
+
+            #666,
+
+            #444
+
+        );
+
+
+    color:
+
+        #ddd;
+
+
+    cursor:
+
+        not-allowed;
+
+
+    opacity:.65;
 
 }
 
 
 /* =========================================================
-   REDEEM STATUS
+   END PART 2/4
 ========================================================= */
+/* =========================================================
+   RIO MAGGI POINT
+   PREMIUM REWARD SYSTEM
+
+   FILE : reward.css
+   FINAL FIXED PRODUCTION VERSION
+
+   PART 3/4
+========================================================= */
+
+
+
+/* =========================================================
+   40 DAY CYCLE STATUS
+========================================================= */
+
 
 .redeem-status {
 
-    margin-bottom: 18px;
+    margin-bottom:20px;
 
 }
+
 
 
 .status-card {
 
-    display: flex;
+    display:flex;
 
-    align-items: center;
+    align-items:center;
 
-    gap: 15px;
+    gap:15px;
 
-    padding: 20px;
+
+    padding:20px;
+
 
     border:
+
         1px solid
-        rgba(255, 255, 255, 0.07);
+        rgba(255,255,255,.08);
+
 
     border-radius:
-        var(--radius-lg);
+
+        var(--reward-radius-md);
+
 
     background:
+
         linear-gradient(
+
             135deg,
-            rgba(40, 40, 40, 0.95),
-            rgba(20, 20, 20, 0.95)
+
+            #242424,
+
+            #111111
+
         );
 
+
     box-shadow:
-        var(--shadow);
+
+        var(--reward-shadow);
 
 }
+
 
 
 .status-icon {
 
-    width: 52px;
 
-    height: 52px;
+    width:52px;
 
-    flex-shrink: 0;
+    height:52px;
 
-    display: flex;
 
-    align-items: center;
+    flex-shrink:0;
 
-    justify-content: center;
 
-    border-radius: 16px;
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+    border-radius:16px;
+
 
     background:
-        rgba(212, 175, 55, 0.12);
+
+        rgba(212,175,55,.12);
+
 
     color:
-        var(--gold-light);
 
-    font-size: 1.2rem;
+        var(--reward-gold-light);
+
+
+    font-size:1.25rem;
 
 }
+
 
 
 .status-content h3 {
 
-    font-size: 0.95rem;
 
-    font-weight: 700;
+    font-size:.95rem;
+
+
+    font-weight:700;
+
 
 }
 
 
-#redeemStatus {
 
-    margin-top: 5px;
+#rewardCycleDays {
+
+
+    margin-top:5px;
+
 
     color:
-        var(--gold-light);
 
-    font-size: 0.82rem;
+        var(--reward-gold-light);
 
-    font-weight: 600;
+
+    font-size:.85rem;
+
+
+    font-weight:800;
+
+
+    letter-spacing:1px;
 
 }
+
 
 
 /* =========================================================
-   REWARD INFORMATION
+   REWARD INFORMATION CARD
 ========================================================= */
+
 
 .reward-info-card {
 
-    padding: 24px;
 
-    margin-bottom: 18px;
+    padding:24px;
+
+
+    margin-bottom:20px;
+
 
     border:
+
         1px solid
-        var(--border);
+        var(--reward-border);
+
 
     border-radius:
-        var(--radius-lg);
+
+        var(--reward-radius-md);
+
+
 
     background:
+
         linear-gradient(
+
             145deg,
-            rgba(32, 32, 32, 0.98),
-            rgba(15, 15, 15, 0.98)
+
+            #202020,
+
+            #111111
+
         );
 
+
     box-shadow:
-        var(--shadow);
+
+        var(--reward-shadow);
 
 }
+
 
 
 .info-header {
 
-    display: flex;
 
-    align-items: center;
+    display:flex;
 
-    gap: 13px;
 
-    margin-bottom: 20px;
+    align-items:center;
+
+
+    gap:12px;
+
+
+    margin-bottom:18px;
 
 }
+
 
 
 .info-icon {
 
-    width: 46px;
 
-    height: 46px;
+    width:45px;
 
-    display: flex;
+    height:45px;
 
-    align-items: center;
 
-    justify-content: center;
+    display:flex;
 
-    border-radius: 14px;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+    border-radius:14px;
+
 
     background:
-        rgba(37, 211, 102, 0.08);
+
+        rgba(212,175,55,.12);
+
 
     color:
-        var(--gold-light);
+
+        var(--reward-gold-light);
 
 }
+
 
 
 .info-header h2 {
 
-    font-size: 1rem;
+
+    font-size:1.05rem;
+
+
+    font-weight:800;
 
 }
+
 
 
 .reward-info-list {
 
-    display: flex;
 
-    flex-direction: column;
+    display:flex;
 
-    gap: 0;
+
+    flex-direction:column;
 
 }
+
 
 
 .reward-info-item {
 
-    display: flex;
 
-    align-items: center;
+    display:flex;
 
-    justify-content: space-between;
 
-    gap: 15px;
+    justify-content:space-between;
 
-    padding: 15px 0;
+
+    align-items:center;
+
+
+    gap:15px;
+
+
+    padding:15px 0;
+
 
     border-bottom:
+
+
         1px solid
-        rgba(255, 255, 255, 0.07);
+
+        rgba(255,255,255,.08);
 
 }
+
 
 
 .reward-info-item:last-child {
 
-    border-bottom:
-        none;
+
+    border-bottom:none;
 
 }
+
 
 
 .reward-info-item span {
 
-    display: flex;
 
-    align-items: center;
+    display:flex;
 
-    gap: 9px;
+
+    align-items:center;
+
+
+    gap:9px;
+
 
     color:
-        var(--text-muted);
 
-    font-size: 0.8rem;
+        var(--reward-muted);
+
+
+    font-size:.82rem;
 
 }
+
 
 
 .reward-info-item span i {
 
-    width: 18px;
 
     color:
-        var(--gold);
+
+        var(--reward-gold);
+
 
 }
+
 
 
 .reward-info-item strong {
 
+
     color:
-        var(--text-light);
 
-    font-size: 0.8rem;
+        var(--reward-white);
 
-    text-align: right;
 
-    word-break: break-word;
+    font-size:.82rem;
+
+
+    text-align:right;
 
 }
+
+
+
+/* =========================================================
+   HOW REWARD WORKS RULES
+========================================================= */
+
+
+.reward-rules {
+
+
+    padding:24px;
+
+
+    margin-bottom:20px;
+
+
+    border:
+
+        1px solid
+        rgba(255,255,255,.08);
+
+
+    border-radius:
+
+        var(--reward-radius-md);
+
+
+    background:
+
+        var(--reward-card);
+
+
+    box-shadow:
+
+        var(--reward-shadow);
+
+}
+
+
+
+.rules-header {
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:12px;
+
+
+    margin-bottom:18px;
+
+}
+
+
+
+.rules-icon {
+
+
+    width:45px;
+
+
+    height:45px;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    border-radius:14px;
+
+
+    background:
+
+        rgba(198,40,40,.18);
+
+
+    color:
+
+        var(--reward-gold-light);
+
+}
+
+
+
+.rules-header h2 {
+
+
+    font-size:1.05rem;
+
+
+    font-weight:800;
+
+}
+
+
+
+.reward-rules ul {
+
+
+    list-style:none;
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    gap:13px;
+
+}
+
+
+
+.reward-rules li {
+
+
+    display:flex;
+
+
+    align-items:flex-start;
+
+
+    gap:10px;
+
+
+    color:
+
+        var(--reward-muted);
+
+
+    font-size:.82rem;
+
+
+    line-height:1.6;
+
+}
+
+
+
+.rule-icon {
+
+
+    flex-shrink:0;
+
+
+    margin-top:3px;
+
+
+    color:
+
+        var(--reward-gold-light);
+
+}
+
 
 
 /* =========================================================
    SECURITY NOTICE
 ========================================================= */
 
+
 .reward-security-notice {
 
-    display: flex;
 
-    align-items: flex-start;
+    display:flex;
 
-    gap: 14px;
 
-    padding: 20px;
+    align-items:flex-start;
 
-    margin-bottom: 25px;
+
+    gap:14px;
+
+
+    padding:20px;
+
+
+    margin-bottom:20px;
+
 
     border:
+
         1px solid
-        rgba(37, 211, 102, 0.15);
+
+        rgba(37,211,102,.18);
+
 
     border-radius:
-        var(--radius-lg);
+
+        var(--reward-radius-md);
+
 
     background:
-        rgba(37, 211, 102, 0.04);
+
+        rgba(37,211,102,.05);
 
 }
+
 
 
 .security-icon {
 
-    width: 45px;
 
-    height: 45px;
+    width:45px;
 
-    flex-shrink: 0;
 
-    display: flex;
+    height:45px;
 
-    align-items: center;
 
-    justify-content: center;
+    flex-shrink:0;
 
-    border-radius: 13px;
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    border-radius:14px;
+
 
     background:
-        rgba(37, 211, 102, 0.08);
+
+        rgba(37,211,102,.10);
+
 
     color:
-        var(--green);
+
+        var(--reward-green);
 
 }
+
 
 
 .security-content h3 {
 
-    font-size: 0.9rem;
 
-    margin-bottom: 5px;
+    font-size:.95rem;
+
+
+    margin-bottom:5px;
+
 
 }
+
 
 
 .security-content p {
 
+
     color:
-        var(--text-muted);
 
-    font-size: 0.75rem;
+        var(--reward-muted);
 
-    line-height: 1.6;
+
+    font-size:.78rem;
+
+
+    line-height:1.6;
 
 }
+
 
 
 /* =========================================================
-   BOTTOM NAVIGATION
+   BACK BUTTON
 ========================================================= */
 
-.bottom-nav {
 
-    position: fixed;
+.reward-back-section {
 
-    left: 50%;
 
-    bottom: 0;
+    margin-bottom:25px;
 
-    z-index: 1000;
+}
 
-    width: min(
-        100%,
-        760px
-    );
 
-    min-height:
-        var(--nav-height);
 
-    display: grid;
+.back-dashboard-btn {
 
-    grid-template-columns:
-        repeat(5, 1fr);
-
-    transform:
-        translateX(-50%);
-
-    padding:
-        8px 10px
-        env(safe-area-inset-bottom);
-
-    border-top:
-        1px solid
-        rgba(212, 175, 55, 0.18);
 
     background:
-        rgba(12, 12, 12, 0.96);
 
-    backdrop-filter:
-        blur(18px);
+        linear-gradient(
 
-    -webkit-backdrop-filter:
-        blur(18px);
+            135deg,
+
+            var(--reward-red),
+
+            var(--reward-red-dark)
+
+        );
+
+
+    color:
+
+        var(--reward-white);
+
 
     box-shadow:
-        0 -10px 35px
-        rgba(0, 0, 0, 0.35);
+
+        0 10px 25px
+
+        rgba(198,40,40,.25);
 
 }
 
 
-.bottom-nav a {
 
-    position: relative;
+.back-dashboard-btn:hover {
 
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 4px;
-
-    min-height: 60px;
-
-    color:
-        #777;
-
-    font-size: 0.68rem;
-
-    font-weight: 500;
-
-    transition:
-        color 0.25s ease,
-        transform 0.25s ease;
-
-}
-
-
-.bottom-nav a i {
-
-    font-size: 1.1rem;
-
-    transition:
-        transform 0.25s ease;
-
-}
-
-
-.bottom-nav a.active {
-
-    color:
-        var(--gold-light);
-
-}
-
-
-.bottom-nav a.active i {
 
     transform:
+
         translateY(-2px);
 
 }
 
 
-.bottom-nav a.active::before {
-
-    content: "";
-
-    position: absolute;
-
-    top: -8px;
-
-    width: 32px;
-
-    height: 3px;
-
-    border-radius: 10px;
-
-    background:
-        var(--gold);
-
-    box-shadow:
-        0 0 10px
-        rgba(212, 175, 55, 0.5);
-
-}
-
-
-.bottom-nav a:hover {
-
-    color:
-        var(--gold-light);
-
-}
-
-
-.bottom-nav a.nav-click {
-
-    transform:
-        scale(0.92);
-
-}
-
 
 /* =========================================================
-   FOCUS ACCESSIBILITY
+   ACCESSIBILITY
 ========================================================= */
+
 
 button:focus-visible,
 a:focus-visible {
 
+
     outline:
+
         2px solid
-        var(--gold-light);
+
+        var(--reward-gold-light);
+
 
     outline-offset:
+
         3px;
 
 }
 
 
+
 /* =========================================================
-   REDUCED MOTION
+   END PART 3/4
+========================================================= */
+/* =========================================================
+   RIO MAGGI POINT
+   PREMIUM REWARD SYSTEM
+
+   FILE : reward.css
+   FINAL FIXED PRODUCTION VERSION
+
+   PART 4/4
+   RESPONSIVE + FINAL POLISH
 ========================================================= */
 
-@media (
-    prefers-reduced-motion: reduce
-) {
 
-    * {
 
-        scroll-behavior:
-            auto !important;
+/* =========================================================
+   SMALL MOBILE DEVICES
+========================================================= */
 
-        animation-duration:
-            0.01ms !important;
 
-        animation-iteration-count:
-            1 !important;
+@media (max-width:380px){
 
-        transition-duration:
-            0.01ms !important;
+
+    .reward-page {
+
+        padding:
+
+            14px
+
+            12px
+
+            30px;
 
     }
 
+
+
+    .reward-header {
+
+        padding:18px;
+
+        gap:12px;
+
+    }
+
+
+
+    .reward-header-icon {
+
+        width:48px;
+
+        height:48px;
+
+        font-size:1.2rem;
+
+        border-radius:14px;
+
+    }
+
+
+
+    .reward-header h1 {
+
+        font-size:1.15rem;
+
+    }
+
+
+
+    .reward-header span {
+
+        font-size:.65rem;
+
+    }
+
+
+
+    .reward-profile {
+
+        padding:22px 15px;
+
+    }
+
+
+
+    .reward-avatar-wrapper {
+
+        width:85px;
+
+        height:85px;
+
+    }
+
+
+
+    .reward-card {
+
+        padding:22px 15px;
+
+    }
+
+
+
+    .reward-card h2 {
+
+        font-size:1.15rem;
+
+    }
+
+
+
+    .reward-stamp-count strong {
+
+        font-size:1.8rem;
+
+    }
+
+
+
+    .reward-stamp-container {
+
+        gap:10px;
+
+    }
+
+
+
+    .reward-stamp-box {
+
+        border-radius:14px;
+
+    }
+
+
+
+    .reward-info-card,
+    .reward-rules {
+
+        padding:18px;
+
+    }
+
+
 }
+
+
+
+/* =========================================================
+   MOBILE LANDSCAPE
+========================================================= */
+
+
+@media
+(max-height:500px)
+and
+(orientation:landscape){
+
+
+    .reward-profile {
+
+        padding:15px;
+
+    }
+
+
+
+    .reward-avatar-wrapper {
+
+        width:70px;
+
+        height:70px;
+
+    }
+
+
+
+    .reward-card {
+
+        padding:20px;
+
+    }
+
+
+}
+
 
 
 /* =========================================================
    TABLET
 ========================================================= */
 
-@media (
-    min-width: 600px
-) {
 
-    .page {
+@media (min-width:600px){
 
-        padding-left:
-            28px;
 
-        padding-right:
-            28px;
+    .reward-page {
+
+        padding-left:30px;
+
+        padding-right:30px;
 
     }
+
+
+
+    .reward-header {
+
+        padding:28px;
+
+    }
+
+
+
+    .reward-header h1 {
+
+        font-size:1.65rem;
+
+    }
+
+
+
+    .reward-profile {
+
+        padding:35px;
+
+    }
+
+
+
+    .reward-avatar-wrapper {
+
+        width:120px;
+
+        height:120px;
+
+    }
+
+
+
+    .reward-card {
+
+        padding:38px;
+
+    }
+
+
+
+    .reward-stamp-container {
+
+        gap:18px;
+
+    }
+
+
+
+    .reward-stamp-box {
+
+        border-radius:22px;
+
+    }
+
+
+
+}
+
+
+
+/* =========================================================
+   LAPTOP / DESKTOP
+========================================================= */
+
+
+@media (min-width:900px){
+
+
+    .reward-page {
+
+        max-width:820px;
+
+        padding-top:35px;
+
+    }
+
 
 
     .reward-header {
 
         padding:
-            26px;
 
-    }
+            30px
 
-
-    .reward-card {
-
-        padding:
             35px;
 
     }
 
 
-    .reward-image {
 
-        width:
-            170px;
+    .reward-profile h2 {
 
-        height:
-            170px;
+        font-size:1.35rem;
 
     }
 
-
-    .claim-section,
-    .reward-rules,
-    .reward-info-card {
-
-        padding:
-            28px;
-
-    }
-
-}
-
-
-/* =========================================================
-   DESKTOP
-========================================================= */
-
-@media (
-    min-width: 900px
-) {
-
-    .page {
-
-        max-width:
-            820px;
-
-        padding-top:
-            30px;
-
-    }
-
-
-    .reward-header {
-
-        padding:
-            28px 30px;
-
-    }
-
-
-    .reward-header h1 {
-
-        font-size:
-            1.65rem;
-
-    }
-
-
-    .reward-profile {
-
-        padding:
-            32px;
-
-    }
 
 
     .reward-card {
 
-        padding:
-            42px;
+        padding:45px;
 
     }
 
 
-    .bottom-nav {
 
-        width:
-            min(
-                820px,
-                100%
-            );
+    .reward-stamp-container {
+
+        grid-template-columns:
+
+            repeat(6,1fr);
 
     }
+
+
+
+    .reward-stamp-box {
+
+        min-height:90px;
+
+    }
+
+
 
 }
 
 
+
 /* =========================================================
-   SMALL MOBILE
+   LARGE DESKTOP
 ========================================================= */
 
-@media (
-    max-width: 380px
-) {
 
-    .page {
+@media (min-width:1200px){
 
-        padding:
-            12px
 
-            12px
+    .reward-page {
 
-            calc(
-                var(--nav-height) + 25px
-            );
+        max-width:900px;
 
     }
 
 
-    .reward-header {
 
-        padding:
-            17px;
+    .reward-card {
 
-        gap:
-            12px;
+        padding:55px;
 
     }
 
 
-    .header-icon {
-
-        width:
-            48px;
-
-        height:
-            48px;
-
-        border-radius:
-            14px;
-
-        font-size:
-            1.2rem;
-
-    }
-
-
-    .reward-header h1 {
-
-        font-size:
-            1.15rem;
-
-    }
-
-
-    .reward-header p {
-
-        font-size:
-            0.68rem;
-
-    }
-
-
-    .reward-image {
-
-        width:
-            125px;
-
-        height:
-            125px;
-
-    }
-
-
-    .reward-card h2 {
-
-        font-size:
-            1.15rem;
-
-    }
-
-
-    .claim-section,
-    .reward-rules,
-    .reward-info-card {
-
-        padding:
-            18px;
-
-    }
-
-
-    .claim-header h2 {
-
-        font-size:
-            0.9rem;
-
-    }
-
-
-    .bottom-nav a {
-
-        font-size:
-            0.6rem;
-
-    }
-
-
-    .bottom-nav a i {
-
-        font-size:
-            1rem;
-
-    }
 
 }
 
 
+
 /* =========================================================
-   LANDSCAPE MOBILE
+   BUTTON TOUCH IMPROVEMENT
 ========================================================= */
 
-@media (
-    max-height: 500px
-)
-and (
-    orientation: landscape
-) {
 
-    .reward-loader {
+@media (hover:none){
 
-        overflow-y:
-            auto;
 
-        padding:
-            30px;
+    .premium-action-btn:active {
+
+
+        transform:
+
+            scale(.97);
 
     }
 
 
-    .reward-avatar-wrapper {
 
-        width:
-            75px;
-
-        height:
-            75px;
-
-    }
+    .reward-stamp-box:active {
 
 
-    .bottom-nav {
+        transform:
 
-        min-height:
-            62px;
+            scale(.96);
 
     }
 
-
-    .bottom-nav a {
-
-        min-height:
-            48px;
-
-    }
 
 }
 
 
+
 /* =========================================================
-   PRINT
+   REDUCED MOTION
 ========================================================= */
 
-@media print {
 
-    body {
+@media
+(prefers-reduced-motion:reduce){
 
-        background:
-            #ffffff;
 
-        color:
-            #000000;
+    *,
+    *::before,
+    *::after {
+
+
+        animation-duration:
+
+            .01ms !important;
+
+
+        transition-duration:
+
+            .01ms !important;
+
+
+        scroll-behavior:
+
+            auto !important;
+
+    }
+
+
+}
+
+
+
+/* =========================================================
+   PRINT MODE
+========================================================= */
+
+
+@media print{
+
+
+    body.reward-page-body {
+
+
+        background:#ffffff;
+
+        color:#000000;
 
     }
 
 
-    .bottom-nav,
-    .reward-loader,
-    .claim-btn {
 
-        display:
-            none !important;
-
-    }
+    #pageLoader {
 
 
-    .page {
-
-        max-width:
-            100%;
-
-        padding:
-            0;
+        display:none;
 
     }
+
 
 
     .reward-card,
     .reward-profile,
-    .claim-section,
-    .reward-rules,
     .reward-info-card,
-    .reward-security-notice {
+    .reward-rules,
+    .reward-security-notice,
+    .status-card {
 
-        color:
-            #000000;
 
-        background:
-            #ffffff;
+        background:#ffffff;
 
-        box-shadow:
-            none;
+        color:#000000;
+
+        box-shadow:none;
 
         border:
-            1px solid
-            #cccccc;
+
+            1px solid #cccccc;
 
     }
+
+
+
+    .reward-back-section {
+
+
+        display:none;
+
+    }
+
 
 }
 
 
+
+/* =========================================================
+   FINAL UTILITY FIXES
+========================================================= */
+
+
+/* Prevent overflow */
+
+.reward-page,
+.reward-card,
+.reward-info-card,
+.reward-rules {
+
+    overflow:hidden;
+
+}
+
+
+
+/* Smooth image rendering */
+
+.reward-avatar-wrapper img {
+
+    image-rendering:auto;
+
+}
+
+
+
+/* Remove tap highlight */
+
+button,
+a {
+
+    -webkit-tap-highlight-color:transparent;
+
+}
+
+
+
 /* =========================================================
    END OF REWARD.CSS
+   FINAL FIXED VERSION
 ========================================================= */
