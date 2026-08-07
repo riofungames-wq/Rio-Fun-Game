@@ -1,1147 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Rio Maggi Point | Menu</title>
-
-
-    <!-- SEO -->
-
-    <meta name="description"
-        content="Explore Rio Maggi Point premium Maggi, Momos, Burger, Soup and Snacks Menu.">
-
-
-    <!-- Main Menu CSS -->
-
-    <link rel="stylesheet" href="css/menu.css">
-
-
+    <title>RIO MAGGI POINT | Premium Menu</title>
+    <link rel="stylesheet" href="menu.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 </head>
-
-
 <body>
 
+    <!-- ================= PREMIUM HEADER ================= -->
+    <header class="premium-header">
+        <div class="logo-container">
+            <h1 class="wave-logo">RIO MAGGI POINT</h1>
+            <p class="tagline">100% Pure Veg • Taste • Quality • Love</p>
+        </div>
+    </header>
 
-<!-- ===============================
-     PAGE WRAPPER
-================================ -->
-
-<div class="menu-page">
-
-
-
-<!-- ===============================
-     HEADER
-================================ -->
-
-<header class="menu-header">
-
-
-    <div class="menu-logo">
-
-        <h1>
-            RIO MAGGI POINT
-        </h1>
-
-        <span>
-            Premium Food Menu
-        </span>
-
-    </div>
-
-
-    <button class="menu-cart-btn">
-
-        🛒
-
-        <span>
-            Cart
-        </span>
-
-    </button>
-
-
-</header>
-
-
-
-
-
-<!-- ===============================
-     HERO SLIDER SECTION
-================================ -->
-
-
-<section class="menu-hero-slider"
-         aria-label="Rio Maggi Point Menu Slider">
-
-
-
-    <div class="hero-track">
-
-
-
-        <!-- Banner 1 -->
-
-        <article class="hero-slide active">
-
-
-            <img src="assets/menu/banners/everyday-maggi.png"
-                 alt="Everyday Maggi">
-
-
-            <div class="hero-overlay">
-
-
-                <h2>
-                    RIO MAGGI POINT
-                </h2>
-
-
-                <h3>
-                    Everyday Maggi
-                </h3>
-
-
-                <button class="hero-menu-btn"
-                        data-category="everyday-maggi">
-
-                    Tap To View Menu
-
-                </button>
-
-
+    <!-- ================= HERO SLIDER SECTION ================= -->
+    <section class="hero-section">
+        <div class="slider-container">
+            <!-- Slide 1 -->
+            <div class="slide active">
+                <img src="assets/menu/banners/hero-1.webp" alt="Everyday Maggi" class="slide-bg">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h2>Everyday Classic Maggi</h2>
+                    <p>The iconic taste you love, cooked to perfection.</p>
+                    <button class="cta-btn" onclick="scrollToSection('everyday-maggi')">Explore Menu</button>
+                </div>
+                <div class="floating-png">
+                    <img src="assets/menu/categories/maggi.png" alt="Maggi PNG">
+                </div>
             </div>
 
-
-        </article>
-
-
-
-
-
-        <!-- Banner 2 -->
-
-        <article class="hero-slide">
-
-
-            <img src="assets/menu/banners/cheese-maggi.png"
-                 alt="Cheese Maggi">
-
-
-            <div class="hero-overlay">
-
-
-                <h2>
-                    RIO MAGGI POINT
-                </h2>
-
-
-                <h3>
-                    Cheese Maggi
-                </h3>
-
-
-                <button class="hero-menu-btn"
-                        data-category="cheese-maggi">
-
-                    Tap To View Menu
-
-                </button>
-
-
+            <!-- Slide 2 -->
+            <div class="slide">
+                <img src="assets/menu/banners/hero-2.webp" alt="Cheese Maggi" class="slide-bg">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h2>Cheese Burst Maggi</h2>
+                    <p>Loaded with extra cheese & special secret spices.</p>
+                    <button class="cta-btn" onclick="scrollToSection('cheese-maggi')">Explore Menu</button>
+                </div>
+                <div class="floating-png">
+                    <img src="assets/menu/categories/cheese-maggi.png" alt="Cheese Maggi PNG">
+                </div>
             </div>
 
-
-        </article>
-
-
-
-
-
-        <!-- Banner 3 -->
-
-        <article class="hero-slide">
-
-
-            <img src="assets/menu/banners/cheese-butter-maggi.png"
-                 alt="Cheese Butter Maggi">
-
-
-            <div class="hero-overlay">
-
-
-                <h2>
-                    RIO MAGGI POINT
-                </h2>
-
-
-                <h3>
-                    Cheese Butter Maggi
-                </h3>
-
-
-                <button class="hero-menu-btn"
-                        data-category="cheese-butter">
-
-                    Tap To View Menu
-
-                </button>
-
-
+            <!-- Slide 3 -->
+            <div class="slide">
+                <img src="assets/menu/banners/hero-3.webp" alt="UFO Burger" class="slide-bg">
+                <div class="slide-overlay"></div>
+                <div class="slide-content">
+                    <h2>Sealed UFO Burgers</h2>
+                    <p>Crispy, saucy, sealed perfection in every bite.</p>
+                    <button class="cta-btn" onclick="scrollToSection('ufo-burger')">Explore Menu</button>
+                </div>
+                <div class="floating-png">
+                    <img src="assets/menu/categories/burger.png" alt="Burger PNG">
+                </div>
             </div>
-
-
-        </article>
-
-
-
-
-
-        <!-- Banner 4 -->
-
-        <article class="hero-slide">
-
-
-            <img src="assets/menu/banners/ufo-burger.png"
-                 alt="UFO Burger">
-
-
-            <div class="hero-overlay">
-
-
-                <h2>
-                    RIO MAGGI POINT
-                </h2>
-
-
-                <h3>
-                    UFO Burger
-                </h3>
-
-
-                <button class="hero-menu-btn"
-                        data-category="burger">
-
-                    Tap To View Menu
-
-                </button>
-
-
-            </div>
-
-
-        </article>
-<!-- ======================================
-     HERO SLIDER CONTINUATION
-====================================== -->
-
-
-        <!-- Banner 5 -->
-
-        <article class="hero-slide">
-
-
-            <img src="assets/menu/banners/momos.png"
-                 alt="Momos">
-
-
-            <div class="hero-overlay">
-
-
-                <h2>
-                    RIO MAGGI POINT
-                </h2>
-
-
-                <h3>
-                    Momos
-                </h3>
-
-
-                <button class="hero-menu-btn"
-                        data-category="momos">
-
-                    Tap To View Menu
-
-                </button>
-
-
-            </div>
-
-
-        </article>
-
-
-
-
-
-        <!-- Banner 6 -->
-
-        <article class="hero-slide">
-
-
-            <img src="assets/menu/banners/soup.png"
-                 alt="Soup">
-
-
-            <div class="hero-overlay">
-
-
-                <h2>
-                    RIO MAGGI POINT
-                </h2>
-
-
-                <h3>
-                    Soup
-                </h3>
-
-
-                <button class="hero-menu-btn"
-                        data-category="soup">
-
-                    Tap To View Menu
-
-                </button>
-
-
-            </div>
-
-
-        </article>
-
-
-
-
-
-        <!-- Banner 7 -->
-
-        <article class="hero-slide">
-
-
-            <img src="assets/menu/banners/sweet-corn.png"
-                 alt="Sweet Corn">
-
-
-            <div class="hero-overlay">
-
-
-                <h2>
-                    RIO MAGGI POINT
-                </h2>
-
-
-                <h3>
-                    Sweet Corn
-                </h3>
-
-
-                <button class="hero-menu-btn"
-                        data-category="sweet-corn">
-
-                    Tap To View Menu
-
-                </button>
-
-
-            </div>
-
-
-        </article>
-
-
-
-
-
-        <!-- Banner 8 -->
-
-        <article class="hero-slide">
-
-
-            <img src="assets/menu/banners/chips-bhel.png"
-                 alt="Chips Bhel">
-
-
-            <div class="hero-overlay">
-
-
-                <h2>
-                    RIO MAGGI POINT
-                </h2>
-
-
-                <h3>
-                    Chips Bhel
-                </h3>
-
-
-                <button class="hero-menu-btn"
-                        data-category="chips-bhel">
-
-                    Tap To View Menu
-
-                </button>
-
-
-            </div>
-
-
-        </article>
-
-
-
-    </div>
-
-
-    <!-- Slider Indicators -->
-
-    <div class="slider-dots">
-
-
-        <button class="slider-dot active"
-                data-slide="0">
-        </button>
-
-
-        <button class="slider-dot"
-                data-slide="1">
-        </button>
-
-
-        <button class="slider-dot"
-                data-slide="2">
-        </button>
-
-
-        <button class="slider-dot"
-                data-slide="3">
-        </button>
-
-
-        <button class="slider-dot"
-                data-slide="4">
-        </button>
-
-
-        <button class="slider-dot"
-                data-slide="5">
-        </button>
-
-
-        <button class="slider-dot"
-                data-slide="6">
-        </button>
-
-
-        <button class="slider-dot"
-                data-slide="7">
-        </button>
-
-
-    </div>
-
-
-</section>
-
-
-
-
-
-
-
-<!-- ======================================
-     CATEGORY GRID SECTION
-====================================== -->
-
-
-<section class="menu-category-section"
-         id="categories">
-
-
-    <div class="section-title">
-
-
-        <h2>
-            Explore Categories
-        </h2>
-
-
-        <p>
-            Choose your favourite Rio Special
-        </p>
-
-
-    </div>
-
-
-
-
-
-    <div class="category-grid">
-
-
-
-
-
-        <!-- Everyday Maggi -->
-
-        <button class="category-card active"
-                data-target="everyday-maggi">
-
-
-            <img src="assets/menu/categories/everyday-maggi.png"
-                 alt="Everyday Maggi">
-
-
-            <span>
-                Everyday Maggi
-            </span>
-
-
-        </button>
-
-
-
-
-
-        <!-- Cheese Maggi -->
-
-        <button class="category-card"
-                data-target="cheese-maggi">
-
-
-            <img src="assets/menu/categories/cheese-maggi.png"
-                 alt="Cheese Maggi">
-
-
-            <span>
-                Cheese Maggi
-            </span>
-
-
-        </button>
-
-
-
-
-
-        <!-- Cheese Butter Maggi -->
-
-        <button class="category-card"
-                data-target="cheese-butter">
-
-
-            <img src="assets/menu/categories/cheese-butter-maggi.png"
-                 alt="Cheese Butter Maggi">
-
-
-            <span>
-                Cheese Butter Maggi
-            </span>
-
-
-        </button>
-
-
-
-
-
-        <!-- UFO Burger -->
-
-        <button class="category-card"
-                data-target="burger">
-
-
-            <img src="assets/menu/categories/ufo-burger.png"
-                 alt="UFO Burger">
-
-
-            <span>
-                UFO Burger
-            </span>
-
-
-        </button>
-
-
-
-
-
-        <!-- Momos -->
-
-        <button class="category-card"
-                data-target="momos">
-
-
-            <img src="assets/menu/categories/momos.png"
-                 alt="Momos">
-
-
-            <span>
-                Momos
-            </span>
-
-
-        </button>
-
-
-
-
-
-        <!-- Soup -->
-
-        <button class="category-card"
-                data-target="soup">
-
-
-            <img src="assets/menu/categories/soup.png"
-                 alt="Soup">
-
-
-            <span>
-                Soup
-            </span>
-
-
-        </button>
-
-
-
-
-
-        <!-- Sweet Corn -->
-
-        <button class="category-card"
-                data-target="sweet-corn">
-
-
-            <img src="assets/menu/categories/sweet-corn.png"
-                 alt="Sweet Corn">
-
-
-            <span>
-                Sweet Corn
-            </span>
-
-
-        </button>
-
-
-
-
-
-        <!-- Chips Bhel -->
-
-        <button class="category-card"
-                data-target="chips-bhel">
-
-
-            <img src="assets/menu/categories/chips-bhel.png"
-                 alt="Chips Bhel">
-
-
-            <span>
-                Chips Bhel
-            </span>
-
-
-        </button>
-
-
-
-    </div>
-
-
-</section>
-    <!-- ======================================
-     MENU ITEMS SECTION
-====================================== -->
-
-
-<section class="food-menu-section"
-         id="menu-items">
-
-
-
-    <div class="section-title">
-
-
-        <h2>
-            Our Premium Menu
-        </h2>
-
-
-        <p>
-            Fresh • Hot • Delicious
-        </p>
-
-
-    </div>
-
-
-
-
-
-    <!-- ===============================
-         EVERYDAY MAGGI
-    ================================= -->
-
-
-    <div class="menu-category-block active"
-         id="everyday-maggi">
-
-
-        <h3>
-            Everyday Maggi
-        </h3>
-
-
-        <div class="menu-table-card">
-
-
-            <div class="menu-row menu-head">
-
-                <span>
-                    Item
-                </span>
-
-                <span>
-                    Price
-                </span>
-
-            </div>
-
-
-
-            <div class="menu-row">
-
-
-                <span>
-                    Classic Maggi
-                </span>
-
-
-                <span>
-                    ₹60
-                </span>
-
-
-            </div>
-
-
-
-            <div class="menu-row">
-
-
-                <span>
-                    Veg Maggi
-                </span>
-
-
-                <span>
-                    ₹70
-                </span>
-
-
-            </div>
-
-
-
-            <div class="menu-row">
-
-
-                <span>
-                    Special Rio Maggi
-                </span>
-
-
-                <span>
-                    ₹90
-                </span>
-
-
-            </div>
-
-
         </div>
 
+        <!-- Slider Dots -->
+        <div class="slider-dots">
+            <span class="dot active" onclick="setSlide(0)"></span>
+            <span class="dot" onclick="setSlide(1)"></span>
+            <span class="dot" onclick="setSlide(2)"></span>
+        </div>
+    </section>
 
-    </div>
-
-
-
-
-
-
-    <!-- ===============================
-         CHEESE MAGGI
-    ================================= -->
-
-
-    <div class="menu-category-block"
-         id="cheese-maggi">
-
-
-        <h3>
-            Cheese Maggi
-        </h3>
-
-
-
-        <div class="menu-table-card">
-
-
-            <div class="menu-row menu-head">
-
-                <span>
-                    Item
-                </span>
-
-
-                <span>
-                    Price
-                </span>
-
-
+    <!-- ================= CATEGORY GRID ================= -->
+    <section class="categories-section">
+        <h2 class="section-title">Explore Categories</h2>
+        <div class="category-grid">
+            
+            <div class="category-card" onclick="scrollToSection('everyday-maggi')">
+                <div class="card-glass">
+                    <img src="assets/menu/categories/maggi.png" alt="Everyday Maggi">
+                    <h3>Everyday Maggi</h3>
+                    <button class="view-btn">Tap to View</button>
+                </div>
             </div>
 
-
-
-
-            <div class="menu-row">
-
-                <span>
-                    Cheese Maggi
-                </span>
-
-
-                <span>
-                    ₹100
-                </span>
-
-
+            <div class="category-card" onclick="scrollToSection('cheese-maggi')">
+                <div class="card-glass">
+                    <img src="assets/menu/categories/cheese-maggi.png" alt="Cheese Maggi">
+                    <h3>Cheese Maggi</h3>
+                    <button class="view-btn">Tap to View</button>
+                </div>
             </div>
 
-
-
-
-            <div class="menu-row">
-
-                <span>
-                    Double Cheese Maggi
-                </span>
-
-
-                <span>
-                    ₹130
-                </span>
-
-
+            <div class="category-card" onclick="scrollToSection('ufo-burger')">
+                <div class="card-glass">
+                    <img src="assets/menu/categories/burger.png" alt="UFO Burger">
+                    <h3>UFO Burger</h3>
+                    <button class="view-btn">Tap to View</button>
+                </div>
             </div>
 
-
+            <div class="category-card" onclick="scrollToSection('momos')">
+                <div class="card-glass">
+                    <img src="assets/menu/categories/momos.png" alt="Momos">
+                    <h3>Steamed & Fried Momos</h3>
+                    <button class="view-btn">Tap to View</button>
+                </div>
+            </div>
 
         </div>
+    </section>
 
+    <!-- ================= MENU ITEMS LIST ================= -->
+    <section class="menu-display-section" id="menu-display">
+        
+        <!-- Category Block 1 -->
+        <div class="menu-category-block" id="everyday-maggi">
+            <h2 class="category-heading">🍜 Everyday Maggi</h2>
+            <div class="menu-items-grid">
+                
+                <div class="menu-item-card">
+                    <img src="assets/menu/categories/maggi.png" alt="Classic Veg Maggi" class="item-img">
+                    <div class="item-details">
+                        <h4>Classic Veg Maggi</h4>
+                        <p>Fresh veggies with authentic Maggi masala.</p>
+                        <div class="item-footer">
+                            <span class="price">₹70</span>
+                            <span class="veg-tag">🌱 Pure Veg</span>
+                        </div>
+                    </div>
+                </div>
 
-    </div>
-
-
-
-
-
-
-    <!-- ===============================
-         OTHER CATEGORY PLACEHOLDERS
-         DATA READY FOR JS
-    ================================= -->
-
-
-    <div class="menu-category-block"
-         id="cheese-butter">
-
-
-        <h3>
-            Cheese Butter Maggi
-        </h3>
-
-
-        <div class="menu-table-card">
-
-            <div class="menu-row">
-
-                <span>
-                    Cheese Butter Maggi
-                </span>
-
-
-                <span>
-                    ₹140
-                </span>
-
+                <div class="menu-item-card">
+                    <img src="assets/menu/categories/maggi.png" alt="Peri Peri Maggi" class="item-img">
+                    <div class="item-details">
+                        <h4>Spicy Peri Peri Maggi</h4>
+                        <p>Tossed in hot African peri-peri seasoning.</p>
+                        <div class="item-footer">
+                            <span class="price">₹90</span>
+                            <span class="veg-tag">🌱 Pure Veg</span>
+                        </div>
+                    </div>
+                </div>
 
             </div>
-
-
         </div>
 
-
-    </div>
-
-
-
-
-
-    <div class="menu-category-block"
-         id="burger">
-
-
-        <h3>
-            UFO Burger
-        </h3>
-
-
-        <div class="menu-table-card">
-
-            <div class="menu-row">
-
-                <span>
-                    UFO Special Burger
-                </span>
-
-
-                <span>
-                    ₹120
-                </span>
-
+        <!-- Category Block 2 -->
+        <div class="menu-category-block" id="cheese-maggi">
+            <h2 class="category-heading">🧀 Cheese Maggi Specials</h2>
+            <div class="menu-items-grid">
+                
+                <div class="menu-item-card">
+                    <img src="assets/menu/categories/cheese-maggi.png" alt="Cheese Blast Maggi" class="item-img">
+                    <div class="item-details">
+                        <h4>Double Cheese Blast</h4>
+                        <p>Topped with Mozzarella and Amul cheese slice.</p>
+                        <div class="item-footer">
+                            <span class="price">₹120</span>
+                            <span class="veg-tag">🌱 Pure Veg</span>
+                        </div>
+                    </div>
+                </div>
 
             </div>
-
-
         </div>
 
-
-    </div>
-
-
-
-
-
-
-    <div class="menu-category-block"
-         id="momos">
-
-
-        <h3>
-            Momos
-        </h3>
-
-
-        <div class="menu-table-card">
-
-
-            <div class="menu-row">
-
-
-                <span>
-                    Veg Momos
-                </span>
-
-
-                <span>
-                    ₹80
-                </span>
-
+        <!-- Category Block 3 -->
+        <div class="menu-category-block" id="ufo-burger">
+            <h2 class="category-heading">🍔 UFO Burgers</h2>
+            <div class="menu-items-grid">
+                
+                <div class="menu-item-card">
+                    <img src="assets/menu/categories/burger.png" alt="Classic UFO Burger" class="item-img">
+                    <div class="item-details">
+                        <h4>Crispy Patty UFO Burger</h4>
+                        <p>Sealed juicy veg patty with house special sauce.</p>
+                        <div class="item-footer">
+                            <span class="price">₹110</span>
+                            <span class="veg-tag">🌱 Pure Veg</span>
+                        </div>
+                    </div>
+                </div>
 
             </div>
-
-
         </div>
 
+    </section>
 
-    </div>
+    <footer class="footer">
+        <p>© 2026 RIO MAGGI POINT | 100% Pure Veg Premium Menu</p>
+    </footer>
 
-
-
-
-
-
-
-    <div class="menu-category-block"
-         id="soup">
-
-
-        <h3>
-            Soup
-        </h3>
-
-
-        <div class="menu-table-card">
-
-
-            <div class="menu-row">
-
-
-                <span>
-                    Hot & Sour Soup
-                </span>
-
-
-                <span>
-                    ₹70
-                </span>
-
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-
-
-
-
-
-
-    <div class="menu-category-block"
-         id="sweet-corn">
-
-
-        <h3>
-            Sweet Corn
-        </h3>
-
-
-        <div class="menu-table-card">
-
-
-            <div class="menu-row">
-
-
-                <span>
-                    Butter Sweet Corn
-                </span>
-
-
-                <span>
-                    ₹60
-                </span>
-
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-
-
-
-
-
-
-    <div class="menu-category-block"
-         id="chips-bhel">
-
-
-        <h3>
-            Chips Bhel
-        </h3>
-
-
-        <div class="menu-table-card">
-
-
-            <div class="menu-row">
-
-
-                <span>
-                    Special Chips Bhel
-                </span>
-
-
-                <span>
-                    ₹50
-                </span>
-
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-
-
-</section>
-
-
-
-
-
-
-
-<!-- ======================================
-     ADSENSE SAFE SPACE
-====================================== -->
-
-
-<section class="adsense-space">
-
-
-    <div class="ads-placeholder">
-
-        Advertisement Space
-
-    </div>
-
-
-</section>
-
-
-
-
-
-
-
-<!-- ======================================
-     BOTTOM NAV SPACE
-====================================== -->
-
-
-<div class="bottom-nav-space"></div>
-
-
-
-
-
-<!-- ======================================
-     SCRIPT
-====================================== -->
-
-
-<script type="module"
-        src="js/menu.js"></script>
-
-
-
-</div>
-
-
+    <script src="menu.js"></script>
 </body>
-
 </html>
-
