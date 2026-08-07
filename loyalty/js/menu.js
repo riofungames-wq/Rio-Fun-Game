@@ -1,2633 +1,1060 @@
-/* =========================================
-   RIO MAGGI POINT
-   MENU.JS
-   PART 1/4
-   MENU CATEGORY SYSTEM
-   COMPATIBLE WITH CURRENT menu.html
-========================================= */
+// ======================================================
+// RIO MAGGI POINT
+// menu.js
+// PART 1 / 4
+// Premium Menu System
+// ======================================================
+
+"use strict";
+
+// ======================================================
+// DOM CACHE
+// ======================================================
+
+const categoryGrid =
+document.getElementById("categoryGrid");
+
+const categoryCards =
+document.querySelectorAll(".menu-category-card");
+
+const detailContainer =
+document.getElementById("menuDetailContainer");
+
+const heroSlider =
+document.getElementById("heroSlider");
+
+const heroSlides =
+document.querySelectorAll(".hero-slide");
+
+const floatingCards =
+document.querySelectorAll(".menu-category-card");
 
 
-/* =========================================
-   MENU CATEGORY CONFIGURATION
-========================================= */
+// ======================================================
+// GLOBAL STATE
+// ======================================================
 
-const rioMenuCategories = {
+const MenuState = {
+
+    currentCategory: null,
+
+    currentSlide: 0,
+
+    sliderTimer: null,
+
+    initialized: false
+
+};
+
+
+// ======================================================
+// MENU DATA
+// ======================================================
+
+const MENU_DATA = {
 
     everyday: {
+
         title: "Everyday Magic Maggi",
-        selector: "#everyday"
+
+        subtitle: "Classic Rio Maggi Collection"
+
     },
 
     cheese: {
+
         title: "Cheese Magic Maggi",
-        selector: "#cheese"
+
+        subtitle: "Cheesy Rio Special Collection"
+
     },
 
-    "cheese-butter": {
+    cheeseButter: {
+
         title: "Cheese Butter Magic Maggi",
-        selector: "#cheese-butter"
+
+        subtitle: "Premium Cheese Butter Collection"
+
     },
 
     burger: {
+
         title: "UFO Burger",
-        selector: "#burger"
+
+        subtitle: "Premium Burger Collection"
+
     },
 
     momos: {
+
         title: "Delicious Momos",
-        selector: "#momos"
+
+        subtitle: "Hot & Tasty Momos"
+
     },
 
     soups: {
+
         title: "Hot Soups",
-        selector: "#soups"
+
+        subtitle: "Soup Collection"
+
     },
 
     corn: {
+
         title: "Crispy Sweet Corn",
-        selector: "#corn"
+
+        subtitle: "Crunchy Corn Collection"
+
     },
 
     bhel: {
+
         title: "Chips Bhel",
-        selector: "#bhel"
+
+        subtitle: "Snack Collection"
+
     }
 
 };
 
 
-/* =========================================
-   GLOBAL ACCESS
-========================================= */
-
-window.rioMenuCategories =
-    rioMenuCategories;
-
-
-/* =========================================
-   DOM READY
-========================================= */
+// ======================================================
+// INITIALIZE
+// ======================================================
 
 document.addEventListener(
 
     "DOMContentLoaded",
 
-    function () {
-
-        /* =====================================
-           GET CATEGORY GRID
-        ====================================== */
-
-        const categoryGrid =
-            document.getElementById(
-                "categoryGrid"
-            );
-
-
-        /* =====================================
-           GET CATEGORY CARDS
-        ====================================== */
-
-        const categoryCards =
-            document.querySelectorAll(
-                ".category-card"
-            );
-
-
-        /* =====================================
-           GET FOOD SECTIONS
-        ====================================== */
-
-        const foodSections =
-            document.querySelectorAll(
-                ".food-section"
-            );
-
-
-        /* =====================================
-           SAFETY CHECK
-        ====================================== */
-
-        if (
-
-            !categoryGrid ||
-
-            !categoryCards.length ||
-
-            !foodSections.length
-
-        ) {
-
-            console.warn(
-
-                "Rio Menu: Required menu elements were not found."
-
-            );
-
-            return;
-
-        }
-
-
-        /* =====================================
-           INITIAL MENU STATE
-        ====================================== */
-
-        setInitialMenuState(
-
-            categoryCards,
-
-            foodSections
-
-        );
-
-
-        /* =====================================
-           INITIALIZE CATEGORY BUTTONS
-        ====================================== */
-
-        initializeCategoryButtons(
-
-            categoryCards,
-
-            foodSections
-
-        );
-
-
-        /* =====================================
-           INITIALIZE IMAGE HANDLING
-        ====================================== */
-
-        initializeMenuImages();
-
-
-        /* =====================================
-           INITIALIZE TOUCH FEEDBACK
-        ====================================== */
-
-        initializeCategoryTouchFeedback();
-
-
-        /* =====================================
-           INITIALIZE BOTTOM NAVIGATION
-        ====================================== */
-
-        initializeBottomNavigation();
-
-
-        /* =====================================
-           PRELOAD MENU IMAGES
-        ====================================== */
-
-        preloadMenuImages();
-
-
-        /* =====================================
-           MENU READY
-        ====================================== */
-
-        document.body.classList.add(
-
-            "menu-page-ready"
-
-        );
-
-
-        /* =====================================
-           CUSTOM READY EVENT
-        ====================================== */
-
-        document.dispatchEvent(
-
-            new CustomEvent(
-
-                "rioMenuReady"
-
-            )
-
-        );
-
-    }
+    initializeMenu
 
 );
 
 
-/* =========================================
-   SET INITIAL MENU STATE
-========================================= */
+// ======================================================
+// MAIN INITIALIZER
+// ======================================================
 
-function setInitialMenuState(
+function initializeMenu() {
 
-    categoryCards,
+    if (MenuState.initialized) return;
 
-    foodSections
+    MenuState.initialized = true;
 
-) {
+    setupCategoryButtons();
 
+    setupHeroSlider();
 
-    /* =====================================
-       HIDE ALL FOOD SECTIONS
-    ====================================== */
+    setupCardAnimations();
 
-    foodSections.forEach(
+    console.log("✅ MENU.JS PART 1 LOADED");
 
-        function (section) {
-
-            section.classList.remove(
-
-                "active"
-
-            );
-
-        }
-
-    );
+}
+// ======================================================
+// PART 2 / 4
+// CATEGORY CLICK SYSTEM
+// ======================================================
 
 
-    /* =====================================
-       SHOW EVERYDAY MAGIC MAGGI
-       BY DEFAULT
-    ====================================== */
+// ======================================================
+// CATEGORY BUTTON EVENTS
+// ======================================================
 
-    const defaultSection =
-        document.getElementById(
+function setupCategoryButtons() {
 
-            "everyday"
+    if (!categoryCards.length) return;
 
-        );
+    categoryCards.forEach((card) => {
 
+        card.addEventListener("click", () => {
 
-    if (defaultSection) {
+            const target = card.dataset.target;
 
-        defaultSection.classList.add(
+            if (!target) return;
 
-            "active"
+            openCategory(target);
 
-        );
+        });
 
-    }
-
-
-    /* =====================================
-       CATEGORY CARD ACTIVE STATE
-    ====================================== */
-
-    categoryCards.forEach(
-
-        function (card) {
-
-            const target =
-                card.dataset.target;
-
-
-            if (
-
-                target ===
-
-                "everyday"
-
-            ) {
-
-                card.classList.add(
-
-                    "active"
-
-                );
-
-                card.setAttribute(
-
-                    "aria-expanded",
-
-                    "true"
-
-                );
-
-            }
-
-            else {
-
-                card.classList.remove(
-
-                    "active"
-
-                );
-
-                card.setAttribute(
-
-                    "aria-expanded",
-
-                    "false"
-
-                );
-
-            }
-
-        }
-
-    );
+    });
 
 }
 
 
-/* =========================================
-   INITIALIZE CATEGORY BUTTONS
-========================================= */
 
-function initializeCategoryButtons(
+// ======================================================
+// OPEN CATEGORY
+// ======================================================
 
-    categoryCards,
+function openCategory(categoryName) {
 
-    foodSections
+    if (!MENU_DATA[categoryName]) return;
 
-) {
+    MenuState.currentCategory = categoryName;
 
+    updateActiveCard(categoryName);
 
-    categoryCards.forEach(
+    renderCategory(categoryName);
 
-        function (categoryCard) {
-
-
-            /* =================================
-               CLICK EVENT
-            ================================== */
-
-            categoryCard.addEventListener(
-
-                "click",
-
-                function () {
-
-
-                    /* =============================
-                       GET TARGET CATEGORY
-                    ============================== */
-
-                    const targetId =
-
-                        this.dataset.target;
-
-
-                    /* =============================
-                       SAFETY CHECK
-                    ============================== */
-
-                    if (!targetId) {
-
-                        console.warn(
-
-                            "Rio Menu: Category target missing."
-
-                        );
-
-                        return;
-
-                    }
-
-
-                    /* =============================
-                       FIND TARGET SECTION
-                    ============================== */
-
-                    const targetSection =
-
-                        document.getElementById(
-
-                            targetId
-
-                        );
-
-
-                    /* =============================
-                       TARGET NOT FOUND
-                    ============================== */
-
-                    if (!targetSection) {
-
-                        console.warn(
-
-                            "Rio Menu: Target section not found:",
-
-                            targetId
-
-                        );
-
-                        return;
-
-                    }
-
-
-                    /* =============================
-                       HIDE ALL SECTIONS
-                    ============================== */
-
-                    foodSections.forEach(
-
-                        function (section) {
-
-                            section.classList.remove(
-
-                                "active"
-
-                            );
-
-                        }
-
-                    );
-
-
-                    /* =============================
-                       SHOW SELECTED SECTION
-                    ============================== */
-
-                    targetSection.classList.add(
-
-                        "active"
-
-                    );
-
-
-                    /* =============================
-                       UPDATE CATEGORY CARDS
-                    ============================== */
-
-                    categoryCards.forEach(
-
-                        function (card) {
-
-                            const isActive =
-
-                                card ===
-
-                                categoryCard;
-
-
-                            card.classList.toggle(
-
-                                "active",
-
-                                isActive
-
-                            );
-
-
-                            card.setAttribute(
-
-                                "aria-expanded",
-
-                                isActive
-
-                                    ? "true"
-
-                                    : "false"
-
-                            );
-
-                        }
-
-                    );
-
-
-                    /* =============================
-                       SCROLL TO FOOD SECTION
-                    ============================== */
-
-                    requestAnimationFrame(
-
-                        function () {
-
-                            targetSection.scrollIntoView({
-
-                                behavior:
-                                    "smooth",
-
-                                block:
-                                    "start"
-
-                            });
-
-                        }
-
-                    );
-
-                }
-
-            );
-
-        }
-
-    );
+    scrollToDetail();
 
 }
 
 
-/* =========================================
-   END MENU.JS PART 1/4
-========================================= */
-/* =========================================
-   RIO MAGGI POINT
-   MENU.JS
-   PART 2/4
-   IMAGE HANDLING
-   + TOUCH FEEDBACK
-   + MENU SECTION ANIMATION
-========================================= */
 
+// ======================================================
+// ACTIVE CARD
+// ======================================================
 
-/* =========================================
-   INITIALIZE MENU IMAGES
-========================================= */
+function updateActiveCard(categoryName) {
 
-function initializeMenuImages() {
+    categoryCards.forEach((card) => {
 
+        if (card.dataset.target === categoryName) {
 
-    /* =====================================
-       GET ALL MENU IMAGES
-    ====================================== */
+            card.classList.add("active");
 
-    const menuImages =
+        } else {
 
-        document.querySelectorAll(
-
-            ".category-image img, " +
-
-            ".food-image-large img"
-
-        );
-
-
-    /* =====================================
-       PROCESS EACH IMAGE
-    ====================================== */
-
-    menuImages.forEach(
-
-        function (image) {
-
-
-            /* ===============================
-               IMAGE ERROR HANDLING
-            ================================ */
-
-            image.addEventListener(
-
-                "error",
-
-                function () {
-
-                    this.classList.add(
-
-                        "image-error"
-
-                    );
-
-                }
-
-            );
-
-
-            /* ===============================
-               IMAGE LOAD HANDLING
-            ================================ */
-
-            image.addEventListener(
-
-                "load",
-
-                function () {
-
-                    this.classList.add(
-
-                        "image-loaded"
-
-                    );
-
-                }
-
-            );
-
-
-            /* ===============================
-               CHECK ALREADY LOADED IMAGE
-            ================================ */
-
-            if (
-
-                image.complete &&
-
-                image.naturalWidth > 0
-
-            ) {
-
-                image.classList.add(
-
-                    "image-loaded"
-
-                );
-
-            }
+            card.classList.remove("active");
 
         }
 
-    );
+    });
 
 }
 
 
-/* =========================================
-   CATEGORY TOUCH FEEDBACK
-========================================= */
 
-function initializeCategoryTouchFeedback() {
+// ======================================================
+// DETAIL SECTION RENDER
+// ======================================================
 
+function renderCategory(categoryName) {
 
-    /* =====================================
-       GET ALL CATEGORY CARDS
-    ====================================== */
+    if (!detailContainer) return;
 
-    const categoryCards =
+    const menu = MENU_DATA[categoryName];
 
-        document.querySelectorAll(
+    detailContainer.innerHTML = `
 
-            ".category-card"
+<section class="menu-detail-card">
 
-        );
+    <div class="menu-detail-header">
 
+        <h2>${menu.title}</h2>
 
-    /* =====================================
-       PROCESS EACH CATEGORY CARD
-    ====================================== */
+        <p>${menu.subtitle}</p>
 
-    categoryCards.forEach(
+    </div>
 
-        function (card) {
+    <div id="menuTableArea"></div>
 
+</section>
 
-            /* ===============================
-               TOUCH START
-            ================================ */
+`;
 
-            card.addEventListener(
-
-                "touchstart",
-
-                function () {
-
-                    this.classList.add(
-
-                        "touch-active"
-
-                    );
-
-                },
-
-                {
-
-                    passive:
-                        true
-
-                }
-
-            );
-
-
-            /* ===============================
-               TOUCH END
-            ================================ */
-
-            card.addEventListener(
-
-                "touchend",
-
-                function () {
-
-                    this.classList.remove(
-
-                        "touch-active"
-
-                    );
-
-                },
-
-                {
-
-                    passive:
-                        true
-
-                }
-
-            );
-
-
-            /* ===============================
-               TOUCH CANCEL
-            ================================ */
-
-            card.addEventListener(
-
-                "touchcancel",
-
-                function () {
-
-                    this.classList.remove(
-
-                        "touch-active"
-
-                    );
-
-                },
-
-                {
-
-                    passive:
-                        true
-
-                }
-
-            );
-
-
-            /* ===============================
-               MOUSE LEAVE
-            ================================ */
-
-            card.addEventListener(
-
-                "mouseleave",
-
-                function () {
-
-                    this.classList.remove(
-
-                        "touch-active"
-
-                    );
-
-                }
-
-            );
-
-        }
-
-    );
+    renderMenuTable(categoryName);
 
 }
 
 
-/* =========================================
-   MENU SECTION TRANSITION
-========================================= */
 
-function animateFoodSection(
+// ======================================================
+// SMOOTH SCROLL
+// ======================================================
 
-    section
+function scrollToDetail() {
 
-) {
+    if (!detailContainer) return;
+
+    detailContainer.scrollIntoView({
+
+        behavior: "smooth",
+
+        block: "start"
+
+    });
+
+}
 
 
-    /* =====================================
-       SAFETY CHECK
-    ====================================== */
 
-    if (!section) {
+// ======================================================
+// MENU TABLE PLACEHOLDER
+// ======================================================
+
+function renderMenuTable(categoryName) {
+
+    const area = document.getElementById("menuTableArea");
+
+    if (!area) return;
+
+    area.innerHTML = `
+
+<div class="menu-loading">
+
+    <i class="fa-solid fa-spinner fa-spin"></i>
+
+    <span>Loading Menu...</span>
+
+</div>
+
+`;
+
+    requestAnimationFrame(() => {
+
+        loadMenuItems(categoryName);
+
+    });
+
+}
+
+
+
+// ======================================================
+// MENU ITEMS LOADER
+// ======================================================
+
+function loadMenuItems(categoryName) {
+
+    const area = document.getElementById("menuTableArea");
+
+    if (!area) return;
+
+    area.innerHTML = "";
+
+    // Part 3 में सभी Menu Tables आएँगी
+
+}
+// ======================================================
+// PART 3 / 4
+// MENU ITEMS DATABASE
+// ======================================================
+
+const MENU_ITEMS = {
+
+    everyday: [
+        ["Classic","₹30","₹50"],
+        ["Veg","₹40","₹70"],
+        ["Garlic","₹40","₹70"],
+        ["Corn","₹40","₹70"],
+        ["Schezwan","₹40","₹70"],
+        ["Veg Corn","₹50","₹80"],
+        ["Veg Lemon","₹80","₹120"],
+        ["Korean","₹100","₹150"]
+    ],
+
+    cheese: [
+        ["Cheese Classic","₹40","₹70"],
+        ["Cheese Veg","₹50","₹80"],
+        ["Cheese Garlic","₹50","₹80"],
+        ["Cheese Corn","₹50","₹80"],
+        ["Cheese Schezwan","₹50","₹80"],
+        ["Cheese Veg Corn","₹60","₹100"],
+        ["Cheese Veg Schezwan","₹60","₹100"],
+        ["Cheese Korean","₹120","₹180"]
+    ],
+
+    cheeseButter: [
+        ["Cheese Butter Classic","₹50","₹80"],
+        ["Cheese Butter Veg","₹60","₹100"],
+        ["Cheese Butter Garlic","₹60","₹100"],
+        ["Cheese Butter Corn","₹60","₹100"],
+        ["Cheese Butter Schezwan","₹60","₹100"],
+        ["Cheese Butter Veg Corn","₹70","₹120"],
+        ["Cheese Butter Veg Schezwan","₹70","₹120"],
+        ["Cheese Butter Korean","₹130","₹200"]
+    ],
+
+    burger: [
+        ["Veg Burger","₹40"],
+        ["Cheese Burger","₹40"],
+        ["Veg Cheese Burger","₹50"],
+        ["Cheese Garlic Burger","₹50"],
+        ["Schezwan Burger","₹50"],
+        ["Cheese Schezwan Burger","₹60"]
+    ],
+
+    momos: [
+        ["Steam Momos","₹20"],
+        ["Fried Momos","₹30"],
+        ["Schezwan Momos","₹50"],
+        ["Cheese Schezwan Momos","₹60"]
+    ],
+
+    soups: [
+        ["Corn Soup","₹40"],
+        ["Tomato Soup","₹40"],
+        ["Chatpata Tomato","₹40"],
+        ["Magic Maggi Soup","₹50"],
+        ["Manchow Soup","₹50"]
+    ],
+
+    corn: [
+        ["Peri Peri Corn","₹40"],
+        ["Butter Corn","₹50"],
+        ["Masala Corn","₹50"],
+        ["Cheese Corn","₹50"],
+        ["Schezwan Corn","₹50"],
+        ["Butter Cheese Corn","₹60"]
+    ],
+
+    bhel: [
+        ["Chips Bhel","₹50"],
+        ["Kurkure Bhel","₹50"]
+    ]
+
+};
+
+
+// ======================================================
+// TABLE RENDER
+// ======================================================
+
+function loadMenuItems(categoryName) {
+
+    const area = document.getElementById("menuTableArea");
+
+    if (!area) return;
+
+    const items = MENU_ITEMS[categoryName];
+
+    if (!items) {
+
+        area.innerHTML = "<p>No Menu Available.</p>";
 
         return;
 
     }
 
+    let html = "";
 
-    /* =====================================
-       REMOVE PREVIOUS ANIMATION CLASS
-    ====================================== */
+    // Half / Full Table
+    if (
+        categoryName === "everyday" ||
+        categoryName === "cheese" ||
+        categoryName === "cheeseButter"
+    ) {
 
-    section.classList.remove(
+        html += `
+        <table class="menu-table">
 
-        "food-section-enter"
+            <thead>
 
-    );
+                <tr>
 
+                    <th>Item</th>
+                    <th>Half</th>
+                    <th>Full</th>
 
-    /* =====================================
-       FORCE BROWSER REFLOW
-    ====================================== */
+                </tr>
 
-    void section.offsetWidth;
+            </thead>
 
+            <tbody>
+        `;
 
-    /* =====================================
-       ADD ANIMATION CLASS
-    ====================================== */
+        items.forEach(item => {
 
-    section.classList.add(
+            html += `
 
-        "food-section-enter"
+            <tr>
 
-    );
+                <td>${item[0]}</td>
 
+                <td>${item[1]}</td>
 
-    /* =====================================
-       REMOVE CLASS AFTER ANIMATION
-    ====================================== */
+                <td>${item[2]}</td>
 
-    setTimeout(
+            </tr>
 
-        function () {
+            `;
 
-            section.classList.remove(
+        });
 
-                "food-section-enter"
+        html += `
+            </tbody>
+        </table>
+        `;
 
-            );
+    }
+
+    // Single Price Table
+    else {
+
+        html += `
+        <table class="menu-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Item</th>
+
+                    <th>Price</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+        `;
+
+        items.forEach(item => {
+
+            html += `
+
+            <tr>
+
+                <td>${item[0]}</td>
+
+                <td>${item[1]}</td>
+
+            </tr>
+
+            `;
+
+        });
+
+        html += `
+            </tbody>
+        </table>
+        `;
+
+    }
+
+    area.innerHTML = html;
+
+}
+// ======================================================
+// PART 4 / 4
+// HERO SLIDER + ANIMATIONS + UTILITIES
+// ======================================================
+
+// ======================================================
+// HERO SLIDER
+// ======================================================
+
+function setupHeroSlider() {
+
+    if (!heroSlides.length) return;
+
+    showSlide(0);
+
+    if (MenuState.sliderTimer) {
+        clearInterval(MenuState.sliderTimer);
+    }
+
+    MenuState.sliderTimer = setInterval(() => {
+
+        MenuState.currentSlide++;
+
+        if (MenuState.currentSlide >= heroSlides.length) {
+            MenuState.currentSlide = 0;
+        }
+
+        showSlide(MenuState.currentSlide);
+
+    }, 4000);
+
+}
+
+// ======================================================
+// SHOW HERO SLIDE
+// ======================================================
+
+function showSlide(index) {
+
+    heroSlides.forEach((slide, i) => {
+
+        slide.classList.toggle("active", i === index);
+
+    });
+
+}
+
+// ======================================================
+// FLOATING CARD ANIMATION
+// ======================================================
+
+function setupCardAnimations() {
+
+    floatingCards.forEach((card, index) => {
+
+        card.style.animationDelay = `${index * 0.08}s`;
+
+        card.addEventListener("mouseenter", () => {
+
+            card.classList.add("card-hover");
+
+        });
+
+        card.addEventListener("mouseleave", () => {
+
+            card.classList.remove("card-hover");
+
+        });
+
+    });
+
+}
+
+// ======================================================
+// REFRESH MENU
+// ======================================================
+
+function refreshMenu() {
+
+    if (!MenuState.currentCategory) return;
+
+    renderCategory(MenuState.currentCategory);
+
+}
+
+// ======================================================
+// CLOSE DETAIL
+// ======================================================
+
+function closeMenuDetail() {
+
+    if (!detailContainer) return;
+
+    detailContainer.innerHTML = "";
+
+    MenuState.currentCategory = null;
+
+    categoryCards.forEach(card => {
+
+        card.classList.remove("active");
+
+    });
+
+}
+
+// ======================================================
+// WINDOW RESIZE
+// ======================================================
+
+window.addEventListener("resize", () => {
+
+    if (MenuState.currentCategory) {
+
+        refreshMenu();
+
+    }
+
+});
+
+// ======================================================
+// PAGE VISIBILITY
+// ======================================================
+
+document.addEventListener("visibilitychange", () => {
+
+    if (document.hidden) {
+
+        if (MenuState.sliderTimer) {
+
+            clearInterval(MenuState.sliderTimer);
+
+        }
+
+    } else {
+
+        setupHeroSlider();
+
+    }
+
+});
+
+// ======================================================
+// DEBUG
+// ======================================================
+
+window.MenuSystem = {
+
+    state: MenuState,
+
+    menu: MENU_DATA,
+
+    items: MENU_ITEMS,
+
+    openCategory,
+
+    refreshMenu,
+
+    closeMenuDetail
+
+};
+
+console.log("✅ MENU.JS PART 4 LOADED");
+console.log("✅ MENU.JS COMPLETE");
+// ======================================================
+// PART 5 / 7
+// PREMIUM HERO SLIDER ENHANCEMENT
+// ======================================================
+
+let sliderStartX = 0;
+let sliderEndX = 0;
+let sliderPaused = false;
+
+// ======================================================
+// ENHANCE HERO SLIDER
+// ======================================================
+
+function initializePremiumSlider() {
+
+    if (!heroSlider || heroSlides.length <= 1) return;
+
+    setupSliderHover();
+
+    setupSliderTouch();
+
+    setupSliderVisibility();
+
+}
+
+// ======================================================
+// HOVER PAUSE
+// ======================================================
+
+function setupSliderHover() {
+
+    heroSlider.addEventListener("mouseenter", () => {
+
+        pauseHeroSlider();
+
+    });
+
+    heroSlider.addEventListener("mouseleave", () => {
+
+        resumeHeroSlider();
+
+    });
+
+}
+
+// ======================================================
+// PAUSE
+// ======================================================
+
+function pauseHeroSlider() {
+
+    if (sliderPaused) return;
+
+    sliderPaused = true;
+
+    if (MenuState.sliderTimer) {
+
+        clearInterval(MenuState.sliderTimer);
+
+        MenuState.sliderTimer = null;
+
+    }
+
+}
+
+// ======================================================
+// RESUME
+// ======================================================
+
+function resumeHeroSlider() {
+
+    if (!sliderPaused) return;
+
+    sliderPaused = false;
+
+    setupHeroSlider();
+
+}
+
+// ======================================================
+// TOUCH SUPPORT
+// ======================================================
+
+function setupSliderTouch() {
+
+    heroSlider.addEventListener("touchstart", e => {
+
+        sliderStartX = e.changedTouches[0].clientX;
+
+    }, { passive: true });
+
+    heroSlider.addEventListener("touchend", e => {
+
+        sliderEndX = e.changedTouches[0].clientX;
+
+        detectSliderSwipe();
+
+    }, { passive: true });
+
+}
+
+// ======================================================
+// SWIPE DETECTION
+// ======================================================
+
+function detectSliderSwipe() {
+
+    const distance = sliderStartX - sliderEndX;
+
+    if (Math.abs(distance) < 60) return;
+
+    if (distance > 0) {
+
+        nextHeroSlide();
+
+    } else {
+
+        previousHeroSlide();
+
+    }
+
+}
+
+// ======================================================
+// NEXT
+// ======================================================
+
+function nextHeroSlide() {
+
+    MenuState.currentSlide++;
+
+    if (MenuState.currentSlide >= heroSlides.length) {
+
+        MenuState.currentSlide = 0;
+
+    }
+
+    showSlide(MenuState.currentSlide);
+
+}
+
+// ======================================================
+// PREVIOUS
+// ======================================================
+
+function previousHeroSlide() {
+
+    MenuState.currentSlide--;
+
+    if (MenuState.currentSlide < 0) {
+
+        MenuState.currentSlide = heroSlides.length - 1;
+
+    }
+
+    showSlide(MenuState.currentSlide);
+
+}
+
+// ======================================================
+// PAGE VISIBILITY
+// ======================================================
+
+function setupSliderVisibility() {
+
+    document.addEventListener("visibilitychange", () => {
+
+        if (document.hidden) {
+
+            pauseHeroSlider();
+
+        } else {
+
+            resumeHeroSlider();
+
+        }
+
+    });
+
+}
+
+// ======================================================
+// START PREMIUM FEATURES
+// ======================================================
+
+initializePremiumSlider();
+
+console.log("✅ MENU.JS PART 5 LOADED");
+// ======================================================
+// PART 6 / 7
+// PREMIUM CARD ANIMATION SYSTEM
+// ======================================================
+
+// ======================================================
+// SCROLL REVEAL
+// ======================================================
+
+let menuObserver = null;
+
+function initializeScrollReveal() {
+
+    if (!("IntersectionObserver" in window)) return;
+
+    menuObserver = new IntersectionObserver(
+
+        (entries) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("reveal-active");
+
+                    menuObserver.unobserve(entry.target);
+
+                }
+
+            });
 
         },
 
-        500
+        {
+            threshold: 0.15,
+            rootMargin: "0px 0px -80px 0px"
+        }
 
     );
 
+    document
+        .querySelectorAll(
+            ".menu-category-card,.menu-detail-header,.menu-table"
+        )
+        .forEach(item => {
+
+            item.classList.add("reveal-item");
+
+            menuObserver.observe(item);
+
+        });
+
 }
 
+// ======================================================
+// RIPPLE EFFECT
+// ======================================================
 
-/* =========================================
-   ENHANCED CATEGORY CLICK HANDLER
-========================================= */
+function initializeRippleEffect() {
 
-document.addEventListener(
+    categoryCards.forEach(card => {
 
-    "click",
+        card.addEventListener("click", function (e) {
 
-    function (event) {
+            const ripple =
+                document.createElement("span");
 
+            ripple.className = "menu-ripple";
 
-        /* =====================================
-           FIND CLICKED CATEGORY CARD
-        ====================================== */
+            const rect =
+                this.getBoundingClientRect();
 
-        const categoryCard =
+            ripple.style.left =
+                (e.clientX - rect.left) + "px";
 
-            event.target.closest(
+            ripple.style.top =
+                (e.clientY - rect.top) + "px";
 
-                ".category-card"
+            this.appendChild(ripple);
 
-            );
+            setTimeout(() => {
 
+                ripple.remove();
 
-        /* =====================================
-           NOT A CATEGORY CARD
-        ====================================== */
+            }, 700);
 
-        if (!categoryCard) {
+        });
 
-            return;
+    });
 
-        }
+}
 
+// ======================================================
+// FLOATING CARD EFFECT
+// ======================================================
 
-        /* =====================================
-           GET TARGET ID
-        ====================================== */
+function initializeFloatingCards() {
 
-        const targetId =
+    floatingCards.forEach((card, index) => {
 
-            categoryCard.dataset.target;
+        const duration =
 
+            3000 + (index * 250);
 
-        /* =====================================
-           FIND FOOD SECTION
-        ====================================== */
+        card.animate(
 
-        const targetSection =
+            [
 
-            document.getElementById(
+                {
+                    transform:
+                    "translateY(0px)"
+                },
 
-                targetId
+                {
+                    transform:
+                    "translateY(-8px)"
+                },
 
-            );
+                {
+                    transform:
+                    "translateY(0px)"
+                }
 
-
-        /* =====================================
-           SAFETY CHECK
-        ====================================== */
-
-        if (!targetSection) {
-
-            return;
-
-        }
-
-
-        /* =====================================
-           RUN SECTION ANIMATION
-        ====================================== */
-
-        requestAnimationFrame(
-
-            function () {
-
-                animateFoodSection(
-
-                    targetSection
-
-                );
-
-            }
-
-        );
-
-    }
-
-);
-
-
-/* =========================================
-   CATEGORY KEYBOARD ACCESSIBILITY
-========================================= */
-
-document.addEventListener(
-
-    "keydown",
-
-    function (event) {
-
-
-        /* =====================================
-           ONLY ENTER / SPACE
-        ====================================== */
-
-        if (
-
-            event.key !== "Enter" &&
-
-            event.key !== " "
-
-        ) {
-
-            return;
-
-        }
-
-
-        /* =====================================
-           FIND FOCUSED CATEGORY CARD
-        ====================================== */
-
-        const categoryCard =
-
-            document.activeElement;
-
-
-        /* =====================================
-           SAFETY CHECK
-        ====================================== */
-
-        if (
-
-            !categoryCard ||
-
-            !categoryCard.classList.contains(
-
-                "category-card"
-
-            )
-
-        ) {
-
-            return;
-
-        }
-
-
-        /* =====================================
-           PREVENT SPACE PAGE SCROLL
-        ====================================== */
-
-        if (
-
-            event.key === " "
-
-        ) {
-
-            event.preventDefault();
-
-        }
-
-
-        /* =====================================
-           CLICK CATEGORY CARD
-        ====================================== */
-
-        categoryCard.click();
-
-    }
-
-);
-
-
-/* =========================================
-   UPDATE ACTIVE CATEGORY ON SCROLL
-========================================= */
-
-function initializeScrollCategoryTracking() {
-
-
-    /* =====================================
-       GET CATEGORY CARDS
-    ====================================== */
-
-    const categoryCards =
-
-        document.querySelectorAll(
-
-            ".category-card"
-
-        );
-
-
-    /* =====================================
-       GET FOOD SECTIONS
-    ====================================== */
-
-    const foodSections =
-
-        document.querySelectorAll(
-
-            ".food-section"
-
-        );
-
-
-    /* =====================================
-       SAFETY CHECK
-    ====================================== */
-
-    if (
-
-        !categoryCards.length ||
-
-        !foodSections.length
-
-    ) {
-
-        return;
-
-    }
-
-
-    /* =====================================
-       INTERSECTION OBSERVER
-    ====================================== */
-
-    const observer =
-
-        new IntersectionObserver(
-
-            function (entries) {
-
-
-                entries.forEach(
-
-                    function (entry) {
-
-
-                        if (
-
-                            !entry.isIntersecting
-
-                        ) {
-
-                            return;
-
-                        }
-
-
-                        const sectionId =
-
-                            entry.target.id;
-
-
-                        categoryCards.forEach(
-
-                            function (card) {
-
-
-                                const isActive =
-
-                                    card.dataset.target ===
-
-                                    sectionId;
-
-
-                                card.classList.toggle(
-
-                                    "active",
-
-                                    isActive
-
-                                );
-
-
-                                card.setAttribute(
-
-                                    "aria-expanded",
-
-                                    isActive
-
-                                        ? "true"
-
-                                        : "false"
-
-                                );
-
-                            }
-
-                        );
-
-                    }
-
-                );
-
-            },
+            ],
 
             {
 
-                threshold:
-                    0.35
+                duration,
+
+                iterations: Infinity,
+
+                easing: "ease-in-out"
 
             }
 
         );
 
-
-    /* =====================================
-       OBSERVE FOOD SECTIONS
-    ====================================== */
-
-    foodSections.forEach(
-
-        function (section) {
-
-            observer.observe(
-
-                section
-
-            );
-
-        }
-
-    );
+    });
 
 }
 
+// ======================================================
+// TABLE FADE
+// ======================================================
 
-/* =========================================
-   INITIALIZE SCROLL TRACKING
-========================================= */
+function animateMenuTable() {
 
-document.addEventListener(
+    const table =
+        document.querySelector(".menu-table");
 
-    "DOMContentLoaded",
+    if (!table) return;
 
-    function () {
+    table.animate(
 
-        initializeScrollCategoryTracking();
+        [
 
-    }
-
-);
-
-
-/* =========================================
-   END MENU.JS PART 2/4
-========================================= */
- /* =========================================
-   RIO MAGGI POINT
-   MENU.JS
-   PART 3/4
-   MENU ITEM POPUP SYSTEM
-   ITEM IMAGE + PRICE DISPLAY
-========================================= */
-
-
-/* =========================================
-   OPEN ITEM POPUP
-========================================= */
-
-function openMenuItemPopup(
-
-    itemElement
-
-) {
-
-
-    /* =====================================
-       REMOVE EXISTING POPUP
-    ====================================== */
-
-    const existingPopup =
-
-        document.querySelector(
-
-            ".menu-item-popup"
-
-        );
-
-
-    if (existingPopup) {
-
-        existingPopup.remove();
-
-    }
-
-
-    /* =====================================
-       GET ITEM INFORMATION
-    ====================================== */
-
-    const itemName =
-
-        itemElement
-
-            .querySelector(
-
-                ".food-name"
-
-            )?.textContent
-
-            .trim();
-
-
-    const halfPrice =
-
-        itemElement
-
-            .querySelector(
-
-                ".half-price"
-
-            )?.textContent
-
-            .trim();
-
-
-    const fullPrice =
-
-        itemElement
-
-            .querySelector(
-
-                ".full-price"
-
-            )?.textContent
-
-            .trim();
-
-
-    const singlePrice =
-
-        itemElement
-
-            .querySelector(
-
-                ".single-price"
-
-            )?.textContent
-
-            .trim();
-
-
-    /* =====================================
-       GET IMAGE
-    ====================================== */
-
-    const foodSection =
-
-        itemElement.closest(
-
-            ".food-section"
-
-        );
-
-
-    const sectionTitle =
-
-        foodSection
-
-            ?.querySelector(
-
-                ".food-header h2"
-
-            )?.textContent
-
-            .trim();
-
-
-    const sectionImage =
-
-        foodSection
-
-            ?.querySelector(
-
-                ".food-image-large img"
-
-            )?.getAttribute(
-
-                "src"
-
-            );
-
-
-    /* =====================================
-       CREATE PRICE HTML
-    ====================================== */
-
-    let priceHTML = "";
-
-
-    /* =====================================
-       HALF + FULL PRICE
-    ====================================== */
-
-    if (
-
-        halfPrice &&
-
-        fullPrice
-
-    ) {
-
-        priceHTML = `
-
-            <div class="menu-popup-price">
-
-                <div class="popup-price-option">
-
-                    <span>
-                        Half
-                    </span>
-
-                    <strong>
-                        ${halfPrice}
-                    </strong>
-
-                </div>
-
-
-                <div class="popup-price-option">
-
-                    <span>
-                        Full
-                    </span>
-
-                    <strong>
-                        ${fullPrice}
-                    </strong>
-
-                </div>
-
-            </div>
-
-        `;
-
-    }
-
-
-    /* =====================================
-       SINGLE PRICE
-    ====================================== */
-
-    else if (singlePrice) {
-
-        priceHTML = `
-
-            <div class="menu-popup-price">
-
-                <div class="popup-price-single">
-
-                    ${singlePrice}
-
-                </div>
-
-            </div>
-
-        `;
-
-    }
-
-
-    /* =====================================
-       CREATE POPUP
-    ====================================== */
-
-    const popup =
-
-        document.createElement(
-
-            "div"
-
-        );
-
-
-    popup.className =
-
-        "menu-item-popup";
-
-
-    /* =====================================
-       POPUP HTML
-    ====================================== */
-
-    popup.innerHTML = `
-
-        <!-- =================================
-             POPUP BACKDROP
-        ================================== -->
-
-        <div
-
-            class="menu-popup-backdrop"
-
-            aria-hidden="true"
-
-        ></div>
-
-
-        <!-- =================================
-             POPUP CARD
-        ================================== -->
-
-        <div
-
-            class="menu-popup-card"
-
-            role="dialog"
-
-            aria-modal="true"
-
-            aria-labelledby="menuPopupTitle"
-
-        >
-
-
-            <!-- =============================
-                 CLOSE BUTTON
-            ============================== -->
-
-            <button
-
-                type="button"
-
-                class="menu-popup-close"
-
-                aria-label="Close item details"
-
-            >
-
-                <i
-
-                    class="fa-solid fa-xmark"
-
-                    aria-hidden="true"
-
-                ></i>
-
-            </button>
-
-
-            <!-- =============================
-                 ITEM IMAGE
-            ============================== -->
-
-            <div
-
-                class="menu-popup-image-wrapper"
-
-            >
-
-                <img
-
-                    src="${sectionImage || ""}"
-
-                    alt="${itemName || "Food Item"}"
-
-                    class="menu-popup-image"
-
-                >
-
-            </div>
-
-
-            <!-- =============================
-                 POPUP CONTENT
-            ============================== -->
-
-            <div
-
-                class="menu-popup-content"
-
-            >
-
-
-                <span
-
-                    class="menu-popup-category"
-
-                >
-
-                    ${sectionTitle || "Rio Maggi Point"}
-
-                </span>
-
-
-                <h2
-
-                    id="menuPopupTitle"
-
-                >
-
-                    ${itemName || "Food Item"}
-
-                </h2>
-
-
-                ${priceHTML}
-
-
-                <!-- =========================
-                     DONE BUTTON
-                ========================== -->
-
-                <button
-
-                    type="button"
-
-                    class="menu-popup-done-btn"
-
-                >
-
-                    <i
-
-                        class="fa-solid fa-check"
-
-                        aria-hidden="true"
-
-                    ></i>
-
-
-                    Done
-
-                </button>
-
-
-            </div>
-
-        </div>
-
-    `;
-
-
-    /* =====================================
-       ADD POPUP TO BODY
-    ====================================== */
-
-    document.body.appendChild(
-
-        popup
-
-    );
-
-
-    /* =====================================
-       LOCK BODY SCROLL
-    ====================================== */
-
-    document.body.classList.add(
-
-        "menu-popup-open"
-
-    );
-
-
-    /* =====================================
-       SHOW POPUP
-    ====================================== */
-
-    requestAnimationFrame(
-
-        function () {
-
-            popup.classList.add(
-
-                "show"
-
-            );
-
-        }
-
-    );
-
-
-    /* =====================================
-       GET POPUP ELEMENTS
-    ====================================== */
-
-    const closeButton =
-
-        popup.querySelector(
-
-            ".menu-popup-close"
-
-        );
-
-
-    const doneButton =
-
-        popup.querySelector(
-
-            ".menu-popup-done-btn"
-
-        );
-
-
-    const backdrop =
-
-        popup.querySelector(
-
-            ".menu-popup-backdrop"
-
-        );
-
-
-    /* =====================================
-       CLOSE POPUP FUNCTION
-    ====================================== */
-
-    function closePopup() {
-
-
-        /* =================================
-           REMOVE SHOW CLASS
-        ================================== */
-
-        popup.classList.remove(
-
-            "show"
-
-        );
-
-
-        /* =================================
-           UNLOCK BODY SCROLL
-        ================================== */
-
-        document.body.classList.remove(
-
-            "menu-popup-open"
-
-        );
-
-
-        /* =================================
-           REMOVE POPUP AFTER ANIMATION
-        ================================== */
-
-        setTimeout(
-
-            function () {
-
-                if (
-
-                    popup.parentNode
-
-                ) {
-
-                    popup.remove();
-
-                }
-
+            {
+                opacity: 0,
+                transform:
+                "translateY(30px)"
             },
 
-            350
-
-        );
-
-    }
-
-
-    /* =====================================
-       CLOSE BUTTON
-    ====================================== */
-
-    if (closeButton) {
-
-        closeButton.addEventListener(
-
-            "click",
-
-            closePopup
-
-        );
-
-    }
-
-
-    /* =====================================
-       DONE BUTTON
-    ====================================== */
-
-    if (doneButton) {
-
-        doneButton.addEventListener(
-
-            "click",
-
-            closePopup
-
-        );
-
-    }
-
-
-    /* =====================================
-       BACKDROP CLICK
-    ====================================== */
-
-    if (backdrop) {
-
-        backdrop.addEventListener(
-
-            "click",
-
-            closePopup
-
-        );
-
-    }
-
-
-    /* =====================================
-       ESCAPE KEY
-    ====================================== */
-
-    function escapeHandler(
-
-        event
-
-    ) {
-
-        if (
-
-            event.key ===
-
-            "Escape"
-
-        ) {
-
-            closePopup();
-
-        }
-
-    }
-
-
-    document.addEventListener(
-
-        "keydown",
-
-        escapeHandler
-
-    );
-
-
-    /* =====================================
-       CLEAN ESCAPE LISTENER
-    ====================================== */
-
-    popup.addEventListener(
-
-        "transitionend",
-
-        function () {
-
-            if (
-
-                !popup.classList.contains(
-
-                    "show"
-
-                )
-
-            ) {
-
-                document.removeEventListener(
-
-                    "keydown",
-
-                    escapeHandler
-
-                );
-
+            {
+                opacity: 1,
+                transform:
+                "translateY(0px)"
             }
 
-        }
-
-    );
-
-
-    /* =====================================
-       IMAGE ERROR HANDLING
-    ====================================== */
-
-    const popupImage =
-
-        popup.querySelector(
-
-            ".menu-popup-image"
-
-        );
-
-
-    if (popupImage) {
-
-        popupImage.addEventListener(
-
-            "error",
-
-            function () {
-
-                this.classList.add(
-
-                    "image-error"
-
-                );
-
-            }
-
-        );
-
-    }
-
-
-    /* =====================================
-       FOCUS CLOSE BUTTON
-    ====================================== */
-
-    requestAnimationFrame(
-
-        function () {
-
-            if (closeButton) {
-
-                closeButton.focus();
-
-            }
-
-        }
-
-    );
-
-}
-
-
-/* =========================================
-   INITIALIZE FOOD ITEM CLICK
-========================================= */
-
-function initializeFoodItemPopup() {
-
-
-    /* =====================================
-       GET ALL FOOD ITEMS
-    ====================================== */
-
-    const foodItems =
-
-        document.querySelectorAll(
-
-            ".food-item"
-
-        );
-
-
-    /* =====================================
-       ADD CLICK EVENT
-    ====================================== */
-
-    foodItems.forEach(
-
-        function (foodItem) {
-
-
-            foodItem.addEventListener(
-
-                "click",
-
-                function () {
-
-                    openMenuItemPopup(
-
-                        this
-
-                    );
-
-                }
-
-            );
-
-
-            /* ===============================
-               KEYBOARD ACCESSIBILITY
-            ================================ */
-
-            foodItem.setAttribute(
-
-                "tabindex",
-
-                "0"
-
-            );
-
-
-            foodItem.setAttribute(
-
-                "role",
-
-                "button"
-
-            );
-
-
-            foodItem.addEventListener(
-
-                "keydown",
-
-                function (event) {
-
-
-                    if (
-
-                        event.key ===
-
-                        "Enter" ||
-
-                        event.key ===
-
-                        " "
-
-                    ) {
-
-
-                        event.preventDefault();
-
-
-                        openMenuItemPopup(
-
-                            this
-
-                        );
-
-                    }
-
-                }
-
-            );
-
-        }
-
-    );
-
-}
-
-
-/* =========================================
-   INITIALIZE FOOD ITEMS
-========================================= */
-
-document.addEventListener(
-
-    "DOMContentLoaded",
-
-    function () {
-
-        initializeFoodItemPopup();
-
-    }
-
-);
-
-
-/* =========================================
-   END MENU.JS PART 3/4
-========================================= */
-/* =========================================
-   RIO MAGGI POINT
-   MENU.JS
-   PART 4/4
-   FINAL INITIALIZATION
-   + POPUP SCROLL LOCK
-   + NAVIGATION
-   + IMAGE PRELOAD
-   + FINAL CLEANUP
-========================================= */
-
-
-/* =========================================
-   INITIALIZE MENU PAGE
-========================================= */
-
-document.addEventListener(
-
-    "DOMContentLoaded",
-
-    function () {
-
-
-        /* =====================================
-           INITIALIZE MENU IMAGES
-        ====================================== */
-
-        initializeMenuImages();
-
-
-        /* =====================================
-           INITIALIZE FOOD ITEM POPUPS
-        ====================================== */
-
-        initializeFoodItemPopup();
-
-
-        /* =====================================
-           PRELOAD MENU IMAGES
-        ====================================== */
-
-        preloadMenuImages();
-
-
-        /* =====================================
-           INITIALIZE BOTTOM NAVIGATION
-        ====================================== */
-
-        initializeBottomNavigation();
-
-
-        /* =====================================
-           MARK MENU PAGE AS READY
-        ====================================== */
-
-        document.body.classList.add(
-
-            "menu-page-ready"
-
-        );
-
-
-        /* =====================================
-           DISPATCH MENU READY EVENT
-        ====================================== */
-
-        document.dispatchEvent(
-
-            new CustomEvent(
-
-                "rioMenuReady"
-
-            )
-
-        );
-
-    }
-
-);
-
-
-/* =========================================
-   PRELOAD MENU IMAGES
-========================================= */
-
-function preloadMenuImages() {
-
-
-    /* =====================================
-       MENU CATEGORY IMAGE PATHS
-    ====================================== */
-
-    const imagePaths = [
-
-        "images/menu/everyday-maggi.png",
-
-        "images/menu/cheese-maggi.png",
-
-        "images/menu/cheese-butter-maggi.png",
-
-        "images/menu/ufo-burger.png",
-
-        "images/menu/momos.png",
-
-        "images/menu/soup.png",
-
-        "images/menu/sweet-corn.png",
-
-        "images/menu/chips-bhel.png",
-
-        "images/menu/everyday-maggi-large.png",
-
-        "images/menu/cheese-maggi-large.png",
-
-        "images/menu/cheese-butter-maggi-large.png",
-
-        "images/menu/ufo-burger-large.png",
-
-        "images/menu/momos-large.png",
-
-        "images/menu/soup-large.png",
-
-        "images/menu/sweet-corn-large.png",
-
-        "images/menu/chips-bhel-large.png"
-
-    ];
-
-
-    /* =====================================
-       PRELOAD EACH IMAGE
-    ====================================== */
-
-    imagePaths.forEach(
-
-        function (imagePath) {
-
-
-            const image =
-
-                new Image();
-
-
-            image.src =
-
-                imagePath;
-
-
-        }
-
-    );
-
-}
-
-
-/* =========================================
-   BOTTOM NAVIGATION
-========================================= */
-
-function initializeBottomNavigation() {
-
-
-    /* =====================================
-       GET ALL NAVIGATION LINKS
-    ====================================== */
-
-    const navigationLinks =
-
-        document.querySelectorAll(
-
-            ".bottom-nav a"
-
-        );
-
-
-    /* =====================================
-       SAFETY CHECK
-    ====================================== */
-
-    if (
-
-        !navigationLinks.length
-
-    ) {
-
-        return;
-
-    }
-
-
-    /* =====================================
-       GET CURRENT PAGE
-    ====================================== */
-
-    const currentPath =
-
-        window.location.pathname;
-
-
-    /* =====================================
-       FIND CURRENT FILE
-    ====================================== */
-
-    const currentFile =
-
-        currentPath
-
-            .split("/")
-
-            .pop()
-
-            .toLowerCase();
-
-
-    /* =====================================
-       PROCESS NAVIGATION LINKS
-    ====================================== */
-
-    navigationLinks.forEach(
-
-        function (link) {
-
-
-            /* ===============================
-               GET LINK TARGET
-            ================================ */
-
-            const href =
-
-                link.getAttribute(
-
-                    "href"
-
-                );
-
-
-            /* ===============================
-               SAFETY CHECK
-            ================================ */
-
-            if (!href) {
-
-                return;
-
-            }
-
-
-            /* ===============================
-               GET LINK FILE
-            ================================ */
-
-            const linkFile =
-
-                href
-
-                    .split("/")
-
-                    .pop()
-
-                    .split("?")[0]
-
-                    .split("#")[0]
-
-                    .toLowerCase();
-
-
-            /* ===============================
-               REMOVE ACTIVE STATE
-            ================================ */
-
-            link.classList.remove(
-
-                "active"
-
-            );
-
-
-            link.removeAttribute(
-
-                "aria-current"
-
-            );
-
-
-            /* ===============================
-               APPLY ACTIVE STATE
-            ================================ */
-
-            if (
-
-                linkFile ===
-
-                currentFile
-
-            ) {
-
-
-                link.classList.add(
-
-                    "active"
-
-                );
-
-
-                link.setAttribute(
-
-                    "aria-current",
-
-                    "page"
-
-                );
-
-            }
-
-        }
-
-    );
-
-}
-
-
-/* =========================================
-   POPUP SCROLL LOCK
-========================================= */
-
-document.addEventListener(
-
-    "touchmove",
-
-    function (event) {
-
-
-        /* =====================================
-           FIND OPEN POPUP
-        ====================================== */
-
-        const popup =
-
-            document.querySelector(
-
-                ".menu-item-popup.show"
-
-            );
-
-
-        /* =====================================
-           NO POPUP
-        ====================================== */
-
-        if (!popup) {
-
-            return;
-
-        }
-
-
-        /* =====================================
-           CHECK POPUP CARD
-        ====================================== */
-
-        const popupCard =
-
-            event.target.closest(
-
-                ".menu-popup-card"
-
-            );
-
-
-        /* =====================================
-           ALLOW TOUCH INSIDE POPUP
-        ====================================== */
-
-        if (popupCard) {
-
-            return;
-
-        }
-
-
-        /* =====================================
-           PREVENT BACKGROUND SCROLL
-        ====================================== */
-
-        event.preventDefault();
-
-    },
-
-    {
-
-        passive:
-
-            false
-
-    }
-
-);
-
-
-/* =========================================
-   POPUP ESCAPE KEY SAFETY
-========================================= */
-
-document.addEventListener(
-
-    "keydown",
-
-    function (event) {
-
-
-        /* =====================================
-           ONLY ESCAPE KEY
-        ====================================== */
-
-        if (
-
-            event.key !==
-
-            "Escape"
-
-        ) {
-
-            return;
-
-        }
-
-
-        /* =====================================
-           FIND OPEN POPUP
-        ====================================== */
-
-        const popup =
-
-            document.querySelector(
-
-                ".menu-item-popup.show"
-
-            );
-
-
-        /* =====================================
-           NO POPUP
-        ====================================== */
-
-        if (!popup) {
-
-            return;
-
-        }
-
-
-        /* =====================================
-           CLICK CLOSE BUTTON
-        ====================================== */
-
-        const closeButton =
-
-            popup.querySelector(
-
-                ".menu-popup-close"
-
-            );
-
-
-        if (closeButton) {
-
-            closeButton.click();
-
-        }
-
-    }
-
-);
-
-
-/* =========================================
-   POPUP BACKGROUND CLICK SAFETY
-========================================= */
-
-document.addEventListener(
-
-    "click",
-
-    function (event) {
-
-
-        /* =====================================
-           CHECK BACKDROP
-        ====================================== */
-
-        if (
-
-            !event.target.classList.contains(
-
-                "menu-popup-backdrop"
-
-            )
-
-        ) {
-
-            return;
-
-        }
-
-
-        /* =====================================
-           FIND POPUP
-        ====================================== */
-
-        const popup =
-
-            event.target.closest(
-
-                ".menu-item-popup"
-
-            );
-
-
-        /* =====================================
-           FIND CLOSE BUTTON
-        ====================================== */
-
-        const closeButton =
-
-            popup?.querySelector(
-
-                ".menu-popup-close"
-
-            );
-
-
-        /* =====================================
-           CLOSE POPUP
-        ====================================== */
-
-        if (closeButton) {
-
-            closeButton.click();
-
-        }
-
-    }
-
-);
-
-
-/* =========================================
-   POPUP BODY SCROLL STATE
-========================================= */
-
-const menuPopupScrollObserver =
-
-    new MutationObserver(
-
-        function () {
-
-
-            /* =================================
-               CHECK OPEN POPUP
-            ================================== */
-
-            const popup =
-
-                document.querySelector(
-
-                    ".menu-item-popup.show"
-
-                );
-
-
-            /* =================================
-               APPLY BODY LOCK
-            ================================== */
-
-            document.body.classList.toggle(
-
-                "menu-popup-open",
-
-                Boolean(popup)
-
-            );
-
-        }
-
-    );
-
-
-/* =========================================
-   START POPUP OBSERVER
-========================================= */
-
-if (
-
-    document.body
-
-) {
-
-    menuPopupScrollObserver.observe(
-
-        document.body,
+        ],
 
         {
 
-            childList:
+            duration: 500,
 
-                true,
-
-            subtree:
-
-                true
+            easing: "ease"
 
         }
 
@@ -2635,57 +1062,208 @@ if (
 
 }
 
+// ======================================================
+// PATCH TABLE RENDER
+// ======================================================
 
-/* =========================================
-   CLEANUP BEFORE PAGE LEAVE
-========================================= */
+const originalLoadMenuItems =
+loadMenuItems;
+
+loadMenuItems = function (categoryName) {
+
+    originalLoadMenuItems(categoryName);
+
+    requestAnimationFrame(() => {
+
+        animateMenuTable();
+
+        initializeScrollReveal();
+
+    });
+
+};
+
+// ======================================================
+// PERFORMANCE
+// ======================================================
 
 window.addEventListener(
 
-    "beforeunload",
+    "load",
 
-    function () {
+    () => {
 
+        initializeScrollReveal();
 
-        /* =====================================
-           REMOVE POPUP SCROLL LOCK
-        ====================================== */
+        initializeRippleEffect();
 
-        document.body.classList.remove(
-
-            "menu-popup-open"
-
-        );
-
-
-        /* =====================================
-           REMOVE PAGE READY STATE
-        ====================================== */
-
-        document.body.classList.remove(
-
-            "menu-page-ready"
-
-        );
+        initializeFloatingCards();
 
     }
 
 );
 
+console.log("✅ MENU.JS PART 6 LOADED");
+// ======================================================
+// PART 7 / 7
+// FINAL POLISH + ADSENSE READY + ACCESSIBILITY
+// ======================================================
 
-/* =========================================
-   FINAL MENU READY LOG
-========================================= */
+// ======================================================
+// SAFE BOTTOM SPACE
+// ======================================================
 
-console.log(
+function applySafeBottomSpacing() {
 
-    "Rio Maggi Point Menu JS Loaded Successfully"
+    const menuPage = document.querySelector(".menu-page");
 
-);
+    if (!menuPage) return;
 
+    menuPage.style.paddingBottom = "180px";
 
-/* =========================================
-   END MENU.JS
-   PART 4/4
-   MENU.JS COMPLETE
-========================================= */
+}
+
+// ======================================================
+// ADSENSE PLACEHOLDER
+// ======================================================
+
+function initializeAdSpaces() {
+
+    document.querySelectorAll(".ads-placeholder").forEach(ad => {
+
+        ad.innerHTML = `
+            <div class="coming-ad-box">
+                Advertisement
+            </div>
+        `;
+
+    });
+
+}
+
+// ======================================================
+// KEYBOARD ACCESSIBILITY
+// ======================================================
+
+function initializeKeyboardNavigation() {
+
+    categoryCards.forEach(card => {
+
+        card.setAttribute("tabindex", "0");
+
+        card.addEventListener("keydown", e => {
+
+            if (e.key === "Enter" || e.key === " ") {
+
+                e.preventDefault();
+
+                card.click();
+
+            }
+
+        });
+
+    });
+
+}
+
+// ======================================================
+// IMAGE LAZY FADE
+// ======================================================
+
+function initializeImageEffects() {
+
+    document
+        .querySelectorAll(".menu-category-image")
+        .forEach(img => {
+
+            img.addEventListener("load", () => {
+
+                img.classList.add("loaded");
+
+            });
+
+        });
+
+}
+
+// ======================================================
+// SMOOTH BACK TO TOP
+// ======================================================
+
+function scrollTopMenu() {
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+// ======================================================
+// MENU RESET
+// ======================================================
+
+function resetMenuSystem() {
+
+    closeMenuDetail();
+
+    scrollTopMenu();
+
+}
+
+// ======================================================
+// GLOBAL API
+// ======================================================
+
+window.MenuSystem = {
+
+    state: MenuState,
+
+    menuData: MENU_DATA,
+
+    menuItems: MENU_ITEMS,
+
+    openCategory,
+
+    closeMenuDetail,
+
+    refreshMenu,
+
+    resetMenuSystem,
+
+    scrollTopMenu
+
+};
+
+// ======================================================
+// FINAL INIT
+// ======================================================
+
+window.addEventListener("load", () => {
+
+    applySafeBottomSpacing();
+
+    initializeAdSpaces();
+
+    initializeKeyboardNavigation();
+
+    initializeImageEffects();
+
+    console.log("================================");
+
+    console.log("RIO MAGGI POINT");
+
+    console.log("Premium Menu System Ready");
+
+    console.log("Version 1.0");
+
+    console.log("================================");
+
+});
+
+console.log("✅ MENU.JS PART 7 LOADED");
+console.log("✅ MENU.JS COMPLETE");
