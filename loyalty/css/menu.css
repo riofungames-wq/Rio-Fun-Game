@@ -1,6 +1,7 @@
 /* ==========================================================================
    RIO MAGGI POINT - MASTER STYLESHEET (menu.css)
    Theme: Premium Dark (Red + Black + Gold)
+   100% Audit-Fixed & Final Version
    ========================================================================== */
 
 /* 1. RESET & BASE STYLES */
@@ -119,10 +120,6 @@ body {
     z-index: -2;
 }
 
-.slide-bg.img-fallback {
-    display: none;
-}
-
 .slide-overlay {
     position: absolute;
     top: 0;
@@ -189,6 +186,7 @@ body {
     50% { transform: translateY(-10px) rotate(2deg); }
 }
 
+/* SLIDER DOTS (Dynamic Button Elements) */
 .slider-dots {
     position: absolute;
     bottom: 15px;
@@ -203,18 +201,21 @@ body {
     width: 10px;
     height: 10px;
     background: rgba(255, 255, 255, 0.3);
+    border: none;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
+    padding: 0;
 }
 
 .dot.active {
     background: #ffd700;
     width: 24px;
     border-radius: 10px;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
 }
 
-/* 4. CATEGORIES GLASS CARDS (UPDATED FOR BETTER DESKTOP SIZE) */
+/* 4. CATEGORIES GLASS CARDS */
 .categories-section {
     padding: 40px 5%;
 }
@@ -228,10 +229,9 @@ body {
     letter-spacing: 1px;
 }
 
-/* Updated Desktop Grid for Larger Premium Cards */
 .category-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
 }
 
@@ -243,6 +243,7 @@ body {
     width: 100%;
     text-align: center;
     outline: none;
+    border-radius: 16px;
 }
 
 .category-card:hover,
@@ -263,11 +264,24 @@ body {
     flex-direction: column;
     align-items: center;
     height: 100%;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Active Category State via Intersection Observer */
+.category-card.active-category .card-glass {
+    border-color: #ffd700;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+    background: rgba(255, 215, 0, 0.05);
+}
+
+.category-card.active-category .view-btn {
+    background: #ffd700;
+    color: #000;
 }
 
 .img-box {
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.05);
     display: flex;
@@ -438,7 +452,7 @@ body {
     .slide-content h2 { font-size: 1.5rem; }
     .slide-content p { font-size: 0.9rem; margin-bottom: 15px; }
     .category-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-    .img-box { width: 90px; height: 90px; }
+    .img-box { width: 85px; height: 85px; }
 }
 
 @media (max-width: 480px) {
