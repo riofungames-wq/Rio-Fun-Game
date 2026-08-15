@@ -1,958 +1,647 @@
 /* =====================================================
    RIO MAGGI POINT
    CUSTOMER DASHBOARD.JS
-   NEW CLEAN BUILD
-   PART 1/3
+   FINAL CLEAN BUILD
 
-   UI + LOYALTY DISPLAY SYSTEM
+   CUSTOMER UI + LOYALTY DISPLAY + EVENTS + LOGOUT
 ===================================================== */
 
 
-
-// =========================
+// =====================================================
 // CONSTANTS
-// =========================
-
+// =====================================================
 
 const STAMP_LIMIT = 6;
 
 
-
-
-
-// =========================
+// =====================================================
 // DOM ELEMENTS
-// =========================
-
-
+// =====================================================
 
 const customerName =
-document.getElementById("customerName");
-
-
+    document.getElementById("customerName");
 
 const memberId =
-document.getElementById("memberId");
-
-
+    document.getElementById("memberId");
 
 const customerAvatar =
-document.getElementById("customerAvatar");
-
-
+    document.getElementById("customerAvatar");
 
 const infoName =
-document.getElementById("infoName");
-
-
+    document.getElementById("infoName");
 
 const infoEmail =
-document.getElementById("infoEmail");
-
-
+    document.getElementById("infoEmail");
 
 const infoMobile =
-document.getElementById("infoMobile");
-
-
+    document.getElementById("infoMobile");
 
 const infoGender =
-document.getElementById("infoGender");
-
-
+    document.getElementById("infoGender");
 
 const infoStatus =
-document.getElementById("infoStatus");
-
-
+    document.getElementById("infoStatus");
 
 const rewardStatus =
-document.getElementById("rewardStatus");
+    document.getElementById("rewardStatus");
 
-
+const stampCountElement =
+    document.getElementById("stampCount");
 
 const stamps = [
-
-document.getElementById("stamp1"),
-
-document.getElementById("stamp2"),
-
-document.getElementById("stamp3"),
-
-document.getElementById("stamp4"),
-
-document.getElementById("stamp5"),
-
-document.getElementById("stamp6")
-
+    document.getElementById("stamp1"),
+    document.getElementById("stamp2"),
+    document.getElementById("stamp3"),
+    document.getElementById("stamp4"),
+    document.getElementById("stamp5"),
+    document.getElementById("stamp6")
 ];
 
-
-
-
-
 const logoutBtn =
-document.getElementById("logoutBtn");
+    document.getElementById("logoutBtn");
 
 
+// =====================================================
+// NORMALIZE STAMP COUNT
+// =====================================================
 
+function normalizeStampCount(value) {
 
+    let count = Number(value) || 0;
 
-
-
-// =========================
-// CUSTOMER RENDER
-// =========================
-
-
-
-function renderCustomer(customer){
-
-
-    if(!customer)
-
-        return;
-
-
-
-
-    if(customerName){
-
-        customerName.textContent =
-        customer.name ||
-        "Premium Member";
-
-    }
-
-
-
-
-    if(memberId){
-
-        memberId.textContent =
-        "Member ID : " +
-        (
-            customer.memberId ||
-            "RIO-000000"
-        );
-
-    }
-
-
-
-
-
-    if(customerAvatar){
-
-
-        customerAvatar.src =
-
-        customer.avatar ||
-
-        customer.photoURL ||
-
-        "assets/avatars/default.png";
-
-
-    }
-
-
-
-
-
-
-
-    if(infoName){
-
-        infoName.textContent =
-        customer.name || "-";
-
-    }
-
-
-
-
-
-    if(infoEmail){
-
-        infoEmail.textContent =
-        customer.email || "-";
-
-    }
-
-
-
-
-
-
-    if(infoMobile){
-
-        infoMobile.textContent =
-
-        customer.mobile ||
-
-        customer.phone ||
-
-        "-";
-
-    }
-
-
-
-
-
-
-    if(infoGender){
-
-        infoGender.textContent =
-
-        customer.gender ||
-
-        "-";
-
-    }
-
-
-
-
-
-
-    if(infoStatus){
-
-        infoStatus.textContent =
-
-        customer.status ||
-
-        "Active";
-
-    }
-
-
-
-
-
-    updateStamps(
-
-        Number(customer.stamps || 0),
-
-        customer.rewardClaimed === true
-
+    count = Math.max(
+        0,
+        Math.min(
+            count,
+            STAMP_LIMIT
+        )
     );
 
+    return count;
+}
 
+
+// =====================================================
+// RENDER CUSTOMER
+// =====================================================
+
+function renderCustomer(customer) {
+
+    if (!customer) {
+        return;
+    }
+
+
+    // -------------------------------------------------
+    // NAME
+    // -------------------------------------------------
+
+    if (customerName) {
+
+        customerName.textContent =
+            customer.name ||
+            "Premium Member";
+
+    }
+
+
+    // -------------------------------------------------
+    // MEMBER ID
+    // -------------------------------------------------
+
+    if (memberId) {
+
+        memberId.textContent =
+            "Member ID : " +
+            (
+                customer.memberId ||
+                "RIO-000000"
+            );
+
+    }
+
+
+    // -------------------------------------------------
+    // AVATAR
+    // -------------------------------------------------
+
+    if (customerAvatar) {
+
+        customerAvatar.src =
+            customer.avatar ||
+            customer.photoURL ||
+            "assets/avatars/default.png";
+
+
+        customerAvatar.onerror =
+            function () {
+
+                this.onerror = null;
+
+                this.src =
+                    "assets/avatars/default.png";
+
+            };
+
+    }
+
+
+    // -------------------------------------------------
+    // CUSTOMER DETAILS
+    // -------------------------------------------------
+
+    if (infoName) {
+
+        infoName.textContent =
+            customer.name || "-";
+
+    }
+
+
+    if (infoEmail) {
+
+        infoEmail.textContent =
+            customer.email || "-";
+
+    }
+
+
+    if (infoMobile) {
+
+        infoMobile.textContent =
+            customer.mobile ||
+            customer.phone ||
+            "-";
+
+    }
+
+
+    if (infoGender) {
+
+        infoGender.textContent =
+            customer.gender ||
+            "-";
+
+    }
+
+
+    if (infoStatus) {
+
+        infoStatus.textContent =
+            customer.status ||
+            "Active";
+
+    }
+
+
+    // -------------------------------------------------
+    // LOYALTY
+    // -------------------------------------------------
+
+    updateStamps(
+        customer.stamps,
+        customer.rewardClaimed === true
+    );
 
 }
 
 
-
-
-
-
-
-
-
-// =========================
-// STAMP UPDATE
-// =========================
-
-
+// =====================================================
+// UPDATE STAMPS
+// =====================================================
 
 function updateStamps(
+    count,
+    rewardClaimed = false
+) {
 
-count,
-
-rewardClaimed=false
-
-){
-
-
-
-    let total = Number(count) || 0;
+    const total =
+        normalizeStampCount(count);
 
 
+    // -------------------------------------------------
+    // NUMBER
+    // -------------------------------------------------
 
-    total = Math.max(
+    if (stampCountElement) {
 
-        0,
+        stampCountElement.textContent =
+            total;
 
-        Math.min(
-
-            total,
-
-            STAMP_LIMIT
-
-        )
-
-    );
+    }
 
 
+    // -------------------------------------------------
+    // CLEAR CURRENT STAMP STATE
+    // -------------------------------------------------
 
+    stamps.forEach(function (box) {
 
-
-
-    stamps.forEach(box=>{
-
-
-        if(box){
-
-
-            box.classList.remove(
-                "active"
-            );
-
-
+        if (!box) {
+            return;
         }
 
+        box.classList.remove("active");
+
+        box.classList.remove("completed");
 
     });
 
 
+    // -------------------------------------------------
+    // MARK COMPLETED STAMPS
+    // -------------------------------------------------
 
-
-
-
-
-    for(
-
-        let i=0;
-
-        i<total;
-
+    for (
+        let i = 0;
+        i < total;
         i++
+    ) {
 
-    ){
-
-
-        if(stamps[i]){
-
-
-            stamps[i].classList.add(
-                "active"
-            );
-
-
+        if (!stamps[i]) {
+            continue;
         }
 
+        stamps[i].classList.add("active");
+
+        stamps[i].classList.add("completed");
 
     }
 
 
-
-
-
+    // -------------------------------------------------
+    // REWARD STATUS
+    // -------------------------------------------------
 
     updateRewardStatus(
-
         total,
-
         rewardClaimed
-
     );
-
-
 
 }
 
 
-
-
-
-
-
-// =========================
-// REWARD STATUS
-// =========================
-
-
+// =====================================================
+// UPDATE REWARD STATUS
+// =====================================================
 
 function updateRewardStatus(
+    stampCount,
+    rewardClaimed = false
+) {
 
-stampCount,
-
-rewardClaimed
-
-){
-
-
-
-    if(!rewardStatus)
-
+    if (!rewardStatus) {
         return;
-
-
-
-
-
-
-
-    if(rewardClaimed){
-
-
-
-        rewardStatus.innerHTML = `
-
-        🎉 Reward Used
-
-        <br><br>
-
-        Start collecting stamps again
-
-        🍜
-
-        `;
-
-
-
-        return;
-
-
     }
 
 
+    const total =
+        normalizeStampCount(stampCount);
 
 
+    // -------------------------------------------------
+    // REWARD CLAIMED
+    // -------------------------------------------------
 
-
-
-    if(stampCount >= STAMP_LIMIT){
-
-
+    if (rewardClaimed === true) {
 
         rewardStatus.innerHTML = `
+            <strong>
+                🎉 Reward Used
+            </strong>
 
+            <br><br>
 
-        🎉 Congratulations!
-
-
-        <br><br>
-
-
-        FREE Veg Maggi Unlocked 🍜
-
-
+            Start collecting stamps again 🍜
         `;
 
+        rewardStatus.classList.remove(
+            "reward-unlocked"
+        );
 
+        rewardStatus.classList.add(
+            "reward-used"
+        );
 
         return;
-
-
     }
 
 
+    // -------------------------------------------------
+    // 6 VALID STAMPS
+    // -------------------------------------------------
+
+    if (total >= STAMP_LIMIT) {
+
+        rewardStatus.innerHTML = `
+            <strong>
+                🎉 Congratulations!
+            </strong>
+
+            <br><br>
+
+            FREE Veg Maggi Unlocked 🍜
+        `;
+
+        rewardStatus.classList.remove(
+            "reward-used"
+        );
+
+        rewardStatus.classList.add(
+            "reward-unlocked"
+        );
+
+        return;
+    }
 
 
-
-
+    // -------------------------------------------------
+    // REWARD LOCKED
+    // -------------------------------------------------
 
     const remaining =
-
-    STAMP_LIMIT - stampCount;
-
-
-
-
+        STAMP_LIMIT - total;
 
 
     rewardStatus.innerHTML = `
+        You have
 
+        <strong>
+            ${total}
+        </strong>
 
-    You have
+        valid stamps
 
-    <strong>
+        <br><br>
 
-    ${stampCount}
+        Collect
 
-    </strong>
+        <strong>
+            ${remaining}
+        </strong>
 
-    valid stamps
+        more stamps
 
-
-    <br><br>
-
-
-    Collect
-
-    <strong>
-
-    ${remaining}
-
-    </strong>
-
-
-    more stamps
-
-
-    to unlock FREE Veg Maggi 🍜
-
-
+        to unlock FREE Veg Maggi 🍜
     `;
 
 
+    rewardStatus.classList.remove(
+        "reward-used"
+    );
+
+    rewardStatus.classList.remove(
+        "reward-unlocked"
+    );
 
 }
-/* =====================================================
-   RIO MAGGI POINT
-   CUSTOMER DASHBOARD.JS
-   NEW CLEAN BUILD
-   PART 2/3
-
-   EVENT + INTEGRATION + LOGOUT
-===================================================== */
 
 
-
-// =========================
-// DASHBOARD READY EVENT
-// =========================
-
-
+// =====================================================
+// DASHBOARD READY
+// =====================================================
 
 window.addEventListener(
+    "dashboard-ready",
+    function (event) {
 
-"dashboard-ready",
+        const customer =
+            event.detail ||
+            window.currentUser;
 
-()=>{
 
+        if (!customer) {
 
-    const customer =
+            console.warn(
+                "Customer data not available."
+            );
 
-    window.currentUser;
+            return;
+        }
 
 
-
-    if(!customer){
-
-        console.warn(
-            "Customer data not available"
-        );
-
-        return;
-
-    }
-
-
-
-    renderCustomer(customer);
-
-
-
-}
-
-);
-
-
-
-
-
-
-
-
-
-// =========================
-// GLOBAL DASHBOARD UPDATE
-// =========================
-
-
-
-window.updateCustomerDashboard =
-
-function(customer){
-
-
-
-    if(!customer)
-
-        return;
-
-
-
-    window.currentUser = customer;
-
-
-
-    renderCustomer(customer);
-
-
-
-};
-
-
-
-
-
-
-
-
-// =========================
-// LOGOUT SYSTEM
-// =========================
-
-
-
-if(logoutBtn){
-
-
-
-logoutBtn.addEventListener(
-
-"click",
-
-async()=>{
-
-
-
-    const confirmLogout =
-
-    confirm(
-
-    "Are you sure you want to logout?"
-
-    );
-
-
-
-
-    if(!confirmLogout)
-
-        return;
-
-
-
-
-
-    try{
-
-
-
-        /*
-          Firebase logout will be handled
-          by dashboard-firebase.js
-        */
-
-
-        sessionStorage.clear();
-
-
-
-        localStorage.removeItem(
-            "rioCustomer"
-        );
-
-
-
-        window.currentUser = null;
-
-
-
-        window.location.replace(
-            "login.html"
-        );
-
-
-
-
-    }
-
-    catch(error){
-
-
-
-        console.error(
-
-        "Logout Error:",
-
-        error
-
-        );
-
-
-
-        alert(
-            "Logout failed"
-        );
-
-
-    }
-
-
-
-}
-
-);
-
-
-
-}
-
-
-
-
-
-
-
-
-// =========================
-// INITIAL FALLBACK CHECK
-// =========================
-
-
-
-document.addEventListener(
-
-"DOMContentLoaded",
-
-()=>{
-
-
-
-    if(window.currentUser){
-
-
-        renderCustomer(
-            window.currentUser
-        );
-
-
-    }
-
-
-
-}
-
-);
-
-
-
-
-
-
-
-
-console.log(
-
-"🍜 Dashboard UI Controller Loaded"
-
-);
-/* =====================================================
-   RIO MAGGI POINT
-   CUSTOMER DASHBOARD.JS
-   NEW CLEAN BUILD
-   PART 3/3
-
-   FINAL SYNC + EXPORT
-===================================================== */
-
-
-
-// =========================
-// STAMP SYNC FROM EXTERNAL
-// =========================
-
-
-
-window.syncDashboardStamps = function(
-
-count,
-
-rewardClaimed = false
-
-){
-
-
-
-    updateStamps(
-
-        count,
-
-        rewardClaimed
-
-    );
-
-
-};
-
-
-
-
-
-
-
-// =========================
-// REWARD REFRESH
-// =========================
-
-
-
-window.refreshRewardStatus = function(
-
-stampCount
-
-){
-
-
-
-    updateRewardStatus(
-
-        Number(stampCount) || 0,
-
-        false
-
-    );
-
-
-};
-
-
-
-
-
-
-
-
-// =========================
-// CUSTOMER REFRESH
-// =========================
-
-
-
-window.refreshCustomerDashboard = function(
-
-customer
-
-){
-
-
-
-    if(!customer)
-
-        return;
-
-
-
-    window.currentUser = customer;
-
-
-
-    renderCustomer(customer);
-
-
-
-};
-
-
-
-
-
-
-
-
-// =========================
-// AUTO UPDATE WHEN DATA CHANGES
-// =========================
-
-
-
-window.addEventListener(
-
-"customer-updated",
-
-(event)=>{
-
-
-
-    const customer =
-
-    event.detail;
-
-
-
-    if(customer){
+        window.currentUser =
+            customer;
 
 
         renderCustomer(customer);
 
-
     }
-
-
-
-}
-
 );
 
 
+// =====================================================
+// CUSTOMER UPDATED
+// =====================================================
+
+window.addEventListener(
+    "customer-updated",
+    function (event) {
+
+        const customer =
+            event.detail;
 
 
+        if (!customer) {
+            return;
+        }
 
 
+        window.currentUser =
+            customer;
 
 
-// =========================
-// CLEAN INIT
-// =========================
-
-
-
-function initDashboard(){
-
-
-
-    if(window.currentUser){
-
-
-
-        renderCustomer(
-
-            window.currentUser
-
-        );
-
+        renderCustomer(customer);
 
     }
+);
 
 
+// =====================================================
+// GLOBAL CUSTOMER UPDATE
+// =====================================================
+
+window.updateCustomerDashboard =
+    function (customer) {
+
+        if (!customer) {
+            return;
+        }
+
+
+        window.currentUser =
+            customer;
+
+
+        renderCustomer(customer);
+
+    };
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+if (logoutBtn) {
+
+    logoutBtn.addEventListener(
+        "click",
+        async function () {
+
+            const confirmLogout =
+                window.confirm(
+                    "Are you sure you want to logout?"
+                );
+
+
+            if (!confirmLogout) {
+                return;
+            }
+
+
+            try {
+
+                /*
+                 * Firebase signOut is handled by
+                 * dashboard-firebase.js.
+                 */
+
+                if (
+                    typeof window.logoutCustomer !==
+                    "function"
+                ) {
+
+                    console.error(
+                        "Firebase logout function unavailable."
+                    );
+
+                    alert(
+                        "Logout system is not ready. Please try again."
+                    );
+
+                    return;
+                }
+
+
+                await window.logoutCustomer();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Dashboard Logout Error:",
+                    error
+                );
+
+                alert(
+                    "Logout failed. Please try again."
+                );
+
+            }
+
+        }
+    );
 
 }
 
 
+// =====================================================
+// EXTERNAL STAMP SYNC
+// =====================================================
 
+window.syncDashboardStamps =
+    function (
+        count,
+        rewardClaimed = false
+    ) {
+
+        updateStamps(
+            count,
+            rewardClaimed
+        );
+
+    };
+
+
+// =====================================================
+// REWARD STATUS REFRESH
+// =====================================================
+
+window.refreshRewardStatus =
+    function (stampCount) {
+
+        const customer =
+            window.currentUser || {};
+
+
+        updateRewardStatus(
+            stampCount,
+            customer.rewardClaimed === true
+        );
+
+    };
+
+
+// =====================================================
+// CUSTOMER DASHBOARD REFRESH
+// =====================================================
+
+window.refreshCustomerDashboard =
+    function (customer) {
+
+        if (!customer) {
+            return;
+        }
+
+
+        window.currentUser =
+            customer;
+
+
+        renderCustomer(customer);
+
+    };
+
+
+// =====================================================
+// INITIAL CUSTOMER CHECK
+// =====================================================
+
+function initDashboard() {
+
+    if (window.currentUser) {
+
+        renderCustomer(
+            window.currentUser
+        );
+
+    }
+
+}
 
 
 initDashboard();
 
 
-
-
-
-
-
-// =========================
-// EXPORT DEBUG
-// =========================
-
-
+// =====================================================
+// PUBLIC DASHBOARD API
+// =====================================================
 
 window.RioDashboard = {
 
-
     renderCustomer,
-
     updateStamps,
-
-    updateRewardStatus
-
+    updateRewardStatus,
+    normalizeStampCount
 
 };
 
 
-
-
-
-
+// =====================================================
+// FINAL LOG
+// =====================================================
 
 console.log(
-
-"🍜 Rio Maggi Point Dashboard.js Completed"
-
+    "🍜 Rio Maggi Point Customer Dashboard UI Loaded Successfully"
 );
