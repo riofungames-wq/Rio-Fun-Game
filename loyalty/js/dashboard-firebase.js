@@ -3,25 +3,41 @@
    CUSTOMER DASHBOARD-FIREBASE.JS
    FINAL CLEAN BUILD
 
-   CUSTOMER AUTH + CUSTOMER DATA + 40-DAY CYCLE
-   NO ADMIN DASHBOARD CODE
+   CUSTOMER AUTH
+   CUSTOMER PROFILE
+   CUSTOMER DATA REFRESH
+   40-DAY LOYALTY CYCLE
+   REWARD STATE
+   CUSTOMER LOGOUT
+
+   ARCHITECTURE:
+   - Firebase initialization ONLY in app.js
+   - No initializeApp() here
+   - No duplicate Firebase initialization
+   - No admin logic
+   - No stamp-awarding logic
+
+   LOYALTY:
+   6 VALID STAMPS
+   7TH CIRCLE = FREE VEG MAGGI REWARD
 ===================================================== */
 
 
 // =====================================================
-// IMPORTS
+// CENTRAL FIREBASE APPLICATION
 // =====================================================
 
 import {
     auth,
-    db
-} from "./firebase-config.js";
+    db,
+    APP_CONFIG
+} from "./app.js";
 
 
 import {
     onAuthStateChanged,
     signOut
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
 import {
@@ -29,17 +45,17 @@ import {
     getDoc,
     updateDoc,
     serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
 // =====================================================
-// DUPLICATE LOAD GUARD
+// DUPLICATE MODULE LOAD GUARD
 // =====================================================
 
-if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
+if (window.__RIO_DASHBOARD_FIREBASE_LOADED === true) {
 
     console.warn(
-        "Rio Dashboard Firebase is already loaded."
+        "Rio Maggi Point: dashboard-firebase.js already loaded."
     );
 
 } else {
@@ -48,12 +64,23 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
 
 
     // =================================================
-    // CONSTANTS
+    // LOYALTY CONSTANTS
     // =================================================
 
-    const STAMP_LIMIT = 6;
+    const STAMP_LIMIT =
+        Number(
+            APP_CONFIG?.loyaltyStampsRequired
+        ) || 6;
 
-    const CYCLE_LIMIT_DAYS = 40;
+
+    const REWARD_CIRCLE =
+        STAMP_LIMIT + 1;
+
+
+    const CYCLE_LIMIT_DAYS =
+        Number(
+            APP_CONFIG?.loyaltyCycleDays
+        ) || 40;
 
 
     // =================================================
@@ -69,22 +96,80 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
 
         try {
 
+            /*
+             * Firestore Timestamp
+             */
+
             if (
+                value &&
                 typeof value.toDate === "function"
             ) {
 
-                return value.toDate();
+                const date =
+                    value.toDate();
+
+
+                return Number.isNaN(
+                    date.getTime()
+                )
+                    ? null
+                    : date;
 
             }
 
 
-            const converted =
+            /*
+             * JavaScript Date
+             */
+
+            if (
+                value instanceof Date
+            ) {
+
+                return Number.isNaN(
+                    value.getTime()
+                )
+                    ? null
+                    : value;
+
+            }
+
+
+            /*
+             * Firestore timestamp-like object
+             */
+
+            if (
+                typeof value === "object" &&
+                Number.isFinite(value.seconds)
+            ) {
+
+                const date =
+                    new Date(
+                        value.seconds * 1000
+                    );
+
+
+                return Number.isNaN(
+                    date.getTime()
+                )
+                    ? null
+                    : date;
+
+            }
+
+
+            /*
+             * String / number
+             */
+
+            const date =
                 new Date(value);
 
 
             if (
                 Number.isNaN(
-                    converted.getTime()
+                    date.getTime()
                 )
             ) {
 
@@ -93,14 +178,14 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
             }
 
 
-            return converted;
+            return date;
 
         }
 
         catch (error) {
 
             console.error(
-                "Date conversion error:",
+                "Rio Dashboard: Date conversion failed.",
                 error
             );
 
@@ -112,10 +197,117 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
 
 
     // =================================================
+    // VALIDATE STAMP COUNT
+    // =================================================
+
+    function validateStampCount(value) {
+
+        let count =
+            Number(value);
+
+
+        if (
+            !Number.isFinite(count)
+        ) {
+
+            count = 0;
+
+        }
+
+
+        /*
+         * Stamps are always whole numbers.
+         */
+
+        count =
+            Math.floor(count);
+
+
+        return Math.max(
+            0,
+            Math.min(
+                count,
+                STAMP_LIMIT
+            )
+        );
+
+    }
+
+
+    // =================================================
+    // CHECK REWARD UNLOCK STATE
+    // =================================================
+
+    function isRewardUnlocked(
+        stampCount,
+        rewardClaimed = false
+    ) {
+
+        const count =
+            validateStampCount(
+                stampCount
+            );
+
+
+        return (
+            count >= STAMP_LIMIT &&
+            rewardClaimed !== true
+        );
+
+    }
+
+
+    // =================================================
+    // BUILD CUSTOMER STATE
+    // =================================================
+
+    function buildCustomer(
+        user,
+        profileData = {}
+    ) {
+
+        const stamps =
+            validateStampCount(
+                profileData.stamps
+            );
+
+
+        const rewardClaimed =
+            profileData.rewardClaimed === true;
+
+
+        const rewardUnlocked =
+            isRewardUnlocked(
+                stamps,
+                rewardClaimed
+            );
+
+
+        return {
+
+            ...profileData,
+
+            uid:
+                user.uid,
+
+            stamps,
+
+            rewardUnlocked,
+
+            rewardClaimed
+
+        };
+
+    }
+
+
+    // =================================================
     // CHECK 40-DAY CYCLE EXPIRY
     // =================================================
 
-    function checkCycleExpired(customer) {
+    function checkCycleExpired(
+        customer
+    ) {
 
         if (
             !customer ||
@@ -127,25 +319,31 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
         }
 
 
-        const startDate =
+        const cycleStart =
             convertDate(
                 customer.cycleStartedAt
             );
 
 
-        if (!startDate) {
+        if (!cycleStart) {
 
             return false;
 
         }
 
 
-        const difference =
+        const elapsedMilliseconds =
             Date.now() -
-            startDate.getTime();
+            cycleStart.getTime();
 
 
-        if (difference < 0) {
+        /*
+         * Future timestamp is never considered expired.
+         */
+
+        if (
+            elapsedMilliseconds < 0
+        ) {
 
             return false;
 
@@ -153,13 +351,9 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
 
 
         const elapsedDays =
-            difference /
+            elapsedMilliseconds /
             (1000 * 60 * 60 * 24);
 
-
-        /*
-         * 40 complete days = expired.
-         */
 
         return (
             elapsedDays >=
@@ -170,12 +364,7 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
 
 
     // =================================================
-    // RESET EXPIRED CYCLE
-    //
-    // IMPORTANT:
-    // THIS IS ONLY THE AUTOMATIC 40-DAY RESET.
-    //
-    // ADMIN REWARD CLAIM & RESET IS A SEPARATE SYSTEM.
+    // RESET EXPIRED INCOMPLETE CYCLE
     // =================================================
 
     async function resetExpiredCycle(
@@ -194,27 +383,34 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
 
 
         const stamps =
-            Number(
-                customer.stamps || 0
+            validateStampCount(
+                customer.stamps
+            );
+
+
+        const rewardClaimed =
+            customer.rewardClaimed === true;
+
+
+        const rewardUnlocked =
+            isRewardUnlocked(
+                stamps,
+                rewardClaimed
             );
 
 
         /*
-         * Do NOT automatically reset:
+         * Only an incomplete cycle can expire.
          *
-         * 1. A non-expired cycle
-         * 2. A completed 6-stamp reward
-         * 3. A claimed reward
-         *
-         * Completed reward is handled separately
-         * through the Admin reward flow.
+         * If 6 stamps are already complete,
+         * the reward must remain available.
          */
 
         if (
             !checkCycleExpired(customer) ||
             stamps >= STAMP_LIMIT ||
-            customer.rewardUnlocked === true ||
-            customer.rewardClaimed === true
+            rewardUnlocked ||
+            rewardClaimed
         ) {
 
             return customer;
@@ -224,44 +420,34 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
 
         try {
 
-            const newCycleStartedAt =
-                serverTimestamp();
-
-
-            const resetData = {
-
-                stamps: 0,
-
-                rewardUnlocked: false,
-
-                rewardClaimed: false,
-
-                lastStampDate: null,
-
-                cycleStartedAt:
-                    newCycleStartedAt,
-
-                updatedAt:
-                    serverTimestamp()
-
-            };
-
-
             await updateDoc(
                 customerRef,
-                resetData
+                {
+
+                    stamps: 0,
+
+                    rewardUnlocked: false,
+
+                    rewardClaimed: false,
+
+                    lastStampDate: null,
+
+                    cycleStartedAt:
+                        serverTimestamp(),
+
+                    updatedAt:
+                        serverTimestamp()
+
+                }
             );
 
 
             /*
-             * serverTimestamp() does not immediately
-             * become a JavaScript Date locally.
+             * Do not fake a JavaScript date for
+             * serverTimestamp().
              *
-             * Keep the existing cycleStartedAt locally
-             * rather than pretending it is null.
-             *
-             * The next Firebase refresh will receive the
-             * real Firestore Timestamp.
+             * The next Firestore read will provide
+             * the real Timestamp.
              */
 
             return {
@@ -285,10 +471,15 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
         catch (error) {
 
             console.error(
-                "40-day cycle reset failed:",
+                "Rio Dashboard: 40-day cycle reset failed.",
                 error
             );
 
+
+            /*
+             * Never destroy the local customer state
+             * if the Firestore reset fails.
+             */
 
             return customer;
 
@@ -301,19 +492,45 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
     // LOAD CUSTOMER
     // =================================================
 
-    async function loadCustomer(user) {
+    async function loadCustomer(
+        user
+    ) {
+
+        /*
+         * No authenticated customer.
+         */
 
         if (!user) {
 
-            window.currentUser = null;
+            window.currentUser =
+                null;
 
 
-            window.location.replace(
+            /*
+             * Avoid repeatedly redirecting if already
+             * on login page.
+             */
+
+            const currentPage =
+                window.location.pathname
+                    .split("/")
+                    .pop()
+                    .toLowerCase();
+
+
+            if (
+                currentPage !==
                 "login.html"
-            );
+            ) {
+
+                window.location.replace(
+                    "login.html"
+                );
+
+            }
 
 
-            return;
+            return null;
 
         }
 
@@ -334,11 +551,17 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
                 );
 
 
-            if (!snapshot.exists()) {
+            if (
+                !snapshot.exists()
+            ) {
 
                 console.error(
-                    "Customer profile not found."
+                    "Rio Dashboard: Customer profile not found."
                 );
+
+
+                window.currentUser =
+                    null;
 
 
                 alert(
@@ -346,19 +569,25 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
                 );
 
 
-                return;
+                return null;
 
             }
 
 
-            let customer = {
+            /*
+             * Build normalized customer object.
+             */
 
-                uid: user.uid,
+            let customer =
+                buildCustomer(
+                    user,
+                    snapshot.data()
+                );
 
-                ...snapshot.data()
 
-            };
-
+            /*
+             * Check 40-day expiry.
+             */
 
             customer =
                 await resetExpiredCycle(
@@ -367,32 +596,59 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
                 );
 
 
+            /*
+             * Recalculate reward state after
+             * possible cycle reset.
+             */
+
+            customer =
+                buildCustomer(
+                    user,
+                    customer
+                );
+
+
+            /*
+             * Store globally.
+             */
+
             window.currentUser =
                 customer;
 
+
+            /*
+             * Notify dashboard.js.
+             */
 
             window.dispatchEvent(
                 new CustomEvent(
                     "dashboard-ready",
                     {
-                        detail: customer
+                        detail:
+                            customer
                     }
                 )
             );
+
+
+            return customer;
 
         }
 
         catch (error) {
 
             console.error(
-                "Dashboard Firebase Error:",
+                "Rio Dashboard Firebase Error:",
                 error
             );
 
 
             alert(
-                "Unable to load dashboard."
+                "Unable to load dashboard. Please try again."
             );
+
+
+            return null;
 
         }
 
@@ -400,13 +656,14 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
 
 
     // =================================================
-    // AUTH STATE
+    // AUTH STATE LISTENER
     // =================================================
 
-    onAuthStateChanged(
-        auth,
-        loadCustomer
-    );
+    const unsubscribeAuth =
+        onAuthStateChanged(
+            auth,
+            loadCustomer
+        );
 
 
     // =================================================
@@ -442,25 +699,40 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
                 );
 
 
-            if (!snapshot.exists()) {
+            if (
+                !snapshot.exists()
+            ) {
 
                 return null;
 
             }
 
 
-            let customer = {
+            let customer =
+                buildCustomer(
+                    user,
+                    snapshot.data()
+                );
 
-                uid: user.uid,
 
-                ...snapshot.data()
-
-            };
-
+            /*
+             * Recheck 40-day cycle on every refresh.
+             */
 
             customer =
                 await resetExpiredCycle(
                     customerRef,
+                    customer
+                );
+
+
+            /*
+             * Normalize reward state again.
+             */
+
+            customer =
+                buildCustomer(
+                    user,
                     customer
                 );
 
@@ -473,7 +745,8 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
                 new CustomEvent(
                     "customer-updated",
                     {
-                        detail: customer
+                        detail:
+                            customer
                     }
                 )
             );
@@ -486,7 +759,7 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
         catch (error) {
 
             console.error(
-                "Customer refresh error:",
+                "Rio Dashboard: Customer refresh failed.",
                 error
             );
 
@@ -499,32 +772,13 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
 
 
     // =================================================
-    // STAMP VALIDATION
-    // =================================================
-
-    function validateStampCount(value) {
-
-        let stamps =
-            Number(value) || 0;
-
-
-        stamps =
-            Math.max(
-                0,
-                Math.min(
-                    stamps,
-                    STAMP_LIMIT
-                )
-            );
-
-
-        return stamps;
-
-    }
-
-
-    // =================================================
-    // EXTERNAL STAMP UPDATE
+    // UI-ONLY CUSTOMER STAMP SYNC
+    //
+    // IMPORTANT:
+    // This DOES NOT write stamps to Firestore.
+    //
+    // Actual stamp awarding remains controlled
+    // by the authorized/admin/server-side flow.
     // =================================================
 
     window.updateCustomerStamps =
@@ -539,6 +793,10 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
                 );
 
 
+            const claimed =
+                rewardClaimed === true;
+
+
             const currentCustomer =
                 window.currentUser || {};
 
@@ -547,14 +805,17 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
 
                 ...currentCustomer,
 
-                stamps: validCount,
+                stamps:
+                    validCount,
 
                 rewardClaimed:
-                    rewardClaimed === true,
+                    claimed,
 
                 rewardUnlocked:
-                    validCount >= STAMP_LIMIT &&
-                    rewardClaimed !== true
+                    isRewardUnlocked(
+                        validCount,
+                        claimed
+                    )
 
             };
 
@@ -573,28 +834,41 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
                 )
             );
 
+
+            return updatedCustomer;
+
         };
 
 
     // =================================================
-    // CUSTOMER REFRESH HOOK
+    // RELOAD DASHBOARD
     // =================================================
 
     window.reloadCustomerDashboard =
         async function () {
 
-            return refreshCustomerData();
+            return (
+                await refreshCustomerData()
+            );
+
+        };
+
+
+    // =================================================
+    // CUSTOMER REFRESH EVENT
+    // =================================================
+
+    const refreshEventHandler =
+        function () {
+
+            refreshCustomerData();
 
         };
 
 
     window.addEventListener(
         "request-customer-refresh",
-        () => {
-
-            refreshCustomerData();
-
-        }
+        refreshEventHandler
     );
 
 
@@ -607,15 +881,47 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
 
             try {
 
-                await signOut(auth);
-
-
-                sessionStorage.clear();
-
-
-                localStorage.removeItem(
-                    "rioCustomer"
+                await signOut(
+                    auth
                 );
+
+
+                /*
+                 * Clear customer-only temporary data.
+                 */
+
+                try {
+
+                    sessionStorage.clear();
+
+                }
+
+                catch (storageError) {
+
+                    console.warn(
+                        "Rio Dashboard: Session storage could not be cleared.",
+                        storageError
+                    );
+
+                }
+
+
+                try {
+
+                    localStorage.removeItem(
+                        "rioCustomer"
+                    );
+
+                }
+
+                catch (storageError) {
+
+                    console.warn(
+                        "Rio Dashboard: Customer local storage could not be cleared.",
+                        storageError
+                    );
+
+                }
 
 
                 window.currentUser =
@@ -631,7 +937,7 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
             catch (error) {
 
                 console.error(
-                    "Logout Error:",
+                    "Rio Dashboard: Logout failed.",
                     error
                 );
 
@@ -646,20 +952,32 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
 
 
     // =================================================
-    // GLOBAL CUSTOMER FIREBASE API
+    // PUBLIC FIREBASE DASHBOARD API
     // =================================================
 
     window.RioFirebaseDashboard = {
+
+        loadCustomer,
 
         refreshCustomerData,
 
         validateStampCount,
 
-        resetExpiredCycle,
-
         checkCycleExpired,
 
-        loadCustomer
+        resetExpiredCycle,
+
+        buildCustomer,
+
+        isRewardUnlocked,
+
+        STAMP_LIMIT,
+
+        REWARD_CIRCLE,
+
+        CYCLE_LIMIT_DAYS,
+
+        unsubscribeAuth
 
     };
 
@@ -669,7 +987,7 @@ if (window.__RIO_DASHBOARD_FIREBASE_LOADED) {
     // =================================================
 
     console.log(
-        "🍜 Rio Maggi Point Customer Firebase Loaded Successfully"
+        "🍜 Rio Maggi Point - Customer Firebase Module Ready"
     );
 
 }
