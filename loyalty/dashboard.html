@@ -1,13 +1,15 @@
 <!-- =====================================================
      RIO MAGGI POINT
      CUSTOMER DASHBOARD
-     PREMIUM CUSTOMER UI — MASTER BUILD
+     PREMIUM CUSTOMER DASHBOARD — FINAL MASTER BUILD
 
-     IMPORTANT:
-     - CUSTOMER DASHBOARD ONLY
-     - NO ADMIN DASHBOARD CODE
+     ARCHITECTURE:
+     - ONE COMMON CUSTOMER DASHBOARD
+     - CUSTOMER SIDE ONLY
+     - NO ADMIN CODE
      - NO FIREBASE INITIALIZATION HERE
-     - FIREBASE / CUSTOMER LOGIC IS HANDLED BY dashboard.js
+     - CUSTOMER LOGIC -> js/dashboard.js
+     - FIREBASE INITIALIZATION -> CENTRALIZED CONFIG
 ===================================================== -->
 
 <!DOCTYPE html>
@@ -24,7 +26,12 @@
 
     <meta
         name="theme-color"
-        content="#0b0b0b"
+        content="#050505"
+    >
+
+    <meta
+        name="description"
+        content="Rio Maggi Point Premium Customer Loyalty Dashboard"
     >
 
     <title>Rio Maggi Point | Customer Dashboard</title>
@@ -68,6 +75,7 @@
 
     <header class="dashboard-header">
 
+
         <!-- BRAND -->
 
         <div class="brand-area">
@@ -79,20 +87,27 @@
                 R
             </div>
 
+
             <div class="brand-text">
 
-                <h1>RIO MAGGI POINT</h1>
+                <h1>
+                    RIO MAGGI POINT
+                </h1>
 
-                <p>Premium Loyalty Club</p>
+                <p>
+                    Premium Loyalty Club
+                </p>
 
             </div>
 
         </div>
 
 
+
         <!-- HEADER ACTIONS -->
 
         <div class="header-actions">
+
 
             <!-- NOTIFICATIONS -->
 
@@ -101,9 +116,16 @@
                 id="notificationBtn"
                 class="header-icon-btn"
                 aria-label="Notifications"
+                title="Notifications"
             >
-                <i class="fa-solid fa-bell"></i>
+
+                <i
+                    class="fa-solid fa-bell"
+                    aria-hidden="true"
+                ></i>
+
             </button>
+
 
 
             <!-- LOGOUT -->
@@ -113,8 +135,14 @@
                 id="logoutBtn"
                 class="header-icon-btn"
                 aria-label="Logout"
+                title="Logout"
             >
-                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <i
+                    class="fa-solid fa-right-from-bracket"
+                    aria-hidden="true"
+                ></i>
+
             </button>
 
         </div>
@@ -131,7 +159,7 @@
 
 
         <!-- =================================================
-             HOME
+             HOME SECTION
         ================================================== -->
 
         <section
@@ -152,12 +180,15 @@
                         WELCOME BACK
                     </span>
 
+
                     <h2 id="welcomeName">
                         Hello, Customer 👋
                     </h2>
 
+
                     <p>
-                        Your Rio loyalty journey continues.
+                        Welcome to Rio Maggi Point.
+                        Your loyalty journey continues.
                     </p>
 
                 </div>
@@ -178,15 +209,30 @@
 
 
             <!-- =================================================
-                 PROMOTIONAL HERO SLIDER
+                 PREMIUM HERO SLIDER
+                 
+                 8 CATEGORY BANNERS:
+                 1. Everyday Maggi
+                 2. Cheese Maggi
+                 3. Cheese Butter Maggi
+                 4. UFO Burger
+                 5. Momos
+                 6. Soup
+                 7. Sweet Corn
+                 8. Chips Bhel
+
+                 Banners are rendered by dashboard.js.
             ================================================== -->
 
             <section
                 class="hero-slider-section"
-                aria-label="Promotional banners"
+                aria-label="Rio Maggi Point promotional banners"
             >
 
                 <div class="hero-slider">
+
+
+                    <!-- SLIDER TRACK -->
 
                     <div
                         id="heroSliderTrack"
@@ -196,15 +242,26 @@
                     </div>
 
 
+
+                    <!-- PREVIOUS -->
+
                     <button
                         type="button"
                         id="sliderPrev"
                         class="slider-control slider-prev"
                         aria-label="Previous banner"
                     >
-                        <i class="fa-solid fa-chevron-left"></i>
+
+                        <i
+                            class="fa-solid fa-chevron-left"
+                            aria-hidden="true"
+                        ></i>
+
                     </button>
 
+
+
+                    <!-- NEXT -->
 
                     <button
                         type="button"
@@ -212,11 +269,19 @@
                         class="slider-control slider-next"
                         aria-label="Next banner"
                     >
-                        <i class="fa-solid fa-chevron-right"></i>
+
+                        <i
+                            class="fa-solid fa-chevron-right"
+                            aria-hidden="true"
+                        ></i>
+
                     </button>
 
                 </div>
 
+
+
+                <!-- SLIDER DOTS -->
 
                 <div
                     id="sliderDots"
@@ -242,7 +307,9 @@
                             EXPLORE
                         </span>
 
-                        <h2>Our Menu</h2>
+                        <h2>
+                            Our Menu
+                        </h2>
 
                     </div>
 
@@ -257,10 +324,13 @@
                 </div>
 
 
+
                 <div class="menu-category-grid">
 
 
-                    <!-- EVERYDAY MAGGI -->
+                    <!-- =================================================
+                         EVERYDAY MAGGI
+                    ================================================== -->
 
                     <a
                         href="menu.html#everyday-maggi"
@@ -277,11 +347,16 @@
 
                         </div>
 
+
                         <div class="menu-category-content">
 
-                            <h3>Everyday Maggi</h3>
+                            <h3>
+                                Everyday Maggi
+                            </h3>
 
-                            <span>View Menu</span>
+                            <span>
+                                View Menu
+                            </span>
 
                         </div>
 
@@ -289,7 +364,9 @@
 
 
 
-                    <!-- CHEESE MAGGI -->
+                    <!-- =================================================
+                         CHEESE MAGGI
+                    ================================================== -->
 
                     <a
                         href="menu.html#cheese-maggi"
@@ -306,11 +383,16 @@
 
                         </div>
 
+
                         <div class="menu-category-content">
 
-                            <h3>Cheese Maggi</h3>
+                            <h3>
+                                Cheese Maggi
+                            </h3>
 
-                            <span>View Menu</span>
+                            <span>
+                                View Menu
+                            </span>
 
                         </div>
 
@@ -318,7 +400,9 @@
 
 
 
-                    <!-- CHEESE BUTTER MAGGI -->
+                    <!-- =================================================
+                         CHEESE BUTTER MAGGI
+                    ================================================== -->
 
                     <a
                         href="menu.html#cheese-butter-maggi"
@@ -335,11 +419,16 @@
 
                         </div>
 
+
                         <div class="menu-category-content">
 
-                            <h3>Cheese Butter Maggi</h3>
+                            <h3>
+                                Cheese Butter Maggi
+                            </h3>
 
-                            <span>View Menu</span>
+                            <span>
+                                View Menu
+                            </span>
 
                         </div>
 
@@ -347,7 +436,9 @@
 
 
 
-                    <!-- UFO BURGER -->
+                    <!-- =================================================
+                         UFO BURGER
+                    ================================================== -->
 
                     <a
                         href="menu.html#ufo-burger"
@@ -364,11 +455,16 @@
 
                         </div>
 
+
                         <div class="menu-category-content">
 
-                            <h3>UFO Burger</h3>
+                            <h3>
+                                UFO Burger
+                            </h3>
 
-                            <span>View Menu</span>
+                            <span>
+                                View Menu
+                            </span>
 
                         </div>
 
@@ -376,7 +472,9 @@
 
 
 
-                    <!-- MOMOS -->
+                    <!-- =================================================
+                         MOMOS
+                    ================================================== -->
 
                     <a
                         href="menu.html#momos"
@@ -393,11 +491,16 @@
 
                         </div>
 
+
                         <div class="menu-category-content">
 
-                            <h3>Momos</h3>
+                            <h3>
+                                Momos
+                            </h3>
 
-                            <span>View Menu</span>
+                            <span>
+                                View Menu
+                            </span>
 
                         </div>
 
@@ -405,7 +508,9 @@
 
 
 
-                    <!-- SOUP -->
+                    <!-- =================================================
+                         SOUP
+                    ================================================== -->
 
                     <a
                         href="menu.html#soup"
@@ -422,11 +527,16 @@
 
                         </div>
 
+
                         <div class="menu-category-content">
 
-                            <h3>Soup</h3>
+                            <h3>
+                                Soup
+                            </h3>
 
-                            <span>View Menu</span>
+                            <span>
+                                View Menu
+                            </span>
 
                         </div>
 
@@ -434,7 +544,9 @@
 
 
 
-                    <!-- SWEET CORN -->
+                    <!-- =================================================
+                         SWEET CORN
+                    ================================================== -->
 
                     <a
                         href="menu.html#sweet-corn"
@@ -451,11 +563,16 @@
 
                         </div>
 
+
                         <div class="menu-category-content">
 
-                            <h3>Sweet Corn</h3>
+                            <h3>
+                                Sweet Corn
+                            </h3>
 
-                            <span>View Menu</span>
+                            <span>
+                                View Menu
+                            </span>
 
                         </div>
 
@@ -463,7 +580,9 @@
 
 
 
-                    <!-- CHIPS BHEL -->
+                    <!-- =================================================
+                         CHIPS BHEL
+                    ================================================== -->
 
                     <a
                         href="menu.html#chips-bhel"
@@ -480,11 +599,16 @@
 
                         </div>
 
+
                         <div class="menu-category-content">
 
-                            <h3>Chips Bhel</h3>
+                            <h3>
+                                Chips Bhel
+                            </h3>
 
-                            <span>View Menu</span>
+                            <span>
+                                View Menu
+                            </span>
 
                         </div>
 
@@ -498,9 +622,23 @@
 
             <!-- =================================================
                  LOYALTY CARD
+                 
+                 BUSINESS RULES:
+                 - 40 DAY VALIDITY CYCLE
+                 - MAXIMUM 6 VALID STAMPS
+                 - 6 VALID STAMPS -> FREE VEG MAGGI
+                 - REWARD CLAIM -> CYCLE RESET
+                 - EXPIRED INCOMPLETE CYCLE -> RESET
+                 
+                 Actual enforcement is NOT performed here.
+                 It must remain server-side / dashboard.js /
+                 Firestore security architecture.
             ================================================== -->
 
             <section class="loyalty-card">
+
+
+                <!-- LOYALTY HEADER -->
 
                 <div class="loyalty-header">
 
@@ -510,7 +648,9 @@
                             RIO REWARDS
                         </span>
 
-                        <h2>My Loyalty Card</h2>
+                        <h2>
+                            My Loyalty Card
+                        </h2>
 
                     </div>
 
@@ -519,13 +659,16 @@
                         class="loyalty-badge"
                         aria-hidden="true"
                     >
+
                         <i class="fa-solid fa-crown"></i>
+
                     </div>
 
                 </div>
 
 
-                <!-- CUSTOMER -->
+
+                <!-- CUSTOMER INFORMATION -->
 
                 <div class="loyalty-customer">
 
@@ -546,6 +689,7 @@
                             Customer
                         </h3>
 
+
                         <p id="memberId">
                             Member ID: RIO-000000
                         </p>
@@ -555,13 +699,17 @@
                 </div>
 
 
-                <!-- STAMP / CYCLE STATUS -->
+
+                <!-- STAMP / CYCLE INFORMATION -->
 
                 <div class="loyalty-progress-info">
 
+
                     <div>
 
-                        <span>Valid Stamps</span>
+                        <span>
+                            Valid Stamps
+                        </span>
 
                         <strong>
                             <span id="stampCount">0</span>/6
@@ -572,7 +720,9 @@
 
                     <div>
 
-                        <span>Cycle</span>
+                        <span>
+                            Cycle
+                        </span>
 
                         <strong id="cycleDaysRemaining">
                             40 Days
@@ -583,57 +733,136 @@
                 </div>
 
 
-                <!-- STAMPS -->
+
+                <!-- STAMP GRID -->
 
                 <div
                     id="stampGrid"
                     class="stamp-grid"
                 >
 
+
+                    <!-- STAMP 1 -->
+
                     <div
                         id="stamp1"
                         class="stamp-box"
                     >
-                        <span>1</span>
+                        <span>
+                            1
+                        </span>
                     </div>
+
+
+
+                    <!-- STAMP 2 -->
 
                     <div
                         id="stamp2"
                         class="stamp-box"
                     >
-                        <span>2</span>
+                        <span>
+                            2
+                        </span>
                     </div>
+
+
+
+                    <!-- STAMP 3 -->
 
                     <div
                         id="stamp3"
                         class="stamp-box"
                     >
-                        <span>3</span>
+                        <span>
+                            3
+                        </span>
                     </div>
+
+
+
+                    <!-- STAMP 4 -->
 
                     <div
                         id="stamp4"
                         class="stamp-box"
                     >
-                        <span>4</span>
+                        <span>
+                            4
+                        </span>
                     </div>
+
+
+
+                    <!-- STAMP 5 -->
 
                     <div
                         id="stamp5"
                         class="stamp-box"
                     >
-                        <span>5</span>
+                        <span>
+                            5
+                        </span>
                     </div>
+
+
+
+                    <!-- STAMP 6 / REWARD -->
 
                     <div
                         id="stamp6"
                         class="stamp-box reward-stamp"
                     >
-                        <i class="fa-solid fa-gift"></i>
-                        <span>FREE</span>
+
+                        <i
+                            class="fa-solid fa-gift"
+                            aria-hidden="true"
+                        ></i>
+
+                        <span>
+                            FREE
+                        </span>
+
                     </div>
 
                 </div>
+
+
+
+                <!-- LOYALTY PROGRESS BAR -->
+
+                <div class="progress-wrapper">
+
+                    <div
+                        id="loyaltyProgressBar"
+                        class="progress-bar"
+                        role="progressbar"
+                        aria-label="Loyalty progress"
+                        aria-valuemin="0"
+                        aria-valuemax="6"
+                        aria-valuenow="0"
+                    >
+
+                        <div
+                            id="loyaltyProgress"
+                            class="progress-fill"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CYCLE STATUS -->
+
+                <div
+                    id="cycleStatus"
+                    class="cycle-status active"
+                >
+                    Your 40-day loyalty cycle is active.
+                </div>
+
 
 
                 <!-- REWARD STATUS -->
@@ -654,14 +883,21 @@
                 </div>
 
 
-                <!-- DETAILS -->
+
+                <!-- LOYALTY DETAILS -->
 
                 <a
                     href="history.html"
                     class="loyalty-details-btn"
                 >
+
                     View Details
-                    <i class="fa-solid fa-arrow-right"></i>
+
+                    <i
+                        class="fa-solid fa-arrow-right"
+                        aria-hidden="true"
+                    ></i>
+
                 </a>
 
             </section>
@@ -682,7 +918,9 @@
                             PERSONALIZED
                         </span>
 
-                        <h2>Special For You</h2>
+                        <h2>
+                            Special For You
+                        </h2>
 
                     </div>
 
@@ -696,9 +934,14 @@
 
                     <div class="empty-offer">
 
-                        <i class="fa-solid fa-gift"></i>
+                        <i
+                            class="fa-solid fa-gift"
+                            aria-hidden="true"
+                        ></i>
 
-                        <h3>No active offer</h3>
+                        <h3>
+                            No active offer
+                        </h3>
 
                         <p>
                             Your special offers will appear here.
@@ -715,8 +958,7 @@
             <!-- =================================================
                  ANNOUNCEMENTS
                  
-                 IMPORTANT:
-                 Admin-created announcements are displayed here
+                 Admin-created announcements are rendered
                  by dashboard.js.
             ================================================== -->
 
@@ -730,7 +972,9 @@
                             RIO UPDATES
                         </span>
 
-                        <h2>Announcements</h2>
+                        <h2>
+                            Announcements
+                        </h2>
 
                     </div>
 
@@ -753,7 +997,10 @@
 
                     <div class="announcement-empty">
 
-                        <i class="fa-solid fa-bullhorn"></i>
+                        <i
+                            class="fa-solid fa-bullhorn"
+                            aria-hidden="true"
+                        ></i>
 
                         <p>
                             No new announcements.
@@ -776,7 +1023,11 @@
                 class="adsense-slot"
                 aria-label="Advertisement"
             >
-                <span>Advertisement</span>
+
+                <span>
+                    Advertisement
+                </span>
+
             </section>
 
         </section>
@@ -784,7 +1035,17 @@
 
 
         <!-- =================================================
-             PROFILE
+             PROFILE SECTION
+             
+             Rendered by dashboard.js.
+             
+             Includes architecture support for:
+             - Name
+             - DOB
+             - Gender
+             - Avatar
+             - DOB one-time restriction
+             - Admin-controlled DOB changes
         ================================================== -->
 
         <section
@@ -798,7 +1059,9 @@
                     ACCOUNT
                 </span>
 
-                <h2>My Profile</h2>
+                <h2>
+                    My Profile
+                </h2>
 
                 <p>
                     Manage your Rio Maggi Point profile.
@@ -816,7 +1079,10 @@
 
 
         <!-- =================================================
-             QR
+             QR SECTION
+             
+             Permanent customer QR.
+             Actual QR generation is handled by dashboard.js.
         ================================================== -->
 
         <section
@@ -830,10 +1096,12 @@
                     LOYALTY IDENTIFICATION
                 </span>
 
-                <h2>MY RIO QR</h2>
+                <h2>
+                    MY RIO QR
+                </h2>
 
                 <p>
-                    Show this QR to Rio Maggi Point.
+                    Show this QR to Rio Maggi Point staff.
                 </p>
 
             </div>
@@ -843,7 +1111,9 @@
 
                 <div class="qr-customer-name">
 
-                    <span>Customer</span>
+                    <span>
+                        Customer
+                    </span>
 
                     <strong id="qrCustomerName">
                         Customer
@@ -852,24 +1122,32 @@
                 </div>
 
 
+                <!-- CUSTOMER QR -->
+
                 <div
                     id="customerQrCode"
                     class="customer-qr-code"
-                    aria-label="Customer QR Code"
+                    aria-label="Permanent customer QR code"
                 >
-                    <!-- Permanent customer QR rendered by dashboard.js -->
+                    <!-- Permanent QR rendered by dashboard.js -->
                 </div>
 
 
                 <p class="qr-instruction">
+
                     Show this QR to Rio Maggi Point staff
                     for loyalty identification.
+
                 </p>
 
 
+                <!-- QR LOYALTY STATUS -->
+
                 <div class="qr-loyalty-status">
 
-                    <span>Current Stamps</span>
+                    <span>
+                        Current Stamps
+                    </span>
 
                     <strong>
                         <span id="qrStampCount">0</span>/6
@@ -884,7 +1162,7 @@
 
 
         <!-- =================================================
-             HISTORY
+             HISTORY SECTION
         ================================================== -->
 
         <section
@@ -898,7 +1176,9 @@
                     YOUR JOURNEY
                 </span>
 
-                <h2>Stamp History</h2>
+                <h2>
+                    Stamp History
+                </h2>
 
                 <p>
                     View your loyalty activity and reward history.
@@ -919,7 +1199,10 @@
 
 
         <!-- =================================================
-             FEEDBACK
+             FEEDBACK SECTION
+             
+             Feedback UI rendered by dashboard.js.
+             Negative feedback option is not defined here.
         ================================================== -->
 
         <section
@@ -933,7 +1216,9 @@
                     YOUR EXPERIENCE
                 </span>
 
-                <h2>Feedback</h2>
+                <h2>
+                    Feedback
+                </h2>
 
                 <p>
                     Tell us what you enjoyed at Rio Maggi Point.
@@ -951,7 +1236,7 @@
 
 
         <!-- =================================================
-             CHAT
+             CHAT / SUPPORT SECTION
         ================================================== -->
 
         <section
@@ -965,7 +1250,9 @@
                     SUPPORT
                 </span>
 
-                <h2>Chat With Rio</h2>
+                <h2>
+                    Chat With Rio
+                </h2>
 
                 <p>
                     Need help? Connect with Rio Maggi Point.
@@ -976,32 +1263,74 @@
 
             <div class="chat-support-card">
 
+
+                <!-- CHAT ICON -->
+
                 <div class="chat-icon">
-                    <i class="fa-brands fa-whatsapp"></i>
+
+                    <i
+                        class="fa-brands fa-whatsapp"
+                        aria-hidden="true"
+                    ></i>
+
                 </div>
 
 
-                <h3>Chat With Us</h3>
+                <h3>
+                    Chat With Us
+                </h3>
 
 
                 <p>
                     Connect directly with Rio Maggi Point
-                    support on WhatsApp.
+                    support.
                 </p>
 
 
-                <a
-                    href="https://wa.me/917987827979"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="chat-support-btn"
-                >
+                <!-- CONTACT BUTTONS -->
 
-                    <i class="fa-brands fa-whatsapp"></i>
+                <div class="contact-buttons">
 
-                    Start Chat
 
-                </a>
+                    <!-- CALL -->
+
+                    <a
+                        href="tel:+917987827979"
+                        class="contact-btn call-btn"
+                        aria-label="Call Rio Maggi Point"
+                    >
+
+                        <i
+                            class="fa-solid fa-phone"
+                            aria-hidden="true"
+                        ></i>
+
+                        Call Us
+
+                    </a>
+
+
+
+                    <!-- WHATSAPP -->
+
+                    <a
+                        href="https://wa.me/917987827979"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="contact-btn whatsapp-btn"
+                        aria-label="Chat with Rio Maggi Point on WhatsApp"
+                    >
+
+                        <i
+                            class="fa-brands fa-whatsapp"
+                            aria-hidden="true"
+                        ></i>
+
+                        WhatsApp
+
+                    </a>
+
+                </div>
 
             </div>
 
@@ -1015,10 +1344,15 @@
          BOTTOM NAVIGATION
 
          LOCKED ORDER:
-         HOME → PROFILE → QR → HISTORY → FEEDBACK → CHAT
 
-         All navigation items use the same base class.
-         QR emphasis is handled by .qr-nav-icon.
+         HOME
+         PROFILE
+         QR
+         HISTORY
+         FEEDBACK
+         CHAT
+
+         EXACTLY 6 ITEMS
     ====================================================== -->
 
     <nav
@@ -1027,7 +1361,9 @@
     >
 
 
-        <!-- HOME -->
+        <!-- =================================================
+             HOME
+        ================================================== -->
 
         <button
             type="button"
@@ -1037,15 +1373,22 @@
             aria-current="page"
         >
 
-            <i class="fa-solid fa-house"></i>
+            <i
+                class="fa-solid fa-house"
+                aria-hidden="true"
+            ></i>
 
-            <span>Home</span>
+            <span>
+                Home
+            </span>
 
         </button>
 
 
 
-        <!-- PROFILE -->
+        <!-- =================================================
+             PROFILE
+        ================================================== -->
 
         <button
             type="button"
@@ -1054,15 +1397,22 @@
             aria-label="Profile"
         >
 
-            <i class="fa-solid fa-user"></i>
+            <i
+                class="fa-solid fa-user"
+                aria-hidden="true"
+            ></i>
 
-            <span>Profile</span>
+            <span>
+                Profile
+            </span>
 
         </button>
 
 
 
-        <!-- QR -->
+        <!-- =================================================
+             QR
+        ================================================== -->
 
         <button
             type="button"
@@ -1073,17 +1423,24 @@
 
             <span class="qr-nav-icon">
 
-                <i class="fa-solid fa-qrcode"></i>
+                <i
+                    class="fa-solid fa-qrcode"
+                    aria-hidden="true"
+                ></i>
 
             </span>
 
-            <span>QR</span>
+            <span>
+                QR
+            </span>
 
         </button>
 
 
 
-        <!-- HISTORY -->
+        <!-- =================================================
+             HISTORY
+        ================================================== -->
 
         <button
             type="button"
@@ -1092,15 +1449,22 @@
             aria-label="History"
         >
 
-            <i class="fa-solid fa-clock-rotate-left"></i>
+            <i
+                class="fa-solid fa-clock-rotate-left"
+                aria-hidden="true"
+            ></i>
 
-            <span>History</span>
+            <span>
+                History
+            </span>
 
         </button>
 
 
 
-        <!-- FEEDBACK -->
+        <!-- =================================================
+             FEEDBACK
+        ================================================== -->
 
         <button
             type="button"
@@ -1109,15 +1473,22 @@
             aria-label="Feedback"
         >
 
-            <i class="fa-solid fa-star"></i>
+            <i
+                class="fa-solid fa-star"
+                aria-hidden="true"
+            ></i>
 
-            <span>Feedback</span>
+            <span>
+                Feedback
+            </span>
 
         </button>
 
 
 
-        <!-- CHAT -->
+        <!-- =================================================
+             CHAT
+        ================================================== -->
 
         <button
             type="button"
@@ -1126,9 +1497,14 @@
             aria-label="Chat"
         >
 
-            <i class="fa-solid fa-comments"></i>
+            <i
+                class="fa-solid fa-comments"
+                aria-hidden="true"
+            ></i>
 
-            <span>Chat</span>
+            <span>
+                Chat
+            </span>
 
         </button>
 
@@ -1142,8 +1518,9 @@
      CUSTOMER DASHBOARD JAVASCRIPT
 
      IMPORTANT:
-     Firebase initialization is NOT performed here.
-     dashboard.js handles customer-side functionality.
+     - NO FIREBASE INITIALIZATION HERE
+     - NO ADMIN LOGIC HERE
+     - dashboard.js handles customer-side functionality
 ===================================================== -->
 
 <script
