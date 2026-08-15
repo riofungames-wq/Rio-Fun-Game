@@ -1,10 +1,14 @@
 <!-- =====================================================
      RIO MAGGI POINT
-     CUSTOMER DASHBOARD.HTML
-     NEW CLEAN BUILD
-     PART 1/4
+     CUSTOMER DASHBOARD
+     PREMIUM CUSTOMER UI — MASTER BUILD
+     
+     IMPORTANT:
+     - CUSTOMER DASHBOARD ONLY
+     - NO ADMIN DASHBOARD CODE
+     - NO FIREBASE INITIALIZATION HERE
+     - FIREBASE / CUSTOMER LOGIC IS HANDLED BY JS
 ===================================================== -->
-
 
 <!DOCTYPE html>
 
@@ -12,22 +16,37 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0b0b0b"
+    >
+
+    <title>
+        Rio Maggi Point | Customer Dashboard
+    </title>
 
 
-<title>
-Rio Maggi Point | Dashboard
-</title>
+    <!-- MAIN CUSTOMER DASHBOARD CSS -->
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
 
 
-<link rel="stylesheet" href="css/style.css">
+    <!-- FONT AWESOME -->
 
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    >
 
 </head>
 
@@ -35,982 +54,1398 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <body>
 
 
-<div class="container">
-
-
-
-<!-- HEADER -->
-
-<header class="header">
-
-
-<div class="logo">
-
-
-<img src="assets/logo.png"
-alt="Rio Maggi Point">
-
-
-<div>
-
-
-<h2 class="logo-text">
-RIO MAGGI POINT
-</h2>
-
-
-<p>
-Premium Loyalty Club
-</p>
-
-
-</div>
-
-
-</div>
-
-
-
-<button id="logoutBtn"
-class="btn btn-logout">
-
-
-<i class="fa-solid fa-right-from-bracket"></i>
-
-Logout
-
-
-</button>
-
-
-
-</header>
-
-
-
-
-
-
-<!-- WELCOME -->
-
-
-<section class="card welcome-card">
-
-
-<h1>
-
-WELCOME BACK
-
-</h1>
-
-
-<h3>
-
-Premium Member
-
-</h3>
-
-
-<p>
-
-Keep collecting stamps and enjoy your reward.
-
-</p>
-
-
-</section>
-
-
-
-
-
-
-
-<!-- LOYALTY CARD -->
-
-
-<section class="loyalty-card">
-
-
-
-<div class="customer-info">
-
-
-<div class="customer-avatar">
-
-
-<img id="customerAvatar"
-
-src="assets/avatars/default.png"
-
-alt="Customer">
-
-
-</div>
-
-
-
-
-
-<div>
-
-
-<h2 id="customerName"
-
-class="customer-name">
-
-Customer
-
-</h2>
-
-
-<p class="customer-role">
-
-Premium Member
-
-</p>
-
-
-<p id="memberId">
-
-Member ID : RIO-000000
-
-</p>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-<div class="reward-box">
-
-
-<h3>
-
-My Loyalty Card
-
-</h3>
-
-
-<p>
-
-Collect 6 valid stamps & get
-
-<strong>
-1 Veg Maggi FREE
-</strong>
-
-</p>
-
-
-</div>
-
-
-
-
-
-<div class="stamp-section">
-
-
-<h3>
-
-Collect Your Stamps
-
-</h3>
-
-
-
-<div class="stamp-count">
-
-
-<span id="stampCount">
-
-0
-
-</span>
-
-/6
-
-
-</div>
-
-
-
-
-
-<div class="stamp-grid">
-
-
-<div id="stamp1"
-class="stamp-box">
-
-1
-
-</div>
-
-
-<div id="stamp2"
-class="stamp-box">
-
-2
-
-</div>
-
-
-<div id="stamp3"
-class="stamp-box">
-
-3
-
-</div>
-
-
-<div id="stamp4"
-class="stamp-box">
-
-4
-
-</div>
-
-
-<div id="stamp5"
-class="stamp-box">
-
-5
-
-</div>
-
-
-<div id="stamp6"
-class="stamp-box reward">
-
-FREE
-
-</div>
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-<div id="rewardStatus"
-class="reward-status">
-
-
-Reward Locked
-
-<br>
-
-Collect all 6 valid stamps within 40 days.
-
-
-</div>
-
-
-
-</section>
 <!-- =====================================================
-     RIO MAGGI POINT
-     CUSTOMER DASHBOARD.HTML
-     PART 2/4
-
-     QUICK ACTIONS + CUSTOMER SERVICES
+     CUSTOMER DASHBOARD APP
 ===================================================== -->
 
+<div class="dashboard-app">
 
 
+    <!-- =================================================
+         HEADER
+    ================================================== -->
 
+    <header class="dashboard-header">
 
-<!-- QUICK ACTIONS -->
 
-<section class="card card-margin">
+        <!-- BRAND -->
 
+        <div class="brand-area">
 
-<h3>
 
-Quick Actions
+            <div class="brand-mark"
+                 aria-hidden="true">
 
-</h3>
+                R
 
+            </div>
 
-<p>
 
-Everything you need in one place
+            <div class="brand-text">
 
-</p>
+                <h1>
+                    RIO MAGGI POINT
+                </h1>
 
+                <p>
+                    Premium Loyalty Club
+                </p>
 
+            </div>
 
 
-<div class="quick-actions">
+        </div>
 
 
 
+        <!-- HEADER ACTIONS -->
 
+        <div class="header-actions">
 
-<a href="menu.html"
-class="quick-action-card">
 
+            <!-- NOTIFICATIONS -->
 
-<i class="fa-solid fa-utensils"></i>
+            <button
+                type="button"
+                id="notificationBtn"
+                class="header-icon-btn"
+                aria-label="Notifications"
+            >
 
+                <i class="fa-solid fa-bell"></i>
 
-<h4>
+            </button>
 
-View Menu
 
-</h4>
 
+            <!-- LOGOUT -->
 
-<p>
+            <button
+                type="button"
+                id="logoutBtn"
+                class="header-icon-btn"
+                aria-label="Logout"
+            >
 
-Explore our delicious menu
+                <i class="fa-solid fa-right-from-bracket"></i>
 
-</p>
+            </button>
 
 
-</a>
+        </div>
 
 
+    </header>
 
 
 
+    <!-- =================================================
+         MAIN DASHBOARD CONTENT
+    ================================================== -->
 
+    <main class="dashboard-main">
 
-<a href="qr.html"
-class="quick-action-card">
 
+        <!-- =================================================
+             HOME
+        ================================================== -->
 
-<i class="fa-solid fa-qrcode"></i>
+        <section
+            id="homeSection"
+            class="dashboard-section active-section"
+        >
 
 
-<h4>
+            <!-- =============================================
+                 WELCOME CARD
+            ============================================== -->
 
-My QR Code
+            <section class="welcome-card">
 
-</h4>
 
+                <div class="welcome-content">
 
-<p>
 
-Show your loyalty QR code
+                    <span class="welcome-label">
+                        WELCOME BACK
+                    </span>
 
-</p>
 
+                    <h2 id="welcomeName">
+                        Hello, Customer 👋
+                    </h2>
 
-</a>
 
+                    <p>
+                        Your Rio loyalty journey continues.
+                    </p>
 
 
+                </div>
 
 
 
+                <div class="welcome-avatar">
 
-<a href="history.html"
-class="quick-action-card">
 
+                    <img
+                        id="customerAvatar"
+                        src="assets/avatars/default.png"
+                        alt="Customer Avatar"
+                    >
 
-<i class="fa-solid fa-clock-rotate-left"></i>
 
+                </div>
 
-<h4>
 
-Stamp History
+            </section>
 
-</h4>
 
 
-<p>
+            <!-- =============================================
+                 PROMOTIONAL HERO SLIDER
+            ============================================== -->
 
-View your purchase history
+            <section
+                class="hero-slider-section"
+                aria-label="Promotional banners"
+            >
 
-</p>
 
+                <div class="hero-slider">
 
-</a>
 
+                    <div
+                        id="heroSliderTrack"
+                        class="hero-slider-track"
+                    >
 
+                        <!--
+                            Promotional banners will be
+                            rendered by dashboard.js.
+                        -->
 
+                    </div>
 
 
 
+                    <button
+                        type="button"
+                        id="sliderPrev"
+                        class="slider-control slider-prev"
+                        aria-label="Previous banner"
+                    >
 
-<a href="feedback.html"
-class="quick-action-card">
+                        <i class="fa-solid fa-chevron-left"></i>
 
+                    </button>
 
-<i class="fa-solid fa-star"></i>
 
 
-<h4>
+                    <button
+                        type="button"
+                        id="sliderNext"
+                        class="slider-control slider-next"
+                        aria-label="Next banner"
+                    >
 
-Give a Review
+                        <i class="fa-solid fa-chevron-right"></i>
 
-</h4>
+                    </button>
 
 
-<p>
+                </div>
 
-Share your experience
 
-</p>
 
+                <div
+                    id="sliderDots"
+                    class="slider-dots"
+                    aria-label="Banner navigation"
+                >
 
-</a>
+                </div>
 
 
+            </section>
 
 
 
+            <!-- =============================================
+                 OUR MENU
+            ============================================== -->
 
+            <section class="home-section">
 
-<a href="profile.html"
-class="quick-action-card">
 
+                <div class="section-heading">
 
-<i class="fa-solid fa-user"></i>
 
+                    <div>
 
-<h4>
+                        <span class="section-kicker">
+                            EXPLORE
+                        </span>
 
-My Profile
+                        <h2>
+                            Our Menu
+                        </h2>
 
-</h4>
+                    </div>
 
 
-<p>
 
-Manage your account
+                    <a
+                        href="menu.html"
+                        class="section-link"
+                    >
+                        View All
+                    </a>
 
-</p>
 
+                </div>
 
-</a>
 
 
+                <div class="menu-category-grid">
 
 
+                    <!-- 01 -->
+
+                    <a
+                        href="menu.html#everyday-maggi"
+                        class="menu-category-card"
+                    >
+
+                        <div class="menu-category-image">
+
+                            <img
+                                src="assets/menu/everyday-maggi.png"
+                                alt="Everyday Maggi"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+
+                        <div class="menu-category-content">
+
+                            <h3>
+                                Everyday Maggi
+                            </h3>
+
+                            <span>
+                                View Menu
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <!-- 02 -->
+
+                    <a
+                        href="menu.html#cheese-maggi"
+                        class="menu-category-card"
+                    >
+
+                        <div class="menu-category-image">
+
+                            <img
+                                src="assets/menu/cheese-maggi.png"
+                                alt="Cheese Maggi"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+
+                        <div class="menu-category-content">
+
+                            <h3>
+                                Cheese Maggi
+                            </h3>
+
+                            <span>
+                                View Menu
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <!-- 03 -->
+
+                    <a
+                        href="menu.html#cheese-butter-maggi"
+                        class="menu-category-card"
+                    >
+
+                        <div class="menu-category-image">
+
+                            <img
+                                src="assets/menu/cheese-butter-maggi.png"
+                                alt="Cheese Butter Maggi"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+
+                        <div class="menu-category-content">
+
+                            <h3>
+                                Cheese Butter Maggi
+                            </h3>
+
+                            <span>
+                                View Menu
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <!-- 04 -->
+
+                    <a
+                        href="menu.html#ufo-burger"
+                        class="menu-category-card"
+                    >
+
+                        <div class="menu-category-image">
+
+                            <img
+                                src="assets/menu/ufo-burger.png"
+                                alt="UFO Burger"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+
+                        <div class="menu-category-content">
+
+                            <h3>
+                                UFO Burger
+                            </h3>
+
+                            <span>
+                                View Menu
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <!-- 05 -->
+
+                    <a
+                        href="menu.html#momos"
+                        class="menu-category-card"
+                    >
+
+                        <div class="menu-category-image">
+
+                            <img
+                                src="assets/menu/momos.png"
+                                alt="Momos"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+
+                        <div class="menu-category-content">
+
+                            <h3>
+                                Momos
+                            </h3>
+
+                            <span>
+                                View Menu
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <!-- 06 -->
+
+                    <a
+                        href="menu.html#soup"
+                        class="menu-category-card"
+                    >
+
+                        <div class="menu-category-image">
+
+                            <img
+                                src="assets/menu/soup.png"
+                                alt="Soup"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+
+                        <div class="menu-category-content">
+
+                            <h3>
+                                Soup
+                            </h3>
+
+                            <span>
+                                View Menu
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <!-- 07 -->
+
+                    <a
+                        href="menu.html#sweet-corn"
+                        class="menu-category-card"
+                    >
+
+                        <div class="menu-category-image">
+
+                            <img
+                                src="assets/menu/sweet-corn.png"
+                                alt="Sweet Corn"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+
+                        <div class="menu-category-content">
+
+                            <h3>
+                                Sweet Corn
+                            </h3>
+
+                            <span>
+                                View Menu
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+
+                    <!-- 08 -->
+
+                    <a
+                        href="menu.html#chips-bhel"
+                        class="menu-category-card"
+                    >
+
+                        <div class="menu-category-image">
+
+                            <img
+                                src="assets/menu/chips-bhel.png"
+                                alt="Chips Bhel"
+                                loading="lazy"
+                            >
+
+                        </div>
+
+
+                        <div class="menu-category-content">
+
+                            <h3>
+                                Chips Bhel
+                            </h3>
+
+                            <span>
+                                View Menu
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =============================================
+                 LOYALTY CARD
+            ============================================== -->
+
+            <section class="loyalty-card">
+
+
+                <div class="loyalty-header">
+
+
+                    <div>
+
+                        <span class="section-kicker">
+                            RIO REWARDS
+                        </span>
+
+                        <h2>
+                            My Loyalty Card
+                        </h2>
+
+                    </div>
+
+
+                    <div
+                        class="loyalty-badge"
+                        aria-hidden="true"
+                    >
+
+                        <i class="fa-solid fa-crown"></i>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- CUSTOMER -->
+
+                <div class="loyalty-customer">
+
+
+                    <div class="customer-avatar">
+
+                        <img
+                            id="loyaltyAvatar"
+                            src="assets/avatars/default.png"
+                            alt="Customer"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <h3 id="customerName">
+                            Customer
+                        </h3>
+
+
+                        <p id="memberId">
+                            Member ID: RIO-000000
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- STAMP / CYCLE STATUS -->
+
+                <div class="loyalty-progress-info">
+
+
+                    <div>
+
+                        <span>
+                            Valid Stamps
+                        </span>
+
+
+                        <strong>
+
+                            <span id="stampCount">
+                                0
+                            </span>
+
+                            /6
+
+                        </strong>
+
+                    </div>
+
+
+
+                    <div>
+
+                        <span>
+                            Cycle
+                        </span>
+
+
+                        <strong id="cycleDaysRemaining">
+                            40 Days
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- STAMPS -->
+
+                <div
+                    id="stampGrid"
+                    class="stamp-grid"
+                >
+
+
+                    <div
+                        id="stamp1"
+                        class="stamp-box"
+                    >
+
+                        <span>
+                            1
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        id="stamp2"
+                        class="stamp-box"
+                    >
+
+                        <span>
+                            2
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        id="stamp3"
+                        class="stamp-box"
+                    >
+
+                        <span>
+                            3
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        id="stamp4"
+                        class="stamp-box"
+                    >
+
+                        <span>
+                            4
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        id="stamp5"
+                        class="stamp-box"
+                    >
+
+                        <span>
+                            5
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        id="stamp6"
+                        class="stamp-box reward-stamp"
+                    >
+
+                        <i class="fa-solid fa-gift"></i>
+
+                        <span>
+                            FREE
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- REWARD STATUS -->
+
+                <div
+                    id="rewardStatus"
+                    class="reward-status"
+                >
+
+                    <strong>
+                        Reward Locked
+                    </strong>
+
+
+                    <span>
+                        Collect all 6 valid stamps within 40 days.
+                    </span>
+
+                </div>
+
+
+
+                <!-- DETAILS -->
+
+                <a
+                    href="history.html"
+                    class="loyalty-details-btn"
+                >
+
+                    View Details
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+
+            </section>
+
+
+
+            <!-- =============================================
+                 SPECIAL FOR YOU
+            ============================================== -->
+
+            <section class="home-section">
+
+
+                <div class="section-heading">
+
+
+                    <div>
+
+                        <span class="section-kicker">
+                            PERSONALIZED
+                        </span>
+
+                        <h2>
+                            Special For You
+                        </h2>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div
+                    id="specialOfferContainer"
+                    class="special-offer-container"
+                >
+
+
+                    <div class="empty-offer">
+
+
+                        <i class="fa-solid fa-gift"></i>
+
+
+                        <h3>
+                            No active offer
+                        </h3>
+
+
+                        <p>
+                            Your special offers will appear here.
+                        </p>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =============================================
+                 ANNOUNCEMENTS
+            ============================================== -->
+
+            <section class="home-section">
+
+
+                <div class="section-heading">
+
+
+                    <div>
+
+                        <span class="section-kicker">
+                            RIO UPDATES
+                        </span>
+
+                        <h2>
+                            Announcements
+                        </h2>
+
+                    </div>
+
+
+
+                    <button
+                        type="button"
+                        id="viewAllAnnouncements"
+                        class="section-link-btn"
+                    >
+
+                        View All
+
+                    </button>
+
+
+                </div>
+
+
+
+                <div
+                    id="announcementList"
+                    class="announcement-list"
+                >
+
+
+                    <div class="announcement-empty">
+
+
+                        <i class="fa-solid fa-bullhorn"></i>
+
+
+                        <p>
+                            No new announcements.
+                        </p>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =============================================
+                 ADSENSE RESERVED SLOT
+            ============================================== -->
+
+            <section
+                id="homeAdSlot"
+                class="adsense-slot"
+                aria-label="Advertisement"
+            >
+
+                <span>
+                    Advertisement
+                </span>
+
+            </section>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             PROFILE
+        ================================================== -->
+
+        <section
+            id="profileSection"
+            class="dashboard-section"
+        >
+
+
+            <div class="page-section-header">
+
+
+                <span class="section-kicker">
+                    ACCOUNT
+                </span>
+
+
+                <h2>
+                    My Profile
+                </h2>
+
+
+                <p>
+                    Manage your Rio Maggi Point profile.
+                </p>
+
+
+            </div>
+
+
+
+            <div id="profileContent">
+
+                <!-- Profile UI will be handled by dashboard.js -->
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             QR
+        ================================================== -->
+
+        <section
+            id="qrSection"
+            class="dashboard-section"
+        >
+
+
+            <div class="page-section-header">
+
+
+                <span class="section-kicker">
+                    LOYALTY IDENTIFICATION
+                </span>
+
+
+                <h2>
+                    MY RIO QR
+                </h2>
+
+
+                <p>
+                    Show this QR to Rio Maggi Point
+                </p>
+
+
+            </div>
+
+
+
+            <div class="customer-qr-card">
+
+
+                <div class="qr-customer-name">
+
+
+                    <span>
+                        Customer
+                    </span>
+
+
+                    <strong id="qrCustomerName">
+                        Customer
+                    </strong>
+
+
+                </div>
+
+
+
+                <div
+                    id="customerQrCode"
+                    class="customer-qr-code"
+                    aria-label="Customer QR Code"
+                >
+
+                    <!-- Permanent customer QR will be rendered here -->
+
+                </div>
+
+
+
+                <p class="qr-instruction">
+
+                    Show this QR to Rio Maggi Point staff
+                    for loyalty identification.
+
+                </p>
+
+
+
+                <div class="qr-loyalty-status">
+
+
+                    <span>
+                        Current Stamps
+                    </span>
+
+
+                    <strong>
+
+                        <span id="qrStampCount">
+                            0
+                        </span>
+
+                        /6
+
+                    </strong>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             HISTORY
+        ================================================== -->
+
+        <section
+            id="historySection"
+            class="dashboard-section"
+        >
+
+
+            <div class="page-section-header">
+
+
+                <span class="section-kicker">
+                    YOUR JOURNEY
+                </span>
+
+
+                <h2>
+                    Stamp History
+                </h2>
+
+
+                <p>
+                    View your loyalty activity and reward history.
+                </p>
+
+
+            </div>
+
+
+
+            <div
+                id="historyList"
+                class="history-list"
+            >
+
+                <!-- History will be rendered by dashboard.js -->
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             FEEDBACK
+        ================================================== -->
+
+        <section
+            id="feedbackSection"
+            class="dashboard-section"
+        >
+
+
+            <div class="page-section-header">
+
+
+                <span class="section-kicker">
+                    YOUR EXPERIENCE
+                </span>
+
+
+                <h2>
+                    Feedback
+                </h2>
+
+
+                <p>
+                    Tell us what you enjoyed at Rio Maggi Point.
+                </p>
+
+
+            </div>
+
+
+
+            <div id="feedbackContent">
+
+                <!-- Feedback UI will be handled by dashboard.js -->
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             CHAT
+        ================================================== -->
+
+        <section
+            id="chatSection"
+            class="dashboard-section"
+        >
+
+
+            <div class="page-section-header">
+
+
+                <span class="section-kicker">
+                    SUPPORT
+                </span>
+
+
+                <h2>
+                    Chat With Rio
+                </h2>
+
+
+                <p>
+                    Need help? Connect with Rio Maggi Point.
+                </p>
+
+
+            </div>
+
+
+
+            <div class="chat-support-card">
+
+
+                <div class="chat-icon">
+
+                    <i class="fa-brands fa-whatsapp"></i>
+
+                </div>
+
+
+                <h3>
+                    Chat With Us
+                </h3>
+
+
+                <p>
+                    Connect directly with Rio Maggi Point
+                    support on WhatsApp.
+                </p>
+
+
+                <a
+                    href="https://wa.me/917987827979"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="chat-support-btn"
+                >
+
+                    <i class="fa-brands fa-whatsapp"></i>
+
+                    Start Chat
+
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         BOTTOM NAVIGATION
+         
+         LOCKED ORDER:
+         HOME → PROFILE → QR → HISTORY → FEEDBACK → CHAT
+         
+         IMPORTANT:
+         All six navigation items use the same base
+         .bottom-nav-item size.
+         
+         QR is visually emphasized through its inner
+         icon container, NOT by changing the clickable
+         item's overall layout size.
+    ====================================================== -->
+
+    <nav
+        class="bottom-nav"
+        aria-label="Customer navigation"
+    >
+
+
+        <!-- HOME -->
+
+        <button
+            type="button"
+            class="bottom-nav-item active"
+            data-section="homeSection"
+            aria-label="Home"
+            aria-current="page"
+        >
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>
+                Home
+            </span>
+
+        </button>
+
+
+
+        <!-- PROFILE -->
+
+        <button
+            type="button"
+            class="bottom-nav-item"
+            data-section="profileSection"
+            aria-label="Profile"
+        >
+
+            <i class="fa-solid fa-user"></i>
+
+            <span>
+                Profile
+            </span>
+
+        </button>
+
+
+
+        <!-- QR CENTER -->
+
+        <button
+            type="button"
+            class="bottom-nav-item qr-nav-item"
+            data-section="qrSection"
+            aria-label="My Rio QR"
+        >
+
+            <span class="qr-nav-icon">
+
+                <i class="fa-solid fa-qrcode"></i>
+
+            </span>
+
+            <span>
+                QR
+            </span>
+
+        </button>
+
+
+
+        <!-- HISTORY -->
+
+        <button
+            type="button"
+            class="bottom-nav-item"
+            data-section="historySection"
+            aria-label="History"
+        >
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+            <span>
+                History
+            </span>
+
+        </button>
+
+
+
+        <!-- FEEDBACK -->
+
+        <button
+            type="button"
+            class="bottom-nav-item"
+            data-section="feedbackSection"
+            aria-label="Feedback"
+        >
+
+            <i class="fa-solid fa-star"></i>
+
+            <span>
+                Feedback
+            </span>
+
+        </button>
+
+
+
+        <!-- CHAT -->
+
+        <button
+            type="button"
+            class="bottom-nav-item"
+            data-section="chatSection"
+            aria-label="Chat"
+        >
+
+            <i class="fa-solid fa-comments"></i>
+
+            <span>
+                Chat
+            </span>
+
+        </button>
+
+
+    </nav>
 
 
 </div>
 
 
-</section>
-
-
-
-
-
-
-
-
-<!-- CUSTOMER DETAILS -->
-
-
-<section class="card card-margin">
-
-
-
-<h3>
-
-<i class="fa-solid fa-id-card"></i>
-
-Member Details
-
-</h3>
-
-
-
-
-<div class="info-row">
-
-<span>
-
-Name
-
-</span>
-
-
-<b id="infoName">
-
--
-
-</b>
-
-
-</div>
-
-
-
-
-
-
-<div class="info-row">
-
-<span>
-
-Email
-
-</span>
-
-
-<b id="infoEmail">
-
--
-
-</b>
-
-
-</div>
-
-
-
-
-
-
-<div class="info-row">
-
-<span>
-
-Mobile
-
-</span>
-
-
-<b id="infoMobile">
-
--
-
-</b>
-
-
-</div>
-
-
-
-
-
-
-<div class="info-row">
-
-<span>
-
-Gender
-
-</span>
-
-
-<b id="infoGender">
-
--
-
-</b>
-
-
-</div>
-
-
-
-
-
-
-<div class="info-row">
-
-<span>
-
-Status
-
-</span>
-
-
-<b id="infoStatus">
-
-Active
-
-</b>
-
-
-</div>
-
-
-
-
-</section>
 <!-- =====================================================
-     RIO MAGGI POINT
-     CUSTOMER DASHBOARD.HTML
-     PART 3/4
-
-     VISIT + CONTACT + COMING SOON + GAME
+     CUSTOMER DASHBOARD JAVASCRIPT
+     
+     IMPORTANT:
+     Firebase initialization is NOT performed here.
+     Existing dashboard.js will be reviewed next.
 ===================================================== -->
 
-
-
-
-
-
-<!-- VISIT RIO MAGGI POINT -->
-
-
-<section class="card visit-card">
-
-
-
-<h3>
-
-Visit Rio Maggi Point
-
-</h3>
-
-
-
-<p>
-
-We are happy to serve you
-
-</p>
-
-
-
-
-
-<div class="contact-buttons">
-
-
-
-<a href="tel:7987827979"
-
-class="contact-btn call-btn">
-
-
-<i class="fa-solid fa-phone"></i>
-
-
-Call Us
-
-
-</a>
-
-
-
-
-
-<a href="https://wa.me/917987827979"
-
-target="_blank"
-
-class="contact-btn whatsapp-btn">
-
-
-<i class="fa-brands fa-whatsapp"></i>
-
-
-WhatsApp
-
-
-</a>
-
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-
-
-<!-- LOCATION -->
-
-
-<section class="coming-soon">
-
-
-
-<i class="fa-solid fa-location-dot"></i>
-
-
-
-<h3>
-
-Find Us
-
-</h3>
-
-
-
-<p>
-
-Location service is coming soon.
-
-</p>
-
-
-
-<span class="coming-tag">
-
-COMING SOON
-
-</span>
-
-
-
-</section>
-
-
-
-
-
-
-
-
-<!-- HOME DELIVERY -->
-
-
-<section class="card game-card">
-
-
-
-<h3>
-
-<i class="fa-solid fa-motorcycle"></i>
-
-Home Delivery
-
-</h3>
-
-
-
-<p>
-
-Delicious Maggi delivered to your doorstep.
-
-</p>
-
-
-
-<span class="coming-tag">
-
-COMING SOON
-
-</span>
-
-
-
-</section>
-
-
-
-
-
-
-
-
-<!-- RIO FUN GAME -->
-
-
-<section class="card game-card">
-
-
-
-<h3>
-
-<i class="fa-solid fa-gamepad"></i>
-
-RIO FUN GAME
-
-</h3>
-
-
-
-<p>
-
-Play While You Wait!
-
-</p>
-
-
-
-<p>
-
-Enjoy free games while your delicious food is being prepared.
-
-</p>
-
-
-
-
-
-<a href="games/index.html"
-
-class="game-btn">
-
-
-<i class="fa-solid fa-play"></i>
-
-
-Play Free Games
-
-
-</a>
-
-
-
-</section>
-<!-- =====================================================
-     RIO MAGGI POINT
-     CUSTOMER DASHBOARD.HTML
-     PART 4/4
-
-     BOTTOM NAV + SCRIPTS
-===================================================== -->
-
-
-
-
-
-<!-- BOTTOM NAVIGATION -->
-
-
-<nav class="bottom-nav">
-
-
-<a href="dashboard.html"
-class="active">
-
-
-<i class="fa-solid fa-house"></i>
-
-
-<span>
-Home
-</span>
-
-
-</a>
-
-
-
-
-
-<a href="qr.html">
-
-
-<i class="fa-solid fa-qrcode"></i>
-
-
-<span>
-QR
-</span>
-
-
-</a>
-
-
-
-
-
-<a href="history.html">
-
-
-<i class="fa-solid fa-clock"></i>
-
-
-<span>
-History
-</span>
-
-
-</a>
-
-
-
-
-
-<a href="menu.html">
-
-
-<i class="fa-solid fa-utensils"></i>
-
-
-<span>
-Menu
-</span>
-
-
-</a>
-
-
-
-
-
-<a href="feedback.html">
-
-
-<i class="fa-solid fa-star"></i>
-
-
-<span>
-Review
-</span>
-
-
-</a>
-
-
-
-
-</nav>
-
-
-
-
-
-
-
-</div>
-
-<!-- CONTAINER END -->
-
-
-
-
-
-
-
-<!-- FIREBASE + DASHBOARD SCRIPTS -->
-
-
-<script type="module"
-src="js/dashboard-firebase.js">
-</script>
-
-
-
-<script type="module"
-src="js/dashboard.js">
-</script>
-
-
-
-
+<script
+    type="module"
+    src="js/dashboard.js"
+></script>
 
 
 </body>
