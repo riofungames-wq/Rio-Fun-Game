@@ -1,15 +1,21 @@
 <!-- =====================================================
      RIO MAGGI POINT
      CUSTOMER DASHBOARD
-     PREMIUM CUSTOMER DASHBOARD — FINAL MASTER BUILD
+     PREMIUM RESPONSIVE MASTER BUILD
+
+     RESPONSIVE TARGETS:
+     - MOBILE
+     - TABLET
+     - LAPTOP
+     - DESKTOP
 
      ARCHITECTURE:
      - ONE COMMON CUSTOMER DASHBOARD
      - CUSTOMER SIDE ONLY
      - NO ADMIN CODE
-     - NO FIREBASE INITIALIZATION HERE
+     - NO FIREBASE INITIALIZATION
      - CUSTOMER LOGIC -> js/dashboard.js
-     - FIREBASE INITIALIZATION -> CENTRALIZED CONFIG
+     - FIREBASE -> CENTRALIZED app.js / firebase-config.js
 ===================================================== -->
 
 <!DOCTYPE html>
@@ -34,11 +40,13 @@
         content="Rio Maggi Point Premium Customer Loyalty Dashboard"
     >
 
-    <title>Rio Maggi Point | Customer Dashboard</title>
+    <title>
+        Rio Maggi Point | Customer Dashboard
+    </title>
 
 
     <!-- =================================================
-         CUSTOMER DASHBOARD CSS
+         CUSTOMER DASHBOARD STYLES
     ================================================== -->
 
     <link
@@ -63,7 +71,7 @@
 
 
 <!-- =====================================================
-     CUSTOMER DASHBOARD APP
+     DASHBOARD APPLICATION
 ===================================================== -->
 
 <div class="dashboard-app">
@@ -103,13 +111,9 @@
         </div>
 
 
-
         <!-- HEADER ACTIONS -->
 
         <div class="header-actions">
-
-
-            <!-- NOTIFICATIONS -->
 
             <button
                 type="button"
@@ -126,9 +130,6 @@
 
             </button>
 
-
-
-            <!-- LOGOUT -->
 
             <button
                 type="button"
@@ -152,14 +153,14 @@
 
 
     <!-- =================================================
-         MAIN DASHBOARD CONTENT
+         MAIN CONTENT
     ================================================== -->
 
     <main class="dashboard-main">
 
 
         <!-- =================================================
-             HOME SECTION
+             HOME
         ================================================== -->
 
         <section
@@ -169,7 +170,7 @@
 
 
             <!-- =================================================
-                 WELCOME CARD
+                 WELCOME
             ================================================== -->
 
             <section class="welcome-card">
@@ -180,11 +181,9 @@
                         WELCOME BACK
                     </span>
 
-
                     <h2 id="welcomeName">
                         Hello, Customer 👋
                     </h2>
-
 
                     <p>
                         Welcome to Rio Maggi Point.
@@ -209,19 +208,7 @@
 
 
             <!-- =================================================
-                 PREMIUM HERO SLIDER
-                 
-                 8 CATEGORY BANNERS:
-                 1. Everyday Maggi
-                 2. Cheese Maggi
-                 3. Cheese Butter Maggi
-                 4. UFO Burger
-                 5. Momos
-                 6. Soup
-                 7. Sweet Corn
-                 8. Chips Bhel
-
-                 Banners are rendered by dashboard.js.
+                 HERO SLIDER
             ================================================== -->
 
             <section
@@ -231,19 +218,13 @@
 
                 <div class="hero-slider">
 
-
-                    <!-- SLIDER TRACK -->
-
                     <div
                         id="heroSliderTrack"
                         class="hero-slider-track"
                     >
-                        <!-- Banners rendered by dashboard.js -->
+                        <!-- Rendered by dashboard.js -->
                     </div>
 
-
-
-                    <!-- PREVIOUS -->
 
                     <button
                         type="button"
@@ -259,9 +240,6 @@
 
                     </button>
 
-
-
-                    <!-- NEXT -->
 
                     <button
                         type="button"
@@ -280,9 +258,6 @@
                 </div>
 
 
-
-                <!-- SLIDER DOTS -->
-
                 <div
                     id="sliderDots"
                     class="slider-dots"
@@ -294,7 +269,7 @@
 
 
             <!-- =================================================
-                 OUR MENU
+                 MENU
             ================================================== -->
 
             <section class="home-section">
@@ -324,13 +299,10 @@
                 </div>
 
 
-
                 <div class="menu-category-grid">
 
 
-                    <!-- =================================================
-                         EVERYDAY MAGGI
-                    ================================================== -->
+                    <!-- EVERYDAY MAGGI -->
 
                     <a
                         href="menu.html#everyday-maggi"
@@ -347,7 +319,6 @@
 
                         </div>
 
-
                         <div class="menu-category-content">
 
                             <h3>
@@ -363,10 +334,7 @@
                     </a>
 
 
-
-                    <!-- =================================================
-                         CHEESE MAGGI
-                    ================================================== -->
+                    <!-- CHEESE MAGGI -->
 
                     <a
                         href="menu.html#cheese-maggi"
@@ -383,7 +351,6 @@
 
                         </div>
 
-
                         <div class="menu-category-content">
 
                             <h3>
@@ -399,10 +366,7 @@
                     </a>
 
 
-
-                    <!-- =================================================
-                         CHEESE BUTTER MAGGI
-                    ================================================== -->
+                    <!-- CHEESE BUTTER MAGGI -->
 
                     <a
                         href="menu.html#cheese-butter-maggi"
@@ -419,7 +383,6 @@
 
                         </div>
 
-
                         <div class="menu-category-content">
 
                             <h3>
@@ -435,10 +398,7 @@
                     </a>
 
 
-
-                    <!-- =================================================
-                         UFO BURGER
-                    ================================================== -->
+                    <!-- UFO BURGER -->
 
                     <a
                         href="menu.html#ufo-burger"
@@ -455,7 +415,6 @@
 
                         </div>
 
-
                         <div class="menu-category-content">
 
                             <h3>
@@ -471,10 +430,7 @@
                     </a>
 
 
-
-                    <!-- =================================================
-                         MOMOS
-                    ================================================== -->
+                    <!-- MOMOS -->
 
                     <a
                         href="menu.html#momos"
@@ -491,7 +447,6 @@
 
                         </div>
 
-
                         <div class="menu-category-content">
 
                             <h3>
@@ -507,10 +462,7 @@
                     </a>
 
 
-
-                    <!-- =================================================
-                         SOUP
-                    ================================================== -->
+                    <!-- SOUP -->
 
                     <a
                         href="menu.html#soup"
@@ -527,7 +479,6 @@
 
                         </div>
 
-
                         <div class="menu-category-content">
 
                             <h3>
@@ -543,10 +494,7 @@
                     </a>
 
 
-
-                    <!-- =================================================
-                         SWEET CORN
-                    ================================================== -->
+                    <!-- SWEET CORN -->
 
                     <a
                         href="menu.html#sweet-corn"
@@ -563,7 +511,6 @@
 
                         </div>
 
-
                         <div class="menu-category-content">
 
                             <h3>
@@ -579,10 +526,7 @@
                     </a>
 
 
-
-                    <!-- =================================================
-                         CHIPS BHEL
-                    ================================================== -->
+                    <!-- CHIPS BHEL -->
 
                     <a
                         href="menu.html#chips-bhel"
@@ -598,7 +542,6 @@
                             >
 
                         </div>
-
 
                         <div class="menu-category-content">
 
@@ -622,23 +565,10 @@
 
             <!-- =================================================
                  LOYALTY CARD
-                 
-                 BUSINESS RULES:
-                 - 40 DAY VALIDITY CYCLE
-                 - MAXIMUM 6 VALID STAMPS
-                 - 6 VALID STAMPS -> FREE VEG MAGGI
-                 - REWARD CLAIM -> CYCLE RESET
-                 - EXPIRED INCOMPLETE CYCLE -> RESET
-                 
-                 Actual enforcement is NOT performed here.
-                 It must remain server-side / dashboard.js /
-                 Firestore security architecture.
             ================================================== -->
 
             <section class="loyalty-card">
 
-
-                <!-- LOYALTY HEADER -->
 
                 <div class="loyalty-header">
 
@@ -667,8 +597,7 @@
                 </div>
 
 
-
-                <!-- CUSTOMER INFORMATION -->
+                <!-- CUSTOMER -->
 
                 <div class="loyalty-customer">
 
@@ -689,9 +618,8 @@
                             Customer
                         </h3>
 
-
                         <p id="memberId">
-                            Member ID: RIO-000000
+                            Member ID : RIO-000000
                         </p>
 
                     </div>
@@ -699,11 +627,9 @@
                 </div>
 
 
-
-                <!-- STAMP / CYCLE INFORMATION -->
+                <!-- PROGRESS INFO -->
 
                 <div class="loyalty-progress-info">
-
 
                     <div>
 
@@ -712,7 +638,9 @@
                         </span>
 
                         <strong>
-                            <span id="stampCount">0</span>/6
+                            <span id="stampCount">
+                                0
+                            </span>/6
                         </strong>
 
                     </div>
@@ -733,85 +661,56 @@
                 </div>
 
 
-
-                <!-- STAMP GRID -->
+                <!-- STAMPS -->
 
                 <div
                     id="stampGrid"
                     class="stamp-grid"
                 >
 
-
-                    <!-- STAMP 1 -->
-
                     <div
                         id="stamp1"
-                        class="stamp-box"
+                        class="stamp-box locked"
                     >
-                        <span>
-                            1
-                        </span>
+                        <span>1</span>
                     </div>
 
-
-
-                    <!-- STAMP 2 -->
 
                     <div
                         id="stamp2"
-                        class="stamp-box"
+                        class="stamp-box locked"
                     >
-                        <span>
-                            2
-                        </span>
+                        <span>2</span>
                     </div>
 
-
-
-                    <!-- STAMP 3 -->
 
                     <div
                         id="stamp3"
-                        class="stamp-box"
+                        class="stamp-box locked"
                     >
-                        <span>
-                            3
-                        </span>
+                        <span>3</span>
                     </div>
 
-
-
-                    <!-- STAMP 4 -->
 
                     <div
                         id="stamp4"
-                        class="stamp-box"
+                        class="stamp-box locked"
                     >
-                        <span>
-                            4
-                        </span>
+                        <span>4</span>
                     </div>
 
-
-
-                    <!-- STAMP 5 -->
 
                     <div
                         id="stamp5"
-                        class="stamp-box"
+                        class="stamp-box locked"
                     >
-                        <span>
-                            5
-                        </span>
+                        <span>5</span>
                     </div>
 
 
-
-                    <!-- STAMP 6 / REWARD -->
-
                     <div
                         id="stamp6"
-                        class="stamp-box reward-stamp"
+                        class="stamp-box reward-stamp locked"
                     >
 
                         <i
@@ -828,8 +727,7 @@
                 </div>
 
 
-
-                <!-- LOYALTY PROGRESS BAR -->
+                <!-- PROGRESS -->
 
                 <div class="progress-wrapper">
 
@@ -853,7 +751,6 @@
                 </div>
 
 
-
                 <!-- CYCLE STATUS -->
 
                 <div
@@ -864,12 +761,11 @@
                 </div>
 
 
-
-                <!-- REWARD STATUS -->
+                <!-- REWARD -->
 
                 <div
                     id="rewardStatus"
-                    class="reward-status"
+                    class="reward-status reward-locked"
                 >
 
                     <strong>
@@ -882,9 +778,6 @@
 
                 </div>
 
-
-
-                <!-- LOYALTY DETAILS -->
 
                 <a
                     href="history.html"
@@ -957,9 +850,6 @@
 
             <!-- =================================================
                  ANNOUNCEMENTS
-                 
-                 Admin-created announcements are rendered
-                 by dashboard.js.
             ================================================== -->
 
             <section class="home-section">
@@ -1015,7 +905,7 @@
 
 
             <!-- =================================================
-                 ADSENSE RESERVED SLOT
+                 ADSENSE
             ================================================== -->
 
             <section
@@ -1035,17 +925,7 @@
 
 
         <!-- =================================================
-             PROFILE SECTION
-             
-             Rendered by dashboard.js.
-             
-             Includes architecture support for:
-             - Name
-             - DOB
-             - Gender
-             - Avatar
-             - DOB one-time restriction
-             - Admin-controlled DOB changes
+             PROFILE
         ================================================== -->
 
         <section
@@ -1071,7 +951,7 @@
 
 
             <div id="profileContent">
-                <!-- Profile UI rendered by dashboard.js -->
+                <!-- Rendered by dashboard.js -->
             </div>
 
         </section>
@@ -1079,10 +959,7 @@
 
 
         <!-- =================================================
-             QR SECTION
-             
-             Permanent customer QR.
-             Actual QR generation is handled by dashboard.js.
+             QR
         ================================================== -->
 
         <section
@@ -1109,6 +986,7 @@
 
             <div class="customer-qr-card">
 
+
                 <div class="qr-customer-name">
 
                     <span>
@@ -1122,26 +1000,20 @@
                 </div>
 
 
-                <!-- CUSTOMER QR -->
-
                 <div
                     id="customerQrCode"
                     class="customer-qr-code"
                     aria-label="Permanent customer QR code"
                 >
-                    <!-- Permanent QR rendered by dashboard.js -->
+                    <!-- QR rendered by dashboard.js -->
                 </div>
 
 
                 <p class="qr-instruction">
-
                     Show this QR to Rio Maggi Point staff
                     for loyalty identification.
-
                 </p>
 
-
-                <!-- QR LOYALTY STATUS -->
 
                 <div class="qr-loyalty-status">
 
@@ -1150,7 +1022,9 @@
                     </span>
 
                     <strong>
-                        <span id="qrStampCount">0</span>/6
+                        <span id="qrStampCount">
+                            0
+                        </span>/6
                     </strong>
 
                 </div>
@@ -1162,7 +1036,7 @@
 
 
         <!-- =================================================
-             HISTORY SECTION
+             HISTORY
         ================================================== -->
 
         <section
@@ -1191,7 +1065,7 @@
                 id="historyList"
                 class="history-list"
             >
-                <!-- History rendered by dashboard.js -->
+                <!-- Rendered by dashboard.js -->
             </div>
 
         </section>
@@ -1199,10 +1073,7 @@
 
 
         <!-- =================================================
-             FEEDBACK SECTION
-             
-             Feedback UI rendered by dashboard.js.
-             Negative feedback option is not defined here.
+             FEEDBACK
         ================================================== -->
 
         <section
@@ -1228,7 +1099,7 @@
 
 
             <div id="feedbackContent">
-                <!-- Feedback UI rendered by dashboard.js -->
+                <!-- Rendered by dashboard.js -->
             </div>
 
         </section>
@@ -1236,7 +1107,7 @@
 
 
         <!-- =================================================
-             CHAT / SUPPORT SECTION
+             CHAT
         ================================================== -->
 
         <section
@@ -1264,8 +1135,6 @@
             <div class="chat-support-card">
 
 
-                <!-- CHAT ICON -->
-
                 <div class="chat-icon">
 
                     <i
@@ -1287,8 +1156,6 @@
                 </p>
 
 
-                <!-- CONTACT BUTTONS -->
-
                 <div class="contact-buttons">
 
 
@@ -1308,7 +1175,6 @@
                         Call Us
 
                     </a>
-
 
 
                     <!-- WHATSAPP -->
@@ -1343,8 +1209,7 @@
     <!-- =====================================================
          BOTTOM NAVIGATION
 
-         LOCKED ORDER:
-
+         LOCKED:
          HOME
          PROFILE
          QR
@@ -1361,9 +1226,7 @@
     >
 
 
-        <!-- =================================================
-             HOME
-        ================================================== -->
+        <!-- HOME -->
 
         <button
             type="button"
@@ -1385,10 +1248,7 @@
         </button>
 
 
-
-        <!-- =================================================
-             PROFILE
-        ================================================== -->
+        <!-- PROFILE -->
 
         <button
             type="button"
@@ -1409,10 +1269,7 @@
         </button>
 
 
-
-        <!-- =================================================
-             QR
-        ================================================== -->
+        <!-- QR -->
 
         <button
             type="button"
@@ -1437,10 +1294,7 @@
         </button>
 
 
-
-        <!-- =================================================
-             HISTORY
-        ================================================== -->
+        <!-- HISTORY -->
 
         <button
             type="button"
@@ -1461,10 +1315,7 @@
         </button>
 
 
-
-        <!-- =================================================
-             FEEDBACK
-        ================================================== -->
+        <!-- FEEDBACK -->
 
         <button
             type="button"
@@ -1485,10 +1336,7 @@
         </button>
 
 
-
-        <!-- =================================================
-             CHAT
-        ================================================== -->
+        <!-- CHAT -->
 
         <button
             type="button"
@@ -1518,9 +1366,9 @@
      CUSTOMER DASHBOARD JAVASCRIPT
 
      IMPORTANT:
-     - NO FIREBASE INITIALIZATION HERE
-     - NO ADMIN LOGIC HERE
-     - dashboard.js handles customer-side functionality
+     - NO FIREBASE INITIALIZATION
+     - NO ADMIN LOGIC
+     - CUSTOMER LOGIC ONLY
 ===================================================== -->
 
 <script
