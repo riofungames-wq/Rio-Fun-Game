@@ -16,6 +16,11 @@
      - NO FIREBASE INITIALIZATION
      - CUSTOMER LOGIC -> js/dashboard.js
      - FIREBASE -> CENTRALIZED app.js / firebase-config.js
+
+     LOYALTY RULE:
+     - 40-DAY CYCLE
+     - 6 VALID STAMPS
+     - 7TH CIRCLE = FREE VEG MAGGI REWARD
 ===================================================== -->
 
 <!DOCTYPE html>
@@ -27,7 +32,7 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     >
 
     <meta
@@ -83,68 +88,72 @@
 
     <header class="dashboard-header">
 
+        <div class="header-inner">
 
-        <!-- BRAND -->
 
-        <div class="brand-area">
+            <!-- BRAND -->
 
-            <div
-                class="brand-mark"
-                aria-hidden="true"
-            >
-                R
+            <div class="brand-area">
+
+                <div
+                    class="brand-mark"
+                    aria-hidden="true"
+                >
+                    R
+                </div>
+
+
+                <div class="brand-text">
+
+                    <h1>
+                        RIO MAGGI POINT
+                    </h1>
+
+                    <p>
+                        Premium Loyalty Club
+                    </p>
+
+                </div>
+
             </div>
 
 
-            <div class="brand-text">
+            <!-- HEADER ACTIONS -->
 
-                <h1>
-                    RIO MAGGI POINT
-                </h1>
+            <div class="header-actions">
 
-                <p>
-                    Premium Loyalty Club
-                </p>
+                <button
+                    type="button"
+                    id="notificationBtn"
+                    class="header-icon-btn"
+                    aria-label="Notifications"
+                    title="Notifications"
+                >
+
+                    <i
+                        class="fa-solid fa-bell"
+                        aria-hidden="true"
+                    ></i>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    id="logoutBtn"
+                    class="header-icon-btn"
+                    aria-label="Logout"
+                    title="Logout"
+                >
+
+                    <i
+                        class="fa-solid fa-right-from-bracket"
+                        aria-hidden="true"
+                    ></i>
+
+                </button>
 
             </div>
-
-        </div>
-
-
-        <!-- HEADER ACTIONS -->
-
-        <div class="header-actions">
-
-            <button
-                type="button"
-                id="notificationBtn"
-                class="header-icon-btn"
-                aria-label="Notifications"
-                title="Notifications"
-            >
-
-                <i
-                    class="fa-solid fa-bell"
-                    aria-hidden="true"
-                ></i>
-
-            </button>
-
-
-            <button
-                type="button"
-                id="logoutBtn"
-                class="header-icon-btn"
-                aria-label="Logout"
-                title="Logout"
-            >
-
-                <i
-                    class="fa-solid fa-right-from-bracket"
-                    aria-hidden="true"
-                ></i>
-
-            </button>
 
         </div>
 
@@ -160,7 +169,7 @@
 
 
         <!-- =================================================
-             HOME
+             HOME SECTION
         ================================================== -->
 
         <section
@@ -209,6 +218,7 @@
 
             <!-- =================================================
                  HERO SLIDER
+                 8 CATEGORY BANNER HOOK
             ================================================== -->
 
             <section
@@ -222,7 +232,12 @@
                         id="heroSliderTrack"
                         class="hero-slider-track"
                     >
-                        <!-- Rendered by dashboard.js -->
+
+                        <!--
+                            Banner slides are rendered
+                            by dashboard.js.
+                        -->
+
                     </div>
 
 
@@ -570,6 +585,8 @@
             <section class="loyalty-card">
 
 
+                <!-- LOYALTY HEADER -->
+
                 <div class="loyalty-header">
 
                     <div>
@@ -597,6 +614,7 @@
                 </div>
 
 
+
                 <!-- CUSTOMER -->
 
                 <div class="loyalty-customer">
@@ -618,6 +636,7 @@
                             Customer
                         </h3>
 
+
                         <p id="memberId">
                             Member ID : RIO-000000
                         </p>
@@ -625,6 +644,7 @@
                     </div>
 
                 </div>
+
 
 
                 <!-- PROGRESS INFO -->
@@ -661,56 +681,138 @@
                 </div>
 
 
-                <!-- STAMPS -->
+
+                <!-- =================================================
+                     7 CIRCLE LOYALTY CARD
+
+                     1-6  = VALID STAMP CIRCLES
+                     7    = FREE VEG MAGGI REWARD
+
+                     IMPORTANT:
+                     CIRCLE 7 IS NOT A SEVENTH STAMP.
+                ================================================== -->
 
                 <div
                     id="stampGrid"
                     class="stamp-grid"
                 >
 
+
+                    <!-- STAMP 1 -->
+
                     <div
                         id="stamp1"
                         class="stamp-box locked"
+                        data-slot="stamp"
+                        data-stamp-number="1"
                     >
-                        <span>1</span>
+
+                        <span>
+                            1
+                        </span>
+
                     </div>
 
+
+
+                    <!-- STAMP 2 -->
 
                     <div
                         id="stamp2"
                         class="stamp-box locked"
+                        data-slot="stamp"
+                        data-stamp-number="2"
                     >
-                        <span>2</span>
+
+                        <span>
+                            2
+                        </span>
+
                     </div>
 
+
+
+                    <!-- STAMP 3 -->
 
                     <div
                         id="stamp3"
                         class="stamp-box locked"
+                        data-slot="stamp"
+                        data-stamp-number="3"
                     >
-                        <span>3</span>
+
+                        <span>
+                            3
+                        </span>
+
                     </div>
 
+
+
+                    <!-- STAMP 4 -->
 
                     <div
                         id="stamp4"
                         class="stamp-box locked"
+                        data-slot="stamp"
+                        data-stamp-number="4"
                     >
-                        <span>4</span>
+
+                        <span>
+                            4
+                        </span>
+
                     </div>
 
+
+
+                    <!-- STAMP 5 -->
 
                     <div
                         id="stamp5"
                         class="stamp-box locked"
+                        data-slot="stamp"
+                        data-stamp-number="5"
                     >
-                        <span>5</span>
+
+                        <span>
+                            5
+                        </span>
+
                     </div>
 
 
+
+                    <!-- STAMP 6 -->
+
                     <div
                         id="stamp6"
+                        class="stamp-box locked"
+                        data-slot="stamp"
+                        data-stamp-number="6"
+                    >
+
+                        <span>
+                            6
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         FREE VEG MAGGI REWARD
+
+                         This is the 7th visual circle.
+                         It becomes unlocked ONLY when
+                         all 6 valid stamps are complete.
+                    ================================================== -->
+
+                    <div
+                        id="stamp7"
                         class="stamp-box reward-stamp locked"
+                        data-slot="reward"
+                        aria-label="Free Veg Maggi reward"
                     >
 
                         <i
@@ -727,7 +829,13 @@
                 </div>
 
 
-                <!-- PROGRESS -->
+
+                <!-- =================================================
+                     LOYALTY PROGRESS
+
+                     Progress is based ONLY on the
+                     six valid stamps.
+                ================================================== -->
 
                 <div class="progress-wrapper">
 
@@ -735,7 +843,7 @@
                         id="loyaltyProgressBar"
                         class="progress-bar"
                         role="progressbar"
-                        aria-label="Loyalty progress"
+                        aria-label="Loyalty stamp progress"
                         aria-valuemin="0"
                         aria-valuemax="6"
                         aria-valuenow="0"
@@ -751,7 +859,10 @@
                 </div>
 
 
-                <!-- CYCLE STATUS -->
+
+                <!-- =================================================
+                     CYCLE STATUS
+                ================================================== -->
 
                 <div
                     id="cycleStatus"
@@ -761,7 +872,10 @@
                 </div>
 
 
-                <!-- REWARD -->
+
+                <!-- =================================================
+                     REWARD STATUS
+                ================================================== -->
 
                 <div
                     id="rewardStatus"
@@ -778,6 +892,11 @@
 
                 </div>
 
+
+
+                <!-- =================================================
+                     LOYALTY DETAILS
+                ================================================== -->
 
                 <a
                     href="history.html"
@@ -874,7 +993,9 @@
                         id="viewAllAnnouncements"
                         class="section-link-btn"
                     >
+
                         View All
+
                     </button>
 
                 </div>
@@ -925,7 +1046,7 @@
 
 
         <!-- =================================================
-             PROFILE
+             PROFILE SECTION
         ================================================== -->
 
         <section
@@ -951,7 +1072,7 @@
 
 
             <div id="profileContent">
-                <!-- Rendered by dashboard.js -->
+                <!-- Profile rendered by dashboard.js -->
             </div>
 
         </section>
@@ -959,7 +1080,7 @@
 
 
         <!-- =================================================
-             QR
+             QR SECTION
         ================================================== -->
 
         <section
@@ -1005,13 +1126,15 @@
                     class="customer-qr-code"
                     aria-label="Permanent customer QR code"
                 >
-                    <!-- QR rendered by dashboard.js -->
+                    <!-- Permanent customer QR rendered by dedicated QR layer -->
                 </div>
 
 
                 <p class="qr-instruction">
+
                     Show this QR to Rio Maggi Point staff
                     for loyalty identification.
+
                 </p>
 
 
@@ -1022,9 +1145,11 @@
                     </span>
 
                     <strong>
+
                         <span id="qrStampCount">
                             0
                         </span>/6
+
                     </strong>
 
                 </div>
@@ -1036,7 +1161,7 @@
 
 
         <!-- =================================================
-             HISTORY
+             HISTORY SECTION
         ================================================== -->
 
         <section
@@ -1065,7 +1190,7 @@
                 id="historyList"
                 class="history-list"
             >
-                <!-- Rendered by dashboard.js -->
+                <!-- History rendered by dashboard.js -->
             </div>
 
         </section>
@@ -1073,7 +1198,7 @@
 
 
         <!-- =================================================
-             FEEDBACK
+             FEEDBACK SECTION
         ================================================== -->
 
         <section
@@ -1099,7 +1224,7 @@
 
 
             <div id="feedbackContent">
-                <!-- Rendered by dashboard.js -->
+                <!-- Feedback rendered by dashboard.js -->
             </div>
 
         </section>
@@ -1107,7 +1232,7 @@
 
 
         <!-- =================================================
-             CHAT
+             CHAT SECTION
         ================================================== -->
 
         <section
@@ -1177,6 +1302,7 @@
                     </a>
 
 
+
                     <!-- WHATSAPP -->
 
                     <a
@@ -1209,7 +1335,7 @@
     <!-- =====================================================
          BOTTOM NAVIGATION
 
-         LOCKED:
+         LOCKED ORDER:
          HOME
          PROFILE
          QR
@@ -1248,6 +1374,7 @@
         </button>
 
 
+
         <!-- PROFILE -->
 
         <button
@@ -1267,6 +1394,7 @@
             </span>
 
         </button>
+
 
 
         <!-- QR -->
@@ -1294,6 +1422,7 @@
         </button>
 
 
+
         <!-- HISTORY -->
 
         <button
@@ -1315,6 +1444,7 @@
         </button>
 
 
+
         <!-- FEEDBACK -->
 
         <button
@@ -1334,6 +1464,7 @@
             </span>
 
         </button>
+
 
 
         <!-- CHAT -->
@@ -1378,4 +1509,5 @@
 
 
 </body>
+
 </html>
