@@ -79,33 +79,63 @@ const APP_CONFIG = Object.freeze({
     appShortName:
         "Rio Maggi",
 
-    // --------------------------------------
-    // LOYALTY RULES
-    // --------------------------------------
 
+    // ======================================
+    // LOYALTY CARD RULES
+    // ======================================
+
+    /*
+     * Customer needs 6 valid stamps
+     * to unlock the FREE Veg Maggi reward.
+     */
     loyaltyStampsRequired:
         6,
 
+
+    /*
+     * Visual loyalty card contains
+     * 7 circles/slots.
+     *
+     * 1-6 = valid stamp slots
+     * 7   = FREE reward slot
+     */
+    loyaltyCardSlots:
+        7,
+
+
+    /*
+     * Final reward item.
+     */
     rewardItem:
         "Veg Maggi",
 
+
     /*
-     * LOCKED CUSTOMER LOYALTY CYCLE:
-     * 7 DAYS
+     * COMPLETE LOYALTY CYCLE VALIDITY.
+     *
+     * IMPORTANT:
+     * This is NOT 7 days.
+     *
+     * Customer gets 40 days to complete
+     * the loyalty journey and claim reward.
      */
     loyaltyCycleDays:
-        7,
+        40,
+
 
     /*
      * One valid stamp per calendar day.
-     * Final enforcement remains server-side.
+     *
+     * Final anti-cheat enforcement MUST
+     * remain server-side/admin-side.
      */
     dailyStampLimit:
         1,
 
-    // --------------------------------------
+
+    // ======================================
     // CONTACT
-    // --------------------------------------
+    // ======================================
 
     contactNumber:
         "7987827979",
@@ -113,9 +143,10 @@ const APP_CONFIG = Object.freeze({
     whatsappNumber:
         "917987827979",
 
-    // --------------------------------------
+
+    // ======================================
     // BUSINESS STATUS
-    // --------------------------------------
+    // ======================================
 
     homeDeliveryStatus:
         "coming-soon",
@@ -307,7 +338,16 @@ console.log(
             APP_STATE.currentPage,
 
         authenticated:
-            APP_STATE.isAuthenticated
+            APP_STATE.isAuthenticated,
+
+        loyaltyCycleDays:
+            APP_CONFIG.loyaltyCycleDays,
+
+        loyaltyStampsRequired:
+            APP_CONFIG.loyaltyStampsRequired,
+
+        loyaltyCardSlots:
+            APP_CONFIG.loyaltyCardSlots
 
     }
 );
@@ -389,7 +429,8 @@ function waitForAuth() {
         (resolve) => {
 
             /*
-             * Firebase already knows the user.
+             * Firebase already knows
+             * the authenticated user.
              */
             if (auth.currentUser) {
 
@@ -403,7 +444,7 @@ function waitForAuth() {
 
 
             /*
-             * Wait for the first auth state.
+             * Wait for the first auth result.
              */
             const unsubscribe =
                 onAuthStateChanged(
@@ -1001,7 +1042,7 @@ export {
 // ==========================================
 // RIO MAGGI POINT
 // APP.JS - PART 3/3
-// GLOBAL UTILITIES + APP INITIALIZATION
+// GLOBAL LOYALTY + UTILITIES
 // ==========================================
 
 
@@ -1427,6 +1468,11 @@ function formatStampCount(
     count = 0
 ) {
 
+    const required =
+        APP_CONFIG
+            .loyaltyStampsRequired;
+
+
     const safeCount =
 
         Math.max(
@@ -1435,10 +1481,11 @@ function formatStampCount(
 
             Math.min(
 
-                Number(count) || 0,
+                Math.floor(
+                    Number(count) || 0
+                ),
 
-                APP_CONFIG
-                    .loyaltyStampsRequired
+                required
 
             )
 
@@ -1446,11 +1493,7 @@ function formatStampCount(
 
 
     return (
-
-        `${safeCount}/` +
-
-        `${APP_CONFIG.loyaltyStampsRequired}`
-
+        `${safeCount}/${required}`
     );
 
 }
@@ -1477,7 +1520,9 @@ function calculateStampProgress(
 
             Math.min(
 
-                Number(count) || 0,
+                Math.floor(
+                    Number(count) || 0
+                ),
 
                 required
 
@@ -1558,6 +1603,440 @@ function getRewardStatus(
 
 
 // ==========================================
+// GET DATE OBJECT
+// ==========================================
+
+function toDate(
+    value
+) {
+
+    if (!value) {
+
+        return null;
+
+    }
+
+
+    if (
+        typeof value === "object" &&
+        typeof value.toDate ===
+            "function"
+    ) {
+
+        const date =
+            value.toDate();
+
+
+        return Number.isNaN(
+            date.getTime()
+        )
+            ? null
+            : date;
+
+    }
+
+
+    if (
+        typeof value === "object" &&
+        typeof value.seconds ===
+            "number"
+    ) {
+
+        const date =
+            new Date(
+                value.seconds * 1000
+            );
+
+
+        return Number.isNaN(
+            date.getTime()
+        )
+            ? null
+            : date;
+
+    }
+
+
+    const date =
+        new Date(
+            value
+        );
+
+
+    return Number.isNaN(
+        date.getTime()
+    )
+        ? null
+        : date;
+
+}
+
+
+// ==========================================
+// GET CYCLE START DATE
+// ==========================================
+
+function getLoyaltyCycleStartDate(
+    customer
+) {
+
+    if (!customer) {
+
+        return null;
+
+    }
+
+
+    return toDate(
+
+        customer.cycleStartDate ||
+
+        customer.loyaltyCycleStart ||
+
+        customer.stampCycleStart ||
+
+        customer.cycleStartedAt ||
+
+        null
+
+    );
+
+}
+
+
+// ==========================================
+// GET CYCLE DAYS ELAPSED
+// ==========================================
+
+function getLoyaltyCycleDaysElapsed(
+    customer
+) {
+
+    const cycleStart =
+        getLoyaltyCycleStartDate(
+            customer
+        );
+
+
+    if (!cycleStart) {
+
+        return 0;
+
+    }
+
+
+    const now =
+        new Date();
+
+
+    const elapsedMilliseconds =
+        Math.max(
+
+            0,
+
+            now.getTime() -
+            cycleStart.getTime()
+
+        );
+
+
+    return Math.floor(
+
+        elapsedMilliseconds /
+        86400000
+
+    );
+
+}
+
+
+// ==========================================
+// CALCULATE CYCLE DAYS REMAINING
+// ==========================================
+
+function getLoyaltyCycleDaysRemaining(
+    customer
+) {
+
+    if (!customer) {
+
+        return APP_CONFIG
+            .loyaltyCycleDays;
+
+    }
+
+
+    /*
+     * Prefer server/backend-calculated value.
+     */
+    const explicitRemaining =
+        Number(
+            customer.cycleDaysRemaining
+        );
+
+
+    if (
+        Number.isFinite(
+            explicitRemaining
+        )
+    ) {
+
+        return Math.max(
+
+            0,
+
+            Math.min(
+
+                Math.floor(
+                    explicitRemaining
+                ),
+
+                APP_CONFIG
+                    .loyaltyCycleDays
+
+            )
+
+        );
+
+    }
+
+
+    /*
+     * Compatibility field.
+     */
+    const daysRemaining =
+        Number(
+            customer.daysRemaining
+        );
+
+
+    if (
+        Number.isFinite(
+            daysRemaining
+        )
+    ) {
+
+        return Math.max(
+
+            0,
+
+            Math.min(
+
+                Math.floor(
+                    daysRemaining
+                ),
+
+                APP_CONFIG
+                    .loyaltyCycleDays
+
+            )
+
+        );
+
+    }
+
+
+    const elapsed =
+        getLoyaltyCycleDaysElapsed(
+            customer
+        );
+
+
+    return Math.max(
+
+        0,
+
+        APP_CONFIG
+            .loyaltyCycleDays -
+        elapsed
+
+    );
+
+}
+
+
+// ==========================================
+// CHECK WHETHER CYCLE IS EXPIRED
+// ==========================================
+
+function isLoyaltyCycleExpired(
+    customer
+) {
+
+    if (!customer) {
+
+        return false;
+
+    }
+
+
+    /*
+     * A completed reward cycle should first
+     * be handled by the reward/admin process.
+     */
+    if (
+        Number(
+            customer.stamps || 0
+        ) >=
+        APP_CONFIG
+            .loyaltyStampsRequired
+        &&
+        customer.rewardClaimed !== true
+    ) {
+
+        return (
+            getLoyaltyCycleDaysRemaining(
+                customer
+            ) <= 0
+        );
+
+    }
+
+
+    return (
+        getLoyaltyCycleDaysRemaining(
+            customer
+        ) <= 0
+    );
+
+}
+
+
+// ==========================================
+// GET LOYALTY CYCLE STATE
+// ==========================================
+
+function getLoyaltyCycleState(
+    customer
+) {
+
+    const stampCount =
+
+        Math.max(
+
+            0,
+
+            Math.min(
+
+                Math.floor(
+                    Number(
+                        customer?.stamps ??
+                        customer?.stampCount ??
+                        customer?.validStamps ??
+                        0
+                    ) || 0
+                ),
+
+                APP_CONFIG
+                    .loyaltyStampsRequired
+
+            )
+
+        );
+
+
+    const rewardUnlocked =
+        stampCount >=
+        APP_CONFIG
+            .loyaltyStampsRequired;
+
+
+    const rewardClaimed =
+        customer?.rewardClaimed === true ||
+        customer?.rewardRedeemed === true ||
+        customer?.rewardStatus === "claimed" ||
+        customer?.rewardStatus === "redeemed";
+
+
+    const daysRemaining =
+        getLoyaltyCycleDaysRemaining(
+            customer
+        );
+
+
+    const expired =
+        daysRemaining <= 0;
+
+
+    /*
+     * Important business meaning:
+     *
+     * - 0-5 stamps + 40-day expiry = incomplete cycle.
+     * - 6 stamps + reward not claimed + time remaining
+     *   = reward unlocked and waiting for claim.
+     * - 6 stamps + reward claimed
+     *   = completed reward cycle; reset must be
+     *   performed by secure reward/admin process.
+     * - Expired incomplete or unclaimed cycle
+     *   = backend/admin reset required.
+     */
+
+    let status =
+        "active";
+
+
+    if (
+        expired &&
+        !rewardClaimed
+    ) {
+
+        status =
+            "expired";
+
+    }
+
+    else if (
+        rewardUnlocked &&
+        !rewardClaimed
+    ) {
+
+        status =
+            "reward-unlocked";
+
+    }
+
+    else if (
+        rewardClaimed
+    ) {
+
+        status =
+            "claimed";
+
+    }
+
+
+    return {
+
+        stampCount,
+
+        stampLimit:
+            APP_CONFIG
+                .loyaltyStampsRequired,
+
+        cardSlots:
+            APP_CONFIG
+                .loyaltyCardSlots,
+
+        daysRemaining,
+
+        cycleDays:
+            APP_CONFIG
+                .loyaltyCycleDays,
+
+        rewardUnlocked,
+
+        rewardClaimed,
+
+        expired,
+
+        status
+
+    };
+
+}
+
+
+// ==========================================
 // DAILY STAMP VALIDATION
 // ==========================================
 
@@ -1573,16 +2052,12 @@ function canEarnDailyStamp(
 
 
     const lastDate =
-        new Date(
+        toDate(
             lastStampDate
         );
 
 
-    if (
-        Number.isNaN(
-            lastDate.getTime()
-        )
-    ) {
+    if (!lastDate) {
 
         return true;
 
@@ -1779,6 +2254,18 @@ Object.assign(
         calculateStampProgress,
 
         getRewardStatus,
+
+        toDate,
+
+        getLoyaltyCycleStartDate,
+
+        getLoyaltyCycleDaysElapsed,
+
+        getLoyaltyCycleDaysRemaining,
+
+        isLoyaltyCycleExpired,
+
+        getLoyaltyCycleState,
 
         canEarnDailyStamp,
 
