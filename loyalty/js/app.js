@@ -4,28 +4,37 @@
 // CENTRAL FIREBASE APPLICATION CORE
 // ==========================================
 
+
 // ==========================================
 // FIREBASE IMPORTS
 // ==========================================
 
-import { initializeApp, getApps, getApp } from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+    initializeApp,
+    getApps,
+    getApp
+} from
+    "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
 
 import {
     getAuth,
     onAuthStateChanged
 } from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
 
 import {
     getFirestore
 } from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
 
 import {
     getStorage
 } from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+    "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
+
 
 import {
     firebaseConfig
@@ -36,20 +45,26 @@ import {
 // PREVENT DUPLICATE FIREBASE INITIALIZATION
 // ==========================================
 
-const firebaseApp = getApps().length > 0
-    ? getApp()
-    : initializeApp(firebaseConfig);
+const firebaseApp =
+    getApps().length > 0
+        ? getApp()
+        : initializeApp(firebaseConfig);
 
 
 // ==========================================
 // CENTRAL FIREBASE SERVICES
 // ==========================================
 
-const auth = getAuth(firebaseApp);
+const auth =
+    getAuth(firebaseApp);
 
-const db = getFirestore(firebaseApp);
 
-const storage = getStorage(firebaseApp);
+const db =
+    getFirestore(firebaseApp);
+
+
+const storage =
+    getStorage(firebaseApp);
 
 
 // ==========================================
@@ -58,25 +73,55 @@ const storage = getStorage(firebaseApp);
 
 const APP_CONFIG = Object.freeze({
 
-    appName: "Rio Maggi Point",
+    appName:
+        "Rio Maggi Point",
 
-    appShortName: "Rio Maggi",
+    appShortName:
+        "Rio Maggi",
 
-    loyaltyStampsRequired: 6,
+    // --------------------------------------
+    // LOYALTY RULES
+    // --------------------------------------
 
-    rewardItem: "Veg Maggi",
+    loyaltyStampsRequired:
+        6,
 
-    loyaltyCycleDays: 40,
+    rewardItem:
+        "Veg Maggi",
 
-    dailyStampLimit: 1,
+    /*
+     * LOCKED CUSTOMER LOYALTY CYCLE:
+     * 7 DAYS
+     */
+    loyaltyCycleDays:
+        7,
 
-    contactNumber: "7987827979",
+    /*
+     * One valid stamp per calendar day.
+     * Final enforcement remains server-side.
+     */
+    dailyStampLimit:
+        1,
 
-    whatsappNumber: "917987827979",
+    // --------------------------------------
+    // CONTACT
+    // --------------------------------------
 
-    homeDeliveryStatus: "coming-soon",
+    contactNumber:
+        "7987827979",
 
-    locationStatus: "coming-soon"
+    whatsappNumber:
+        "917987827979",
+
+    // --------------------------------------
+    // BUSINESS STATUS
+    // --------------------------------------
+
+    homeDeliveryStatus:
+        "coming-soon",
+
+    locationStatus:
+        "coming-soon"
 
 });
 
@@ -87,15 +132,20 @@ const APP_CONFIG = Object.freeze({
 
 const APP_STATE = {
 
-    user: null,
+    user:
+        null,
 
-    userProfile: null,
+    userProfile:
+        null,
 
-    isAuthenticated: false,
+    isAuthenticated:
+        false,
 
-    isLoading: true,
+    isLoading:
+        true,
 
-    currentPage: null
+    currentPage:
+        null
 
 };
 
@@ -106,16 +156,31 @@ const APP_STATE = {
 
 function getCurrentPage() {
 
-    const path = window.location.pathname;
+    const path =
+        window.location.pathname;
+
 
     const fileName =
-        path.split("/").pop().toLowerCase();
+        path
+            .split("/")
+            .pop()
+            .toLowerCase();
 
-    if (!fileName || fileName === "/") {
+
+    if (
+        !fileName ||
+        fileName === "/"
+    ) {
+
         return "index";
+
     }
 
-    return fileName.replace(".html", "");
+
+    return fileName.replace(
+        ".html",
+        ""
+    );
 
 }
 
@@ -138,21 +203,29 @@ function initializeAuthListener() {
         auth,
         (user) => {
 
-            APP_STATE.user = user;
+            APP_STATE.user =
+                user;
+
 
             APP_STATE.isAuthenticated =
                 Boolean(user);
 
-            APP_STATE.isLoading = false;
+
+            APP_STATE.isLoading =
+                false;
+
 
             window.dispatchEvent(
                 new CustomEvent(
                     "rio-auth-state-changed",
                     {
                         detail: {
+
                             user,
+
                             isAuthenticated:
                                 APP_STATE.isAuthenticated
+
                         }
                     }
                 )
@@ -186,9 +259,11 @@ const RioApp = {
 
     storage,
 
-    config: APP_CONFIG,
+    config:
+        APP_CONFIG,
 
-    state: APP_STATE,
+    state:
+        APP_STATE,
 
     unsubscribeAuth,
 
@@ -198,10 +273,11 @@ const RioApp = {
 
 
 // ==========================================
-// MAKE AVAILABLE TO OTHER MODULES
+// MAKE AVAILABLE GLOBALLY
 // ==========================================
 
-window.RioApp = RioApp;
+window.RioApp =
+    RioApp;
 
 
 // ==========================================
@@ -212,7 +288,8 @@ window.dispatchEvent(
     new CustomEvent(
         "rio-app-ready",
         {
-            detail: RioApp
+            detail:
+                RioApp
         }
     )
 );
@@ -225,11 +302,13 @@ window.dispatchEvent(
 console.log(
     "RIO MAGGI POINT - APP CORE READY",
     {
+
         page:
             APP_STATE.currentPage,
 
         authenticated:
             APP_STATE.isAuthenticated
+
     }
 );
 
@@ -262,8 +341,10 @@ export {
 
 
 // ==========================================
-// END OF PART 1/3
+// END OF APP.JS PART 1/3
 // ==========================================
+
+
 // ==========================================
 // RIO MAGGI POINT
 // APP.JS - PART 2/3
@@ -277,7 +358,10 @@ export {
 
 function getCurrentUser() {
 
-    return auth.currentUser || null;
+    return (
+        auth.currentUser ||
+        null
+    );
 
 }
 
@@ -288,7 +372,9 @@ function getCurrentUser() {
 
 function isUserLoggedIn() {
 
-    return Boolean(auth.currentUser);
+    return Boolean(
+        auth.currentUser
+    );
 
 }
 
@@ -299,30 +385,42 @@ function isUserLoggedIn() {
 
 function waitForAuth() {
 
-    return new Promise((resolve) => {
+    return new Promise(
+        (resolve) => {
 
-        if (auth.currentUser) {
+            /*
+             * Firebase already knows the user.
+             */
+            if (auth.currentUser) {
 
-            resolve(auth.currentUser);
+                resolve(
+                    auth.currentUser
+                );
 
-            return;
+                return;
+
+            }
+
+
+            /*
+             * Wait for the first auth state.
+             */
+            const unsubscribe =
+                onAuthStateChanged(
+                    auth,
+                    (user) => {
+
+                        unsubscribe();
+
+                        resolve(
+                            user
+                        );
+
+                    }
+                );
 
         }
-
-
-        const unsubscribe =
-            onAuthStateChanged(
-                auth,
-                (user) => {
-
-                    unsubscribe();
-
-                    resolve(user);
-
-                }
-            );
-
-    });
+    );
 
 }
 
@@ -332,7 +430,8 @@ function waitForAuth() {
 // ==========================================
 
 async function requireLogin(
-    redirectPage = "login.html"
+    redirectPage =
+        "login.html"
 ) {
 
     const user =
@@ -343,6 +442,7 @@ async function requireLogin(
 
         const currentPage =
             window.location.pathname;
+
 
         const encodedPage =
             encodeURIComponent(
@@ -369,7 +469,8 @@ async function requireLogin(
 // ==========================================
 
 async function redirectIfLoggedIn(
-    redirectPage = "dashboard.html"
+    redirectPage =
+        "dashboard.html"
 ) {
 
     const user =
@@ -381,6 +482,7 @@ async function redirectIfLoggedIn(
         window.location.replace(
             redirectPage
         );
+
 
         return true;
 
@@ -419,7 +521,10 @@ function getCurrentUserEmail() {
         getCurrentUser();
 
 
-    return user?.email || null;
+    return (
+        user?.email ||
+        null
+    );
 
 }
 
@@ -434,7 +539,10 @@ function getCurrentUserPhone() {
         getCurrentUser();
 
 
-    return user?.phoneNumber || null;
+    return (
+        user?.phoneNumber ||
+        null
+    );
 
 }
 
@@ -457,9 +565,15 @@ function getCurrentUserName() {
 
 
     return (
+
         user.displayName ||
-        user.email?.split("@")[0] ||
+
+        user.email?.split(
+            "@"
+        )[0] ||
+
         "Rio Member"
+
     );
 
 }
@@ -475,7 +589,10 @@ function getCurrentUserPhoto() {
         getCurrentUser();
 
 
-    return user?.photoURL || "";
+    return (
+        user?.photoURL ||
+        ""
+    );
 
 }
 
@@ -498,7 +615,8 @@ function getLoginProvider() {
 
 
     const providerData =
-        user.providerData || [];
+        user.providerData ||
+        [];
 
 
     if (
@@ -568,16 +686,20 @@ function getAuthUserData() {
             user.uid,
 
         email:
-            user.email || null,
+            user.email ||
+            null,
 
         phoneNumber:
-            user.phoneNumber || null,
+            user.phoneNumber ||
+            null,
 
         displayName:
-            user.displayName || null,
+            user.displayName ||
+            null,
 
         photoURL:
-            user.photoURL || null,
+            user.photoURL ||
+            null,
 
         provider:
             getLoginProvider(),
@@ -601,7 +723,8 @@ function updateAppUserState(
 ) {
 
     APP_STATE.user =
-        user || null;
+        user ||
+        null;
 
 
     APP_STATE.isAuthenticated =
@@ -633,6 +756,7 @@ function onAuthStateChange(
         console.error(
             "RioApp: Auth callback must be a function."
         );
+
 
         return () => {};
 
@@ -685,13 +809,18 @@ function redirectTo(
 
 function safeRedirect(
     page,
-    fallback = "dashboard.html"
+    fallback =
+        "dashboard.html"
 ) {
 
     const target =
+
         typeof page === "string" &&
+
         page.trim()
+
             ? page.trim()
+
             : fallback;
 
 
@@ -744,25 +873,26 @@ function redirectAfterLogout() {
 // PAGE ACCESS CONTROL
 // ==========================================
 
-const PROTECTED_PAGES = Object.freeze([
+const PROTECTED_PAGES =
+    Object.freeze([
 
-    "dashboard",
+        "dashboard",
 
-    "card",
+        "card",
 
-    "qr",
+        "qr",
 
-    "history",
+        "history",
 
-    "reward",
+        "reward",
 
-    "profile",
+        "profile",
 
-    "edit-profile",
+        "edit-profile",
 
-    "feedback"
+        "feedback"
 
-]);
+    ]);
 
 
 // ==========================================
@@ -813,7 +943,7 @@ async function protectCurrentPage() {
 
 
 // ==========================================
-// EXPORT PART 2 FUNCTIONS
+// EXPORT PART 2
 // ==========================================
 
 export {
@@ -866,6 +996,8 @@ export {
 // ==========================================
 // END OF APP.JS PART 2/3
 // ==========================================
+
+
 // ==========================================
 // RIO MAGGI POINT
 // APP.JS - PART 3/3
@@ -877,7 +1009,9 @@ export {
 // DOM READY HELPER
 // ==========================================
 
-function onDOMReady(callback) {
+function onDOMReady(
+    callback
+) {
 
     if (
         typeof callback !==
@@ -902,7 +1036,9 @@ function onDOMReady(callback) {
             }
         );
 
-    } else {
+    }
+
+    else {
 
         callback();
 
@@ -1002,12 +1138,15 @@ function safeJSONParse(
             value
         );
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.warn(
             "RioApp: Invalid JSON data.",
             error
         );
+
 
         return fallback;
 
@@ -1051,12 +1190,15 @@ function getStorageItem(
 
         return value;
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.warn(
             "RioApp: Unable to read localStorage.",
             error
         );
+
 
         return fallback;
 
@@ -1091,7 +1233,9 @@ function setStorageItem(
 
         return true;
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.warn(
             "RioApp: Unable to save localStorage.",
@@ -1130,7 +1274,9 @@ function removeStorageItem(
 
         return true;
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.warn(
             "RioApp: Unable to remove localStorage item.",
@@ -1223,7 +1369,9 @@ function formatDate(
         date =
             dateValue.toDate();
 
-    } else {
+    }
+
+    else {
 
         date =
             new Date(
@@ -1280,16 +1428,30 @@ function formatStampCount(
 ) {
 
     const safeCount =
+
         Math.max(
+
             0,
+
             Math.min(
+
                 Number(count) || 0,
-                APP_CONFIG.loyaltyStampsRequired
+
+                APP_CONFIG
+                    .loyaltyStampsRequired
+
             )
+
         );
 
 
-    return `${safeCount}/${APP_CONFIG.loyaltyStampsRequired}`;
+    return (
+
+        `${safeCount}/` +
+
+        `${APP_CONFIG.loyaltyStampsRequired}`
+
+    );
 
 }
 
@@ -1303,16 +1465,24 @@ function calculateStampProgress(
 ) {
 
     const required =
-        APP_CONFIG.loyaltyStampsRequired;
+        APP_CONFIG
+            .loyaltyStampsRequired;
 
 
     const current =
+
         Math.max(
+
             0,
+
             Math.min(
+
                 Number(count) || 0,
+
                 required
+
             )
+
         );
 
 
@@ -1367,11 +1537,20 @@ function getRewardStatus(
             !progress.completed,
 
         message:
+
             progress.completed
 
-                ? "Your FREE Veg Maggi reward is unlocked!"
+                ?
 
-                : `Collect ${progress.remaining} more stamp${progress.remaining === 1 ? "" : "s"} to unlock your FREE Veg Maggi.`
+                "Your FREE Veg Maggi reward is unlocked!"
+
+                :
+
+                `Collect ${progress.remaining} more stamp${
+                    progress.remaining === 1
+                        ? ""
+                        : "s"
+                } to unlock your FREE Veg Maggi.`
 
     };
 
@@ -1466,7 +1645,9 @@ function getTodayDateKey() {
         );
 
 
-    return `${year}-${month}-${day}`;
+    return (
+        `${year}-${month}-${day}`
+    );
 
 }
 
@@ -1493,6 +1674,7 @@ function initializeRioApp() {
     emitAppEvent(
         "rio-app-initialized",
         {
+
             page:
                 APP_STATE.currentPage,
 
@@ -1501,6 +1683,7 @@ function initializeRioApp() {
 
             isAuthenticated:
                 APP_STATE.isAuthenticated
+
         }
     );
 
@@ -1616,7 +1799,8 @@ window.dispatchEvent(
     new CustomEvent(
         "rio-app-core-complete",
         {
-            detail: RioApp
+            detail:
+                RioApp
         }
     )
 );
@@ -1631,8 +1815,6 @@ console.log(
 );
 
 
-// ==========================================
-// END OF APP.JS PART 3/3
 // ==========================================
 // APP.JS COMPLETE
 // ==========================================
