@@ -14,7 +14,7 @@
 
     <meta
         name="theme-color"
-        content="#8B0000"
+        content="#8b0000"
     >
 
     <meta
@@ -54,7 +54,7 @@
 
     <meta
         name="apple-mobile-web-app-status-bar-style"
-        content="default"
+        content="black-translucent"
     >
 
 
@@ -69,7 +69,7 @@
 
     <link
         rel="preconnect"
-        href="https://fonts.googleapis.com"
+        href="https://fonts.gstatic.com"
         crossorigin
     >
 
@@ -123,7 +123,7 @@
 
     <header
         class="profile-header app-card"
-        aria-labelledby="profilePageTitle"
+        aria-label="Profile Header"
     >
 
         <div
@@ -138,11 +138,9 @@
 
         <div class="profile-header-content">
 
-            <h1 id="profilePageTitle">
-
+            <h1>
                 MY
                 <span>PROFILE</span>
-
             </h1>
 
             <p>
@@ -172,14 +170,13 @@
         <div class="profile-top">
 
 
-            <!-- PROFILE PHOTO -->
+            <!-- =================================
+                 PROFILE PHOTO
+            ================================== -->
 
             <div class="profile-photo-wrapper">
 
-                <div
-                    class="profile-photo"
-                    id="profilePhotoContainer"
-                >
+                <div class="profile-photo">
 
                     <span
                         id="defaultAvatar"
@@ -193,14 +190,12 @@
                     <img
                         id="profilePhoto"
                         src=""
-                        alt="Customer profile photo"
-                        hidden
+                        alt="Profile Photo"
+                        style="display:none;"
                     >
 
                 </div>
 
-
-                <!-- PHOTO EDIT BUTTON -->
 
                 <label
                     for="photoInput"
@@ -217,7 +212,7 @@
                 <input
                     type="file"
                     id="photoInput"
-                    accept="image/jpeg,image/png,image/webp"
+                    accept="image/jpeg,image/png,image/webp,image/gif"
                     hidden
                 >
 
@@ -225,7 +220,9 @@
 
 
 
-            <!-- CUSTOMER NAME -->
+            <!-- =================================
+                 CUSTOMER NAME
+            ================================== -->
 
             <h2
                 id="profileName"
@@ -236,7 +233,9 @@
 
 
 
-            <!-- CUSTOMER EMAIL -->
+            <!-- =================================
+                 CUSTOMER EMAIL
+            ================================== -->
 
             <p
                 id="profileEmail"
@@ -247,7 +246,9 @@
 
 
 
-            <!-- PREMIUM MEMBER BADGE -->
+            <!-- =================================
+                 PREMIUM BADGE
+            ================================== -->
 
             <div class="member-badge">
 
@@ -270,17 +271,14 @@
         <div class="profile-info">
 
 
-            <!-- MEMBER ID -->
+            <!-- =================================
+                 MEMBER ID
+            ================================== -->
 
             <div class="info-item">
 
-                <div
-                    class="info-icon"
-                    aria-hidden="true"
-                >
-
+                <div class="info-icon">
                     <i class="fa-solid fa-id-card"></i>
-
                 </div>
 
                 <span class="info-label">
@@ -298,17 +296,14 @@
 
 
 
-            <!-- MEMBER SINCE -->
+            <!-- =================================
+                 MEMBER SINCE
+            ================================== -->
 
             <div class="info-item">
 
-                <div
-                    class="info-icon"
-                    aria-hidden="true"
-                >
-
-                    <i class="fa-solid fa-calendar"></i>
-
+                <div class="info-icon">
+                    <i class="fa-solid fa-calendar-days"></i>
                 </div>
 
                 <span class="info-label">
@@ -326,17 +321,14 @@
 
 
 
-            <!-- LOYALTY STAMPS -->
+            <!-- =================================
+                 LOYALTY STAMPS
+            ================================== -->
 
             <div class="info-item">
 
-                <div
-                    class="info-icon"
-                    aria-hidden="true"
-                >
-
+                <div class="info-icon">
                     <i class="fa-solid fa-star"></i>
-
                 </div>
 
                 <span class="info-label">
@@ -354,17 +346,14 @@
 
 
 
-            <!-- REWARD STATUS -->
+            <!-- =================================
+                 REWARD STATUS
+            ================================== -->
 
             <div class="info-item">
 
-                <div
-                    class="info-icon"
-                    aria-hidden="true"
-                >
-
+                <div class="info-icon">
                     <i class="fa-solid fa-gift"></i>
-
                 </div>
 
                 <span class="info-label">
@@ -380,7 +369,9 @@
 
             </div>
 
+
         </div>
+
 
     </section>
 
@@ -426,6 +417,7 @@
                 placeholder="Enter your name"
                 autocomplete="name"
                 maxlength="50"
+                inputmode="text"
             >
 
         </div>
@@ -447,7 +439,7 @@
                 id="editEmail"
                 placeholder="Your email address"
                 autocomplete="email"
-                readonly
+                disabled
             >
 
         </div>
@@ -497,28 +489,21 @@
 
         <div class="form-group">
 
-            <label for="editDob">
+            <label for="editDOB">
                 Date of Birth
             </label>
 
-            <div class="dob-input-wrapper">
+            <input
+                type="date"
+                id="editDOB"
+                autocomplete="bday"
+            >
 
-                <input
-                    type="date"
-                    id="editDob"
-                    autocomplete="bday"
-                >
-
-                <span
-                    id="dobStatus"
-                    class="field-status"
-                    aria-live="polite"
-                ></span>
-
-            </div>
-
-            <small class="field-help">
-                Date of Birth can be set once. Any future change requires admin permission.
+            <small
+                id="dobHelp"
+                class="form-help"
+            >
+                Date of birth can be set once. Changes later require admin approval.
             </small>
 
         </div>
@@ -556,6 +541,7 @@
             aria-live="polite"
         ></div>
 
+
     </section>
 
 
@@ -583,11 +569,12 @@
         </h2>
 
 
-
         <div class="profile-actions">
 
 
-            <!-- CALL -->
+            <!-- =================================
+                 CALL
+            ================================== -->
 
             <a
                 href="tel:+917987827979"
@@ -605,7 +592,9 @@
 
 
 
-            <!-- WHATSAPP -->
+            <!-- =================================
+                 WHATSAPP
+            ================================== -->
 
             <a
                 href="https://wa.me/917987827979"
@@ -625,13 +614,16 @@
 
 
 
-            <!-- MAP — COMING SOON -->
+            <!-- =================================
+                 MAP
+            ================================== -->
 
-            <button
-                type="button"
-                id="mapComingSoonBtn"
+            <a
+                href="https://www.google.com/maps/search/?api=1&query=Rio+Maggi+Point"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="profile-action-btn map-btn"
-                aria-label="Map coming soon"
+                aria-label="Open Rio Maggi Point location in Google Maps"
             >
 
                 <i class="fa-solid fa-location-dot"></i>
@@ -640,11 +632,13 @@
                     Map
                 </span>
 
-            </button>
+            </a>
 
 
 
-            <!-- REVIEW -->
+            <!-- =================================
+                 REVIEW
+            ================================== -->
 
             <a
                 href="feedback.html"
@@ -660,14 +654,16 @@
 
             </a>
 
+
         </div>
+
 
     </section>
 
 
 
     <!-- =========================================
-         ACCOUNT SECTION
+         ACCOUNT
     ========================================== -->
 
     <section
@@ -690,7 +686,9 @@
 
 
 
-        <!-- LOGOUT -->
+        <!-- =====================================
+             LOGOUT
+        ====================================== -->
 
         <button
             type="button"
@@ -708,7 +706,9 @@
 
 
 
-        <!-- DELETE ACCOUNT -->
+        <!-- =====================================
+             DELETE ACCOUNT
+        ====================================== -->
 
         <button
             type="button"
@@ -724,12 +724,13 @@
 
         </button>
 
+
     </section>
 
 
 
     <!-- =========================================
-         BOTTOM NAVIGATION SAFE SPACE
+         BOTTOM NAV SAFE SPACE
     ========================================== -->
 
     <div
@@ -741,15 +742,8 @@
 
     <!-- =========================================
          COMMON CUSTOMER BOTTOM NAVIGATION
-
-         FINAL LOCKED ORDER:
-
-         HOME
-         PROFILE
-         QR
-         HISTORY
-         FEEDBACK
-         CHAT
+         LOCKED ORDER
+         HOME • PROFILE • QR • HISTORY • FEEDBACK • CHAT
     ========================================== -->
 
     <nav
@@ -759,7 +753,9 @@
     >
 
 
-        <!-- HOME -->
+        <!-- =====================================
+             HOME
+        ====================================== -->
 
         <a
             href="card.html"
@@ -776,7 +772,9 @@
 
 
 
-        <!-- PROFILE — ACTIVE -->
+        <!-- =====================================
+             PROFILE
+        ====================================== -->
 
         <a
             href="profile.html"
@@ -794,11 +792,14 @@
 
 
 
-        <!-- QR — CENTER ACTION -->
+        <!-- =====================================
+             QR — CENTER ACTION
+        ====================================== -->
 
         <a
             href="qr.html"
             class="nav-item nav-qr"
+            aria-label="Open Customer QR"
         >
 
             <i class="fa-solid fa-qrcode"></i>
@@ -811,7 +812,9 @@
 
 
 
-        <!-- HISTORY -->
+        <!-- =====================================
+             HISTORY
+        ====================================== -->
 
         <a
             href="history.html"
@@ -828,14 +831,16 @@
 
 
 
-        <!-- FEEDBACK -->
+        <!-- =====================================
+             FEEDBACK
+        ====================================== -->
 
         <a
             href="feedback.html"
             class="nav-item"
         >
 
-            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-heart"></i>
 
             <span>
                 Feedback
@@ -845,7 +850,9 @@
 
 
 
-        <!-- CHAT -->
+        <!-- =====================================
+             CHAT
+        ====================================== -->
 
         <a
             href="chat.html"
@@ -860,6 +867,7 @@
 
         </a>
 
+
     </nav>
 
 
@@ -869,9 +877,12 @@
 
 <!-- =========================================
      PROFILE JAVASCRIPT
-
-     Logic will be handled separately
-     by js/profile.js
+     
+     IMPORTANT:
+     Firebase / Profile logic stays in
+     external profile.js.
+     
+     NO duplicate inline Firebase code.
 ========================================= -->
 
 <script
@@ -889,30 +900,33 @@
 
 if ("serviceWorker" in navigator) {
 
-    window.addEventListener("load", async () => {
+    window.addEventListener(
+        "load",
+        async () => {
 
-        try {
+            try {
 
-            await navigator.serviceWorker.register(
-                "./service-worker.js"
-            );
+                await navigator.serviceWorker.register(
+                    "./service-worker.js"
+                );
 
-            console.log(
-                "Service Worker Registered"
-            );
+                console.log(
+                    "Service Worker Registered"
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Service Worker Error:",
+                    error
+                );
+
+            }
 
         }
-
-        catch (error) {
-
-            console.error(
-                "Service Worker Error:",
-                error
-            );
-
-        }
-
-    });
+    );
 
 }
 
