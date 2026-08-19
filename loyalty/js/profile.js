@@ -1,926 +1,1168 @@
-// =====================================
+// =====================================================
 // RIO MAGGI POINT
 // PROFILE.JS
-// PART 1 OF 4
 // PREMIUM CUSTOMER PROFILE SYSTEM
-// =====================================
-
-// =====================================
-// FIREBASE IMPORTS
-// =====================================
+// =====================================================
 
 import {
-
     auth,
     db
-
 } from "./firebase-config.js";
 
 import {
-
     onAuthStateChanged,
     signOut,
-    deleteUser
-
+    deleteUser,
+    updateProfile
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 import {
-
     doc,
     getDoc,
-    updateDoc,
+    setDoc,
+    deleteDoc,
     serverTimestamp
-
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-// =====================================
-// PROFILE ELEMENTS
-// =====================================
+
+// =====================================================
+// DOM ELEMENTS
+// =====================================================
 
 const profileName =
-document.getElementById("profileName");
+    document.getElementById("profileName");
 
 const profileEmail =
-document.getElementById("profileEmail");
+    document.getElementById("profileEmail");
 
 const profilePhoto =
-document.getElementById("profilePhoto");
+    document.getElementById("profilePhoto");
 
 const defaultAvatar =
-document.getElementById("defaultAvatar");
-
-const memberId =
-document.getElementById("memberId");
-
-const memberSince =
-document.getElementById("memberSince");
-
-const profileStamps =
-document.getElementById("profileStamps");
-
-const profileReward =
-document.getElementById("profileReward");
-
-// =====================================
-// EDIT PROFILE ELEMENTS
-// =====================================
-
-const editName =
-document.getElementById("editName");
-
-const editEmail =
-document.getElementById("editEmail");
-
-const saveProfileBtn =
-document.getElementById("saveProfileBtn");
-
-const profileMessage =
-document.getElementById("profileMessage");
+    document.getElementById("defaultAvatar");
 
 const photoInput =
-document.getElementById("photoInput");
+    document.getElementById("photoInput");
 
-// =====================================
-// ACCOUNT BUTTONS
-// =====================================
+const editName =
+    document.getElementById("editName");
+
+const editEmail =
+    document.getElementById("editEmail");
+
+const memberId =
+    document.getElementById("memberId");
+
+const memberSince =
+    document.getElementById("memberSince");
+
+const profileStamps =
+    document.getElementById("profileStamps");
+
+const profileReward =
+    document.getElementById("profileReward");
+
+const saveProfileBtn =
+    document.getElementById("saveProfileBtn");
+
+const profileMessage =
+    document.getElementById("profileMessage");
 
 const logoutBtn =
-document.getElementById("logoutBtn");
+    document.getElementById("logoutBtn");
 
 const deleteAccountBtn =
-document.getElementById("deleteAccountBtn");
+    document.getElementById("deleteAccountBtn");
 
-// =====================================
+
+// =====================================================
 // VARIABLES
-// =====================================
+// =====================================================
 
 let currentUser = null;
 
 let currentProfile = {};
 
-let uploadedPhoto = "";
+let selectedPhotoDataURL = null;
 
-// =====================================
+
+// =====================================================
 // SHOW MESSAGE
-// =====================================
+// =====================================================
 
-function showMessage(message, type) {
+function showMessage(message, type = "") {
+
+    if (!profileMessage) {
+        return;
+    }
 
     profileMessage.textContent =
-    message;
+        message;
 
     profileMessage.className =
-    "profile-message " + type;
+        "profile-message";
+
+    if (type) {
+        profileMessage.classList.add(type);
+    }
 
 }
 
-// =====================================
-// REMOVE LOADING
-// =====================================
+
+// =====================================================
+// REMOVE LOADING STATE
+// =====================================================
 
 function removeLoading() {
 
-    profileName.classList.remove(
+    profileName?.classList.remove(
         "profile-loading"
     );
 
-    profileEmail.classList.remove(
+    profileEmail?.classList.remove(
         "profile-loading"
     );
 
 }
 
-// =====================================
-// CALCULATE AGE
-// =====================================
 
-function calculateAge(date){
+// =====================================================
+// FORMAT DATE
+// =====================================================
 
-    if(!date) return "";
+function formatMemberDate(value) {
 
-    const birth =
-    new Date(date);
+    if (!value) {
+        return "Not Available";
+    }
 
-    const today =
-    new Date();
+    try {
 
-    let age =
-    today.getFullYear() -
-    birth.getFullYear();
+        let date;
 
-    const month =
-    today.getMonth() -
-    birth.getMonth();
+        if (
+            value &&
+            typeof value.toDate === "function"
+        ) {
 
-    if(
+            date = value.toDate();
 
-        month < 0 ||
+        } else if (
+            value instanceof Date
+        ) {
 
-        (
+            date = value;
 
-            month === 0 &&
+        } else {
 
-            today.getDate() <
-            birth.getDate()
+            date = new Date(value);
 
-        )
+        }
 
-    ){
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
 
-        age--;
+            return "Not Available";
+
+        }
+
+        return date.toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }
+        );
 
     }
 
-    return age;
+    catch (error) {
+
+        console.error(
+            "Member Date Format Error:",
+            error
+        );
+
+        return "Not Available";
+
+    }
 
 }
 
-// =====================================
-// PART 1 END
-// =====================================
-// =====================================
-// RIO MAGGI POINT
-// PROFILE.JS
-// PART 2 OF 4
-// LOAD CUSTOMER PROFILE
-// =====================================
 
-// =====================================
+// =====================================================
+// DISPLAY PROFILE PHOTO
+// =====================================================
+
+function displayProfilePhoto(photoURL) {
+
+    if (!photoURL) {
+
+        if (profilePhoto) {
+
+            profilePhoto.removeAttribute(
+                "src"
+            );
+
+            profilePhoto.style.display =
+                "none";
+
+        }
+
+        if (defaultAvatar) {
+
+            defaultAvatar.style.display =
+                "block";
+
+        }
+
+        return;
+    }
+
+
+    if (profilePhoto) {
+
+        profilePhoto.src =
+            photoURL;
+
+        profilePhoto.style.display =
+            "block";
+
+    }
+
+
+    if (defaultAvatar) {
+
+        defaultAvatar.style.display =
+            "none";
+
+    }
+
+}
+
+
+// =====================================================
+// APPLY GENDER THEME
+// =====================================================
+
+function applyGenderTheme(gender) {
+
+    document.body.classList.remove(
+        "male-theme",
+        "female-theme"
+    );
+
+    if (
+        String(gender || "")
+            .toLowerCase()
+            .trim() === "female"
+    ) {
+
+        document.body.classList.add(
+            "female-theme"
+        );
+
+    } else {
+
+        document.body.classList.add(
+            "male-theme"
+        );
+
+    }
+
+}
+
+
+// =====================================================
 // LOAD PROFILE
-// =====================================
+// =====================================================
 
-async function loadProfile(user){
+async function loadProfile(user) {
 
-    try{
+    if (!user) {
+        return;
+    }
+
+    try {
 
         const userRef =
+            doc(
+                db,
+                "customers",
+                user.uid
+            );
 
-        doc(
-
-            db,
-
-            "customers",
-
-            user.uid
-
-        );
 
         const userSnap =
-
-        await getDoc(
-
-            userRef
-
-        );
-
-        if(!userSnap.exists()){
-
-            showMessage(
-
-                "Profile not found.",
-
-                "error"
-
+            await getDoc(
+                userRef
             );
 
-            return;
 
-        }
+        const data =
+            userSnap.exists()
+                ? userSnap.data()
+                : {};
+
 
         currentProfile =
+            data;
 
-        userSnap.data();
 
-        // ===============================
+        // =================================================
         // NAME
-        // ===============================
+        // =================================================
 
-        profileName.textContent =
+        const name =
+            data.name ||
+            user.displayName ||
+            "Customer";
 
-        currentProfile.name ||
 
-        "Customer";
+        if (profileName) {
 
-        editName.value =
+            profileName.textContent =
+                name;
 
-        currentProfile.name ||
+        }
 
-        "";
 
-        // ===============================
+        if (editName) {
+
+            editName.value =
+                name;
+
+        }
+
+
+        // =================================================
         // EMAIL
-        // ===============================
+        // =================================================
 
-        profileEmail.textContent =
+        const email =
+            data.email ||
+            user.email ||
+            "";
 
-        currentProfile.email ||
 
-        user.email ||
+        if (profileEmail) {
 
-        "";
+            profileEmail.textContent =
+                email ||
+                "Email not available";
 
-        editEmail.value =
+        }
 
-        currentProfile.email ||
 
-        user.email ||
+        if (editEmail) {
 
-        "";
+            editEmail.value =
+                email;
 
-        // ===============================
+        }
+
+
+        // =================================================
         // MEMBER ID
-        // ===============================
+        // =================================================
 
-        memberId.textContent =
+        const generatedMemberId =
+            "RIO-" +
+            user.uid
+                .substring(0, 8)
+                .toUpperCase();
 
-        currentProfile.memberId ||
 
-        "RIO-" +
+        if (memberId) {
 
-        user.uid.substring(0,8)
+            memberId.textContent =
+                data.memberId ||
+                generatedMemberId;
 
-        .toUpperCase();
+        }
 
-        // ===============================
+
+        // =================================================
         // MEMBER SINCE
-        // ===============================
+        // =================================================
 
-        if(
+        if (memberSince) {
 
-            currentProfile.createdAt &&
+            if (data.memberSince) {
 
-            currentProfile.createdAt.toDate
+                memberSince.textContent =
+                    formatMemberDate(
+                        data.memberSince
+                    );
 
-        ){
+            }
 
-            memberSince.textContent =
+            else if (data.createdAt) {
 
-            currentProfile.createdAt
+                memberSince.textContent =
+                    formatMemberDate(
+                        data.createdAt
+                    );
 
-            .toDate()
+            }
 
-            .toLocaleDateString(
+            else {
 
-                "en-IN",
+                memberSince.textContent =
+                    "Not Available";
 
-                {
-
-                    day:"2-digit",
-
-                    month:"short",
-
-                    year:"numeric"
-
-                }
-
-            );
+            }
 
         }
 
-        else{
 
-            memberSince.textContent =
-
-            "Premium Member";
-
-        }
-
-        // ===============================
-        // STAMPS
-        // ===============================
+        // =================================================
+        // LOYALTY STAMPS
+        // =================================================
 
         const stamps =
+            Math.min(
+                Math.max(
+                    Number(
+                        data.stamps || 0
+                    ),
+                    0
+                ),
+                6
+            );
 
-        Number(
 
-            currentProfile.stamps || 0
+        if (profileStamps) {
 
+            profileStamps.textContent =
+                `${stamps} / 6`;
+
+        }
+
+
+        // =================================================
+        // REWARD STATUS
+        // =================================================
+
+        const rewardUnlocked =
+            data.rewardUnlocked === true;
+
+        const rewardRedeemed =
+            data.rewardRedeemed === true;
+
+
+        if (
+            stamps >= 6 &&
+            rewardUnlocked &&
+            !rewardRedeemed
+        ) {
+
+            profileReward.textContent =
+                "FREE VEG MAGGI UNLOCKED";
+
+        }
+
+        else if (
+            rewardRedeemed
+        ) {
+
+            profileReward.textContent =
+                "Reward Redeemed";
+
+        }
+
+        else {
+
+            profileReward.textContent =
+                `${6 - stamps} Stamp Left`;
+
+        }
+
+
+        // =================================================
+        // PROFILE PHOTO
+        // =================================================
+
+        const photoURL =
+            data.photoURL ||
+            user.photoURL ||
+            "";
+
+
+        displayProfilePhoto(
+            photoURL
         );
 
-        profileStamps.textContent =
 
-        Math.min(stamps,6)
+        // =================================================
+        // GENDER THEME
+        // =================================================
 
-        + " / 6";
+        applyGenderTheme(
+            data.gender
+        );
 
-        // ===============================
-        // REWARD
-        // ===============================
-
-        if(stamps >= 6){
-
-            profileReward.textContent =
-
-            "FREE VEG MAGGI";
-
-        }
-
-        else{
-
-            profileReward.textContent =
-
-            (6 - stamps)
-
-            + " Stamp Left";
-
-        }
-
-        // ===============================
-        // PROFILE PHOTO
-        // ===============================
-
-        if(currentProfile.photoURL){
-
-            profilePhoto.src =
-
-            currentProfile.photoURL;
-
-            profilePhoto.style.display =
-
-            "block";
-
-            defaultAvatar.style.display =
-
-            "none";
-
-        }
-
-        else{
-
-            profilePhoto.style.display =
-
-            "none";
-
-            defaultAvatar.style.display =
-
-            "block";
-
-        }
 
         removeLoading();
 
     }
 
-    catch(error){
+    catch (error) {
 
-        console.error(error);
+        console.error(
+            "Profile Loading Error:",
+            error
+        );
+
+
+        if (profileName) {
+
+            profileName.textContent =
+                user.displayName ||
+                "Customer";
+
+        }
+
+
+        if (profileEmail) {
+
+            profileEmail.textContent =
+                user.email ||
+                "Email not available";
+
+        }
+
+
+        removeLoading();
+
 
         showMessage(
-
-            "Unable to load profile.",
-
+            "Unable to load some profile information.",
             "error"
-
         );
 
     }
 
 }
 
-// =====================================
+
+// =====================================================
 // AUTH STATE
-// =====================================
+// =====================================================
 
 onAuthStateChanged(
-
     auth,
+    async (user) => {
 
-    async(user)=>{
+        if (!user) {
 
-        if(!user){
+            currentUser =
+                null;
 
-            window.location.href =
-
-            "login.html";
-
-            return;
-
-        }
-
-        currentUser = user;
-
-        await loadProfile(user);
-
-    }
-
-);
-
-// =====================================
-// PART 2 END
-// =====================================
-// =====================================
-// RIO MAGGI POINT
-// PROFILE.JS
-// PART 3 OF 4
-// SAVE PROFILE + PHOTO + GENDER
-// =====================================
-
-// =====================================
-// PHOTO PREVIEW
-// =====================================
-
-photoInput.addEventListener(
-
-    "change",
-
-    (event)=>{
-
-        const file =
-
-        event.target.files[0];
-
-        if(!file){
-
-            return;
-
-        }
-
-        if(
-
-            !file.type.startsWith("image/")
-
-        ){
-
-            showMessage(
-
-                "Please select a valid image.",
-
-                "error"
-
+            window.location.replace(
+                "login.html"
             );
 
             return;
 
         }
 
-        const reader =
 
-        new FileReader();
+        currentUser =
+            user;
 
-        reader.onload = ()=>{
 
-            uploadedPhoto =
-
-            reader.result;
-
-            profilePhoto.src =
-
-            uploadedPhoto;
-
-            profilePhoto.style.display =
-
-            "block";
-
-            defaultAvatar.style.display =
-
-            "none";
-
-        };
-
-        reader.readAsDataURL(file);
+        await loadProfile(
+            user
+        );
 
     }
-
 );
 
-// =====================================
-// SAVE PROFILE
-// =====================================
 
-saveProfileBtn.addEventListener(
+// =====================================================
+// PHOTO SELECTION + PREVIEW
+// =====================================================
 
-    "click",
+if (photoInput) {
 
-    async()=>{
+    photoInput.addEventListener(
+        "change",
+        (event) => {
 
-        if(!currentUser){
+            const file =
+                event.target.files?.[0];
 
-            return;
 
-        }
+            if (!file) {
+                return;
+            }
 
-        const newName =
 
-        editName.value.trim();
+            // IMAGE TYPE CHECK
 
-        if(!newName){
+            if (
+                !file.type.startsWith(
+                    "image/"
+                )
+            ) {
 
-            showMessage(
+                showMessage(
+                    "Please select a valid image.",
+                    "error"
+                );
 
-                "Please enter your name.",
+                photoInput.value =
+                    "";
 
-                "error"
-
-            );
-
-            return;
-
-        }
-
-        try{
-
-            saveProfileBtn.disabled =
-
-            true;
-
-            saveProfileBtn.innerHTML =
-
-            '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
-
-            const updateData = {
-
-                name:
-
-                newName,
-
-                updatedAt:
-
-                serverTimestamp()
-
-            };
-
-            if(uploadedPhoto){
-
-                updateData.photoURL =
-
-                uploadedPhoto;
+                return;
 
             }
 
-            await updateDoc(
 
-                doc(
+            // FILE SIZE CHECK
 
-                    db,
+            const maxSize =
+                5 * 1024 * 1024;
 
-                    "customers",
 
-                    currentUser.uid
+            if (
+                file.size > maxSize
+            ) {
 
-                ),
+                showMessage(
+                    "Profile photo must be smaller than 5 MB.",
+                    "error"
+                );
 
-                updateData
+                photoInput.value =
+                    "";
 
-            );
+                return;
 
-            profileName.textContent =
+            }
 
-            newName;
 
-            showMessage(
+            const reader =
+                new FileReader();
 
-                "Profile updated successfully.",
 
-                "success"
+            reader.onload =
+                () => {
 
+                    selectedPhotoDataURL =
+                        reader.result;
+
+
+                    displayProfilePhoto(
+                        selectedPhotoDataURL
+                    );
+
+
+                    showMessage(
+                        "Photo selected. Click Save Profile to save your changes.",
+                        "success"
+                    );
+
+                };
+
+
+            reader.onerror =
+                () => {
+
+                    showMessage(
+                        "Unable to preview the selected photo.",
+                        "error"
+                    );
+
+                };
+
+
+            reader.readAsDataURL(
+                file
             );
 
         }
-
-        catch(error){
-
-            console.error(error);
-
-            showMessage(
-
-                "Unable to update profile.",
-
-                "error"
-
-            );
-
-        }
-
-        finally{
-
-            saveProfileBtn.disabled =
-
-            false;
-
-            saveProfileBtn.innerHTML =
-
-            '<i class="fa-solid fa-floppy-disk"></i> Save Profile';
-
-        }
-
-    }
-
-);
-
-// =====================================
-// APPLY GENDER THEME
-// =====================================
-
-function applyGenderTheme(gender){
-
-    document.body.classList.remove(
-
-        "male-theme",
-
-        "female-theme"
-
-    );
-
-    if(
-
-        String(gender)
-
-        .toLowerCase()
-
-        ===
-
-        "female"
-
-    ){
-
-        document.body.classList.add(
-
-            "female-theme"
-
-        );
-
-    }
-
-    else{
-
-        document.body.classList.add(
-
-            "male-theme"
-
-        );
-
-    }
-
-}
-
-if(
-
-    currentProfile.gender
-
-){
-
-    applyGenderTheme(
-
-        currentProfile.gender
-
     );
 
 }
 
-// =====================================
-// PART 3 END
-// =====================================
-// =====================================
-// RIO MAGGI POINT
-// PROFILE.JS
-// PART 4 OF 4
-// LOGOUT + DELETE ACCOUNT + READY
-// =====================================
 
-// =====================================
+// =====================================================
+// SAVE PROFILE
+// =====================================================
+
+if (saveProfileBtn) {
+
+    saveProfileBtn.addEventListener(
+        "click",
+        async () => {
+
+            if (!currentUser) {
+
+                showMessage(
+                    "Please login again.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            const newName =
+                editName?.value
+                    ?.trim() || "";
+
+
+            // NAME VALIDATION
+
+            if (!newName) {
+
+                showMessage(
+                    "Please enter your name.",
+                    "error"
+                );
+
+                editName?.focus();
+
+                return;
+
+            }
+
+
+            if (
+                newName.length < 2
+            ) {
+
+                showMessage(
+                    "Name must contain at least 2 characters.",
+                    "error"
+                );
+
+                editName?.focus();
+
+                return;
+
+            }
+
+
+            if (
+                newName.length > 50
+            ) {
+
+                showMessage(
+                    "Name cannot exceed 50 characters.",
+                    "error"
+                );
+
+                editName?.focus();
+
+                return;
+
+            }
+
+
+            try {
+
+                saveProfileBtn.disabled =
+                    true;
+
+
+                saveProfileBtn.innerHTML =
+                    '<i class="fa-solid fa-spinner fa-spin"></i><span>Saving...</span>';
+
+
+                const userRef =
+                    doc(
+                        db,
+                        "customers",
+                        currentUser.uid
+                    );
+
+
+                // =================================================
+                // FIRESTORE UPDATE
+                // =================================================
+
+                const updateData = {
+
+                    name:
+                        newName,
+
+                    email:
+                        currentUser.email ||
+                        "",
+
+                    updatedAt:
+                        serverTimestamp()
+
+                };
+
+
+                // PHOTO IS SAVED ONLY IF NEW PHOTO SELECTED
+
+                if (
+                    selectedPhotoDataURL
+                ) {
+
+                    updateData.photoURL =
+                        selectedPhotoDataURL;
+
+                }
+
+
+                await setDoc(
+                    userRef,
+                    updateData,
+                    {
+                        merge: true
+                    }
+                );
+
+
+                // =================================================
+                // FIREBASE AUTH DISPLAY NAME
+                // =================================================
+
+                try {
+
+                    await updateProfile(
+                        currentUser,
+                        {
+                            displayName:
+                                newName
+                        }
+                    );
+
+                }
+
+                catch (authError) {
+
+                    console.warn(
+                        "Auth Profile Update Warning:",
+                        authError
+                    );
+
+                }
+
+
+                // =================================================
+                // UPDATE LOCAL UI
+                // =================================================
+
+                profileName.textContent =
+                    newName;
+
+                editName.value =
+                    newName;
+
+
+                if (
+                    selectedPhotoDataURL
+                ) {
+
+                    displayProfilePhoto(
+                        selectedPhotoDataURL
+                    );
+
+                }
+
+
+                selectedPhotoDataURL =
+                    null;
+
+
+                if (photoInput) {
+
+                    photoInput.value =
+                        "";
+
+                }
+
+
+                showMessage(
+                    "Profile updated successfully!",
+                    "success"
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Profile Save Error:",
+                    error
+                );
+
+
+                showMessage(
+                    "Unable to save profile. Please try again.",
+                    "error"
+                );
+
+            }
+
+            finally {
+
+                saveProfileBtn.disabled =
+                    false;
+
+
+                saveProfileBtn.innerHTML =
+                    '<i class="fa-solid fa-floppy-disk"></i><span>Save Profile</span>';
+
+            }
+
+        }
+    );
+
+}
+
+
+// =====================================================
 // LOGOUT
-// =====================================
+// =====================================================
 
-logoutBtn.addEventListener(
+if (logoutBtn) {
 
-    "click",
+    logoutBtn.addEventListener(
+        "click",
+        async () => {
 
-    async()=>{
+            const confirmed =
+                window.confirm(
+                    "Are you sure you want to logout?"
+                );
 
-        const confirmLogout =
 
-        confirm(
+            if (!confirmed) {
+                return;
+            }
 
-            "Are you sure you want to logout?"
 
-        );
+            try {
 
-        if(!confirmLogout){
+                logoutBtn.disabled =
+                    true;
 
-            return;
+
+                logoutBtn.innerHTML =
+                    '<i class="fa-solid fa-spinner fa-spin"></i><span>Logging out...</span>';
+
+
+                await signOut(
+                    auth
+                );
+
+
+                window.location.replace(
+                    "login.html"
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Logout Error:",
+                    error
+                );
+
+
+                logoutBtn.disabled =
+                    false;
+
+
+                logoutBtn.innerHTML =
+                    '<i class="fa-solid fa-right-from-bracket"></i><span>Logout</span>';
+
+
+                showMessage(
+                    "Logout failed. Please try again.",
+                    "error"
+                );
+
+            }
 
         }
+    );
 
-        try{
+}
 
-            await signOut(auth);
 
-            window.location.href =
-
-            "login.html";
-
-        }
-
-        catch(error){
-
-            console.error(error);
-
-            showMessage(
-
-                "Logout failed.",
-
-                "error"
-
-            );
-
-        }
-
-    }
-
-);
-
-// =====================================
+// =====================================================
 // DELETE ACCOUNT
-// =====================================
+// =====================================================
 
-deleteAccountBtn.addEventListener(
+if (deleteAccountBtn) {
 
-    "click",
+    deleteAccountBtn.addEventListener(
+        "click",
+        async () => {
 
-    async()=>{
+            if (!currentUser) {
 
-        if(!currentUser){
+                showMessage(
+                    "Please login again.",
+                    "error"
+                );
 
-            return;
+                return;
+
+            }
+
+
+            const confirmed =
+                window.confirm(
+
+                    "⚠️ WARNING\n\n" +
+
+                    "Are you sure you want to permanently delete your account?\n\n" +
+
+                    "Your Firebase Authentication account and customer profile data will be deleted.\n\n" +
+
+                    "This action cannot be undone."
+
+                );
+
+
+            if (!confirmed) {
+                return;
+            }
+
+
+            try {
+
+                deleteAccountBtn.disabled =
+                    true;
+
+
+                deleteAccountBtn.innerHTML =
+                    '<i class="fa-solid fa-spinner fa-spin"></i><span>Deleting...</span>';
+
+
+                // =================================================
+                // DELETE CUSTOMER PROFILE
+                // =================================================
+
+                const userRef =
+                    doc(
+                        db,
+                        "customers",
+                        currentUser.uid
+                    );
+
+
+                await deleteDoc(
+                    userRef
+                );
+
+
+                // =================================================
+                // DELETE AUTH ACCOUNT
+                // =================================================
+
+                await deleteUser(
+                    currentUser
+                );
+
+
+                window.location.replace(
+                    "signup.html"
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Delete Account Error:",
+                    error
+                );
+
+
+                deleteAccountBtn.disabled =
+                    false;
+
+
+                deleteAccountBtn.innerHTML =
+                    '<i class="fa-solid fa-trash"></i><span>Delete Account</span>';
+
+
+                if (
+                    error.code ===
+                    "auth/requires-recent-login"
+                ) {
+
+                    showMessage(
+                        "For security, please login again before deleting your account.",
+                        "error"
+                    );
+
+                }
+
+                else {
+
+                    showMessage(
+                        "Account deletion failed. Please try again.",
+                        "error"
+                    );
+
+                }
+
+            }
 
         }
+    );
 
-        const confirmDelete =
+}
 
-        confirm(
 
-            "Delete your account permanently?"
-
-        );
-
-        if(!confirmDelete){
-
-            return;
-
-        }
-
-        try{
-
-            await deleteUser(
-
-                currentUser
-
-            );
-
-            alert(
-
-                "Account deleted successfully."
-
-            );
-
-            window.location.href =
-
-            "signup.html";
-
-        }
-
-        catch(error){
-
-            console.error(error);
-
-            showMessage(
-
-                "Unable to delete account. Login again and try.",
-
-                "error"
-
-            );
-
-        }
-
-    }
-
-);
-
-// =====================================
-// PAGE ANIMATION
-// =====================================
+// =====================================================
+// PAGE READY
+// =====================================================
 
 window.addEventListener(
-
     "load",
-
-    ()=>{
+    () => {
 
         document.body.classList.add(
-
             "page-loaded"
-
         );
 
     }
-
 );
 
-// =====================================
-// PROFILE READY
-// =====================================
+
+// =====================================================
+// DEBUG / READY LOG
+// =====================================================
 
 console.log(
-
     "================================"
-
 );
 
 console.log(
-
     "RIO MAGGI POINT"
-
 );
 
 console.log(
-
     "Premium Profile Ready"
-
 );
 
 console.log(
-
     "Firebase Connected"
-
 );
 
 console.log(
-
-    "Profile Loaded"
-
+    "Profile System Loaded"
 );
 
 console.log(
-
-    "Photo Upload Enabled"
-
-);
-
-console.log(
-
-    "Logout Enabled"
-
-);
-
-console.log(
-
-    "Delete Account Enabled"
-
-);
-
-console.log(
-
-    "Male/Female Theme Ready"
-
-);
-
-console.log(
-
     "================================"
-
 );
-
-// =====================================
-// END OF PROFILE.JS
-// =====================================
