@@ -1,7 +1,7 @@
 /* =====================================================
    RIO MAGGI POINT
    CUSTOMER DASHBOARD
-   STYLE.CSS — FINAL PREMIUM BUILD
+   STYLE.CSS — FINAL PREMIUM CUSTOMER BUILD
 
    DESIGN:
    PREMIUM RED + BLACK + GOLD
@@ -9,8 +9,11 @@
    RESPONSIVE:
    MOBILE / TABLET / LAPTOP / DESKTOP
 
-   IMPORTANT:
-   Matches dashboard.html + dashboard.js
+   LOYALTY:
+   - 40 DAY CYCLE
+   - 6 VALID STAMPS
+   - 7TH CIRCLE = FREE VEG MAGGI
+   - 7TH CIRCLE IS NOT A STAMP
 ===================================================== */
 
 
@@ -210,7 +213,6 @@ select:focus-visible {
     width: 100%;
 
     background:
-
         rgba(8,8,8,.94);
 
     backdrop-filter:
@@ -718,6 +720,9 @@ select:focus-visible {
             var(--gold)
         );
 
+    animation:
+        avatarRingRotate 7s linear infinite;
+
 }
 
 
@@ -1147,6 +1152,7 @@ select:focus-visible {
     border-radius: 18px;
 
     background:
+
         linear-gradient(
             145deg,
             #1d1d1d,
@@ -1338,6 +1344,9 @@ select:focus-visible {
     filter:
         blur(35px);
 
+    animation:
+        loyaltyGlow 6s ease-in-out infinite;
+
 }
 
 
@@ -1398,6 +1407,9 @@ select:focus-visible {
     box-shadow:
         0 7px 20px
         rgba(0,0,0,.20);
+
+    animation:
+        badgeFloat 3.5s ease-in-out infinite;
 
 }
 
@@ -1543,7 +1555,7 @@ select:focus-visible {
 
 
 /* =====================================================
-   STAMP GRID
+   7-CIRCLE STAMP GRID
 ===================================================== */
 
 .stamp-grid {
@@ -1552,19 +1564,25 @@ select:focus-visible {
 
     z-index: 2;
 
-    margin-top: 17px;
+    width: 100%;
+
+    margin-top: 18px;
 
     display: grid;
 
     grid-template-columns:
-        repeat(6, minmax(0,1fr));
+        repeat(7, minmax(0, 1fr));
 
-    gap: 7px;
+    gap: 8px;
+
+    align-items: center;
 
 }
 
 
 .stamp-box {
+
+    position: relative;
 
     aspect-ratio: 1;
 
@@ -1595,12 +1613,26 @@ select:focus-visible {
     font-weight: 900;
 
     transition:
-        transform .25s ease,
-        background .25s ease,
-        border-color .25s ease;
+        transform .28s ease,
+        background .28s ease,
+        border-color .28s ease,
+        box-shadow .28s ease,
+        opacity .28s ease;
 
 }
 
+
+.stamp-box.locked {
+
+    opacity:
+        .72;
+
+}
+
+
+/* =====================================================
+   COMPLETED STAMP
+===================================================== */
 
 .stamp-box.active,
 .stamp-box.completed {
@@ -1622,28 +1654,359 @@ select:focus-visible {
     transform:
         scale(1.04);
 
+    box-shadow:
+        0 0 18px
+        rgba(255,224,120,.18);
+
+    animation:
+        completedStampPulse 2.6s ease-in-out infinite;
+
 }
 
 
-.stamp-box.locked {
+/* =====================================================
+   7TH CIRCLE — FREE REWARD
+===================================================== */
 
-    opacity: .72;
+.stamp-box.reward-stamp {
+
+    overflow: visible;
+
+    background:
+
+        radial-gradient(
+            circle at 35% 30%,
+            rgba(255,255,255,.16),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            145deg,
+            #260000,
+            #5e050a
+        );
+
+    border-color:
+        rgba(255,215,90,.42);
+
+    color:
+        var(--gold-bright);
+
+}
+
+
+.stamp-box.reward-stamp::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -5px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,225,120,.22);
+
+    pointer-events: none;
+
+    animation:
+        rewardRingSpin 5s linear infinite;
+
+}
+
+
+/* =====================================================
+   FREE REWARD LOCKED
+===================================================== */
+
+.stamp-box.reward-stamp.locked {
+
+    opacity:
+        .65;
+
+}
+
+
+.stamp-box.reward-stamp.locked i {
+
+    animation:
+        rewardFloat 3s ease-in-out infinite;
+
+}
+
+
+/* =====================================================
+   FREE REWARD UNLOCKED
+===================================================== */
+
+.stamp-box.reward-stamp.reward-unlocked,
+.stamp-box.reward-stamp.active {
+
+    color:
+        #111111;
+
+    background:
+
+        radial-gradient(
+            circle at 35% 30%,
+            rgba(255,255,255,.7),
+            transparent 24%
+        ),
+
+        linear-gradient(
+            145deg,
+            #fff4b4,
+            var(--gold),
+            #e8bd35
+        );
+
+    border-color:
+        #fff0a0;
+
+    opacity: 1;
+
+    box-shadow:
+
+        0 0 22px
+        rgba(255,225,105,.48),
+
+        0 0 45px
+        rgba(255,201,60,.18);
+
+    animation:
+        rewardUnlockPulse 1.8s ease-in-out infinite;
+
+}
+
+
+.stamp-box.reward-stamp.reward-unlocked::before,
+.stamp-box.reward-stamp.active::before {
+
+    border-color:
+        rgba(255,247,185,.9);
+
+    animation:
+        rewardRingSpin 2.2s linear infinite;
+
+}
+
+
+.stamp-box.reward-stamp.reward-claimed {
+
+    color:
+        var(--gold-bright);
+
+    background:
+        linear-gradient(
+            145deg,
+            #351f00,
+            #6d4b00
+        );
+
+    border-color:
+        var(--gold);
+
+    opacity:
+        .9;
 
 }
 
 
 .stamp-box.reward-stamp i {
 
-    margin-bottom: 2px;
+    margin-bottom:
+        2px;
 
-    font-size: 11px;
+    font-size:
+        11px;
 
 }
 
 
 .stamp-box.reward-stamp span {
 
-    font-size: 7px;
+    font-size:
+        7px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        .3px;
+
+}
+
+
+/* =====================================================
+   LOYALTY ANIMATIONS
+===================================================== */
+
+@keyframes rewardRingSpin {
+
+    from {
+
+        transform:
+            rotate(0deg);
+
+    }
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
+
+}
+
+
+@keyframes rewardFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-3px)
+            rotate(8deg);
+
+    }
+
+}
+
+
+@keyframes rewardUnlockPulse {
+
+    0% {
+
+        transform:
+            scale(1)
+            rotate(0deg);
+
+    }
+
+    25% {
+
+        transform:
+            scale(1.06)
+            rotate(-3deg);
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.03)
+            rotate(3deg);
+
+    }
+
+    75% {
+
+        transform:
+            scale(1.06)
+            rotate(-2deg);
+
+    }
+
+    100% {
+
+        transform:
+            scale(1)
+            rotate(0deg);
+
+    }
+
+}
+
+
+@keyframes completedStampPulse {
+
+    0%,
+    100% {
+
+        box-shadow:
+            0 0 12px
+            rgba(255,224,120,.12);
+
+    }
+
+    50% {
+
+        box-shadow:
+            0 0 20px
+            rgba(255,224,120,.24);
+
+    }
+
+}
+
+
+@keyframes loyaltyGlow {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1);
+
+        opacity:
+            .75;
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.08);
+
+        opacity:
+            1;
+
+    }
+
+}
+
+
+@keyframes badgeFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-4px)
+            rotate(4deg);
+
+    }
+
+}
+
+
+@keyframes avatarRingRotate {
+
+    to {
+
+        transform:
+            rotate(360deg);
+
+    }
 
 }
 
@@ -1741,10 +2104,21 @@ select:focus-visible {
 }
 
 
+.cycle-status.active {
+
+    color:
+        #fff1ab;
+
+}
+
+
 .cycle-status.warning {
 
     color:
         #ffe29b;
+
+    border-color:
+        rgba(245,215,110,.28);
 
 }
 
@@ -1753,6 +2127,9 @@ select:focus-visible {
 
     color:
         #ffabab;
+
+    border-color:
+        rgba(255,91,91,.28);
 
 }
 
@@ -1825,9 +2202,26 @@ select:focus-visible {
 }
 
 
+.reward-status.reward-expired {
+
+    border-color:
+        rgba(255,91,91,.35);
+
+}
+
+
+.reward-status.reward-expired strong {
+
+    color:
+        #ffb0b0;
+
+}
+
+
 .reward-status.reward-used {
 
-    opacity: .85;
+    opacity:
+        .88;
 
 }
 
@@ -2263,7 +2657,7 @@ select:focus-visible {
 
 
 /* =====================================================
-   PROFILE RENDERED UI
+   PROFILE UI
 ===================================================== */
 
 .dashboard-profile-card {
@@ -3029,6 +3423,7 @@ select:focus-visible {
         #111111;
 
     background:
+
         linear-gradient(
             135deg,
             var(--gold-light),
@@ -3118,6 +3513,7 @@ select:focus-visible {
         #ffffff;
 
     background:
+
         linear-gradient(
             145deg,
             #087f3c,
@@ -3198,6 +3594,7 @@ select:focus-visible {
 .contact-btn.call-btn {
 
     background:
+
         linear-gradient(
             135deg,
             #8b0000,
@@ -3210,6 +3607,7 @@ select:focus-visible {
 .contact-btn.whatsapp-btn {
 
     background:
+
         linear-gradient(
             135deg,
             #087f3c,
@@ -3221,8 +3619,6 @@ select:focus-visible {
 
 /* =====================================================
    BOTTOM NAVIGATION
-   FINAL:
-   HOME / PROFILE / QR / HISTORY / FEEDBACK / CHAT
 ===================================================== */
 
 .bottom-nav {
@@ -3266,6 +3662,7 @@ select:focus-visible {
         rgba(212,175,55,.18);
 
     box-shadow:
+
         0 -8px 30px
         rgba(0,0,0,.42),
 
@@ -3347,8 +3744,6 @@ select:focus-visible {
 }
 
 
-/* ACTIVE */
-
 .bottom-nav-item.active {
 
     color:
@@ -3392,6 +3787,9 @@ select:focus-visible {
         0 5px 20px
         rgba(212,175,55,.25);
 
+    animation:
+        qrButtonFloat 3.8s ease-in-out infinite;
+
 }
 
 
@@ -3422,6 +3820,26 @@ select:focus-visible {
     font-size: 8px;
 
     font-weight: 900;
+
+}
+
+
+@keyframes qrButtonFloat {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0);
+
+    }
+
+    50% {
+
+        transform:
+            translateY(-4px);
+
+    }
 
 }
 
@@ -3634,6 +4052,7 @@ select:focus-visible {
         #111111;
 
     background:
+
         linear-gradient(
             135deg,
             var(--gold-light),
@@ -3885,6 +4304,7 @@ select:focus-visible {
         #111111;
 
     background:
+
         linear-gradient(
             145deg,
             var(--gold-light),
@@ -4627,10 +5047,18 @@ select:focus-visible {
     }
 
 
+    /*
+     * IMPORTANT:
+     * Keep all 7 loyalty circles in ONE ROW.
+     */
+
     .stamp-grid {
 
+        grid-template-columns:
+            repeat(7, minmax(0,1fr));
+
         gap:
-            6px;
+            5px;
 
     }
 
@@ -4638,7 +5066,10 @@ select:focus-visible {
     .stamp-box {
 
         font-size:
-            10px;
+            9px;
+
+        border-width:
+            1.5px;
 
     }
 
@@ -4646,7 +5077,7 @@ select:focus-visible {
     .stamp-box.reward-stamp i {
 
         font-size:
-            9px;
+            8px;
 
     }
 
@@ -4654,7 +5085,7 @@ select:focus-visible {
     .stamp-box.reward-stamp span {
 
         font-size:
-            6px;
+            5.5px;
 
     }
 
@@ -4907,6 +5338,49 @@ select:focus-visible {
 
         padding:
             9px;
+
+    }
+
+
+    /*
+     * Seven-circle loyalty card must remain
+     * in a single row even on small phones.
+     */
+
+    .stamp-grid {
+
+        grid-template-columns:
+            repeat(7, minmax(0,1fr));
+
+        gap:
+            3px;
+
+    }
+
+
+    .stamp-box {
+
+        border-width:
+            1px;
+
+        font-size:
+            7px;
+
+    }
+
+
+    .stamp-box.reward-stamp i {
+
+        font-size:
+            6px;
+
+    }
+
+
+    .stamp-box.reward-stamp span {
+
+        font-size:
+            4.5px;
 
     }
 
