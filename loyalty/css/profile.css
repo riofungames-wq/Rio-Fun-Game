@@ -1,2136 +1,2479 @@
-/* =========================================
+/* =========================================================
    RIO MAGGI POINT
    PROFILE.CSS
-   PREMIUM CUSTOMER PROFILE
-   RED + BLACK + GOLD
-========================================= */
+   FINAL PROFILE DESIGN
+   PREMIUM RED + BLACK + GOLD
+   RESPONSIVE: MOBILE / TABLET / LAPTOP / DESKTOP
+========================================================= */
 
 
-/* =========================================
+/* =========================================================
    ROOT VARIABLES
-========================================= */
+========================================================= */
 
-:root {
+:root{
 
-    --primary-red: #b30000;
+    --primary-bg:#090909;
 
-    --deep-red: #7a0000;
+    --secondary-bg:#160607;
 
-    --dark-red: #520000;
+    --card-bg:#171717;
 
-    --black: #080808;
+    --card-bg-light:#242424;
 
-    --black-soft: #111111;
+    --red:#b30000;
 
-    --black-card: #171717;
+    --red-light:#e00000;
 
-    --black-card-light: #202020;
+    --red-dark:#760000;
 
-    --gold: #f5c542;
+    --gold:#f5c542;
 
-    --gold-dark: #c99a18;
+    --gold-light:#ffe7a0;
 
-    --gold-light: #ffe9a6;
+    --gold-dark:#c99618;
 
-    --white: #ffffff;
+    --white:#ffffff;
 
-    --text: #ffffff;
+    --text:#ffffff;
 
-    --text-light: #d7d7d7;
+    --text-light:#d8d8d8;
 
-    --text-muted: #a7a7a7;
+    --muted:#a9a9a9;
 
-    --border:
-        rgba(245, 197, 66, .25);
+    --border:rgba(245,197,66,.22);
 
-    --border-soft:
-        rgba(255, 255, 255, .08);
+    --border-red:rgba(179,0,0,.35);
 
     --shadow:
+
         0 18px 45px
-        rgba(0, 0, 0, .45);
+
+        rgba(0,0,0,.45);
 
     --shadow-gold:
+
         0 10px 30px
-        rgba(245, 197, 66, .18);
 
-    --radius: 22px;
+        rgba(245,197,66,.14);
+
+    --radius:22px;
 
 }
 
 
-/* =========================================
+/* =========================================================
+   OPTIONAL GENDER THEMES
+   Kept compatible with profile.js
+========================================================= */
+
+body.male-theme{
+
+    --primary-bg:#090909;
+
+    --secondary-bg:#160607;
+
+    --card-bg:#171717;
+
+    --card-bg-light:#242424;
+
+    --gold:#f5c542;
+
+    --gold-light:#ffe7a0;
+
+    --gold-dark:#c99618;
+
+}
+
+
+body.female-theme{
+
+    --primary-bg:#10080b;
+
+    --secondary-bg:#250912;
+
+    --card-bg:#1d1115;
+
+    --card-bg-light:#2b171d;
+
+    --gold:#f5c542;
+
+    --gold-light:#ffe3ee;
+
+    --gold-dark:#d49a2a;
+
+}
+
+
+/* =========================================================
    RESET
-========================================= */
+========================================================= */
 
-* {
+*{
 
-    margin: 0;
+    margin:0;
 
-    padding: 0;
+    padding:0;
 
-    box-sizing: border-box;
-
-}
-
-
-html {
-
-    scroll-behavior: smooth;
+    box-sizing:border-box;
 
 }
 
 
-body {
+html{
 
-    min-height: 100vh;
+    scroll-behavior:smooth;
+
+}
+
+
+body{
+
+    min-height:100vh;
 
     background:
 
         radial-gradient(
+
             circle at top,
-            rgba(179, 0, 0, .22),
-            transparent 38%
+
+            rgba(179,0,0,.16),
+
+            transparent 32%
+
         ),
 
         linear-gradient(
+
             180deg,
-            #0b0b0b 0%,
-            #050505 100%
+
+            var(--primary-bg),
+
+            var(--secondary-bg)
+
         );
 
-    color: var(--text);
+    color:var(--text);
 
     font-family:
+
         "Poppins",
+
         sans-serif;
 
-    overflow-x: hidden;
+    overflow-x:hidden;
 
 }
 
 
-/* =========================================
+/* =========================================================
    PAGE
-========================================= */
+========================================================= */
 
-.profile-page {
+.profile-page{
 
-    width: 100%;
+    width:100%;
 
-    max-width: 560px;
+    max-width:520px;
 
-    margin: 0 auto;
+    margin:0 auto;
 
     padding:
-        20px
+
         18px
-        115px;
+
+        16px
+
+        105px;
+
+    opacity:1;
+
+    transform:translateY(0);
 
     animation:
+
         pageFade
-        .45s ease
-        both;
+
+        .5s
+
+        ease;
 
 }
 
 
-@keyframes pageFade {
+/* =========================================================
+   PAGE ANIMATION
+========================================================= */
 
-    from {
+@keyframes pageFade{
 
-        opacity: 0;
+    from{
 
-        transform:
-            translateY(18px);
+        opacity:0;
+
+        transform:translateY(18px);
 
     }
 
-    to {
+    to{
 
-        opacity: 1;
+        opacity:1;
 
-        transform:
-            translateY(0);
+        transform:translateY(0);
 
     }
 
 }
 
 
-/* =========================================
+.page-loaded .profile-page{
+
+    opacity:1;
+
+    transform:none;
+
+}
+
+
+/* =========================================================
    COMMON CARD
-========================================= */
+========================================================= */
 
-.app-card {
+.app-card{
+
+    position:relative;
 
     background:
 
         linear-gradient(
+
             145deg,
-            rgba(179, 0, 0, .18),
-            rgba(20, 20, 20, .98)
+
+            rgba(35,35,35,.96),
+
+            rgba(18,18,18,.98)
+
         );
 
     border:
 
         1px solid
+
         var(--border);
 
     border-radius:
+
         var(--radius);
 
     box-shadow:
+
         var(--shadow);
 
     backdrop-filter:
+
         blur(16px);
 
-}
+    -webkit-backdrop-filter:
 
+        blur(16px);
 
-/* =========================================
-   PROFILE HEADER
-========================================= */
-
-.profile-header {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 16px;
-
-    padding: 20px;
-
-    margin-bottom: 18px;
-
-    position: relative;
-
-    overflow: hidden;
+    overflow:hidden;
 
 }
 
 
-.profile-header::before {
+/* =========================================================
+   PREMIUM RED TOP GLOW
+========================================================= */
 
-    content: "";
+.app-card::before{
 
-    position: absolute;
+    content:"";
 
-    top: 0;
+    position:absolute;
 
-    left: 0;
+    top:0;
 
-    width: 100%;
+    left:0;
 
-    height: 3px;
+    right:0;
+
+    height:2px;
 
     background:
 
         linear-gradient(
+
             90deg,
+
             transparent,
+
+            var(--red),
+
             var(--gold),
-            var(--primary-red),
-            var(--gold),
+
+            var(--red),
+
             transparent
+
         );
 
+    opacity:.85;
+
 }
 
 
-.profile-header-icon {
+/* =========================================================
+   PROFILE HEADER
+========================================================= */
 
-    width: 62px;
+.profile-header{
 
-    height: 62px;
+    display:flex;
 
-    flex-shrink: 0;
+    align-items:center;
 
-    border-radius: 18px;
+    gap:15px;
 
-    display: flex;
+    padding:19px;
 
-    align-items: center;
+    margin-bottom:18px;
 
-    justify-content: center;
+}
 
-    font-size: 26px;
 
-    color: var(--gold);
+/* =========================================================
+   HEADER ICON
+========================================================= */
+
+.profile-header-icon{
+
+    flex:
+
+        0 0 58px;
+
+    width:58px;
+
+    height:58px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:24px;
+
+    color:var(--gold);
 
     background:
 
         linear-gradient(
+
             145deg,
-            var(--deep-red),
-            #170000
+
+            rgba(179,0,0,.38),
+
+            rgba(245,197,66,.08)
+
         );
 
     border:
+
         1px solid
-        rgba(245, 197, 66, .35);
+
+        rgba(245,197,66,.24);
 
     box-shadow:
+
         var(--shadow-gold);
 
     animation:
+
         floatIcon
-        3s ease-in-out infinite;
+
+        3s
+
+        ease-in-out
+
+        infinite;
 
 }
 
 
-@keyframes floatIcon {
+@keyframes floatIcon{
 
-    0% {
+    0%{
 
-        transform:
-            translateY(0);
+        transform:translateY(0);
 
     }
 
-    50% {
+    50%{
 
-        transform:
-            translateY(-5px);
-
-    }
-
-    100% {
-
-        transform:
-            translateY(0);
+        transform:translateY(-5px);
 
     }
 
-}
+    100%{
 
+        transform:translateY(0);
 
-.profile-header-content {
-
-    min-width: 0;
-
-}
-
-
-.profile-header-content h1 {
-
-    font-size: 26px;
-
-    line-height: 1.15;
-
-    font-weight: 800;
-
-    color: var(--white);
+    }
 
 }
 
 
-.profile-header-content h1 span {
+/* =========================================================
+   HEADER TEXT
+========================================================= */
 
-    color: var(--gold);
+.profile-header-content{
 
-}
-
-
-.profile-header-content p {
-
-    margin-top: 6px;
-
-    font-size: 12px;
-
-    line-height: 1.5;
-
-    color: var(--text-light);
+    min-width:0;
 
 }
 
 
-/* =========================================
-   PROFILE MAIN CARD
-========================================= */
+.profile-header-content h1{
 
-.profile-card {
+    font-size:24px;
 
-    padding: 24px;
+    line-height:1.15;
 
-    position: relative;
+    font-weight:800;
 
-    overflow: hidden;
+    letter-spacing:.4px;
 
-}
-
-
-.profile-card::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 180px;
-
-    height: 180px;
-
-    right: -90px;
-
-    top: -90px;
-
-    border-radius: 50%;
-
-    background:
-        rgba(179, 0, 0, .12);
-
-    pointer-events: none;
+    color:#ffffff;
 
 }
 
 
-/* =========================================
+.profile-header-content h1 span{
+
+    color:var(--gold);
+
+}
+
+
+.profile-header-content p{
+
+    margin-top:5px;
+
+    font-size:11px;
+
+    line-height:1.5;
+
+    color:var(--text-light);
+
+}
+
+
+/* =========================================================
+   PROFILE CARD
+========================================================= */
+
+.profile-card{
+
+    padding:22px;
+
+}
+
+
+/* =========================================================
    PROFILE TOP
-========================================= */
+========================================================= */
 
-.profile-top {
+.profile-top{
 
-    display: flex;
+    display:flex;
 
-    flex-direction: column;
+    flex-direction:column;
 
-    align-items: center;
+    align-items:center;
 
-    text-align: center;
+    text-align:center;
 
-    padding-bottom: 24px;
+    padding-bottom:22px;
 
 }
 
 
-/* =========================================
+/* =========================================================
    PROFILE PHOTO WRAPPER
-========================================= */
+========================================================= */
 
-.profile-photo-wrapper {
+.profile-photo-wrapper{
 
-    position: relative;
+    position:relative;
 
-    width: 132px;
+    width:128px;
 
-    height: 132px;
+    height:128px;
 
-    margin-bottom: 18px;
+    margin-bottom:17px;
 
 }
 
 
-/* =========================================
-   PHOTO RING
-========================================= */
+/* =========================================================
+   PHOTO GOLD RING
+========================================================= */
 
-.profile-photo-wrapper::before {
+.profile-photo-wrapper::before{
 
-    content: "";
+    content:"";
 
-    position: absolute;
+    position:absolute;
 
-    inset: -8px;
+    inset:-7px;
 
-    border-radius: 50%;
+    border-radius:50%;
 
     background:
 
         conic-gradient(
+
             from 0deg,
-            transparent,
-            var(--gold),
-            var(--primary-red),
-            transparent,
-            var(--gold)
+
+            transparent 0deg,
+
+            var(--gold) 80deg,
+
+            transparent 145deg,
+
+            var(--red-light) 220deg,
+
+            transparent 300deg,
+
+            var(--gold) 360deg
+
         );
 
     animation:
+
         rotateRing
-        5s linear infinite;
+
+        5s
+
+        linear
+
+        infinite;
 
 }
 
 
-@keyframes rotateRing {
+.profile-photo-wrapper::after{
 
-    from {
+    content:"";
 
-        transform:
-            rotate(0deg);
+    position:absolute;
+
+    inset:-3px;
+
+    border-radius:50%;
+
+    background:
+
+        var(--card-bg);
+
+    z-index:1;
+
+}
+
+
+@keyframes rotateRing{
+
+    from{
+
+        transform:rotate(0deg);
 
     }
 
-    to {
+    to{
 
-        transform:
-            rotate(360deg);
+        transform:rotate(360deg);
 
     }
 
 }
 
 
-/* =========================================
-   PHOTO
-========================================= */
+/* =========================================================
+   PROFILE PHOTO
+========================================================= */
 
-.profile-photo {
+.profile-photo{
 
-    position: relative;
+    position:relative;
 
-    z-index: 2;
+    z-index:2;
 
-    width: 132px;
+    width:128px;
 
-    height: 132px;
+    height:128px;
 
-    overflow: hidden;
+    overflow:hidden;
 
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
+    border-radius:50%;
 
     background:
 
         linear-gradient(
+
             145deg,
-            #2a0000,
-            #111111
+
+            #242424,
+
+            #101010
+
         );
 
     border:
-        4px solid
+
+        3px solid
+
         var(--gold);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
 
     box-shadow:
 
-        0 0 0 4px
-        rgba(179, 0, 0, .25),
+        0 0 0 3px rgba(179,0,0,.18),
 
-        0 15px 35px
-        rgba(0, 0, 0, .45);
+        0 12px 35px rgba(0,0,0,.5);
 
 }
 
 
-.profile-photo img {
+.profile-photo img{
 
-    width: 100%;
+    display:block;
 
-    height: 100%;
+    width:100%;
 
-    object-fit: cover;
+    height:100%;
 
-}
-
-
-.default-avatar {
-
-    font-size: 58px;
-
-    line-height: 1;
+    object-fit:cover;
 
 }
 
 
-/* =========================================
+.default-avatar{
+
+    font-size:54px;
+
+    line-height:1;
+
+}
+
+
+/* =========================================================
    PHOTO EDIT BUTTON
-========================================= */
+========================================================= */
 
-.photo-edit-btn {
+.photo-edit-btn{
 
-    position: absolute;
+    position:absolute;
 
-    right: 2px;
+    right:0;
 
-    bottom: 5px;
+    bottom:3px;
 
-    z-index: 5;
+    z-index:6;
 
-    width: 40px;
+    width:38px;
 
-    height: 40px;
+    height:38px;
 
-    border-radius: 50%;
+    border-radius:50%;
 
-    display: flex;
+    display:flex;
 
-    align-items: center;
+    align-items:center;
 
-    justify-content: center;
+    justify-content:center;
 
     background:
-        var(--gold);
 
-    color:
-        #111111;
+        linear-gradient(
+
+            145deg,
+
+            var(--gold-light),
+
+            var(--gold)
+
+        );
+
+    color:#111111;
 
     border:
-        3px solid
+
+        2px solid
+
         #111111;
 
-    cursor: pointer;
+    cursor:pointer;
 
     box-shadow:
-        0 6px 18px
-        rgba(0, 0, 0, .35);
+
+        0 7px 20px
+
+        rgba(0,0,0,.45);
 
     transition:
+
         transform .25s ease,
+
         box-shadow .25s ease;
 
 }
 
 
-.photo-edit-btn:hover {
+.photo-edit-btn:hover{
 
-    transform:
-        scale(1.08);
+    transform:scale(1.1);
 
     box-shadow:
-        0 8px 22px
-        rgba(245, 197, 66, .3);
+
+        0 10px 25px
+
+        rgba(245,197,66,.25);
 
 }
 
 
-/* =========================================
+.photo-edit-btn:active{
+
+    transform:scale(.95);
+
+}
+
+
+/* =========================================================
    PROFILE NAME
-========================================= */
+========================================================= */
 
-.profile-name {
+.profile-name{
 
-    font-size: 24px;
+    max-width:100%;
 
-    line-height: 1.25;
+    font-size:24px;
 
-    font-weight: 800;
+    line-height:1.25;
 
-    color: var(--white);
+    font-weight:800;
 
-    word-break: break-word;
+    color:var(--gold);
 
-}
-
-
-.profile-email {
-
-    margin-top: 6px;
-
-    color:
-        var(--text-light);
-
-    font-size: 13px;
-
-    word-break: break-word;
+    word-break:break-word;
 
 }
 
 
-/* =========================================
+/* =========================================================
+   PROFILE EMAIL
+========================================================= */
+
+.profile-email{
+
+    width:100%;
+
+    margin-top:6px;
+
+    font-size:12px;
+
+    line-height:1.5;
+
+    color:var(--text-light);
+
+    word-break:break-word;
+
+}
+
+
+/* =========================================================
    PREMIUM MEMBER BADGE
-========================================= */
+========================================================= */
 
-.member-badge {
+.member-badge{
 
-    margin-top: 14px;
+    margin-top:13px;
 
-    display: inline-flex;
+    display:inline-flex;
 
-    align-items: center;
+    align-items:center;
 
-    justify-content: center;
+    justify-content:center;
 
-    gap: 8px;
+    gap:8px;
 
     padding:
-        8px 18px;
 
-    border-radius: 50px;
+        8px
+
+        16px;
+
+    border-radius:50px;
 
     background:
 
         linear-gradient(
-            135deg,
-            rgba(245, 197, 66, .16),
-            rgba(179, 0, 0, .16)
+
+            90deg,
+
+            rgba(179,0,0,.28),
+
+            rgba(245,197,66,.10)
+
         );
 
-    color:
-        var(--gold);
+    color:var(--gold);
 
     border:
+
         1px solid
-        rgba(245, 197, 66, .3);
+
+        rgba(245,197,66,.28);
+
+    font-size:12px;
+
+    font-weight:700;
 
     box-shadow:
+
         var(--shadow-gold);
 
-    font-size: 12px;
+}
 
-    font-weight: 700;
+
+.member-badge i{
+
+    font-size:13px;
 
 }
 
 
-.member-badge i {
+/* =========================================================
+   PROFILE INFO GRID
+========================================================= */
 
-    font-size: 13px;
+.profile-info{
 
-}
-
-
-/* =========================================
-   PROFILE INFO
-========================================= */
-
-.profile-info {
-
-    display: grid;
+    display:grid;
 
     grid-template-columns:
-        repeat(2, minmax(0, 1fr));
 
-    gap: 14px;
+        repeat(2,1fr);
 
-    margin-top: 24px;
+    gap:12px;
+
+    margin-top:22px;
 
 }
 
 
-/* =========================================
+/* =========================================================
    INFO ITEM
-========================================= */
+========================================================= */
 
-.info-item {
+.info-item{
 
-    min-width: 0;
+    min-width:0;
 
-    padding: 16px;
+    padding:15px;
+
+    border-radius:17px;
 
     background:
 
         linear-gradient(
+
             145deg,
-            rgba(255, 255, 255, .055),
-            rgba(255, 255, 255, .025)
+
+            rgba(255,255,255,.055),
+
+            rgba(255,255,255,.025)
+
         );
 
     border:
-        1px solid
-        var(--border-soft);
 
-    border-radius: 18px;
+        1px solid
+
+        rgba(245,197,66,.10);
 
     transition:
+
         transform .25s ease,
+
         border-color .25s ease,
+
         background .25s ease;
 
 }
 
 
-.info-item:hover {
+.info-item:hover{
 
-    transform:
-        translateY(-4px);
+    transform:translateY(-3px);
 
     border-color:
-        rgba(245, 197, 66, .28);
+
+        rgba(245,197,66,.28);
 
     background:
 
-        linear-gradient(
-            145deg,
-            rgba(179, 0, 0, .12),
-            rgba(255, 255, 255, .035)
-        );
+        rgba(179,0,0,.08);
 
 }
 
 
-.info-icon {
+/* =========================================================
+   INFO ICON
+========================================================= */
 
-    width: 42px;
+.info-icon{
 
-    height: 42px;
+    width:40px;
 
-    border-radius: 12px;
+    height:40px;
 
-    display: flex;
+    border-radius:12px;
 
-    align-items: center;
+    display:flex;
 
-    justify-content: center;
+    align-items:center;
 
-    color:
-        var(--gold);
+    justify-content:center;
+
+    margin-bottom:9px;
+
+    color:var(--gold);
 
     background:
 
-        rgba(179, 0, 0, .18);
+        rgba(179,0,0,.18);
 
     border:
+
         1px solid
-        rgba(245, 197, 66, .15);
 
-    margin-bottom: 10px;
-
-}
-
-
-.info-label {
-
-    display: block;
-
-    font-size: 10px;
-
-    color:
-        var(--text-muted);
-
-    text-transform:
-        uppercase;
-
-    letter-spacing:
-        .7px;
-
-    font-weight:
-        600;
+        rgba(245,197,66,.12);
 
 }
 
 
-.info-value {
+.info-label{
 
-    display: block;
+    display:block;
 
-    margin-top: 6px;
+    font-size:9px;
 
-    font-size: 14px;
+    line-height:1.4;
 
-    line-height: 1.35;
+    color:#aaa;
 
-    font-weight: 700;
+    text-transform:uppercase;
 
-    color:
-        var(--white);
-
-    word-break:
-        break-word;
+    letter-spacing:.6px;
 
 }
 
 
-/* =========================================
-   LOADING
-========================================= */
+.info-value{
 
-.profile-loading {
+    display:block;
+
+    margin-top:5px;
+
+    font-size:13px;
+
+    line-height:1.45;
+
+    font-weight:700;
+
+    color:#ffffff;
+
+    word-break:break-word;
+
+}
+
+
+/* =========================================================
+   LOADING EFFECT
+========================================================= */
+
+.profile-loading{
 
     animation:
+
         shimmer
-        1.4s ease-in-out infinite;
+
+        1.4s
+
+        ease-in-out
+
+        infinite;
 
 }
 
 
-@keyframes shimmer {
+@keyframes shimmer{
 
-    0% {
+    0%{
 
-        opacity: .35;
-
-    }
-
-    50% {
-
-        opacity: 1;
+        opacity:.4;
 
     }
 
-    100% {
+    50%{
 
-        opacity: .35;
+        opacity:1;
+
+    }
+
+    100%{
+
+        opacity:.4;
 
     }
 
 }
 
 
-/* =========================================
-   SECTION SPACING
-========================================= */
+/* =========================================================
+   SECTIONS
+========================================================= */
 
 .edit-profile-section,
 .profile-actions-section,
-.account-section {
+.account-section{
 
-    margin-top: 22px;
+    margin-top:22px;
 
 }
 
 
-/* =========================================
-   SECTION TITLES
-========================================= */
+/* =========================================================
+   SECTION TITLE
+========================================================= */
 
 .edit-profile-title,
-.account-title {
+.account-title{
 
-    display: flex;
+    display:flex;
 
-    align-items: center;
+    align-items:center;
 
-    gap: 12px;
+    gap:11px;
 
-    margin-bottom: 16px;
+    margin-bottom:14px;
 
-    color:
-        var(--gold);
+    color:var(--gold);
 
-    font-size: 18px;
+    font-size:17px;
 
-    font-weight: 700;
+    line-height:1.3;
+
+    font-weight:800;
 
 }
 
 
 .edit-profile-title i,
-.account-title i {
+.account-title i{
 
-    width: 42px;
+    flex:
 
-    height: 42px;
+        0 0 40px;
 
-    flex-shrink: 0;
+    width:40px;
 
-    border-radius: 12px;
+    height:40px;
 
-    display: flex;
+    border-radius:12px;
 
-    align-items: center;
+    display:flex;
 
-    justify-content: center;
+    align-items:center;
+
+    justify-content:center;
 
     background:
 
-        rgba(179, 0, 0, .2);
+        linear-gradient(
+
+            145deg,
+
+            rgba(179,0,0,.25),
+
+            rgba(245,197,66,.08)
+
+        );
 
     border:
+
         1px solid
-        rgba(245, 197, 66, .18);
 
-    color:
-        var(--gold);
+        rgba(245,197,66,.16);
+
+    color:var(--gold);
 
 }
 
 
-/* =========================================
+/* =========================================================
    FORM GROUP
-========================================= */
+========================================================= */
 
-.form-group {
+.form-group{
 
-    margin-bottom: 16px;
+    margin-bottom:15px;
 
 }
 
 
-.form-group label {
+.form-group label{
 
-    display: block;
+    display:block;
 
-    margin-bottom: 8px;
+    margin-bottom:7px;
 
-    color:
-        var(--gold);
+    color:var(--gold-light);
 
-    font-size: 13px;
+    font-size:12px;
 
-    font-weight: 600;
+    font-weight:600;
 
 }
 
 
 .form-group input,
-.form-group select {
+.form-group select{
 
-    width: 100%;
+    width:100%;
 
-    height: 52px;
+    height:51px;
 
     padding:
-        0 16px;
 
-    border-radius: 14px;
+        0
+
+        15px;
+
+    border-radius:14px;
 
     border:
+
         1px solid
-        rgba(255, 255, 255, .12);
+
+        rgba(255,255,255,.11);
+
+    outline:none;
 
     background:
-        rgba(255, 255, 255, .045);
 
-    color:
-        var(--white);
+        rgba(255,255,255,.045);
 
-    outline: none;
+    color:#ffffff;
 
     font-family:
-        inherit;
 
-    font-size: 14px;
+        "Poppins",
+
+        sans-serif;
+
+    font-size:13px;
 
     transition:
+
         border-color .25s ease,
+
         box-shadow .25s ease,
+
         background .25s ease;
 
 }
 
 
-.form-group input::placeholder {
+.form-group input::placeholder{
 
-    color:
-        #8e8e8e;
+    color:#888;
 
 }
 
 
 .form-group input:focus,
-.form-group select:focus {
+.form-group select:focus{
 
     border-color:
+
         var(--gold);
 
     background:
-        rgba(179, 0, 0, .08);
+
+        rgba(245,197,66,.045);
 
     box-shadow:
 
         0 0 0 3px
-        rgba(245, 197, 66, .12);
+
+        rgba(245,197,66,.10);
 
 }
 
 
-/* =========================================
-   SELECT
-========================================= */
+.form-group input:disabled{
 
-.form-group select {
+    opacity:.55;
 
-    appearance: auto;
-
-    cursor: pointer;
-
-}
-
-
-.form-group select option {
+    cursor:not-allowed;
 
     background:
-        #171717;
 
-    color:
-        #ffffff;
+        rgba(255,255,255,.025);
 
 }
 
 
-/* =========================================
-   READONLY EMAIL
-========================================= */
+/* =========================================================
+   SELECT ARROW / OPTIONS
+========================================================= */
 
-.form-group input[readonly] {
+.form-group select{
 
-    opacity: .72;
-
-    cursor:
-        not-allowed;
-
-    background:
-        rgba(255, 255, 255, .025);
+    cursor:pointer;
 
 }
 
 
-/* =========================================
-   DOB WRAPPER
-========================================= */
+.form-group select option{
 
-.dob-input-wrapper {
+    background:#181818;
 
-    position: relative;
+    color:#ffffff;
 
 }
 
 
-.dob-input-wrapper input {
+/* =========================================================
+   DATE INPUT
+========================================================= */
 
-    padding-right: 45px;
+.form-group input[type="date"]{
 
-}
-
-
-/* =========================================
-   DOB STATUS
-========================================= */
-
-.field-status {
-
-    display: block;
-
-    margin-top: 7px;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-    color:
-        var(--gold);
+    color-scheme:dark;
 
 }
 
 
-.field-status:empty {
+/* =========================================================
+   FORM HELP
+========================================================= */
 
-    display: none;
+.form-help{
 
-}
+    display:block;
 
+    margin-top:6px;
 
-/* =========================================
-   FIELD HELP
-========================================= */
+    color:#888;
 
-.field-help {
+    font-size:10px;
 
-    display: block;
-
-    margin-top: 7px;
-
-    color:
-        var(--text-muted);
-
-    font-size: 11px;
-
-    line-height: 1.5;
+    line-height:1.5;
 
 }
 
 
-/* =========================================
-   LOCKED DOB
-========================================= */
-
-.form-group input.dob-locked {
-
-    opacity: .65;
-
-    cursor:
-        not-allowed;
-
-    border-color:
-        rgba(255, 255, 255, .08);
-
-}
-
-
-/* =========================================
+/* =========================================================
    SAVE PROFILE BUTTON
-========================================= */
+========================================================= */
 
-.save-profile-btn {
+.save-profile-btn{
 
-    width: 100%;
+    width:100%;
 
-    min-height: 54px;
+    min-height:53px;
+
+    margin-top:3px;
 
     padding:
-        0 18px;
+
+        0
+
+        16px;
 
     border:
-        1px solid
-        rgba(245, 197, 66, .5);
 
-    border-radius: 16px;
+        1px
 
-    cursor: pointer;
+        solid
 
-    display: flex;
+        rgba(245,197,66,.45);
 
-    align-items: center;
+    border-radius:16px;
 
-    justify-content: center;
+    display:flex;
 
-    gap: 10px;
+    align-items:center;
 
-    font-family:
-        inherit;
+    justify-content:center;
 
-    font-size: 15px;
+    gap:9px;
 
-    font-weight: 800;
-
-    color:
-        #111111;
+    cursor:pointer;
 
     background:
 
         linear-gradient(
+
             135deg,
+
             var(--gold-light),
+
             var(--gold),
+
             var(--gold-dark)
+
         );
 
+    color:#111111;
+
+    font-family:
+
+        "Poppins",
+
+        sans-serif;
+
+    font-size:14px;
+
+    font-weight:800;
+
     box-shadow:
-        var(--shadow-gold);
+
+        0 10px 28px
+
+        rgba(245,197,66,.12);
 
     transition:
+
         transform .25s ease,
+
         box-shadow .25s ease,
+
         opacity .25s ease;
 
 }
 
 
-.save-profile-btn:hover {
+.save-profile-btn:hover{
 
-    transform:
-        translateY(-3px);
+    transform:translateY(-2px);
 
     box-shadow:
 
         0 14px 34px
-        rgba(245, 197, 66, .24);
+
+        rgba(245,197,66,.20);
 
 }
 
 
-.save-profile-btn:active {
+.save-profile-btn:active{
 
-    transform:
-        translateY(0);
-
-}
-
-
-.save-profile-btn:disabled {
-
-    opacity: .55;
-
-    cursor:
-        not-allowed;
-
-    transform:
-        none;
+    transform:translateY(0);
 
 }
 
 
-/* =========================================
+.save-profile-btn:disabled{
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}
+
+
+/* =========================================================
    PROFILE MESSAGE
-========================================= */
+========================================================= */
 
-.profile-message {
+.profile-message{
 
-    display: none;
+    display:none;
 
-    margin-top: 15px;
+    margin-top:13px;
 
-    padding: 14px;
+    padding:12px 14px;
 
-    border-radius: 14px;
+    border-radius:13px;
 
-    text-align: center;
+    text-align:center;
 
-    font-size: 13px;
+    font-size:11px;
 
-    line-height: 1.5;
+    line-height:1.5;
 
-    font-weight: 600;
+    font-weight:600;
 
 }
 
 
-.profile-message.success {
+.profile-message.success{
 
-    display: block;
+    display:block;
 
     background:
-        rgba(27, 94, 32, .85);
 
-    color:
-        #ffffff;
+        rgba(22,101,52,.35);
 
     border:
+
         1px solid
-        rgba(129, 199, 132, .35);
+
+        rgba(74,222,128,.25);
+
+    color:#b9f6c8;
 
 }
 
 
-.profile-message.error {
+.profile-message.error{
 
-    display: block;
+    display:block;
 
     background:
-        rgba(183, 28, 28, .85);
 
-    color:
-        #ffffff;
+        rgba(127,29,29,.38);
 
     border:
+
         1px solid
-        rgba(239, 83, 80, .35);
+
+        rgba(248,113,113,.25);
+
+    color:#ffc1c1;
 
 }
 
 
-/* =========================================
+/* =========================================================
    QUICK ACTIONS
-========================================= */
+========================================================= */
 
-.profile-actions {
+.profile-actions{
 
-    display: grid;
+    display:grid;
 
     grid-template-columns:
-        repeat(2, minmax(0, 1fr));
 
-    gap: 14px;
+        repeat(2,1fr);
+
+    gap:12px;
 
 }
 
 
-.profile-action-btn {
+.profile-action-btn{
 
-    width: 100%;
-
-    min-height: 60px;
+    min-height:58px;
 
     padding:
+
         10px;
 
+    border-radius:16px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:9px;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    color:#ffffff;
+
     border:
-        1px solid
-        rgba(255, 255, 255, .08);
 
-    border-radius: 16px;
+        1px
 
-    display: flex;
+        solid
 
-    align-items: center;
+        rgba(255,255,255,.08);
 
-    justify-content: center;
+    box-shadow:
 
-    gap: 10px;
+        0 8px 20px
 
-    font-family:
-        inherit;
-
-    font-size: 14px;
-
-    font-weight: 700;
-
-    color:
-        #ffffff;
-
-    text-decoration:
-        none;
-
-    cursor:
-        pointer;
+        rgba(0,0,0,.20);
 
     transition:
+
         transform .25s ease,
+
         filter .25s ease,
+
         box-shadow .25s ease;
 
 }
 
 
-.profile-action-btn:hover {
+.profile-action-btn i{
 
-    transform:
-        translateY(-4px);
+    font-size:16px;
 
-    filter:
-        brightness(1.08);
+}
+
+
+.profile-action-btn:hover{
+
+    transform:translateY(-3px);
+
+    filter:brightness(1.08);
 
     box-shadow:
-        0 10px 25px
-        rgba(0, 0, 0, .28);
+
+        0 12px 26px
+
+        rgba(0,0,0,.30);
 
 }
 
 
-.profile-action-btn i {
+.profile-action-btn:active{
 
-    font-size: 18px;
+    transform:translateY(0);
 
 }
 
 
-/* =========================================
-   ACTION COLORS
-========================================= */
-
-.call-btn {
+.call-btn{
 
     background:
+
         linear-gradient(
+
             135deg,
+
             #8b0000,
-            #c40000
+
+            #b30000
+
         );
 
 }
 
 
-.whatsapp-btn {
+.whatsapp-btn{
 
     background:
+
         linear-gradient(
+
             135deg,
-            #087f23,
-            #18b947
+
+            #087f3b,
+
+            #16a05d
+
         );
 
 }
 
 
-.map-btn {
+.map-btn{
 
     background:
+
         linear-gradient(
+
             135deg,
-            #242424,
-            #3a3a3a
+
+            #7d5200,
+
+            #b47b00
+
         );
 
 }
 
 
-.review-btn {
+.review-btn{
 
     background:
+
         linear-gradient(
+
             135deg,
+
             #8b0000,
-            #e00000
+
+            #d00000
+
         );
 
 }
 
 
-/* =========================================
-   ACCOUNT BUTTONS
-========================================= */
+/* =========================================================
+   ACCOUNT SECTION
+========================================================= */
 
-.logout-btn {
+.account-section{
 
-    width: 100%;
+    padding-bottom:2px;
 
-    min-height: 54px;
+}
+
+
+/* =========================================================
+   LOGOUT BUTTON
+========================================================= */
+
+.logout-btn{
+
+    width:100%;
+
+    min-height:53px;
 
     border:
-        1px solid
-        rgba(255, 255, 255, .12);
 
-    border-radius: 16px;
+        1px
+
+        solid
+
+        rgba(255,255,255,.12);
+
+    border-radius:16px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:9px;
+
+    cursor:pointer;
 
     background:
+
         linear-gradient(
+
             135deg,
-            #222222,
-            #141414
+
+            #242424,
+
+            #151515
+
         );
 
-    color:
-        #ffffff;
+    color:#ffffff;
 
     font-family:
-        inherit;
 
-    font-size: 15px;
+        "Poppins",
 
-    font-weight: 700;
+        sans-serif;
 
-    cursor:
-        pointer;
+    font-size:14px;
 
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 10px;
+    font-weight:700;
 
     transition:
+
         transform .25s ease,
+
         border-color .25s ease,
+
         background .25s ease;
 
 }
 
 
-.logout-btn:hover {
+.logout-btn:hover{
 
-    transform:
-        translateY(-2px);
+    transform:translateY(-2px);
 
     border-color:
-        rgba(245, 197, 66, .3);
+
+        rgba(245,197,66,.28);
 
     background:
+
         linear-gradient(
+
             135deg,
-            #2c2c2c,
-            #181818
+
+            #2b2b2b,
+
+            #191919
+
         );
 
 }
 
 
-.logout-btn:disabled {
+.logout-btn:disabled{
 
-    opacity: .55;
+    opacity:.6;
 
-    cursor:
-        not-allowed;
+    cursor:not-allowed;
+
+    transform:none;
 
 }
 
 
-/* =========================================
+/* =========================================================
    DELETE ACCOUNT
-========================================= */
+========================================================= */
 
-.delete-account-btn {
+.delete-account-btn{
 
-    width: 100%;
+    width:100%;
 
-    min-height: 50px;
+    min-height:48px;
 
-    margin-top: 12px;
-
-    border:
-        1px solid
-        rgba(239, 83, 80, .65);
-
-    border-radius: 16px;
-
-    background:
-        transparent;
-
-    color:
-        #ef5350;
-
-    font-family:
-        inherit;
-
-    font-size: 14px;
-
-    font-weight: 700;
-
-    cursor:
-        pointer;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 10px;
-
-    transition:
-        background .25s ease,
-        color .25s ease,
-        transform .25s ease;
-
-}
-
-
-.delete-account-btn:hover {
-
-    background:
-        #ef5350;
-
-    color:
-        #ffffff;
-
-    transform:
-        translateY(-2px);
-
-}
-
-
-.delete-account-btn:disabled {
-
-    opacity: .55;
-
-    cursor:
-        not-allowed;
-
-}
-
-
-/* =========================================
-   NAVIGATION SAFE SPACE
-========================================= */
-
-.nav-space {
-
-    width: 100%;
-
-    height: 100px;
-
-}
-
-
-/* =========================================
-   FIXED BOTTOM NAVIGATION
-========================================= */
-
-.bottom-nav {
-
-    position: fixed;
-
-    left: 50%;
-
-    bottom: 0;
-
-    transform:
-        translateX(-50%);
-
-    width: 100%;
-
-    max-width: 560px;
-
-    min-height: 78px;
+    margin-top:11px;
 
     padding:
-        6px 6px
-        env(safe-area-inset-bottom);
 
-    display: flex;
+        0
 
-    align-items: center;
+        14px;
 
-    justify-content: space-around;
+    border:
+
+        1px
+
+        solid
+
+        rgba(239,68,68,.45);
+
+    border-radius:16px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:9px;
+
+    cursor:pointer;
 
     background:
 
-        linear-gradient(
-            180deg,
-            rgba(20, 20, 20, .98),
-            rgba(5, 5, 5, .99)
+        rgba(127,29,29,.10);
+
+    color:#ff6b6b;
+
+    font-family:
+
+        "Poppins",
+
+        sans-serif;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    transition:
+
+        transform .25s ease,
+
+        background .25s ease,
+
+        color .25s ease;
+
+}
+
+
+.delete-account-btn:hover{
+
+    transform:translateY(-2px);
+
+    background:
+
+        #b91c1c;
+
+    color:#ffffff;
+
+}
+
+
+.delete-account-btn:disabled{
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}
+
+
+/* =========================================================
+   NAVIGATION SAFE SPACE
+========================================================= */
+
+.nav-space{
+
+    width:100%;
+
+    height:94px;
+
+}
+
+
+/* =========================================================
+   FIXED CUSTOMER BOTTOM NAVIGATION
+========================================================= */
+
+.bottom-nav{
+
+    position:fixed;
+
+    left:50%;
+
+    bottom:0;
+
+    transform:translateX(-50%);
+
+    width:100%;
+
+    max-width:520px;
+
+    height:76px;
+
+    padding:
+
+        5px
+
+        7px
+
+        calc(
+
+            5px +
+
+            env(
+
+                safe-area-inset-bottom
+
+            )
+
         );
 
-    backdrop-filter:
-        blur(20px);
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-around;
+
+    gap:2px;
+
+    background:
+
+        rgba(8,8,8,.97);
 
     border-top:
-        1px solid
-        rgba(245, 197, 66, .18);
+
+        1px
+
+        solid
+
+        rgba(245,197,66,.16);
 
     box-shadow:
 
         0 -10px 35px
-        rgba(0, 0, 0, .45);
 
-    z-index:
-        9999;
+        rgba(0,0,0,.45);
+
+    backdrop-filter:
+
+        blur(18px);
+
+    -webkit-backdrop-filter:
+
+        blur(18px);
+
+    z-index:9999;
 
 }
 
 
-/* =========================================
+/* =========================================================
    NAV ITEM
-========================================= */
+========================================================= */
 
-.nav-item {
+.nav-item{
 
-    position: relative;
+    position:relative;
 
     flex:
+
         1 1 0;
 
-    min-width: 0;
+    min-width:0;
 
-    height: 68px;
+    height:66px;
 
-    display: flex;
+    display:flex;
 
-    flex-direction: column;
+    flex-direction:column;
 
-    align-items: center;
+    align-items:center;
 
-    justify-content: center;
+    justify-content:center;
 
-    gap: 5px;
+    gap:4px;
 
-    color:
-        #a9a9a9;
+    color:#9d9d9d;
 
-    text-decoration:
-        none;
+    text-decoration:none;
 
-    font-size: 10px;
+    font-size:9px;
 
-    font-weight: 600;
+    font-weight:600;
+
+    line-height:1;
+
+    border-radius:14px;
 
     transition:
+
         color .25s ease,
+
+        background .25s ease,
+
         transform .25s ease;
 
 }
 
 
-.nav-item i {
+.nav-item i{
 
-    font-size: 19px;
+    font-size:18px;
+
+    line-height:1;
 
     transition:
-        transform .25s ease;
+
+        transform .25s ease,
+
+        filter .25s ease;
 
 }
 
 
-.nav-item:hover {
+.nav-item:hover{
 
-    color:
-        var(--gold);
-
-}
-
-
-.nav-item.active {
-
-    color:
-        var(--gold);
+    color:var(--gold);
 
 }
 
 
-.nav-item.active::before {
+.nav-item.active{
 
-    content: "";
-
-    position: absolute;
-
-    top: 3px;
-
-    width: 28px;
-
-    height: 3px;
-
-    border-radius: 10px;
+    color:var(--gold);
 
     background:
-        var(--gold);
 
-    box-shadow:
-        0 0 10px
-        rgba(245, 197, 66, .5);
+        rgba(179,0,0,.12);
 
 }
 
 
-.nav-item.active i {
+.nav-item.active i{
 
-    transform:
-        scale(1.08);
+    filter:
+
+        drop-shadow(
+
+            0 0 6px
+
+            rgba(245,197,66,.28)
+
+        );
 
 }
 
 
-/* =========================================
+/* =========================================================
    CENTER QR ACTION
-========================================= */
+========================================================= */
 
-.nav-item.nav-qr {
+.nav-item.nav-qr{
+
+    height:70px;
+
+    margin-top:-18px;
+
+    border-radius:50%;
 
     flex:
-        1.15 1.15 0;
 
-    position: relative;
+        0 0 62px;
 
-    color:
-        var(--gold);
-
-}
-
-
-.nav-item.nav-qr i {
-
-    width: 52px;
-
-    height: 52px;
-
-    margin-top: -25px;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 24px;
-
-    color:
-        #111111;
+    width:62px;
 
     background:
 
         linear-gradient(
-            135deg,
-            var(--gold-light),
-            var(--gold),
-            var(--gold-dark)
+
+            145deg,
+
+            var(--red-light),
+
+            var(--red-dark)
+
         );
 
     border:
-        4px solid
-        #111111;
+
+        3px
+
+        solid
+
+        #080808;
 
     box-shadow:
 
-        0 5px 20px
-        rgba(245, 197, 66, .25);
+        0 7px 22px
+
+        rgba(179,0,0,.38),
+
+        0 0 0 1px
+
+        rgba(245,197,66,.25);
+
+    color:#ffffff;
 
 }
 
 
-.nav-item.nav-qr span {
+.nav-item.nav-qr i{
 
-    margin-top: 0;
-
-    color:
-        var(--gold);
-
-    font-weight:
-        800;
+    font-size:24px;
 
 }
 
 
-.nav-item.nav-qr:hover i {
+.nav-item.nav-qr span{
 
-    transform:
-        scale(1.08);
-
-}
-
-
-/* =========================================
-   SCROLLBAR
-========================================= */
-
-::-webkit-scrollbar {
-
-    width: 7px;
+    font-size:8px;
 
 }
 
 
-::-webkit-scrollbar-track {
+.nav-item.nav-qr:hover{
+
+    color:#ffffff;
+
+    transform:translateY(-3px);
+
+}
+
+
+.nav-item.nav-qr.active{
 
     background:
-        #080808;
 
-}
-
-
-::-webkit-scrollbar-thumb {
-
-    background:
         linear-gradient(
-            180deg,
-            var(--primary-red),
-            var(--gold)
+
+            145deg,
+
+            var(--red-light),
+
+            var(--red-dark)
+
         );
 
-    border-radius:
-        20px;
+    color:#ffffff;
 
 }
 
 
-/* =========================================
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar{
+
+    width:7px;
+
+}
+
+
+::-webkit-scrollbar-track{
+
+    background:#080808;
+
+}
+
+
+::-webkit-scrollbar-thumb{
+
+    background:
+
+        linear-gradient(
+
+            180deg,
+
+            var(--red),
+
+            var(--gold-dark)
+
+        );
+
+    border-radius:20px;
+
+}
+
+
+/* =========================================================
    TABLET
-========================================= */
+========================================================= */
 
-@media (min-width: 600px) {
+@media (min-width:600px){
 
-    .profile-page {
+    .profile-page{
 
-        max-width:
-            680px;
+        max-width:650px;
 
         padding:
-            28px
+
+            26px
+
             24px
-            125px;
+
+            115px;
 
     }
 
-    .bottom-nav {
+    .bottom-nav{
 
-        max-width:
-            680px;
+        max-width:650px;
 
     }
 
 }
 
 
-/* =========================================
-   LAPTOP
-========================================= */
+/* =========================================================
+   TABLET / SMALL LAPTOP
+========================================================= */
 
-@media (min-width: 1024px) {
+@media (min-width:768px){
 
-    .profile-page {
+    .profile-page{
 
-        max-width:
-            900px;
+        max-width:760px;
 
         padding:
-            34px
+
             30px
+
+            28px
+
+            120px;
+
+    }
+
+    .bottom-nav{
+
+        max-width:760px;
+
+    }
+
+    .profile-header{
+
+        padding:22px;
+
+    }
+
+    .profile-card{
+
+        padding:26px;
+
+    }
+
+    .profile-info{
+
+        grid-template-columns:
+
+            repeat(4,1fr);
+
+    }
+
+}
+
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (min-width:1024px){
+
+    .profile-page{
+
+        max-width:920px;
+
+        padding:
+
+            34px
+
+            32px
+
             125px;
 
     }
 
-    .bottom-nav {
+    .bottom-nav{
 
-        max-width:
-            900px;
-
-    }
-
-    .profile-info {
-
-        grid-template-columns:
-            repeat(4, minmax(0, 1fr));
+        max-width:920px;
 
     }
 
-    .profile-actions {
+    .profile-card{
+
+        padding:30px;
+
+    }
+
+    .profile-actions{
 
         grid-template-columns:
-            repeat(4, minmax(0, 1fr));
+
+            repeat(4,1fr);
+
+    }
+
+    .profile-action-btn{
+
+        min-height:62px;
 
     }
 
 }
 
 
-/* =========================================
+/* =========================================================
    LARGE DESKTOP
-========================================= */
+========================================================= */
 
-@media (min-width: 1440px) {
+@media (min-width:1440px){
 
-    .profile-page {
+    .profile-page{
 
-        max-width:
-            1100px;
+        max-width:1100px;
+
+        padding:
+
+            40px
+
+            38px
+
+            130px;
 
     }
 
-    .bottom-nav {
+    .bottom-nav{
 
-        max-width:
-            1100px;
+        max-width:1100px;
+
+    }
+
+    .profile-header{
+
+        padding:24px;
+
+    }
+
+    .profile-card{
+
+        padding:34px;
 
     }
 
 }
 
 
-/* =========================================
-   MOBILE
-========================================= */
+/* =========================================================
+   MOBILE SMALL
+========================================================= */
 
-@media (max-width: 420px) {
+@media (max-width:380px){
 
-    .profile-page {
+    .profile-page{
 
-        padding:
-            15px
-            12px
-            112px;
+        padding-left:12px;
 
-    }
-
-    .profile-header {
-
-        padding:
-            16px;
-
-        gap:
-            12px;
+        padding-right:12px;
 
     }
 
-    .profile-header-icon {
+    .profile-header{
 
-        width:
-            54px;
+        padding:16px;
 
-        height:
-            54px;
-
-        border-radius:
-            16px;
-
-        font-size:
-            22px;
+        gap:11px;
 
     }
 
-    .profile-header-content h1 {
+    .profile-header-icon{
 
-        font-size:
-            22px;
+        flex-basis:50px;
 
-    }
+        width:50px;
 
-    .profile-header-content p {
+        height:50px;
 
-        font-size:
-            10px;
+        border-radius:15px;
 
-    }
-
-    .profile-card {
-
-        padding:
-            18px;
+        font-size:21px;
 
     }
 
-    .profile-photo,
-    .profile-photo-wrapper {
+    .profile-header-content h1{
 
-        width:
-            118px;
-
-        height:
-            118px;
+        font-size:20px;
 
     }
 
-    .profile-name {
+    .profile-header-content p{
 
-        font-size:
-            21px;
-
-    }
-
-    .info-item {
-
-        padding:
-            13px;
+        font-size:9px;
 
     }
 
-    .info-value {
+    .profile-card{
 
-        font-size:
-            13px;
-
-    }
-
-    .bottom-nav {
-
-        min-height:
-            74px;
+        padding:18px;
 
     }
 
-    .nav-item {
+    .profile-photo-wrapper,
+    .profile-photo{
 
-        height:
-            64px;
+        width:112px;
 
-        font-size:
-            9px;
-
-    }
-
-    .nav-item i {
-
-        font-size:
-            18px;
+        height:112px;
 
     }
 
-    .nav-item.nav-qr i {
+    .default-avatar{
 
-        width:
-            48px;
+        font-size:48px;
 
-        height:
-            48px;
+    }
 
-        font-size:
-            22px;
+    .profile-name{
+
+        font-size:21px;
+
+    }
+
+    .profile-info{
+
+        gap:9px;
+
+    }
+
+    .info-item{
+
+        padding:12px;
+
+    }
+
+    .info-icon{
+
+        width:36px;
+
+        height:36px;
+
+    }
+
+    .info-value{
+
+        font-size:12px;
+
+    }
+
+    .nav-item{
+
+        font-size:8px;
+
+    }
+
+    .nav-item i{
+
+        font-size:17px;
+
+    }
+
+    .nav-item.nav-qr{
+
+        flex-basis:58px;
+
+        width:58px;
+
+        height:66px;
 
     }
 
 }
 
 
-/* =========================================
+/* =========================================================
    REDUCED MOTION
-========================================= */
+========================================================= */
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion:reduce){
 
-    html {
+    *{
 
-        scroll-behavior:
-            auto;
+        scroll-behavior:auto !important;
 
     }
 
     *,
     *::before,
-    *::after {
+    *::after{
 
-        animation-duration:
-            .01ms !important;
+        animation-duration:.01ms !important;
 
-        animation-iteration-count:
-            1 !important;
+        animation-iteration-count:1 !important;
 
-        transition-duration:
-            .01ms !important;
+        transition-duration:.01ms !important;
 
     }
 
 }
 
 
-/* =========================================
+/* =========================================================
    END OF PROFILE.CSS
-========================================= */
+========================================================= */
