@@ -50,6 +50,15 @@ const editName =
 const editEmail =
     document.getElementById("editEmail");
 
+const editGender =
+    document.getElementById("editGender");
+
+const editDOB =
+    document.getElementById("editDOB");
+
+const dobHelp =
+    document.getElementById("dobHelp");
+
 const memberId =
     document.getElementById("memberId");
 
@@ -85,6 +94,20 @@ let currentProfile = {};
 
 let selectedPhotoDataURL = null;
 
+let isSaving = false;
+
+
+// =====================================================
+// CONSTANTS
+// =====================================================
+
+const STAMP_LIMIT = 6;
+
+const MAX_NAME_LENGTH = 50;
+
+const MAX_PHOTO_SIZE =
+    5 * 1024 * 1024;
+
 
 // =====================================================
 // SHOW MESSAGE
@@ -97,7 +120,7 @@ function showMessage(message, type = "") {
     }
 
     profileMessage.textContent =
-        message;
+        String(message || "");
 
     profileMessage.className =
         "profile-message";
@@ -138,28 +161,47 @@ function formatMemberDate(value) {
 
     try {
 
-        let date;
+        let date = null;
+
 
         if (
             value &&
             typeof value.toDate === "function"
         ) {
 
-            date = value.toDate();
-
-        } else if (
-            value instanceof Date
-        ) {
-
-            date = value;
-
-        } else {
-
-            date = new Date(value);
+            date =
+                value.toDate();
 
         }
 
+        else if (
+            value instanceof Date
+        ) {
+
+            date =
+                value;
+
+        }
+
+        else if (
+            typeof value === "number"
+        ) {
+
+            date =
+                new Date(value);
+
+        }
+
+        else {
+
+            date =
+                new Date(value);
+
+        }
+
+
         if (
+            !date ||
             Number.isNaN(
                 date.getTime()
             )
@@ -168,6 +210,7 @@ function formatMemberDate(value) {
             return "Not Available";
 
         }
+
 
         return date.toLocaleDateString(
             "en-IN",
@@ -195,6 +238,141 @@ function formatMemberDate(value) {
 
 
 // =====================================================
+// NORMALIZE DOB
+// =====================================================
+
+function normalizeDOB(value) {
+
+    if (!value) {
+        return "";
+    }
+
+
+    // Already YYYY-MM-DD
+
+    if (
+        typeof value === "string" &&
+        /^\d{4}-\d{2}-\d{2}$/.test(value)
+    ) {
+
+        return value;
+
+    }
+
+
+    try {
+
+        const date =
+            value &&
+            typeof value.toDate === "function"
+                ? value.toDate()
+                : new Date(value);
+
+
+        if (
+            Number.isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return "";
+
+        }
+
+
+        const year =
+            date.getFullYear();
+
+        const month =
+            String(
+                date.getMonth() + 1
+            ).padStart(2, "0");
+
+        const day =
+            String(
+                date.getDate()
+            ).padStart(2, "0");
+
+
+        return `${year}-${month}-${day}`;
+
+    }
+
+    catch {
+
+        return "";
+
+    }
+
+}
+
+
+// =====================================================
+// VALIDATE DOB
+// =====================================================
+
+function isValidDOB(value) {
+
+    if (!value) {
+        return true;
+    }
+
+
+    const date =
+        new Date(
+            `${value}T00:00:00`
+        );
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return false;
+
+    }
+
+
+    const today =
+        new Date();
+
+    today.setHours(
+        0,
+        0,
+        0,
+        0
+    );
+
+
+    if (date > today) {
+        return false;
+    }
+
+
+    // Prevent obviously invalid old dates.
+
+    const minimumYear =
+        1900;
+
+
+    if (
+        date.getFullYear() <
+        minimumYear
+    ) {
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+// =====================================================
 // DISPLAY PROFILE PHOTO
 // =====================================================
 
@@ -213,14 +391,16 @@ function displayProfilePhoto(photoURL) {
 
         }
 
+
         if (defaultAvatar) {
 
             defaultAvatar.style.display =
-                "block";
+                "flex";
 
         }
 
         return;
+
     }
 
 
@@ -231,6 +411,22 @@ function displayProfilePhoto(photoURL) {
 
         profilePhoto.style.display =
             "block";
+
+
+        profilePhoto.onerror =
+            () => {
+
+                profilePhoto.style.display =
+                    "none";
+
+                if (defaultAvatar) {
+
+                    defaultAvatar.style.display =
+                        "flex";
+
+                }
+
+            };
 
     }
 
@@ -253,24 +449,99 @@ function applyGenderTheme(gender) {
 
     document.body.classList.remove(
         "male-theme",
-        "female-theme"
+        "female-theme",
+        "other-theme"
     );
 
-    if (
-        String(gender || "")
+
+    const normalizedGender =
+        String(
+            gender || ""
+        )
             .toLowerCase()
-            .trim() === "female"
+            .trim();
+
+
+    if (
+        normalizedGender ===
+        "female"
     ) {
 
         document.body.classList.add(
             "female-theme"
         );
 
-    } else {
+    }
+
+    else if (
+        normalizedGender ===
+        "other"
+    ) {
+
+        document.body.classList.add(
+            "other-theme"
+        );
+
+    }
+
+    else {
 
         document.body.classList.add(
             "male-theme"
         );
+
+    }
+
+}
+
+
+// =====================================================
+// UPDATE DOB LOCK UI
+// =====================================================
+
+function updateDOBLock(hasExistingDOB) {
+
+    if (!editDOB) {
+        return;
+    }
+
+
+    if (hasExistingDOB) {
+
+        editDOB.disabled =
+            true;
+
+
+        editDOB.title =
+            "Date of birth is locked. Admin approval is required to change it.";
+
+
+        if (dobHelp) {
+
+            dobHelp.textContent =
+                "Date of birth is locked after first save. Changes require admin approval.";
+
+        }
+
+    }
+
+    else {
+
+        editDOB.disabled =
+            false;
+
+
+        editDOB.removeAttribute(
+            "title"
+        );
+
+
+        if (dobHelp) {
+
+            dobHelp.textContent =
+                "Date of birth can be set once. Changes later require admin approval.";
+
+        }
 
     }
 
@@ -286,6 +557,7 @@ async function loadProfile(user) {
     if (!user) {
         return;
     }
+
 
     try {
 
@@ -310,7 +582,7 @@ async function loadProfile(user) {
 
 
         currentProfile =
-            data;
+            data || {};
 
 
         // =================================================
@@ -372,16 +644,25 @@ async function loadProfile(user) {
 
         const generatedMemberId =
             "RIO-" +
-            user.uid
-                .substring(0, 8)
+            String(
+                user.uid || ""
+            )
+                .substring(
+                    0,
+                    8
+                )
                 .toUpperCase();
+
+
+        const finalMemberId =
+            data.memberId ||
+            generatedMemberId;
 
 
         if (memberId) {
 
             memberId.textContent =
-                data.memberId ||
-                generatedMemberId;
+                finalMemberId;
 
         }
 
@@ -392,54 +673,121 @@ async function loadProfile(user) {
 
         if (memberSince) {
 
-            if (data.memberSince) {
+            const memberDate =
+                data.memberSince ||
+                data.createdAt ||
+                null;
 
-                memberSince.textContent =
-                    formatMemberDate(
-                        data.memberSince
-                    );
 
-            }
-
-            else if (data.createdAt) {
-
-                memberSince.textContent =
-                    formatMemberDate(
-                        data.createdAt
-                    );
-
-            }
-
-            else {
-
-                memberSince.textContent =
-                    "Not Available";
-
-            }
+            memberSince.textContent =
+                memberDate
+                    ? formatMemberDate(
+                        memberDate
+                    )
+                    : "Not Available";
 
         }
+
+
+        // =================================================
+        // GENDER
+        // =================================================
+
+        const gender =
+            String(
+                data.gender || ""
+            )
+                .toLowerCase()
+                .trim();
+
+
+        if (editGender) {
+
+            const validGenderValues = [
+                "",
+                "male",
+                "female",
+                "other"
+            ];
+
+
+            editGender.value =
+                validGenderValues.includes(
+                    gender
+                )
+                    ? gender
+                    : "";
+
+        }
+
+
+        applyGenderTheme(
+            gender
+        );
+
+
+        // =================================================
+        // DOB
+        // =================================================
+
+        const existingDOB =
+            normalizeDOB(
+                data.dob
+            );
+
+
+        if (editDOB) {
+
+            editDOB.value =
+                existingDOB;
+
+        }
+
+
+        updateDOBLock(
+            Boolean(
+                existingDOB
+            )
+        );
 
 
         // =================================================
         // LOYALTY STAMPS
         // =================================================
 
-        const stamps =
+        let stamps =
+            Number(
+                data.stamps ?? 0
+            );
+
+
+        if (
+            !Number.isFinite(
+                stamps
+            )
+        ) {
+
+            stamps = 0;
+
+        }
+
+
+        stamps =
             Math.min(
                 Math.max(
-                    Number(
-                        data.stamps || 0
+                    Math.floor(
+                        stamps
                     ),
                     0
                 ),
-                6
+                STAMP_LIMIT
             );
 
 
         if (profileStamps) {
 
             profileStamps.textContent =
-                `${stamps} / 6`;
+                `${stamps} / ${STAMP_LIMIT}`;
 
         }
 
@@ -456,13 +804,17 @@ async function loadProfile(user) {
 
 
         if (
-            stamps >= 6 &&
+            stamps >= STAMP_LIMIT &&
             rewardUnlocked &&
             !rewardRedeemed
         ) {
 
-            profileReward.textContent =
-                "FREE VEG MAGGI UNLOCKED";
+            if (profileReward) {
+
+                profileReward.textContent =
+                    "FREE VEG MAGGI UNLOCKED";
+
+            }
 
         }
 
@@ -470,15 +822,30 @@ async function loadProfile(user) {
             rewardRedeemed
         ) {
 
-            profileReward.textContent =
-                "Reward Redeemed";
+            if (profileReward) {
+
+                profileReward.textContent =
+                    "Reward Redeemed";
+
+            }
 
         }
 
         else {
 
-            profileReward.textContent =
-                `${6 - stamps} Stamp Left`;
+            const remaining =
+                Math.max(
+                    STAMP_LIMIT - stamps,
+                    0
+                );
+
+
+            if (profileReward) {
+
+                profileReward.textContent =
+                    `${remaining} Stamp${remaining === 1 ? "" : "s"} Left`;
+
+            }
 
         }
 
@@ -499,13 +866,8 @@ async function loadProfile(user) {
 
 
         // =================================================
-        // GENDER THEME
+        // REMOVE LOADING
         // =================================================
-
-        applyGenderTheme(
-            data.gender
-        );
-
 
         removeLoading();
 
@@ -563,9 +925,11 @@ onAuthStateChanged(
             currentUser =
                 null;
 
+
             window.location.replace(
                 "login.html"
             );
+
 
             return;
 
@@ -603,35 +967,46 @@ if (photoInput) {
             }
 
 
+            // =================================================
             // IMAGE TYPE CHECK
+            // =================================================
+
+            const allowedTypes = [
+                "image/jpeg",
+                "image/png",
+                "image/webp",
+                "image/gif"
+            ];
+
 
             if (
-                !file.type.startsWith(
-                    "image/"
+                !allowedTypes.includes(
+                    file.type
                 )
             ) {
 
                 showMessage(
-                    "Please select a valid image.",
+                    "Please select a JPG, PNG, WEBP or GIF image.",
                     "error"
                 );
 
+
                 photoInput.value =
                     "";
+
 
                 return;
 
             }
 
 
+            // =================================================
             // FILE SIZE CHECK
-
-            const maxSize =
-                5 * 1024 * 1024;
-
+            // =================================================
 
             if (
-                file.size > maxSize
+                file.size >
+                MAX_PHOTO_SIZE
             ) {
 
                 showMessage(
@@ -639,13 +1014,19 @@ if (photoInput) {
                     "error"
                 );
 
+
                 photoInput.value =
                     "";
+
 
                 return;
 
             }
 
+
+            // =================================================
+            // PREVIEW
+            // =================================================
 
             const reader =
                 new FileReader();
@@ -673,6 +1054,10 @@ if (photoInput) {
 
             reader.onerror =
                 () => {
+
+                    selectedPhotoDataURL =
+                        null;
+
 
                     showMessage(
                         "Unable to preview the selected photo.",
@@ -702,6 +1087,11 @@ if (saveProfileBtn) {
         "click",
         async () => {
 
+            if (isSaving) {
+                return;
+            }
+
+
             if (!currentUser) {
 
                 showMessage(
@@ -709,17 +1099,20 @@ if (saveProfileBtn) {
                     "error"
                 );
 
+
                 return;
 
             }
 
 
+            // =================================================
+            // NAME
+            // =================================================
+
             const newName =
                 editName?.value
                     ?.trim() || "";
 
-
-            // NAME VALIDATION
 
             if (!newName) {
 
@@ -728,7 +1121,9 @@ if (saveProfileBtn) {
                     "error"
                 );
 
+
                 editName?.focus();
+
 
                 return;
 
@@ -736,7 +1131,8 @@ if (saveProfileBtn) {
 
 
             if (
-                newName.length < 2
+                newName.length <
+                2
             ) {
 
                 showMessage(
@@ -744,7 +1140,9 @@ if (saveProfileBtn) {
                     "error"
                 );
 
+
                 editName?.focus();
+
 
                 return;
 
@@ -752,7 +1150,8 @@ if (saveProfileBtn) {
 
 
             if (
-                newName.length > 50
+                newName.length >
+                MAX_NAME_LENGTH
             ) {
 
                 showMessage(
@@ -760,7 +1159,115 @@ if (saveProfileBtn) {
                     "error"
                 );
 
+
                 editName?.focus();
+
+
+                return;
+
+            }
+
+
+            // =================================================
+            // GENDER
+            // =================================================
+
+            const newGender =
+                String(
+                    editGender?.value ||
+                    ""
+                )
+                    .toLowerCase()
+                    .trim();
+
+
+            const validGenderValues = [
+                "",
+                "male",
+                "female",
+                "other"
+            ];
+
+
+            if (
+                !validGenderValues.includes(
+                    newGender
+                )
+            ) {
+
+                showMessage(
+                    "Please select a valid gender.",
+                    "error"
+                );
+
+
+                editGender?.focus();
+
+
+                return;
+
+            }
+
+
+            // =================================================
+            // DOB
+            // =================================================
+
+            const newDOB =
+                normalizeDOB(
+                    editDOB?.value ||
+                    ""
+                );
+
+
+            const oldDOB =
+                normalizeDOB(
+                    currentProfile.dob
+                );
+
+
+            // DOB is locked once already saved.
+
+            if (
+                oldDOB &&
+                newDOB !== oldDOB
+            ) {
+
+                if (editDOB) {
+
+                    editDOB.value =
+                        oldDOB;
+
+                }
+
+
+                showMessage(
+                    "Date of birth is locked. Changes require admin approval.",
+                    "error"
+                );
+
+
+                return;
+
+            }
+
+
+            if (
+                !oldDOB &&
+                newDOB &&
+                !isValidDOB(
+                    newDOB
+                )
+            ) {
+
+                showMessage(
+                    "Please enter a valid date of birth.",
+                    "error"
+                );
+
+
+                editDOB?.focus();
+
 
                 return;
 
@@ -768,6 +1275,10 @@ if (saveProfileBtn) {
 
 
             try {
+
+                isSaving =
+                    true;
+
 
                 saveProfileBtn.disabled =
                     true;
@@ -798,13 +1309,37 @@ if (saveProfileBtn) {
                         currentUser.email ||
                         "",
 
+                    gender:
+                        newGender,
+
                     updatedAt:
                         serverTimestamp()
 
                 };
 
 
-                // PHOTO IS SAVED ONLY IF NEW PHOTO SELECTED
+                // =================================================
+                // DOB
+                //
+                // Only write DOB when it has never been set.
+                // =================================================
+
+                if (
+                    !oldDOB &&
+                    newDOB
+                ) {
+
+                    updateData.dob =
+                        newDOB;
+
+                }
+
+
+                // =================================================
+                // PHOTO
+                //
+                // Preserves existing architecture.
+                // =================================================
 
                 if (
                     selectedPhotoDataURL
@@ -852,14 +1387,73 @@ if (saveProfileBtn) {
 
 
                 // =================================================
-                // UPDATE LOCAL UI
+                // UPDATE LOCAL PROFILE
                 // =================================================
 
-                profileName.textContent =
+                currentProfile = {
+                    ...currentProfile,
+                    ...updateData
+                };
+
+
+                currentProfile.name =
                     newName;
 
-                editName.value =
-                    newName;
+                currentProfile.gender =
+                    newGender;
+
+
+                if (
+                    !oldDOB &&
+                    newDOB
+                ) {
+
+                    currentProfile.dob =
+                        newDOB;
+
+                }
+
+
+                // =================================================
+                // UPDATE UI
+                // =================================================
+
+                if (profileName) {
+
+                    profileName.textContent =
+                        newName;
+
+                }
+
+
+                if (editName) {
+
+                    editName.value =
+                        newName;
+
+                }
+
+
+                if (editGender) {
+
+                    editGender.value =
+                        newGender;
+
+                }
+
+
+                if (newDOB) {
+
+                    updateDOBLock(
+                        true
+                    );
+
+                }
+
+
+                applyGenderTheme(
+                    newGender
+                );
 
 
                 if (
@@ -909,6 +1503,10 @@ if (saveProfileBtn) {
 
             finally {
 
+                isSaving =
+                    false;
+
+
                 saveProfileBtn.disabled =
                     false;
 
@@ -933,6 +1531,15 @@ if (logoutBtn) {
     logoutBtn.addEventListener(
         "click",
         async () => {
+
+            if (
+                logoutBtn.disabled
+            ) {
+
+                return;
+
+            }
+
 
             const confirmed =
                 window.confirm(
@@ -1011,6 +1618,7 @@ if (deleteAccountBtn) {
                     "Please login again.",
                     "error"
                 );
+
 
                 return;
 
