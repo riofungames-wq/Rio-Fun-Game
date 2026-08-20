@@ -3,24 +3,14 @@
      CUSTOMER DASHBOARD
      PREMIUM RESPONSIVE MASTER BUILD
 
-     RESPONSIVE TARGETS:
-     - MOBILE
-     - TABLET
-     - LAPTOP
-     - DESKTOP
+     CUSTOMER SIDE ONLY
+     NO ADMIN CODE
+     NO FIREBASE INITIALIZATION
 
-     ARCHITECTURE:
-     - ONE COMMON CUSTOMER DASHBOARD
-     - CUSTOMER SIDE ONLY
-     - NO ADMIN CODE
-     - NO FIREBASE INITIALIZATION
-     - CUSTOMER LOGIC -> js/dashboard.js
-     - FIREBASE -> CENTRALIZED app.js / firebase-config.js
-
-     LOYALTY RULE:
+     LOYALTY:
      - 40-DAY CYCLE
      - 6 VALID STAMPS
-     - 7TH CIRCLE = FREE VEG MAGGI REWARD
+     - 7TH VISUAL CIRCLE = FREE VEG MAGGI
 ===================================================== -->
 
 <!DOCTYPE html>
@@ -49,20 +39,10 @@
         Rio Maggi Point | Customer Dashboard
     </title>
 
-
-    <!-- =================================================
-         CUSTOMER DASHBOARD STYLES
-    ================================================== -->
-
     <link
         rel="stylesheet"
         href="css/style.css"
     >
-
-
-    <!-- =================================================
-         FONT AWESOME
-    ================================================== -->
 
     <link
         rel="stylesheet"
@@ -75,11 +55,10 @@
 <body>
 
 
-<!-- =====================================================
-     DASHBOARD APPLICATION
-===================================================== -->
-
-<div class="dashboard-app">
+<div
+    class="dashboard-app"
+    id="dashboardApp"
+>
 
 
     <!-- =================================================
@@ -90,9 +69,6 @@
 
         <div class="header-inner">
 
-
-            <!-- BRAND -->
-
             <div class="brand-area">
 
                 <div
@@ -101,7 +77,6 @@
                 >
                     R
                 </div>
-
 
                 <div class="brand-text">
 
@@ -118,8 +93,6 @@
             </div>
 
 
-            <!-- HEADER ACTIONS -->
-
             <div class="header-actions">
 
                 <button
@@ -130,10 +103,15 @@
                     title="Notifications"
                 >
 
-                    <i
-                        class="fa-solid fa-bell"
-                        aria-hidden="true"
-                    ></i>
+                    <i class="fa-solid fa-bell"></i>
+
+                    <span
+                        id="notificationBadge"
+                        class="notification-badge"
+                        hidden
+                    >
+                        0
+                    </span>
 
                 </button>
 
@@ -146,10 +124,7 @@
                     title="Logout"
                 >
 
-                    <i
-                        class="fa-solid fa-right-from-bracket"
-                        aria-hidden="true"
-                    ></i>
+                    <i class="fa-solid fa-right-from-bracket"></i>
 
                 </button>
 
@@ -162,25 +137,23 @@
 
 
     <!-- =================================================
-         MAIN CONTENT
+         MAIN
     ================================================== -->
 
     <main class="dashboard-main">
 
 
         <!-- =================================================
-             HOME SECTION
+             HOME
         ================================================== -->
 
         <section
             id="homeSection"
             class="dashboard-section active-section"
+            aria-labelledby="homeTitle"
         >
 
-
-            <!-- =================================================
-                 WELCOME
-            ================================================== -->
+            <!-- WELCOME -->
 
             <section class="welcome-card">
 
@@ -190,7 +163,9 @@
                         WELCOME BACK
                     </span>
 
-                    <h2 id="welcomeName">
+                    <h2
+                        id="welcomeName"
+                    >
                         Hello, Customer 👋
                     </h2>
 
@@ -216,10 +191,7 @@
 
 
 
-            <!-- =================================================
-                 HERO SLIDER
-                 8 CATEGORY BANNER HOOK
-            ================================================== -->
+            <!-- HERO -->
 
             <section
                 class="hero-slider-section"
@@ -231,14 +203,7 @@
                     <div
                         id="heroSliderTrack"
                         class="hero-slider-track"
-                    >
-
-                        <!--
-                            Banner slides are rendered
-                            by dashboard.js.
-                        -->
-
-                    </div>
+                    ></div>
 
 
                     <button
@@ -248,10 +213,7 @@
                         aria-label="Previous banner"
                     >
 
-                        <i
-                            class="fa-solid fa-chevron-left"
-                            aria-hidden="true"
-                        ></i>
+                        <i class="fa-solid fa-chevron-left"></i>
 
                     </button>
 
@@ -263,10 +225,7 @@
                         aria-label="Next banner"
                     >
 
-                        <i
-                            class="fa-solid fa-chevron-right"
-                            aria-hidden="true"
-                        ></i>
+                        <i class="fa-solid fa-chevron-right"></i>
 
                     </button>
 
@@ -284,7 +243,7 @@
 
 
             <!-- =================================================
-                 MENU
+                 OUR MENU
             ================================================== -->
 
             <section class="home-section">
@@ -297,7 +256,7 @@
                             EXPLORE
                         </span>
 
-                        <h2>
+                        <h2 id="homeTitle">
                             Our Menu
                         </h2>
 
@@ -317,7 +276,7 @@
                 <div class="menu-category-grid">
 
 
-                    <!-- EVERYDAY MAGGI -->
+                    <!-- 01 -->
 
                     <a
                         href="menu.html#everyday-maggi"
@@ -336,6 +295,10 @@
 
                         <div class="menu-category-content">
 
+                            <span class="menu-number">
+                                01
+                            </span>
+
                             <h3>
                                 Everyday Maggi
                             </h3>
@@ -349,7 +312,7 @@
                     </a>
 
 
-                    <!-- CHEESE MAGGI -->
+                    <!-- 02 -->
 
                     <a
                         href="menu.html#cheese-maggi"
@@ -368,6 +331,10 @@
 
                         <div class="menu-category-content">
 
+                            <span class="menu-number">
+                                02
+                            </span>
+
                             <h3>
                                 Cheese Maggi
                             </h3>
@@ -381,7 +348,7 @@
                     </a>
 
 
-                    <!-- CHEESE BUTTER MAGGI -->
+                    <!-- 03 -->
 
                     <a
                         href="menu.html#cheese-butter-maggi"
@@ -400,6 +367,10 @@
 
                         <div class="menu-category-content">
 
+                            <span class="menu-number">
+                                03
+                            </span>
+
                             <h3>
                                 Cheese Butter Maggi
                             </h3>
@@ -413,7 +384,7 @@
                     </a>
 
 
-                    <!-- UFO BURGER -->
+                    <!-- 04 -->
 
                     <a
                         href="menu.html#ufo-burger"
@@ -432,6 +403,10 @@
 
                         <div class="menu-category-content">
 
+                            <span class="menu-number">
+                                04
+                            </span>
+
                             <h3>
                                 UFO Burger
                             </h3>
@@ -445,7 +420,7 @@
                     </a>
 
 
-                    <!-- MOMOS -->
+                    <!-- 05 -->
 
                     <a
                         href="menu.html#momos"
@@ -464,6 +439,10 @@
 
                         <div class="menu-category-content">
 
+                            <span class="menu-number">
+                                05
+                            </span>
+
                             <h3>
                                 Momos
                             </h3>
@@ -477,7 +456,7 @@
                     </a>
 
 
-                    <!-- SOUP -->
+                    <!-- 06 -->
 
                     <a
                         href="menu.html#soup"
@@ -496,6 +475,10 @@
 
                         <div class="menu-category-content">
 
+                            <span class="menu-number">
+                                06
+                            </span>
+
                             <h3>
                                 Soup
                             </h3>
@@ -509,7 +492,7 @@
                     </a>
 
 
-                    <!-- SWEET CORN -->
+                    <!-- 07 -->
 
                     <a
                         href="menu.html#sweet-corn"
@@ -528,6 +511,10 @@
 
                         <div class="menu-category-content">
 
+                            <span class="menu-number">
+                                07
+                            </span>
+
                             <h3>
                                 Sweet Corn
                             </h3>
@@ -541,7 +528,7 @@
                     </a>
 
 
-                    <!-- CHIPS BHEL -->
+                    <!-- 08 -->
 
                     <a
                         href="menu.html#chips-bhel"
@@ -560,8 +547,51 @@
 
                         <div class="menu-category-content">
 
+                            <span class="menu-number">
+                                08
+                            </span>
+
                             <h3>
                                 Chips Bhel
+                            </h3>
+
+                            <span>
+                                View Menu
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- 09 -->
+
+                    <a
+                        href="menu.html#appetizer"
+                        class="menu-category-card"
+                    >
+
+                        <div class="menu-category-image menu-category-image-fallback">
+
+                            <img
+                                src="assets/menu/appetizer.png"
+                                alt="Appetizer"
+                                loading="lazy"
+                                data-fallback="true"
+                            >
+
+                            <i class="fa-solid fa-fire"></i>
+
+                        </div>
+
+                        <div class="menu-category-content">
+
+                            <span class="menu-number">
+                                09
+                            </span>
+
+                            <h3>
+                                Appetizer
                             </h3>
 
                             <span>
@@ -584,8 +614,6 @@
 
             <section class="loyalty-card">
 
-
-                <!-- LOYALTY HEADER -->
 
                 <div class="loyalty-header">
 
@@ -614,8 +642,6 @@
                 </div>
 
 
-
-                <!-- CUSTOMER -->
 
                 <div class="loyalty-customer">
 
@@ -646,8 +672,6 @@
                 </div>
 
 
-
-                <!-- PROGRESS INFO -->
 
                 <div class="loyalty-progress-info">
 
@@ -682,23 +706,10 @@
 
 
 
-                <!-- =================================================
-                     7 CIRCLE LOYALTY CARD
-
-                     1-6  = VALID STAMP CIRCLES
-                     7    = FREE VEG MAGGI REWARD
-
-                     IMPORTANT:
-                     CIRCLE 7 IS NOT A SEVENTH STAMP.
-                ================================================== -->
-
                 <div
                     id="stampGrid"
                     class="stamp-grid"
                 >
-
-
-                    <!-- STAMP 1 -->
 
                     <div
                         id="stamp1"
@@ -706,16 +717,9 @@
                         data-slot="stamp"
                         data-stamp-number="1"
                     >
-
-                        <span>
-                            1
-                        </span>
-
+                        <span>1</span>
                     </div>
 
-
-
-                    <!-- STAMP 2 -->
 
                     <div
                         id="stamp2"
@@ -723,16 +727,9 @@
                         data-slot="stamp"
                         data-stamp-number="2"
                     >
-
-                        <span>
-                            2
-                        </span>
-
+                        <span>2</span>
                     </div>
 
-
-
-                    <!-- STAMP 3 -->
 
                     <div
                         id="stamp3"
@@ -740,16 +737,9 @@
                         data-slot="stamp"
                         data-stamp-number="3"
                     >
-
-                        <span>
-                            3
-                        </span>
-
+                        <span>3</span>
                     </div>
 
-
-
-                    <!-- STAMP 4 -->
 
                     <div
                         id="stamp4"
@@ -757,16 +747,9 @@
                         data-slot="stamp"
                         data-stamp-number="4"
                     >
-
-                        <span>
-                            4
-                        </span>
-
+                        <span>4</span>
                     </div>
 
-
-
-                    <!-- STAMP 5 -->
 
                     <div
                         id="stamp5"
@@ -774,16 +757,9 @@
                         data-slot="stamp"
                         data-stamp-number="5"
                     >
-
-                        <span>
-                            5
-                        </span>
-
+                        <span>5</span>
                     </div>
 
-
-
-                    <!-- STAMP 6 -->
 
                     <div
                         id="stamp6"
@@ -791,22 +767,9 @@
                         data-slot="stamp"
                         data-stamp-number="6"
                     >
-
-                        <span>
-                            6
-                        </span>
-
+                        <span>6</span>
                     </div>
 
-
-
-                    <!-- =================================================
-                         FREE VEG MAGGI REWARD
-
-                         This is the 7th visual circle.
-                         It becomes unlocked ONLY when
-                         all 6 valid stamps are complete.
-                    ================================================== -->
 
                     <div
                         id="stamp7"
@@ -815,10 +778,7 @@
                         aria-label="Free Veg Maggi reward"
                     >
 
-                        <i
-                            class="fa-solid fa-gift"
-                            aria-hidden="true"
-                        ></i>
+                        <i class="fa-solid fa-gift"></i>
 
                         <span>
                             FREE
@@ -829,13 +789,6 @@
                 </div>
 
 
-
-                <!-- =================================================
-                     LOYALTY PROGRESS
-
-                     Progress is based ONLY on the
-                     six valid stamps.
-                ================================================== -->
 
                 <div class="progress-wrapper">
 
@@ -860,10 +813,6 @@
 
 
 
-                <!-- =================================================
-                     CYCLE STATUS
-                ================================================== -->
-
                 <div
                     id="cycleStatus"
                     class="cycle-status active"
@@ -872,10 +821,6 @@
                 </div>
 
 
-
-                <!-- =================================================
-                     REWARD STATUS
-                ================================================== -->
 
                 <div
                     id="rewardStatus"
@@ -894,10 +839,6 @@
 
 
 
-                <!-- =================================================
-                     LOYALTY DETAILS
-                ================================================== -->
-
                 <a
                     href="history.html"
                     class="loyalty-details-btn"
@@ -905,10 +846,7 @@
 
                     View Details
 
-                    <i
-                        class="fa-solid fa-arrow-right"
-                        aria-hidden="true"
-                    ></i>
+                    <i class="fa-solid fa-arrow-right"></i>
 
                 </a>
 
@@ -916,9 +854,7 @@
 
 
 
-            <!-- =================================================
-                 SPECIAL FOR YOU
-            ================================================== -->
+            <!-- SPECIAL FOR YOU -->
 
             <section class="home-section">
 
@@ -946,10 +882,7 @@
 
                     <div class="empty-offer">
 
-                        <i
-                            class="fa-solid fa-gift"
-                            aria-hidden="true"
-                        ></i>
+                        <i class="fa-solid fa-gift"></i>
 
                         <h3>
                             No active offer
@@ -967,9 +900,7 @@
 
 
 
-            <!-- =================================================
-                 ANNOUNCEMENTS
-            ================================================== -->
+            <!-- ANNOUNCEMENTS -->
 
             <section class="home-section">
 
@@ -993,9 +924,7 @@
                         id="viewAllAnnouncements"
                         class="section-link-btn"
                     >
-
                         View All
-
                     </button>
 
                 </div>
@@ -1008,10 +937,7 @@
 
                     <div class="announcement-empty">
 
-                        <i
-                            class="fa-solid fa-bullhorn"
-                            aria-hidden="true"
-                        ></i>
+                        <i class="fa-solid fa-bullhorn"></i>
 
                         <p>
                             No new announcements.
@@ -1025,9 +951,7 @@
 
 
 
-            <!-- =================================================
-                 ADSENSE
-            ================================================== -->
+            <!-- ADS -->
 
             <section
                 id="homeAdSlot"
@@ -1046,12 +970,13 @@
 
 
         <!-- =================================================
-             PROFILE SECTION
+             PROFILE
         ================================================== -->
 
         <section
             id="profileSection"
             class="dashboard-section"
+            aria-labelledby="profileSectionTitle"
         >
 
             <div class="page-section-header">
@@ -1060,7 +985,7 @@
                     ACCOUNT
                 </span>
 
-                <h2>
+                <h2 id="profileSectionTitle">
                     My Profile
                 </h2>
 
@@ -1071,16 +996,14 @@
             </div>
 
 
-            <div id="profileContent">
-                <!-- Profile rendered by dashboard.js -->
-            </div>
+            <div id="profileContent"></div>
 
         </section>
 
 
 
         <!-- =================================================
-             QR SECTION
+             QR
         ================================================== -->
 
         <section
@@ -1107,7 +1030,6 @@
 
             <div class="customer-qr-card">
 
-
                 <div class="qr-customer-name">
 
                     <span>
@@ -1125,16 +1047,12 @@
                     id="customerQrCode"
                     class="customer-qr-code"
                     aria-label="Permanent customer QR code"
-                >
-                    <!-- Permanent customer QR rendered by dedicated QR layer -->
-                </div>
+                ></div>
 
 
                 <p class="qr-instruction">
-
                     Show this QR to Rio Maggi Point staff
                     for loyalty identification.
-
                 </p>
 
 
@@ -1145,11 +1063,9 @@
                     </span>
 
                     <strong>
-
                         <span id="qrStampCount">
                             0
                         </span>/6
-
                     </strong>
 
                 </div>
@@ -1161,7 +1077,7 @@
 
 
         <!-- =================================================
-             HISTORY SECTION
+             HISTORY
         ================================================== -->
 
         <section
@@ -1189,16 +1105,14 @@
             <div
                 id="historyList"
                 class="history-list"
-            >
-                <!-- History rendered by dashboard.js -->
-            </div>
+            ></div>
 
         </section>
 
 
 
         <!-- =================================================
-             FEEDBACK SECTION
+             FEEDBACK
         ================================================== -->
 
         <section
@@ -1223,16 +1137,14 @@
             </div>
 
 
-            <div id="feedbackContent">
-                <!-- Feedback rendered by dashboard.js -->
-            </div>
+            <div id="feedbackContent"></div>
 
         </section>
 
 
 
         <!-- =================================================
-             CHAT SECTION
+             CHAT
         ================================================== -->
 
         <section
@@ -1259,13 +1171,9 @@
 
             <div class="chat-support-card">
 
-
                 <div class="chat-icon">
 
-                    <i
-                        class="fa-brands fa-whatsapp"
-                        aria-hidden="true"
-                    ></i>
+                    <i class="fa-brands fa-whatsapp"></i>
 
                 </div>
 
@@ -1283,27 +1191,18 @@
 
                 <div class="contact-buttons">
 
-
-                    <!-- CALL -->
-
                     <a
                         href="tel:+917987827979"
                         class="contact-btn call-btn"
                         aria-label="Call Rio Maggi Point"
                     >
 
-                        <i
-                            class="fa-solid fa-phone"
-                            aria-hidden="true"
-                        ></i>
+                        <i class="fa-solid fa-phone"></i>
 
                         Call Us
 
                     </a>
 
-
-
-                    <!-- WHATSAPP -->
 
                     <a
                         href="https://wa.me/917987827979"
@@ -1313,10 +1212,7 @@
                         aria-label="Chat with Rio Maggi Point on WhatsApp"
                     >
 
-                        <i
-                            class="fa-brands fa-whatsapp"
-                            aria-hidden="true"
-                        ></i>
+                        <i class="fa-brands fa-whatsapp"></i>
 
                         WhatsApp
 
@@ -1332,27 +1228,15 @@
 
 
 
-    <!-- =====================================================
-         BOTTOM NAVIGATION
-
-         LOCKED ORDER:
-         HOME
-         PROFILE
-         QR
-         HISTORY
-         FEEDBACK
-         CHAT
-
-         EXACTLY 6 ITEMS
-    ====================================================== -->
+    <!-- =================================================
+         LOCKED BOTTOM NAV
+    ================================================== -->
 
     <nav
         class="bottom-nav"
+        id="bottomNavigation"
         aria-label="Customer navigation"
     >
-
-
-        <!-- HOME -->
 
         <button
             type="button"
@@ -1362,10 +1246,7 @@
             aria-current="page"
         >
 
-            <i
-                class="fa-solid fa-house"
-                aria-hidden="true"
-            ></i>
+            <i class="fa-solid fa-house"></i>
 
             <span>
                 Home
@@ -1374,9 +1255,6 @@
         </button>
 
 
-
-        <!-- PROFILE -->
-
         <button
             type="button"
             class="bottom-nav-item"
@@ -1384,10 +1262,7 @@
             aria-label="Profile"
         >
 
-            <i
-                class="fa-solid fa-user"
-                aria-hidden="true"
-            ></i>
+            <i class="fa-solid fa-user"></i>
 
             <span>
                 Profile
@@ -1395,9 +1270,6 @@
 
         </button>
 
-
-
-        <!-- QR -->
 
         <button
             type="button"
@@ -1408,10 +1280,7 @@
 
             <span class="qr-nav-icon">
 
-                <i
-                    class="fa-solid fa-qrcode"
-                    aria-hidden="true"
-                ></i>
+                <i class="fa-solid fa-qrcode"></i>
 
             </span>
 
@@ -1422,9 +1291,6 @@
         </button>
 
 
-
-        <!-- HISTORY -->
-
         <button
             type="button"
             class="bottom-nav-item"
@@ -1432,10 +1298,7 @@
             aria-label="History"
         >
 
-            <i
-                class="fa-solid fa-clock-rotate-left"
-                aria-hidden="true"
-            ></i>
+            <i class="fa-solid fa-clock-rotate-left"></i>
 
             <span>
                 History
@@ -1444,9 +1307,6 @@
         </button>
 
 
-
-        <!-- FEEDBACK -->
-
         <button
             type="button"
             class="bottom-nav-item"
@@ -1454,10 +1314,7 @@
             aria-label="Feedback"
         >
 
-            <i
-                class="fa-solid fa-star"
-                aria-hidden="true"
-            ></i>
+            <i class="fa-solid fa-star"></i>
 
             <span>
                 Feedback
@@ -1466,9 +1323,6 @@
         </button>
 
 
-
-        <!-- CHAT -->
-
         <button
             type="button"
             class="bottom-nav-item"
@@ -1476,10 +1330,7 @@
             aria-label="Chat"
         >
 
-            <i
-                class="fa-solid fa-comments"
-                aria-hidden="true"
-            ></i>
+            <i class="fa-solid fa-comments"></i>
 
             <span>
                 Chat
@@ -1492,15 +1343,9 @@
 </div>
 
 
-
-<!-- =====================================================
-     CUSTOMER DASHBOARD JAVASCRIPT
-
-     IMPORTANT:
-     - NO FIREBASE INITIALIZATION
-     - NO ADMIN LOGIC
-     - CUSTOMER LOGIC ONLY
-===================================================== -->
+<!-- =================================================
+     CUSTOMER DASHBOARD JS
+================================================== -->
 
 <script
     type="module"
@@ -1509,5 +1354,4 @@
 
 
 </body>
-
 </html>
