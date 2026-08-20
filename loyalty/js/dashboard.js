@@ -1,26 +1,21 @@
 /* =====================================================
    RIO MAGGI POINT
    CUSTOMER DASHBOARD.JS
-   PREMIUM CUSTOMER DASHBOARD — FINAL CUSTOMER BUILD
+   FINAL CUSTOMER DASHBOARD BUILD
 
-   LOYALTY RULES:
-   - 40-DAY LOYALTY CYCLE
+   CUSTOMER ONLY
+   NO ADMIN LOGIC
+   NO FIREBASE INITIALIZATION
+
+   LOYALTY:
+   - 40 DAYS
    - 6 VALID STAMPS
    - 7TH VISUAL CIRCLE = FREE VEG MAGGI
-   - 7TH CIRCLE IS NOT A STAMP
-   - UNCLAIMED CYCLE EXPIRES AFTER 40 DAYS
-
-   ARCHITECTURE:
-   - ONE COMMON CUSTOMER DASHBOARD
-   - CUSTOMER SIDE ONLY
-   - NO ADMIN CODE
-   - NO FIREBASE INITIALIZATION HERE
-   - FIREBASE -> CENTRALIZED app.js
 ===================================================== */
 
 
 /* =====================================================
-   CENTRAL APP IMPORTS
+   CENTRAL APP
 ===================================================== */
 
 import {
@@ -43,59 +38,267 @@ import {
 
 
 /* =====================================================
-   CONFIGURATION
+   CONFIG
 ===================================================== */
 
 const STAMP_LIMIT =
-    Number(
-        APP_CONFIG?.loyaltyStampsRequired
-    ) || 6;
-
+    Number(APP_CONFIG?.loyaltyStampsRequired) || 6;
 
 const CARD_SLOTS =
-    Number(
-        APP_CONFIG?.loyaltyCardSlots
-    ) || 7;
-
+    Number(APP_CONFIG?.loyaltyCardSlots) || 7;
 
 const CYCLE_DAYS =
-    Number(
-        APP_CONFIG?.loyaltyCycleDays
-    ) || 40;
-
+    Number(APP_CONFIG?.loyaltyCycleDays) || 40;
 
 const DEFAULT_AVATAR =
     "assets/avatars/default.png";
 
 
 /* =====================================================
-   INTERNAL STATE
+   STATE
 ===================================================== */
 
 let dashboardInitialized = false;
-
 let navigationInitialized = false;
-
 let logoutInitialized = false;
-
 let notificationInitialized = false;
-
 let announcementsInitialized = false;
 
-let feedbackInitialized = false;
-
 let currentCustomer = null;
-
 let selectedFeedbackRating = 0;
+
+let heroTimer = null;
+let currentHeroIndex = 0;
 
 
 /* =====================================================
-   DOM HELPER
+   HELPERS
 ===================================================== */
 
 function getElement(id) {
-
     return document.getElementById(id);
+}
+
+
+function safeNumber(value, fallback = 0) {
+
+    const number = Number(value);
+
+    return Number.isFinite(number)
+        ? number
+        : fallback;
+}
+
+
+function normalizeStampCount(value) {
+
+    return Math.max(
+        0,
+        Math.min(
+            Math.floor(
+                safeNumber(value, 0)
+            ),
+            STAMP_LIMIT
+        )
+    );
+
+}
+
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+function toDateValue(value) {
+
+    if (!value) {
+        return null;
+    }
+
+    try {
+
+        if (
+            typeof value === "object" &&
+            typeof value.toDate === "function"
+        ) {
+
+            const date = value.toDate();
+
+            return Number.isNaN(date.getTime())
+                ? null
+                : date;
+
+        }
+
+
+        if (
+            typeof value === "object" &&
+            value.seconds !== undefined
+        ) {
+
+            const seconds =
+                Number(value.seconds);
+
+            const nanos =
+                Number(value.nanoseconds || 0);
+
+            const date =
+                new Date(
+                    seconds * 1000 +
+                    Math.floor(nanos / 1000000)
+                );
+
+            return Number.isNaN(date.getTime())
+                ? null
+                : date;
+
+        }
+
+
+        const date =
+            value instanceof Date
+                ? value
+                : new Date(value);
+
+
+        return Number.isNaN(date.getTime())
+            ? null
+            : date;
+
+    }
+    catch {
+
+        return null;
+
+    }
+
+}
+
+
+function formatDate(value) {
+
+    const date = toDateValue(value);
+
+    if (!date) {
+        return "";
+    }
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   CUSTOMER
+===================================================== */
+
+function getCustomerDisplayName(customer) {
+
+    if (!customer) {
+        return "Premium Member";
+    }
+
+    return (
+        String(
+            customer.name ||
+            customer.displayName ||
+            customer.fullName ||
+            "Premium Member"
+        ).trim() ||
+        "Premium Member"
+    );
+
+}
+
+
+function getCustomerAvatar(customer) {
+
+    return (
+        customer?.photoURL ||
+        customer?.avatar ||
+        customer?.profilePhoto ||
+        DEFAULT_AVATAR
+    );
+
+}
+
+
+function buildMemberId(uid) {
+
+    const cleanUid =
+        String(uid || "").trim();
+
+    return cleanUid
+        ? `RIO-${cleanUid.substring(0, 8).toUpperCase()}`
+        : "RIO-000000";
+
+}
+
+
+function getCustomerMemberId(customer) {
+
+    return (
+        customer?.memberId ||
+        customer?.memberID ||
+        customer?.customerId ||
+        customer?.customerID ||
+        buildMemberId(
+            customer?.uid
+        )
+    );
+
+}
+
+
+function getCustomerStampCount(customer) {
+
+    return normalizeStampCount(
+
+        customer?.stamps ??
+        customer?.stampCount ??
+        customer?.validStamps ??
+        customer?.currentStamps ??
+        0
+
+    );
+
+}
+
+
+function setAvatar(element, source) {
+
+    if (!element) {
+        return;
+    }
+
+    element.onerror = function () {
+
+        this.onerror = null;
+        this.src = DEFAULT_AVATAR;
+
+    };
+
+    element.src =
+        source || DEFAULT_AVATAR;
 
 }
 
@@ -104,14 +307,9 @@ function getElement(id) {
    DOM REFERENCES
 ===================================================== */
 
-const welcomeName =
-    getElement("welcomeName");
-
-const customerName =
-    getElement("customerName");
-
-const memberId =
-    getElement("memberId");
+const welcomeName = getElement("welcomeName");
+const customerName = getElement("customerName");
+const memberId = getElement("memberId");
 
 const customerAvatar =
     getElement("customerAvatar");
@@ -171,419 +369,57 @@ const viewAllAnnouncements =
     getElement("viewAllAnnouncements");
 
 const stampBoxes = [
-
     getElement("stamp1"),
-
     getElement("stamp2"),
-
     getElement("stamp3"),
-
     getElement("stamp4"),
-
     getElement("stamp5"),
-
     getElement("stamp6"),
-
     getElement("stamp7")
-
 ];
 
 
 /* =====================================================
-   SAFE NUMBER
-===================================================== */
-
-function safeNumber(
-    value,
-    fallback = 0
-) {
-
-    const number =
-        Number(value);
-
-    return Number.isFinite(number)
-        ? number
-        : fallback;
-
-}
-
-
-/* =====================================================
-   NORMALIZE STAMP COUNT
-
-   IMPORTANT:
-   Only 6 valid stamps are counted.
-   stamp7 is reward only.
-===================================================== */
-
-function normalizeStampCount(value) {
-
-    const number =
-        safeNumber(
-            value,
-            0
-        );
-
-    return Math.max(
-        0,
-        Math.min(
-            Math.floor(number),
-            STAMP_LIMIT
-        )
-    );
-
-}
-
-
-/* =====================================================
-   CUSTOMER DISPLAY NAME
-===================================================== */
-
-function getCustomerDisplayName(customer) {
-
-    if (!customer) {
-
-        return "Premium Member";
-
-    }
-
-    const name =
-        customer.name ||
-        customer.displayName ||
-        customer.fullName ||
-        "Premium Member";
-
-    return (
-        String(name).trim() ||
-        "Premium Member"
-    );
-
-}
-
-
-/* =====================================================
-   CUSTOMER AVATAR
-===================================================== */
-
-function getCustomerAvatar(customer) {
-
-    if (!customer) {
-
-        return DEFAULT_AVATAR;
-
-    }
-
-    return (
-        customer.photoURL ||
-        customer.avatar ||
-        customer.profilePhoto ||
-        DEFAULT_AVATAR
-    );
-
-}
-
-
-/* =====================================================
-   SAFE AVATAR
-===================================================== */
-
-function setAvatar(
-    element,
-    source
-) {
-
-    if (!element) {
-
-        return;
-
-    }
-
-    element.onerror =
-        function () {
-
-            this.onerror =
-                null;
-
-            this.src =
-                DEFAULT_AVATAR;
-
-        };
-
-    element.src =
-        source ||
-        DEFAULT_AVATAR;
-
-}
-
-
-/* =====================================================
-   BUILD MEMBER ID FALLBACK
-===================================================== */
-
-function buildMemberId(uid) {
-
-    const cleanUid =
-        String(uid || "");
-
-    if (!cleanUid) {
-
-        return "RIO-000000";
-
-    }
-
-    return (
-        "RIO-" +
-        cleanUid
-            .substring(
-                0,
-                8
-            )
-            .toUpperCase()
-    );
-
-}
-
-
-/* =====================================================
-   CUSTOMER MEMBER ID
-===================================================== */
-
-function getCustomerMemberId(customer) {
-
-    if (!customer) {
-
-        return "RIO-000000";
-
-    }
-
-    return (
-        customer.memberId ||
-        customer.memberID ||
-        customer.customerId ||
-        customer.customerID ||
-        buildMemberId(
-            customer.uid
-        )
-    );
-
-}
-
-
-/* =====================================================
-   GET CUSTOMER STAMPS
-===================================================== */
-
-function getCustomerStampCount(customer) {
-
-    if (!customer) {
-
-        return 0;
-
-    }
-
-    return normalizeStampCount(
-
-        customer.stamps ??
-        customer.stampCount ??
-        customer.validStamps ??
-        0
-
-    );
-
-}
-
-
-/* =====================================================
-   REWARD CLAIMED STATE
-===================================================== */
-
-function isRewardClaimed(customer) {
-
-    if (!customer) {
-
-        return false;
-
-    }
-
-    return (
-
-        customer.rewardClaimed === true ||
-
-        customer.rewardRedeemed === true ||
-
-        customer.rewardStatus ===
-            "claimed" ||
-
-        customer.rewardStatus ===
-            "redeemed"
-
-    );
-
-}
-
-
-/* =====================================================
-   DATE NORMALIZER
-===================================================== */
-
-function toDateValue(value) {
-
-    if (!value) {
-
-        return null;
-
-    }
-
-    if (
-        typeof value === "object" &&
-        typeof value.toDate ===
-            "function"
-    ) {
-
-        const date =
-            value.toDate();
-
-        return Number.isNaN(
-            date.getTime()
-        )
-            ? null
-            : date;
-
-    }
-
-    if (
-        typeof value === "object" &&
-        typeof value.seconds ===
-            "number"
-    ) {
-
-        const date =
-            new Date(
-                value.seconds * 1000
-            );
-
-        return Number.isNaN(
-            date.getTime()
-        )
-            ? null
-            : date;
-
-    }
-
-    const date =
-        new Date(value);
-
-    return Number.isNaN(
-        date.getTime()
-    )
-        ? null
-        : date;
-
-}
-
-
-/* =====================================================
-   FORMAT DATE
-===================================================== */
-
-function formatDate(value) {
-
-    const date =
-        toDateValue(
-            value
-        );
-
-    if (!date) {
-
-        return "";
-
-    }
-
-    return date.toLocaleDateString(
-        "en-IN",
-        {
-            day:
-                "2-digit",
-
-            month:
-                "short",
-
-            year:
-                "numeric"
-        }
-    );
-
-}
-
-
-/* =====================================================
-   UPDATE CUSTOMER NAMES
+   CUSTOMER HEADER/UI
 ===================================================== */
 
 function updateCustomerNames(customer) {
 
     const name =
-        getCustomerDisplayName(
-            customer
-        );
+        getCustomerDisplayName(customer);
 
     if (welcomeName) {
-
         welcomeName.textContent =
             `Hello, ${name} 👋`;
-
     }
 
     if (customerName) {
-
-        customerName.textContent =
-            name;
-
+        customerName.textContent = name;
     }
 
     if (qrCustomerName) {
-
-        qrCustomerName.textContent =
-            name;
-
+        qrCustomerName.textContent = name;
     }
 
 }
 
-
-/* =====================================================
-   UPDATE MEMBER ID
-===================================================== */
 
 function updateMemberId(customer) {
 
     if (!memberId) {
-
         return;
-
     }
 
-    const id =
-        getCustomerMemberId(
-            customer
-        );
-
     memberId.textContent =
-        `Member ID : ${id}`;
+        `Member ID : ${getCustomerMemberId(customer)}`;
 
 }
 
 
-/* =====================================================
-   UPDATE CUSTOMER AVATARS
-===================================================== */
-
 function updateCustomerAvatars(customer) {
 
     const avatar =
-        getCustomerAvatar(
-            customer
-        );
+        getCustomerAvatar(customer);
 
     setAvatar(
         customerAvatar,
@@ -599,41 +435,40 @@ function updateCustomerAvatars(customer) {
 
 
 /* =====================================================
-   UPDATE STAMP COUNT
+   STAMPS
 ===================================================== */
 
-function updateStampCountUI(
-    count
-) {
+function isRewardClaimed(customer) {
 
-    const total =
-        normalizeStampCount(
-            count
-        );
+    return Boolean(
 
-    if (stampCountElement) {
+        customer?.rewardClaimed === true ||
+        customer?.rewardRedeemed === true ||
+        customer?.rewardStatus === "claimed" ||
+        customer?.rewardStatus === "redeemed"
 
-        stampCountElement.textContent =
-            String(total);
-
-    }
-
-    if (qrStampCount) {
-
-        qrStampCount.textContent =
-            String(total);
-
-    }
+    );
 
 }
 
 
-/* =====================================================
-   UPDATE STAMP / REWARD CIRCLES
+function updateStampCountUI(count) {
 
-   1-6 -> actual stamps
-   7   -> FREE reward
-===================================================== */
+    const total =
+        normalizeStampCount(count);
+
+    if (stampCountElement) {
+        stampCountElement.textContent =
+            String(total);
+    }
+
+    if (qrStampCount) {
+        qrStampCount.textContent =
+            String(total);
+    }
+
+}
+
 
 function updateStampBoxes(
     count,
@@ -642,76 +477,53 @@ function updateStampBoxes(
 ) {
 
     const total =
-        normalizeStampCount(
-            count
-        );
+        normalizeStampCount(count);
 
-
-    /*
-     * ---------------------------------------------
-     * STAMP CIRCLES 1-6
-     * ---------------------------------------------
-     */
 
     stampBoxes
-        .slice(
-            0,
-            STAMP_LIMIT
-        )
-        .forEach(
-            (
-                box,
-                index
-            ) => {
+        .slice(0, STAMP_LIMIT)
+        .forEach((box, index) => {
 
-                if (!box) {
+            if (!box) {
+                return;
+            }
 
-                    return;
+            box.classList.remove(
+                "active",
+                "completed",
+                "locked"
+            );
 
-                }
+            if (index < total) {
 
-                box.classList.remove(
+                box.classList.add(
                     "active",
-                    "completed",
+                    "completed"
+                );
+
+                box.innerHTML =
+                    `<i class="fa-solid fa-check" aria-hidden="true"></i>`;
+
+            }
+            else {
+
+                box.classList.add(
                     "locked"
                 );
 
-
-                if (index < total) {
-
-                    box.classList.add(
-                        "active",
-                        "completed"
-                    );
-
-                }
-
-                else {
-
-                    box.classList.add(
-                        "locked"
-                    );
-
-                }
+                box.innerHTML =
+                    `<span>${index + 1}</span>`;
 
             }
-        );
 
+        });
 
-    /*
-     * ---------------------------------------------
-     * 7TH REWARD CIRCLE
-     * ---------------------------------------------
-     */
 
     const rewardBox =
         stampBoxes[STAMP_LIMIT];
 
-
     if (!rewardBox) {
-
         return;
-
     }
 
 
@@ -722,6 +534,12 @@ function updateStampBoxes(
         "reward-unlocked",
         "reward-claimed"
     );
+
+
+    rewardBox.innerHTML = `
+        <i class="fa-solid fa-gift" aria-hidden="true"></i>
+        <span>FREE</span>
+    `;
 
 
     if (rewardClaimed) {
@@ -755,57 +573,36 @@ function updateStampBoxes(
 }
 
 
-/* =====================================================
-   UPDATE PROGRESS BAR
-
-   Progress is ALWAYS based on 6 stamps.
-===================================================== */
-
-function updateProgressBar(
-    count
-) {
+function updateProgressBar(count) {
 
     const total =
-        normalizeStampCount(
-            count
-        );
-
+        normalizeStampCount(count);
 
     const percentage =
         Math.round(
-            (
-                total /
-                STAMP_LIMIT
-            ) * 100
+            (total / STAMP_LIMIT) * 100
         );
 
 
-    if (!loyaltyProgress) {
+    if (loyaltyProgress) {
 
-        return;
+        loyaltyProgress.style.width =
+            `${percentage}%`;
 
     }
 
 
-    loyaltyProgress.style.width =
-        `${percentage}%`;
-
-
-    if (
-        loyaltyProgressBar
-    ) {
+    if (loyaltyProgressBar) {
 
         loyaltyProgressBar.setAttribute(
             "aria-valuenow",
             String(total)
         );
 
-
         loyaltyProgressBar.setAttribute(
             "aria-valuemin",
             "0"
         );
-
 
         loyaltyProgressBar.setAttribute(
             "aria-valuemax",
@@ -818,29 +615,17 @@ function updateProgressBar(
 
 
 /* =====================================================
-   GET CYCLE START
+   CYCLE
 ===================================================== */
 
-function getCycleStartDate(
-    customer
-) {
-
-    if (!customer) {
-
-        return null;
-
-    }
+function getCycleStartDate(customer) {
 
     return toDateValue(
 
-        customer.cycleStartDate ||
-
-        customer.loyaltyCycleStart ||
-
-        customer.stampCycleStart ||
-
-        customer.cycleStartedAt ||
-
+        customer?.cycleStartDate ||
+        customer?.loyaltyCycleStart ||
+        customer?.stampCycleStart ||
+        customer?.cycleStartedAt ||
         null
 
     );
@@ -848,43 +633,25 @@ function getCycleStartDate(
 }
 
 
-/* =====================================================
-   CALCULATE CYCLE DAYS REMAINING
-===================================================== */
-
-function calculateCycleDaysRemaining(
-    customer
-) {
+function calculateCycleDaysRemaining(customer) {
 
     if (!customer) {
-
         return CYCLE_DAYS;
-
     }
 
 
-    /*
-     * Prefer backend/server calculated value.
-     */
-
-    const explicitRemaining =
+    const explicit =
         Number(
             customer.cycleDaysRemaining
         );
 
 
-    if (
-        Number.isFinite(
-            explicitRemaining
-        )
-    ) {
+    if (Number.isFinite(explicit)) {
 
         return Math.max(
             0,
             Math.min(
-                Math.floor(
-                    explicitRemaining
-                ),
+                Math.floor(explicit),
                 CYCLE_DAYS
             )
         );
@@ -892,24 +659,18 @@ function calculateCycleDaysRemaining(
     }
 
 
-    const compatibilityRemaining =
+    const compatibility =
         Number(
             customer.daysRemaining
         );
 
 
-    if (
-        Number.isFinite(
-            compatibilityRemaining
-        )
-    ) {
+    if (Number.isFinite(compatibility)) {
 
         return Math.max(
             0,
             Math.min(
-                Math.floor(
-                    compatibilityRemaining
-                ),
+                Math.floor(compatibility),
                 CYCLE_DAYS
             )
         );
@@ -918,15 +679,11 @@ function calculateCycleDaysRemaining(
 
 
     const cycleStart =
-        getCycleStartDate(
-            customer
-        );
+        getCycleStartDate(customer);
 
 
     if (!cycleStart) {
-
         return CYCLE_DAYS;
-
     }
 
 
@@ -934,144 +691,96 @@ function calculateCycleDaysRemaining(
         new Date();
 
 
-    const elapsedMilliseconds =
-        Math.max(
-            0,
-            now.getTime() -
-            cycleStart.getTime()
+    const start =
+        new Date(
+            cycleStart.getFullYear(),
+            cycleStart.getMonth(),
+            cycleStart.getDate()
         );
 
 
-    const elapsedDays =
+    const today =
+        new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate()
+        );
+
+
+    const elapsed =
         Math.floor(
-            elapsedMilliseconds /
-            86400000
+            (today - start) / 86400000
         );
 
 
     return Math.max(
         0,
-        CYCLE_DAYS -
-        elapsedDays
+        CYCLE_DAYS - elapsed
     );
 
 }
 
 
-/* =====================================================
-   GET LOYALTY CYCLE STATE
-===================================================== */
-
-function getLoyaltyCycleState(
-    customer
-) {
+function getLoyaltyCycleState(customer) {
 
     const stamps =
-        getCustomerStampCount(
-            customer
-        );
-
+        getCustomerStampCount(customer);
 
     const rewardClaimed =
-        isRewardClaimed(
-            customer
-        );
-
+        isRewardClaimed(customer);
 
     const daysRemaining =
         calculateCycleDaysRemaining(
             customer
         );
 
-
     const rewardUnlocked =
-        stamps >= STAMP_LIMIT;
-
+        stamps >= STAMP_LIMIT &&
+        !rewardClaimed;
 
     const expired =
-        daysRemaining <= 0;
+        daysRemaining <= 0 &&
+        stamps < STAMP_LIMIT &&
+        !rewardClaimed;
 
 
-    let status =
-        "active";
+    let status = "active";
 
-
-    if (
-        rewardClaimed
-    ) {
-
-        status =
-            "claimed";
-
+    if (rewardClaimed) {
+        status = "claimed";
     }
-
-    else if (
-        rewardUnlocked &&
-        !expired
-    ) {
-
-        status =
-            "reward-unlocked";
-
+    else if (rewardUnlocked) {
+        status = "reward-unlocked";
     }
-
-    else if (
-        expired
-    ) {
-
-        status =
-            "expired";
-
+    else if (expired) {
+        status = "expired";
     }
 
 
     return {
-
         stamps,
-
-        stampLimit:
-            STAMP_LIMIT,
-
-        cardSlots:
-            CARD_SLOTS,
-
+        stampLimit: STAMP_LIMIT,
+        cardSlots: CARD_SLOTS,
         daysRemaining,
-
-        cycleDays:
-            CYCLE_DAYS,
-
+        cycleDays: CYCLE_DAYS,
         rewardUnlocked,
-
         rewardClaimed,
-
         expired,
-
         status
-
     };
 
 }
 
 
-/* =====================================================
-   UPDATE CYCLE DISPLAY
-===================================================== */
-
-function updateCycleDays(
-    customer
-) {
+function updateCycleDays(customer) {
 
     if (!cycleDaysRemaining) {
-
         return;
-
     }
 
 
     const state =
-        getLoyaltyCycleState(
-            customer
-        );
+        getLoyaltyCycleState(customer);
 
 
     const remaining =
@@ -1079,17 +788,11 @@ function updateCycleDays(
 
 
     cycleDaysRemaining.textContent =
-        `${remaining} Day${
-            remaining === 1
-                ? ""
-                : "s"
-        }`;
+        `${remaining} Day${remaining === 1 ? "" : "s"}`;
 
 
     if (!cycleStatus) {
-
         return;
-
     }
 
 
@@ -1100,12 +803,6 @@ function updateCycleDays(
     );
 
 
-    /*
-     * ---------------------------------------------
-     * EXPIRED
-     * ---------------------------------------------
-     */
-
     if (
         state.expired &&
         !state.rewardClaimed
@@ -1115,7 +812,6 @@ function updateCycleDays(
             "expired"
         );
 
-
         cycleStatus.textContent =
             "Your 40-day loyalty cycle has expired.";
 
@@ -1124,67 +820,39 @@ function updateCycleDays(
     }
 
 
-    /*
-     * ---------------------------------------------
-     * REWARD UNLOCKED
-     * ---------------------------------------------
-     */
-
     if (
-        state.rewardUnlocked &&
-        !state.rewardClaimed
+        state.rewardUnlocked
     ) {
 
         cycleStatus.classList.add(
             "active"
         );
 
-
         cycleStatus.textContent =
-            "FREE Veg Maggi is unlocked. Claim your reward before the cycle expires.";
+            "FREE Veg Maggi is unlocked. Claim your reward.";
 
         return;
 
     }
 
 
-    /*
-     * ---------------------------------------------
-     * WARNING
-     * ---------------------------------------------
-     */
-
-    if (
-        remaining <= 7
-    ) {
+    if (remaining <= 7) {
 
         cycleStatus.classList.add(
             "warning"
         );
 
-
         cycleStatus.textContent =
-            `Your 40-day loyalty cycle expires in ${remaining} day${
-                remaining === 1
-                    ? ""
-                    : "s"
-            }.`;
+            `Your 40-day loyalty cycle expires in ${remaining} day${remaining === 1 ? "" : "s"}.`;
 
         return;
 
     }
 
 
-    /*
-     * ---------------------------------------------
-     * ACTIVE
-     * ---------------------------------------------
-     */
-
     cycleStatus.classList.add(
         "active"
     );
-
 
     cycleStatus.textContent =
         "Your 40-day loyalty cycle is active.";
@@ -1193,7 +861,7 @@ function updateCycleDays(
 
 
 /* =====================================================
-   UPDATE REWARD STATUS
+   REWARD
 ===================================================== */
 
 function updateRewardStatus(
@@ -1203,9 +871,7 @@ function updateRewardStatus(
 ) {
 
     if (!rewardStatus) {
-
         return;
-
     }
 
 
@@ -1223,136 +889,72 @@ function updateRewardStatus(
     );
 
 
-    /*
-     * CLAIMED
-     */
-
     if (rewardClaimed) {
 
         rewardStatus.classList.add(
             "reward-used"
         );
 
-
         rewardStatus.innerHTML = `
-
-            <strong>
-                🎉 FREE Veg Maggi Claimed
-            </strong>
-
-            <span>
-                Your reward has been redeemed.
-            </span>
-
+            <strong>🎉 FREE Veg Maggi Claimed</strong>
+            <span>Your reward has been redeemed.</span>
         `;
-
 
         return;
 
     }
 
 
-    /*
-     * EXPIRED
-     */
-
-    if (
-        cycleExpired
-    ) {
+    if (cycleExpired) {
 
         rewardStatus.classList.add(
             "reward-expired"
         );
 
-
         rewardStatus.innerHTML = `
-
-            <strong>
-                ⏰ Loyalty Cycle Expired
-            </strong>
-
-            <span>
-                Your ${total} stamp${
-                    total === 1
-                        ? ""
-                        : "s"
-                } were not completed and claimed within 40 days.
-            </span>
-
+            <strong>⏰ Loyalty Cycle Expired</strong>
+            <span>Your current cycle has expired.</span>
         `;
-
 
         return;
 
     }
 
 
-    /*
-     * UNLOCKED
-     */
-
-    if (
-        total >= STAMP_LIMIT
-    ) {
+    if (total >= STAMP_LIMIT) {
 
         rewardStatus.classList.add(
             "reward-unlocked"
         );
 
-
         rewardStatus.innerHTML = `
-
-            <strong>
-                🎉 FREE Veg Maggi Unlocked!
-            </strong>
-
-            <span>
-                All 6 valid stamps are complete.
-                Claim your FREE Veg Maggi before the 40-day cycle expires.
-            </span>
-
+            <strong>🎉 FREE Veg Maggi Unlocked!</strong>
+            <span>All 6 valid stamps are complete.</span>
         `;
-
 
         return;
 
     }
 
 
-    /*
-     * LOCKED
-     */
-
     rewardStatus.classList.add(
         "reward-locked"
     );
 
-
     const remaining =
-        STAMP_LIMIT -
-        total;
-
+        STAMP_LIMIT - total;
 
     rewardStatus.innerHTML = `
-
-        <strong>
-            Reward Locked
-        </strong>
-
+        <strong>Reward Locked</strong>
         <span>
             Collect ${remaining} more valid
             stamp${remaining === 1 ? "" : "s"}
             to unlock FREE Veg Maggi 🍜
         </span>
-
     `;
 
 }
 
-
-/* =====================================================
-   UPDATE COMPLETE LOYALTY UI
-===================================================== */
 
 function updateStamps(
     count = 0,
@@ -1361,10 +963,7 @@ function updateStamps(
 ) {
 
     const total =
-        normalizeStampCount(
-            count
-        );
-
+        normalizeStampCount(count);
 
     const rewardUnlocked =
         total >= STAMP_LIMIT &&
@@ -1372,10 +971,7 @@ function updateStamps(
         !rewardClaimed;
 
 
-    updateStampCountUI(
-        total
-    );
-
+    updateStampCountUI(total);
 
     updateStampBoxes(
         total,
@@ -1383,11 +979,7 @@ function updateStamps(
         rewardClaimed
     );
 
-
-    updateProgressBar(
-        total
-    );
-
+    updateProgressBar(total);
 
     updateRewardStatus(
         total,
@@ -1399,106 +991,44 @@ function updateStamps(
 
 
 /* =====================================================
-   ESCAPE HTML
+   PROFILE
 ===================================================== */
 
-function escapeHTML(
-    value
-) {
-
-    return String(
-        value ?? ""
-    )
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-/* =====================================================
-   RENDER PROFILE
-===================================================== */
-
-function renderProfileSection(
-    customer
-) {
+function renderProfileSection(customer) {
 
     if (!profileContent) {
-
         return;
-
     }
 
 
     const name =
-        getCustomerDisplayName(
-            customer
-        );
-
+        getCustomerDisplayName(customer);
 
     const email =
         customer?.email ||
         auth.currentUser?.email ||
         "";
 
-
     const gender =
         customer?.gender ||
         "";
-
 
     const dob =
         customer?.dob ||
         customer?.dateOfBirth ||
         "";
 
-
     const member =
-        getCustomerMemberId(
-            customer
-        );
-
+        getCustomerMemberId(customer);
 
     const photo =
-        getCustomerAvatar(
-            customer
-        );
-
+        getCustomerAvatar(customer);
 
     const dobText =
-        formatDate(
-            dob
-        );
-
+        formatDate(dob);
 
     const stamps =
-        getCustomerStampCount(
-            customer
-        );
-
-
-    const dobLocked =
-        Boolean(
-            dob
-        );
+        getCustomerStampCount(customer);
 
 
     profileContent.innerHTML = `
@@ -1523,18 +1053,13 @@ function renderProfileSection(
                         ${escapeHTML(name)}
                     </h3>
 
-
                     <p>
                         ${escapeHTML(email)}
                     </p>
 
-
                     <span class="dashboard-profile-member-badge">
-
                         <i class="fa-solid fa-crown"></i>
-
                         Premium Member
-
                     </span>
 
                 </div>
@@ -1545,75 +1070,35 @@ function renderProfileSection(
             <div class="dashboard-profile-info-grid">
 
                 <div class="dashboard-profile-info-item">
-
-                    <span>
-                        Member ID
-                    </span>
-
-                    <strong>
-                        ${escapeHTML(member)}
-                    </strong>
-
+                    <span>Member ID</span>
+                    <strong>${escapeHTML(member)}</strong>
                 </div>
 
-
                 <div class="dashboard-profile-info-item">
-
-                    <span>
-                        Gender
-                    </span>
-
+                    <span>Gender</span>
                     <strong>
                         ${
                             gender
                                 ? escapeHTML(
-                                    String(
-                                        gender
-                                    )
-                                        .charAt(
-                                            0
-                                        )
+                                    String(gender)
+                                        .charAt(0)
                                         .toUpperCase() +
-                                    String(
-                                        gender
-                                    )
-                                        .slice(
-                                            1
-                                        )
+                                    String(gender)
+                                        .slice(1)
                                 )
                                 : "Not Set"
                         }
                     </strong>
-
                 </div>
 
-
                 <div class="dashboard-profile-info-item">
-
-                    <span>
-                        Date of Birth
-                    </span>
-
-                    <strong>
-                        ${
-                            dobText ||
-                            "Not Set"
-                        }
-                    </strong>
-
+                    <span>Date of Birth</span>
+                    <strong>${escapeHTML(dobText || "Not Set")}</strong>
                 </div>
 
-
                 <div class="dashboard-profile-info-item">
-
-                    <span>
-                        Loyalty
-                    </span>
-
-                    <strong>
-                        ${stamps}/${STAMP_LIMIT}
-                    </strong>
-
+                    <span>Loyalty</span>
+                    <strong>${stamps}/${STAMP_LIMIT}</strong>
                 </div>
 
             </div>
@@ -1625,10 +1110,8 @@ function renderProfileSection(
 
                 <span>
                     ${
-                        dobLocked
-
+                        dob
                             ? "Date of Birth is protected. Changes require admin approval."
-
                             : "Date of Birth can be set once. Future changes require admin approval."
                     }
                 </span>
@@ -1636,7 +1119,6 @@ function renderProfileSection(
             </div>
 
         </div>
-
     `;
 
 
@@ -1651,11 +1133,8 @@ function renderProfileSection(
         profileImage.onerror =
             function () {
 
-                this.onerror =
-                    null;
-
-                this.src =
-                    DEFAULT_AVATAR;
+                this.onerror = null;
+                this.src = DEFAULT_AVATAR;
 
             };
 
@@ -1665,34 +1144,21 @@ function renderProfileSection(
 
 
 /* =====================================================
-   RENDER HISTORY
+   HISTORY
 ===================================================== */
 
-function renderHistorySection(
-    customer
-) {
+function renderHistorySection(customer) {
 
     if (!historyList) {
-
         return;
-
     }
 
 
     const history =
-
-        Array.isArray(
-            customer?.stampHistory
-        )
-
+        Array.isArray(customer?.stampHistory)
             ? customer.stampHistory
-
-            : Array.isArray(
-                customer?.history
-            )
-
+            : Array.isArray(customer?.history)
                 ? customer.history
-
                 : [];
 
 
@@ -1713,9 +1179,7 @@ function renderHistorySection(
                 </p>
 
             </div>
-
         `;
-
 
         return;
 
@@ -1723,103 +1187,68 @@ function renderHistorySection(
 
 
     historyList.innerHTML =
-
         history
-            .slice(
-                0,
-                30
-            )
-            .map(
-                (
-                    item,
-                    index
-                ) => {
+            .slice(0, 30)
+            .map((item, index) => {
 
-                    const date =
-                        item?.date ||
-                        item?.createdAt ||
-                        item?.timestamp ||
-                        "";
+                const date =
+                    item?.date ||
+                    item?.createdAt ||
+                    item?.timestamp ||
+                    "";
 
+                const stamp =
+                    item?.stamp ??
+                    item?.stampNumber ??
+                    item?.stamps ??
+                    index + 1;
 
-                    const stamp =
-                        item?.stamp ??
-                        item?.stampNumber ??
-                        item?.stamps ??
-                        (
-                            index + 1
-                        );
+                const text =
+                    item?.description ||
+                    item?.action ||
+                    "Loyalty stamp recorded";
 
 
-                    const text =
-                        item?.description ||
-                        item?.action ||
-                        "Loyalty stamp recorded";
+                return `
+                    <div class="history-item">
 
+                        <div class="history-item-icon">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
 
-                    return `
+                        <div class="history-item-content">
 
-                        <div class="history-item">
+                            <strong>
+                                ${escapeHTML(text)}
+                            </strong>
 
-                            <div class="history-item-icon">
-
-                                <i class="fa-solid fa-star"></i>
-
-                            </div>
-
-
-                            <div class="history-item-content">
-
-                                <strong>
-                                    ${escapeHTML(
-                                        text
-                                    )}
-                                </strong>
-
-
-                                <span>
-                                    Stamp ${
-                                        escapeHTML(
-                                            stamp
-                                        )
-                                    }
-                                </span>
-
-                            </div>
-
-
-                            <time>
-                                ${escapeHTML(
-                                    formatDate(
-                                        date
-                                    ) ||
-                                    "—"
-                                )}
-                            </time>
+                            <span>
+                                Stamp ${escapeHTML(stamp)}
+                            </span>
 
                         </div>
 
-                    `;
+                        <time>
+                            ${escapeHTML(formatDate(date) || "—")}
+                        </time>
 
-                }
-            )
+                    </div>
+                `;
+
+            })
             .join("");
 
 }
 
 
 /* =====================================================
-   RENDER FEEDBACK
+   FEEDBACK
 ===================================================== */
 
-function renderFeedbackSection(
-    customer
-) {
+function renderFeedbackSection(customer) {
 
     if (!feedbackContent) {
-
         return;
-
     }
 
 
@@ -1829,21 +1258,24 @@ function renderFeedbackSection(
         null;
 
 
+    selectedFeedbackRating =
+        safeNumber(
+            existingFeedback?.rating,
+            0
+        );
+
+
     feedbackContent.innerHTML = `
 
         <div class="dashboard-feedback-card">
 
             <div class="dashboard-feedback-icon">
-
                 <i class="fa-solid fa-star"></i>
-
             </div>
-
 
             <h3>
                 Tell Us About Your Experience
             </h3>
-
 
             <p>
                 Share what you enjoyed at Rio Maggi Point.
@@ -1852,49 +1284,26 @@ function renderFeedbackSection(
 
             <div class="dashboard-rating">
 
-                <button
-                    type="button"
-                    data-rating="1"
-                    aria-label="Rate 1 star"
-                >
-                    ★
-                </button>
-
-
-                <button
-                    type="button"
-                    data-rating="2"
-                    aria-label="Rate 2 stars"
-                >
-                    ★
-                </button>
-
-
-                <button
-                    type="button"
-                    data-rating="3"
-                    aria-label="Rate 3 stars"
-                >
-                    ★
-                </button>
-
-
-                <button
-                    type="button"
-                    data-rating="4"
-                    aria-label="Rate 4 stars"
-                >
-                    ★
-                </button>
-
-
-                <button
-                    type="button"
-                    data-rating="5"
-                    aria-label="Rate 5 stars"
-                >
-                    ★
-                </button>
+                ${[1, 2, 3, 4, 5]
+                    .map(
+                        rating => `
+                            <button
+                                type="button"
+                                data-rating="${rating}"
+                                aria-label="Rate ${rating} star"
+                                class="${
+                                    rating <=
+                                    selectedFeedbackRating
+                                        ? "selected"
+                                        : ""
+                                }"
+                            >
+                                ★
+                            </button>
+                        `
+                    )
+                    .join("")
+                }
 
             </div>
 
@@ -1905,8 +1314,7 @@ function renderFeedbackSection(
                 maxlength="500"
                 placeholder="Tell us what you enjoyed..."
             >${escapeHTML(
-                existingFeedback?.message ||
-                ""
+                existingFeedback?.message || ""
             )}</textarea>
 
 
@@ -1931,7 +1339,6 @@ function renderFeedbackSection(
             ></div>
 
         </div>
-
     `;
 
 
@@ -1940,77 +1347,59 @@ function renderFeedbackSection(
 }
 
 
-/* =====================================================
-   FEEDBACK CONTROLS
-===================================================== */
-
 function initializeFeedbackControls() {
 
-    if (feedbackInitialized) {
-
+    if (!feedbackContent) {
         return;
-
     }
 
 
-    feedbackInitialized =
-        true;
-
-
-    selectedFeedbackRating =
-        0;
-
-
     const ratingButtons =
-        feedbackContent?.querySelectorAll(
+        feedbackContent.querySelectorAll(
             "[data-rating]"
         );
 
 
-    ratingButtons?.forEach(
-        button => {
+    ratingButtons.forEach(button => {
 
-            button.addEventListener(
-                "click",
-                () => {
+        button.addEventListener(
+            "click",
+            () => {
 
-                    selectedFeedbackRating =
-                        Number(
-                            button.dataset.rating
-                        );
-
-
-                    ratingButtons.forEach(
-                        item => {
-
-                            item.classList.toggle(
-                                "selected",
-                                Number(
-                                    item.dataset.rating
-                                ) <=
-                                selectedFeedbackRating
-                            );
-
-                        }
+                selectedFeedbackRating =
+                    Number(
+                        button.dataset.rating
                     );
 
-                }
-            );
 
-        }
-    );
+                ratingButtons.forEach(
+                    item => {
+
+                        item.classList.toggle(
+                            "selected",
+                            Number(
+                                item.dataset.rating
+                            ) <=
+                            selectedFeedbackRating
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    });
 
 
     const submitButton =
-        getElement(
-            "dashboardFeedbackSubmit"
+        feedbackContent.querySelector(
+            "#dashboardFeedbackSubmit"
         );
 
 
     if (!submitButton) {
-
         return;
-
     }
 
 
@@ -2019,27 +1408,21 @@ function initializeFeedbackControls() {
         () => {
 
             const textarea =
-                getElement(
-                    "dashboardFeedbackText"
+                feedbackContent.querySelector(
+                    "#dashboardFeedbackText"
                 );
 
-
             const messageBox =
-                getElement(
-                    "dashboardFeedbackMessage"
+                feedbackContent.querySelector(
+                    "#dashboardFeedbackMessage"
                 );
 
 
             const text =
-                textarea?.value
-                    ?.trim() ||
-                "";
+                textarea?.value.trim() || "";
 
 
-            if (
-                selectedFeedbackRating <
-                1
-            ) {
+            if (selectedFeedbackRating < 1) {
 
                 if (messageBox) {
 
@@ -2078,7 +1461,6 @@ function initializeFeedbackControls() {
                     "rio-feedback-submit",
                     {
                         detail: {
-
                             rating:
                                 selectedFeedbackRating,
 
@@ -2087,7 +1469,6 @@ function initializeFeedbackControls() {
 
                             customer:
                                 currentCustomer
-
                         }
                     }
                 )
@@ -2111,17 +1492,13 @@ function initializeFeedbackControls() {
 
 
 /* =====================================================
-   RENDER SPECIAL OFFER
+   SPECIAL OFFER
 ===================================================== */
 
-function renderSpecialOffer(
-    customer
-) {
+function renderSpecialOffer(customer) {
 
     if (!specialOfferContainer) {
-
         return;
-
     }
 
 
@@ -2151,9 +1528,7 @@ function renderSpecialOffer(
                 </p>
 
             </div>
-
         `;
-
 
         return;
 
@@ -2165,11 +1540,8 @@ function renderSpecialOffer(
         <article class="special-offer-card">
 
             <div class="special-offer-icon">
-
                 <i class="fa-solid fa-gift"></i>
-
             </div>
-
 
             <div class="special-offer-content">
 
@@ -2177,14 +1549,12 @@ function renderSpecialOffer(
                     SPECIAL FOR YOU
                 </span>
 
-
                 <h3>
                     ${escapeHTML(
                         offer.title ||
                         "Special Offer"
                     )}
                 </h3>
-
 
                 <p>
                     ${escapeHTML(
@@ -2196,31 +1566,24 @@ function renderSpecialOffer(
             </div>
 
         </article>
-
     `;
 
 }
 
 
 /* =====================================================
-   RENDER ANNOUNCEMENTS
+   ANNOUNCEMENTS
 ===================================================== */
 
-function renderAnnouncements(
-    customer
-) {
+function renderAnnouncements(customer) {
 
     if (!announcementList) {
-
         return;
-
     }
 
 
     const announcements =
-        Array.isArray(
-            customer?.announcements
-        )
+        Array.isArray(customer?.announcements)
             ? customer.announcements
             : [];
 
@@ -2238,9 +1601,7 @@ function renderAnnouncements(
                 </p>
 
             </div>
-
         `;
-
 
         return;
 
@@ -2248,23 +1609,16 @@ function renderAnnouncements(
 
 
     announcementList.innerHTML =
-
         announcements
-            .slice(
-                0,
-                5
-            )
+            .slice(0, 5)
             .map(
                 item => `
 
                     <article class="announcement-item">
 
                         <div class="announcement-icon">
-
                             <i class="fa-solid fa-bullhorn"></i>
-
                         </div>
-
 
                         <div class="announcement-content">
 
@@ -2275,14 +1629,12 @@ function renderAnnouncements(
                                 )}
                             </span>
 
-
                             <h3>
                                 ${escapeHTML(
                                     item.title ||
                                     "Rio Maggi Point Update"
                                 )}
                             </h3>
-
 
                             <p>
                                 ${escapeHTML(
@@ -2295,7 +1647,6 @@ function renderAnnouncements(
                         </div>
 
                     </article>
-
                 `
             )
             .join("");
@@ -2304,23 +1655,18 @@ function renderAnnouncements(
 
 
 /* =====================================================
-   QR SECTION HOOK
+   QR HOOK
 ===================================================== */
 
-function updateQRSection(
-    customer
-) {
+function updateQRSection(customer) {
 
     if (!customerQrCode) {
-
         return;
-
     }
 
 
     if (
-        customer?._authOnlyFallback ===
-        true
+        customer?._authOnlyFallback === true
     ) {
 
         return;
@@ -2343,105 +1689,56 @@ function updateQRSection(
 
 
 /* =====================================================
-   RENDER COMPLETE CUSTOMER
+   COMPLETE RENDER
 ===================================================== */
 
-function renderCustomer(
-    customer
-) {
+function renderCustomer(customer) {
 
     if (
         !customer ||
-        typeof customer !==
-            "object"
+        typeof customer !== "object"
     ) {
-
         return;
+    }
+
+
+    const isFallback =
+        customer._authOnlyFallback === true;
+
+
+    if (!isFallback) {
+
+        currentCustomer = customer;
+
+        window.currentUser = customer;
 
     }
 
 
-    const isAuthOnlyFallback =
-        customer._authOnlyFallback ===
-        true;
-
-
-    if (!isAuthOnlyFallback) {
-
-        currentCustomer =
-            customer;
-
-        window.currentUser =
-            customer;
-
-    }
-
-
-    updateCustomerNames(
-        customer
-    );
-
-
-    updateMemberId(
-        customer
-    );
-
-
-    updateCustomerAvatars(
-        customer
-    );
+    updateCustomerNames(customer);
+    updateMemberId(customer);
+    updateCustomerAvatars(customer);
 
 
     const state =
-        getLoyaltyCycleState(
-            customer
-        );
+        getLoyaltyCycleState(customer);
 
 
     updateStamps(
-
         state.stamps,
-
         state.rewardClaimed,
-
         state.expired
-
     );
 
 
-    updateCycleDays(
-        customer
-    );
+    updateCycleDays(customer);
 
-
-    renderProfileSection(
-        customer
-    );
-
-
-    renderHistorySection(
-        customer
-    );
-
-
-    renderFeedbackSection(
-        customer
-    );
-
-
-    renderSpecialOffer(
-        customer
-    );
-
-
-    renderAnnouncements(
-        customer
-    );
-
-
-    updateQRSection(
-        customer
-    );
+    renderProfileSection(customer);
+    renderHistorySection(customer);
+    renderFeedbackSection(customer);
+    renderSpecialOffer(customer);
+    renderAnnouncements(customer);
+    updateQRSection(customer);
 
 
     window.dispatchEvent(
@@ -2449,27 +1746,18 @@ function renderCustomer(
             "rio-customer-rendered",
             {
                 detail: {
-
                     customer,
-
-                    stamps:
-                        state.stamps,
-
+                    stamps: state.stamps,
                     rewardClaimed:
                         state.rewardClaimed,
-
                     rewardUnlocked:
                         state.rewardUnlocked,
-
                     cycleExpired:
                         state.expired,
-
                     daysRemaining:
                         state.daysRemaining,
-
                     authOnlyFallback:
-                        isAuthOnlyFallback
-
+                        isFallback
                 }
             }
         )
@@ -2479,17 +1767,13 @@ function renderCustomer(
 
 
 /* =====================================================
-   LOAD REAL FIRESTORE CUSTOMER PROFILE
+   FIRESTORE CUSTOMER
 ===================================================== */
 
-async function loadCustomerProfile(
-    user
-) {
+async function loadCustomerProfile(user) {
 
     if (!user?.uid) {
-
         return null;
-
     }
 
 
@@ -2509,9 +1793,7 @@ async function loadCustomerProfile(
             );
 
 
-        if (
-            customerSnap.exists()
-        ) {
+        if (customerSnap.exists()) {
 
             const firestoreData =
                 customerSnap.data();
@@ -2536,6 +1818,7 @@ async function loadCustomerProfile(
 
                 photoURL:
                     firestoreData.photoURL ||
+                    firestoreData.avatar ||
                     user.photoURL ||
                     ""
 
@@ -2543,11 +1826,6 @@ async function loadCustomerProfile(
 
         }
 
-
-        /*
-         * Firestore customer document does not exist.
-         * Keep auth fallback as UI-only state.
-         */
 
         return {
 
@@ -2575,19 +1853,15 @@ async function loadCustomerProfile(
                     user.uid
                 ),
 
-            stamps:
-                0,
+            stamps: 0,
 
-            rewardClaimed:
-                false,
+            rewardClaimed: false,
 
-            _authOnlyFallback:
-                true
+            _authOnlyFallback: true
 
         };
 
     }
-
     catch (error) {
 
         console.error(
@@ -2622,14 +1896,11 @@ async function loadCustomerProfile(
                     user.uid
                 ),
 
-            stamps:
-                0,
+            stamps: 0,
 
-            rewardClaimed:
-                false,
+            rewardClaimed: false,
 
-            _authOnlyFallback:
-                true
+            _authOnlyFallback: true
 
         };
 
@@ -2645,15 +1916,13 @@ async function loadCustomerProfile(
 function initializeBottomNavigation() {
 
     if (navigationInitialized) {
-
         return;
-
     }
 
 
     const navItems =
         document.querySelectorAll(
-            ".bottom-nav-item"
+            "#bottomNavigation .bottom-nav-item"
         );
 
 
@@ -2663,130 +1932,150 @@ function initializeBottomNavigation() {
         );
 
 
-    if (!navItems.length) {
+    if (
+        !navItems.length ||
+        !sections.length
+    ) {
+
+        console.warn(
+            "Dashboard navigation elements not found."
+        );
 
         return;
 
     }
 
 
-    navigationInitialized =
-        true;
+    navigationInitialized = true;
 
 
-    navItems.forEach(
-        item => {
+    function activateSection(targetId) {
 
-            item.addEventListener(
-                "click",
-                () => {
-
-                    const targetId =
-                        item.dataset.section;
-
-
-                    if (!targetId) {
-
-                        return;
-
-                    }
-
-
-                    const targetSection =
-                        document.getElementById(
-                            targetId
-                        );
-
-
-                    if (!targetSection) {
-
-                        return;
-
-                    }
-
-
-                    sections.forEach(
-                        section => {
-
-                            section.classList.toggle(
-                                "active-section",
-                                section.id ===
-                                    targetId
-                            );
-
-                        }
-                    );
-
-
-                    navItems.forEach(
-                        navItem => {
-
-                            const active =
-                                navItem ===
-                                item;
-
-
-                            navItem.classList.toggle(
-                                "active",
-                                active
-                            );
-
-
-                            if (active) {
-
-                                navItem.setAttribute(
-                                    "aria-current",
-                                    "page"
-                                );
-
-                            }
-
-                            else {
-
-                                navItem.removeAttribute(
-                                    "aria-current"
-                                );
-
-                            }
-
-                        }
-                    );
-
-
-                    window.scrollTo(
-                        {
-                            top:
-                                0,
-
-                            behavior:
-                                "smooth"
-                        }
-                    );
-
-
-                    window.dispatchEvent(
-                        new CustomEvent(
-                            "dashboard-section-changed",
-                            {
-                                detail: {
-                                    section:
-                                        targetId
-                                }
-                            }
-                        )
-                    );
-
-                }
+        const targetSection =
+            document.getElementById(
+                targetId
             );
 
+
+        if (!targetSection) {
+            return false;
         }
+
+
+        sections.forEach(section => {
+
+            const active =
+                section.id === targetId;
+
+            section.classList.toggle(
+                "active-section",
+                active
+            );
+
+            section.setAttribute(
+                "aria-hidden",
+                active ? "false" : "true"
+            );
+
+        });
+
+
+        navItems.forEach(item => {
+
+            const active =
+                item.dataset.section === targetId;
+
+            item.classList.toggle(
+                "active",
+                active
+            );
+
+
+            if (active) {
+
+                item.setAttribute(
+                    "aria-current",
+                    "page"
+                );
+
+            }
+            else {
+
+                item.removeAttribute(
+                    "aria-current"
+                );
+
+            }
+
+        });
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+
+        window.dispatchEvent(
+            new CustomEvent(
+                "dashboard-section-changed",
+                {
+                    detail: {
+                        section: targetId
+                    }
+                }
+            )
+        );
+
+
+        return true;
+
+    }
+
+
+    navItems.forEach(item => {
+
+        item.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                const targetId =
+                    item.dataset.section;
+
+
+                if (!targetId) {
+                    return;
+                }
+
+
+                activateSection(
+                    targetId
+                );
+
+            }
+        );
+
+    });
+
+
+    const initiallyActive =
+        document.querySelector(
+            "#bottomNavigation .bottom-nav-item.active"
+        );
+
+
+    activateSection(
+        initiallyActive?.dataset.section ||
+        "homeSection"
     );
 
 }
 
 
 /* =====================================================
-   NOTIFICATION BUTTON
+   NOTIFICATIONS
 ===================================================== */
 
 function initializeNotificationButton() {
@@ -2795,23 +2084,42 @@ function initializeNotificationButton() {
         notificationInitialized ||
         !notificationBtn
     ) {
-
         return;
-
     }
 
 
-    notificationInitialized =
-        true;
+    notificationInitialized = true;
 
 
     notificationBtn.addEventListener(
         "click",
         () => {
 
+            const announcementSection =
+                document.querySelector(
+                    "#homeSection .announcement-list"
+                );
+
+
+            if (announcementSection) {
+
+                announcementSection.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+            }
+
+
             window.dispatchEvent(
                 new CustomEvent(
-                    "rio-notifications-open"
+                    "rio-notifications-open",
+                    {
+                        detail: {
+                            customer:
+                                currentCustomer
+                        }
+                    }
                 )
             );
 
@@ -2822,7 +2130,7 @@ function initializeNotificationButton() {
 
 
 /* =====================================================
-   ANNOUNCEMENT VIEW ALL
+   ANNOUNCEMENT BUTTON
 ===================================================== */
 
 function initializeAnnouncementButton() {
@@ -2831,14 +2139,11 @@ function initializeAnnouncementButton() {
         announcementsInitialized ||
         !viewAllAnnouncements
     ) {
-
         return;
-
     }
 
 
-    announcementsInitialized =
-        true;
+    announcementsInitialized = true;
 
 
     viewAllAnnouncements.addEventListener(
@@ -2870,66 +2175,28 @@ function initializeAnnouncementButton() {
 async function logoutCustomer() {
 
     if (!auth) {
-
         throw new Error(
             "Firebase Auth is unavailable."
         );
-
     }
 
 
-    try {
+    await signOut(auth);
 
-        await signOut(
-            auth
-        );
+    currentCustomer = null;
 
+    window.currentUser = null;
 
-        currentCustomer =
-            null;
-
-
-        window.currentUser =
-            null;
-
-
-        window.location.replace(
-            "login.html"
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Rio Dashboard Logout Error:",
-            error
-        );
-
-
-        alert(
-            "Logout failed. Please try again."
-        );
-
-
-        throw error;
-
-    }
+    window.location.replace(
+        "login.html"
+    );
 
 }
 
 
-/* =====================================================
-   GLOBAL LOGOUT API
-===================================================== */
-
 window.logoutCustomer =
     logoutCustomer;
 
-
-/* =====================================================
-   LOGOUT BUTTON
-===================================================== */
 
 function initializeLogout() {
 
@@ -2937,14 +2204,11 @@ function initializeLogout() {
         logoutInitialized ||
         !logoutBtn
     ) {
-
         return;
-
     }
 
 
-    logoutInitialized =
-        true;
+    logoutInitialized = true;
 
 
     logoutBtn.addEventListener(
@@ -2958,9 +2222,7 @@ function initializeLogout() {
 
 
             if (!confirmed) {
-
                 return;
-
             }
 
 
@@ -2969,10 +2231,16 @@ function initializeLogout() {
                 await logoutCustomer();
 
             }
+            catch (error) {
 
-            catch {
+                console.error(
+                    "Logout failed:",
+                    error
+                );
 
-                // Error already shown.
+                alert(
+                    "Logout failed. Please try again."
+                );
 
             }
 
@@ -2983,34 +2251,440 @@ function initializeLogout() {
 
 
 /* =====================================================
-   GLOBAL CUSTOMER UPDATE
+   HERO
 ===================================================== */
 
-window.updateCustomerDashboard =
-    function (
-        customer
+const HERO_DATA = [
+    {
+        title: "EVERYDAY MAGIC MAGGI",
+        subtitle: "Your favourite taste, made fresh for you.",
+        link: "menu.html#everyday-maggi"
+    },
+    {
+        title: "CHEESE MAGIC MAGGI",
+        subtitle: "Extra cheesy. Extra delicious.",
+        link: "menu.html#cheese-maggi"
+    },
+    {
+        title: "CHEESE BUTTER MAGIC MAGGI",
+        subtitle: "Rich butter with irresistible cheese.",
+        link: "menu.html#cheese-butter-maggi"
+    },
+    {
+        title: "UFO BURGER",
+        subtitle: "Fresh vegetarian burgers, made with love.",
+        link: "menu.html#ufo-burger"
+    },
+    {
+        title: "DELICIOUS MOMOS",
+        subtitle: "Hot, fresh and flavour-packed.",
+        link: "menu.html#momos"
+    },
+    {
+        title: "HOT SOUPS",
+        subtitle: "Warm, comforting and flavourful.",
+        link: "menu.html#soup"
+    },
+    {
+        title: "CRISPY SWEET CORN",
+        subtitle: "Perfectly seasoned and crispy.",
+        link: "menu.html#sweet-corn"
+    },
+    {
+        title: "CHIPS BHEL",
+        subtitle: "Crunchy, chatpata and loaded with flavour.",
+        link: "menu.html#chips-bhel"
+    }
+];
+
+
+function initHeroSlider() {
+
+    const track =
+        getElement(
+            "heroSliderTrack"
+        );
+
+    const dots =
+        getElement(
+            "sliderDots"
+        );
+
+    const prev =
+        getElement(
+            "sliderPrev"
+        );
+
+    const next =
+        getElement(
+            "sliderNext"
+        );
+
+
+    if (
+        !track ||
+        !dots
     ) {
+        return;
+    }
 
-        if (!customer) {
 
+    track.innerHTML =
+        HERO_DATA
+            .map(
+                (slide, index) => `
+
+                    <article
+                        class="hero-slide ${
+                            index === 0
+                                ? "active"
+                                : ""
+                        }"
+                        data-slide="${index}"
+                    >
+
+                        <div class="hero-slide-overlay"></div>
+
+                        <div class="hero-slide-content">
+
+                            <span>
+                                RIO MAGGI POINT
+                            </span>
+
+                            <h2>
+                                ${escapeHTML(
+                                    slide.title
+                                )}
+                            </h2>
+
+                            <p>
+                                ${escapeHTML(
+                                    slide.subtitle
+                                )}
+                            </p>
+
+                            <a
+                                href="${escapeHTML(
+                                    slide.link
+                                )}"
+                                class="hero-action"
+                            >
+                                View Menu
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+
+                        </div>
+
+                    </article>
+                `
+            )
+            .join("");
+
+
+    dots.innerHTML =
+        HERO_DATA
+            .map(
+                (_, index) => `
+
+                    <button
+                        type="button"
+                        class="slider-dot ${
+                            index === 0
+                                ? "active"
+                                : ""
+                        }"
+                        data-slide="${index}"
+                        aria-label="Slide ${index + 1}"
+                    ></button>
+
+                `
+            )
+            .join("");
+
+
+    const slides =
+        Array.from(
+            track.querySelectorAll(
+                ".hero-slide"
+            )
+        );
+
+
+    const dotButtons =
+        Array.from(
+            dots.querySelectorAll(
+                ".slider-dot"
+            )
+        );
+
+
+    function showSlide(index) {
+
+        if (!slides.length) {
             return;
-
         }
 
 
-        renderCustomer(
-            customer
+        currentHeroIndex =
+            (
+                index +
+                slides.length
+            ) %
+            slides.length;
+
+
+        slides.forEach(
+            (slide, slideIndex) => {
+
+                slide.classList.toggle(
+                    "active",
+                    slideIndex ===
+                        currentHeroIndex
+                );
+
+            }
         );
+
+
+        dotButtons.forEach(
+            (dot, dotIndex) => {
+
+                dot.classList.toggle(
+                    "active",
+                    dotIndex ===
+                        currentHeroIndex
+                );
+
+            }
+        );
+
+    }
+
+
+    prev?.addEventListener(
+        "click",
+        () => {
+
+            showSlide(
+                currentHeroIndex - 1
+            );
+
+            restartHeroTimer();
+
+        }
+    );
+
+
+    next?.addEventListener(
+        "click",
+        () => {
+
+            showSlide(
+                currentHeroIndex + 1
+            );
+
+            restartHeroTimer();
+
+        }
+    );
+
+
+    dotButtons.forEach(
+        dot => {
+
+            dot.addEventListener(
+                "click",
+                () => {
+
+                    showSlide(
+                        Number(
+                            dot.dataset.slide
+                        )
+                    );
+
+                    restartHeroTimer();
+
+                }
+            );
+
+        }
+    );
+
+
+    track.addEventListener(
+        "mouseenter",
+        stopHeroTimer
+    );
+
+
+    track.addEventListener(
+        "mouseleave",
+        startHeroTimer
+    );
+
+
+    showSlide(0);
+
+    startHeroTimer();
+
+}
+
+
+function stopHeroTimer() {
+
+    if (heroTimer) {
+
+        clearInterval(
+            heroTimer
+        );
+
+        heroTimer = null;
+
+    }
+
+}
+
+
+function startHeroTimer() {
+
+    stopHeroTimer();
+
+    heroTimer =
+        setInterval(
+            () => {
+
+                const slides =
+                    document.querySelectorAll(
+                        "#heroSliderTrack .hero-slide"
+                    );
+
+                if (!slides.length) {
+                    return;
+                }
+
+
+                currentHeroIndex =
+                    (
+                        currentHeroIndex +
+                        1
+                    ) %
+                    slides.length;
+
+
+                slides.forEach(
+                    (slide, index) => {
+
+                        slide.classList.toggle(
+                            "active",
+                            index ===
+                                currentHeroIndex
+                        );
+
+                    }
+                );
+
+
+                document
+                    .querySelectorAll(
+                        "#sliderDots .slider-dot"
+                    )
+                    .forEach(
+                        (dot, index) => {
+
+                            dot.classList.toggle(
+                                "active",
+                                index ===
+                                    currentHeroIndex
+                            );
+
+                        }
+                    );
+
+            },
+            5000
+        );
+
+}
+
+
+function restartHeroTimer() {
+    startHeroTimer();
+}
+
+
+/* =====================================================
+   IMAGE FALLBACK
+===================================================== */
+
+function initializeImageFallbacks() {
+
+    document
+        .querySelectorAll(
+            "img"
+        )
+        .forEach(
+            image => {
+
+                image.addEventListener(
+                    "error",
+                    () => {
+
+                        if (
+                            image.dataset.fallbackApplied ===
+                            "true"
+                        ) {
+                            return;
+                        }
+
+
+                        image.dataset.fallbackApplied =
+                            "true";
+
+
+                        if (
+                            image.dataset.fallback ===
+                            "true"
+                        ) {
+
+                            image.style.display =
+                                "none";
+
+                            return;
+
+                        }
+
+
+                        image.src =
+                            DEFAULT_AVATAR;
+
+                    },
+                    {
+                        once: true
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   PUBLIC API
+===================================================== */
+
+window.updateCustomerDashboard =
+    function(customer) {
+
+        if (customer) {
+            renderCustomer(customer);
+        }
 
     };
 
 
-/* =====================================================
-   STAMP SYNC
-===================================================== */
-
 window.syncDashboardStamps =
-    function (
+    function(
         count,
         rewardClaimed
     ) {
@@ -3022,99 +2696,40 @@ window.syncDashboardStamps =
 
 
         const claimed =
-
             typeof rewardClaimed ===
-            "boolean"
-
+                "boolean"
                 ? rewardClaimed
-
                 : isRewardClaimed(
                     currentCustomer
                 );
 
 
-        const state =
-            getLoyaltyCycleState({
-
-                ...(currentCustomer ||
-                    {}),
-
-                stamps:
-                    total,
-
-                rewardClaimed:
-                    claimed
-
-            });
-
-
         updateStamps(
-
             total,
-
             claimed,
-
-            state.expired
-
+            false
         );
-
-
-        if (currentCustomer) {
-
-            currentCustomer = {
-
-                ...currentCustomer,
-
-                stamps:
-                    total,
-
-                stampCount:
-                    total,
-
-                rewardClaimed:
-                    claimed
-
-            };
-
-
-            window.currentUser =
-                currentCustomer;
-
-        }
 
     };
 
 
-/* =====================================================
-   REFRESH LOYALTY UI
-===================================================== */
-
 window.refreshLoyaltyUI =
-    function () {
+    function() {
 
         if (!currentCustomer) {
-
             return;
-
         }
-
 
         const state =
             getLoyaltyCycleState(
                 currentCustomer
             );
 
-
         updateStamps(
-
             state.stamps,
-
             state.rewardClaimed,
-
             state.expired
-
         );
-
 
         updateCycleDays(
             currentCustomer
@@ -3123,67 +2738,70 @@ window.refreshLoyaltyUI =
     };
 
 
-/* =====================================================
-   REFRESH DASHBOARD
-===================================================== */
-
 window.refreshCustomerDashboard =
-    function () {
+    function() {
 
-        if (!currentCustomer) {
+        if (
+            currentCustomer
+        ) {
 
-            return;
+            renderCustomer(
+                currentCustomer
+            );
 
         }
-
-
-        renderCustomer(
-            currentCustomer
-        );
 
     };
 
 
-/* =====================================================
-   REFRESH REWARD
-===================================================== */
-
 window.refreshRewardStatus =
-    function (
+    function(
         stampCount
     ) {
 
         const customer =
-            currentCustomer ||
-            {};
-
+            currentCustomer || {};
 
         const state =
             getLoyaltyCycleState({
-
                 ...customer,
-
                 stamps:
                     stampCount
-
             });
 
 
         updateRewardStatus(
-
             state.stamps,
-
             state.rewardClaimed,
-
             state.expired
-
         );
 
     };
 
 
+window.getRioDashboardState =
+    function() {
+
+        const state =
+            currentCustomer
+                ? getLoyaltyCycleState(
+                    currentCustomer
+                )
+                : null;
+
+
+        return {
+            customer:
+                currentCustomer,
+            loyalty:
+                state
+        };
+
+    };
+
+
 /* =====================================================
-   AUTH STATE EVENT
+   EXTERNAL AUTH EVENT
 ===================================================== */
 
 window.addEventListener(
@@ -3195,17 +2813,9 @@ window.addEventListener(
 
 
         if (!user) {
-
             return;
-
         }
 
-
-        /*
-         * Temporary UI fallback only.
-         * Real Firestore customer data is loaded
-         * during dashboard initialization.
-         */
 
         if (!currentCustomer) {
 
@@ -3215,24 +2825,21 @@ window.addEventListener(
                     user.uid,
 
                 email:
-                    user.email ||
-                    "",
+                    user.email || "",
 
                 name:
                     user.displayName ||
                     "Premium Member",
 
                 photoURL:
-                    user.photoURL ||
-                    "",
+                    user.photoURL || "",
 
                 memberId:
                     buildMemberId(
                         user.uid
                     ),
 
-                stamps:
-                    0,
+                stamps: 0,
 
                 rewardClaimed:
                     false,
@@ -3249,130 +2856,13 @@ window.addEventListener(
 
 
 /* =====================================================
-   EXTERNAL CUSTOMER EVENTS
-===================================================== */
-
-window.addEventListener(
-    "dashboard-ready",
-    event => {
-
-        const customer =
-            event.detail ||
-            window.currentUser;
-
-
-        if (customer) {
-
-            renderCustomer(
-                customer
-            );
-
-        }
-
-    }
-);
-
-
-window.addEventListener(
-    "customer-updated",
-    event => {
-
-        const customer =
-            event.detail;
-
-
-        if (customer) {
-
-            renderCustomer(
-                customer
-            );
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   QR CUSTOMER EVENT
-===================================================== */
-
-window.addEventListener(
-    "rio-customer-rendered",
-    event => {
-
-        const customer =
-            event.detail?.customer;
-
-
-        if (
-            !customer ||
-            customer._authOnlyFallback ===
-                true
-        ) {
-
-            return;
-
-        }
-
-
-        updateQRSection(
-            customer
-        );
-
-    }
-);
-
-
-/* =====================================================
-   PUBLIC DASHBOARD API
-===================================================== */
-
-window.RioDashboard = {
-
-    renderCustomer,
-
-    updateStamps,
-
-    updateRewardStatus,
-
-    normalizeStampCount,
-
-    updateCycleDays,
-
-    updateProgressBar,
-
-    getCustomerStampCount,
-
-    isRewardClaimed,
-
-    getLoyaltyCycleState,
-
-    renderProfileSection,
-
-    renderHistorySection,
-
-    renderFeedbackSection,
-
-    renderSpecialOffer,
-
-    renderAnnouncements,
-
-    loadCustomerProfile
-
-};
-
-
-/* =====================================================
-   INITIALIZE DASHBOARD
+   INITIALIZE
 ===================================================== */
 
 async function initializeDashboard() {
 
     if (dashboardInitialized) {
-
         return;
-
     }
 
 
@@ -3387,6 +2877,10 @@ async function initializeDashboard() {
     initializeAnnouncementButton();
 
     initializeLogout();
+
+    initializeImageFallbacks();
+
+    initHeroSlider();
 
 
     try {
@@ -3405,10 +2899,6 @@ async function initializeDashboard() {
 
         }
 
-
-        /*
-         * Load REAL customer document.
-         */
 
         const customer =
             await loadCustomerProfile(
@@ -3430,11 +2920,8 @@ async function initializeDashboard() {
                 "dashboard-ui-ready",
                 {
                     detail: {
-
                         user,
-
                         customer
-
                     }
                 }
             )
@@ -3461,8 +2948,10 @@ async function initializeDashboard() {
         );
 
     }
-
     catch (error) {
+
+        dashboardInitialized =
+            false;
 
         console.error(
             "Rio Dashboard Initialization Error:",
@@ -3474,8 +2963,9 @@ async function initializeDashboard() {
 }
 
 
-/* =====================================================
-   START
-===================================================== */
-
 initializeDashboard();
+
+
+console.log(
+    "✅ dashboard.js FINAL CUSTOMER BUILD LOADED"
+);
