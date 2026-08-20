@@ -14,7 +14,7 @@
 
     <meta
         name="theme-color"
-        content="#8b0000"
+        content="#090909"
     >
 
     <meta
@@ -59,7 +59,7 @@
 
 
     <!-- =========================================
-         GOOGLE FONTS
+         GOOGLE FONT
     ========================================== -->
 
     <link
@@ -117,19 +117,16 @@
 <main class="profile-page app-page">
 
 
-    <!-- =========================================
-         PROFILE HEADER
-    ========================================== -->
+    <!-- =====================================================
+         PREMIUM PROFILE HEADER
+    ====================================================== -->
 
     <header
         class="profile-header app-card"
         aria-label="Profile Header"
     >
 
-        <div
-            class="profile-header-icon"
-            aria-hidden="true"
-        >
+        <div class="profile-header-icon">
 
             <i class="fa-solid fa-user"></i>
 
@@ -138,13 +135,16 @@
 
         <div class="profile-header-content">
 
+            <span class="profile-header-kicker">
+                RIO MAGGI POINT
+            </span>
+
             <h1>
-                MY
-                <span>PROFILE</span>
+                My <span>Profile</span>
             </h1>
 
             <p>
-                Manage your Rio Maggi Point Premium Loyalty account
+                Your premium loyalty account
             </p>
 
         </div>
@@ -153,9 +153,9 @@
 
 
 
-    <!-- =========================================
-         PROFILE MAIN CARD
-    ========================================== -->
+    <!-- =====================================================
+         MAIN PROFILE CARD
+    ====================================================== -->
 
     <section
         class="profile-card app-card"
@@ -163,16 +163,14 @@
     >
 
 
-        <!-- =====================================
-             PROFILE TOP
-        ====================================== -->
+        <!-- =================================================
+             PROFILE IDENTITY
+        ================================================== -->
 
         <div class="profile-top">
 
 
-            <!-- =================================
-                 PROFILE PHOTO
-            ================================== -->
+            <!-- PROFILE PHOTO -->
 
             <div class="profile-photo-wrapper">
 
@@ -220,9 +218,7 @@
 
 
 
-            <!-- =================================
-                 CUSTOMER NAME
-            ================================== -->
+            <!-- CUSTOMER NAME -->
 
             <h2
                 id="profileName"
@@ -233,9 +229,7 @@
 
 
 
-            <!-- =================================
-                 CUSTOMER EMAIL
-            ================================== -->
+            <!-- CUSTOMER EMAIL -->
 
             <p
                 id="profileEmail"
@@ -246,9 +240,7 @@
 
 
 
-            <!-- =================================
-                 PREMIUM BADGE
-            ================================== -->
+            <!-- PREMIUM BADGE -->
 
             <div class="member-badge">
 
@@ -264,108 +256,116 @@
 
 
 
-        <!-- =====================================
-             PROFILE INFORMATION
-        ====================================== -->
+        <!-- =================================================
+             PROFILE DETAILS
+        ================================================== -->
 
         <div class="profile-info">
 
 
-            <!-- =================================
-                 MEMBER ID
-            ================================== -->
+            <!-- MEMBER ID -->
 
             <div class="info-item">
 
-                <div class="info-icon">
+                <div class="info-icon member-id-icon">
                     <i class="fa-solid fa-id-card"></i>
                 </div>
 
-                <span class="info-label">
-                    Member ID
-                </span>
+                <div class="info-content">
 
-                <span
-                    id="memberId"
-                    class="info-value"
-                >
-                    Loading...
-                </span>
+                    <span class="info-label">
+                        Member ID
+                    </span>
+
+                    <span
+                        id="memberId"
+                        class="info-value"
+                    >
+                        Loading...
+                    </span>
+
+                </div>
 
             </div>
 
 
 
-            <!-- =================================
-                 MEMBER SINCE
-            ================================== -->
+            <!-- MEMBER SINCE -->
 
             <div class="info-item">
 
-                <div class="info-icon">
+                <div class="info-icon member-since-icon">
                     <i class="fa-solid fa-calendar-days"></i>
                 </div>
 
-                <span class="info-label">
-                    Member Since
-                </span>
+                <div class="info-content">
 
-                <span
-                    id="memberSince"
-                    class="info-value"
-                >
-                    Loading...
-                </span>
+                    <span class="info-label">
+                        Member Since
+                    </span>
+
+                    <span
+                        id="memberSince"
+                        class="info-value"
+                    >
+                        Loading...
+                    </span>
+
+                </div>
 
             </div>
 
 
 
-            <!-- =================================
-                 LOYALTY STAMPS
-            ================================== -->
+            <!-- LOYALTY STAMPS -->
 
             <div class="info-item">
 
-                <div class="info-icon">
+                <div class="info-icon stamp-icon">
                     <i class="fa-solid fa-star"></i>
                 </div>
 
-                <span class="info-label">
-                    Loyalty Stamps
-                </span>
+                <div class="info-content">
 
-                <span
-                    id="profileStamps"
-                    class="info-value"
-                >
-                    0 / 6
-                </span>
+                    <span class="info-label">
+                        Loyalty Stamps
+                    </span>
+
+                    <span
+                        id="profileStamps"
+                        class="info-value"
+                    >
+                        0 / 6
+                    </span>
+
+                </div>
 
             </div>
 
 
 
-            <!-- =================================
-                 REWARD STATUS
-            ================================== -->
+            <!-- REWARD -->
 
             <div class="info-item">
 
-                <div class="info-icon">
+                <div class="info-icon reward-icon">
                     <i class="fa-solid fa-gift"></i>
                 </div>
 
-                <span class="info-label">
-                    Reward
-                </span>
+                <div class="info-content">
 
-                <span
-                    id="profileReward"
-                    class="info-value"
-                >
-                    Collecting
-                </span>
+                    <span class="info-label">
+                        Reward
+                    </span>
+
+                    <span
+                        id="profileReward"
+                        class="info-value"
+                    >
+                        Collecting
+                    </span>
+
+                </div>
 
             </div>
 
@@ -377,33 +377,38 @@
 
 
 
-    <!-- =========================================
+    <!-- =====================================================
          EDIT PROFILE
-    ========================================== -->
+    ====================================================== -->
 
     <section
         class="edit-profile-section"
         aria-labelledby="editProfileTitle"
     >
 
-        <h2
-            id="editProfileTitle"
-            class="edit-profile-title"
-        >
+        <div class="section-heading">
 
-            <i class="fa-solid fa-pen-to-square"></i>
+            <div class="section-heading-icon">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </div>
 
-            <span>
-                Edit Profile
-            </span>
+            <div>
 
-        </h2>
+                <span>
+                    PERSONAL DETAILS
+                </span>
+
+                <h2 id="editProfileTitle">
+                    Edit Profile
+                </h2>
+
+            </div>
+
+        </div>
 
 
 
-        <!-- =====================================
-             NAME
-        ====================================== -->
+        <!-- NAME -->
 
         <div class="form-group">
 
@@ -411,22 +416,26 @@
                 Your Name
             </label>
 
-            <input
-                type="text"
-                id="editName"
-                placeholder="Enter your name"
-                autocomplete="name"
-                maxlength="50"
-                inputmode="text"
-            >
+            <div class="input-wrapper">
+
+                <i class="fa-solid fa-user"></i>
+
+                <input
+                    type="text"
+                    id="editName"
+                    placeholder="Enter your name"
+                    autocomplete="name"
+                    maxlength="50"
+                    inputmode="text"
+                >
+
+            </div>
 
         </div>
 
 
 
-        <!-- =====================================
-             EMAIL
-        ====================================== -->
+        <!-- EMAIL -->
 
         <div class="form-group">
 
@@ -434,21 +443,25 @@
                 Email Address
             </label>
 
-            <input
-                type="email"
-                id="editEmail"
-                placeholder="Your email address"
-                autocomplete="email"
-                disabled
-            >
+            <div class="input-wrapper">
+
+                <i class="fa-solid fa-envelope"></i>
+
+                <input
+                    type="email"
+                    id="editEmail"
+                    placeholder="Your email address"
+                    autocomplete="email"
+                    disabled
+                >
+
+            </div>
 
         </div>
 
 
 
-        <!-- =====================================
-             GENDER
-        ====================================== -->
+        <!-- GENDER -->
 
         <div class="form-group">
 
@@ -456,36 +469,40 @@
                 Gender
             </label>
 
-            <select
-                id="editGender"
-                autocomplete="sex"
-            >
+            <div class="input-wrapper">
 
-                <option value="">
-                    Select Gender
-                </option>
+                <i class="fa-solid fa-venus-mars"></i>
 
-                <option value="male">
-                    Male
-                </option>
+                <select
+                    id="editGender"
+                    autocomplete="sex"
+                >
 
-                <option value="female">
-                    Female
-                </option>
+                    <option value="">
+                        Select Gender
+                    </option>
 
-                <option value="other">
-                    Other
-                </option>
+                    <option value="male">
+                        Male
+                    </option>
 
-            </select>
+                    <option value="female">
+                        Female
+                    </option>
+
+                    <option value="other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
 
         </div>
 
 
 
-        <!-- =====================================
-             DATE OF BIRTH
-        ====================================== -->
+        <!-- DOB -->
 
         <div class="form-group">
 
@@ -493,11 +510,18 @@
                 Date of Birth
             </label>
 
-            <input
-                type="date"
-                id="editDOB"
-                autocomplete="bday"
-            >
+            <div class="input-wrapper">
+
+                <i class="fa-solid fa-cake-candles"></i>
+
+                <input
+                    type="date"
+                    id="editDOB"
+                    autocomplete="bday"
+                >
+
+            </div>
+
 
             <small
                 id="dobHelp"
@@ -510,9 +534,7 @@
 
 
 
-        <!-- =====================================
-             SAVE PROFILE
-        ====================================== -->
+        <!-- SAVE -->
 
         <button
             type="button"
@@ -530,9 +552,7 @@
 
 
 
-        <!-- =====================================
-             PROFILE MESSAGE
-        ====================================== -->
+        <!-- MESSAGE -->
 
         <div
             id="profileMessage"
@@ -546,149 +566,38 @@
 
 
 
-    <!-- =========================================
-         QUICK ACTIONS
-    ========================================== -->
-
-    <section
-        class="profile-actions-section"
-        aria-labelledby="quickActionsTitle"
-    >
-
-        <h2
-            id="quickActionsTitle"
-            class="edit-profile-title"
-        >
-
-            <i class="fa-solid fa-bolt"></i>
-
-            <span>
-                Quick Actions
-            </span>
-
-        </h2>
-
-
-        <div class="profile-actions">
-
-
-            <!-- =================================
-                 CALL
-            ================================== -->
-
-            <a
-                href="tel:+917987827979"
-                class="profile-action-btn call-btn"
-                aria-label="Call Rio Maggi Point"
-            >
-
-                <i class="fa-solid fa-phone"></i>
-
-                <span>
-                    Call
-                </span>
-
-            </a>
-
-
-
-            <!-- =================================
-                 WHATSAPP
-            ================================== -->
-
-            <a
-                href="https://wa.me/917987827979"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="profile-action-btn whatsapp-btn"
-                aria-label="Contact Rio Maggi Point on WhatsApp"
-            >
-
-                <i class="fa-brands fa-whatsapp"></i>
-
-                <span>
-                    WhatsApp
-                </span>
-
-            </a>
-
-
-
-            <!-- =================================
-                 MAP
-            ================================== -->
-
-            <a
-                href="https://www.google.com/maps/search/?api=1&query=Rio+Maggi+Point"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="profile-action-btn map-btn"
-                aria-label="Open Rio Maggi Point location in Google Maps"
-            >
-
-                <i class="fa-solid fa-location-dot"></i>
-
-                <span>
-                    Map
-                </span>
-
-            </a>
-
-
-
-            <!-- =================================
-                 REVIEW
-            ================================== -->
-
-            <a
-                href="feedback.html"
-                class="profile-action-btn review-btn"
-                aria-label="Give a review"
-            >
-
-                <i class="fa-solid fa-star"></i>
-
-                <span>
-                    Review
-                </span>
-
-            </a>
-
-
-        </div>
-
-
-    </section>
-
-
-
-    <!-- =========================================
+    <!-- =====================================================
          ACCOUNT
-    ========================================== -->
+    ====================================================== -->
 
     <section
         class="account-section"
         aria-labelledby="accountTitle"
     >
 
-        <h2
-            id="accountTitle"
-            class="account-title"
-        >
+        <div class="section-heading">
 
-            <i class="fa-solid fa-shield-halved"></i>
+            <div class="section-heading-icon account-heading-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
 
-            <span>
-                Account
-            </span>
+            <div>
 
-        </h2>
+                <span>
+                    SECURITY
+                </span>
+
+                <h2 id="accountTitle">
+                    Account
+                </h2>
+
+            </div>
+
+        </div>
 
 
 
-        <!-- =====================================
-             LOGOUT
-        ====================================== -->
+        <!-- LOGOUT -->
 
         <button
             type="button"
@@ -706,9 +615,7 @@
 
 
 
-        <!-- =====================================
-             DELETE ACCOUNT
-        ====================================== -->
+        <!-- DELETE -->
 
         <button
             type="button"
@@ -729,9 +636,9 @@
 
 
 
-    <!-- =========================================
-         BOTTOM NAV SAFE SPACE
-    ========================================== -->
+    <!-- =====================================================
+         BOTTOM NAVIGATION SAFE SPACE
+    ====================================================== -->
 
     <div
         class="nav-space"
@@ -740,11 +647,18 @@
 
 
 
-    <!-- =========================================
-         COMMON CUSTOMER BOTTOM NAVIGATION
-         LOCKED ORDER
-         HOME • PROFILE • QR • HISTORY • FEEDBACK • CHAT
-    ========================================== -->
+    <!-- =====================================================
+         LOCKED CUSTOMER NAVIGATION
+
+         HOME
+         PROFILE
+         QR
+         HISTORY
+         FEEDBACK
+         CHAT
+
+         EXACTLY 6 ITEMS
+    ====================================================== -->
 
     <nav
         class="bottom-nav"
@@ -753,13 +667,13 @@
     >
 
 
-        <!-- =====================================
-             HOME
-        ====================================== -->
+        <!-- HOME -->
 
         <a
-            href="card.html"
+            href="index.html"
             class="nav-item"
+            data-nav-page="home"
+            aria-label="Home"
         >
 
             <i class="fa-solid fa-house"></i>
@@ -772,14 +686,14 @@
 
 
 
-        <!-- =====================================
-             PROFILE
-        ====================================== -->
+        <!-- PROFILE -->
 
         <a
             href="profile.html"
             class="nav-item active"
+            data-nav-page="profile"
             aria-current="page"
+            aria-label="Profile"
         >
 
             <i class="fa-solid fa-user"></i>
@@ -792,17 +706,20 @@
 
 
 
-        <!-- =====================================
-             QR — CENTER ACTION
-        ====================================== -->
+        <!-- QR CENTER -->
 
         <a
             href="qr.html"
             class="nav-item nav-qr"
-            aria-label="Open Customer QR"
+            data-nav-page="qr"
+            aria-label="Customer QR"
         >
 
-            <i class="fa-solid fa-qrcode"></i>
+            <span class="qr-nav-icon">
+
+                <i class="fa-solid fa-qrcode"></i>
+
+            </span>
 
             <span>
                 QR
@@ -812,13 +729,13 @@
 
 
 
-        <!-- =====================================
-             HISTORY
-        ====================================== -->
+        <!-- HISTORY -->
 
         <a
             href="history.html"
             class="nav-item"
+            data-nav-page="history"
+            aria-label="History"
         >
 
             <i class="fa-solid fa-clock-rotate-left"></i>
@@ -831,13 +748,13 @@
 
 
 
-        <!-- =====================================
-             FEEDBACK
-        ====================================== -->
+        <!-- FEEDBACK -->
 
         <a
             href="feedback.html"
             class="nav-item"
+            data-nav-page="review"
+            aria-label="Feedback"
         >
 
             <i class="fa-solid fa-heart"></i>
@@ -850,13 +767,13 @@
 
 
 
-        <!-- =====================================
-             CHAT
-        ====================================== -->
+        <!-- CHAT -->
 
         <a
             href="chat.html"
             class="nav-item"
+            data-nav-page="chat"
+            aria-label="Chat"
         >
 
             <i class="fa-solid fa-comments"></i>
@@ -875,15 +792,12 @@
 
 
 
-<!-- =========================================
+<!-- =====================================================
      PROFILE JAVASCRIPT
-     
-     IMPORTANT:
-     Firebase / Profile logic stays in
-     external profile.js.
-     
-     NO duplicate inline Firebase code.
-========================================= -->
+
+     Firebase/Profile logic remains external.
+     NO duplicate Firebase initialization.
+====================================================== -->
 
 <script
     type="module"
@@ -892,9 +806,9 @@
 
 
 
-<!-- =========================================
+<!-- =====================================================
      SERVICE WORKER
-========================================= -->
+====================================================== -->
 
 <script>
 
@@ -911,15 +825,13 @@ if ("serviceWorker" in navigator) {
                 );
 
                 console.log(
-                    "Service Worker Registered"
+                    "Rio Maggi Point: Service Worker Registered"
                 );
 
-            }
-
-            catch (error) {
+            } catch (error) {
 
                 console.error(
-                    "Service Worker Error:",
+                    "Rio Maggi Point: Service Worker Error",
                     error
                 );
 
