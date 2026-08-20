@@ -3,7 +3,7 @@
    PROFILE.CSS
    PREMIUM CUSTOMER PROFILE
    RED + BLACK + GOLD
-   RESPONSIVE
+   RESPONSIVE / MOBILE FIRST
 ========================================================= */
 
 
@@ -13,31 +13,44 @@
 
 :root{
 
-    --bg:#080808;
-    --bg-soft:#111111;
+    --bg:#070707;
+    --bg-soft:#0d0d0d;
+    --bg-elevated:#111111;
 
-    --card:#171717;
-    --card-soft:#1d1d1d;
+    --card:#151515;
+    --card-soft:#1b1b1b;
+    --card-light:#202020;
 
     --red:#a90000;
-    --red-light:#d40000;
-    --red-dark:#710000;
+    --red-light:#dc0000;
+    --red-bright:#f00000;
+    --red-dark:#650000;
 
     --gold:#f5c542;
     --gold-light:#ffe79a;
-    --gold-dark:#c79618;
+    --gold-bright:#ffd84d;
+    --gold-dark:#b98916;
 
     --white:#ffffff;
     --text:#f7f7f7;
-    --muted:#a9a9a9;
+    --muted:#a6a6a6;
+    --muted-light:#c4c4c4;
 
-    --border:rgba(245,197,66,.18);
-    --border-soft:rgba(255,255,255,.08);
+    --success:#4ade80;
+    --danger:#ff6b6b;
+
+    --border-gold:rgba(245,197,66,.20);
+    --border-gold-strong:rgba(245,197,66,.38);
+    --border-white:rgba(255,255,255,.08);
 
     --shadow:
-        0 18px 45px rgba(0,0,0,.42);
+        0 18px 45px rgba(0,0,0,.45);
+
+    --shadow-heavy:
+        0 24px 60px rgba(0,0,0,.58);
 
     --radius:22px;
+    --radius-small:15px;
 
 }
 
@@ -46,17 +59,33 @@
    RESET
 ========================================================= */
 
-*{
+*,
+*::before,
+*::after{
+
     margin:0;
     padding:0;
     box-sizing:border-box;
+
 }
+
 
 html{
+
+    width:100%;
+
+    min-height:100%;
+
     scroll-behavior:smooth;
+
+    -webkit-text-size-adjust:100%;
+
 }
 
+
 body{
+
+    width:100%;
 
     min-height:100vh;
 
@@ -65,15 +94,21 @@ body{
     background:
 
         radial-gradient(
-            circle at 50% -10%,
-            rgba(179,0,0,.22),
+            circle at 50% -12%,
+            rgba(180,0,0,.24),
             transparent 34%
+        ),
+
+        radial-gradient(
+            circle at 100% 30%,
+            rgba(245,197,66,.045),
+            transparent 25%
         ),
 
         linear-gradient(
             180deg,
-            #090909 0%,
-            #100606 55%,
+            #080808 0%,
+            #100606 48%,
             #080808 100%
         );
 
@@ -81,7 +116,79 @@ body{
 
     font-family:
         "Poppins",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
         sans-serif;
+
+    -webkit-font-smoothing:antialiased;
+
+    text-rendering:optimizeLegibility;
+
+}
+
+
+body,
+button,
+input,
+select,
+textarea{
+
+    font-family:
+        "Poppins",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+}
+
+
+button,
+a,
+label,
+select,
+input{
+
+    -webkit-tap-highlight-color:transparent;
+
+}
+
+
+button{
+
+    appearance:none;
+    -webkit-appearance:none;
+
+}
+
+
+img{
+
+    display:block;
+
+    max-width:100%;
+
+}
+
+
+a{
+
+    color:inherit;
+
+}
+
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible{
+
+    outline:
+        2px solid
+        var(--gold);
+
+    outline-offset:3px;
 
 }
 
@@ -92,16 +199,20 @@ body{
 
 .profile-page{
 
+    position:relative;
+
     width:100%;
 
     max-width:520px;
+
+    min-height:100vh;
 
     margin:0 auto;
 
     padding:
         18px
         15px
-        108px;
+        calc(112px + env(safe-area-inset-bottom));
 
     animation:
         profilePageIn
@@ -115,13 +226,21 @@ body{
 @keyframes profilePageIn{
 
     from{
+
         opacity:0;
-        transform:translateY(12px);
+
+        transform:
+            translateY(12px);
+
     }
 
     to{
+
         opacity:1;
-        transform:translateY(0);
+
+        transform:
+            translateY(0);
+
     }
 
 }
@@ -141,13 +260,13 @@ body{
 
         linear-gradient(
             145deg,
-            rgba(31,31,31,.98),
-            rgba(15,15,15,.98)
+            rgba(30,30,30,.98),
+            rgba(13,13,13,.99)
         );
 
     border:
         1px solid
-        var(--border);
+        var(--border-gold);
 
     border-radius:
         var(--radius);
@@ -165,10 +284,12 @@ body{
     position:absolute;
 
     top:0;
-    left:8%;
-    right:8%;
+    left:7%;
+    right:7%;
 
     height:2px;
+
+    border-radius:999px;
 
     background:
 
@@ -180,6 +301,8 @@ body{
             var(--red-light),
             transparent
         );
+
+    pointer-events:none;
 
 }
 
@@ -226,13 +349,16 @@ body{
 
         linear-gradient(
             145deg,
-            rgba(169,0,0,.42),
+            rgba(169,0,0,.45),
             rgba(245,197,66,.08)
         );
 
     border:
         1px solid
-        rgba(245,197,66,.22);
+        rgba(245,197,66,.25);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.06);
 
 }
 
@@ -337,7 +463,10 @@ body{
     width:118px;
     height:118px;
 
-    margin:5px 0 16px;
+    margin:
+        5px
+        0
+        16px;
 
 }
 
@@ -349,6 +478,8 @@ body{
     position:absolute;
 
     inset:-6px;
+
+    z-index:0;
 
     border-radius:50%;
 
@@ -392,11 +523,11 @@ body{
 
     inset:-2px;
 
+    z-index:1;
+
     border-radius:50%;
 
-    background:#151515;
-
-    z-index:1;
+    background:#111111;
 
 }
 
@@ -432,7 +563,7 @@ body{
         var(--gold);
 
     box-shadow:
-        0 12px 32px rgba(0,0,0,.5);
+        0 12px 32px rgba(0,0,0,.55);
 
 }
 
@@ -443,6 +574,8 @@ body{
     height:100%;
 
     object-fit:cover;
+
+    object-position:center;
 
 }
 
@@ -481,48 +614,60 @@ body{
     align-items:center;
     justify-content:center;
 
-    border-radius:50%;
-
     border:
         2px solid
         #101010;
 
+    border-radius:50%;
+
     background:
+
         linear-gradient(
             145deg,
             var(--gold-light),
             var(--gold)
         );
 
-    color:#111;
+    color:#111111;
 
     font-size:13px;
 
     cursor:pointer;
 
     box-shadow:
-        0 7px 18px rgba(0,0,0,.4);
+        0 7px 18px rgba(0,0,0,.45);
 
     transition:
-        transform .2s ease;
+        transform .2s ease,
+        box-shadow .2s ease;
 
 }
 
 
 .photo-edit-btn:hover{
+
     transform:scale(1.08);
+
+    box-shadow:
+        0 9px 22px rgba(245,197,66,.18);
+
 }
 
+
 .photo-edit-btn:active{
+
     transform:scale(.94);
+
 }
 
 
 /* =========================================================
-   NAME
+   PROFILE NAME
 ========================================================= */
 
 .profile-name{
+
+    width:100%;
 
     max-width:100%;
 
@@ -609,13 +754,13 @@ body{
 
         linear-gradient(
             90deg,
-            rgba(169,0,0,.28),
-            rgba(245,197,66,.09)
+            rgba(169,0,0,.30),
+            rgba(245,197,66,.10)
         );
 
     border:
         1px solid
-        rgba(245,197,66,.24);
+        rgba(245,197,66,.25);
 
     color:var(--gold);
 
@@ -635,7 +780,7 @@ body{
     display:grid;
 
     grid-template-columns:
-        repeat(2,1fr);
+        repeat(2,minmax(0,1fr));
 
     gap:10px;
 
@@ -661,7 +806,7 @@ body{
         linear-gradient(
             145deg,
             rgba(255,255,255,.055),
-            rgba(255,255,255,.02)
+            rgba(255,255,255,.018)
         );
 
     border:
@@ -670,7 +815,8 @@ body{
 
     transition:
         transform .2s ease,
-        border-color .2s ease;
+        border-color .2s ease,
+        background .2s ease;
 
 }
 
@@ -710,7 +856,9 @@ body{
 
 
 .info-content{
+
     min-width:0;
+
 }
 
 
@@ -737,7 +885,7 @@ body{
 
     margin-top:4px;
 
-    color:#fff;
+    color:#ffffff;
 
     font-size:12px;
 
@@ -746,6 +894,479 @@ body{
     font-weight:700;
 
     word-break:break-word;
+
+}
+
+
+/* =========================================================
+   LOYALTY / STAMP SECTION
+   Supports existing or upcoming loyalty HTML
+========================================================= */
+
+.loyalty-section,
+.stamp-section,
+.profile-loyalty-section{
+
+    position:relative;
+
+    margin-top:20px;
+
+    padding:18px;
+
+    overflow:hidden;
+
+    border-radius:var(--radius);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(29,29,29,.98),
+            rgba(12,12,12,.99)
+        );
+
+    border:
+        1px solid
+        rgba(245,197,66,.20);
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.loyalty-section::before,
+.stamp-section::before,
+.profile-loyalty-section::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:8%;
+    right:8%;
+
+    height:2px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--red-light),
+            var(--gold),
+            var(--red-light),
+            transparent
+        );
+
+}
+
+
+.loyalty-header,
+.stamp-header,
+.loyalty-section-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    margin-bottom:15px;
+
+}
+
+
+.loyalty-title,
+.stamp-title{
+
+    color:#ffffff;
+
+    font-size:17px;
+
+    font-weight:800;
+
+}
+
+
+.loyalty-subtitle,
+.stamp-subtitle{
+
+    margin-top:3px;
+
+    color:var(--muted);
+
+    font-size:9px;
+
+}
+
+
+/* =========================================================
+   STAMP GRID
+========================================================= */
+
+.stamp-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+    gap:10px;
+
+    margin-top:14px;
+
+}
+
+
+.stamp-item{
+
+    min-height:72px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:5px;
+
+    border-radius:16px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #1d1d1d,
+            #101010
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    color:#777;
+
+    transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease;
+
+}
+
+
+.stamp-item i{
+
+    font-size:18px;
+
+}
+
+
+.stamp-item.active,
+.stamp-item.completed,
+.stamp-item.collected{
+
+    color:var(--gold);
+
+    border-color:
+        rgba(245,197,66,.38);
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(169,0,0,.28),
+            rgba(245,197,66,.06)
+        );
+
+    box-shadow:
+        inset 0 0 20px
+        rgba(245,197,66,.035);
+
+}
+
+
+.stamp-item:hover{
+
+    transform:translateY(-2px);
+
+}
+
+
+/* =========================================================
+   STAMP PROGRESS
+========================================================= */
+
+.stamp-progress,
+.loyalty-progress{
+
+    width:100%;
+
+    height:9px;
+
+    margin-top:14px;
+
+    overflow:hidden;
+
+    border-radius:999px;
+
+    background:
+        rgba(255,255,255,.07);
+
+    border:
+        1px solid
+        rgba(255,255,255,.05);
+
+}
+
+
+.stamp-progress-bar,
+.loyalty-progress-bar{
+
+    width:0%;
+
+    height:100%;
+
+    border-radius:inherit;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            var(--red-dark),
+            var(--red-light),
+            var(--gold)
+        );
+
+    box-shadow:
+        0 0 12px
+        rgba(245,197,66,.16);
+
+    transition:
+        width .45s ease;
+
+}
+
+
+/* =========================================================
+   REWARD STATUS
+========================================================= */
+
+.reward-status,
+.loyalty-status{
+
+    margin-top:12px;
+
+    padding:11px 12px;
+
+    border-radius:13px;
+
+    color:#c9c9c9;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    font-size:10px;
+
+    line-height:1.5;
+
+}
+
+
+.reward-status.unlocked,
+.loyalty-status.unlocked{
+
+    color:var(--gold-light);
+
+    border-color:
+        rgba(245,197,66,.30);
+
+    background:
+        rgba(169,0,0,.14);
+
+}
+
+
+/* =========================================================
+   PLAY FREE GAME
+   PREMIUM HIGHLIGHT BUTTON
+========================================================= */
+
+.play-free-game-btn,
+.free-game-btn,
+.game-button{
+
+    position:relative;
+
+    width:100%;
+
+    min-height:54px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:9px;
+
+    margin-top:14px;
+
+    overflow:hidden;
+
+    border:
+        1px solid
+        rgba(245,197,66,.55);
+
+    border-radius:16px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #8f0000 0%,
+            #c60000 48%,
+            #8b0000 100%
+        );
+
+    color:#ffffff;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    letter-spacing:.2px;
+
+    cursor:pointer;
+
+    box-shadow:
+
+        0 10px 28px
+        rgba(169,0,0,.28),
+
+        0 0 0 1px
+        rgba(245,197,66,.08);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+
+}
+
+
+.play-free-game-btn::before,
+.free-game-btn::before,
+.game-button::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    bottom:0;
+
+    left:-45%;
+
+    width:35%;
+
+    transform:
+        skewX(-20deg);
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.28),
+            transparent
+        );
+
+    animation:
+        gameButtonShine
+        2.8s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes gameButtonShine{
+
+    0%{
+        left:-45%;
+    }
+
+    55%{
+        left:120%;
+    }
+
+    100%{
+        left:120%;
+    }
+
+}
+
+
+.play-free-game-btn i,
+.free-game-btn i,
+.game-button i{
+
+    position:relative;
+
+    z-index:1;
+
+    color:var(--gold-light);
+
+    font-size:17px;
+
+}
+
+
+.play-free-game-btn span,
+.free-game-btn span,
+.game-button span{
+
+    position:relative;
+
+    z-index:1;
+
+}
+
+
+.play-free-game-btn:hover,
+.free-game-btn:hover,
+.game-button:hover{
+
+    transform:translateY(-2px);
+
+    border-color:
+        var(--gold);
+
+    box-shadow:
+
+        0 14px 34px
+        rgba(169,0,0,.36),
+
+        0 0 18px
+        rgba(245,197,66,.10);
+
+}
+
+
+.play-free-game-btn:active,
+.free-game-btn:active,
+.game-button:active{
+
+    transform:scale(.98);
 
 }
 
@@ -833,7 +1454,7 @@ body{
 
     margin-top:1px;
 
-    color:#fff;
+    color:#ffffff;
 
     font-size:17px;
 
@@ -849,6 +1470,8 @@ body{
 ========================================================= */
 
 .form-group{
+
+    width:100%;
 
     margin-bottom:13px;
 
@@ -873,6 +1496,8 @@ body{
 .input-wrapper{
 
     position:relative;
+
+    width:100%;
 
 }
 
@@ -900,6 +1525,8 @@ body{
 .form-group input,
 .form-group select{
 
+    display:block;
+
     width:100%;
 
     height:49px;
@@ -918,10 +1545,13 @@ body{
 
     outline:none;
 
+    appearance:none;
+    -webkit-appearance:none;
+
     background:
         rgba(255,255,255,.045);
 
-    color:#fff;
+    color:#ffffff;
 
     font-family:
         "Poppins",
@@ -938,7 +1568,9 @@ body{
 
 
 .form-group input::placeholder{
-    color:#777;
+
+    color:#777777;
+
 }
 
 
@@ -969,9 +1601,9 @@ body{
 
 .form-group select{
 
-    appearance:auto;
-
     cursor:pointer;
+
+    background-color:#171717;
 
 }
 
@@ -980,7 +1612,7 @@ body{
 
     background:#181818;
 
-    color:#fff;
+    color:#ffffff;
 
 }
 
@@ -998,7 +1630,7 @@ body{
 
     margin-top:6px;
 
-    color:#777;
+    color:#777777;
 
     font-size:9px;
 
@@ -1041,7 +1673,7 @@ body{
             var(--gold-dark)
         );
 
-    color:#111;
+    color:#111111;
 
     font-family:
         "Poppins",
@@ -1076,7 +1708,9 @@ body{
 
 
 .save-profile-btn:active{
+
     transform:translateY(0);
+
 }
 
 
@@ -1092,12 +1726,14 @@ body{
 
 
 /* =========================================================
-   MESSAGE
+   PROFILE MESSAGE
 ========================================================= */
 
 .profile-message{
 
     display:none;
+
+    width:100%;
 
     margin-top:10px;
 
@@ -1189,13 +1825,14 @@ body{
         rgba(255,255,255,.10);
 
     background:
+
         linear-gradient(
             135deg,
             #242424,
             #151515
         );
 
-    color:#fff;
+    color:#ffffff;
 
     font-size:13px;
 
@@ -1255,7 +1892,7 @@ body{
     background:
         rgba(185,28,28,.85);
 
-    color:#fff;
+    color:#ffffff;
 
 }
 
@@ -1293,7 +1930,8 @@ body{
 
     max-width:520px;
 
-    height:72px;
+    height:
+        calc(72px + env(safe-area-inset-bottom));
 
     padding:
         5px
@@ -1303,7 +1941,7 @@ body{
     display:grid;
 
     grid-template-columns:
-        repeat(6, minmax(0,1fr));
+        repeat(6,minmax(0,1fr));
 
     align-items:center;
 
@@ -1318,7 +1956,7 @@ body{
 
     box-shadow:
         0 -10px 35px
-        rgba(0,0,0,.5);
+        rgba(0,0,0,.55);
 
     backdrop-filter:
         blur(18px);
@@ -1338,6 +1976,7 @@ body{
     min-width:0;
 
     width:100%;
+
     height:60px;
 
     display:flex;
@@ -1350,6 +1989,8 @@ body{
     gap:4px;
 
     position:relative;
+
+    overflow:visible;
 
     color:#8f8f8f;
 
@@ -1385,7 +2026,7 @@ body{
 
 .nav-item:hover{
 
-    color:#fff;
+    color:#ffffff;
 
 }
 
@@ -1419,7 +2060,7 @@ body{
 
 
 /* =========================================================
-   DIFFERENT ICON COLORS
+   NAV ICON COLORS
 ========================================================= */
 
 .nav-item[data-nav-page="home"] i{
@@ -1453,7 +2094,7 @@ body{
 
     overflow:visible;
 
-    color:#fff;
+    color:#ffffff;
 
     background:transparent;
 
@@ -1472,6 +2113,8 @@ body{
     align-items:center;
     justify-content:center;
 
+    flex-shrink:0;
+
     border-radius:50%;
 
     background:
@@ -1487,6 +2130,7 @@ body{
         #080808;
 
     box-shadow:
+
         0 7px 22px
         rgba(169,0,0,.42),
 
@@ -1498,7 +2142,7 @@ body{
 
 .qr-nav-icon i{
 
-    color:#fff !important;
+    color:#ffffff !important;
 
     font-size:21px;
 
@@ -1509,7 +2153,7 @@ body{
 
     margin-top:0;
 
-    color:#fff;
+    color:#ffffff;
 
     font-size:8px;
 
@@ -1518,7 +2162,7 @@ body{
 
 .nav-item.nav-qr:hover{
 
-    color:#fff;
+    color:#ffffff;
 
 }
 
@@ -1535,16 +2179,23 @@ body{
 ========================================================= */
 
 ::-webkit-scrollbar{
+
     width:6px;
+
 }
 
+
 ::-webkit-scrollbar-track{
+
     background:#080808;
+
 }
+
 
 ::-webkit-scrollbar-thumb{
 
     background:
+
         linear-gradient(
             180deg,
             var(--red),
@@ -1552,6 +2203,17 @@ body{
         );
 
     border-radius:20px;
+
+}
+
+
+*{
+
+    scrollbar-width:thin;
+
+    scrollbar-color:
+        var(--gold-dark)
+        #080808;
 
 }
 
@@ -1567,13 +2229,16 @@ body{
         padding-left:11px;
         padding-right:11px;
 
-        padding-bottom:104px;
+        padding-bottom:
+            calc(108px + env(safe-area-inset-bottom));
 
     }
 
 
     .profile-header{
+
         padding:15px;
+
     }
 
 
@@ -1592,22 +2257,30 @@ body{
 
 
     .profile-header-content h1{
+
         font-size:20px;
+
     }
 
 
     .profile-header-kicker{
+
         font-size:8px;
+
     }
 
 
     .profile-header-content p{
+
         font-size:9px;
+
     }
 
 
     .profile-card{
+
         padding:17px;
+
     }
 
 
@@ -1621,22 +2294,30 @@ body{
 
 
     .default-avatar{
+
         font-size:42px;
+
     }
 
 
     .profile-name{
+
         font-size:21px;
+
     }
 
 
     .profile-info{
+
         gap:8px;
+
     }
 
 
     .info-item{
+
         padding:11px;
+
     }
 
 
@@ -1651,13 +2332,52 @@ body{
 
 
     .info-value{
+
         font-size:11px;
+
+    }
+
+
+    .loyalty-section,
+    .stamp-section,
+    .profile-loyalty-section{
+
+        padding:15px;
+
+    }
+
+
+    .stamp-grid{
+
+        gap:7px;
+
+    }
+
+
+    .stamp-item{
+
+        min-height:64px;
+
+        border-radius:14px;
+
+    }
+
+
+    .play-free-game-btn,
+    .free-game-btn,
+    .game-button{
+
+        min-height:51px;
+
+        font-size:12px;
+
     }
 
 
     .bottom-nav{
 
-        height:70px;
+        height:
+            calc(70px + env(safe-area-inset-bottom));
 
         padding-left:3px;
         padding-right:3px;
@@ -1677,7 +2397,9 @@ body{
 
 
     .nav-item i{
+
         font-size:16px;
+
     }
 
 
@@ -1690,7 +2412,9 @@ body{
 
 
     .qr-nav-icon i{
+
         font-size:19px;
+
     }
 
 }
@@ -1715,17 +2439,32 @@ body{
 
 
     .bottom-nav{
+
         max-width:650px;
+
     }
 
 
     .profile-header{
+
         padding:21px;
+
     }
 
 
     .profile-card{
+
         padding:25px;
+
+    }
+
+
+    .loyalty-section,
+    .stamp-section,
+    .profile-loyalty-section{
+
+        padding:22px;
+
     }
 
 }
@@ -1750,24 +2489,30 @@ body{
 
 
     .bottom-nav{
+
         max-width:760px;
+
     }
 
 
     .profile-header{
+
         padding:23px;
+
     }
 
 
     .profile-card{
+
         padding:28px;
+
     }
 
 
     .profile-info{
 
         grid-template-columns:
-            repeat(4,1fr);
+            repeat(4,minmax(0,1fr));
 
     }
 
@@ -1782,7 +2527,17 @@ body{
 
 
     .default-avatar{
+
         font-size:52px;
+
+    }
+
+
+    .stamp-grid{
+
+        grid-template-columns:
+            repeat(6,minmax(0,1fr));
+
     }
 
 }
@@ -1807,20 +2562,36 @@ body{
 
 
     .bottom-nav{
+
         max-width:900px;
+
     }
 
 
     .profile-card{
+
         padding:32px;
+
     }
 
 
     .edit-profile-section,
     .account-section{
+
         max-width:700px;
+
         margin-left:auto;
         margin-right:auto;
+
+    }
+
+
+    .loyalty-section,
+    .stamp-section,
+    .profile-loyalty-section{
+
+        padding:25px;
+
     }
 
 }
@@ -1845,7 +2616,30 @@ body{
 
 
     .bottom-nav{
+
         max-width:1050px;
+
+    }
+
+}
+
+
+/* =========================================================
+   TOUCH DEVICES
+========================================================= */
+
+@media (hover:none){
+
+    .info-item:hover,
+    .logout-btn:hover,
+    .delete-account-btn:hover,
+    .save-profile-btn:hover,
+    .play-free-game-btn:hover,
+    .free-game-btn:hover,
+    .game-button:hover{
+
+        transform:none;
+
     }
 
 }
@@ -1858,7 +2652,9 @@ body{
 @media (prefers-reduced-motion:reduce){
 
     html{
+
         scroll-behavior:auto;
+
     }
 
 
