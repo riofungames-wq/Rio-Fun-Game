@@ -21,7 +21,7 @@
 
     <meta
         name="theme-color"
-        content="#263525"
+        content="#080808"
     >
 
     <!-- =========================================
@@ -117,9 +117,7 @@
 
         </div>
 
-
         <div class="loader-spinner"></div>
-
 
         <p>
             Loading Rio Maggi Point...
@@ -129,92 +127,625 @@
 
 
     <!-- =========================================
-         MAIN PAGE
+         MAIN APP
     ========================================== -->
 
-    <main class="card-page app-page">
+    <main
+        class="card-page app-page"
+        id="customerDashboard"
+    >
 
 
         <!-- =========================================
-             PREMIUM TOP HEADER
+             PREMIUM HEADER
         ========================================== -->
 
-        <header class="card-page-header app-card">
+        <header class="card-page-header premium-header">
 
 
-            <div class="brand-icon">
+            <!-- HAMBURGER -->
 
-                <i class="fa-solid fa-bowl-food"></i>
+            <button
+                type="button"
+                class="header-action hamburger-btn"
+                id="menuToggleBtn"
+                aria-label="Open menu"
+            >
 
-            </div>
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
 
 
-            <div class="brand-content">
+            <!-- BRAND -->
 
-                <span class="brand-small-text">
-                    RIO MAGGI POINT
+            <a
+                href="card.html"
+                class="header-brand"
+                aria-label="Rio Maggi Point Home"
+            >
+
+                <div class="header-brand-icon">
+
+                    <i class="fa-solid fa-bowl-food"></i>
+
+                </div>
+
+
+                <div class="header-brand-content">
+
+                    <strong>
+                        RIO MAGGI POINT
+                    </strong>
+
+                    <span>
+                        PREMIUM LOYALTY CLUB
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- NOTIFICATION -->
+
+            <button
+                type="button"
+                class="header-action notification-btn"
+                id="notificationBtn"
+                aria-label="Notifications"
+            >
+
+                <i class="fa-regular fa-bell"></i>
+
+                <span
+                    id="notificationBadge"
+                    class="notification-badge"
+                >
+                    0
                 </span>
 
-
-                <h1>
-                    Premium Loyalty Club
-                </h1>
-
-
-                <p>
-                    100% Pure Veg • Fresh • Tasty • Hygienic
-                </p>
-
-            </div>
+            </button>
 
 
         </header>
 
 
         <!-- =========================================
-             WELCOME SECTION
+             ANNOUNCEMENT / TICKER
         ========================================== -->
 
-        <section class="welcome-section app-card">
+        <section
+            class="announcement-ticker"
+            id="announcementTicker"
+            aria-label="Rio Maggi Point announcements"
+        >
+
+            <div class="ticker-icon">
+
+                <i class="fa-solid fa-bullhorn"></i>
+
+            </div>
 
 
-            <div class="welcome-icon">
+            <div class="ticker-content">
 
-                <i class="fa-solid fa-hand-sparkles"></i>
+                <span
+                    id="tickerMessage"
+                    class="ticker-message"
+                >
+                    Welcome to Rio Maggi Point Premium Loyalty Club
+                </span>
 
             </div>
 
 
-            <div class="welcome-content">
+            <button
+                type="button"
+                class="ticker-arrow"
+                id="tickerViewBtn"
+                aria-label="View announcements"
+            >
 
-                <p class="welcome-label">
-                    WELCOME BACK
-                </p>
+                <i class="fa-solid fa-chevron-right"></i>
 
-
-                <h2 id="welcomeUserName">
-                    Premium Member
-                </h2>
-
-
-                <p id="welcomeMessage">
-                    Keep collecting stamps and enjoy your reward.
-                </p>
-
-            </div>
-
+            </button>
 
         </section>
 
 
         <!-- =========================================
-             LOYALTY CARD SECTION
+             WELCOME SECTION
         ========================================== -->
 
-        <section class="loyalty-card-section app-section">
+        <section
+            class="welcome-section app-card"
+            id="welcomeSection"
+        >
+
+            <div class="welcome-profile">
 
 
-            <!-- SECTION HEADING -->
+                <div class="welcome-avatar-wrapper">
+
+                    <img
+                        id="welcomeUserAvatar"
+                        src="assets/default-avatar.png"
+                        alt="Customer avatar"
+                        class="welcome-avatar"
+                    >
+
+                    <span class="online-dot"></span>
+
+                </div>
+
+
+                <div class="welcome-content">
+
+                    <span class="welcome-label">
+                        WELCOME BACK
+                    </span>
+
+
+                    <h1 id="welcomeUserName">
+                        Premium Member
+                    </h1>
+
+
+                    <p id="welcomeMessage">
+                        Keep collecting stamps and enjoy your reward.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="profile.html"
+                class="welcome-profile-link"
+                aria-label="Open profile"
+            >
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+            </a>
+
+        </section>
+
+
+        <!-- =========================================
+             HERO BANNER
+        ========================================== -->
+
+        <section
+            class="hero-section"
+            id="heroSection"
+        >
+
+            <div
+                class="hero-slider"
+                id="heroSlider"
+            >
+
+
+                <!-- HERO 01 -->
+
+                <article
+                    class="hero-slide active"
+                    data-slide="1"
+                >
+
+                    <div class="hero-slide-overlay"></div>
+
+                    <div class="hero-slide-content">
+
+                        <span class="hero-kicker">
+                            RIO MAGGI POINT
+                        </span>
+
+                        <h2>
+                            EVERYDAY<br>
+                            MAGIC MAGGI
+                        </h2>
+
+                        <p>
+                            Your favourite taste, made fresh for you.
+                        </p>
+
+                        <a
+                            href="#menu-01"
+                            class="hero-action"
+                        >
+
+                            <span>
+                                Tap to View Menu
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- HERO 02 -->
+
+                <article
+                    class="hero-slide"
+                    data-slide="2"
+                >
+
+                    <div class="hero-slide-overlay"></div>
+
+                    <div class="hero-slide-content">
+
+                        <span class="hero-kicker">
+                            CHEESY INDULGENCE
+                        </span>
+
+                        <h2>
+                            CHEESE<br>
+                            MAGIC MAGGI
+                        </h2>
+
+                        <p>
+                            Extra cheesy. Extra delicious.
+                        </p>
+
+                        <a
+                            href="#menu-02"
+                            class="hero-action"
+                        >
+
+                            <span>
+                                Tap to View Menu
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- HERO 03 -->
+
+                <article
+                    class="hero-slide"
+                    data-slide="3"
+                >
+
+                    <div class="hero-slide-overlay"></div>
+
+                    <div class="hero-slide-content">
+
+                        <span class="hero-kicker">
+                            PREMIUM TASTE
+                        </span>
+
+                        <h2>
+                            CHEESE BUTTER<br>
+                            MAGIC MAGGI
+                        </h2>
+
+                        <p>
+                            Rich butter with irresistible cheese.
+                        </p>
+
+                        <a
+                            href="#menu-03"
+                            class="hero-action"
+                        >
+
+                            <span>
+                                Tap to View Menu
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- HERO 04 -->
+
+                <article
+                    class="hero-slide"
+                    data-slide="4"
+                >
+
+                    <div class="hero-slide-overlay"></div>
+
+                    <div class="hero-slide-content">
+
+                        <span class="hero-kicker">
+                            CRISPY & DELICIOUS
+                        </span>
+
+                        <h2>
+                            RIO<br>
+                            BURGERS
+                        </h2>
+
+                        <p>
+                            Freshly prepared vegetarian burgers.
+                        </p>
+
+                        <a
+                            href="#menu-04"
+                            class="hero-action"
+                        >
+
+                            <span>
+                                Tap to View Menu
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- HERO 05 -->
+
+                <article
+                    class="hero-slide"
+                    data-slide="5"
+                >
+
+                    <div class="hero-slide-overlay"></div>
+
+                    <div class="hero-slide-content">
+
+                        <span class="hero-kicker">
+                            HOT & FRESH
+                        </span>
+
+                        <h2>
+                            DELICIOUS<br>
+                            MOMOS
+                        </h2>
+
+                        <p>
+                            Steam, fried and cheesy favourites.
+                        </p>
+
+                        <a
+                            href="#menu-05"
+                            class="hero-action"
+                        >
+
+                            <span>
+                                Tap to View Menu
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- HERO 06 -->
+
+                <article
+                    class="hero-slide"
+                    data-slide="6"
+                >
+
+                    <div class="hero-slide-overlay"></div>
+
+                    <div class="hero-slide-content">
+
+                        <span class="hero-kicker">
+                            HOT COMFORT
+                        </span>
+
+                        <h2>
+                            HOT<br>
+                            SOUPS
+                        </h2>
+
+                        <p>
+                            Warm, comforting and flavourful.
+                        </p>
+
+                        <a
+                            href="#menu-06"
+                            class="hero-action"
+                        >
+
+                            <span>
+                                Tap to View Menu
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- HERO 07 -->
+
+                <article
+                    class="hero-slide"
+                    data-slide="7"
+                >
+
+                    <div class="hero-slide-overlay"></div>
+
+                    <div class="hero-slide-content">
+
+                        <span class="hero-kicker">
+                            CRISPY FAVOURITE
+                        </span>
+
+                        <h2>
+                            SWEET<br>
+                            CORN
+                        </h2>
+
+                        <p>
+                            Perfectly seasoned crispy corn.
+                        </p>
+
+                        <a
+                            href="#menu-07"
+                            class="hero-action"
+                        >
+
+                            <span>
+                                Tap to View Menu
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- HERO 08 -->
+
+                <article
+                    class="hero-slide"
+                    data-slide="8"
+                >
+
+                    <div class="hero-slide-overlay"></div>
+
+                    <div class="hero-slide-content">
+
+                        <span class="hero-kicker">
+                            STREET STYLE
+                        </span>
+
+                        <h2>
+                            CHIPS<br>
+                            BHEL
+                        </h2>
+
+                        <p>
+                            Crunchy, chatpata and loaded with flavour.
+                        </p>
+
+                        <a
+                            href="#menu-08"
+                            class="hero-action"
+                        >
+
+                            <span>
+                                Tap to View Menu
+                            </span>
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+
+            <!-- HERO DOTS -->
+
+            <div
+                class="hero-dots"
+                id="heroDots"
+                aria-label="Hero slider navigation"
+            >
+
+                <button
+                    type="button"
+                    class="hero-dot active"
+                    data-slide-target="1"
+                    aria-label="Slide 1"
+                ></button>
+
+                <button
+                    type="button"
+                    class="hero-dot"
+                    data-slide-target="2"
+                    aria-label="Slide 2"
+                ></button>
+
+                <button
+                    type="button"
+                    class="hero-dot"
+                    data-slide-target="3"
+                    aria-label="Slide 3"
+                ></button>
+
+                <button
+                    type="button"
+                    class="hero-dot"
+                    data-slide-target="4"
+                    aria-label="Slide 4"
+                ></button>
+
+                <button
+                    type="button"
+                    class="hero-dot"
+                    data-slide-target="5"
+                    aria-label="Slide 5"
+                ></button>
+
+                <button
+                    type="button"
+                    class="hero-dot"
+                    data-slide-target="6"
+                    aria-label="Slide 6"
+                ></button>
+
+                <button
+                    type="button"
+                    class="hero-dot"
+                    data-slide-target="7"
+                    aria-label="Slide 7"
+                ></button>
+
+                <button
+                    type="button"
+                    class="hero-dot"
+                    data-slide-target="8"
+                    aria-label="Slide 8"
+                ></button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             OUR MENU
+        ========================================== -->
+
+        <section
+            class="menu-section app-section"
+            id="ourMenu"
+        >
+
 
             <div
                 class="section-heading-card app-card reveal-animation"
@@ -222,17 +753,956 @@
 
                 <div class="section-heading-icon">
 
-                    <i class="fa-solid fa-id-card"></i>
+                    <i class="fa-solid fa-utensils"></i>
 
                 </div>
 
 
                 <div>
 
+                    <span class="section-kicker">
+                        RIO MAGGI POINT
+                    </span>
+
                     <h2>
-                        My Loyalty Card
+                        Our Menu
                     </h2>
 
+                    <p>
+                        Fresh • Pure Veg • Made With Love
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- MENU GRID -->
+
+            <div
+                class="menu-category-grid"
+                id="menuCategoryGrid"
+            >
+
+
+                <!-- =====================================
+                     01 EVERYDAY MAGIC MAGGI
+                ====================================== -->
+
+                <article
+                    class="menu-category-card app-card reveal-animation"
+                    id="menu-01"
+                    data-category="everyday-magic-maggi"
+                    data-category-number="01"
+                >
+
+                    <div class="menu-card-image menu-image-01">
+
+                        <span class="menu-number">
+                            01
+                        </span>
+
+                        <div class="menu-card-image-overlay"></div>
+
+                        <i class="fa-solid fa-bowl-food menu-fallback-icon"></i>
+
+                    </div>
+
+
+                    <div class="menu-card-content">
+
+                        <span class="menu-card-kicker">
+                            CLASSIC FAVOURITES
+                        </span>
+
+                        <h3>
+                            EVERYDAY MAGIC MAGGI
+                        </h3>
+
+                        <p>
+                            Classic and flavourful Maggi made fresh to order.
+                        </p>
+
+
+                        <details class="menu-details">
+
+                            <summary>
+
+                                <span>
+                                    View Menu
+                                </span>
+
+                                <i class="fa-solid fa-chevron-down"></i>
+
+                            </summary>
+
+
+                            <div class="menu-item-list">
+
+
+                                <div class="menu-item">
+
+                                    <span>Classic</span>
+
+                                    <strong>
+                                        Half ₹30 | Full ₹50
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="menu-item">
+
+                                    <span>Veg</span>
+
+                                    <strong>
+                                        Half ₹40 | Full ₹70
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="menu-item">
+
+                                    <span>Garlic</span>
+
+                                    <strong>
+                                        Half ₹40 | Full ₹70
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="menu-item">
+
+                                    <span>Corn</span>
+
+                                    <strong>
+                                        Half ₹40 | Full ₹70
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="menu-item">
+
+                                    <span>Schezwan</span>
+
+                                    <strong>
+                                        Half ₹40 | Full ₹70
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="menu-item">
+
+                                    <span>Veg Corn</span>
+
+                                    <strong>
+                                        Half ₹50 | Full ₹80
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="menu-item">
+
+                                    <span>Veg Lemon</span>
+
+                                    <strong>
+                                        Half ₹80 | Full ₹120
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="menu-item">
+
+                                    <span>Korean</span>
+
+                                    <strong>
+                                        Half ₹100 | Full ₹150
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                        </details>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =====================================
+                     02 CHEESE MAGIC MAGGI
+                ====================================== -->
+
+                <article
+                    class="menu-category-card app-card reveal-animation"
+                    id="menu-02"
+                    data-category="cheese-magic-maggi"
+                    data-category-number="02"
+                >
+
+                    <div class="menu-card-image menu-image-02">
+
+                        <span class="menu-number">
+                            02
+                        </span>
+
+                        <div class="menu-card-image-overlay"></div>
+
+                        <i class="fa-solid fa-cheese menu-fallback-icon"></i>
+
+                    </div>
+
+
+                    <div class="menu-card-content">
+
+                        <span class="menu-card-kicker">
+                            CHEESY INDULGENCE
+                        </span>
+
+                        <h3>
+                            CHEESE MAGIC MAGGI
+                        </h3>
+
+                        <p>
+                            Rich cheesy Maggi with delicious flavour combinations.
+                        </p>
+
+
+                        <details class="menu-details">
+
+                            <summary>
+
+                                <span>
+                                    View Menu
+                                </span>
+
+                                <i class="fa-solid fa-chevron-down"></i>
+
+                            </summary>
+
+
+                            <div class="menu-item-list">
+
+
+                                <div class="menu-item">
+                                    <span>Cheese Classic</span>
+                                    <strong>Half ₹40 | Full ₹70</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Veg</span>
+                                    <strong>Half ₹50 | Full ₹80</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Garlic</span>
+                                    <strong>Half ₹50 | Full ₹80</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Corn</span>
+                                    <strong>Half ₹50 | Full ₹80</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Schezwan</span>
+                                    <strong>Half ₹50 | Full ₹80</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Veg Corn</span>
+                                    <strong>Half ₹60 | Full ₹100</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Veg Schezwan</span>
+                                    <strong>Half ₹60 | Full ₹100</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Korean</span>
+                                    <strong>Half ₹120 | Full ₹180</strong>
+                                </div>
+
+                            </div>
+
+                        </details>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =====================================
+                     03 CHEESE BUTTER MAGIC MAGGI
+                ====================================== -->
+
+                <article
+                    class="menu-category-card app-card reveal-animation"
+                    id="menu-03"
+                    data-category="cheese-butter-magic-maggi"
+                    data-category-number="03"
+                >
+
+                    <div class="menu-card-image menu-image-03">
+
+                        <span class="menu-number">
+                            03
+                        </span>
+
+                        <div class="menu-card-image-overlay"></div>
+
+                        <i class="fa-solid fa-bowl-rice menu-fallback-icon"></i>
+
+                    </div>
+
+
+                    <div class="menu-card-content">
+
+                        <span class="menu-card-kicker">
+                            RICH & BUTTERY
+                        </span>
+
+                        <h3>
+                            CHEESE BUTTER MAGIC MAGGI
+                        </h3>
+
+                        <p>
+                            Creamy butter, rich cheese and unforgettable Maggi.
+                        </p>
+
+
+                        <details class="menu-details">
+
+                            <summary>
+
+                                <span>
+                                    View Menu
+                                </span>
+
+                                <i class="fa-solid fa-chevron-down"></i>
+
+                            </summary>
+
+
+                            <div class="menu-item-list">
+
+
+                                <div class="menu-item">
+                                    <span>Cheese Butter Classic</span>
+                                    <strong>Half ₹50 | Full ₹80</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Butter Veg</span>
+                                    <strong>Half ₹60 | Full ₹100</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Butter Garlic</span>
+                                    <strong>Half ₹60 | Full ₹100</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Butter Corn</span>
+                                    <strong>Half ₹60 | Full ₹100</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Butter Schezwan</span>
+                                    <strong>Half ₹60 | Full ₹100</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Butter Veg Corn</span>
+                                    <strong>Half ₹70 | Full ₹120</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Butter Veg Schezwan</span>
+                                    <strong>Half ₹70 | Full ₹120</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Butter Korean</span>
+                                    <strong>Half ₹130 | Full ₹200</strong>
+                                </div>
+
+                            </div>
+
+                        </details>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =====================================
+                     04 BURGER
+                ====================================== -->
+
+                <article
+                    class="menu-category-card app-card reveal-animation"
+                    id="menu-04"
+                    data-category="burger"
+                    data-category-number="04"
+                >
+
+                    <div class="menu-card-image menu-image-04">
+
+                        <span class="menu-number">
+                            04
+                        </span>
+
+                        <div class="menu-card-image-overlay"></div>
+
+                        <i class="fa-solid fa-burger menu-fallback-icon"></i>
+
+                    </div>
+
+
+                    <div class="menu-card-content">
+
+                        <span class="menu-card-kicker">
+                            SEALED UFO BURGERS
+                        </span>
+
+                        <h3>
+                            BURGER
+                        </h3>
+
+                        <p>
+                            Crispy, saucy and delicious vegetarian burgers.
+                        </p>
+
+
+                        <details class="menu-details">
+
+                            <summary>
+
+                                <span>
+                                    View Menu
+                                </span>
+
+                                <i class="fa-solid fa-chevron-down"></i>
+
+                            </summary>
+
+
+                            <div class="menu-item-list">
+
+
+                                <div class="menu-item">
+                                    <span>Veg Burger</span>
+                                    <strong>₹40</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Burger</span>
+                                    <strong>₹40</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Veg Cheese Burger</span>
+                                    <strong>₹50</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Garlic Burger</span>
+                                    <strong>₹50</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Schezwan Burger</span>
+                                    <strong>₹50</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Schezwan Burger</span>
+                                    <strong>₹60</strong>
+                                </div>
+
+                            </div>
+
+                        </details>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =====================================
+                     05 DELICIOUS MOMOS
+                ====================================== -->
+
+                <article
+                    class="menu-category-card app-card reveal-animation"
+                    id="menu-05"
+                    data-category="delicious-momos"
+                    data-category-number="05"
+                >
+
+                    <div class="menu-card-image menu-image-05">
+
+                        <span class="menu-number">
+                            05
+                        </span>
+
+                        <div class="menu-card-image-overlay"></div>
+
+                        <i class="fa-solid fa-dumpling menu-fallback-icon"></i>
+
+                    </div>
+
+
+                    <div class="menu-card-content">
+
+                        <span class="menu-card-kicker">
+                            HOT & FRESH
+                        </span>
+
+                        <h3>
+                            DELICIOUS MOMOS
+                        </h3>
+
+                        <p>
+                            Soft, hot and flavour-packed momos.
+                        </p>
+
+
+                        <details class="menu-details">
+
+                            <summary>
+
+                                <span>
+                                    View Menu
+                                </span>
+
+                                <i class="fa-solid fa-chevron-down"></i>
+
+                            </summary>
+
+
+                            <div class="menu-item-list">
+
+                                <div class="menu-item">
+                                    <span>Steam Momos</span>
+                                    <strong>₹20</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Fried Momos</span>
+                                    <strong>₹30</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Schezwan Momos</span>
+                                    <strong>₹50</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Schezwan Cheese Momos</span>
+                                    <strong>₹60</strong>
+                                </div>
+
+                            </div>
+
+                        </details>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =====================================
+                     06 HOT SOUPS
+                ====================================== -->
+
+                <article
+                    class="menu-category-card app-card reveal-animation"
+                    id="menu-06"
+                    data-category="hot-soups"
+                    data-category-number="06"
+                >
+
+                    <div class="menu-card-image menu-image-06">
+
+                        <span class="menu-number">
+                            06
+                        </span>
+
+                        <div class="menu-card-image-overlay"></div>
+
+                        <i class="fa-solid fa-mug-hot menu-fallback-icon"></i>
+
+                    </div>
+
+
+                    <div class="menu-card-content">
+
+                        <span class="menu-card-kicker">
+                            WARM COMFORT
+                        </span>
+
+                        <h3>
+                            HOT SOUPS
+                        </h3>
+
+                        <p>
+                            Warm, comforting soups full of flavour.
+                        </p>
+
+
+                        <details class="menu-details">
+
+                            <summary>
+
+                                <span>
+                                    View Menu
+                                </span>
+
+                                <i class="fa-solid fa-chevron-down"></i>
+
+                            </summary>
+
+
+                            <div class="menu-item-list">
+
+                                <div class="menu-item">
+                                    <span>Corn Soup</span>
+                                    <strong>₹40</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Tomato Soup</span>
+                                    <strong>₹40</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Chatpata Tomato Soup</span>
+                                    <strong>₹40</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Maggi Soup</span>
+                                    <strong>₹50</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Manchow Soup</span>
+                                    <strong>₹50</strong>
+                                </div>
+
+                            </div>
+
+                        </details>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =====================================
+                     07 CRISPY SWEET CORN
+                ====================================== -->
+
+                <article
+                    class="menu-category-card app-card reveal-animation"
+                    id="menu-07"
+                    data-category="crispy-sweet-corn"
+                    data-category-number="07"
+                >
+
+                    <div class="menu-card-image menu-image-07">
+
+                        <span class="menu-number">
+                            07
+                        </span>
+
+                        <div class="menu-card-image-overlay"></div>
+
+                        <i class="fa-solid fa-seedling menu-fallback-icon"></i>
+
+                    </div>
+
+
+                    <div class="menu-card-content">
+
+                        <span class="menu-card-kicker">
+                            CRISPY FAVOURITE
+                        </span>
+
+                        <h3>
+                            CRISPY SWEET CORN
+                        </h3>
+
+                        <p>
+                            Crispy corn with your favourite seasonings.
+                        </p>
+
+
+                        <details class="menu-details">
+
+                            <summary>
+
+                                <span>
+                                    View Menu
+                                </span>
+
+                                <i class="fa-solid fa-chevron-down"></i>
+
+                            </summary>
+
+
+                            <div class="menu-item-list">
+
+                                <div class="menu-item">
+                                    <span>Peri Peri Corn</span>
+                                    <strong>₹40</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Butter Corn</span>
+                                    <strong>₹50</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Masala Corn</span>
+                                    <strong>₹50</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Corn</span>
+                                    <strong>₹50</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Schezwan Corn</span>
+                                    <strong>₹50</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Butter Cheese Corn</span>
+                                    <strong>₹60</strong>
+                                </div>
+
+                            </div>
+
+                        </details>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =====================================
+                     08 CHIPS BHEL
+                ====================================== -->
+
+                <article
+                    class="menu-category-card app-card reveal-animation"
+                    id="menu-08"
+                    data-category="chips-bhel"
+                    data-category-number="08"
+                >
+
+                    <div class="menu-card-image menu-image-08">
+
+                        <span class="menu-number">
+                            08
+                        </span>
+
+                        <div class="menu-card-image-overlay"></div>
+
+                        <i class="fa-solid fa-bowl-food menu-fallback-icon"></i>
+
+                    </div>
+
+
+                    <div class="menu-card-content">
+
+                        <span class="menu-card-kicker">
+                            STREET STYLE
+                        </span>
+
+                        <h3>
+                            CHIPS BHEL
+                        </h3>
+
+                        <p>
+                            Crunchy, chatpata and loaded with flavour.
+                        </p>
+
+
+                        <details class="menu-details">
+
+                            <summary>
+
+                                <span>
+                                    View Menu
+                                </span>
+
+                                <i class="fa-solid fa-chevron-down"></i>
+
+                            </summary>
+
+
+                            <div class="menu-item-list">
+
+                                <div class="menu-item">
+                                    <span>Chips Bhel</span>
+                                    <strong>₹50</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Kurkure Bhel</span>
+                                    <strong>₹50</strong>
+                                </div>
+
+                            </div>
+
+                        </details>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =====================================
+                     09 APPETIZER
+                ====================================== -->
+
+                <article
+                    class="menu-category-card app-card reveal-animation"
+                    id="menu-09"
+                    data-category="appetizer"
+                    data-category-number="09"
+                >
+
+                    <div class="menu-card-image menu-image-09">
+
+                        <span class="menu-number">
+                            09
+                        </span>
+
+                        <div class="menu-card-image-overlay"></div>
+
+                        <i class="fa-solid fa-fire menu-fallback-icon"></i>
+
+                    </div>
+
+
+                    <div class="menu-card-content">
+
+                        <span class="menu-card-kicker">
+                            CRISPY STARTERS
+                        </span>
+
+                        <h3>
+                            APPETIZER
+                        </h3>
+
+                        <p>
+                            Perfect crispy bites to start your Rio experience.
+                        </p>
+
+
+                        <details class="menu-details">
+
+                            <summary>
+
+                                <span>
+                                    View Menu
+                                </span>
+
+                                <i class="fa-solid fa-chevron-down"></i>
+
+                            </summary>
+
+
+                            <div class="menu-item-list">
+
+                                <div class="menu-item">
+                                    <span>French Fries</span>
+                                    <strong>₹30</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Fries</span>
+                                    <strong>₹40</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Schezwan Fries</span>
+                                    <strong>₹40</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Cheese Schezwan Fries</span>
+                                    <strong>₹50</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Aloo Tikki (3 Pcs)</span>
+                                    <strong>₹60</strong>
+                                </div>
+
+                                <div class="menu-item">
+                                    <span>Spring Roll (3 Pcs)</span>
+                                    <strong>₹60</strong>
+                                </div>
+
+                            </div>
+
+                        </details>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             YOUR LOYALTY
+        ========================================== -->
+
+        <section
+            class="loyalty-card-section app-section"
+            id="yourLoyalty"
+        >
+
+
+            <div
+                class="section-heading-card app-card reveal-animation"
+            >
+
+                <div class="section-heading-icon">
+
+                    <i class="fa-solid fa-crown"></i>
+
+                </div>
+
+
+                <div>
+
+                    <span class="section-kicker">
+                        PREMIUM REWARD
+                    </span>
+
+                    <h2>
+                        Your Loyalty
+                    </h2>
 
                     <p>
                         Collect 6 valid stamps & get 1 Veg Maggi FREE
@@ -260,7 +1730,6 @@
 
                     <div class="loyalty-brand">
 
-
                         <div class="loyalty-brand-icon">
 
                             <i class="fa-solid fa-bowl-food"></i>
@@ -274,13 +1743,11 @@
                                 RIO MAGGI POINT
                             </h2>
 
-
                             <span>
                                 PREMIUM LOYALTY CLUB
                             </span>
 
                         </div>
-
 
                     </div>
 
@@ -295,7 +1762,6 @@
 
                     </div>
 
-
                 </div>
 
 
@@ -306,7 +1772,6 @@
 
                     <div class="loyalty-customer-photo-wrapper">
 
-
                         <img
                             id="loyaltyCustomerPhoto"
                             src="assets/default-avatar.png"
@@ -314,25 +1779,20 @@
                             class="loyalty-customer-photo"
                         >
 
-
                         <div class="loyalty-photo-shine"></div>
-
 
                     </div>
 
 
                     <div class="loyalty-customer-info">
 
-
                         <span class="loyalty-customer-label">
                             Member
                         </span>
 
-
                         <h3 id="loyaltyCustomerName">
                             Rio Maggi Member
                         </h3>
-
 
                         <p>
 
@@ -345,7 +1805,6 @@
                             </strong>
 
                         </p>
-
 
                     </div>
 
@@ -366,7 +1825,6 @@
 
                     </button>
 
-
                 </div>
 
 
@@ -377,13 +1835,11 @@
 
                     <div class="loyalty-summary-title">
 
-
                         <div>
 
                             <span>
                                 Loyalty Summary
                             </span>
-
 
                             <h3>
                                 Collect Your Stamps
@@ -402,7 +1858,6 @@
 
                         </div>
 
-
                     </div>
 
 
@@ -410,16 +1865,13 @@
 
                     <div class="stamp-progress-wrapper">
 
-
                         <div class="stamp-progress-track">
-
 
                             <div
                                 id="stampProgressBar"
                                 class="stamp-progress-fill"
                                 style="width: 0%;"
                             ></div>
-
 
                         </div>
 
@@ -428,11 +1880,10 @@
                             0 of 6 valid stamps collected
                         </span>
 
-
                     </div>
 
 
-                    <!-- SIX STAMPS -->
+                    <!-- STAMP GRID -->
 
                     <div
                         id="stampContainer"
@@ -446,9 +1897,7 @@
                         >
 
                             <div class="stamp-icon">
-
                                 <i class="fa-solid fa-star"></i>
-
                             </div>
 
                             <span>
@@ -464,9 +1913,7 @@
                         >
 
                             <div class="stamp-icon">
-
                                 <i class="fa-solid fa-star"></i>
-
                             </div>
 
                             <span>
@@ -482,9 +1929,7 @@
                         >
 
                             <div class="stamp-icon">
-
                                 <i class="fa-solid fa-star"></i>
-
                             </div>
 
                             <span>
@@ -500,9 +1945,7 @@
                         >
 
                             <div class="stamp-icon">
-
                                 <i class="fa-solid fa-star"></i>
-
                             </div>
 
                             <span>
@@ -518,9 +1961,7 @@
                         >
 
                             <div class="stamp-icon">
-
                                 <i class="fa-solid fa-star"></i>
-
                             </div>
 
                             <span>
@@ -531,7 +1972,7 @@
 
 
                         <div
-                            class="stamp-box"
+                            class="stamp-box reward-stamp"
                             data-stamp="6"
                         >
 
@@ -550,7 +1991,6 @@
 
                     </div>
 
-
                 </div>
 
 
@@ -560,7 +2000,6 @@
                     id="rewardStatus"
                     class="reward-status"
                 >
-
 
                     <div class="reward-status-icon">
 
@@ -575,13 +2014,11 @@
                             Reward Locked
                         </strong>
 
-
                         <span>
                             Collect all 6 valid stamps within 40 days to unlock your FREE Veg Maggi.
                         </span>
 
                     </div>
-
 
                 </div>
 
@@ -589,7 +2026,6 @@
                 <!-- CARD FOOTER -->
 
                 <div class="loyalty-card-footer">
-
 
                     <div>
 
@@ -608,7 +2044,6 @@
 
                     </div>
 
-
                 </div>
 
 
@@ -622,7 +2057,6 @@
                 class="reward-action-area reveal-animation"
             >
 
-
                 <button
                     type="button"
                     id="claimRewardBtn"
@@ -632,17 +2066,115 @@
 
                     <i class="fa-solid fa-lock"></i>
 
-
                     <span>
                         Collect 6 Stamps to Unlock
                     </span>
 
-
                 </button>
-
 
             </div>
 
+        </section>
+
+
+        <!-- =========================================
+             RIO ANNOUNCEMENTS
+        ========================================== -->
+
+        <section
+            class="announcements-section app-section"
+            id="rioAnnouncements"
+        >
+
+
+            <div
+                class="section-heading-card app-card reveal-animation"
+            >
+
+                <div class="section-heading-icon">
+
+                    <i class="fa-solid fa-bullhorn"></i>
+
+                </div>
+
+
+                <div>
+
+                    <span class="section-kicker">
+                        STAY UPDATED
+                    </span>
+
+                    <h2>
+                        Rio Announcements
+                    </h2>
+
+                    <p>
+                        Offers, festivals, birthday wishes & special updates
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- DYNAMIC ANNOUNCEMENT CONTAINER -->
+
+            <div
+                id="announcementList"
+                class="announcement-list"
+            >
+
+                <!-- DEFAULT ANNOUNCEMENT -->
+
+                <article
+                    class="announcement-card app-card reveal-animation"
+                    data-announcement-default="true"
+                >
+
+                    <div class="announcement-card-icon">
+
+                        <i class="fa-solid fa-bullhorn"></i>
+
+                    </div>
+
+
+                    <div class="announcement-card-content">
+
+                        <span>
+                            RIO MAGGI POINT
+                        </span>
+
+                        <h3>
+                            Welcome to our Premium Loyalty Club
+                        </h3>
+
+                        <p>
+                            Keep collecting stamps and enjoy exciting rewards and special offers.
+                        </p>
+
+                    </div>
+
+
+                    <i class="fa-solid fa-chevron-right announcement-arrow"></i>
+
+                </article>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="viewAllAnnouncementsBtn"
+                class="announcement-view-all"
+            >
+
+                <span>
+                    View All Announcements
+                </span>
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </button>
 
         </section>
 
@@ -651,7 +2183,10 @@
              QUICK ACTIONS
         ========================================== -->
 
-        <section class="quick-actions-section app-section">
+        <section
+            class="quick-actions-section app-section"
+            id="quickActions"
+        >
 
 
             <div
@@ -671,7 +2206,6 @@
                         Quick Actions
                     </h2>
 
-
                     <p>
                         Everything you need in one place
                     </p>
@@ -687,7 +2221,7 @@
                 <!-- MENU -->
 
                 <a
-                    href="menu.html"
+                    href="#ourMenu"
                     class="quick-action-card app-card reveal-animation"
                 >
 
@@ -704,7 +2238,6 @@
                             View Menu
                         </h3>
 
-
                         <p>
                             Explore our delicious menu
                         </p>
@@ -712,9 +2245,7 @@
                     </div>
 
 
-                    <i
-                        class="fa-solid fa-chevron-right quick-action-arrow"
-                    ></i>
+                    <i class="fa-solid fa-chevron-right quick-action-arrow"></i>
 
                 </a>
 
@@ -739,7 +2270,6 @@
                             My QR Code
                         </h3>
 
-
                         <p>
                             Show your loyalty QR code
                         </p>
@@ -747,9 +2277,7 @@
                     </div>
 
 
-                    <i
-                        class="fa-solid fa-chevron-right quick-action-arrow"
-                    ></i>
+                    <i class="fa-solid fa-chevron-right quick-action-arrow"></i>
 
                 </a>
 
@@ -774,7 +2302,6 @@
                             Stamp History
                         </h3>
 
-
                         <p>
                             View your purchase history
                         </p>
@@ -782,14 +2309,12 @@
                     </div>
 
 
-                    <i
-                        class="fa-solid fa-chevron-right quick-action-arrow"
-                    ></i>
+                    <i class="fa-solid fa-chevron-right quick-action-arrow"></i>
 
                 </a>
 
 
-                <!-- REVIEW -->
+                <!-- FEEDBACK -->
 
                 <a
                     href="feedback.html"
@@ -809,7 +2334,6 @@
                             Give a Review
                         </h3>
 
-
                         <p>
                             Share your experience with us
                         </p>
@@ -817,9 +2341,7 @@
                     </div>
 
 
-                    <i
-                        class="fa-solid fa-chevron-right quick-action-arrow"
-                    ></i>
+                    <i class="fa-solid fa-chevron-right quick-action-arrow"></i>
 
                 </a>
 
@@ -844,7 +2366,6 @@
                             My Profile
                         </h3>
 
-
                         <p>
                             Manage your account
                         </p>
@@ -852,15 +2373,44 @@
                     </div>
 
 
-                    <i
-                        class="fa-solid fa-chevron-right quick-action-arrow"
-                    ></i>
+                    <i class="fa-solid fa-chevron-right quick-action-arrow"></i>
+
+                </a>
+
+
+                <!-- CHAT -->
+
+                <a
+                    href="chat.html"
+                    class="quick-action-card app-card reveal-animation"
+                >
+
+                    <div class="quick-action-icon">
+
+                        <i class="fa-regular fa-comments"></i>
+
+                    </div>
+
+
+                    <div class="quick-action-content">
+
+                        <h3>
+                            Chat With Us
+                        </h3>
+
+                        <p>
+                            Talk to Rio Maggi Point
+                        </p>
+
+                    </div>
+
+
+                    <i class="fa-solid fa-chevron-right quick-action-arrow"></i>
 
                 </a>
 
 
             </div>
-
 
         </section>
 
@@ -869,7 +2419,10 @@
              SHOP CONTACT
         ========================================== -->
 
-        <section class="shop-contact-section app-section">
+        <section
+            class="shop-contact-section app-section"
+            id="shopContact"
+        >
 
 
             <div
@@ -888,7 +2441,6 @@
                     <h2>
                         Visit Rio Maggi Point
                     </h2>
-
 
                     <p>
                         We are happy to serve you
@@ -923,7 +2475,6 @@
                             Call Us
                         </h3>
 
-
                         <p>
                             7987827979
                         </p>
@@ -956,7 +2507,6 @@
                             WhatsApp
                         </h3>
 
-
                         <p>
                             Chat with us
                         </p>
@@ -966,7 +2516,7 @@
                 </a>
 
 
-                <!-- MAP COMING SOON -->
+                <!-- LOCATION -->
 
                 <button
                     type="button"
@@ -988,7 +2538,6 @@
                             Find Us
                         </h3>
 
-
                         <p>
                             Location Coming Soon
                         </p>
@@ -1000,7 +2549,6 @@
 
             </div>
 
-
         </section>
 
 
@@ -1008,13 +2556,14 @@
              HOME DELIVERY
         ========================================== -->
 
-        <section class="home-delivery-section app-section">
-
+        <section
+            class="home-delivery-section app-section"
+            id="homeDelivery"
+        >
 
             <div
                 class="home-delivery-card app-card reveal-animation"
             >
-
 
                 <div class="home-delivery-icon">
 
@@ -1029,16 +2578,13 @@
                         RIO MAGGI POINT
                     </span>
 
-
                     <h2>
                         Home Delivery
                     </h2>
 
-
                     <p>
                         Delicious Maggi delivered to your doorstep.
                     </p>
-
 
                     <strong>
                         COMING SOON
@@ -1046,9 +2592,7 @@
 
                 </div>
 
-
             </div>
-
 
         </section>
 
@@ -1057,13 +2601,14 @@
              FREE GAME PROMOTION
         ========================================== -->
 
-        <section class="free-game-section app-section">
-
+        <section
+            class="free-game-section app-section"
+            id="freeGameSection"
+        >
 
             <div
                 class="free-game-card app-card reveal-animation"
             >
-
 
                 <div class="free-game-decoration">
 
@@ -1074,16 +2619,13 @@
 
                 <div class="free-game-content">
 
-
                     <span class="free-game-label">
                         RIO FUN GAME
                     </span>
 
-
                     <h2>
                         Play While You Wait!
                     </h2>
-
 
                     <p>
                         Enjoy free games while your delicious food is being prepared.
@@ -1098,26 +2640,169 @@
 
                         <i class="fa-solid fa-play"></i>
 
-
                         <span>
                             Play Free Games
                         </span>
 
-
                     </a>
-
 
                 </div>
 
-
             </div>
-
 
         </section>
 
 
         <!-- =========================================
-             SAFE SPACE
+             BOTTOM NAVIGATION
+             LOCKED:
+             HOME → PROFILE → QR → HISTORY → FEEDBACK → CHAT
+        ========================================== -->
+
+        <nav
+            class="bottom-navigation"
+            id="bottomNavigation"
+            aria-label="Main navigation"
+        >
+
+
+            <!-- HOME -->
+
+            <a
+                href="card.html"
+                class="bottom-nav-item active"
+                data-nav="home"
+                aria-current="page"
+            >
+
+                <span class="bottom-nav-icon">
+
+                    <i class="fa-solid fa-house"></i>
+
+                </span>
+
+                <span class="bottom-nav-label">
+                    Home
+                </span>
+
+            </a>
+
+
+            <!-- PROFILE -->
+
+            <a
+                href="profile.html"
+                class="bottom-nav-item"
+                data-nav="profile"
+            >
+
+                <span class="bottom-nav-icon">
+
+                    <i class="fa-solid fa-user"></i>
+
+                </span>
+
+                <span class="bottom-nav-label">
+                    Profile
+                </span>
+
+            </a>
+
+
+            <!-- QR CENTER -->
+
+            <a
+                href="qr.html"
+                class="bottom-nav-item bottom-nav-qr"
+                data-nav="qr"
+                aria-label="My QR Code"
+            >
+
+                <span class="bottom-nav-qr-ring">
+
+                    <span class="bottom-nav-icon">
+
+                        <i class="fa-solid fa-qrcode"></i>
+
+                    </span>
+
+                </span>
+
+                <span class="bottom-nav-label">
+                    QR
+                </span>
+
+            </a>
+
+
+            <!-- HISTORY -->
+
+            <a
+                href="history.html"
+                class="bottom-nav-item"
+                data-nav="history"
+            >
+
+                <span class="bottom-nav-icon">
+
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+
+                </span>
+
+                <span class="bottom-nav-label">
+                    History
+                </span>
+
+            </a>
+
+
+            <!-- FEEDBACK -->
+
+            <a
+                href="feedback.html"
+                class="bottom-nav-item"
+                data-nav="feedback"
+            >
+
+                <span class="bottom-nav-icon">
+
+                    <i class="fa-solid fa-heart"></i>
+
+                </span>
+
+                <span class="bottom-nav-label">
+                    Feedback
+                </span>
+
+            </a>
+
+
+            <!-- CHAT -->
+
+            <a
+                href="chat.html"
+                class="bottom-nav-item"
+                data-nav="chat"
+            >
+
+                <span class="bottom-nav-icon">
+
+                    <i class="fa-regular fa-comments"></i>
+
+                </span>
+
+                <span class="bottom-nav-label">
+                    Chat
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- =========================================
+             SAFE SPACE FOR FIXED NAV
         ========================================== -->
 
         <div class="nav-space"></div>
