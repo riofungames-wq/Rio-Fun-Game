@@ -4,6 +4,11 @@
 // PREMIUM CUSTOMER PROFILE SYSTEM
 // =====================================================
 
+
+// =====================================================
+// FIREBASE
+// =====================================================
+
 import {
     auth,
     db
@@ -14,7 +19,7 @@ import {
     signOut,
     deleteUser,
     updateProfile
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
 import {
     doc,
@@ -22,7 +27,7 @@ import {
     setDoc,
     deleteDoc,
     serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
 
 // =====================================================
@@ -96,6 +101,8 @@ let selectedPhotoDataURL = null;
 
 let isSaving = false;
 
+let isDeleting = false;
+
 
 // =====================================================
 // CONSTANTS
@@ -113,20 +120,30 @@ const MAX_PHOTO_SIZE =
 // SHOW MESSAGE
 // =====================================================
 
-function showMessage(message, type = "") {
+function showMessage(
+    message,
+    type = ""
+) {
 
     if (!profileMessage) {
         return;
     }
 
+
     profileMessage.textContent =
         String(message || "");
+
 
     profileMessage.className =
         "profile-message";
 
+
     if (type) {
-        profileMessage.classList.add(type);
+
+        profileMessage.classList.add(
+            type
+        );
+
     }
 
 }
@@ -142,6 +159,7 @@ function removeLoading() {
         "profile-loading"
     );
 
+
     profileEmail?.classList.remove(
         "profile-loading"
     );
@@ -153,11 +171,16 @@ function removeLoading() {
 // FORMAT DATE
 // =====================================================
 
-function formatMemberDate(value) {
+function formatMemberDate(
+    value
+) {
 
     if (!value) {
+
         return "Not Available";
+
     }
+
 
     try {
 
@@ -166,7 +189,8 @@ function formatMemberDate(value) {
 
         if (
             value &&
-            typeof value.toDate === "function"
+            typeof value.toDate ===
+            "function"
         ) {
 
             date =
@@ -215,9 +239,16 @@ function formatMemberDate(value) {
         return date.toLocaleDateString(
             "en-IN",
             {
-                day: "2-digit",
-                month: "short",
-                year: "numeric"
+
+                day:
+                    "2-digit",
+
+                month:
+                    "short",
+
+                year:
+                    "numeric"
+
             }
         );
 
@@ -230,6 +261,7 @@ function formatMemberDate(value) {
             error
         );
 
+
         return "Not Available";
 
     }
@@ -241,10 +273,14 @@ function formatMemberDate(value) {
 // NORMALIZE DOB
 // =====================================================
 
-function normalizeDOB(value) {
+function normalizeDOB(
+    value
+) {
 
     if (!value) {
+
         return "";
+
     }
 
 
@@ -252,7 +288,9 @@ function normalizeDOB(value) {
 
     if (
         typeof value === "string" &&
-        /^\d{4}-\d{2}-\d{2}$/.test(value)
+        /^\d{4}-\d{2}-\d{2}$/.test(
+            value
+        )
     ) {
 
         return value;
@@ -263,10 +301,18 @@ function normalizeDOB(value) {
     try {
 
         const date =
+
             value &&
-            typeof value.toDate === "function"
-                ? value.toDate()
-                : new Date(value);
+            typeof value.toDate ===
+            "function"
+
+                ?
+
+                value.toDate()
+
+                :
+
+                new Date(value);
 
 
         if (
@@ -283,18 +329,28 @@ function normalizeDOB(value) {
         const year =
             date.getFullYear();
 
+
         const month =
             String(
                 date.getMonth() + 1
-            ).padStart(2, "0");
+            ).padStart(
+                2,
+                "0"
+            );
+
 
         const day =
             String(
                 date.getDate()
-            ).padStart(2, "0");
+            ).padStart(
+                2,
+                "0"
+            );
 
 
-        return `${year}-${month}-${day}`;
+        return (
+            `${year}-${month}-${day}`
+        );
 
     }
 
@@ -311,10 +367,25 @@ function normalizeDOB(value) {
 // VALIDATE DOB
 // =====================================================
 
-function isValidDOB(value) {
+function isValidDOB(
+    value
+) {
 
     if (!value) {
+
         return true;
+
+    }
+
+
+    if (
+        !/^\d{4}-\d{2}-\d{2}$/.test(
+            value
+        )
+    ) {
+
+        return false;
+
     }
 
 
@@ -338,6 +409,7 @@ function isValidDOB(value) {
     const today =
         new Date();
 
+
     today.setHours(
         0,
         0,
@@ -346,20 +418,18 @@ function isValidDOB(value) {
     );
 
 
-    if (date > today) {
+    if (
+        date > today
+    ) {
+
         return false;
+
     }
-
-
-    // Prevent obviously invalid old dates.
-
-    const minimumYear =
-        1900;
 
 
     if (
         date.getFullYear() <
-        minimumYear
+        1900
     ) {
 
         return false;
@@ -376,7 +446,9 @@ function isValidDOB(value) {
 // DISPLAY PROFILE PHOTO
 // =====================================================
 
-function displayProfilePhoto(photoURL) {
+function displayProfilePhoto(
+    photoURL
+) {
 
     if (!photoURL) {
 
@@ -385,6 +457,7 @@ function displayProfilePhoto(photoURL) {
             profilePhoto.removeAttribute(
                 "src"
             );
+
 
             profilePhoto.style.display =
                 "none";
@@ -399,6 +472,7 @@ function displayProfilePhoto(photoURL) {
 
         }
 
+
         return;
 
     }
@@ -409,6 +483,7 @@ function displayProfilePhoto(photoURL) {
         profilePhoto.src =
             photoURL;
 
+
         profilePhoto.style.display =
             "block";
 
@@ -418,6 +493,7 @@ function displayProfilePhoto(photoURL) {
 
                 profilePhoto.style.display =
                     "none";
+
 
                 if (defaultAvatar) {
 
@@ -445,12 +521,18 @@ function displayProfilePhoto(photoURL) {
 // APPLY GENDER THEME
 // =====================================================
 
-function applyGenderTheme(gender) {
+function applyGenderTheme(
+    gender
+) {
 
     document.body.classList.remove(
+
         "male-theme",
+
         "female-theme",
+
         "other-theme"
+
     );
 
 
@@ -499,10 +581,14 @@ function applyGenderTheme(gender) {
 // UPDATE DOB LOCK UI
 // =====================================================
 
-function updateDOBLock(hasExistingDOB) {
+function updateDOBLock(
+    hasExistingDOB
+) {
 
     if (!editDOB) {
+
         return;
+
     }
 
 
@@ -549,13 +635,139 @@ function updateDOBLock(hasExistingDOB) {
 
 
 // =====================================================
+// GET SAFE STAMP COUNT
+// =====================================================
+
+function getSafeStampCount(
+    data
+) {
+
+    let stamps =
+        Number(
+            data?.stamps ??
+            data?.stampCount ??
+            data?.validStamps ??
+            0
+        );
+
+
+    if (
+        !Number.isFinite(
+            stamps
+        )
+    ) {
+
+        stamps = 0;
+
+    }
+
+
+    return Math.min(
+        Math.max(
+            Math.floor(
+                stamps
+            ),
+            0
+        ),
+        STAMP_LIMIT
+    );
+
+}
+
+
+// =====================================================
+// UPDATE LOYALTY UI
+// =====================================================
+
+function updateLoyaltyUI(
+    data
+) {
+
+    const stamps =
+        getSafeStampCount(
+            data
+        );
+
+
+    if (profileStamps) {
+
+        profileStamps.textContent =
+            `${stamps} / ${STAMP_LIMIT}`;
+
+    }
+
+
+    const rewardUnlocked =
+        data?.rewardUnlocked === true ||
+        stamps >= STAMP_LIMIT;
+
+
+    const rewardRedeemed =
+        data?.rewardRedeemed === true ||
+        data?.rewardClaimed === true ||
+        data?.rewardStatus === "redeemed" ||
+        data?.rewardStatus === "claimed";
+
+
+    if (!profileReward) {
+
+        return;
+
+    }
+
+
+    if (
+        rewardUnlocked &&
+        !rewardRedeemed
+    ) {
+
+        profileReward.textContent =
+            "FREE VEG MAGGI UNLOCKED";
+
+        return;
+
+    }
+
+
+    if (rewardRedeemed) {
+
+        profileReward.textContent =
+            "Reward Redeemed";
+
+        return;
+
+    }
+
+
+    const remaining =
+        Math.max(
+            STAMP_LIMIT - stamps,
+            0
+        );
+
+
+    profileReward.textContent =
+        `${remaining} Stamp${
+            remaining === 1
+                ? ""
+                : "s"
+        } Left`;
+
+}
+
+
+// =====================================================
 // LOAD PROFILE
 // =====================================================
 
-async function loadProfile(user) {
+async function loadProfile(
+    user
+) {
 
     if (!user) {
+
         return;
+
     }
 
 
@@ -676,6 +888,7 @@ async function loadProfile(user) {
             const memberDate =
                 data.memberSince ||
                 data.createdAt ||
+                user.metadata?.creationTime ||
                 null;
 
 
@@ -701,15 +914,20 @@ async function loadProfile(user) {
                 .trim();
 
 
+        const validGenderValues = [
+
+            "",
+
+            "male",
+
+            "female",
+
+            "other"
+
+        ];
+
+
         if (editGender) {
-
-            const validGenderValues = [
-                "",
-                "male",
-                "female",
-                "other"
-            ];
-
 
             editGender.value =
                 validGenderValues.includes(
@@ -752,102 +970,12 @@ async function loadProfile(user) {
 
 
         // =================================================
-        // LOYALTY STAMPS
+        // LOYALTY
         // =================================================
 
-        let stamps =
-            Number(
-                data.stamps ?? 0
-            );
-
-
-        if (
-            !Number.isFinite(
-                stamps
-            )
-        ) {
-
-            stamps = 0;
-
-        }
-
-
-        stamps =
-            Math.min(
-                Math.max(
-                    Math.floor(
-                        stamps
-                    ),
-                    0
-                ),
-                STAMP_LIMIT
-            );
-
-
-        if (profileStamps) {
-
-            profileStamps.textContent =
-                `${stamps} / ${STAMP_LIMIT}`;
-
-        }
-
-
-        // =================================================
-        // REWARD STATUS
-        // =================================================
-
-        const rewardUnlocked =
-            data.rewardUnlocked === true;
-
-        const rewardRedeemed =
-            data.rewardRedeemed === true;
-
-
-        if (
-            stamps >= STAMP_LIMIT &&
-            rewardUnlocked &&
-            !rewardRedeemed
-        ) {
-
-            if (profileReward) {
-
-                profileReward.textContent =
-                    "FREE VEG MAGGI UNLOCKED";
-
-            }
-
-        }
-
-        else if (
-            rewardRedeemed
-        ) {
-
-            if (profileReward) {
-
-                profileReward.textContent =
-                    "Reward Redeemed";
-
-            }
-
-        }
-
-        else {
-
-            const remaining =
-                Math.max(
-                    STAMP_LIMIT - stamps,
-                    0
-                );
-
-
-            if (profileReward) {
-
-                profileReward.textContent =
-                    `${remaining} Stamp${remaining === 1 ? "" : "s"} Left`;
-
-            }
-
-        }
+        updateLoyaltyUI(
+            data
+        );
 
 
         // =================================================
@@ -963,7 +1091,9 @@ if (photoInput) {
 
 
             if (!file) {
+
                 return;
+
             }
 
 
@@ -972,10 +1102,15 @@ if (photoInput) {
             // =================================================
 
             const allowedTypes = [
+
                 "image/jpeg",
+
                 "image/png",
+
                 "image/webp",
+
                 "image/gif"
+
             ];
 
 
@@ -1088,7 +1223,9 @@ if (saveProfileBtn) {
         async () => {
 
             if (isSaving) {
+
                 return;
+
             }
 
 
@@ -1182,10 +1319,15 @@ if (saveProfileBtn) {
 
 
             const validGenderValues = [
+
                 "",
+
                 "male",
+
                 "female",
+
                 "other"
+
             ];
 
 
@@ -1226,7 +1368,9 @@ if (saveProfileBtn) {
                 );
 
 
-            // DOB is locked once already saved.
+            // =================================================
+            // DOB LOCK
+            // =================================================
 
             if (
                 oldDOB &&
@@ -1297,7 +1441,7 @@ if (saveProfileBtn) {
 
 
                 // =================================================
-                // FIRESTORE UPDATE
+                // PROFILE DATA
                 // =================================================
 
                 const updateData = {
@@ -1320,8 +1464,6 @@ if (saveProfileBtn) {
 
                 // =================================================
                 // DOB
-                //
-                // Only write DOB when it has never been set.
                 // =================================================
 
                 if (
@@ -1338,18 +1480,29 @@ if (saveProfileBtn) {
                 // =================================================
                 // PHOTO
                 //
-                // Preserves existing architecture.
+                // IMPORTANT:
+                // Do not store a large Base64 image in Firestore.
+                //
+                // The selected image is only previewed here.
+                // Actual Storage upload should be handled by the
+                // dedicated Storage/profile-image system.
                 // =================================================
 
                 if (
                     selectedPhotoDataURL
                 ) {
 
-                    updateData.photoURL =
-                        selectedPhotoDataURL;
+                    showMessage(
+                        "Photo preview updated. Profile text will be saved now. Photo upload requires Storage configuration.",
+                        "success"
+                    );
 
                 }
 
+
+                // =================================================
+                // SAVE FIRESTORE PROFILE
+                // =================================================
 
                 await setDoc(
                     userRef,
@@ -1361,18 +1514,25 @@ if (saveProfileBtn) {
 
 
                 // =================================================
-                // FIREBASE AUTH DISPLAY NAME
+                // UPDATE FIREBASE AUTH DISPLAY NAME
                 // =================================================
 
                 try {
 
-                    await updateProfile(
-                        currentUser,
-                        {
-                            displayName:
-                                newName
-                        }
-                    );
+                    if (
+                        currentUser.displayName !==
+                        newName
+                    ) {
+
+                        await updateProfile(
+                            currentUser,
+                            {
+                                displayName:
+                                    newName
+                            }
+                        );
+
+                    }
 
                 }
 
@@ -1391,16 +1551,18 @@ if (saveProfileBtn) {
                 // =================================================
 
                 currentProfile = {
+
                     ...currentProfile,
-                    ...updateData
+
+                    ...updateData,
+
+                    name:
+                        newName,
+
+                    gender:
+                        newGender
+
                 };
-
-
-                currentProfile.name =
-                    newName;
-
-                currentProfile.gender =
-                    newGender;
 
 
                 if (
@@ -1442,7 +1604,9 @@ if (saveProfileBtn) {
                 }
 
 
-                if (newDOB) {
+                if (
+                    newDOB
+                ) {
 
                     updateDOBLock(
                         true
@@ -1455,6 +1619,10 @@ if (saveProfileBtn) {
                     newGender
                 );
 
+
+                // =================================================
+                // PHOTO PREVIEW
+                // =================================================
 
                 if (
                     selectedPhotoDataURL
@@ -1548,7 +1716,9 @@ if (logoutBtn) {
 
 
             if (!confirmed) {
+
                 return;
+
             }
 
 
@@ -1612,6 +1782,13 @@ if (deleteAccountBtn) {
         "click",
         async () => {
 
+            if (isDeleting) {
+
+                return;
+
+            }
+
+
             if (!currentUser) {
 
                 showMessage(
@@ -1640,11 +1817,17 @@ if (deleteAccountBtn) {
 
 
             if (!confirmed) {
+
                 return;
+
             }
 
 
             try {
+
+                isDeleting =
+                    true;
+
 
                 deleteAccountBtn.disabled =
                     true;
@@ -1655,7 +1838,7 @@ if (deleteAccountBtn) {
 
 
                 // =================================================
-                // DELETE CUSTOMER PROFILE
+                // DELETE FIRESTORE CUSTOMER PROFILE
                 // =================================================
 
                 const userRef =
@@ -1698,9 +1881,17 @@ if (deleteAccountBtn) {
                     false;
 
 
+                isDeleting =
+                    false;
+
+
                 deleteAccountBtn.innerHTML =
                     '<i class="fa-solid fa-trash"></i><span>Delete Account</span>';
 
+
+                // =================================================
+                // RECENT LOGIN REQUIRED
+                // =================================================
 
                 if (
                     error.code ===
