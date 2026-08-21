@@ -8,15 +8,19 @@ import {
     initializeApp,
     getApps,
     getApp
-} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
 import {
     getAuth
-} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 import {
     getFirestore
-} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+import {
+    getStorage
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
 
 
 // ======================================
@@ -48,7 +52,7 @@ const firebaseConfig = {
 
 // ======================================
 // FIREBASE APP INITIALIZATION
-// Prevent Duplicate Initialization
+// PREVENT DUPLICATE INITIALIZATION
 // ======================================
 
 const app =
@@ -74,6 +78,14 @@ const db =
 
 
 // ======================================
+// FIREBASE STORAGE
+// ======================================
+
+const storage =
+    getStorage(app);
+
+
+// ======================================
 // CENTRAL FIREBASE EXPORTS
 // ======================================
 
@@ -81,6 +93,7 @@ export {
     app,
     auth,
     db,
+    storage,
     firebaseConfig
 };
 
@@ -103,6 +116,10 @@ console.log(
 
 console.log(
     "✅ Firestore Database Ready"
+);
+
+console.log(
+    "✅ Firebase Storage Ready"
 );
 
 
