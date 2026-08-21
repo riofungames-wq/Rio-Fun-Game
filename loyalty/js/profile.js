@@ -2,6 +2,7 @@
 // RIO MAGGI POINT
 // PROFILE.JS
 // PREMIUM CUSTOMER PROFILE SYSTEM
+// FINAL FIXED VERSION
 // =====================================================
 
 
@@ -129,14 +130,11 @@ function showMessage(
         return;
     }
 
-
     profileMessage.textContent =
         String(message || "");
 
-
     profileMessage.className =
         "profile-message";
-
 
     if (type) {
 
@@ -159,7 +157,6 @@ function removeLoading() {
         "profile-loading"
     );
 
-
     profileEmail?.classList.remove(
         "profile-loading"
     );
@@ -168,7 +165,7 @@ function removeLoading() {
 
 
 // =====================================================
-// FORMAT DATE
+// FORMAT MEMBER DATE
 // =====================================================
 
 function formatMemberDate(
@@ -176,16 +173,12 @@ function formatMemberDate(
 ) {
 
     if (!value) {
-
         return "Not Available";
-
     }
-
 
     try {
 
         let date = null;
-
 
         if (
             value &&
@@ -216,13 +209,20 @@ function formatMemberDate(
 
         }
 
-        else {
+        else if (
+            typeof value === "string"
+        ) {
 
             date =
                 new Date(value);
 
         }
 
+        else {
+
+            return "Not Available";
+
+        }
 
         if (
             !date ||
@@ -235,20 +235,12 @@ function formatMemberDate(
 
         }
 
-
         return date.toLocaleDateString(
             "en-IN",
             {
-
-                day:
-                    "2-digit",
-
-                month:
-                    "short",
-
-                year:
-                    "numeric"
-
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
             }
         );
 
@@ -260,7 +252,6 @@ function formatMemberDate(
             "Member Date Format Error:",
             error
         );
-
 
         return "Not Available";
 
@@ -278,13 +269,8 @@ function normalizeDOB(
 ) {
 
     if (!value) {
-
         return "";
-
     }
-
-
-    // Already YYYY-MM-DD
 
     if (
         typeof value === "string" &&
@@ -296,7 +282,6 @@ function normalizeDOB(
         return value;
 
     }
-
 
     try {
 
@@ -314,8 +299,8 @@ function normalizeDOB(
 
                 new Date(value);
 
-
         if (
+            !date ||
             Number.isNaN(
                 date.getTime()
             )
@@ -325,10 +310,8 @@ function normalizeDOB(
 
         }
 
-
         const year =
             date.getFullYear();
-
 
         const month =
             String(
@@ -338,7 +321,6 @@ function normalizeDOB(
                 "0"
             );
 
-
         const day =
             String(
                 date.getDate()
@@ -346,7 +328,6 @@ function normalizeDOB(
                 2,
                 "0"
             );
-
 
         return (
             `${year}-${month}-${day}`
@@ -372,11 +353,8 @@ function isValidDOB(
 ) {
 
     if (!value) {
-
         return true;
-
     }
-
 
     if (
         !/^\d{4}-\d{2}-\d{2}$/.test(
@@ -388,12 +366,10 @@ function isValidDOB(
 
     }
 
-
     const date =
         new Date(
             `${value}T00:00:00`
         );
-
 
     if (
         Number.isNaN(
@@ -405,10 +381,8 @@ function isValidDOB(
 
     }
 
-
     const today =
         new Date();
-
 
     today.setHours(
         0,
@@ -416,7 +390,6 @@ function isValidDOB(
         0,
         0
     );
-
 
     if (
         date > today
@@ -426,16 +399,13 @@ function isValidDOB(
 
     }
 
-
     if (
-        date.getFullYear() <
-        1900
+        date.getFullYear() < 1900
     ) {
 
         return false;
 
     }
-
 
     return true;
 
@@ -458,12 +428,10 @@ function displayProfilePhoto(
                 "src"
             );
 
-
             profilePhoto.style.display =
                 "none";
 
         }
-
 
         if (defaultAvatar) {
 
@@ -472,28 +440,23 @@ function displayProfilePhoto(
 
         }
 
-
         return;
 
     }
-
 
     if (profilePhoto) {
 
         profilePhoto.src =
             photoURL;
 
-
         profilePhoto.style.display =
             "block";
-
 
         profilePhoto.onerror =
             () => {
 
                 profilePhoto.style.display =
                     "none";
-
 
                 if (defaultAvatar) {
 
@@ -505,7 +468,6 @@ function displayProfilePhoto(
             };
 
     }
-
 
     if (defaultAvatar) {
 
@@ -519,6 +481,8 @@ function displayProfilePhoto(
 
 // =====================================================
 // APPLY GENDER THEME
+// FIX:
+// EMPTY GENDER NO LONGER BECOMES MALE
 // =====================================================
 
 function applyGenderTheme(
@@ -526,15 +490,10 @@ function applyGenderTheme(
 ) {
 
     document.body.classList.remove(
-
         "male-theme",
-
         "female-theme",
-
         "other-theme"
-
     );
-
 
     const normalizedGender =
         String(
@@ -543,8 +502,18 @@ function applyGenderTheme(
             .toLowerCase()
             .trim();
 
-
     if (
+        normalizedGender ===
+        "male"
+    ) {
+
+        document.body.classList.add(
+            "male-theme"
+        );
+
+    }
+
+    else if (
         normalizedGender ===
         "female"
     ) {
@@ -566,14 +535,6 @@ function applyGenderTheme(
 
     }
 
-    else {
-
-        document.body.classList.add(
-            "male-theme"
-        );
-
-    }
-
 }
 
 
@@ -586,21 +547,16 @@ function updateDOBLock(
 ) {
 
     if (!editDOB) {
-
         return;
-
     }
-
 
     if (hasExistingDOB) {
 
         editDOB.disabled =
             true;
 
-
         editDOB.title =
             "Date of birth is locked. Admin approval is required to change it.";
-
 
         if (dobHelp) {
 
@@ -616,11 +572,9 @@ function updateDOBLock(
         editDOB.disabled =
             false;
 
-
         editDOB.removeAttribute(
             "title"
         );
-
 
         if (dobHelp) {
 
@@ -650,7 +604,6 @@ function getSafeStampCount(
             0
         );
 
-
     if (
         !Number.isFinite(
             stamps
@@ -661,7 +614,6 @@ function getSafeStampCount(
 
     }
 
-
     return Math.min(
         Math.max(
             Math.floor(
@@ -670,6 +622,49 @@ function getSafeStampCount(
             0
         ),
         STAMP_LIMIT
+    );
+
+}
+
+
+// =====================================================
+// CHECK REWARD UNLOCK STATUS
+//
+// IMPORTANT:
+// 6 stamps alone do NOT automatically mean
+// the reward should be displayed as unlocked.
+//
+// The actual loyalty system should set
+// rewardUnlocked / rewardUnlockAt.
+//
+// This profile only reads the authoritative
+// reward status.
+// =====================================================
+
+function isRewardUnlocked(
+    data
+) {
+
+    return (
+        data?.rewardUnlocked === true
+    );
+
+}
+
+
+// =====================================================
+// CHECK REWARD REDEEMED STATUS
+// =====================================================
+
+function isRewardRedeemed(
+    data
+) {
+
+    return (
+        data?.rewardRedeemed === true ||
+        data?.rewardClaimed === true ||
+        data?.rewardStatus === "redeemed" ||
+        data?.rewardStatus === "claimed"
     );
 
 }
@@ -688,7 +683,6 @@ function updateLoyaltyUI(
             data
         );
 
-
     if (profileStamps) {
 
         profileStamps.textContent =
@@ -696,25 +690,19 @@ function updateLoyaltyUI(
 
     }
 
-
-    const rewardUnlocked =
-        data?.rewardUnlocked === true ||
-        stamps >= STAMP_LIMIT;
-
-
-    const rewardRedeemed =
-        data?.rewardRedeemed === true ||
-        data?.rewardClaimed === true ||
-        data?.rewardStatus === "redeemed" ||
-        data?.rewardStatus === "claimed";
-
-
     if (!profileReward) {
-
         return;
-
     }
 
+    const rewardUnlocked =
+        isRewardUnlocked(
+            data
+        );
+
+    const rewardRedeemed =
+        isRewardRedeemed(
+            data
+        );
 
     if (
         rewardUnlocked &&
@@ -728,7 +716,6 @@ function updateLoyaltyUI(
 
     }
 
-
     if (rewardRedeemed) {
 
         profileReward.textContent =
@@ -738,13 +725,20 @@ function updateLoyaltyUI(
 
     }
 
-
     const remaining =
         Math.max(
             STAMP_LIMIT - stamps,
             0
         );
 
+    if (remaining === 0) {
+
+        profileReward.textContent =
+            "Reward Unlock Pending";
+
+        return;
+
+    }
 
     profileReward.textContent =
         `${remaining} Stamp${
@@ -765,11 +759,8 @@ async function loadProfile(
 ) {
 
     if (!user) {
-
         return;
-
     }
-
 
     try {
 
@@ -780,18 +771,15 @@ async function loadProfile(
                 user.uid
             );
 
-
         const userSnap =
             await getDoc(
                 userRef
             );
 
-
         const data =
             userSnap.exists()
                 ? userSnap.data()
                 : {};
-
 
         currentProfile =
             data || {};
@@ -802,10 +790,11 @@ async function loadProfile(
         // =================================================
 
         const name =
-            data.name ||
-            user.displayName ||
-            "Customer";
-
+            String(
+                data.name ||
+                user.displayName ||
+                "Customer"
+            ).trim();
 
         if (profileName) {
 
@@ -813,7 +802,6 @@ async function loadProfile(
                 name;
 
         }
-
 
         if (editName) {
 
@@ -832,7 +820,6 @@ async function loadProfile(
             user.email ||
             "";
 
-
         if (profileEmail) {
 
             profileEmail.textContent =
@@ -841,11 +828,18 @@ async function loadProfile(
 
         }
 
-
         if (editEmail) {
 
             editEmail.value =
                 email;
+
+            /*
+             * Email is controlled by Firebase Auth.
+             * It should not be treated as a normal
+             * Firestore profile field.
+             */
+            editEmail.readOnly =
+                true;
 
         }
 
@@ -865,11 +859,9 @@ async function loadProfile(
                 )
                 .toUpperCase();
 
-
         const finalMemberId =
             data.memberId ||
             generatedMemberId;
-
 
         if (memberId) {
 
@@ -890,7 +882,6 @@ async function loadProfile(
                 data.createdAt ||
                 user.metadata?.creationTime ||
                 null;
-
 
             memberSince.textContent =
                 memberDate
@@ -913,34 +904,29 @@ async function loadProfile(
                 .toLowerCase()
                 .trim();
 
-
         const validGenderValues = [
-
             "",
-
             "male",
-
             "female",
-
             "other"
-
         ];
 
+        const safeGender =
+            validGenderValues.includes(
+                gender
+            )
+                ? gender
+                : "";
 
         if (editGender) {
 
             editGender.value =
-                validGenderValues.includes(
-                    gender
-                )
-                    ? gender
-                    : "";
+                safeGender;
 
         }
 
-
         applyGenderTheme(
-            gender
+            safeGender
         );
 
 
@@ -953,14 +939,12 @@ async function loadProfile(
                 data.dob
             );
 
-
         if (editDOB) {
 
             editDOB.value =
                 existingDOB;
 
         }
-
 
         updateDOBLock(
             Boolean(
@@ -987,7 +971,6 @@ async function loadProfile(
             user.photoURL ||
             "";
 
-
         displayProfilePhoto(
             photoURL
         );
@@ -1008,7 +991,6 @@ async function loadProfile(
             error
         );
 
-
         if (profileName) {
 
             profileName.textContent =
@@ -1016,7 +998,6 @@ async function loadProfile(
                 "Customer";
 
         }
-
 
         if (profileEmail) {
 
@@ -1026,9 +1007,7 @@ async function loadProfile(
 
         }
 
-
         removeLoading();
-
 
         showMessage(
             "Unable to load some profile information.",
@@ -1053,20 +1032,16 @@ onAuthStateChanged(
             currentUser =
                 null;
 
-
             window.location.replace(
                 "login.html"
             );
-
 
             return;
 
         }
 
-
         currentUser =
             user;
-
 
         await loadProfile(
             user
@@ -1089,11 +1064,8 @@ if (photoInput) {
             const file =
                 event.target.files?.[0];
 
-
             if (!file) {
-
                 return;
-
             }
 
 
@@ -1102,17 +1074,11 @@ if (photoInput) {
             // =================================================
 
             const allowedTypes = [
-
                 "image/jpeg",
-
                 "image/png",
-
                 "image/webp",
-
                 "image/gif"
-
             ];
-
 
             if (
                 !allowedTypes.includes(
@@ -1125,10 +1091,11 @@ if (photoInput) {
                     "error"
                 );
 
-
                 photoInput.value =
                     "";
 
+                selectedPhotoDataURL =
+                    null;
 
                 return;
 
@@ -1149,10 +1116,11 @@ if (photoInput) {
                     "error"
                 );
 
-
                 photoInput.value =
                     "";
 
+                selectedPhotoDataURL =
+                    null;
 
                 return;
 
@@ -1166,26 +1134,39 @@ if (photoInput) {
             const reader =
                 new FileReader();
 
-
             reader.onload =
                 () => {
 
+                    if (
+                        typeof reader.result !==
+                        "string"
+                    ) {
+
+                        selectedPhotoDataURL =
+                            null;
+
+                        showMessage(
+                            "Unable to preview the selected photo.",
+                            "error"
+                        );
+
+                        return;
+
+                    }
+
                     selectedPhotoDataURL =
                         reader.result;
-
 
                     displayProfilePhoto(
                         selectedPhotoDataURL
                     );
 
-
                     showMessage(
-                        "Photo selected. Click Save Profile to save your changes.",
+                        "Photo selected. Click Save Profile to save your profile changes.",
                         "success"
                     );
 
                 };
-
 
             reader.onerror =
                 () => {
@@ -1193,14 +1174,12 @@ if (photoInput) {
                     selectedPhotoDataURL =
                         null;
 
-
                     showMessage(
                         "Unable to preview the selected photo.",
                         "error"
                     );
 
                 };
-
 
             reader.readAsDataURL(
                 file
@@ -1223,11 +1202,8 @@ if (saveProfileBtn) {
         async () => {
 
             if (isSaving) {
-
                 return;
-
             }
-
 
             if (!currentUser) {
 
@@ -1235,7 +1211,6 @@ if (saveProfileBtn) {
                     "Please login again.",
                     "error"
                 );
-
 
                 return;
 
@@ -1250,7 +1225,6 @@ if (saveProfileBtn) {
                 editName?.value
                     ?.trim() || "";
 
-
             if (!newName) {
 
                 showMessage(
@@ -1258,18 +1232,14 @@ if (saveProfileBtn) {
                     "error"
                 );
 
-
                 editName?.focus();
-
 
                 return;
 
             }
 
-
             if (
-                newName.length <
-                2
+                newName.length < 2
             ) {
 
                 showMessage(
@@ -1277,14 +1247,11 @@ if (saveProfileBtn) {
                     "error"
                 );
 
-
                 editName?.focus();
-
 
                 return;
 
             }
-
 
             if (
                 newName.length >
@@ -1296,9 +1263,7 @@ if (saveProfileBtn) {
                     "error"
                 );
 
-
                 editName?.focus();
-
 
                 return;
 
@@ -1317,19 +1282,12 @@ if (saveProfileBtn) {
                     .toLowerCase()
                     .trim();
 
-
             const validGenderValues = [
-
                 "",
-
                 "male",
-
                 "female",
-
                 "other"
-
             ];
-
 
             if (
                 !validGenderValues.includes(
@@ -1342,9 +1300,7 @@ if (saveProfileBtn) {
                     "error"
                 );
 
-
                 editGender?.focus();
-
 
                 return;
 
@@ -1360,7 +1316,6 @@ if (saveProfileBtn) {
                     editDOB?.value ||
                     ""
                 );
-
 
             const oldDOB =
                 normalizeDOB(
@@ -1384,17 +1339,19 @@ if (saveProfileBtn) {
 
                 }
 
-
                 showMessage(
                     "Date of birth is locked. Changes require admin approval.",
                     "error"
                 );
 
-
                 return;
 
             }
 
+
+            // =================================================
+            // DOB VALIDATION
+            // =================================================
 
             if (
                 !oldDOB &&
@@ -1409,24 +1366,24 @@ if (saveProfileBtn) {
                     "error"
                 );
 
-
                 editDOB?.focus();
-
 
                 return;
 
             }
 
 
+            // =================================================
+            // SAVE
+            // =================================================
+
             try {
 
                 isSaving =
                     true;
 
-
                 saveProfileBtn.disabled =
                     true;
-
 
                 saveProfileBtn.innerHTML =
                     '<i class="fa-solid fa-spinner fa-spin"></i><span>Saving...</span>';
@@ -1441,7 +1398,7 @@ if (saveProfileBtn) {
 
 
                 // =================================================
-                // PROFILE DATA
+                // FIRESTORE UPDATE DATA
                 // =================================================
 
                 const updateData = {
@@ -1478,30 +1435,25 @@ if (saveProfileBtn) {
 
 
                 // =================================================
-                // PHOTO
+                // PROFILE PHOTO
                 //
                 // IMPORTANT:
-                // Do not store a large Base64 image in Firestore.
+                // The current firebase-config.js shown in
+                // this conversation does not establish a
+                // Firebase Storage upload API.
                 //
-                // The selected image is only previewed here.
-                // Actual Storage upload should be handled by the
-                // dedicated Storage/profile-image system.
+                // Therefore this file NEVER pretends that
+                // the Base64 preview was permanently saved.
                 // =================================================
 
-                if (
-                    selectedPhotoDataURL
-                ) {
-
-                    showMessage(
-                        "Photo preview updated. Profile text will be saved now. Photo upload requires Storage configuration.",
-                        "success"
+                const hasNewPhoto =
+                    Boolean(
+                        selectedPhotoDataURL
                     );
 
-                }
-
 
                 // =================================================
-                // SAVE FIRESTORE PROFILE
+                // SAVE FIRESTORE
                 // =================================================
 
                 await setDoc(
@@ -1514,15 +1466,15 @@ if (saveProfileBtn) {
 
 
                 // =================================================
-                // UPDATE FIREBASE AUTH DISPLAY NAME
+                // UPDATE AUTH DISPLAY NAME
                 // =================================================
 
-                try {
+                if (
+                    currentUser.displayName !==
+                    newName
+                ) {
 
-                    if (
-                        currentUser.displayName !==
-                        newName
-                    ) {
+                    try {
 
                         await updateProfile(
                             currentUser,
@@ -1534,30 +1486,35 @@ if (saveProfileBtn) {
 
                     }
 
-                }
+                    catch (authError) {
 
-                catch (authError) {
+                        console.warn(
+                            "Auth Profile Update Warning:",
+                            authError
+                        );
 
-                    console.warn(
-                        "Auth Profile Update Warning:",
-                        authError
-                    );
+                    }
 
                 }
 
 
                 // =================================================
                 // UPDATE LOCAL PROFILE
+                //
+                // Do NOT copy serverTimestamp()
+                // into local state.
                 // =================================================
 
                 currentProfile = {
 
                     ...currentProfile,
 
-                    ...updateData,
-
                     name:
                         newName,
+
+                    email:
+                        currentUser.email ||
+                        "",
 
                     gender:
                         newGender
@@ -1587,7 +1544,6 @@ if (saveProfileBtn) {
 
                 }
 
-
                 if (editName) {
 
                     editName.value =
@@ -1595,6 +1551,21 @@ if (saveProfileBtn) {
 
                 }
 
+                if (profileEmail) {
+
+                    profileEmail.textContent =
+                        currentUser.email ||
+                        "Email not available";
+
+                }
+
+                if (editEmail) {
+
+                    editEmail.value =
+                        currentUser.email ||
+                        "";
+
+                }
 
                 if (editGender) {
 
@@ -1603,17 +1574,13 @@ if (saveProfileBtn) {
 
                 }
 
-
-                if (
-                    newDOB
-                ) {
+                if (newDOB) {
 
                     updateDOBLock(
                         true
                     );
 
                 }
-
 
                 applyGenderTheme(
                     newGender
@@ -1624,9 +1591,7 @@ if (saveProfileBtn) {
                 // PHOTO PREVIEW
                 // =================================================
 
-                if (
-                    selectedPhotoDataURL
-                ) {
+                if (hasNewPhoto) {
 
                     displayProfilePhoto(
                         selectedPhotoDataURL
@@ -1635,9 +1600,12 @@ if (saveProfileBtn) {
                 }
 
 
+                // =================================================
+                // CLEAR PHOTO SELECTION
+                // =================================================
+
                 selectedPhotoDataURL =
                     null;
-
 
                 if (photoInput) {
 
@@ -1647,10 +1615,27 @@ if (saveProfileBtn) {
                 }
 
 
-                showMessage(
-                    "Profile updated successfully!",
-                    "success"
-                );
+                // =================================================
+                // SUCCESS MESSAGE
+                // =================================================
+
+                if (hasNewPhoto) {
+
+                    showMessage(
+                        "Profile updated. Photo preview is active for this session; permanent photo storage requires Firebase Storage upload.",
+                        "success"
+                    );
+
+                }
+
+                else {
+
+                    showMessage(
+                        "Profile updated successfully!",
+                        "success"
+                    );
+
+                }
 
             }
 
@@ -1660,7 +1645,6 @@ if (saveProfileBtn) {
                     "Profile Save Error:",
                     error
                 );
-
 
                 showMessage(
                     "Unable to save profile. Please try again.",
@@ -1674,10 +1658,8 @@ if (saveProfileBtn) {
                 isSaving =
                     false;
 
-
                 saveProfileBtn.disabled =
                     false;
-
 
                 saveProfileBtn.innerHTML =
                     '<i class="fa-solid fa-floppy-disk"></i><span>Save Profile</span>';
@@ -1708,34 +1690,26 @@ if (logoutBtn) {
 
             }
 
-
             const confirmed =
                 window.confirm(
                     "Are you sure you want to logout?"
                 );
 
-
             if (!confirmed) {
-
                 return;
-
             }
-
 
             try {
 
                 logoutBtn.disabled =
                     true;
 
-
                 logoutBtn.innerHTML =
                     '<i class="fa-solid fa-spinner fa-spin"></i><span>Logging out...</span>';
-
 
                 await signOut(
                     auth
                 );
-
 
                 window.location.replace(
                     "login.html"
@@ -1750,14 +1724,11 @@ if (logoutBtn) {
                     error
                 );
 
-
                 logoutBtn.disabled =
                     false;
 
-
                 logoutBtn.innerHTML =
                     '<i class="fa-solid fa-right-from-bracket"></i><span>Logout</span>';
-
 
                 showMessage(
                     "Logout failed. Please try again.",
@@ -1783,11 +1754,8 @@ if (deleteAccountBtn) {
         async () => {
 
             if (isDeleting) {
-
                 return;
-
             }
-
 
             if (!currentUser) {
 
@@ -1796,11 +1764,9 @@ if (deleteAccountBtn) {
                     "error"
                 );
 
-
                 return;
 
             }
-
 
             const confirmed =
                 window.confirm(
@@ -1815,11 +1781,8 @@ if (deleteAccountBtn) {
 
                 );
 
-
             if (!confirmed) {
-
                 return;
-
             }
 
 
@@ -1828,40 +1791,73 @@ if (deleteAccountBtn) {
                 isDeleting =
                     true;
 
-
                 deleteAccountBtn.disabled =
                     true;
-
 
                 deleteAccountBtn.innerHTML =
                     '<i class="fa-solid fa-spinner fa-spin"></i><span>Deleting...</span>';
 
 
                 // =================================================
-                // DELETE FIRESTORE CUSTOMER PROFILE
-                // =================================================
-
-                const userRef =
-                    doc(
-                        db,
-                        "customers",
-                        currentUser.uid
-                    );
-
-
-                await deleteDoc(
-                    userRef
-                );
-
-
-                // =================================================
-                // DELETE AUTH ACCOUNT
+                // IMPORTANT:
+                //
+                // AUTH ACCOUNT IS DELETED FIRST.
+                //
+                // We do NOT delete Firestore first.
+                // This prevents the old problem where:
+                //
+                // Firestore deleted
+                // +
+                // Auth deletion failed
+                //
+                // = inconsistent account state.
                 // =================================================
 
                 await deleteUser(
                     currentUser
                 );
 
+
+                // =================================================
+                // DELETE FIRESTORE PROFILE
+                //
+                // If Auth deletion succeeds but Firestore
+                // deletion fails because of a temporary
+                // network/rules problem, the Auth account is
+                // already gone and the profile document can
+                // be cleaned up separately.
+                // =================================================
+
+                try {
+
+                    const userRef =
+                        doc(
+                            db,
+                            "customers",
+                            currentUser.uid
+                        );
+
+                    await deleteDoc(
+                        userRef
+                    );
+
+                }
+
+                catch (firestoreDeleteError) {
+
+                    console.error(
+                        "Firestore Profile Delete Warning:",
+                        firestoreDeleteError
+                    );
+
+                }
+
+
+                currentUser =
+                    null;
+
+                currentProfile =
+                    {};
 
                 window.location.replace(
                     "signup.html"
@@ -1876,14 +1872,11 @@ if (deleteAccountBtn) {
                     error
                 );
 
-
                 deleteAccountBtn.disabled =
                     false;
 
-
                 isDeleting =
                     false;
-
 
                 deleteAccountBtn.innerHTML =
                     '<i class="fa-solid fa-trash"></i><span>Delete Account</span>';
@@ -1908,7 +1901,7 @@ if (deleteAccountBtn) {
                 else {
 
                     showMessage(
-                        "Account deletion failed. Please try again.",
+                        "Account deletion failed. Your account was not intentionally removed. Please try again.",
                         "error"
                     );
 
