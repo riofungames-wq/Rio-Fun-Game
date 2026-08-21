@@ -10,61 +10,29 @@
 // ==========================================
 
 import {
-    initializeApp,
-    getApps,
-    getApp
-} from
-    "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-
-
-import {
-    getAuth,
-    onAuthStateChanged
-} from
-    "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-
-import {
-    getFirestore
-} from
-    "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-
-import {
-    getStorage
-} from
-    "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
-
-
-import {
-    firebaseConfig
+    auth,
+    db,
+    storage
 } from "./firebase-config.js";
 
-
-// ==========================================
-// PREVENT DUPLICATE FIREBASE INITIALIZATION
-// ==========================================
-
-const firebaseApp =
-    getApps().length > 0
-        ? getApp()
-        : initializeApp(firebaseConfig);
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 
 // ==========================================
-// CENTRAL FIREBASE SERVICES
+// FIREBASE APP
 // ==========================================
+//
+// firebase-config.js is the SINGLE source
+// for Firebase initialization.
+//
+// No duplicate initializeApp() here.
+//
 
-const auth =
-    getAuth(firebaseApp);
-
-
-const db =
-    getFirestore(firebaseApp);
-
-
-const storage =
-    getStorage(firebaseApp);
+import {
+    app as firebaseApp
+} from "./firebase-config.js";
 
 
 // ==========================================
@@ -111,13 +79,8 @@ const APP_CONFIG = Object.freeze({
 
 
     /*
-     * COMPLETE LOYALTY CYCLE VALIDITY.
-     *
-     * IMPORTANT:
-     * This is NOT 7 days.
-     *
      * Customer gets 40 days to complete
-     * the loyalty journey and claim reward.
+     * the complete loyalty journey.
      */
     loyaltyCycleDays:
         40,
@@ -126,8 +89,10 @@ const APP_CONFIG = Object.freeze({
     /*
      * One valid stamp per calendar day.
      *
-     * Final anti-cheat enforcement MUST
-     * remain server-side/admin-side.
+     * IMPORTANT:
+     * This is only a client-side helper.
+     * Final enforcement must happen through
+     * secure Firestore/admin/backend logic.
      */
     dailyStampLimit:
         1,
@@ -383,8 +348,6 @@ export {
 // ==========================================
 // END OF APP.JS PART 1/3
 // ==========================================
-
-
 // ==========================================
 // RIO MAGGI POINT
 // APP.JS - PART 2/3
@@ -429,8 +392,8 @@ function waitForAuth() {
         (resolve) => {
 
             /*
-             * Firebase already knows
-             * the authenticated user.
+             * If Firebase already has a user,
+             * return immediately.
              */
             if (auth.currentUser) {
 
@@ -444,12 +407,21 @@ function waitForAuth() {
 
 
             /*
-             * Wait for the first auth result.
+             * Wait for Firebase's first
+             * authentication state response.
              */
+            let resolved = false;
+
             const unsubscribe =
                 onAuthStateChanged(
                     auth,
                     (user) => {
+
+                        if (resolved) {
+                            return;
+                        }
+
+                        resolved = true;
 
                         unsubscribe();
 
@@ -471,8 +443,7 @@ function waitForAuth() {
 // ==========================================
 
 async function requireLogin(
-    redirectPage =
-        "login.html"
+    redirectPage = "login.html"
 ) {
 
     const user =
@@ -482,7 +453,8 @@ async function requireLogin(
     if (!user) {
 
         const currentPage =
-            window.location.pathname;
+            window.location.pathname +
+            window.location.search;
 
 
         const encodedPage =
@@ -491,8 +463,9 @@ async function requireLogin(
             );
 
 
-        window.location.href =
-            `${redirectPage}?redirect=${encodedPage}`;
+        window.location.replace(
+            `${redirectPage}?redirect=${encodedPage}`
+        );
 
 
         return null;
@@ -510,8 +483,7 @@ async function requireLogin(
 // ==========================================
 
 async function redirectIfLoggedIn(
-    redirectPage =
-        "dashboard.html"
+    redirectPage = "dashboard.html"
 ) {
 
     const user =
@@ -850,8 +822,7 @@ function redirectTo(
 
 function safeRedirect(
     page,
-    fallback =
-        "dashboard.html"
+    fallback = "dashboard.html"
 ) {
 
     const target =
@@ -911,7 +882,7 @@ function redirectAfterLogout() {
 
 
 // ==========================================
-// PAGE ACCESS CONTROL
+// PROTECTED CUSTOMER PAGES
 // ==========================================
 
 const PROTECTED_PAGES =
@@ -942,16 +913,15 @@ const PROTECTED_PAGES =
 
 function isProtectedPage() {
 
-    return PROTECTED_PAGES
-        .includes(
-            APP_STATE.currentPage
-        );
+    return PROTECTED_PAGES.includes(
+        APP_STATE.currentPage
+    );
 
 }
 
 
 // ==========================================
-// AUTO PROTECTION
+// AUTO PAGE PROTECTION
 // ==========================================
 
 async function protectCurrentPage() {
@@ -1037,8 +1007,6 @@ export {
 // ==========================================
 // END OF APP.JS PART 2/3
 // ==========================================
-
-
 // ==========================================
 // RIO MAGGI POINT
 // APP.JS - PART 3/3
@@ -1673,7 +1641,7 @@ function toDate(
 
 
 // ==========================================
-// GET CYCLE START DATE
+// GET LOYALTY CYCLE START DATE
 // ==========================================
 
 function getLoyaltyCycleStartDate(
@@ -1767,8 +1735,9 @@ function getLoyaltyCycleDaysRemaining(
 
 
     /*
-     * Prefer server/backend-calculated value.
+     * Prefer backend/server-calculated value.
      */
+
     const explicitRemaining =
         Number(
             customer.cycleDaysRemaining
@@ -1804,6 +1773,7 @@ function getLoyaltyCycleDaysRemaining(
     /*
      * Compatibility field.
      */
+
     const daysRemaining =
         Number(
             customer.daysRemaining
@@ -1866,29 +1836,6 @@ function isLoyaltyCycleExpired(
     if (!customer) {
 
         return false;
-
-    }
-
-
-    /*
-     * A completed reward cycle should first
-     * be handled by the reward/admin process.
-     */
-    if (
-        Number(
-            customer.stamps || 0
-        ) >=
-        APP_CONFIG
-            .loyaltyStampsRequired
-        &&
-        customer.rewardClaimed !== true
-    ) {
-
-        return (
-            getLoyaltyCycleDaysRemaining(
-                customer
-            ) <= 0
-        );
 
     }
 
@@ -1958,26 +1905,14 @@ function getLoyaltyCycleState(
         daysRemaining <= 0;
 
 
-    /*
-     * Important business meaning:
-     *
-     * - 0-5 stamps + 40-day expiry = incomplete cycle.
-     * - 6 stamps + reward not claimed + time remaining
-     *   = reward unlocked and waiting for claim.
-     * - 6 stamps + reward claimed
-     *   = completed reward cycle; reset must be
-     *   performed by secure reward/admin process.
-     * - Expired incomplete or unclaimed cycle
-     *   = backend/admin reset required.
-     */
-
     let status =
         "active";
 
 
     if (
         expired &&
-        !rewardClaimed
+        !rewardClaimed &&
+        !rewardUnlocked
     ) {
 
         status =
